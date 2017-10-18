@@ -1,0 +1,4 @@
+admin_dashboard_home:
+    path:      /
+    defaults:
+        _controller: AdminBundle:Dashboard:kpi

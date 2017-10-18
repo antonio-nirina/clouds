@@ -1,4 +1,6 @@
 <?php
+// src/AdminBundle/Controller/DashboardController.php
+
 namespace AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,9 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 class DashboardController extends Controller
 {
     /**
-     * @Route("/", name="admin_dashboard_show")
+     * @Route("/", name="admin_dashboard_kpi")
      */
-    public function showAction()
+    public function kpiAction()
     {
     	$user = $this->getUser();
 
@@ -22,7 +24,7 @@ class DashboardController extends Controller
     		return $this->redirectToRoute('admin_first_log');
     	}
 
-        return new Response("<html><body>Admin dashboard!!</body></html>");
+        return $this->render('AdminBundle:Dashboard:kpi.html.twig', array());
     }
     
 }
