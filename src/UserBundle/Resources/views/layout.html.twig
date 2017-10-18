@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{ include("UserBundle:Security:header.html.twig") }}
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	{% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+
+        {{ include("UserBundle:Security:footer.html.twig") }}
+
+    </body>
+
+</html>
