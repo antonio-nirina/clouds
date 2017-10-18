@@ -15,6 +15,14 @@ class DashboardController extends Controller
      */
     public function showAction()
     {
+    	$user = $this->getUser();
+
+    	if(!$user->getTemporaryPwd())
+    	{
+    		return $this->redirectToRoute('admin_first_log');
+    	}
+
         return new Response("<html><body>Admin dashboard!!</body></html>");
     }
+    
 }
