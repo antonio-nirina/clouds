@@ -1,8 +1,10 @@
 <?php
-namespace AdminBundle\Controller;
 
-use AppBundle\Form\FirstChangePasswordType;
+namespace UserBundle\Controller;
+
 use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Util\LegacyFormHelper;
@@ -10,14 +12,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use FOS\UserBundle\Event\FormEvent;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
+use UserBundle\Form\FirstChangePasswordType;
 
 /**
  * @Route("/admin/log/first")
