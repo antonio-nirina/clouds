@@ -17,13 +17,6 @@ class DashboardController extends Controller
      */
     public function kpiAction()
     {
-    	$user = $this->getUser();
-
-    	if($user->getTemporaryPwd())
-    	{
-    		return $this->redirectToRoute('admin_first_log');
-    	}
-
         return $this->render('AdminBundle:Dashboard:kpi.html.twig', array());
     }
     
