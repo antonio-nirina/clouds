@@ -9,9 +9,9 @@
 
 	{% block stylesheets %}
 		{# On charge les CSS #}
-		<link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
-		<link href="../font/font-awesome/css/font-awesome.css" rel="stylesheet">
-		<link href="../css/admin.css" rel="stylesheet">
-		<link href="../css/sidebar.css" rel="stylesheet">
+		<link href='{{ asset("css/bootstrap/bootstrap.min.css") }}' rel="stylesheet">
+		<link href='{{ asset("font/font-awesome/css/font-awesome.css") }}' rel="stylesheet">
+		<link href='{{ asset("css/admin.css") }}' rel="stylesheet">
+		<link href='{{ asset("css/sidebar.css") }}' rel="stylesheet">
 	{% endblock %}
 </head>
