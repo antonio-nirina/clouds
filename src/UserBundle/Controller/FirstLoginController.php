@@ -73,7 +73,7 @@ class FirstLoginController extends BaseController
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_profile_show');
+                $url = $this->generateUrl('admin_dashboard_home');
                 $response = new RedirectResponse($url);
             }
 
