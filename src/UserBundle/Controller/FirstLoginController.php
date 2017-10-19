@@ -34,7 +34,7 @@ class FirstLoginController extends BaseController
 
     	if(false == $user->getTemporaryPwd())
     	{
-    		return $this->redirectToRoute('admin_dashboard_home');//chemin de première affichage
+    		return $this->redirectToRoute('admin_dashboard_kpi');//chemin de première affichage
     	}
     	// dump($user); dump($user instanceof User); die;
 
@@ -73,14 +73,14 @@ class FirstLoginController extends BaseController
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('admin_dashboard_home');
+                $url = $this->generateUrl('admin_dashboard_kpi');
                 $response = new RedirectResponse($url);
             }
 
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
             //return $response;
-			return $this->redirectToRoute('admin_dashboard_kpi');
+			//return $this->redirectToRoute('admin_dashboard_kpi');
         }
 
         return $this->render('@FOSUser/ChangePassword/first_change_password.html.twig', array(
