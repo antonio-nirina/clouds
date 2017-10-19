@@ -69,7 +69,7 @@ class FirstLoginController extends BaseController
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
 
 
-            $user->setTemporaryPwd(true);//mis à mdp temporaire
+            $user->setTemporaryPwd(false);//mis à mdp temporaire
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
