@@ -19,7 +19,7 @@ class DashboardController extends Controller
     {
     	$user = $this->getUser();
 
-    	if(!$user->getTemporaryPwd())
+    	if($user->getTemporaryPwd())
     	{
     		return $this->redirectToRoute('admin_first_log');
     	}

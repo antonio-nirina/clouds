@@ -29,8 +29,8 @@ class User extends BaseUser
     * @ORM\PrePersist
     */
    	public function initTemporaryPwd()
-   	{
-   		return $this->setTemporaryPwd(false);
+   	{   		
+   		return $this->setTemporaryPwd(true);
    	}
    
    	/**

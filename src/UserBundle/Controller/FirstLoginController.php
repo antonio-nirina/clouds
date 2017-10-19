@@ -32,9 +32,9 @@ class FirstLoginController extends BaseController
     {
     	$user = $this->getUser();
 
-    	if($user->getTemporaryPwd())
+    	if(!$user->getTemporaryPwd())
     	{
-    		$this->redirectToRoute('admin_dashboard_show');
+    		$this->redirectToRoute('admin_dashboard_home');//chemin de première affichage
     	}
     	// dump($user); dump($user instanceof User); die;
 
