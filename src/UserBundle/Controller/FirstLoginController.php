@@ -32,9 +32,9 @@ class FirstLoginController extends BaseController
     {
     	$user = $this->getUser();
 
-    	if(!$user->getTemporaryPwd())
+    	if(false == $user->getTemporaryPwd())
     	{
-    		$this->redirectToRoute('admin_dashboard_home');//chemin de première affichage
+    		return $this->redirectToRoute('admin_dashboard_home');//chemin de première affichage
     	}
     	// dump($user); dump($user instanceof User); die;
 
@@ -73,7 +73,7 @@ class FirstLoginController extends BaseController
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('fos_user_profile_show');
+                $url = $this->generateUrl('admin_dashboard_home');
                 $response = new RedirectResponse($url);
             }
 
