@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html>
 
-	{{ include("AdminBundle:Dashboard:header.html.twig") }}
+	{{ include("AdminBundle::header.html.twig") }}
 
 	<body>
-		{{ include("AdminBundle:Dashboard:menu-top.html.twig") }}
+		{{ include("AdminBundle::menu-top.html.twig") }}
 		
-		{{ include("AdminBundle:Dashboard:menu-top-niv-2.html.twig") }}
+		{{ include("AdminBundle::menu-top-niv-2.html.twig") }}
 		
 		<div class="container-fluid">
 			<div class="row d-flex d-md-block flex-nowrap wrapper">
 
-				{{ include("AdminBundle:Dashboard:menu-sidebar-dashboard.html.twig") }}
-				
 				{% block main %}
 				{% endblock %}
 			</div>
 		</div>
-		{{ include("AdminBundle:Dashboard:footer.html.twig") }}
+		{{ include("AdminBundle::footer.html.twig") }}
 	</body>
 </html>

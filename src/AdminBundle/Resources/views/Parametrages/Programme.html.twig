@@ -1,0 +1,123 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block main %}
+
+{{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }}
+
+<main class="col-md-9  offset-md-1 float-left main">
+				
+	<div class = "row">
+		<div class = "col-12 col-md-12 sous-menu-main">
+			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+				<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+					<ul class="navbar-nav content-menu-niv-3">
+						<li class="nav-item-niv-3 form-inscription">
+							<a class="nav-link-niv-3 menu-page-active" href="form-inscription.php">Quel est votre programme de récompenses <span class = "bulle-aide"></span></a>
+						</li>
+					</ul>
+				</div>
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+					<i class="fa fa-navicon fa-2x py-2 p-1"></i>
+				</button>
+				<a class="navbar-brand abs" href="#"></a>
+			</nav>
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "col-12 col-md-12 sous-menu-main">
+			<section id = "challenges" class = "fieldset active">
+				<div class = "content-bloc-droite">
+					<label id = "challenge-radio" class = "radioBtn checked">
+						<input id = "recompense-challenge" class = "input-radio" type = "hidden" name = "type_recompense" value = "1">
+					</label>
+					<p class = "description-recompenses">
+						<span class = "FontRec">le challenge</span> est votre programme de récompenses déstinés à vos force de vente qu'elles soient directs ou indirects ou qu'il s'agisse de vos prescripteurs
+					</p>
+					
+					<p class = "mode-recompense">
+						<label id = "mode-radio" class = "checkboxBtn no-mode">
+							<input id = "challenge-mode" type = "hidden" name = "mode_challenge">
+						</label>
+						<span class = "libelle-mode">Mode multi-opérations</span>
+					</p>
+					
+					<p class = "btn-valider-recompense">
+						<button id = "btn-valider-challenge" class = "btn-valider">
+							Valider
+						</button>
+					</p>
+				</div>
+				
+				<div class = "content-bloc-gauche img-challenge hidden-sm-down rounded-circle">
+				</div>
+			</section>
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "col-12 col-md-12 sous-menu-main">
+			<section id = "fidelisations" class = "fieldset inactive">
+				<div class = "content-bloc-droite">
+					<label id = "fidelisations-radio" class = "radioBtn unchecked">
+						<input id = "recompense-fidelisation" type = "hidden" name = "type_recompense" value = "2">
+					</label>
+					<p class = "description-recompenses">
+						<span class = "FontRec">la fidélisation</span> est votre programme de récompenses déstinés à vos force de vente qu'elles soient directs ou indirects ou qu'il s'agisse de vos prescripteurs
+					</p>
+					
+					<p class = "mode-recompense">
+						<label id = "mode-radio" class = "checkboxBtn no-mode">
+							<input id = "fidelisations-mode" type = "hidden" name = "mode_fidelisation">
+						</label>
+						<span class = "libelle-mode">Mode multi-opérations</span>
+					</p>
+					
+					<p class = "btn-valider-recompense">
+						<button id = "btn-valider-fideliter" class = "btn-valider">
+							Valider
+						</button>
+					</p>
+				</div>
+				
+				<div class = "content-bloc-gauche img-fidelites hidden-sm-down rounded-circle"></div>
+			</section>
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "col-12 col-md-12 sous-menu-main">
+			<section id = "parrainage" class = "fieldset inactive">
+				<div class = "content-bloc-droite">
+					<label id = "parrainage-radio" class = "radioBtn unchecked">
+						<input id = "recompense-fidelisation" type = "hidden" name = "type_recompense" value = "2">
+					</label>
+					<p class = "description-recompenses">
+						<span class = "FontRec">le parrainage</span> est votre programme de récompenses déstinés à vos force de vente qu'elles soient directs ou indirects ou qu'il s'agisse de vos prescripteurs
+					</p>
+					
+					<p class = "mode-recompense">
+						<label id = "mode-radio" class = "checkboxBtn no-mode">
+							<input id = "parrainage-mode" type = "hidden" name = "mode_fidelisation">
+						</label>
+						<span class = "libelle-mode">Mode multi-opérations</span>
+					</p>
+					
+					<p class = "btn-valider-recompense">
+						<button id = "btn-valider-fideliter" class = "btn-valider">
+							Valider
+						</button>
+					</p>
+				</div>
+				
+				<div class = "content-bloc-gauche img-parrainage hidden-sm-down rounded-circle">
+				</div>
+				
+			</section>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+</main>
+
+{% endblock %}

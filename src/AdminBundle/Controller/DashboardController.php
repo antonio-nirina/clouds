@@ -19,5 +19,4 @@ class DashboardController extends Controller
     {
         return $this->render('AdminBundle:Dashboard:kpi.html.twig', array());
     }
-    
 }

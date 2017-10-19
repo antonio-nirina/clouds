@@ -1,0 +1,116 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block main %}
+
+{{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }}
+
+<main class="col-md-9 offset-md-1 float-left main">
+				
+	<div class = "row">
+		<div class = "col-12 col-md-12 sous-menu-main">
+			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+				<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+					<ul class="navbar-nav content-menu-niv-3">
+						<li class="nav-item-niv-3 form-inscription">
+							<a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions") }}">Formulaire d'inscription <span class = "bulle-aide"></span></a>
+						</li>
+
+						<li class="nav-item-niv-3 form-imports">
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_imports") }}">Import de fichiers et flux <span class = "bulle-aide"></span></a>
+						</li>
+					</ul>
+				</div>
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+					<i class="fa fa-navicon fa-2x py-2 p-1"></i>
+				</button>
+				<a class="navbar-brand abs" href="#"></a>
+			</nav>
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "col-12 col-md-12">
+			<section id = "import-form-inscription" class = "fieldset active">
+				<div class = "content-bloc-droite">
+					<h3 class = "hidden-sm-down">Cette rubrique vous permet d'importer directement le fichier de vos participants sous format CSV dans votre plateforme de récompense</h3>
+					<h5 class = "hidden-md-up">Cette rubrique vous permet d'importer directement le fichier de vos participants sous format CSV dans votre plateforme de récompense</h5>
+					<div class = "row">
+						<div class = "col-12 col-md-12 col-lg-12">
+							<ul class = "content-option">
+								<li class = "options">
+									<div class = "content-titre">
+										Pour commencer votre programme aujourd'hui. Choisissez une option :
+									</div>
+									<div class = "content-description">
+										<label id = "choix-radio-1" class = "radioBtn checked">
+											<input id = "option-option-1" class = "input-radio" type = "hidden" name = "option-1" value = "1">
+										</label>
+										<div class = "content-description-texte">
+											<p>Les participants à votre programme de récompense vont déclarer leurs resultats ?</p>
+											<p>Dans ce cas, télécharger le modèle de fichier.</p>
+											<p>Puis importez le avec les coordonnées des participants</p>
+										</div>
+									</div>
+									<div class = "content-btn-action">
+										<button id = "btn-valider-option" class = "btn-valider-download">
+											<span class = "libelle_btn_dowload">Télécharger le modèle</span>
+										</button>
+										
+										<button id = "btn-valider-challenge" class = "btn-valider-upload">
+											<span class = "libelle_btn_upload">Importer le fichier complété</span>
+										</button>
+									</div>
+								</li>
+								
+								<li class = "options">
+									<div class = "content-titre"></div>
+									<div class = "content-description">
+										<label id = "choix-radio-2" class = "radioBtn unchecked">
+											<input id = "option-option-2" class = "input-radio" type = "hidden" name = "option-2" value = "1">
+										</label>
+										<div class = "content-description-texte">
+											<p>Vous allez aussi déclarer les resultats de vos participants par import de fichier CSV ?</p>
+											<p>Dans ce cas, passez à l'étape suivante, pour avoir un modèle de fichier complet des participants et des résultats</p>
+										</div>
+									</div>
+									<div class = "content-btn-action btn-etape-suivante">
+										<button id = "btn-valider-option" class = "btn-valider-suivante">
+											étape suivante
+										</button>
+									</div>
+								</li>
+								
+								<li class = "options">
+									<div class = "content-titre">
+										Mise à jours automatique des résultats
+									</div>
+									<div class = "content-description">
+										<label id = "choix-radio-3" class = "radioBtn unchecked">
+											<input id = "option-option-3" class = "input-radio" type = "hidden" name = "option-3" value = "1">
+										</label>
+										<div class = "content-description-texte">
+											<p>Vous préférez mettre en place un système d'échange d'informations continu entre vous CRM et votre plateforme de récompense ?</p>
+											<p>Dans ce cas notre équipe prendra contact avec vous pour vous accompagner dans la mise en place d'un web service ou d'une API</p>
+										</div>
+									</div>
+									<div class = "content-btn-action btn-etape-contacter">
+										<button id = "btn-valider-option" class = "btn-valider-contacter">
+											être contacter
+										</button>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				
+				<div class = "content-bloc-gauche img-import-inscription hidden-sm-down rounded-circle"></div>
+			</section>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+</main>
+
+{% endblock %}

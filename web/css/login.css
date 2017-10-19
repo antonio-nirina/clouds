@@ -225,3 +225,19 @@ footer a:hover, footer a:focus { color: #fff; border-bottom: 1px dotted #fff; }
 	text-align: left;
 }
 
+.error_form ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+.error_form ul li{
+	color:red;
+}
+
+.error_form{
+	color:red;
+	text-align:left;
+	clear:both;
+}
+

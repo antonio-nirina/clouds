@@ -1,0 +1,169 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block main %}
+
+{{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }}
+
+<main class="col-md-9  offset-md-1 float-left main">
+				
+	<div class = "row">
+		<div class = "col-12 col-md-12 sous-menu-main">
+			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+				<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+					<ul class="navbar-nav content-menu-niv-3">
+						<li class="nav-item-niv-3 form-inscription">
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">Formulaire d'inscription <span class = "bulle-aide"></span></a>
+						</li>
+
+						<li class="nav-item-niv-3 form-imports">
+							<a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_imports") }}">Import de fichiers et flux <span class = "bulle-aide"></span></a>
+						</li>
+					</ul>
+				</div>
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+					<i class="fa fa-navicon fa-2x py-2 p-1"></i>
+				</button>
+				<a class="navbar-brand abs" href="#"></a>
+			</nav>
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "col-12 col-md-12">
+			<section id = "create-form-inscription" class = "fieldset active">
+				<div class = "content-bloc-droite">
+					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
+					<h5 class = "hidden-md-up">Créer le formulaire d'inscription à votre programme de récompense</h5>
+					<div class = "row">
+						<div class = "col-12 col-md-12 col-lg-8 form-input-part-1">
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Société *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form societe"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Adresse postale *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form postale"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Code postale *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form code"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Ville *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form ville"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form tel"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Réseau</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form reseau"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"></dt>
+								<dd class = "col-12 col-md-7">
+									<button id = "btn-valider-challenge" class = "btn-valider">
+										Valider
+									</button>
+								</dd>
+							</dl>
+							
+						</div>
+					</div>
+					
+					<div class = "row">
+						<div class = "col-12 col-md-12 col-lg-8 form-input-part-2">
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Civilité *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form-radio civilite-m">
+										<span class = "input-radio"></span>
+										<span class = "input-libelle-radio">Mme</span>
+									</div>
+									<div class = "champs-form-radio civilite-f">
+										<span class = "input-radio"></span>
+										<span class = "input-libelle-radio">M</span>
+									</div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Prénom *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form prenom"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Nom *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form nom"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Fonction *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form fonction"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Email professionnel *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form email"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form tel"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"></dt>
+								<dd class = "col-12 col-md-7">
+									<button id = "btn-valider-challenge" class = "btn-valider">
+										Valider
+									</button>
+								</dd>
+							</dl>
+							
+						</div>
+					</div>
+					
+					<div class = "row">
+					</div>
+				</div>
+				
+				<div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
+				</div>
+			</section>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+</main>
+
+{% endblock %}
