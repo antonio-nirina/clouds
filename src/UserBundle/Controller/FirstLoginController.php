@@ -79,7 +79,7 @@ class FirstLoginController extends BaseController
 
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
-            //return $response;
+            return $response;
 			//return $this->redirectToRoute('admin_dashboard_kpi');
         }
 
