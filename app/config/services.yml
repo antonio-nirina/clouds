@@ -38,3 +38,11 @@ services:
         class: 'UserBundle\Form\FirstChangePasswordType'
         tags: 
             - {name: fom.type, alias: user_first_change_password}
+
+    app.user.subscriber:
+        class: 'UserBundle\EventListener\UserSubscriber'
+        # argument:
+        #     - '@router'
+            # - '%fos_user.resetting.token_ttl%'
+        tags:
+            - {name: kernel.event_subscriber}
