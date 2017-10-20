@@ -5,8 +5,15 @@
 
         <!-- Top content -->
         <div class="top-content">
-        	{% block fos_user_content %}
-            {% endblock fos_user_content %}
+        	<div class="container">
+				<div class="row">
+					<div class="col-12 logo">
+						<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "">
+					</div>
+				</div>
+	        	{% block fos_user_content %}
+	            {% endblock fos_user_content %}
+	        </div>
         </div>
 
         {{ include("UserBundle::footer.html.twig") }}
