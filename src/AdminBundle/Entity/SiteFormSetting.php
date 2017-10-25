@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use AdminBundle\Entity\Program;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\SiteFormSettingRepository")
  * @ORM\Table(name="site_form_setting")
  */
 class SiteFormSetting
@@ -56,6 +56,16 @@ class SiteFormSetting
      * @ORM\Column(type="text", nullable=true)
      */
     private $site_form_text;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SiteForm", inversedBy="site_form_setting")
+     */
+    private $site_form;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SiteFormFieldSetting", mappedBy="site_form_setting")
+     */
+    private $site_form_field_settings;
 
 
     /**
@@ -258,5 +268,70 @@ class SiteFormSetting
     public function getProgram()
     {
         return $this->program;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->site_form_field_settings = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add siteFormFieldSetting
+     *
+     * @param \AdminBundle\Entity\SiteFormFieldSetting $siteFormFieldSetting
+     *
+     * @return SiteFormSetting
+     */
+    public function addSiteFormFieldSetting(\AdminBundle\Entity\SiteFormFieldSetting $siteFormFieldSetting)
+    {
+        $this->site_form_field_settings[] = $siteFormFieldSetting;
+
+        return $this;
+    }
+
+    /**
+     * Remove siteFormFieldSetting
+     *
+     * @param \AdminBundle\Entity\SiteFormFieldSetting $siteFormFieldSetting
+     */
+    public function removeSiteFormFieldSetting(\AdminBundle\Entity\SiteFormFieldSetting $siteFormFieldSetting)
+    {
+        $this->site_form_field_settings->removeElement($siteFormFieldSetting);
+    }
+
+    /**
+     * Get siteFormFieldSettings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSiteFormFieldSettings()
+    {
+        return $this->site_form_field_settings;
+    }
+
+    /**
+     * Set siteForm
+     *
+     * @param \AdminBundle\Entity\SiteForm $siteForm
+     *
+     * @return SiteFormSetting
+     */
+    public function setSiteForm(\AdminBundle\Entity\SiteForm $siteForm = null)
+    {
+        $this->site_form = $siteForm;
+
+        return $this;
+    }
+
+    /**
+     * Get siteForm
+     *
+     * @return \AdminBundle\Entity\SiteForm
+     */
+    public function getSiteForm()
+    {
+        return $this->site_form;
     }
 }

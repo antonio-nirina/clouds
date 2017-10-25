@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use Symfony\Component\Validator\Constraints\Type;
@@ -45,7 +47,7 @@ class SiteFormBuilder
         switch ($field->getFieldType()) {
             case FieldType::TEXT:
                 $current_constraints = array();
-                $this->configureField(
+                $this->configureTextField(
                     TextType::class,
                     $current_constraints,
                     $constraints,
@@ -57,7 +59,7 @@ class SiteFormBuilder
                 $current_constraints = array(
                     new Type(array("type" => "alpha")),
                 );
-                $this->configureField(
+                $this->configureTextField(
                     TextType::class,
                     $current_constraints,
                     $constraints,
@@ -67,7 +69,7 @@ class SiteFormBuilder
 
             case FieldType::NUM_TEXT:
                 $current_constraints = array();
-                $this->configureField(
+                $this->configureTextField(
                     IntegerType::class,
                     $current_constraints,
                     $constraints,
@@ -79,8 +81,28 @@ class SiteFormBuilder
                 $current_constraints = array(
                     new Type(array("type" => "alnum")),
                 );
-                $this->configureField(
+                $this->configureTextField(
                     TextType::class,
+                    $current_constraints,
+                    $constraints,
+                    $field
+                );
+                break;
+
+            case FieldType::EMAIL:
+                $current_constraints = array();
+                $this->configureTextField(
+                    EmailType::class,
+                    $current_constraints,
+                    $constraints,
+                    $field
+                );
+                break;
+
+            case FieldType::CHOICE_RADIO:
+                $current_constraints = array();
+                $this->configureChoiceField(
+                    ChoiceType::class,
                     $current_constraints,
                     $constraints,
                     $field
@@ -89,7 +111,7 @@ class SiteFormBuilder
         }
     }
 
-    private function configureField(
+    private function configureTextField(
         $form_field_type,
         array $current_constraints,
         array $mandatory_constraint,
@@ -103,6 +125,26 @@ class SiteFormBuilder
         $this->form->add($field->getId(), $form_field_type, array(
             "label" => $label,
             "constraints" => $constraints,
+        ));
+    }
+
+    public function configureChoiceField(
+        $form_field_type,
+        array $current_constraints,
+        array $mandatory_constraint,
+        SiteFormFieldSetting $field
+    ) {
+        $constraints = array_merge($current_constraints, $mandatory_constraint);
+        $label = $field->getLabel();
+        if (!empty($mandatory_constraint)) {
+            $label = $label.' '.self::MANDATORY_FIELD_SIGN;
+        }
+        $this->form->add($field->getId(), $form_field_type, array(
+            "label" => $label,
+            "constraints" => $constraints,
+            "choices" => $field->getAdditionalData()["choices"],
+            "expanded" => true,
+            "multiple" => false,
         ));
     }
 }

@@ -22,14 +22,14 @@ class SiteFormFieldSetting
     private $field_type;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $mandatory;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $repsonse;
+    private $response;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -37,19 +37,24 @@ class SiteFormFieldSetting
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=70, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $label;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $order;
+    private $field_order;
 
     /**
      * @ORM\Column(type="array", nullable=true)
      */
     private $additional_data;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SiteFormSetting", inversedBy="site_form_field_settings")
+     */
+    private $site_form_setting;
 
     /**
      * Get id
@@ -227,5 +232,77 @@ class SiteFormFieldSetting
     public function getAdditionalData()
     {
         return $this->additional_data;
+    }
+
+    /**
+     * Set response
+     *
+     * @param string $response
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setResponse($response)
+    {
+        $this->response = $response;
+
+        return $this;
+    }
+
+    /**
+     * Get response
+     *
+     * @return string
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Set siteFormSetting
+     *
+     * @param \AdminBundle\Entity\SiteFormSetting $siteFormSetting
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setSiteFormSetting(\AdminBundle\Entity\SiteFormSetting $siteFormSetting = null)
+    {
+        $this->site_form_setting = $siteFormSetting;
+
+        return $this;
+    }
+
+    /**
+     * Get siteFormSetting
+     *
+     * @return \AdminBundle\Entity\SiteFormSetting
+     */
+    public function getSiteFormSetting()
+    {
+        return $this->site_form_setting;
+    }
+
+    /**
+     * Set fieldOrder
+     *
+     * @param integer $fieldOrder
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setFieldOrder($fieldOrder)
+    {
+        $this->field_order = $fieldOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get fieldOrder
+     *
+     * @return integer
+     */
+    public function getFieldOrder()
+    {
+        return $this->field_order;
     }
 }

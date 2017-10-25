@@ -27,6 +27,11 @@ class SiteForm
     private $form_type;
 
     /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SiteFormSetting", mappedBy="site_form")
+     */
+    private $site_form_setting;
+
+    /**
      * Get id
      *
      * @return integer
@@ -82,5 +87,29 @@ class SiteForm
     public function getFormType()
     {
         return $this->form_type;
+    }
+
+    /**
+     * Set siteFormSetting
+     *
+     * @param \AdminBundle\Entity\SiteFormSetting $siteFormSetting
+     *
+     * @return SiteForm
+     */
+    public function setSiteFormSetting(\AdminBundle\Entity\SiteFormSetting $siteFormSetting = null)
+    {
+        $this->site_form_setting = $siteFormSetting;
+
+        return $this;
+    }
+
+    /**
+     * Get siteFormSetting
+     *
+     * @return \AdminBundle\Entity\SiteFormSetting
+     */
+    public function getSiteFormSetting()
+    {
+        return $this->site_form_setting;
     }
 }
