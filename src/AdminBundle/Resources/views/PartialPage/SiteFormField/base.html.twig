@@ -1,0 +1,7 @@
+<tr class="form-field-row" data-field-id="{{ field.id }}">
+    <td><input class="form-field-published" type="checkbox" {{ field.published ? "checked" : '' }}></td>
+    <td><input class="form-field-mandatory" type="checkbox" {{ field.mandatory ? "checked" : '' }}></td>
+    <td>
+    {% block content %}{% endblock %}
+    </td>
+</tr>

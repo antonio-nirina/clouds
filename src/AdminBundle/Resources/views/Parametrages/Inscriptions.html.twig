@@ -35,6 +35,62 @@
 					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
 					<h5 class = "hidden-md-up">Créer le formulaire d'inscription à votre programme de récompense</h5>
 					<div class = "row">
+						<table>
+							<thead>
+								<tr>
+									<th>champs à publier <input type="checkbox"></th>
+									<th>rendre obligatoire <input type="checkbox"></th>
+									<th>liste des champs</th>
+								</tr>
+							</thead>
+							<tbody>
+                            {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
+                                {% for site_form_field_setting in site_form_field_settings %}
+                                    {{ render(controller(
+                                    'AdminBundle:PartialPage:siteFormFieldRow',
+                                    {'field' : site_form_field_setting}
+                                    )) }}
+                                {% endfor %}
+                            {% endif %}
+							</tbody>
+						</table>
+					</div>
+
+					<div>
+						<div>ajouter des champs personnalisés (5 maximum)</div>
+						<div>
+							<div>
+								<label>intitulé du champ</label>
+								<input type="text">
+							</div>
+							<div>
+								<label>rendre obligatoire</label>
+								<input type="checkbox">
+							</div>
+							<div>
+								<label>type de champ</label>
+								<select></select>
+							</div>
+							<div>
+								<label>oui</label><input type="radio">
+								<label>non</label><input type="radio">
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<a href="#">ajouter un champ</a>
+					</div>
+
+					<div>
+						{{ form_start(form_structure_form) }}
+						{{ form_widget(form_structure_form) }}
+						<input type="submit" value="Valider" id="form-structure-submit">
+						{{ form_end(form_structure_form) }}
+					</div>
+
+					{#
+					<div class = "row">
 						<div class = "col-12 col-md-12 col-lg-8 form-input-part-1">
 							<dl class="dl-horizontal row">
 								<dt class = "col-12 col-md-5"><label>Société *</label></dt>
@@ -152,6 +208,9 @@
 							
 						</div>
 					</div>
+					#}
+
+
 					
 					<div class = "row">
 					</div>

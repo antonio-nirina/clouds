@@ -24,6 +24,11 @@ class SiteFormFieldSetting
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
+    private $published;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
     private $mandatory;
 
     /**
@@ -304,5 +309,29 @@ class SiteFormFieldSetting
     public function getFieldOrder()
     {
         return $this->field_order;
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }

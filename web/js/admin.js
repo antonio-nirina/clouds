@@ -32,5 +32,23 @@ $(document).ready(function(){
 			$(this).removeClass('no-mode');
 		}
 	});
+
+	// Récupération des paramètres de structure de formulaire
+	// Et définition des valeurs des hidden du formulaire à la validation
+	$('#form-structure-submit').on('click', function(e){
+		var form_field_row_list = $('.form-field-row');
+		var form_structure_current_field = [];
+		form_field_row_list.each(function(){
+			var published_state = $(this).find('.form-field-published').is(':checked') ? true : false;
+			var mandatory_state = $(this).find('.form-field-mandatory').is(':checked') ? true : false;
+			var form_structure_el = {
+				"id": $(this).attr('data-field-id'),
+				"published": published_state,
+				"mandatory": mandatory_state
+			};
+            form_structure_current_field.push(form_structure_el);
+		});
+		$('#form_structure_current-field-list').val(JSON.stringify(form_structure_current_field));
+	})
 });
 
