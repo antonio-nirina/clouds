@@ -2,3 +2,7 @@ services:
 #    admin.example:
 #        class: AdminBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    admin.program.listener:
+        class: AdminBundle\DoctrineListener\ProgramListener
+        tags :
+             - { name: doctrine.event_subscriber, connection: default } 

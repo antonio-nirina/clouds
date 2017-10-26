@@ -32,5 +32,27 @@ $(document).ready(function(){
 			$(this).removeClass('no-mode');
 		}
 	});
+
+	//bouton multi-opération pour les programmes
+	$('.checkboxBtn.program').on('click', function(){
+		if ($(this).hasClass('est-mode')) {
+			$(this).find('input').val(0);
+		} else {
+			$(this).find('input').val(1);
+		}
+	});
+
+	$('.radioBtn.program').on('click',function(){
+		$('.fieldset .checkboxBtn.program').each(function(){
+			console.log($(this));
+			if($(this).hasClass('est-mode'))
+			{
+				$(this).removeClass('est-mode').addClass('no-mode');
+				$(this).find('input').val(0);
+			}
+		})
+	})
+
+
 });
 

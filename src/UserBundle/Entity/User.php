@@ -19,21 +19,20 @@ class User extends BaseUser
      */
     protected $id;
 
-   	/**
-	 * @ORM\Column(name="temporary_pwd", type="boolean")
-	 */
-   	protected $temporaryPwd;
-
+    /**
+     * @ORM\Column(name="temporary_pwd", type="boolean")
+     */
+    protected $temporaryPwd;
    
-   	/**
+    /**
     * @ORM\PrePersist
     */
-   	public function initTemporaryPwd()
-   	{   		
-   		return $this->setTemporaryPwd(true);
-   	}
+    public function initTemporaryPwd()
+    {
+        return $this->setTemporaryPwd(true);
+    }
    
-   	/**
+    /**
      * Set temporaryPwd
      *
      * @param boolean $temporaryPwd
@@ -56,5 +55,4 @@ class User extends BaseUser
     {
         return $this->temporaryPwd;
     }
-
 }

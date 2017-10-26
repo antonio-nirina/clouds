@@ -47,7 +47,7 @@ class UserSubscriber implements EventSubscriberInterface
      * @param GetResponseUserEvent $event
      */
     public function onSuccessResettingReset(FormEvent $event)
-    {   
+    {
         $event->setResponse(new RedirectResponse($this->router->generate('admin_dashboard_kpi')));
     }
 }
