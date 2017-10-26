@@ -32,7 +32,7 @@ class PartialPageController extends Controller
                 'field' => $field,
             ));
         } elseif (in_array($field->getFieldType(), $this->choice_type)) {
-            $choices = (array_key_exists('choices', $field->getAdditionalData()))
+            $choices = (!empty($field->getAdditionalData()) && array_key_exists('choices', $field->getAdditionalData()))
                 ? $field->getAdditionalData()["choices"]
                 : array();
             return $this->render('AdminBundle:PartialPage/SiteFormField:radio.html.twig', array(
