@@ -74,14 +74,8 @@ $(document).ready(function(){
                         "mandatory": $(this).find('.checkbox-mandatory').is(":checked") ? true : false,
                         "field_type": $(this).find('.select-field-type').val()
                     };
-                    // console.log($(this).find('.select-field-type').val());
                     if(field_type_with_choice.indexOf($(this).find('.select-field-type').val()) >= 0)
                     {
-                        // console.log('in choice radio');
-                        // console.log($(this).find('.select-field-type-container')
-                        // .find('.select-field-option-container')
-                        //    .find('.option-container')
-                        //    .find('.add-option-field'));
                         if(
                             $(this).find('.select-field-type-container')
                                 .find('.select-field-option-container')
@@ -94,17 +88,13 @@ $(document).ready(function(){
                                 .find('.option-container')
                                 .find('.add-option-field')
                                 .find('.input-option');
-                            // console.log(option_list);
                             var option_value = {};
                             option_list.each(function(){
-                                // console.log($(this).val().trim());
                                 if('' != $(this).val().trim())
                                 {
-                                    // console.log('in choice value')
                                     option_value[$(this).val()] = $(this).val();
                                 }
                             });
-                            // console.log(option_value);
                             new_field_datas_el["choices"] = option_value;
                         }
                     }
@@ -118,11 +108,6 @@ $(document).ready(function(){
             });
         }
 
-        if(true == empty_label_state)
-        {
-            alert("Un ou plusieurs nouveaux champs n'ont pas d'intitulé défini. Ceux-ci ne sont pas considérés.");
-        }
-        // console.log(new_field_datas_list);
         $('#form_structure_new-field-list').val(JSON.stringify(new_field_datas_list));
 
         // Ordonnancement des champs
@@ -133,10 +118,18 @@ $(document).ready(function(){
             field_list.each(function(){
                 field_list_order.push($(this).attr('data-field-id'));
             });
-            // console.log(field_list_order);
         }
         $('#form_structure_field-order').val(JSON.stringify(field_list_order));
-        // e.preventDefault();
+
+        // Message
+        if(true == empty_label_state)
+        {
+            var message = "Un ou plusieurs nouveaux champs n'ont pas d'intitulé défini. Ceux-ci ne sont pas considérés."
+            var message_resp = confirm(message);
+            if(false == message_resp) {
+                e.preventDefault();
+            }
+        }
     })
     /**
      * *********************************************************************************************
@@ -155,15 +148,12 @@ $(document).ready(function(){
 	// Ajout nouveau formulaire d'ajout de champ
 	$('.add-field-link').on('click', function(e){
         e.preventDefault();
-        // console.log($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length);
-        // console.log($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form'));
         if($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length < 5)
 		{
             var new_add_field_form = $(this).parents('.add-field-form-block').find('.add-field-form.template').clone();
             new_add_field_form.removeClass('template');
             $(this).parents('.add-field-form-block').find('.add-field-form-container').append(new_add_field_form);
             new_add_field_form.show();
-            // console.log(new_add_field_form);
 		}
 		else
 		{
@@ -174,10 +164,7 @@ $(document).ready(function(){
 	// Ajout de nouvelle option (pour champ à choix, exp bouton radio)
 	$('.add-field-form-block').on('click', '.add-option-link', function(e){
 		e.preventDefault();
-		// console.log($(this));
 		var new_option_field = $(this).parents('.select-field-option-container').find('.add-option-field.template').clone();
-        // console.log( $(this).parents('.select-field-option-container'));
-        // console.log(new_option_field);
 		new_option_field.removeClass('template');
 		$(this).parents('.select-field-option-container').find('.option-container').append(new_option_field);
         new_option_field.show();
@@ -224,6 +211,34 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions
      * Réordonnancement de champs
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Suppression nouveau champ
+     * Suppression option
+     * *********************************************************************************************
+     */
+    // Supprimer nouveau champ
+    $('.add-field-form-block').on('click', '.remove-field-form-link', function(e){
+        e.preventDefault();
+        $(this).parents('.add-field-form').remove();
+    });
+
+    // Supprimer option créée
+    $('.add-field-form-block').on('click', '.remove-option-field-link', function(e){
+        e.preventDefault();
+        $(this).parents('.add-option-field').remove();
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Suppression nouveau champ
+     * Suppression option
      * *********************************************************************************************
      */
 });
