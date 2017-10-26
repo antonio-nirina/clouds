@@ -38,7 +38,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('field')
             ->join('site_form_setting.site_form', 'site_form')
             ->join('site_form_setting.program', 'program')
-            ->join('site_form_setting.site_form_field_settings', 'field')
+            ->leftJoin('site_form_setting.site_form_field_settings', 'field')
             ->where($qb->expr()->eq('program', ':program'))
             ->andWhere($qb->expr()->eq('site_form.form_type', ':form_type'))
             ->orderBy('field.field_order', 'ASC')
