@@ -69,7 +69,13 @@ class ParametragesController extends Controller
             $new_field_list = json_decode($form_structure_form->getData()['new-field-list']);
             if (!is_null($new_field_list)) {
                 foreach ($new_field_list as $new_field) {
-                    if (!is_null($site_form_setting)) {
+                    if (!is_null($site_form_setting)
+                        &&
+                        (
+                            is_int($site_form_setting->getCustomFieldAllowed())
+                            && $site_form_setting->getCustomFieldAllowed() > 0
+                        )
+                    ) {
                         $field = new SiteFormFieldSetting();
                         $field->setSiteFormSetting($site_form_setting)
                                 ->setFieldType($new_field->field_type)
@@ -84,6 +90,8 @@ class ParametragesController extends Controller
                         }
                         $site_form_setting->addSiteFormFieldSetting($field);
                         $em->persist($field);
+
+                        $site_form_setting->setCustomFieldAllowed(($site_form_setting->getCustomFieldAllowed()) - 1);
                         $em->flush();
                     }
                 }
@@ -96,6 +104,7 @@ class ParametragesController extends Controller
             'site_form_field_settings' => $site_form_field_settings,
             'form_structure_form' => $form_structure_form->createView(),
             'field_type_list' => FieldTypeName::FIELD_NAME,
+            'custom_field_allowed' => $site_form_setting->getCustomFieldAllowed(),
         ));
     }
 	

@@ -148,7 +148,9 @@ $(document).ready(function(){
 	// Ajout nouveau formulaire d'ajout de champ
 	$('.add-field-link').on('click', function(e){
         e.preventDefault();
-        if($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length < 5)
+
+        var custom_field_allowed = $("input[name=custom-field-allowed]").val();
+        if($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length < custom_field_allowed)
 		{
             var new_add_field_form = $(this).parents('.add-field-form-block').find('.add-field-form.template').clone();
             new_add_field_form.removeClass('template');
@@ -157,7 +159,7 @@ $(document).ready(function(){
 		}
 		else
 		{
-			alert('5 nouveaux champs maximum');
+			alert(custom_field_allowed+' nouveau(x) champ(s) maximum');
 		}
 	});
 

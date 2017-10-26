@@ -67,6 +67,11 @@ class SiteFormSetting
      */
     private $site_form_field_settings;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $custom_field_allowed;
+
 
     /**
      * Get id
@@ -333,5 +338,29 @@ class SiteFormSetting
     public function getSiteForm()
     {
         return $this->site_form;
+    }
+
+    /**
+     * Set customFieldAllowed
+     *
+     * @param integer $customFieldAllowed
+     *
+     * @return SiteFormSetting
+     */
+    public function setCustomFieldAllowed($customFieldAllowed)
+    {
+        $this->custom_field_allowed = $customFieldAllowed;
+
+        return $this;
+    }
+
+    /**
+     * Get customFieldAllowed
+     *
+     * @return integer
+     */
+    public function getCustomFieldAllowed()
+    {
+        return $this->custom_field_allowed;
     }
 }

@@ -19,7 +19,8 @@ class SiteFormFixtures extends Fixture
         $site_form_setting = new SiteFormSetting();
         $site_form_setting->setState(true)
             ->setProgram($this->getReference('program'))
-            ->setSiteForm($site_form);
+            ->setSiteForm($site_form)
+            ->setCustomFieldAllowed(5);
         $site_form->setSiteFormSetting($site_form_setting);
         $this->getReference('program')->addSiteFormSetting($site_form_setting);
 
