@@ -40,6 +40,7 @@ $(document).ready(function(){
      */
 	// Récupération des paramètres de structure de formulaire
 	// Récupération des données des nouveaux champs
+    // Récupération de l'ordonnancement des champs
 	// Et définition des valeurs des hidden du formulaire à la validation
     var field_type_with_choice = ['choice-radio'];
     $('#form-structure-submit').on('click', function(e){
@@ -123,6 +124,19 @@ $(document).ready(function(){
         }
         // console.log(new_field_datas_list);
         $('#form_structure_new-field-list').val(JSON.stringify(new_field_datas_list));
+
+        // Ordonnancement des champs
+        var field_list = $('.sortable-table').find('tbody').find('tr.form-field-row');
+        var field_list_order = [];
+        if(field_list.length > 0)
+        {
+            field_list.each(function(){
+                field_list_order.push($(this).attr('data-field-id'));
+            });
+            // console.log(field_list_order);
+        }
+        $('#form_structure_field-order').val(JSON.stringify(field_list_order));
+        // e.preventDefault();
     })
     /**
      * *********************************************************************************************
@@ -190,6 +204,26 @@ $(document).ready(function(){
 	 * FIN
      * Paramétrages - Inscriptions
      * Gestion d'ajout de nouveau champ
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Réordonnancement de champs
+     * *********************************************************************************************
+     */
+    $('.sortable-table').sortable({
+        containerSelector: 'table',
+        itemPath: '> tbody',
+        itemSelector: 'tr',
+        placeholder: '<tr class="placeholder"/>'
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Réordonnancement de champs
      * *********************************************************************************************
      */
 });
