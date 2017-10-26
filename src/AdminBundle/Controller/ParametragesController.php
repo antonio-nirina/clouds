@@ -6,11 +6,13 @@ namespace AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Entity\Program;
 use AdminBundle\Entity\SiteFormSetting;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Form\FormStructureType;
+use AdminBundle\Component\SiteForm\FieldTypeName;
 
 /**
  * @Route("/admin/parametrages")
@@ -33,6 +35,7 @@ class ParametragesController extends Controller
         $em = $this->getDoctrine()->getManager();
         $programs = $em->getRepository(Program::class)->findAll();
         $site_form_field_settings = array();
+        $site_form_setting = null;
         if (!empty($programs)) {
             $program = $programs[0];
             $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndType(
@@ -57,12 +60,35 @@ class ParametragesController extends Controller
                 }
             }
 
+            $new_field_list = json_decode($form_structure_form->getData()['new-field-list']);
+            if (!is_null($new_field_list)) {
+                foreach ($new_field_list as $new_field) {
+                    if (!is_null($site_form_setting)) {
+                        $field = new SiteFormFieldSetting();
+                        $field->setSiteFormSetting($site_form_setting)
+                                ->setFieldType($new_field->field_type)
+                                ->setMandatory(boolval($new_field->mandatory))
+                                ->setLabel($new_field->label);
+                        if (array_key_exists('choices', $new_field)) {
+                            $choices = array_map('strval', (array)$new_field->choices);
+                            $choices = array_map('strval', array_flip($choices)); // VALUE is the same as KEY
+                            $add_data["choices"] = $choices;
+                            $field->setAdditionalData($add_data);
+                        }
+                        $site_form_setting->addSiteFormFieldSetting($field);
+                        $em->persist($field);
+                        $em->flush();
+                    }
+                }
+            }
+
             return $this->redirectToRoute('admin_parametrages_inscriptions');
         }
 
         return $this->render('AdminBundle:Parametrages:Inscriptions.html.twig', array(
             'site_form_field_settings' => $site_form_field_settings,
             'form_structure_form' => $form_structure_form->createView(),
+            'field_type_list' => FieldTypeName::FIELD_NAME,
         ));
     }
 	

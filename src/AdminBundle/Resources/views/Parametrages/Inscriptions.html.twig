@@ -35,7 +35,7 @@
 					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
 					<h5 class = "hidden-md-up">Créer le formulaire d'inscription à votre programme de récompense</h5>
 					<div class = "row">
-						<table>
+						<table class="sortable-table">
 							<thead>
 								<tr>
 									<th>champs à publier <input type="checkbox"></th>
@@ -56,30 +56,42 @@
 						</table>
 					</div>
 
-					<div>
+					<div class="add-field-form-block">
 						<div>ajouter des champs personnalisés (5 maximum)</div>
-						<div>
+						<div class="add-field-form template" style="display:none">
 							<div>
 								<label>intitulé du champ</label>
-								<input type="text">
+								<input class="input-field-label" type="text">
 							</div>
 							<div>
 								<label>rendre obligatoire</label>
-								<input type="checkbox">
+								<input class="checkbox-mandatory" type="checkbox">
 							</div>
-							<div>
+							<div class="select-field-type-container">
 								<label>type de champ</label>
-								<select></select>
+								<select class="select-field-type">
+                                    {% if field_type_list is defined and field_type_list is not empty %}
+                                        {% for key, field_type in field_type_list %}
+											<option value="{{ key }}">{{ field_type }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+								</select>
+								<div class="select-field-option-container" style="display:none">
+									<span>Options</span>
+									<div class="add-option-field template" style="display:none">
+										<input class="input-option" type="text">
+										<a class="remove-option-field-link" href="#">Supprimer</a>
+									</div>
+									<div class="option-container"></div>
+									<a class="add-option-link" href="#">ajouter option</a>
+								</div>
 							</div>
-							<div>
-								<label>oui</label><input type="radio">
-								<label>non</label><input type="radio">
-							</div>
+							<a class="remove-field-form" href="#">Supprimer nouveau champ</a>
 						</div>
-					</div>
-
-					<div>
-						<a href="#">ajouter un champ</a>
+						<div class="add-field-form-container"></div>
+						<div>
+							<a class="add-field-link" href="#">ajouter un champ</a>
+						</div>
 					</div>
 
 					<div>
