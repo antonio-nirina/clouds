@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 
-	{{ include("AdminBundle::header.html.twig") }}
+	{# {{ include("AdminBundle::header.html.twig") }} #}
+	{% block header %}
+		{% embed 'AdminBundle::header.html.twig' %}{% endembed %}
+	{% endblock %}
 
 	<body>
 		{{ include("AdminBundle::menu-top.html.twig") }}
@@ -15,6 +18,9 @@
 				{% endblock %}
 			</div>
 		</div>
-		{{ include("AdminBundle::footer.html.twig") }}
+		{# {{ include("AdminBundle::footer.html.twig") }} #}		
+		{% block footer %}
+			{% embed 'AdminBundle::footer.html.twig' %}{% endembed %}
+		{% endblock %}
 	</body>
 </html>
