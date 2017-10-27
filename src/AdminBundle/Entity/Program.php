@@ -1,8 +1,9 @@
 <?php
-
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use AdminBundle\Entity\SiteFormSetting;
 
 /**
  * @ORM\Entity(repositoryClass="")
@@ -92,12 +93,25 @@ class Program
     protected $param_level;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SiteFormSetting", mappedBy="program")
+     */
+    private $site_form_settings;
+
+    /**
      * @ORM\PrePersist
      */
     public function initProgram()
     {
         $this->param_level = 0;
         return $this->setDateCreation(new \DateTime);
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->site_form_settings = new ArrayCollection();
     }
 
     /**
@@ -109,6 +123,7 @@ class Program
     {
         return $this->id;
     }
+
 
     /**
      * Set name
@@ -168,9 +183,23 @@ class Program
     public function setIsShopping($isShopping)
     {
         $this->is_shopping = $isShopping;
-
         return $this;
     }
+
+    /**
+     * Add siteFormSetting
+     *
+     * @param \AdminBundle\Entity\SiteFormSetting $siteFormSetting
+     *
+     * @return Program
+     */
+    public function addSiteFormSetting(SiteFormSetting $siteFormSetting)
+    {
+        $this->site_form_settings[] = $siteFormSetting;
+        return $this;
+    }
+
+
 
     /**
      * Get isShopping
@@ -420,5 +449,25 @@ class Program
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Remove siteFormSetting
+     *
+     * @param \AdminBundle\Entity\SiteFormSetting $siteFormSetting
+     */
+    public function removeSiteFormSetting(SiteFormSetting $siteFormSetting)
+    {
+        $this->site_form_settings->removeElement($siteFormSetting);
+    }
+
+    /**
+     * Get siteFormSettings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSiteFormSettings()
+    {
+        return $this->site_form_settings;
     }
 }

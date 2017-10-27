@@ -1,10 +1,10 @@
 <?php
-
 namespace AppBundle\DataFixtures\ORM;
 
 use AdminBundle\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+
 
 class ProgramFixtures extends Fixture
 {
@@ -25,6 +25,8 @@ class ProgramFixtures extends Fixture
         $manager->persist($program);
 
         $manager->flush();
+        
+        $this->addReference('program', $program);
     }
 
     public function getDependencies()
@@ -34,4 +36,5 @@ class ProgramFixtures extends Fixture
             ClientFixtures::class
         );
     }
+
 }
