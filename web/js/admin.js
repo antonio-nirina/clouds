@@ -242,6 +242,7 @@ $(document).ready(function(){
      * Paramétrages - Inscriptions
      * Suppression nouveau champ
      * Suppression option
+     * Suppression champ existant
      * *********************************************************************************************
      */
     // Supprimer nouveau champ
@@ -256,12 +257,32 @@ $(document).ready(function(){
         $(this).parents('.add-option-field').remove();
     });
 
+    $('.delele-field-row-link').on('click', function(e){
+        e.preventDefault();
+        var form_field_row = $(this).parents('.form-field-row');
+        var field_id = form_field_row.attr('data-field-id');
+        var delete_field_action_input = $('#form_structure_delete-field-action-list');
+        var current_delete_field_action_list = delete_field_action_input.val();
+        var new_delete_field_action_list = '';
+        if("" == current_delete_field_action_list.trim() || "undefined" == typeof current_delete_field_action_list)
+        {
+            new_delete_field_action_list = field_id;
+        }
+        else
+        {
+            new_delete_field_action_list = current_delete_field_action_list + ',' + field_id;
+        }
+        delete_field_action_input.val(new_delete_field_action_list);
+        $(this).parents('.form-field-row').remove();
+    });
+
     /**
      * *********************************************************************************************
      * FIN
      * Paramétrages - Inscriptions
      * Suppression nouveau champ
      * Suppression option
+     * Suppression champ existant
      * *********************************************************************************************
      */
 

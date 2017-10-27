@@ -122,7 +122,6 @@ class ParametragesController extends Controller
                         if (array_key_exists($field->getId(), $field_order)) {
                             $field->setFieldOrder($field_order[$field->getId()]);
                         }
-                        $em->flush();
                     }
                 }
             }
@@ -153,10 +152,23 @@ class ParametragesController extends Controller
                         $em->persist($field);
 
                         $site_form_setting->setCustomFieldAllowed(($site_form_setting->getCustomFieldAllowed()) - 1);
-                        $em->flush();
                     }
                 }
             }
+
+            $field_to_delete_list = ('' != $form_structure_form->getData()['delete-field-action-list'])
+                                        ? explode(',', $form_structure_form->getData()['delete-field-action-list'])
+                                        : array();
+            if (!empty($field_to_delete_list)) {
+                foreach ($field_to_delete_list as $field_to_delete_id) {
+                    $field = $em->getRepository(SiteFormFieldSetting::class)->findOneById($field_to_delete_id);
+                    if (!is_null($field)) {
+                        $em->remove($field);
+                        $site_form_setting->setCustomFieldAllowed($site_form_setting->getCustomFieldAllowed() + 1);
+                    }
+                }
+            }
+            $em->flush();
 
             return $this->redirectToRoute('admin_parametrages_inscriptions');
         }
