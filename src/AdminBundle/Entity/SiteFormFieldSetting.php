@@ -62,6 +62,11 @@ class SiteFormFieldSetting
     private $site_form_setting;
 
     /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $special_field_index;
+
+    /**
      * Get id
      *
      * @return integer
@@ -333,5 +338,29 @@ class SiteFormFieldSetting
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * Set specialFieldIndex
+     *
+     * @param string $specialFieldIndex
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setSpecialFieldIndex($specialFieldIndex)
+    {
+        $this->special_field_index = $specialFieldIndex;
+
+        return $this;
+    }
+
+    /**
+     * Get specialFieldIndex
+     *
+     * @return string
+     */
+    public function getSpecialFieldIndex()
+    {
+        return $this->special_field_index;
     }
 }
