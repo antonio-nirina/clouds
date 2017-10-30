@@ -17,7 +17,7 @@
 						</li>
 
 						<li class="nav-item-niv-3 form-imports">
-							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_imports") }}">Import de fichiers et flux <span class = "bulle-aide"></span></a>
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions_imports") }}">Import de fichiers et flux <span class = "bulle-aide"></span></a>
 						</li>
 					</ul>
 				</div>
@@ -53,9 +53,11 @@
 										</div>
 									</div>
 									<div class = "content-btn-action">
-										<button id = "btn-valider-option" class = "btn-valider-download">
-											<span class = "libelle_btn_dowload">Télécharger le modèle</span>
-										</button>
+										<a href="{{ path("admin_parametrages_inscriptiions_imports_telecharger_modele") }}">
+											<button id = "btn-valider-option" class = "btn-valider-download">
+												<span class = "libelle_btn_dowload">Télécharger le modèle</span>
+											</button>
+										</a>
 										
 										<button id = "btn-valider-challenge" class = "btn-valider-upload">
 											<span class = "libelle_btn_upload">Importer le fichier complété</span>
