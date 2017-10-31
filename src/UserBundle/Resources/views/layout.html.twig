@@ -7,17 +7,7 @@
 	{% endblock %}
 
 	<body>
-		{{ include("UserBundle::menu-top.html.twig") }}
-		
-		<div class="container-fluid">
-			<div class="row d-flex d-md-block flex-nowrap wrapper">
-				{% block fos_user_content %}
-	            {% endblock fos_user_content %}
-			</div>
-		</div>
-		{# {{ include("UserBundle::footer.html.twig") }} #}		
-		{% block footer %}
-			{% embed 'UserBundle::footer.html.twig' %}{% endembed %}
-		{% endblock %}
+		{% block fos_user_content %}
+		{% endblock fos_user_content %}
 	</body>
 </html>

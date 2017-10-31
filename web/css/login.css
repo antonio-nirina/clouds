@@ -19,12 +19,22 @@ a:hover{
 body {
   padding:0;
   margin:0;
-  /*font-family: FontAwesome!important;*/
   font-family: 'Lato', sans-serif !important;
-  background:url('../images/cloudsRewards/bg-login.png') no-repeat left top;
-  height: 700px;
-  background-position: -209px 26px;
-  position:relative;
+}
+
+.principale{
+	margin:0 auto;
+	position:relative;
+	padding:0!important;
+	background:url('../images/cloudsRewards/bg-login.png') no-repeat left top;
+	background-position: -297px 0px;
+	max-height: 1000px;
+	height:1000px;
+}
+
+.container{
+	width:1400px!important;
+	max-width:100%!important;
 }
 
 /*
@@ -88,6 +98,9 @@ h1 {
 	padding:0;
 	padding-left:30px;
 	height:126px;
+	width:inherit;
+	position:fixed;
+	z-index:100;
 }
 
 .menu-niv-2{
@@ -517,6 +530,15 @@ li.options{
 	border:0;
 	width:148px;
 	background:url('../images/cloudsRewards/input-password.png') top left no-repeat;
+	-webkit-margin-left:3px!important;
+}
+
+
+/* hack Chrome / Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.input-password{
+		margin-left:3px!important;
+	}
 }
 
 
@@ -554,7 +576,6 @@ li.options{
 
 .content-footer{
 	height:200px;
-	width:100%;
 	background:url('../images/cloudsRewards/bg-footer.png') top left no-repeat;
 	position:fixed;
 	bottom:0;
@@ -574,6 +595,64 @@ li.options{
 
 .input-identifiant, .input-password{
 	padding-left:5px!important;
+}
+
+.input-username {
+  background:url("../images/cloudsRewards/input-identifiant.png") left top no-repeat;
+  border:0;
+  height:26px;
+  margin:0;
+  width:258px;
+  padding-left:5px;
+}
+
+.lib-username{
+	color:white;
+	font-size:12px;
+}
+
+.lib_mot_de_passe_oublie{
+	margin-left:56px!important;
+	font-size:12px;
+	color:white;
+}
+
+.input-password-first{
+	height: 26px;
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: 0;
+	width: 258px;
+	background: url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
+	margin-left:5px;
+}
+
+.input-password-second{
+	height: 26px;
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: 0;
+	width: 148px;
+	background: url('../images/cloudsRewards/input-password.png') top left no-repeat;
+	margin-left:1px;
+}
+
+.lib-password-first{
+	font-size: 12px;
+	color: white;
+}
+
+.lib-password-second{
+	font-size: 12px;
+	color: white;
+}
+
+.lib_changer_mot_de_passe{
+	color:white;
+	font-size:12px;
+	margin-left:162px!important;
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
@@ -662,7 +741,8 @@ li.options{
 
 	.mot-de-passe-oublie{
 		text-decoration:underline;
-		text-align:center;
+		text-align:left;
+		float:right;
 	}
 
 	.check-souvenir{
@@ -722,6 +802,11 @@ li.options{
 		height: auto !important;
 		background-repeat: repeat-y;
 		border: 0;
+		width:100%;
+	}
+	
+	.content-footer{
+		width:100%;
 	}
 	
 	.navbar-toggler-right {
@@ -748,13 +833,14 @@ li.options{
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .mot-de-passe-oublie{
-		font-size: 14px;
+		font-size: 12px;
 		color: white;
 		display:block;
+		margin-top:5px;
 	}
 	
 	.lib-souvenir{
-		font-size: 14px;
+		font-size: 12px;
 		color: white;
 	}
 	
@@ -1021,7 +1107,7 @@ li.options{
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
-		float:right;
+		margin-left:16px;
 	}
 	
 	.check-souvenir{
@@ -1029,7 +1115,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
+		margin-left: 79px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -1099,7 +1185,7 @@ li.options{
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
-		font-size: 14px;
+		font-size: 12px;
 		color: white
 	}
 	
@@ -1286,6 +1372,13 @@ li.options{
 		background-position: -302px -15px;
 		margin-top: 8px;
 	}
+	
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:21px;
+		}
+	}
 }
 
 /* Medium devices (tablets, 768px and up)*/
@@ -1397,7 +1490,8 @@ li.options{
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
-		float:right;
+		/*float:right;*/
+		margin-left:16px;
 	}
 	
 	.check-souvenir{
@@ -1405,7 +1499,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
+		margin-left: 79px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -1415,7 +1509,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
+		margin-left: 79px;
 		vertical-align: bottom;
 		cursor:pointer;
 	}
@@ -1454,7 +1548,7 @@ li.options{
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
-		font-size: 14px;
+		font-size: 12px;
 		color: white
 	}
 	
@@ -1474,9 +1568,9 @@ li.options{
 	.content-message-login{
 		background: white;
 		text-align: center;
-		height: 700px;
+		height: 800px;
 		position: absolute;
-		top: 140px;
+		top: 70px;
 		padding: 20px;
 	}
 	
@@ -1661,6 +1755,13 @@ li.options{
 		background-position: -302px -15px;
 		margin-top: 8px;
 	}
+	
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:21px;
+		}
+	}
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -1772,7 +1873,8 @@ li.options{
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
-		float:right;
+		/*float:right;*/
+		margin-left:16px;
 	}
 	
 	.check-souvenir{
@@ -1780,7 +1882,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
+		margin-left: 79px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -1790,7 +1892,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
+		margin-left: 79px;
 		vertical-align: bottom;
 		cursor:pointer;
 	}
@@ -1819,12 +1921,12 @@ li.options{
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
-		font-size: 14px;
+		font-size: 12px;
 		color: white
 	}
 	
 	.lib_connexion{
-		margin-left: 87px !important;
+		margin-left: 79px !important;
 	}
 	
 	.form-connexion {
@@ -1842,7 +1944,7 @@ li.options{
 	.content-message-login{
 		background: white;
 		text-align: center;
-		height: 760px;
+		height: 860px;
 		position: absolute;
 		top: 140px;
 		padding: 20px;
@@ -2021,6 +2123,13 @@ li.options{
 		background-repeat:no-repeat;
 		background-position: -302px -15px;
 	}
+	
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:21px;
+		}
+	}
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
@@ -2132,7 +2241,15 @@ li.options{
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
-		float:right;
+		/*float:right;*/
+		margin-left:15px;
+	}
+	
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:20px;
+		}
 	}
 	
 	.check-souvenir{
@@ -2140,7 +2257,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
+		margin-left: 81px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -2150,9 +2267,10 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
-		vertical-align: bottom;
+		margin-left: 81px;
+		vertical-align: middle;
 		cursor:pointer;
+		margin-top:2px;
 	}
 	
 	.btn-connexion{
@@ -2165,6 +2283,7 @@ li.options{
 		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
 		color:white;
 		font-size:13px;
+		margin-left:3px;
 	}
 	
 	.input-identifiant{
@@ -2179,12 +2298,12 @@ li.options{
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
-		font-size: 14px;
+		font-size: 12px;
 		color: white
 	}
 	
 	.lib_connexion{
-		margin-left: 87px !important;
+		margin-left: 79px !important;
 	}
 	
 	.form-connexion {
@@ -2202,7 +2321,7 @@ li.options{
 	.content-message-login{
 		background: white;
 		text-align: center;
-		height: 700px;
+		height: 760px;
 		position: absolute;
 		top: 140px;
 		padding: 20px;
