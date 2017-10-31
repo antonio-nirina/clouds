@@ -6,11 +6,12 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Doctrine\ORM\EntityManager;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class RegistrationModel
 {
-    private $phpExcel;
-    private $phpExcelObject;
+    private $php_excel;
+    private $php_excel_object;
     private $em;
     private $current_row;
     private $current_col;
@@ -22,28 +23,71 @@ class RegistrationModel
     const COMPANY_INFOS_TITLE = "Coordonnées de la société";
     const USER_INFOS_TITLE = "Coordonnées du bénéficiaire";
 
-    public function __construct(PHPExcelFactory $factory, EntityManager $em)
+    const COMPANY_SPECIAL_FIELD_INDEX_LIST = array(
+        SpecialFieldIndex::USER_COMPANY_NAME,
+        SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS,
+        SpecialFieldIndex::USER_COMPANY_POSTAL_CODE,
+        SpecialFieldIndex::USER_COMPANY_CITY
+    );
+
+    const USER_SPECIAL_FIELD_INDEX_LIST = array(
+        SpecialFieldIndex::USER_NAME,
+        SpecialFieldIndex::USER_FIRSTNAME,
+        SpecialFieldIndex::USER_EMAIL,
+        SpecialFieldIndex::USER_CIVILITY,
+        SpecialFieldIndex::USER_PRO_EMAIL,
+        SpecialFieldIndex::USER_PHONE,
+        SpecialFieldIndex::USER_MOBILE_PHONE
+    );
+
+    private $company_header_list;
+    private $user_header_list;
+
+    private $container;
+
+    public function __construct(PHPExcelFactory $factory, EntityManager $em, ContainerInterface $container)
     {
-        $this->phpExcel = $factory;
-        $this->phpExcelObject = $this->phpExcel->createPHPExcelObject();
+        $this->php_excel = $factory;
+        $this->php_excel_object = $this->php_excel->createPHPExcelObject();
         $this->em = $em;
 
         $this->current_row = 1; // 1-based index
         $this->current_col = 0;
+
+        $this->company_header_list = array();
+        $this->user_header_list = array();
+
+        $this->container = $container;
+    }
+
+    public function getCompanyHeaderList()
+    {
+        return $this->company_header_list;
+    }
+
+    public function getUserHeaderList()
+    {
+        return $this->user_header_list;
+    }
+
+    public function createObject()
+    {
+        $this->createCompanyInfoBlock();
+        $this->createUserInfoBlock();
+        return $this->php_excel_object;
     }
 
     private function create()
     {
-        $this->createCompanyInfoBlock();
-        $this->createUserInfoBlock();
-        $writer = $this->phpExcel->createWriter($this->phpExcelObject, self::WRITER_TYPE);
+        $this->createObject();
+        $writer = $this->php_excel->createWriter($this->php_excel_object, self::WRITER_TYPE);
 
         return $writer;
     }
 
     private function createCompanyInfoBlock()
     {
-        $this->phpExcelObject->setActiveSheetIndex(0)
+        $this->php_excel_object->setActiveSheetIndex(0)
             ->setCellValueByColumnAndRow($this->current_col, $this->current_row, self::COMPANY_INFOS_TITLE);
         $this->current_row++;
 
@@ -52,7 +96,7 @@ class RegistrationModel
         $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_POSTAL_CODE);
         $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_CITY);
 
-        $this->phpExcelObject->setActiveSheetIndex(0)
+        $this->php_excel_object->setActiveSheetIndex(0)
             ->mergeCellsByColumnAndRow(0, $this->current_row - 1, $this->current_col - 1, $this->current_row - 1);
     }
 
@@ -60,7 +104,7 @@ class RegistrationModel
     {
         $this->current_col = 0;
         $this->current_row += 2;
-        $this->phpExcelObject->setActiveSheetIndex(0)
+        $this->php_excel_object->setActiveSheetIndex(0)
             ->setCellValueByColumnAndRow($this->current_col, $this->current_row, self::USER_INFOS_TITLE);
         $this->current_row++;
 
@@ -73,8 +117,6 @@ class RegistrationModel
         $this->createInfoElement(SpecialFieldIndex::USER_MOBILE_PHONE);
 
         $this->addBlankRow();
-        $this->addBlankRow();
-        $this->addBlankRow();
     }
 
     private function createInfoElement($special_field_index)
@@ -82,14 +124,20 @@ class RegistrationModel
         $field = $this->em->getRepository(SiteFormFieldSetting::class)
             ->findOneBy(
                 array(
-                    'special_field_index' => $special_field_index,
-                    'published' => true,
+                    "special_field_index" => $special_field_index,
+                    "published" => true,
                 )
             );
         if (!is_null($field)) {
-            $this->phpExcelObject->setActiveSheetIndex(0)
+            $this->php_excel_object->setActiveSheetIndex(0)
             ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $field->getLabel());
             $this->current_col++;
+
+            if (in_array($special_field_index, self::COMPANY_SPECIAL_FIELD_INDEX_LIST)) {
+                array_push($this->company_header_list, $field->getLabel());
+            } elseif (in_array($special_field_index, self::USER_SPECIAL_FIELD_INDEX_LIST)) {
+                array_push($this->user_header_list, $field->getLabel());
+            }
         }
     }
 
@@ -97,23 +145,31 @@ class RegistrationModel
     {
         $this->current_row++;
         $this->current_col = 0;
-        $this->phpExcelObject->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, '');
+        $this->php_excel_object->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, "");
     }
 
     public function createResponse()
     {
         $writer = $this->create();
-        $response = $this->phpExcel->createStreamedResponse($writer);
+        $response = $this->php_excel->createStreamedResponse($writer);
         $dispositionHeader = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             self::FILE_NAME_AND_EXT
         );
-        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Pragma', 'public');
-        $response->headers->set('Cache-Control', 'maxage=1');
-        $response->headers->set('Content-Disposition', $dispositionHeader);
+
+        $response->headers->set("Content-Type", "text/csv; charset=utf-8");
+        $response->headers->set("Pragma", "public");
+        $response->headers->set("Cache-Control", "maxage=1");
+        $response->headers->set("Content-Disposition", $dispositionHeader);
 
         return $response;
+    }
+
+    public function save()
+    {
+        $writer = $this->create();
+        $save_path = $this->container->getParameter("registration_model_dir").'/'.self::FILE_NAME_AND_EXT;
+        $writer->save($save_path);
     }
 }

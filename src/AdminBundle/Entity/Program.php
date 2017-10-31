@@ -98,6 +98,16 @@ class Program
     private $site_form_settings;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="program")
+     */
+    private $program_users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\Role", mappedBy="program")
+     */
+    private $roles;
+
+    /**
      * @ORM\PrePersist
      */
     public function initProgram()
@@ -469,5 +479,73 @@ class Program
     public function getSiteFormSettings()
     {
         return $this->site_form_settings;
+    }
+
+    /**
+     * Add programUser
+     *
+     * @param \AdminBundle\Entity\ProgramUser $programUser
+     *
+     * @return Program
+     */
+    public function addProgramUser(\AdminBundle\Entity\ProgramUser $programUser)
+    {
+        $this->program_users[] = $programUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove programUser
+     *
+     * @param \AdminBundle\Entity\ProgramUser $programUser
+     */
+    public function removeProgramUser(\AdminBundle\Entity\ProgramUser $programUser)
+    {
+        $this->program_users->removeElement($programUser);
+    }
+
+    /**
+     * Get programUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProgramUsers()
+    {
+        return $this->program_users;
+    }
+
+    /**
+     * Add role
+     *
+     * @param \AdminBundle\Entity\Role $role
+     *
+     * @return Program
+     */
+    public function addRole(\AdminBundle\Entity\Role $role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    /**
+     * Remove role
+     *
+     * @param \AdminBundle\Entity\Role $role
+     */
+    public function removeRole(\AdminBundle\Entity\Role $role)
+    {
+        $this->roles->removeElement($role);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

@@ -33,7 +33,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($address);
 
         $postal_code = new SiteFormFieldSetting();
-        $postal_code->setFieldType(FieldType::NUM_TEXT)
+        $postal_code->setFieldType(FieldType::TEXT)
             ->setMandatory(true)
             ->setLabel("code postale")
             ->setFieldOrder(7)

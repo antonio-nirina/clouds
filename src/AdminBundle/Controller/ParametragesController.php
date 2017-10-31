@@ -14,7 +14,7 @@ use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Form\FormStructureType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use AdminBundle\Form\RegistrationImportType;
 
 /**
  * @Route("/admin/parametrages")
@@ -185,9 +185,19 @@ class ParametragesController extends Controller
     /**
      * @Route("/inscriptions/imports", name="admin_parametrages_inscriptions_imports")
      */
-    public function importsAction()
+    public function importsAction(Request $request)
     {
-        return $this->render('AdminBundle:Parametrages:Imports.html.twig', array());
+        $registration_form = $this->createForm(RegistrationImportType::class);
+        $registration_form->handleRequest($request);
+        if ($registration_form->isSubmitted() && $registration_form->isValid()) {
+            $import_file = $registration_form->getData()["registration_data"];
+            $this->get('AdminBundle\Service\ImportExport\RegistrationHandler')->import($import_file);
+            die();
+        }
+
+        return $this->render('AdminBundle:Parametrages:Imports.html.twig', array(
+            'registration_form' => $registration_form->createView(),
+        ));
     }
 
     /**

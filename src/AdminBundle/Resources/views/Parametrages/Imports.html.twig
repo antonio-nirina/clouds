@@ -58,10 +58,17 @@
 												<span class = "libelle_btn_dowload">Télécharger le modèle</span>
 											</button>
 										</a>
-										
-										<button id = "btn-valider-challenge" class = "btn-valider-upload">
+
+										{% if registration_form is defined and registration_form is not null %}
+											{{ form_start(registration_form, {"attr": {"novalidate": "novalidate"}}) }}
+												{{ form_widget(registration_form.registration_data) }}
+												{{ form_errors(registration_form.registration_data) }}
+											<input type="submit" value="Importer le fichier complété">
+											{{ form_end(registration_form) }}
+										{% endif %}
+										{#<button id = "btn-valider-challenge" class = "btn-valider-upload">
 											<span class = "libelle_btn_upload">Importer le fichier complété</span>
-										</button>
+										</button>#}
 									</div>
 								</li>
 								
