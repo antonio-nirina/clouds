@@ -10,3 +10,7 @@ services:
     AdminBundle\Service\:
         resource: '../../Service'
         autowire: true
+
+    admin.form_field_manager:
+        class: AdminBundle\Manager\SiteFormFieldSettingManager
+        arguments: ['@doctrine.orm.entity_manager']

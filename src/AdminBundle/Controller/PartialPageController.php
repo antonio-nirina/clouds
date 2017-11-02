@@ -51,14 +51,16 @@ class PartialPageController extends Controller
         return new Response('');
     }
 
-    public function siteFormManyFieldsRowAction($field)
+    public function siteFormManyFieldsRowAction($field, $level)
     {
+        // dump($level);die;
         $em = $this->getDoctrine()->getManager();
         $row = $field->getInRow();
         $form_setting = $field->getSiteFormSetting();
         $all_fields_row = $em->getRepository("AdminBundle:SiteFormFieldSetting")->findAllInRow(
             $row,
-            $form_setting->getId()
+            $form_setting->getId(),
+            $level
         );
 
         return $this->render('AdminBundle:PartialPage/SiteFormField:row.html.twig', array(

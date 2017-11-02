@@ -16,6 +16,7 @@ class FormStructureDeclarationType extends AbstractType
             ->add('validation-required', HiddenType::class)
             ->add('pieces-required', HiddenType::class)
             ->add('text-head-required', HiddenType::class)
-            ->add('text-head', HiddenType::class);
+            ->add('text-head', HiddenType::class)
+            ->add('next', HiddenType::class);
     }
 }

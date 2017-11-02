@@ -151,8 +151,9 @@ class SiteFormFieldSettingFixtures extends Fixture
         $product_name->setFieldType(FieldType::TEXT)
             ->setMandatory(true)
             ->setLabel("nom du produit")
-            ->setOrder(1)
+            ->setFieldOrder(1)
             ->setSiteFormSetting($product_declaration_form);
+
         $product_declaration_form->addSiteFormFieldSetting($product_name);
         $manager->persist($product_name);
 
@@ -160,7 +161,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $product_sales_turnover->setFieldType(FieldType::NUM_TEXT)
             ->setMandatory(true)
             ->setLabel("CA")
-            ->setOrder(1)
+            ->setFieldOrder(2)
             ->setSiteFormSetting($product_declaration_form);
         $product_declaration_form->addSiteFormFieldSetting($product_sales_turnover);
         $manager->persist($product_sales_turnover);
@@ -169,7 +170,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $product_declaration_date->setFieldType(FieldType::DATE)
             ->setMandatory(false)
             ->setLabel("date")
-            ->setOrder(3)
+            ->setFieldOrder(3)
             ->setSiteFormSetting($product_declaration_form);
         $product_declaration_form->addSiteFormFieldSetting($product_declaration_date);
         $manager->persist($product_declaration_date);
@@ -178,7 +179,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $product_start_date->setFieldType(FieldType::DATE)
             ->setMandatory(false)
             ->setLabel("période de")
-            ->setOrder(4)
+            ->setFieldOrder(4)
             ->setInRow(4)
             ->setSiteFormSetting($product_declaration_form);
         $product_declaration_form->addSiteFormFieldSetting($product_start_date);
@@ -188,7 +189,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $product_end_date->setFieldType(FieldType::DATE)
             ->setMandatory(false)
             ->setLabel("à")
-            ->setOrder(5)
+            ->setFieldOrder(5)
             ->setInRow(4)
             ->setSiteFormSetting($product_declaration_form);
         $product_declaration_form->addSiteFormFieldSetting($product_end_date);
@@ -199,7 +200,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $product_reference->setFieldType(FieldType::TEXT)
             ->setMandatory(false)
             ->setLabel("référence vente")
-            ->setOrder(6)
+            ->setFieldOrder(6)
             ->setSiteFormSetting($product_declaration_form);
         $product_declaration_form->addSiteFormFieldSetting($product_reference);
         $manager->persist($product_reference);

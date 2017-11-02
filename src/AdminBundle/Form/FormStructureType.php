@@ -12,7 +12,6 @@ class FormStructureType extends AbstractType
         $builder->add('current-field-list', HiddenType::class)
             ->add('new-field-list', HiddenType::class)
             ->add('field-order', HiddenType::class)
-            ->add('delete-field-action-list', HiddenType::class)
-            ->add('next', HiddenType::class);
+            ->add('delete-field-action-list', HiddenType::class);
     }
 }

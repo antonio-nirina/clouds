@@ -1,0 +1,54 @@
+.fieldset {
+    height: auto !important;
+    padding: 25px;
+}
+.content-bloc-droite {
+    margin-right: 0;
+    width: 100%;
+    text-align: left;
+}
+.row.full-width {
+    display: contents;
+}
+.btn-valider.btn-next-product {
+    width: auto !important;
+    padding: 5px 15px;
+}
+.add-field-form-container div, .validation *, .one-row * {
+    display: inline-block;
+}
+.date-field-form input {
+    display: inline-block;
+    pointer-events: none;
+}    
+.one-row label {
+    padding : 0 20px;
+}
+input.day, input.month {
+    width: 50px;
+}
+input.year {                    
+    width: 70px;
+}
+input[type="checkbox"] {
+    display:none;
+}
+input[type="checkbox"] + label span{
+    display:inline-block;
+    width:25px;
+    height:25px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(check_radio_sheet.png) left top no-repeat;
+    cursor:pointer;
+    background: url('../images/cloudsRewards/checkbox-off.png');
+}
+input[type="checkbox"]:checked + label span{
+    background: url('../images/cloudsRewards/checked-on.png');
+}
+.sortable-table th {
+    text-align: center;
+}
+.row .row label {
+    text-align: left;
+}

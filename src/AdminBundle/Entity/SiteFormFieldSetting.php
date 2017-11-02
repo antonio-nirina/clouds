@@ -72,6 +72,16 @@ class SiteFormFieldSetting
     private $special_field_index;
 
     /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $level;
+
+    public function __clone()
+    {
+        $this->id = null;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -199,30 +209,6 @@ class SiteFormFieldSetting
     public function getLabel()
     {
         return $this->label;
-    }
-
-    /**
-     * Set order
-     *
-     * @param integer $order
-     *
-     * @return SiteFormFieldSetting
-     */
-    public function setOrder($order)
-    {
-        $this->order = $order;
-
-        return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return $this->order;
     }
 
     /**
@@ -389,5 +375,29 @@ class SiteFormFieldSetting
     public function getInRow()
     {
         return $this->in_row;
+    }
+
+    /**
+     * Set level
+     *
+     * @param string $level
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return string
+     */
+    public function getLevel()
+    {
+        return $this->level;
     }
 }
