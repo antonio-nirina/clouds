@@ -9,4 +9,5 @@ class FieldType
     const ALPHANUM_TEXT = "alphanum-text";
     const EMAIL = 'email';
     const CHOICE_RADIO = "choice-radio";
+    const DATE = "date";
 }

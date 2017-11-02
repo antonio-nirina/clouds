@@ -12,5 +12,6 @@ class FieldTypeName
         FieldType::NUM_TEXT => "Numérique",
         FieldType::EMAIL => "Email",
         FieldType::CHOICE_RADIO => "Bouton radio",
+        FieldType::DATE => "Date"
     );
 }

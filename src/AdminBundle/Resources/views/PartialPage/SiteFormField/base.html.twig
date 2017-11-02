@@ -1,6 +1,12 @@
 <tr class="form-field-row" data-field-id="{{ field.id }}">
-    <td><input class="form-field-published" type="checkbox" {{ field.published ? "checked" : '' }}></td>
-    <td><input class="form-field-mandatory" type="checkbox" {{ field.mandatory ? "checked" : '' }}></td>
+    <td>
+        <input id="cl1-row{{ field.id }}" class="form-field-published" type="checkbox" {{ field.published ? "checked" : '' }}>
+        <label for="cl1-row{{ field.id }}"><span></span></label> 
+    </td>
+    <td>
+        <input id="cl2-row{{ field.id }}" class="form-field-mandatory" type="checkbox" {{ field.mandatory ? "checked" : '' }}>
+        <label for="cl2-row{{ field.id }}"><span></span></label>      
+    </td>
     <td>
     {% block content %}{% endblock %}
     </td>

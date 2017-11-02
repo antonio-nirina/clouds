@@ -12,24 +12,37 @@ class SiteFormFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $site_form = new SiteForm();
-        $site_form->setName("Formulaire d'inscription")
-                    ->setFormType(SiteFormType::REGISTRATION_TYPE);
+        $all_forms = [
+            ["Formulaire d'inscription",SiteFormType::REGISTRATION_TYPE,5],
+            ["Formulaire de déclaration produits",SiteFormType::PRODUCT_DECLARATION_TYPE,3],
+            ["Formulaire de déclaration leads",SiteFormType::LEAD_DECLARATION_TYPE,3]
+        ];
 
-        $site_form_setting = new SiteFormSetting();
-        $site_form_setting->setState(true)
-            ->setProgram($this->getReference('program'))
-            ->setSiteForm($site_form)
-            ->setCustomFieldAllowed(5);
-        $site_form->setSiteFormSetting($site_form_setting);
-        $this->getReference('program')->addSiteFormSetting($site_form_setting);
+        foreach ($all_forms as $form) {
+            $site_form = new SiteForm();
+            $site_form->setName($form[0])
+                    ->setFormType($form[1]);
+            $site_form_setting = new SiteFormSetting();
+            $site_form_setting->setState(true)
+                ->setProgram($this->getReference('program'))
+                ->setSiteForm($site_form)
+                ->setCustomFieldAllowed($form[2]);
+            $site_form->setSiteFormSetting($site_form_setting);
+            $this->getReference('program')->addSiteFormSetting($site_form_setting);
 
-        $manager->persist($site_form);
-        $manager->persist($site_form_setting);
+            if ($form[1]== SiteFormType::REGISTRATION_TYPE) {
+                $this->addReference('registration-form-setting', $site_form_setting);
+            } elseif ($form[1]== SiteFormType::PRODUCT_DECLARATION_TYPE) {
+                $this->addReference('declaration-product-form-setting', $site_form_setting);
+            }
+
+            $manager->persist($site_form);
+            $manager->persist($site_form_setting);
+        }
+        
         $manager->flush();
 
         $this->addReference('registration-form', $site_form);
-        $this->addReference('registration-form-setting', $site_form_setting);
     }
 
     public function getDependencies()

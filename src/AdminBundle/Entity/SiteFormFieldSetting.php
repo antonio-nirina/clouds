@@ -4,7 +4,7 @@ namespace AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\SiteFormFieldSettingRepository")
  * @ORM\Table(name="site_form_field_setting")
  */
 class SiteFormFieldSetting
@@ -50,6 +50,11 @@ class SiteFormFieldSetting
      * @ORM\Column(type="integer", nullable=true)
      */
     private $field_order;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $in_row;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -350,7 +355,19 @@ class SiteFormFieldSetting
     public function setSpecialFieldIndex($specialFieldIndex)
     {
         $this->special_field_index = $specialFieldIndex;
+        return $this;
+    }
 
+    /**
+     * Set inRow
+     *
+     * @param integer $inRow
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setInRow($inRow)
+    {
+        $this->in_row = $inRow;
         return $this;
     }
 
@@ -362,5 +379,15 @@ class SiteFormFieldSetting
     public function getSpecialFieldIndex()
     {
         return $this->special_field_index;
+    }
+
+    /**
+     * Get inRow
+     *
+     * @return integer
+     */
+    public function getInRow()
+    {
+        return $this->in_row;
     }
 }

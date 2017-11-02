@@ -5,7 +5,6 @@ use AdminBundle\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-
 class ProgramFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
@@ -36,5 +35,4 @@ class ProgramFixtures extends Fixture
             ClientFixtures::class
         );
     }
-
 }

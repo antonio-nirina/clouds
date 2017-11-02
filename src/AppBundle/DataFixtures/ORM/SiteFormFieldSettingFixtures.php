@@ -144,7 +144,67 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($country);
 
+        //product form field
+        $product_declaration_form = $this->getReference("declaration-product-form-setting");
+        
+        $product_name = new SiteFormFieldSetting();
+        $product_name->setFieldType(FieldType::TEXT)
+            ->setMandatory(true)
+            ->setLabel("nom du produit")
+            ->setOrder(1)
+            ->setSiteFormSetting($product_declaration_form);
+        $product_declaration_form->addSiteFormFieldSetting($product_name);
+        $manager->persist($product_name);
 
+        $product_sales_turnover = new SiteFormFieldSetting();
+        $product_sales_turnover->setFieldType(FieldType::NUM_TEXT)
+            ->setMandatory(true)
+            ->setLabel("CA")
+            ->setOrder(1)
+            ->setSiteFormSetting($product_declaration_form);
+        $product_declaration_form->addSiteFormFieldSetting($product_sales_turnover);
+        $manager->persist($product_sales_turnover);
+
+        $product_declaration_date = new SiteFormFieldSetting();
+        $product_declaration_date->setFieldType(FieldType::DATE)
+            ->setMandatory(false)
+            ->setLabel("date")
+            ->setOrder(3)
+            ->setSiteFormSetting($product_declaration_form);
+        $product_declaration_form->addSiteFormFieldSetting($product_declaration_date);
+        $manager->persist($product_declaration_date);
+
+        $product_start_date = new SiteFormFieldSetting();
+        $product_start_date->setFieldType(FieldType::DATE)
+            ->setMandatory(false)
+            ->setLabel("période de")
+            ->setOrder(4)
+            ->setInRow(4)
+            ->setSiteFormSetting($product_declaration_form);
+        $product_declaration_form->addSiteFormFieldSetting($product_start_date);
+        $manager->persist($product_start_date);
+
+        $product_end_date = new SiteFormFieldSetting();
+        $product_end_date->setFieldType(FieldType::DATE)
+            ->setMandatory(false)
+            ->setLabel("à")
+            ->setOrder(5)
+            ->setInRow(4)
+            ->setSiteFormSetting($product_declaration_form);
+        $product_declaration_form->addSiteFormFieldSetting($product_end_date);
+        $manager->persist($product_end_date);
+
+
+        $product_reference = new SiteFormFieldSetting();
+        $product_reference->setFieldType(FieldType::TEXT)
+            ->setMandatory(false)
+            ->setLabel("référence vente")
+            ->setOrder(6)
+            ->setSiteFormSetting($product_declaration_form);
+        $product_declaration_form->addSiteFormFieldSetting($product_reference);
+        $manager->persist($product_reference);
+        //end product form field
+        //
         $manager->persist($company);
         $manager->persist($address);
         $manager->persist($postal_code);

@@ -19,9 +19,11 @@ class PartialPageController extends Controller
             FieldType::ALPHA_TEXT,
             FieldType::EMAIL,
         );
-
         $this->choice_type = array(
             FieldType::CHOICE_RADIO,
+        );
+        $this->date_type = array(
+            FieldType::DATE,
         );
     }
 
@@ -39,8 +41,28 @@ class PartialPageController extends Controller
                 'field' => $field,
                 'choices' => $choices,
             ));
+        } elseif (in_array($field->getFieldType(), $this->date_type)) {
+            $template = 'AdminBundle:PartialPage/SiteFormField:date.html.twig';
+            return $this->render($template, array(
+                'field' => $field,
+            ));
         }
 
         return new Response('');
+    }
+
+    public function siteFormManyFieldsRowAction($field)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $row = $field->getInRow();
+        $form_setting = $field->getSiteFormSetting();
+        $all_fields_row = $em->getRepository("AdminBundle:SiteFormFieldSetting")->findAllInRow(
+            $row,
+            $form_setting->getId()
+        );
+
+        return $this->render('AdminBundle:PartialPage/SiteFormField:row.html.twig', array(
+            'field' => $field,
+            'all_fields' => $all_fields_row));
     }
 }

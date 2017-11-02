@@ -1,0 +1,458 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <style>
+                .fieldset {
+                    height: auto !important;
+                    padding: 25px;
+                }
+                .content-bloc-droite {
+                    margin-right: 0;
+                    width: 100%;
+                    text-align: left;
+                }
+                .row.full-width {
+                    display: contents;
+                }
+                .btn-valider.btn-next-product {
+                    width: auto !important;
+                    padding: 5px 15px;
+                }
+                .add-field-form-container div, .validation *, .one-row * {
+                    display: inline-block;
+                }
+                .date-field-form input {
+                    display: inline-block;
+                    pointer-events: none;
+                }    
+                .one-row label {
+                    padding : 0 20px;
+                }
+                input.day, input.month {
+                    width: 50px;
+                }
+                input.year {                    
+                    width: 70px;
+                }
+                input[type="checkbox"] {
+                    display:none;
+                }
+                input[type="checkbox"] + label span{
+                    display:inline-block;
+                    width:25px;
+                    height:25px;
+                    margin:-2px 10px 0 0;
+                    vertical-align:middle;
+                    background:url(check_radio_sheet.png) left top no-repeat;
+                    cursor:pointer;
+                    background: url('{{ asset('images/cloudsRewards/checkbox-off.png') }}');
+                }
+                input[type="checkbox"]:checked + label span{
+                    background: url('{{ asset('images/cloudsRewards/checked-on.png') }}');
+                }
+                .sortable-table th {
+                    text-align: center;
+                }
+                .row .row label {
+                    text-align: left;
+                }
+            </style>        
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+{{ render(controller('AdminBundle:Parametrages:sidebar')) }}
+{# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+<main class="col-md-9  offset-md-1 float-left main">
+    {# {{ dump(site_form_setting) }} #}
+    <div class = "row">
+        <div class = "col-12 col-md-12 sous-menu-main">
+            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                    <ul class="navbar-nav content-menu-niv-3">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration") }}">Formulaire de déclaration <span class = "bulle-aide"></span></a>
+                        </li>
+
+                        <li class="nav-item-niv-3 form-imports">
+                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_imports") }}">Import de fichiers des résultas <span class = "bulle-aide"></span></a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+                    <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                </button>
+                <a class="navbar-brand abs" href="#"></a>
+            </nav>
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-12 col-md-12 sous-menu-main">
+            <section id = "create-form-inscription" class = "fieldset active">  
+                <div class = "content-bloc-droite">
+                    <h3 class = "hidden-sm-down">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h3>
+                    <h5 class = "hidden-md-up">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h5>                     
+                </div>
+                
+                <div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
+                </div> 
+
+                <div class = "row full-width">
+                    <div class = "row col-12 col-md-10">
+                        <div class="col-md-6 col-sm-12">                          
+                            <input id="c1" name="validate" type="checkbox" {{ (site_form_setting.validation)?"checked":"" }} value = "">
+                            <label for="c1">
+                                <span></span>
+                                valider les déclarations
+                            </label>
+                        </div>
+                        <div class="col-md-6 col-sm-12"> 
+                            <input id="c2" name="piece_request" type="checkbox" {{ (site_form_setting.hasPieces)?"checked":"" }} value = "">
+                            <label for="c2">
+                                <span></span>                                
+                                demander une pièce justificative<br>
+                                (ticket, contrat, bon de commande etc.)
+                            </label>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <p>
+                                <input id="c3" name="header" type="checkbox" {{ (site_form_setting.hasHeadText)?"checked":"" }} value = "">
+                                <label for="c3">
+                                    <span></span>                                
+                                    rédiger un texte de présentation
+                                </label>                            
+                            </p>
+                             <textarea name="editor" id="editor" rows="4" cols="50" onmouseup="textfunc" >
+                                {{ (site_form_setting.hasHeadText)?site_form_setting.headText:"" }}
+                            </textarea> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div class="alert alert-info"> Produit 1</div>                       
+                    </div>
+                </div>
+
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div>
+                            <table class="sortable-table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input id="cl1" class="checkbox-publish-all" type="checkbox">
+                                            <label for="cl1">
+                                                champs à publier <br>
+                                                <span></span>
+                                            </label>    
+                                        </th>
+                                        <th>
+                                            <input id="cl2" class="checkbox-mandatory-all" type="checkbox">
+                                            <label for="cl2">
+                                                rendre obligatoire <br>
+                                                <span></span>
+                                            </label> 
+                                        </th>
+                                        <th>liste des champs</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
+                                    {% set row_set = [] %}
+                                    {% for site_form_field_setting in site_form_field_settings %}
+                                        {% if site_form_field_setting.inRow not in row_set %}
+                                            {% if site_form_field_setting.inRow != null %}
+                                                {{ render(controller(
+                                                    'AdminBundle:PartialPage:siteFormManyFieldsRow',
+                                                    {'field' : site_form_field_setting}
+                                                    ))
+                                                }}
+                                                {% set row_set = row_set|merge([site_form_field_setting.inRow]) %}
+                                            {% else %}
+                                                {{ render(controller(
+                                                    'AdminBundle:PartialPage:siteFormFieldRow',
+                                                    {'field' : site_form_field_setting}
+                                                    ))
+                                                }}
+                                            {% endif %}                                        
+                                        {% endif %}                                        
+                                    {% endfor %}
+                                    {# {{ dump(row_set) }} #}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>  
+                    </div>  
+                </div>
+
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div class="add-field-form-block">
+                            {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+                                <table class="add-form" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                ajouter des champs personnalisés ({{ custom_field_allowed }} maximum)
+                                                <input type="hidden" name="custom-field-allowed" value="{{ custom_field_allowed }}">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+                                                {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+                                                    <a class="add-field-link-declaration" href="#">ajouter un champ</a>
+                                                {% endif %}
+                                            </td>                                       
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="add-field-form-container"></div>
+                                                <div class="add-field-form template" style="display:none">
+                                                    <div>
+                                                        <label>intitulé du champ</label>
+                                                        <input class="input-field-label" type="text">
+                                                    </div>
+                                                    <div>
+                                                        <input class="cl3-row" class="checkbox-mandatory" type="checkbox">
+                                                        <label>
+                                                            rendre obligatoire
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="select-field-type-container">
+                                                        <label>type de champ</label>
+                                                        <select class="select-field-type">
+                                                            {% if field_type_list is defined and field_type_list is not empty %}
+                                                                {% for key, field_type in field_type_list %}
+                                                                    <option value="{{ key }}">{{ field_type }}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                        <div class="select-field-option-container" style="display:none">
+                                                            <span>Options</span>
+                                                            <div class="add-option-field template" style="display:none">
+                                                                <input class="input-option" type="text">
+                                                                <a class="remove-option-field-link" href="#">Supprimer</a>
+                                                            </div>
+                                                            <div class="option-container"></div>
+                                                            <a class="add-option-link" href="#">ajouter option</a>
+                                                        </div>
+                                                    </div>
+                                                    <a class="remove-field-form-link" href="#">Supprimer</a>
+                                                </div>
+                                            </td>                                            
+                                        </tr>
+                                    </tbody>                                        
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div class="validation">
+                            {{ form_start(form_structure_form) }}
+                                {{ form_widget(form_structure_form) }}
+                                <button class ="btn-valider valider">
+                                    Valider
+                                </button>
+                            {{ form_end(form_structure_form) }}
+                             <button class ="btn-valider btn-next-product">
+                                Paramétrer le produit 2
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <div class = "row separator"></div>
+</main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+            <script>
+                CKEDITOR.replace( 'editor', {
+                        language: 'fr',
+                        uiColor: '#9AB8F3',
+                        height: 150,
+                        width: 600,
+                        customConfig: "{{ asset('ckeditor/custom/config-header-declaration.js') }}",
+                    });             
+
+                //supprimer champs
+                $('.delele-field-row-link').on('click', function(e){
+                    e.preventDefault();
+
+                    var form_field_row = $(this).parents('.form-field-row');
+                    var field_id = form_field_row.attr('data-field-id');
+                    var delete_field_action_input = $('#form_structure_declaration_delete-field-action-list');
+
+                    var current_delete_field_action_list = delete_field_action_input.val();
+                    var new_delete_field_action_list = '';
+                    
+                    if("" == current_delete_field_action_list.trim() || "undefined" == typeof current_delete_field_action_list)
+                    {
+                        new_delete_field_action_list = field_id;
+                    }
+                    else
+                    {
+                        new_delete_field_action_list = current_delete_field_action_list + ',' + field_id;
+                    }
+                    delete_field_action_input.val(new_delete_field_action_list);
+                    $(this).parents('.form-field-row').remove();
+                });
+
+                $(".btn-valider.valider").on('click',function(e){
+                    e.preventDefault();
+
+                    if($('input[name=validate]').is(':checked'))
+                        $("#form_structure_declaration_validation-required").val(1);
+                    else
+                        $("#form_structure_declaration_validation-required").val(0);
+
+                    if($('input[name=piece_request]').is(':checked'))
+                        $("#form_structure_declaration_pieces-required").val(1);
+                    else
+                        $("#form_structure_declaration_pieces-required").val(0);
+
+                    if($('input[name=header]').is(':checked')) {
+                        $("#form_structure_declaration_text-head-required").val(1);
+                        var data = CKEDITOR.instances.editor.getData();
+                        $("#form_structure_declaration_text-head").val(data);
+                    }
+                    else
+                        $("#form_structure_declaration_text-head-required").val(0);
+                    
+                    // Statut des champs : A publier ET obligatoire
+                    var form_field_row_list = $('.form-field-row');
+                    var form_structure_current_field = [];
+                    form_field_row_list.each(function(){
+                        var published_state = $(this).find('.form-field-published').is(":checked") ? true : false;
+                        var mandatory_state = $(this).find('.form-field-mandatory').is(":checked") ? true : false;
+                        var form_structure_el = {
+                            "id": $(this).attr('data-field-id'),
+                            "published": published_state,
+                            "mandatory": mandatory_state
+                        };
+                        form_structure_current_field.push(form_structure_el);
+                    });
+                    $('#form_structure_declaration_current-field-list').val(JSON.stringify(form_structure_current_field));
+
+                    // Données des nouveaux champs
+                    var new_field_datas_list = [];
+                    var empty_label_state = false;
+                    var field_type_with_choice = ['choice-radio'];
+
+                    if($('.add-field-form-block').find('.add-field-form').length > 0)
+                    {
+                        var add_field_form_list = $('.add-field-form-block').find('.add-field-form-container').find('.add-field-form');
+                        add_field_form_list.each(function(){
+                            var new_field_label = $(this).find('.input-field-label');
+                            if('' != new_field_label.val().trim())
+                            {
+                                var new_field_datas_el = {
+                                    "label": $(this).find('.input-field-label').val(),
+                                    "mandatory": $(this).find('.checkbox-mandatory').is(":checked") ? true : false,
+                                    "field_type": $(this).find('.select-field-type').val()
+                                };
+
+                                if(field_type_with_choice.indexOf($(this).find('.select-field-type').val()) >= 0)
+                                {
+                                    if(
+                                        $(this).find('.select-field-type-container')
+                                            .find('.select-field-option-container')
+                                            .find('.option-container')
+                                            .find('.add-option-field')
+                                            .length > 0
+                                    ) {
+                                        var option_list = $(this).find('.select-field-type-container')
+                                            .find('.select-field-option-container')
+                                            .find('.option-container')
+                                            .find('.add-option-field')
+                                            .find('.input-option');
+                                        var option_value = {};
+                                        option_list.each(function(){
+                                            if('' != $(this).val().trim())
+                                            {
+                                                option_value[$(this).val()] = $(this).val();
+                                            }
+                                        });
+                                        new_field_datas_el["choices"] = option_value;
+                                    }
+                                }
+
+                                new_field_datas_list.push(new_field_datas_el);
+                            }
+                            else
+                            {
+                                empty_label_state = true;
+                            }
+                        });
+                    }
+                    $('#form_structure_declaration_new-field-list').val(JSON.stringify(new_field_datas_list));
+                    
+                    // Ordonnancement des champs
+                    var field_list = $('.sortable-table').find('tbody').find('tr.form-field-row');
+                    var field_list_order = [];
+                    if(field_list.length > 0)
+                    {
+                        field_list.each(function(){
+                            field_list_order.push($(this).attr('data-field-id'));
+                        });
+                    }
+                    $('#form_structure_declaration_field-order').val(JSON.stringify(field_list_order));
+
+                     $(this).parents().find('form').submit();
+                    // console.log($(this).parents().find('form').serialize());
+                });
+
+                // Ajout nouveau formulaire d'ajout de champ
+                var nb_added = 0;
+                $('.add-field-link-declaration').on('click', function(e){
+                    e.preventDefault();
+
+                    var custom_field_allowed = $("input[name=custom-field-allowed]").val();
+                    if($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length < custom_field_allowed)
+                    {
+                        var new_add_field_form = $(this).parents('.add-field-form-block').find('.add-field-form.template').clone();
+                        new_add_field_form.removeClass('template');
+                        nb_added++;
+                        new_add_field_form.find('.cl3-row').attr('id','cl3-row'+'-'+nb_added);
+                        new_add_field_form.find('.cl3-row+label').attr('for','cl3-row'+'-'+nb_added);
+                        $(this).parents('.add-field-form-block').find('.add-field-form-container').append(new_add_field_form);
+                        new_add_field_form.show();
+                    }
+                    else
+                    {
+                        alert(custom_field_allowed+' nouveau(x) champ(s) maximum');
+                    }
+                });
+                $('.add-field-link-declaration').click().click();
+
+            </script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

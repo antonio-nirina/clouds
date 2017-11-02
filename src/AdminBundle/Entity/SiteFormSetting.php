@@ -35,6 +35,16 @@ class SiteFormSetting
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
+    private $has_pieces;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $has_head_text;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
     private $notification;
 
     /**
@@ -51,6 +61,11 @@ class SiteFormSetting
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $header_image;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $head_text;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -362,5 +377,77 @@ class SiteFormSetting
     public function getCustomFieldAllowed()
     {
         return $this->custom_field_allowed;
+    }
+
+    /**
+     * Set hasPieces
+     *
+     * @param boolean $hasPieces
+     *
+     * @return SiteFormSetting
+     */
+    public function setHasPieces($hasPieces)
+    {
+        $this->has_pieces = $hasPieces;
+
+        return $this;
+    }
+
+    /**
+     * Get hasPieces
+     *
+     * @return boolean
+     */
+    public function getHasPieces()
+    {
+        return $this->has_pieces;
+    }
+
+    /**
+     * Set hasHeadText
+     *
+     * @param boolean $hasHeadText
+     *
+     * @return SiteFormSetting
+     */
+    public function setHasHeadText($hasHeadText)
+    {
+        $this->has_head_text = $hasHeadText;
+
+        return $this;
+    }
+
+    /**
+     * Get hasHeadText
+     *
+     * @return boolean
+     */
+    public function getHasHeadText()
+    {
+        return $this->has_head_text;
+    }
+
+    /**
+     * Set headText
+     *
+     * @param string $headText
+     *
+     * @return SiteFormSetting
+     */
+    public function setHeadText($headText)
+    {
+        $this->head_text = $headText;
+
+        return $this;
+    }
+
+    /**
+     * Get headText
+     *
+     * @return string
+     */
+    public function getHeadText()
+    {
+        return $this->head_text;
     }
 }
