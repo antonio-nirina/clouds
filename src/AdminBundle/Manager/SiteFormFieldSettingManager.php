@@ -133,7 +133,6 @@ class SiteFormFieldSettingManager
             foreach ($default_fields as $field) {
                 $field_clone = clone $field;
                 $field_clone->setLevel($level);
-                dump($field_clone);
                 $this->em->persist($field_clone);
             }
 
