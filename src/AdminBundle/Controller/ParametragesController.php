@@ -15,6 +15,7 @@ use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Form\FormStructureType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Form\RegistrationImportType;
+use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 
 /**
  * @Route("/admin/parametrages")
@@ -187,16 +188,38 @@ class ParametragesController extends Controller
      */
     public function importsAction(Request $request)
     {
-        $registration_form = $this->createForm(RegistrationImportType::class);
-        $registration_form->handleRequest($request);
-        if ($registration_form->isSubmitted() && $registration_form->isValid()) {
-            $import_file = $registration_form->getData()["registration_data"];
-            $this->get('AdminBundle\Service\ImportExport\RegistrationHandler')->import($import_file);
-            die();
+        $em = $this->getDoctrine()->getManager();
+        $programs = $em->getRepository(Program::class)->findAll();
+        if (empty($programs) || is_null($programs[0])) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $program = $programs[0];
+        $registration_site_form_setting = $em->getRepository('AdminBundle\Entity\SiteFormSetting')
+            ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
+        if (is_null($registration_site_form_setting)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $registration_import_form = $this->createForm(RegistrationImportType::class);
+        $registration_import_form->handleRequest($request);
+        if ($registration_import_form->isSubmitted() && $registration_import_form->isValid()) {
+            $import_file = $registration_import_form->getData()["registration_data"];
+            $registration_handler = $this->get('AdminBundle\Service\ImportExport\RegistrationHandler');
+            $registration_handler->setSiteFormSetting($registration_site_form_setting);
+            $registration_handler->import($import_file);
+
+            if (!empty($registration_handler->getErrorList())) {
+                $error_list = $registration_handler->getErrorList();
+                dump($error_list);
+            } else {
+                echo "OOOOOkkkk!!";
+            }
+
+            die;
         }
 
         return $this->render('AdminBundle:Parametrages:Imports.html.twig', array(
-            'registration_form' => $registration_form->createView(),
+            'registration_form' => $registration_import_form->createView(),
         ));
     }
 

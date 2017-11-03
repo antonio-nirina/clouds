@@ -45,6 +45,12 @@ class RegistrationModel
 
     private $container;
 
+    private $save_path;
+
+    private $title_list;
+    private $title_row_index_list;
+    private $header_row_index_list;
+
     public function __construct(PHPExcelFactory $factory, EntityManager $em, ContainerInterface $container)
     {
         $this->php_excel = $factory;
@@ -58,6 +64,10 @@ class RegistrationModel
         $this->user_header_list = array();
 
         $this->container = $container;
+
+        $this->title_list = array();
+        $this->title_row_index_list = array();
+        $this->header_row_index_list = array();
     }
 
     public function getCompanyHeaderList()
@@ -89,15 +99,18 @@ class RegistrationModel
     {
         $this->php_excel_object->setActiveSheetIndex(0)
             ->setCellValueByColumnAndRow($this->current_col, $this->current_row, self::COMPANY_INFOS_TITLE);
+        array_push($this->title_list, self::COMPANY_INFOS_TITLE);
+        array_push($this->title_row_index_list, $this->current_row);
         $this->current_row++;
 
         $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_NAME);
         $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS);
         $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_POSTAL_CODE);
         $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_CITY);
+        array_push($this->header_row_index_list, $this->current_row); // to save company data headers row index
 
-        $this->php_excel_object->setActiveSheetIndex(0)
-            ->mergeCellsByColumnAndRow(0, $this->current_row - 1, $this->current_col - 1, $this->current_row - 1);
+//        $this->php_excel_object->setActiveSheetIndex(0)
+//            ->mergeCellsByColumnAndRow(0, $this->current_row - 1, $this->current_col - 1, $this->current_row - 1);
     }
 
     private function createUserInfoBlock()
@@ -106,6 +119,8 @@ class RegistrationModel
         $this->current_row += 2;
         $this->php_excel_object->setActiveSheetIndex(0)
             ->setCellValueByColumnAndRow($this->current_col, $this->current_row, self::USER_INFOS_TITLE);
+        array_push($this->title_list, self::USER_INFOS_TITLE);
+        array_push($this->title_row_index_list, $this->current_row);
         $this->current_row++;
 
         $this->createInfoElement(SpecialFieldIndex::USER_NAME);
@@ -115,12 +130,14 @@ class RegistrationModel
         $this->createInfoElement(SpecialFieldIndex::USER_PRO_EMAIL);
         $this->createInfoElement(SpecialFieldIndex::USER_PHONE);
         $this->createInfoElement(SpecialFieldIndex::USER_MOBILE_PHONE);
+        array_push($this->header_row_index_list, $this->current_row); // to save user data headers row index
 
         $this->addBlankRow();
     }
 
     private function createInfoElement($special_field_index)
     {
+        // /!\ NEED TO ADD "SITE FORM" PARAMETER, to distinguish which form is used, which form is connected to fields
         $field = $this->em->getRepository(SiteFormFieldSetting::class)
             ->findOneBy(
                 array(
@@ -170,6 +187,27 @@ class RegistrationModel
     {
         $writer = $this->create();
         $save_path = $this->container->getParameter("registration_model_dir").'/'.self::FILE_NAME_AND_EXT;
+        $this->save_path = $save_path;
         $writer->save($save_path);
+    }
+
+    public function getSavePath()
+    {
+        return $this->save_path;
+    }
+
+    public function getTitleList()
+    {
+        return $this->title_list;
+    }
+
+    public function getTitleRowIndexList()
+    {
+        return $this->title_row_index_list;
+    }
+
+    public function getHeaderRowIndexList()
+    {
+        return $this->header_row_index_list;
     }
 }

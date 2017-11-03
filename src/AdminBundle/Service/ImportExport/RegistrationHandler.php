@@ -6,6 +6,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Liuggio\ExcelBundle\Factory as PHPExcelFactory;
 use AdminBundle\Service\ImportExport\RegistrationModel;
 use Symfony\Component\Filesystem\Filesystem;
+use AdminBundle\Service\FileHandler\CSVHandler;
+use AdminBundle\Service\ImportExport\RegistrationSchemaChecker;
+use AdminBundle\Entity\SiteFormSetting;
 
 class RegistrationHandler
 {
@@ -15,18 +18,30 @@ class RegistrationHandler
     private $php_excel;
     private $model;
     private $filesystem;
+    private $csv_handler;
+    private $schema_checker;
+    private $site_form_setting;
 
     public function __construct(
         ContainerInterface $container,
         PHPExcelFactory $php_excel,
         RegistrationModel $model,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        CSVHandler $csv_handler,
+        SchemaChecker $schema_checker
     ) {
         $this->container = $container;
         $this->php_excel = $php_excel;
         $this->model = $model;
         $this->filesystem = $filesystem;
         $this->error_list = array();
+        $this->csv_handler = $csv_handler;
+        $this->schema_checker = $schema_checker;
+    }
+
+    public function getErrorList()
+    {
+        return $this->error_list;
     }
 
     public function import(UploadedFile $file)
@@ -34,46 +49,18 @@ class RegistrationHandler
         $this->uploadImportFile($file);
         $file_path = $this->container->getParameter('registration_import_file_upload_dir')
             . '/' . $file->getClientOriginalName();
-        $file = fopen($file_path, "r");
-
-        $data = array();
-        while ($rec = fgetcsv($file)) {
-            $data[] = $rec;
-        }
+        $array_import_file = $this->csv_handler->createArray($file_path);
 
         $this->model->save();
-        $model_path = $this->container->getParameter("registration_model_dir")
-            .'/'.($this->model)::FILE_NAME_AND_EXT;
-        $model_file = fopen($model_path, "r");
-        $model_data = array();
-        while ($rec = fgetcsv($model_file)) {
-            $model_data[] = $rec;
+        $this->schema_checker->setSiteFormSetting($this->site_form_setting);
+        $error_list = $this->schema_checker->check($this->model, $array_import_file);
+        if (!empty($error_list)) {
+            $this->error_list = $error_list;
+        } else {
+            // <-- importing datas here -->
         }
-        dump($model_data);
-
-        fo
-
 
         $this->removeFile($file_path);
-        $this->removeFile($model_path);
-    }
-
-    private function testBlankRow($worksheet, $row, $max_col)
-    {
-        for ($i = 0; $i <= $max_col; $i++) {
-            if (!is_null($worksheet->getCellByColumnAndRow($i, $row)->getValue())) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function reportError($col, $row)
-    {
-        $string_position = \PHPExcel_Cell::stringFromColumnIndex($col) . $row;
-        $error_message = 'Ligne:'.$row.';Col:'.($col+1).' ('.$string_position.')';
-        array_push($this->error_list, $error_message);
     }
 
     private function uploadImportFile(UploadedFile $file)
@@ -91,5 +78,8 @@ class RegistrationHandler
         }
     }
 
-
+    public function setSiteFormSetting(SiteFormSetting $site_form_setting)
+    {
+        $this->site_form_setting = $site_form_setting;
+    }
 }

@@ -4,7 +4,7 @@ namespace AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\SiteFormFieldSettingRepository")
  * @ORM\Table(name="site_form_field_setting")
  */
 class SiteFormFieldSetting
