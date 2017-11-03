@@ -9,6 +9,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\FileHandler\CSVHandler;
 use AdminBundle\Service\ImportExport\RegistrationSchemaChecker;
 use AdminBundle\Entity\SiteFormSetting;
+use AdminBundle\Service\ImportExport\RegistrationImporter;
 
 class RegistrationHandler
 {
@@ -20,6 +21,7 @@ class RegistrationHandler
     private $filesystem;
     private $csv_handler;
     private $schema_checker;
+    private $importer;
     private $site_form_setting;
 
     public function __construct(
@@ -28,7 +30,8 @@ class RegistrationHandler
         RegistrationModel $model,
         Filesystem $filesystem,
         CSVHandler $csv_handler,
-        SchemaChecker $schema_checker
+        RegistrationSchemaChecker $schema_checker,
+        RegistrationImporter $importer
     ) {
         $this->container = $container;
         $this->php_excel = $php_excel;
@@ -37,6 +40,7 @@ class RegistrationHandler
         $this->error_list = array();
         $this->csv_handler = $csv_handler;
         $this->schema_checker = $schema_checker;
+        $this->importer = $importer;
     }
 
     public function getErrorList()
@@ -47,20 +51,24 @@ class RegistrationHandler
     public function import(UploadedFile $file)
     {
         $this->uploadImportFile($file);
-        $file_path = $this->container->getParameter('registration_import_file_upload_dir')
+        $import_file_path = $this->container->getParameter('registration_import_file_upload_dir')
             . '/' . $file->getClientOriginalName();
-        $array_import_file = $this->csv_handler->createArray($file_path);
+        $array_import_file = $this->csv_handler->createArray($import_file_path);
 
         $this->model->save();
         $this->schema_checker->setSiteFormSetting($this->site_form_setting);
         $error_list = $this->schema_checker->check($this->model, $array_import_file);
         if (!empty($error_list)) {
             $this->error_list = $error_list;
+            dump($this->error_list);
         } else {
-            // <-- importing datas here -->
+            $this->importer->setSiteFormSetting($this->site_form_setting);
+            $this->importer->importData($this->model, $array_import_file);
         }
+        $this->removeFile($import_file_path);
 
-        $this->removeFile($file_path);
+        die();
+        return;
     }
 
     private function uploadImportFile(UploadedFile $file)

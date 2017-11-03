@@ -210,12 +210,11 @@ class ParametragesController extends Controller
 
             if (!empty($registration_handler->getErrorList())) {
                 $error_list = $registration_handler->getErrorList();
-                dump($error_list);
+                // show errors
             } else {
                 echo "OOOOOkkkk!!";
+                // redirect to target page
             }
-
-            die;
         }
 
         return $this->render('AdminBundle:Parametrages:Imports.html.twig', array(

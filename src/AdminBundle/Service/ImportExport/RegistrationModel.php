@@ -17,9 +17,7 @@ class RegistrationModel
     private $current_col;
 
     const WRITER_TYPE = "CSV";
-//    const WRITER_TYPE = "Excel5";
     const FILE_NAME_AND_EXT = "modele.csv";
-//    const FILE_NAME_AND_EXT = "modele.xls";
     const COMPANY_INFOS_TITLE = "Coordonnées de la société";
     const USER_INFOS_TITLE = "Coordonnées du bénéficiaire";
 

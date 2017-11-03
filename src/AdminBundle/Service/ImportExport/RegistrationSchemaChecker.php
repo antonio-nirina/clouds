@@ -149,9 +149,7 @@ class RegistrationSchemaChecker extends SchemaChecker
 
     public function check($model, $data)
     {
-        $this->model = $model;
-        $this->array_model = $this->csv_handler->createArray($this->model->getSavePath());
-        $this->array_data = $data;
+        parent::check($model, $data);
 
         if (array_key_exists(0, $this->model->getTitleRowIndexList())
             and array_key_exists(1, $this->model->getTitleRowIndexList())
@@ -173,7 +171,6 @@ class RegistrationSchemaChecker extends SchemaChecker
             return $this->error_list;
         }
 
-        $this->data_size = sizeof($this->array_data);
         if ($this->data_size <= 0) {
             $this->addError(self::ERROR_WRONG_GENERAL_STRUCTURE);
             return $this->error_list;
@@ -188,6 +185,9 @@ class RegistrationSchemaChecker extends SchemaChecker
             return $this->error_list;
         }
 
+        // increasing $row_index
+        // to find if another data after valid schema
+        // add ERROR_INVALID_DATA if other data found
         if ($this->increaseRowIndex()) {
             $this->increaseRowIndexToNextNotBlankRow();
             if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {

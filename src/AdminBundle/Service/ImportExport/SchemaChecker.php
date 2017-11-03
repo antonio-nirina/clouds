@@ -2,6 +2,7 @@
 namespace AdminBundle\Service\ImportExport;
 
 use AdminBundle\Service\FileHandler\CSVHandler;
+use AdminBundle\Service\FileHandler\CSVFileContentBrowser;
 use AdminBundle\Entity\SiteFormSetting;
 use Doctrine\ORM\EntityManager;
 use AdminBundle\Component\SiteForm\FieldType;
@@ -9,17 +10,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Constraints\Email;
 
-abstract class SchemaChecker
+class SchemaChecker extends CSVFileContentBrowser
 {
-    protected $model;
-    protected $array_model;
-    protected $array_data;
-    protected $csv_handler;
     protected $error_list;
     protected $site_form_setting;
     protected $manager;
-    protected $row_index;
-    protected $data_size;
     protected $validator;
 
     const ERROR_SCHEMA_CHECKER_INTERNAL_ERROR = "Erreur interne, vérification du dessin d'enregistrement";
@@ -34,10 +29,11 @@ abstract class SchemaChecker
 
     public function __construct(CSVHandler $csv_handler, EntityManager $manager, ValidatorInterface $validator)
     {
+        parent::__construct($csv_handler);
+
         $this->csv_handler = $csv_handler;
         $this->manager = $manager;
         $this->error_list = array();
-        $this->row_index = 0;
         $this->validator = $validator;
     }
 
@@ -188,24 +184,9 @@ abstract class SchemaChecker
         return array();
     }
 
-    protected function increaseRowIndex()
+    public function check($model, $data)
     {
-        if ($this->row_index < ($this->data_size-1)) {
-            $this->row_index++;
-            return true;
-        } else {
-            return false;
-        }
+        $this->addData($model, $data);
+        return $this->error_list;
     }
-
-    protected function increaseRowIndexToNextNotBlankRow()
-    {
-        while ($this->csv_handler->isBlankRow($this->array_data[$this->row_index])
-            and $this->row_index < $this->data_size
-        ) {
-            $this->row_index++;
-        }
-    }
-
-    abstract public function check($model, $data);
 }

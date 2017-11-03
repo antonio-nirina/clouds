@@ -37,6 +37,16 @@ class ProgramUserCompany
     private $city;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $customization;
+
+    /**
      * Get id
      *
      * @return integer
@@ -140,5 +150,53 @@ class ProgramUserCompany
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return ProgramUserCompany
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set customization
+     *
+     * @param array $customization
+     *
+     * @return ProgramUserCompany
+     */
+    public function setCustomization($customization)
+    {
+        $this->customization = $customization;
+
+        return $this;
+    }
+
+    /**
+     * Get customization
+     *
+     * @return array
+     */
+    public function getCustomization()
+    {
+        return $this->customization;
     }
 }
