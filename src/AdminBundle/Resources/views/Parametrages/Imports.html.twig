@@ -39,6 +39,19 @@
 						<div class = "col-12 col-md-12 col-lg-12">
 							<ul class = "content-option">
 								<li class = "options">
+                                    {% for message in app.flashes('success_message') %}
+									<div class="flash-notice">
+										{{ message }}
+									</div>
+                                    {% endfor %}
+
+                                    {% if error_list is defined and error_list is not empty %}
+									<div>
+										{% for error in error_list %}
+										<span>{{ error }}</span>
+										{% endfor %}
+									</div>
+                                    {% endif %}
 									<div class = "content-titre">
 										Pour commencer votre programme aujourd'hui. Choisissez une option :
 									</div>

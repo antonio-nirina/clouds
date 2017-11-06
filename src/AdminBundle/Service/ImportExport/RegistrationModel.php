@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class RegistrationModel
 {
@@ -15,6 +16,7 @@ class RegistrationModel
     private $em;
     private $current_row;
     private $current_col;
+    private $filesystem;
 
     const WRITER_TYPE = "CSV";
     const FILE_NAME_AND_EXT = "modele.csv";
@@ -49,8 +51,12 @@ class RegistrationModel
     private $title_row_index_list;
     private $header_row_index_list;
 
-    public function __construct(PHPExcelFactory $factory, EntityManager $em, ContainerInterface $container)
-    {
+    public function __construct(
+        PHPExcelFactory $factory,
+        EntityManager $em,
+        ContainerInterface $container,
+        Filesystem $filesystem
+    ) {
         $this->php_excel = $factory;
         $this->php_excel_object = $this->php_excel->createPHPExcelObject();
         $this->em = $em;
@@ -62,6 +68,7 @@ class RegistrationModel
         $this->user_header_list = array();
 
         $this->container = $container;
+        $this->filesystem = $filesystem;
 
         $this->title_list = array();
         $this->title_row_index_list = array();
@@ -187,6 +194,16 @@ class RegistrationModel
         $save_path = $this->container->getParameter("registration_model_dir").'/'.self::FILE_NAME_AND_EXT;
         $this->save_path = $save_path;
         $writer->save($save_path);
+    }
+
+    public function removeSavedFile()
+    {
+        $file_path = $this->container->getParameter("registration_model_dir").'/'.self::FILE_NAME_AND_EXT;
+        if ($this->filesystem->exists($file_path)) {
+            $this->filesystem->remove($file_path);
+        }
+
+        return;
     }
 
     public function getSavePath()

@@ -9,7 +9,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\FileHandler\CSVHandler;
 use AdminBundle\Service\ImportExport\RegistrationSchemaChecker;
 use AdminBundle\Entity\SiteFormSetting;
-use AdminBundle\Service\ImportExport\RegistrationImporter;
 
 class RegistrationHandler
 {
@@ -60,15 +59,17 @@ class RegistrationHandler
         $error_list = $this->schema_checker->check($this->model, $array_import_file);
         if (!empty($error_list)) {
             $this->error_list = $error_list;
-            dump($this->error_list);
+            $this->removeFile($import_file_path);
+            $this->model->removeSavedFile();
+            return $this->error_list;
         } else {
             $this->importer->setSiteFormSetting($this->site_form_setting);
             $this->importer->importData($this->model, $array_import_file);
         }
         $this->removeFile($import_file_path);
+        $this->model->removeSavedFile();
 
-        die();
-        return;
+        return $this->error_list;
     }
 
     private function uploadImportFile(UploadedFile $file)
@@ -77,6 +78,8 @@ class RegistrationHandler
             $this->container->getParameter('registration_import_file_upload_dir'),
             $file->getClientOriginalName()
         );
+
+        return;
     }
 
     private function removeFile($file_path)
@@ -84,10 +87,14 @@ class RegistrationHandler
         if ($this->filesystem->exists($file_path)) {
             $this->filesystem->remove($file_path);
         }
+
+        return;
     }
 
     public function setSiteFormSetting(SiteFormSetting $site_form_setting)
     {
         $this->site_form_setting = $site_form_setting;
+
+        return;
     }
 }

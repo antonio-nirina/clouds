@@ -17,7 +17,7 @@ class ProgramUser
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User", inversedBy="program_user")
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User", inversedBy="program_user", cascade={"persist"})
      */
     private $app_user;
 
@@ -35,6 +35,11 @@ class ProgramUser
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Role", inversedBy="program_users")
      */
     private $role;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ProgramUserCompany", inversedBy="program_users", cascade={"persist"})
+     */
+    private $program_user_company;
 
     /**
      * Get id
@@ -140,5 +145,29 @@ class ProgramUser
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Set programUserCompany
+     *
+     * @param \AdminBundle\Entity\ProgramUserCompany $programUserCompany
+     *
+     * @return ProgramUser
+     */
+    public function setProgramUserCompany(\AdminBundle\Entity\ProgramUserCompany $programUserCompany = null)
+    {
+        $this->program_user_company = $programUserCompany;
+
+        return $this;
+    }
+
+    /**
+     * Get programUserCompany
+     *
+     * @return \AdminBundle\Entity\ProgramUserCompany
+     */
+    public function getProgramUserCompany()
+    {
+        return $this->program_user_company;
     }
 }

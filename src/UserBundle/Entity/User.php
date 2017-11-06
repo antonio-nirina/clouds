@@ -9,6 +9,56 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\AttributeOverrides({
+ *  @ORM\AttributeOverride(name="username",
+ *     column=@ORM\Column(
+ *          name="username",
+ *          type="string",
+ *          length=180,
+ *          nullable=true
+ *     )
+ * ),
+ *  @ORM\AttributeOverride(name="usernameCanonical",
+ *     column=@ORM\Column(
+ *          name="username_canonical",
+ *          type="string",
+ *          length=180,
+ *          unique=true,
+ *          nullable=true
+ *     )
+ * ),
+ *  @ORM\AttributeOverride(name="email",
+ *     column=@ORM\Column(
+ *          name="email",
+ *          type="string",
+ *          length=180,
+ *          nullable=true
+ *     )
+ * ),
+ *  @ORM\AttributeOverride(name="emailCanonical",
+ *     column=@ORM\Column(
+ *          name="email_canonical",
+ *          type="string",
+ *          length=180,
+ *          unique=true,
+ *          nullable=true
+ *     )
+ * ),
+ *  @ORM\AttributeOverride(name="enabled",
+ *     column=@ORM\Column(
+ *          name="enabled",
+ *          type="boolean",
+ *          nullable=true
+ *     )
+ * ),
+ *  @ORM\AttributeOverride(name="password",
+ *     column=@ORM\Column(
+ *          name="password",
+ *          type="string",
+ *          nullable=true
+ *     )
+ * ),
+ * })
  */
 class User extends BaseUser
 {
@@ -53,6 +103,11 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=5, nullable=true)
      */
     protected $civility;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $pro_email;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
@@ -460,5 +515,29 @@ class User extends BaseUser
     public function getCustomization()
     {
         return $this->customization;
+    }
+
+    /**
+     * Set proEmail
+     *
+     * @param string $proEmail
+     *
+     * @return User
+     */
+    public function setProEmail($proEmail)
+    {
+        $this->pro_email = $proEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get proEmail
+     *
+     * @return string
+     */
+    public function getProEmail()
+    {
+        return $this->pro_email;
     }
 }

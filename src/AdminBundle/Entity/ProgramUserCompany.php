@@ -47,6 +47,11 @@ class ProgramUserCompany
     private $customization;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="program_user_company", cascade={"persist"})
+     */
+    private $program_users;
+
+    /**
      * Get id
      *
      * @return integer
@@ -198,5 +203,46 @@ class ProgramUserCompany
     public function getCustomization()
     {
         return $this->customization;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->programUsers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add programUser
+     *
+     * @param \AdminBundle\Entity\ProgramUser $programUser
+     *
+     * @return ProgramUserCompany
+     */
+    public function addProgramUser(\AdminBundle\Entity\ProgramUser $programUser)
+    {
+        $this->programUsers[] = $programUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove programUser
+     *
+     * @param \AdminBundle\Entity\ProgramUser $programUser
+     */
+    public function removeProgramUser(\AdminBundle\Entity\ProgramUser $programUser)
+    {
+        $this->program_users->removeElement($programUser);
+    }
+
+    /**
+     * Get programUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProgramUsers()
+    {
+        return $this->program_users;
     }
 }
