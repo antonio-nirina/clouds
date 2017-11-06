@@ -111,66 +111,19 @@ class ParametragesController extends Controller
         $form_structure_form = $this->createForm(FormStructureType::class);
         $form_structure_form->handleRequest($request);
         if ($form_structure_form->isSubmitted() && $form_structure_form->isValid()) {
-            $field_order = json_decode($form_structure_form->getData()['field-order']);
-            $field_order = array_flip($field_order);
+            $fields_manager = $this->container->get('admin.form_field_manager');
 
-            $current_field_list = json_decode($form_structure_form->getData()['current-field-list']);
-            if (!is_null($current_field_list)) {
-                foreach ($current_field_list as $field_data) {
-                    $field = $em->getRepository(SiteFormFieldSetting::class)->findOneById(intval($field_data->id));
-                    if (!is_null($field)) {
-                        $field->setPublished(boolval($field_data->published));
-                        $field->setMandatory(boolval($field_data->mandatory));
-                        if (array_key_exists($field->getId(), $field_order)) {
-                            $field->setFieldOrder($field_order[$field->getId()]);
-                        }
-                    }
-                }
-            }
+            $field_order = $form_structure_form->getData()['field-order'];
+            $current_field_list = $form_structure_form->getData()['current-field-list'];
+            $fields_manager->adjustFieldOrder($field_order, $current_field_list);
 
-            $new_field_list = json_decode($form_structure_form->getData()['new-field-list']);
-            if (!is_null($new_field_list)) {
-                foreach ($new_field_list as $new_field) {
-                    if (!is_null($site_form_setting)
-                        &&
-                        (
-                            is_int($site_form_setting->getCustomFieldAllowed())
-                            && $site_form_setting->getCustomFieldAllowed() > 0
-                        )
-                    ) {
-                        $field = new SiteFormFieldSetting();
-                        $field->setSiteFormSetting($site_form_setting)
-                                ->setFieldType($new_field->field_type)
-                                ->setMandatory(boolval($new_field->mandatory))
-                                ->setLabel($new_field->label)
-                                ->setFieldOrder(30); // big value, to put new field at the bottom
-                        if (array_key_exists('choices', $new_field)) {
-                            $choices = array_map('strval', (array)$new_field->choices);
-                            $choices = array_map('strval', array_flip($choices)); // VALUE is the same as KEY
-                            $add_data["choices"] = $choices;
-                            $field->setAdditionalData($add_data);
-                        }
-                        $site_form_setting->addSiteFormFieldSetting($field);
-                        $em->persist($field);
+            $new_field_list = $form_structure_form->getData()['new-field-list'];
+            $fields_manager->addNewFields($new_field_list, $site_form_setting);
 
-                        $site_form_setting->setCustomFieldAllowed(($site_form_setting->getCustomFieldAllowed()) - 1);
-                    }
-                }
-            }
+            $delete_field_list = $form_structure_form->getData()['delete-field-action-list'];
+            $fields_manager->deleteField($delete_field_list, $site_form_setting);
 
-            $field_to_delete_list = ('' != $form_structure_form->getData()['delete-field-action-list'])
-                                        ? explode(',', $form_structure_form->getData()['delete-field-action-list'])
-                                        : array();
-            if (!empty($field_to_delete_list)) {
-                foreach ($field_to_delete_list as $field_to_delete_id) {
-                    $field = $em->getRepository(SiteFormFieldSetting::class)->findOneById($field_to_delete_id);
-                    if (!is_null($field)) {
-                        $em->remove($field);
-                        $site_form_setting->setCustomFieldAllowed($site_form_setting->getCustomFieldAllowed() + 1);
-                    }
-                }
-            }
-            $em->flush();
+            $fields_manager->save();
 
             return $this->redirectToRoute('admin_parametrages_inscriptions');
         }
