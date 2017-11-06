@@ -108,6 +108,11 @@ class Program
     private $roles;
 
     /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\RegistrationFormData", inversedBy="program")
+     */
+    private $registration_form_data;
+
+    /**
      * @ORM\PrePersist
      */
     public function initProgram()
@@ -547,5 +552,29 @@ class Program
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Set registrationFormData
+     *
+     * @param \AdminBundle\Entity\RegistrationFormData $registrationFormData
+     *
+     * @return Program
+     */
+    public function setRegistrationFormData(\AdminBundle\Entity\RegistrationFormData $registrationFormData = null)
+    {
+        $this->registration_form_data = $registrationFormData;
+
+        return $this;
+    }
+
+    /**
+     * Get registrationFormData
+     *
+     * @return \AdminBundle\Entity\RegistrationFormData
+     */
+    public function getRegistrationFormData()
+    {
+        return $this->registration_form_data;
     }
 }

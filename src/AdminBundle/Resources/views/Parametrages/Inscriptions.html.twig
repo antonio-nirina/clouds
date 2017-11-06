@@ -31,6 +31,43 @@
 	
 	<div class = "row">
 		<div class = "col-12 col-md-12">
+            <section>
+                <div>
+                    <h5>Header du formulaire</h5>
+                    <div>
+                        {% if header_data_form is defined %}
+                            {{ form_start(header_data_form, {"attr": {"novalidate": "novalidate"}}) }}
+                        <div>
+                            {{ form_label(header_data_form.header_image, 'image') }}
+                            {{ form_widget(header_data_form.header_image, {"attr": {"class": "header-image-input"}}) }}
+                            {{ form_errors(header_data_form.header_image) }}
+                            <div>
+                                <p>Format optimal : 750 x 178 px</p>
+                                <p>les fichiers doivent peser moins de 8 Mo</p>
+                                <p>formats de fichier pris en charge : jpeg, png, gif</p>
+                            </div>
+                        </div>
+                        <div>
+                            {{ form_label(header_data_form.header_message, 'message') }}
+                            {{ form_widget(header_data_form.header_message, {"attr": {"class": "header-message-input"}}) }}
+                            {{ form_errors(header_data_form.header_message) }}
+                        </div>
+                        <div class="header-image-preview-container">
+                            <span> prévisualisation </span>
+                            {#{% if current_header_image is not null and current_header_image is not empty %}#}
+                            <span class="header-message-preview">{{ header_data_form.vars.value.headerMessage }}</span>
+                            <img class="header-image-preview-img" src="{{ asset(registration_header_image_location ~ '/' ~ current_header_image) }}">
+                            {#{% endif %}#}
+                        </div>
+                        <div>
+                            <input type="submit" value="valider">
+                        </div>
+                            {{ form_end(header_data_form) }}
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
 			<section id = "create-form-inscription" class = "fieldset active">
 				<div class = "content-bloc-droite">
 					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
@@ -241,6 +278,8 @@
 				<div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
 				</div>
 			</section>
+
+
 		</div>
 	</div>
 	
