@@ -76,6 +76,16 @@ class SiteFormFieldSetting
      */
     private $level;
 
+    /**
+     * @ORM\OneToOne(targetEntity="SiteFormFieldSetting")
+     */
+    private $confirmation_field;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_confirmation_field;
+
     public function __clone()
     {
         $this->id = null;
@@ -399,5 +409,53 @@ class SiteFormFieldSetting
     public function getLevel()
     {
         return $this->level;
+    }
+
+    /**
+     * Set confirmationField
+     *
+     * @param \AdminBundle\Entity\SiteFormFieldSetting $confirmationField
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setConfirmationField(\AdminBundle\Entity\SiteFormFieldSetting $confirmationField = null)
+    {
+        $this->confirmation_field = $confirmationField;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmationField
+     *
+     * @return \AdminBundle\Entity\SiteFormFieldSetting
+     */
+    public function getConfirmationField()
+    {
+        return $this->confirmation_field;
+    }
+
+    /**
+     * Set isConfirmationField
+     *
+     * @param boolean $isConfirmationField
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setIsConfirmationField($isConfirmationField)
+    {
+        $this->is_confirmation_field = $isConfirmationField;
+
+        return $this;
+    }
+
+    /**
+     * Get isConfirmationField
+     *
+     * @return boolean
+     */
+    public function getIsConfirmationField()
+    {
+        return $this->is_confirmation_field;
     }
 }

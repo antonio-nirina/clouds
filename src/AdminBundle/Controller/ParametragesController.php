@@ -107,7 +107,7 @@ class ParametragesController extends Controller
         }
         $program = $programs[0];
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
-            ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
+            ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
             return $this->redirectToRoute("fos_user_security_logout");
         }

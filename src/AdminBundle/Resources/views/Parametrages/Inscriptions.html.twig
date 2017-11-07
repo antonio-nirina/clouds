@@ -316,6 +316,7 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
+			<script src="{{ asset('js/admin-parameters-registration.js') }}"></script>
 			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 			<script>
                 CKEDITOR.replace( 'introduction_data_introduction_text_content', {

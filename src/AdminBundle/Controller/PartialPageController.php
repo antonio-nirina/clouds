@@ -9,6 +9,7 @@ class PartialPageController extends Controller
 {
     private $text_type;
     private $choice_type;
+    private $single_checkbox_type;
 
     public function __construct()
     {
@@ -18,12 +19,16 @@ class PartialPageController extends Controller
             FieldType::ALPHANUM_TEXT,
             FieldType::ALPHA_TEXT,
             FieldType::EMAIL,
+            FieldType::PASSWORD,
         );
         $this->choice_type = array(
             FieldType::CHOICE_RADIO,
         );
         $this->date_type = array(
             FieldType::DATE,
+        );
+        $this->single_checkbox_type = array(
+            FieldType::CHECKBOX,
         );
     }
 
@@ -44,6 +49,10 @@ class PartialPageController extends Controller
         } elseif (in_array($field->getFieldType(), $this->date_type)) {
             $template = 'AdminBundle:PartialPage/SiteFormField:date.html.twig';
             return $this->render($template, array(
+                'field' => $field,
+            ));
+        } elseif (in_array($field->getFieldType(), $this->single_checkbox_type)) {
+            return $this->render('AdminBundle:PartialPage/SiteFormField:checkbox.html.twig', array(
                 'field' => $field,
             ));
         }
