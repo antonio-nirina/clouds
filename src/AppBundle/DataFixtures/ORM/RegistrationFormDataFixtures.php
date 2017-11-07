@@ -10,10 +10,10 @@ class RegistrationFormDataFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $registration_form_data = new RegistrationFormData();
-        $registration_form_data->setHeaderImage("header_image.png")
+        $registration_form_data->setHeaderImage("")
             ->setHeaderMessage("CHALLENGE 2017")
-            ->setIntroductionTextTitle("Introduction text")
-            ->setIntroductionTextContent("This is the content");
+            ->setIntroductionTextTitle("formulaire d'inscription")
+            ->setIntroductionTextContent("Bienvenue sur le challenge 2017 !");
 
         $manager->persist($registration_form_data);
         $manager->flush();
