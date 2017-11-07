@@ -19,6 +19,7 @@ use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Form\RegistrationImportType;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 use AdminBundle\Form\RegistrationFormHeaderDataType;
+use AdminBundle\Form\RegistrationFormIntroDataType;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -118,13 +119,18 @@ class ParametragesController extends Controller
             return $this->redirectToRoute("fos_user_security_logout");
         }
         $current_header_image = $registration_form_data->getHeaderImage();
-        $registration_form_data->setHeaderImage('');
+        $registration_form_data->setHeaderImage("");
 
-        $form_factory = $this->get('form.factory');
+        $form_factory = $this->get("form.factory");
         $form_structure_form = $form_factory->createNamed("form_structure", FormStructureType::class);
         $header_data_form = $form_factory->createNamed(
             "header_data",
             RegistrationFormHeaderDataType::class,
+            $registration_form_data
+        );
+        $intro_data_form = $form_factory->createNamed(
+            "introduction_data",
+            RegistrationFormIntroDataType::class,
             $registration_form_data
         );
 
@@ -132,22 +138,22 @@ class ParametragesController extends Controller
             if ($request->request->has("form_structure")) {
                 $form_structure_form->handleRequest($request);
                 if ($form_structure_form->isSubmitted() && $form_structure_form->isValid()) {
-                    $fields_manager = $this->container->get('admin.form_field_manager');
+                    $fields_manager = $this->container->get("admin.form_field_manager");
 
-                    $field_order = $form_structure_form->getData()['field-order'];
+                    $field_order = $form_structure_form->getData()["field-order"];
 
-                    $current_field_list = $form_structure_form->getData()['current-field-list'];
+                    $current_field_list = $form_structure_form->getData()["current-field-list"];
                     $fields_manager->adjustFieldOrder($field_order, $current_field_list);
 
-                    $new_field_list = $form_structure_form->getData()['new-field-list'];
+                    $new_field_list = $form_structure_form->getData()["new-field-list"];
                     $fields_manager->addNewFields($new_field_list, $registration_site_form_setting);
 
-                    $delete_field_list = $form_structure_form->getData()['delete-field-action-list'];
+                    $delete_field_list = $form_structure_form->getData()["delete-field-action-list"];
                     $fields_manager->deleteField($delete_field_list, $registration_site_form_setting);
 
                     $fields_manager->save();
 
-                    return $this->redirectToRoute('admin_parametrages_inscriptions');
+                    return $this->redirectToRoute("admin_parametrages_inscriptions");
                 }
             }
 
@@ -157,7 +163,7 @@ class ParametragesController extends Controller
                     $header_image_file = $registration_form_data->getHeaderImage();
                     if (!is_null($header_image_file)) {
                         $header_image_file->move(
-                            $this->getParameter('registration_header_image_upload_dir'),
+                            $this->getParameter("registration_header_image_upload_dir"),
                             $header_image_file->getClientOriginalName()
                         );
                         $registration_form_data->setHeaderImage($header_image_file->getClientOriginalName());
@@ -167,18 +173,29 @@ class ParametragesController extends Controller
 
                     $em->flush();
 
-                    return $this->redirectToRoute('admin_parametrages_inscriptions');
+                    return $this->redirectToRoute("admin_parametrages_inscriptions");
+                }
+            }
+
+            if ($request->request->has("introduction_data")) {
+                $intro_data_form->handleRequest($request);
+                if ($intro_data_form->isSubmitted() && $intro_data_form->isValid()) {
+                    $registration_form_data->setHeaderImage($current_header_image);
+                    $em->flush();
+
+                    return $this->redirectToRoute("admin_parametrages_inscriptions");
                 }
             }
         }
 
-        return $this->render('AdminBundle:Parametrages:Inscriptions.html.twig', array(
-            'site_form_field_settings' => $registration_site_form_field_settings,
-            'form_structure_form' => $form_structure_form->createView(),
-            'field_type_list' => FieldTypeName::FIELD_NAME,
-            'custom_field_allowed' => $registration_site_form_setting->getCustomFieldAllowed(),
-            'header_data_form' =>  $header_data_form->createView(),
-            'current_header_image' => $current_header_image,
+        return $this->render("AdminBundle:Parametrages:Inscriptions.html.twig", array(
+            "site_form_field_settings" => $registration_site_form_field_settings,
+            "form_structure_form" => $form_structure_form->createView(),
+            "field_type_list" => FieldTypeName::FIELD_NAME,
+            "custom_field_allowed" => $registration_site_form_setting->getCustomFieldAllowed(),
+            "header_data_form" =>  $header_data_form->createView(),
+            "current_header_image" => $current_header_image,
+            "intro_data_form" => $intro_data_form->createView(),
         ));
     }
 

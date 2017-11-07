@@ -68,6 +68,31 @@
                 </div>
             </section>
 
+			<section>
+				<div>
+					<h5>Texte d'introduction au formulaire</h5>
+					<div>
+						{% if intro_data_form is defined %}
+                            {{ form_start(intro_data_form, {"attr": {"novalidate": "novalidate"}}) }}
+							<div>
+                                {{ form_label(intro_data_form.introduction_text_title, 'titre') }}
+                                {{ form_widget(intro_data_form.introduction_text_title) }}
+                                {{ form_errors(intro_data_form.introduction_text_title) }}
+							</div>
+							<div>
+                                {{ form_label(intro_data_form.introduction_text_content, 'texte') }}
+                                {{ form_widget(intro_data_form.introduction_text_content) }}
+                                {{ form_errors(intro_data_form.introduction_text_content) }}
+							</div>
+							<div>
+								<input type="submit" value="valider">
+							</div>
+                            {{ form_end(intro_data_form) }}
+						{% endif %}
+					</div>
+				</div>
+			</section>
+
 			<section id = "create-form-inscription" class = "fieldset active">
 				<div class = "content-bloc-droite">
 					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
@@ -286,4 +311,22 @@
 	<div class = "row separator"></div>
 </main>
 
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+			<script>
+                CKEDITOR.replace( 'introduction_data_introduction_text_content', {
+                    language: 'fr',
+                    uiColor: '#9AB8F3',
+                    height: 150,
+                    width: 600,
+                    customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
+                });
+			</script>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}

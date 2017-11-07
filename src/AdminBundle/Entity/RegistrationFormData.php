@@ -18,7 +18,7 @@ class RegistrationFormData
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Image(
      *     maxSize = "8M",
      *     mimeTypes = {"image/jpeg", "image/png", "image/gif"}
@@ -27,17 +27,17 @@ class RegistrationFormData
     private $header_image;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $header_message;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $introduction_text_title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $introduction_text_content;
 
