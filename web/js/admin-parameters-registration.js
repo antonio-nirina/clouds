@@ -78,7 +78,7 @@ $(document).ready(function(){
         $('#form_structure_new-field-list').val(JSON.stringify(new_field_datas_list));
 
         // Ordonnancement des champs
-        var field_list = $('.sortable-table').find('tbody').find('tr.form-field-row');
+        var field_list = $('.reorder-table').find('tbody').find('tr.form-field-row');
         var field_list_order = [];
         if(field_list.length > 0)
         {
@@ -166,11 +166,24 @@ $(document).ready(function(){
      * Réordonnancement de champs
      * *********************************************************************************************
      */
-    $('.sortable-table').sortable({
-        containerSelector: 'table',
-        itemPath: '> tbody',
-        itemSelector: 'tr',
-        placeholder: '<tr class="placeholder"/>'
+    // reord - monter
+    $('.reorder-up-field-row-link').on('click', function(e){
+        e.preventDefault();
+        var upper_row = $(this).parents('.form-field-row').prev('.form-field-row');
+        if(upper_row.length > 0)
+        {
+            upper_row.before($(this).parents('.form-field-row'));
+        }
+    });
+
+    // reord - descendre
+    $('.reorder-down-field-row-link').on('click', function(e){
+        e.preventDefault();
+        var lower_row = $(this).parents('.form-field-row').next('.form-field-row');
+        if(lower_row.length > 0)
+        {
+            lower_row.after($(this).parents('.form-field-row'));
+        }
     });
     /**
      * *********************************************************************************************
@@ -200,7 +213,7 @@ $(document).ready(function(){
         $(this).parents('.add-option-field').remove();
     });
 
-    $('.delele-field-row-link').on('click', function(e){
+    $('.delete-field-row-link').on('click', function(e){
         e.preventDefault();
         var form_field_row = $(this).parents('.form-field-row');
         var field_id = form_field_row.attr('data-field-id');
