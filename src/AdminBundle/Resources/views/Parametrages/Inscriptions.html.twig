@@ -54,10 +54,9 @@
                         </div>
                         <div class="header-image-preview-container">
                             <span> prévisualisation </span>
-                            {#{% if current_header_image is not null and current_header_image is not empty %}#}
                             <span class="header-message-preview">{{ header_data_form.vars.value.headerMessage }}</span>
-                            <img class="header-image-preview-img" src="{{ asset(registration_header_image_location ~ '/' ~ current_header_image) }}">
-                            {#{% endif %}#}
+                            {% set header_image_src = (current_header_image is null) or ("" == current_header_image) ? '' : registration_header_image_location ~ current_header_image %}
+                            <img class="header-image-preview-img" src="{{ "" == header_image_src ? "" : asset(header_image_src) }}">
                         </div>
                         <div>
                             <input type="submit" value="valider">
