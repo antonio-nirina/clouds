@@ -206,7 +206,7 @@ table {
     padding: 5px 0; 
     border: none;
 }
-.one-row.many-field, .sortable-table th:nth-child(3), .sortable-table th:last-of-type, .sortable-table td:last-of-type {
+.one-row.many-field, .sortable-table th:nth-child(3), .sortable-table td:nth-child(3), .sortable-table th:last-of-type, .sortable-table td:last-of-type {
     border: none;
 }
 .add-form td {

@@ -242,7 +242,29 @@ $(document).on('click','.edit-field-row-link',function(e){
                 $('#btn-modal').click();
             }
         });
-})
+});
+
+$(document).on('click', '.moveup-field-row-link', function(e) {
+    e.preventDefault();
+    var form_field_row = $(this).parents('.form-field-row');
+    var prev = form_field_row.prev('tr');
+    if ( prev.hasClass('head-personalized')) {
+        alert("ne peut plus monter");
+    } else {
+        form_field_row.detach().insertBefore(prev);
+    }
+});
+
+$(document).on('click', '.movedown-field-row-link', function(e) {
+    e.preventDefault();
+    var form_field_row = $(this).parents('.form-field-row');
+    var next = form_field_row.next('tr');  console.log(next);
+    if ("undefined" == typeof next || next.length ==0) {
+        alert('ne peut plus descendre')
+    } else {
+        form_field_row.detach().insertAfter(next);
+    }
+});
 
 $('.modal-content .content').on('click', '.update.btn-valider', function(e){
     var level = $(this).prev("input[name=level]").val();
