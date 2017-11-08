@@ -1,0 +1,85 @@
+                     
+<a data-toggle="tab"  href="#tab-form-{{ site_form_field_settings[0].level }}">
+    CA ou produit {{ site_form_field_settings[0].level }}
+    <span class="delete-form-level"></span>
+</a>
+                       
+<div class = "col-12 col-md-12 tab-pane" id="tab-form-{{ site_form_field_settings[0].level }}">
+    <div>
+        <input type="hidden" name="level" value="{{ site_form_field_settings[0].level }}">
+        <table id='sortable-table-{{ site_form_field_settings[0].level }}' class="sortable-table" width="100%">
+            <thead>
+                <tr>
+                    <th width="15%">
+                        <input id="cl1" class="checkbox-publish-all" type="checkbox">
+                        <label for="cl1">
+                            champs à publier <br>
+                            <span></span>
+                        </label>    
+                    </th width="15%">
+                    <th>
+                        <input id="cl2" class="checkbox-mandatory-all" type="checkbox">
+                        <label for="cl2">
+                            rendre obligatoire <br>
+                            <span></span>
+                        </label> 
+                    </th>
+                    <th>liste des champs</th>
+                    <th width="15%"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
+                {% set row_set = [] %}
+                {% set nb_line = 0 %}
+                {% for site_form_field_setting in site_form_field_settings %}
+                    {% if site_form_field_setting.inRow not in row_set %}
+                        {% if site_form_field_setting.inRow != null %}
+                            {{ render(controller(
+                                'AdminBundle:PartialPage:siteFormManyFieldsRow',
+                                {'field' : site_form_field_setting}
+                                ))
+                            }}
+                            {% set row_set = row_set|merge([site_form_field_setting.inRow]) %}
+                            {% set nb_line = nb_line + 1 %}
+                        {% else %}
+                            {% set nb_line = nb_line + 1 %}
+                            {{ render(controller(
+                                'AdminBundle:PartialPage:siteFormFieldRow',
+                                {'field' : site_form_field_setting}
+                                ))
+                            }}
+                        {% endif %}                                        
+                    {% endif %}                                        
+                {% endfor %}
+                {# {{ dump(row_set) }} #}
+               {% endif %}
+               <tr class="head-personalized">
+                    <td></td>
+                    <td></td>
+                    <td>champ(s) pesonnalisé(s)</td>
+                    <td></td>                                            
+                </tr>
+               {% set custom_field_allowed = max_line - nb_line %}
+            </tbody>
+        </table>
+    </div> 
+    
+    {# ajout de champs #}
+        <div class="add-field-form-block">
+        {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+            <table class="add-form" width="100%">                
+                <tfoot>
+                    <tr>
+                        <td>
+                            {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+                                <a class="add add-field-link-declaration" href="#">ajouter un champ ({{ custom_field_allowed }} maximum)</a>
+                            {% endif %}
+                            <input type="hidden" name="custom-field-allowed" value="{{ custom_field_allowed }}">
+                        </td>                                       
+                    </tr>
+                </tfoot>                                  
+            </table>
+        {% endif %}
+    </div>
+</div>

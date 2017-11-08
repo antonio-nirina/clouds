@@ -1,0 +1,13 @@
+{% if field.inRow != null %}
+    {{ render(controller(
+        'AdminBundle:PartialPage:siteFormManyFieldsRow',
+        {'field' : field, 'personalize':personalize}
+        ))
+    }}
+{% else %}
+    {{ render(controller(
+        'AdminBundle:PartialPage:siteFormFieldRow2',
+        {'field' : field, 'personalize':personalize}
+        ))
+    }}
+{% endif %}
