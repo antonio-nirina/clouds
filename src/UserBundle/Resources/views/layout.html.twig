@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+
+	{# {{ include("UserBundle::header.html.twig") }} #}
+	{% block header %}
+		{% embed 'UserBundle::header.html.twig' %}{% endembed %}
+	{% endblock %}
+
+	<body>
+		{% block fos_user_content %}
+		{% endblock fos_user_content %}
+	</body>
+</html>

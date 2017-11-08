@@ -1,0 +1,43 @@
+.fieldset {
+    min-height: 200px;
+    height: auto;
+}
+.btn-valider {
+    font-weight: bold;
+}
+.content-bloc-droite {
+    margin-right: 160px;
+}
+.content-bloc-gauche {
+    right: 25px;
+    top: 15px;
+    overflow: hidden;
+}
+.mode-recompense {
+    width: 240px;
+}
+.content-bloc-gauche img {
+    position: absolute;
+    left: 50%;
+    top: 50%;    
+    vertical-align: middle;
+}
+#img-parrainage {
+    -webkit-transform: translateY(-58%) translateX(-50%) scale(0.8);
+    -moz-transform: translateY(-58%) translateX(-50%) scale(0.8);  
+    transform: translateY(-58%) translateX(-50%) scale(0.8);    
+}
+#img-fidelisation {
+    -webkit-transform: translateY(-50%) translateX(-50%) scale(0.8);
+    -moz-transform: translateY(-50%) translateX(-50%) scale(0.8);
+    transform: translateY(-50%) translateX(-50%) scale(0.8);    
+}
+#img-challenge {
+    -webkit-transform: translateY(-50%) translateX(-43%) scale(0.8);
+    -moz-transform: translateY(-50%) translateX(-43%) scale(0.8);
+    transform: translateY(-50%) translateX(-43%) scale(0.8);
+}
+
+.fieldset.inactive .checkboxBtn.program, .fieldset.inactive .btn-valider.btn-valider-program {
+    pointer-events : none;
+}

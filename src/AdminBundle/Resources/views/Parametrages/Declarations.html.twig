@@ -1,0 +1,254 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-resultat-form.css") }}" rel="stylesheet">   
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+{{ render(controller('AdminBundle:Parametrages:sidebar')) }}
+{# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+<main class="col-md-9  offset-md-1 float-left main">
+    {# {{ dump(site_form_setting) }} #}
+    <div class = "row">
+        <div class = "col-12 col-md-12 sous-menu-main">
+            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                    <ul class="navbar-nav content-menu-niv-3">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration") }}">Formulaire de déclaration <span class = "bulle-aide"></span></a>
+                        </li>
+
+                        <li class="nav-item-niv-3 form-imports">
+                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions_imports") }}">Import de fichiers des résultas <span class = "bulle-aide"></span></a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+                    <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                </button>
+                <a class="navbar-brand abs" href="#"></a>
+            </nav>
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-12 col-md-12 sous-menu-main">
+            <section id = "create-form-inscription" class = "fieldset active">  
+                <div class = "content-bloc-droite">
+                    <h3 class = "hidden-sm-down">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h3>
+                    <h5 class = "hidden-md-up">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h5>                     
+                </div>
+                
+                <div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
+                </div> 
+
+                <div class = "row full-width">
+                    <div class = "row col-12 col-md-10">
+                        <div class="col-md-6 col-sm-12">                          
+                            <input id="c1" name="validate" type="checkbox" {{ (site_form_setting.validation)?"checked":"" }} value = "">
+                            <label for="c1">
+                                <span></span>
+                                valider les déclarations
+                            </label>
+                        </div>
+                        <div class="col-md-6 col-sm-12"> 
+                            <input id="c2" name="piece_request" type="checkbox" {{ (site_form_setting.hasPieces)?"checked":"" }} value = "">
+                            <label for="c2">
+                                <span></span>                                
+                                demander une pièce justificative<br>
+                                (ticket, contrat, bon de commande etc.)
+                            </label>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <p>
+                                <input id="c3" name="header" type="checkbox" {{ (site_form_setting.hasHeadText)?"checked":"" }} value = "">
+                                <label for="c3">
+                                    <span></span>                                
+                                    rédiger un texte de présentation
+                                </label>                            
+                            </p>
+                             <textarea name="editor" id="editor" rows="4" cols="50" onmouseup="textfunc" >
+                                {{ (site_form_setting.hasHeadText)?site_form_setting.headText:"" }}
+                            </textarea> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div class="alert alert-info"> Produit {{ current_level }}</div>                      
+                    </div>
+                </div>
+
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div>
+                            <table class="sortable-table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input id="cl1" class="checkbox-publish-all" type="checkbox">
+                                            <label for="cl1">
+                                                champs à publier <br>
+                                                <span></span>
+                                            </label>    
+                                        </th>
+                                        <th>
+                                            <input id="cl2" class="checkbox-mandatory-all" type="checkbox">
+                                            <label for="cl2">
+                                                rendre obligatoire <br>
+                                                <span></span>
+                                            </label> 
+                                        </th>
+                                        <th>liste des champs</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
+                                    {% set row_set = [] %}
+                                    {% for site_form_field_setting in site_form_field_settings %}
+                                        {% if site_form_field_setting.inRow not in row_set %}
+                                            {% if site_form_field_setting.inRow != null %}
+                                                {{ render(controller(
+                                                    'AdminBundle:PartialPage:siteFormManyFieldsRow',
+                                                    {'field' : site_form_field_setting, 'level': current_level}
+                                                    ))
+                                                }}
+                                                {% set row_set = row_set|merge([site_form_field_setting.inRow]) %}
+                                            {% else %}
+                                                {{ render(controller(
+                                                    'AdminBundle:PartialPage:siteFormFieldRow',
+                                                    {'field' : site_form_field_setting}
+                                                    ))
+                                                }}
+                                            {% endif %}                                        
+                                        {% endif %}                                        
+                                    {% endfor %}
+                                    {# {{ dump(row_set) }} #}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>  
+                    </div>  
+                </div>
+
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div class="add-field-form-block">
+                            {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+                                <table class="add-form" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                ajouter des champs personnalisés ({{ custom_field_allowed }} maximum)
+                                                <input type="hidden" name="custom-field-allowed" value="{{ custom_field_allowed }}">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+                                                {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+                                                    <a class="add-field-link-declaration" href="#">ajouter un champ</a>
+                                                {% endif %}
+                                            </td>                                       
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="add-field-form-container"></div>
+                                                <div class="add-field-form template" style="display:none">
+                                                    <div>
+                                                        <label>intitulé du champ</label>
+                                                        <input class="input-field-label" type="text">
+                                                    </div>
+                                                    <div>
+                                                        <input class="cl3-row" class="checkbox-mandatory" type="checkbox">
+                                                        <label>
+                                                            rendre obligatoire
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="select-field-type-container">
+                                                        <label>type de champ</label>
+                                                        <select class="select-field-type">
+                                                            {% if field_type_list is defined and field_type_list is not empty %}
+                                                                {% for key, field_type in field_type_list %}
+                                                                    <option value="{{ key }}">{{ field_type }}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                        <div class="select-field-option-container" style="display:none">
+                                                            <span>Options</span>
+                                                            <div class="add-option-field template" style="display:none">
+                                                                <input class="input-option" type="text">
+                                                                <a class="remove-option-field-link" href="#">Supprimer</a>
+                                                            </div>
+                                                            <div class="option-container"></div>
+                                                            <a class="add-option-link" href="#">ajouter option</a>
+                                                        </div>
+                                                    </div>
+                                                    <a class="remove-field-form-link" href="#">Supprimer</a>
+                                                </div>
+                                            </td>                                            
+                                        </tr>
+                                    </tbody>                                        
+                                </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            
+                <div class = "row full-width">
+                    <div class = "col-12 col-md-12">
+                        <div class="validation">
+                            {{ form_start(form_structure_form) }}
+                                {{ form_widget(form_structure_form) }}
+                                <button class ="btn-valider valider">
+                                    Valider
+                                </button>
+                            {{ form_end(form_structure_form) }}
+                             <button class ="btn-valider btn-next-product">
+                                Paramétrer le produit {{ next_level }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <input type="hidden" name="max-allowed" value="{{ custom_field_allowed }}">
+    
+    <div class = "row separator"></div>
+</main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+            <script src="{{ asset('js/admin-resultat-form.js') }}"></script>
+            <script>
+                CKEDITOR.replace( 'editor', {
+                        language: 'fr',
+                        uiColor: '#9AB8F3',
+                        height: 150,
+                        width: 600,
+                        customConfig: "{{ asset('ckeditor/custom/config-header-declaration.js') }}",
+                    });
+            </script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

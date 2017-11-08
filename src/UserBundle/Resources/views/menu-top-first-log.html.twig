@@ -1,0 +1,33 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-1">
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarNiv1">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<a class="navbar-brand abs" href="#">
+		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "" class = "img-fluid">
+	</a>
+	<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
+		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-7 col-xl-5 offset-md-2 offset-lg-2 offset-xl-5">
+			<div class = "error_form">{{ form_errors(form.plainPassword.first) }}</div>
+			<form role = "form" action = "{{ path("admin_first_log") }}" method="post" class="user_change_password form-connexion">
+				{{ form_widget (form._token) }}
+				
+				{% if form_errors(form.plainPassword.first) %}
+					<p class = "error_form">{{ form_errors(form.plainPassword.first) }}</p>
+				{% else %}
+					<p class = "lib_changer_mot_de_passe">changer votre mot de passe</p>
+				{% endif %}
+				
+				<p>
+					<span class = "lib-password-first">votre nouveau mot de passe</span>
+					{{ form_widget (form.plainPassword.first, {'attr': {'placeholder': 'Taper votre mot de passe', 'class':'input-password-first'}}) }}
+				</p>
+				
+				<p>
+					<span class = "lib-password-second">confirmer votre mot de passe</span>
+					{{ form_widget (form.plainPassword.second, {'attr': {'placeholder': 'Confirmer votre mot de passe', 'class':'input-password-second'}}) }}
+					<input id = "submit-form-confirm-password" class = "btn-connexion" type = "submit" name = "_submit" value = "valider">
+				</p>
+			</form>
+		</div>
+	</div>
+</nav>

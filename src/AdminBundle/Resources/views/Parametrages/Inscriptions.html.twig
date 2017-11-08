@@ -1,0 +1,331 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block main %}
+
+{{ render(controller('AdminBundle:Parametrages:sidebar')) }}
+{# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+<main class="col-md-9  offset-md-1 float-left main">
+				
+	<div class = "row">
+		<div class = "col-12 col-md-12 sous-menu-main">
+			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+				<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+					<ul class="navbar-nav content-menu-niv-3">
+						<li class="nav-item-niv-3 form-inscription">
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">Formulaire d'inscription <span class = "bulle-aide"></span></a>
+						</li>
+
+						<li class="nav-item-niv-3 form-imports">
+							<a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions_imports") }}">Import de fichiers et flux <span class = "bulle-aide"></span></a>
+						</li>
+					</ul>
+				</div>
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+					<i class="fa fa-navicon fa-2x py-2 p-1"></i>
+				</button>
+				<a class="navbar-brand abs" href="#"></a>
+			</nav>
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class = "col-12 col-md-12">
+            <section>
+                <div>
+                    <h5>Header du formulaire</h5>
+                    <div>
+                        {% if header_data_form is defined %}
+                            {{ form_start(header_data_form, {"attr": {"novalidate": "novalidate"}}) }}
+                        <div>
+                            {{ form_label(header_data_form.header_image, 'image') }}
+                            {{ form_widget(header_data_form.header_image, {"attr": {"class": "header-image-input"}}) }}
+                            {{ form_errors(header_data_form.header_image) }}
+                            <div>
+                                <p>Format optimal : 750 x 178 px</p>
+                                <p>les fichiers doivent peser moins de 8 Mo</p>
+                                <p>formats de fichier pris en charge : jpeg, png, gif</p>
+                            </div>
+                        </div>
+                        <div>
+                            {{ form_label(header_data_form.header_message, 'message') }}
+                            {{ form_widget(header_data_form.header_message, {"attr": {"class": "header-message-input"}}) }}
+                            {{ form_errors(header_data_form.header_message) }}
+                        </div>
+                        <div class="header-image-preview-container">
+                            <span> prévisualisation </span>
+                            <span class="header-message-preview">{{ header_data_form.vars.value.headerMessage }}</span>
+                            {% set header_image_src = (current_header_image is null) or ("" == current_header_image) ? '' : registration_header_image_location ~ current_header_image %}
+                            <img class="header-image-preview-img" src="{{ "" == header_image_src ? "" : asset(header_image_src) }}">
+                        </div>
+                        <div>
+                            <input type="submit" value="valider">
+                        </div>
+                            {{ form_end(header_data_form) }}
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+			<section>
+				<div>
+					<h5>Texte d'introduction au formulaire</h5>
+					<div>
+						{% if intro_data_form is defined %}
+                            {{ form_start(intro_data_form, {"attr": {"novalidate": "novalidate"}}) }}
+							<div>
+                                {{ form_label(intro_data_form.introduction_text_title, 'titre') }}
+                                {{ form_widget(intro_data_form.introduction_text_title) }}
+                                {{ form_errors(intro_data_form.introduction_text_title) }}
+							</div>
+							<div>
+                                {{ form_label(intro_data_form.introduction_text_content, 'texte') }}
+                                {{ form_widget(intro_data_form.introduction_text_content) }}
+                                {{ form_errors(intro_data_form.introduction_text_content) }}
+							</div>
+							<div>
+								<input type="submit" value="valider">
+							</div>
+                            {{ form_end(intro_data_form) }}
+						{% endif %}
+					</div>
+				</div>
+			</section>
+
+			<section id = "create-form-inscription" class = "fieldset active">
+				<div class = "content-bloc-droite">
+					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
+					<h5 class = "hidden-md-up">Créer le formulaire d'inscription à votre programme de récompense</h5>
+					<div class = "row">
+						<table class="sortable-table">
+							<thead>
+								<tr>
+									<th>champs à publier <input class="checkbox-publish-all" type="checkbox"></th>
+									<th>rendre obligatoire <input class="checkbox-mandatory-all" type="checkbox"></th>
+									<th>liste des champs</th>
+								</tr>
+							</thead>
+							<tbody>
+                            {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
+                                {% for site_form_field_setting in site_form_field_settings %}
+                                    {{ render(controller(
+                                    'AdminBundle:PartialPage:siteFormFieldRow',
+                                    {'field' : site_form_field_setting}
+                                    )) }}
+                                {% endfor %}
+                            {% endif %}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="add-field-form-block">
+						{% if custom_field_allowed is defined %}
+							{% if custom_field_allowed > 0 %}
+						<div>ajouter des champs personnalisés ({{ custom_field_allowed }} maximum)</div>
+						<input type="hidden" name="custom-field-allowed" value="{{ custom_field_allowed }}">
+							{% endif %}
+						{% endif %}
+
+						<div class="add-field-form template" style="display:none">
+							<div>
+								<label>intitulé du champ</label>
+								<input class="input-field-label" type="text">
+							</div>
+							<div>
+								<label>rendre obligatoire</label>
+								<input class="checkbox-mandatory" type="checkbox">
+							</div>
+							<div class="select-field-type-container">
+								<label>type de champ</label>
+								<select class="select-field-type">
+                                    {% if field_type_list is defined and field_type_list is not empty %}
+                                        {% for key, field_type in field_type_list %}
+											<option value="{{ key }}">{{ field_type }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+								</select>
+								<div class="select-field-option-container" style="display:none">
+									<span>Options</span>
+									<div class="add-option-field template" style="display:none">
+										<input class="input-option" type="text">
+										<a class="remove-option-field-link" href="#">Supprimer</a>
+									</div>
+									<div class="option-container"></div>
+									<a class="add-option-link" href="#">ajouter option</a>
+								</div>
+							</div>
+							<a class="remove-field-form-link" href="#">Supprimer nouveau champ</a>
+						</div>
+						<div class="add-field-form-container"></div>
+
+						{% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+						<div>
+							<a class="add-field-link" href="#">ajouter un champ</a>
+						</div>
+						{% endif %}
+					</div>
+
+					<div>
+						{{ form_start(form_structure_form) }}
+						{{ form_widget(form_structure_form) }}
+						<input type="submit" value="Valider" id="form-structure-submit">
+						{{ form_end(form_structure_form) }}
+					</div>
+
+					{#
+					<div class = "row">
+						<div class = "col-12 col-md-12 col-lg-8 form-input-part-1">
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Société *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form societe"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Adresse postale *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form postale"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Code postale *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form code"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Ville *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form ville"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form tel"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Réseau</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form reseau"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"></dt>
+								<dd class = "col-12 col-md-7">
+									<button id = "btn-valider-challenge" class = "btn-valider">
+										Valider
+									</button>
+								</dd>
+							</dl>
+							
+						</div>
+					</div>
+					
+					<div class = "row">
+						<div class = "col-12 col-md-12 col-lg-8 form-input-part-2">
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Civilité *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form-radio civilite-m">
+										<span class = "input-radio"></span>
+										<span class = "input-libelle-radio">Mme</span>
+									</div>
+									<div class = "champs-form-radio civilite-f">
+										<span class = "input-radio"></span>
+										<span class = "input-libelle-radio">M</span>
+									</div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Prénom *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form prenom"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Nom *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form nom"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Fonction *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form fonction"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Email professionnel *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form email"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
+								<dd class = "col-12 col-md-7">
+									<div class = "champs-form tel"></div>
+								</dd>
+							</dl>
+							
+							<dl class="dl-horizontal row">
+								<dt class = "col-12 col-md-5"></dt>
+								<dd class = "col-12 col-md-7">
+									<button id = "btn-valider-challenge" class = "btn-valider">
+										Valider
+									</button>
+								</dd>
+							</dl>
+							
+						</div>
+					</div>
+					#}
+
+
+					
+					<div class = "row">
+					</div>
+				</div>
+				
+				<div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
+				</div>
+			</section>
+
+
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+</main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+			<script>
+                CKEDITOR.replace( 'introduction_data_introduction_text_content', {
+                    language: 'fr',
+                    uiColor: '#9AB8F3',
+                    height: 150,
+                    width: 600,
+                    customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
+                });
+			</script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

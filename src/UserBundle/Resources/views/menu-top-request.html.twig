@@ -1,0 +1,20 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-1">
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarNiv1">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<a class="navbar-brand abs" href="#">
+		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "" class = "img-fluid">
+	</a>
+	<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
+		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-7 col-xl-5 offset-md-2 offset-lg-2 offset-xl-5">
+			<form class = "form-connexion fos_user_resetting_request" name = "form-connexion" method = "POST" action = '{{ path("fos_user_resetting_send_email") }}'>
+				<p class = "lib_mot_de_passe_oublie">Mot de passe oublié</p>
+				<p>
+					<span class = "lib-username">identifiant</span>
+					<input id="username" class = "input-username" type = "text" name = "username" value = "" placeholder = "identifiant..." required>
+					<input id = "submit-form-login" class = "btn-connexion" type = "submit" name = "submit" value = "envoyer">
+				</p>
+			</form>
+		</div>
+	</div>
+</nav>

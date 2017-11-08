@@ -1,0 +1,25 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-1">
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarNiv1">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<a class="navbar-brand abs" href="#">
+		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "">
+	</a>
+	<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
+		<div class="navbar-nav form-search">
+			<form class="form-inline mt-2 mt-md-0 search">
+				<input class="form-control mr-sm-2" type="text" value = "" placeholder = "Rechercher">
+			</form>
+		</div>
+		<div class = "navbar-nav ml-auto content-log-header">
+			<span id = "play" class = "log-header"></span>
+			<span id = "notification" class = "log-header"></span>
+			<span id = "question-marque" class = "log-header"></span>
+			<span id = "mail" class = "log-header"></span>
+			<span id = "casque" class = "log-header"></span>
+			<span id = "profil" class = "log-header"></span>
+			<a href="{{ path("fos_user_security_logout") }}"><span id = "power" class = "log-header"></span></a>
+		</div>
+	
+	</div>
+</nav>

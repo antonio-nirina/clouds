@@ -1,0 +1,80 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+	{% embed 'AdminBundle::header.html.twig' %}
+		{% block stylesheets %}
+			{{ parent() }}
+			<link href="{{ asset("css/admin-program.css") }}" rel="stylesheet">
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
+
+{% block main %}
+	{{ render(controller('AdminBundle:Parametrages:sidebar')) }}
+	{# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+	<main class="col-md-9  offset-md-1 float-left main">
+		{# {{ dump(all_program_type) }}
+		{{ dump(program) }} #}		
+		<div class = "row">
+			<div class = "col-12 col-md-12 sous-menu-main">
+				<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+					<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+						<ul class="navbar-nav content-menu-niv-3">
+							<li class="nav-item-niv-3 form-inscription">
+								<a class="nav-link-niv-3 menu-page-active" href="form-inscription.php">Quel est votre programme de récompenses <span class = "bulle-aide"></span></a>
+							</li>
+						</ul>
+					</div>
+					<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+						<i class="fa fa-navicon fa-2x py-2 p-1"></i>
+					</button>
+					<a class="navbar-brand abs" href="#"></a>
+				</nav>
+			</div>
+		</div>
+
+		{% for program_type in all_program_type %}
+			{% set image_id = (program_type.type == "Challenge")?"img-challenge":((program_type.type == "Fidélisation")?"img-fidelisation":"img-parrainage") %}
+			{% set fielset_active = (program_type.type == program.type.type)?"active":"inactive" %}
+			{% set program_checked = (program_type.type == program.type.type)?"checked":"unchecked" %}
+			{% set multi_operation = (program_type.type == program.type.type and program.isMultiOperation)?"est-mode":"no-mode" %}
+			{# {% set program_mode = (program.isMultiOperation)?"no-mode":"est-mode" %} #}
+			{# {{ dump(image_id) }} #}
+			<div class = "row">	
+				<form action="{{ path("admin_parametrages_programme") }}" method="POST">	
+					<div class = "col-12 col-md-12 sous-menu-main">
+						<section class="fieldset {{ fielset_active }}">
+							<div class="content-bloc-droite">
+								<label id="challenge-radio" class ="radioBtn program {{ program_checked }}">
+									<input name="program_type" type="hidden" value = "{{ program_type.id }}">
+								</label>
+								<p class="description-recompenses">
+									{{ program_type.presentation|raw }}
+								</p>
+								
+								<p class="mode-recompense">
+									<label id="mode-radio" class="checkboxBtn program {{ multi_operation }}">
+										<input type="hidden" name="challenge_mode">
+									</label>
+									<span class="libelle-mode">Mode multi-opérations</span>
+								</p>
+							</div>					
+							<div class ="content-bloc-gauche hidden-sm-down rounded-circle">
+								<img id= {{ image_id }} src="{{ asset(program_type.imageUrl) }}">
+							</div>
+							<div>
+								<p class = "btn-valider-recompense">
+									<button class ="btn-valider btn-valider-program">
+										Valider
+									</button>
+								</p>						
+							</div>
+						</section>
+					</div>
+				</form>
+			</div>
+		{% endfor %}
+	</main>
+{% endblock %}
+
