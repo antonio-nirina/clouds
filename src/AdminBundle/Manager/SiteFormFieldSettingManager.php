@@ -26,10 +26,18 @@ class SiteFormFieldSettingManager
      * @param  [json] $field_order
      * @param  [json] $current_fields
      */
-    public function adjustFieldOrder($field_order, $current_fields)
+    public function adjustFieldAndOrder($field_order, $current_fields)
     {
-        $field_order = json_decode($field_order);
-        $field_order = array_flip($field_order);
+        $order = json_decode($field_order);
+        if (is_array($order[0])) {
+            $field_order = [];
+            foreach ($order as $fo) {
+                $order = array_flip($fo);
+                $field_order = $field_order + $order;
+            }
+        } else {
+            $field_order = array_flip($order);
+        }
 
         $current_field_list = json_decode($current_fields);
         if (!is_null($current_field_list)) {
@@ -51,7 +59,7 @@ class SiteFormFieldSettingManager
      * @param json $new_field_list
      * @param SiteFormSetting $site_form_setting
      */
-    public function addNewFields($new_field_list, SiteFormSetting $site_form_setting, $level = false)
+    public function addNewFields($new_field_list, SiteFormSetting $site_form_setting, $no_adjust_allowed = false)
     {
         $new_field_list = json_decode($new_field_list);
         if (!is_null($new_field_list)) {
@@ -69,8 +77,8 @@ class SiteFormFieldSettingManager
                             ->setMandatory(boolval($new_field->mandatory))
                             ->setLabel($new_field->label)
                             ->setFieldOrder(30); // big value, to put new field at the bottom
-                    if ($level) {
-                        $field->setLevel($level);
+                    if (isset($new_field->level)) {
+                        $field->setLevel($new_field->level);
                     }
 
                     if (array_key_exists('choices', $new_field)) {
@@ -82,9 +90,109 @@ class SiteFormFieldSettingManager
                     $site_form_setting->addSiteFormFieldSetting($field);
                     $this->em->persist($field);
 
-                    $site_form_setting->setCustomFieldAllowed(($site_form_setting->getCustomFieldAllowed()) - 1);
+                    if (!$no_adjust_allowed) {
+                        $site_form_setting->setCustomFieldAllowed(($site_form_setting->getCustomFieldAllowed()) - 1);
+                    }
                 }
             }
+        }
+    }
+
+    public function updateField(SiteFormFieldSetting $field, $type, $label)
+    {
+        $type = ($type == 'alphanum')?'text':$type;
+        $field->setLabel($label);
+
+        $old_type = $field->getFieldType();
+        if ($field->getInRow()) {
+            $form_setting_id = $field->getSiteFormSetting()->getId();
+            $in_row = $this->getRepository()->findAllInRow($field->getInRow(), $form_setting_id, $field->getLevel());
+
+            foreach ($in_row as $f) {
+                if ($f->getId() != $field->getId()) {
+                    $this->remove($f);
+                }
+            }
+        }
+        
+        if ($type != 'period') {
+            $field->setFieldType($type);
+            $field->setInRow(false);
+        } else {
+            $type = 'date';
+            $order = $field->getFieldOrder();
+            $field->setFieldType($type);
+            $field->setInRow($order);
+
+            $field2 = clone $field;
+            $field2->setLabel('à');
+            $field2->setFieldOrder($order+1);
+            $this->em->persist($field2);
+        }
+        $this->save();
+
+        return $field;
+    }
+
+    public function addNewField($new_field, SiteFormSetting $site_form_setting)
+    {
+        if (!is_null($site_form_setting)
+            &&
+            (
+                is_int($site_form_setting->getCustomFieldAllowed())
+                && $site_form_setting->getCustomFieldAllowed() > 0
+            )
+        ) {
+            $type = ($new_field['field_type']=="alphanum")?"text":$new_field['field_type'];
+
+
+            if ($type != 'period') {
+                $field = new SiteFormFieldSetting();
+                $field->setSiteFormSetting($site_form_setting)
+                        ->setFieldType($type)
+                        ->setMandatory($new_field['mandatory'])
+                        ->setLabel($new_field['label'])
+                        ->setFieldOrder(100)
+                        ->setPersonalizable(true); // big value, to put new field at the bottom
+                if (isset($new_field['level'])) {
+                    $field->setLevel($new_field['level']);
+                    $order = $this->getRepository()->findLastOrder($field->getSiteFormSetting()->getId(), $new_field['level']);
+                    $field->setFieldOrder($order);
+                }
+
+                if (array_key_exists('choices', $new_field)) {
+                    $add_data["choices"] = $new_field["choices"];
+                    $field->setAdditionalData($add_data);
+                }
+                $site_form_setting->addSiteFormFieldSetting($field);
+                $this->em->persist($field);
+            } else {
+                $field = new SiteFormFieldSetting();
+                $field->setSiteFormSetting($site_form_setting)
+                        ->setFieldType('date')
+                        ->setMandatory($new_field['mandatory'])
+                        ->setLabel($new_field['label'])
+                        ->setFieldOrder(100)
+                        ->setPersonalizable(true); // big value, to put new field at the bottom
+                if (isset($new_field['level'])) {
+                    $field->setLevel($new_field['level']);
+                    $order = (int) $this->getRepository()->findLastOrder($field->getSiteFormSetting()->getId(), $new_field['level']);
+                    $field->setFieldOrder($order)
+                          ->setInRow($order);
+                }
+
+                $field2 = clone $field;
+                $field2->setLabel('à')
+                    ->setFieldOrder($order+1);
+
+                $site_form_setting->addSiteFormFieldSetting($field);
+                $this->em->persist($field);
+                $this->em->persist($field2);
+            }
+
+            $this->save();
+
+            return $field;
         }
     }
 
@@ -94,7 +202,7 @@ class SiteFormFieldSettingManager
      * @param  array  $delete_fields
      * @param  SiteFormSetting $site_form_setting
      */
-    public function deleteField($delete_fields, SiteFormSetting $site_form_setting)
+    public function deleteField($delete_fields, SiteFormSetting $site_form_setting, $no_adjust_allowed = false)
     {
         $field_to_delete_list = ('' != $delete_fields)
                                     ? explode(',', $delete_fields)
@@ -103,50 +211,72 @@ class SiteFormFieldSettingManager
             foreach ($field_to_delete_list as $field_to_delete_id) {
                 $field = $this->getRepository()->findOneById($field_to_delete_id);
                 if (!is_null($field)) {
-                    $this->remove($field);
-                    $site_form_setting->setCustomFieldAllowed($site_form_setting->getCustomFieldAllowed() + 1);
+                    if (is_null($field->getInRow())) {
+                        $this->remove($field);
+                    } else {
+                        $row = $field->getInRow();
+                        $level = $field->getLevel();
+                        $form_setting_id = $field->getSiteFormSetting()->getId();
+
+                        $in_row = $this->getRepository()->findAllInRow($row, $form_setting_id, $level);
+                        foreach ($in_row as $f) {
+                            $this->remove($f);
+                        }
+                    }
+                    if (!$no_adjust_allowed) {
+                        $site_form_setting->setCustomFieldAllowed($site_form_setting->getCustomFieldAllowed() + 1);
+                    }
                 }
             }
         }
     }
+    
+    public function getArrangedFields(SiteFormSetting $site_form_setting)
+    {
+        $site_form_field_setting = $site_form_setting->getSiteFormFieldSettings();
+        $arranged_field = array();
 
-    /**
-     * Réinitialisation des champs via champs par défauts
-     *
-     * @param  Program $program
-     * @param  string  $site_form_type
-     * @param  int  $level
-     */
+        foreach ($site_form_field_setting as $field) {
+            $arranged_field[$field->getLevel()][] = $field;
+        }
+        
+        return $arranged_field;
+    }
+
     public function rechargeDefaultFieldFor(Program $program, $site_form_type, $level)
     {
-        $site_form_setting_repo = $this->em->getRepository('AdminBundle:SiteFormSetting');
-        $site_form_setting = $site_form_setting_repo->findByProgramAndTypeAndLevelWithField(
-            $program,
-            $site_form_type,
-            $level //modifier pour chaque produit
-        );
+        $site_form_setting = $this->em->getRepository('AdminBundle:SiteFormSetting')->findAllDefaultFields($program, $site_form_type);
+        $default_fields = $site_form_setting->getSiteFormFieldSettings();
 
-        if (empty($site_form_setting)) {
-            $site_form_setting = $site_form_setting_repo->findAllDefaultFields($program, $site_form_type);
-            $default_fields = $site_form_setting->getSiteFormFieldSettings();
-
-            foreach ($default_fields as $field) {
-                $field_clone = clone $field;
-                $field_clone->setLevel($level);
-                dump($field_clone);
-                $this->em->persist($field_clone);
-            }
-
-            $this->save();
-
-            $site_form_setting = $site_form_setting_repo->findByProgramAndTypeAndLevelWithField(
-                $program,
-                $site_form_type,
-                $level //modifier pour chaque produit
-            );
+        foreach ($default_fields as $field) {
+            $field_clone = clone $field;
+            $field_clone->setLevel($level);
+            //dump($field_clone);
+            $this->em->persist($field_clone);
         }
 
-        return $site_form_setting[0];
+        $this->save();
+        $this->em->clear(SiteFormSetting::class);
+
+        return;
+    }
+
+    public function removeFieldsForLevel(Program $program, $site_form_type, $level)
+    {
+        $site_form_setting = $this->em->getRepository('AdminBundle:SiteFormSetting')->findByProgramAndTypeAndLevelWithField($program, $site_form_type, $level);
+        $fields = $site_form_setting->getSiteFormFieldSettings();
+
+        foreach ($fields as $field) {
+            $this->remove($field);
+        }
+        $this->save();
+
+        return;
+    }
+
+    public function getMaxLevel($program, $site_form_type)
+    {
+        return $this->em->getRepository('AdminBundle:SiteFormSetting')->findMaxLevel($program, $site_form_type);
     }
 
     public function remove(SiteFormFieldSetting $field)

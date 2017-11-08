@@ -23,4 +23,22 @@ class SiteFormFieldSettingRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findLastOrder($form_setting_id, $level)
+    {
+        $qb = $this->createQueryBuilder('ff');
+        $qb->select('ff.field_order')
+            ->join('ff.site_form_setting', 'sfs')
+            ->where($qb->expr()->eq('sfs.id', ':form_setting_id'))
+            ->andWhere($qb->expr()->eq('ff.level', ':level'))
+            ->orderBy('ff.field_order', 'DESC')
+            ->groupBy('ff.field_order')
+            ->setMaxResults(1)
+            ->setParameters([
+                'form_setting_id' => $form_setting_id,
+                'level' => $level
+            ]);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

@@ -3,23 +3,12 @@
         <input id="cl1-row{{ field.id }}" class="form-field-published" type="checkbox" {{ field.published ? "checked" : '' }}>
         <label for="cl1-row{{ field.id }}"><span></span></label> 
     </td>
-    <td align="center" class="checking">
+    <td align='center' class="checking">
         <input id="cl2-row{{ field.id }}" class="form-field-mandatory" type="checkbox" {{ field.mandatory ? "checked" : '' }}>
         <label for="cl2-row{{ field.id }}"><span></span></label>      
     </td>
-    <td class='one-row many-field'>
-        {% block content %}
-            {% for field in all_fields %} 
-                {% if field.fieldType == "date" %} 
-                    <label>{{ field.label }} {{ field.mandatory ? '*' : '' }}</label>
-                    <div class="date-field-form">
-                        <input type='text' value='  JJ' maxlength='2' class='day'>
-                        <input type='text' value='MM' maxlength='2' class='month'>
-                        <input type='text' value=' AAAA' maxlength='4' class='year'>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endblock %}
+    <td class="one-row">
+    {% block content %}{% endblock %}
     </td>
     <td>
         {% if personalize %}
@@ -30,4 +19,3 @@
         {% endif %}
     </td> 
 </tr>
-

@@ -72,9 +72,15 @@ class SiteFormFieldSetting
     private $special_field_index;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $level;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $personalizable;
+
 
     public function __clone()
     {
@@ -399,5 +405,29 @@ class SiteFormFieldSetting
     public function getLevel()
     {
         return $this->level;
+    }
+
+    /**
+     * Set personalizable
+     *
+     * @param boolean $personalizable
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setPersonalizable($personalizable)
+    {
+        $this->personalizable = $personalizable;
+
+        return $this;
+    }
+
+    /**
+     * Get personalizable
+     *
+     * @return boolean
+     */
+    public function getPersonalizable()
+    {
+        return $this->personalizable;
     }
 }

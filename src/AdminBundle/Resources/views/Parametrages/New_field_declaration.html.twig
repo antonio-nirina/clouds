@@ -1,0 +1,69 @@
+<input type="hidden" name="field_id" value="{{ (field_id is defined)?field_id:"" }}">
+<div><h4>personnaliser le champ</h4></div>
+<div class="intitule">
+    <label>
+        <div>intitulé du champ</div>
+        <input name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
+    </label>    
+</div>
+<div class="line" >
+    <input id="alpha-radio" {{ (type=="alphanum")?"checked":""}} name="type_field" type='radio' value="alphanum">
+    <label for="alpha-radio">
+        <div>type alphanumérique</div> <span></span> <input type='text' >
+    </label>
+</div>
+<div class="line" >
+    <input id="choice-radio" {{ (type=="choice-radio")?"checked":""}} name="type_field" type='radio' value="choice-radio">
+    <label for="choice-radio">
+        <div>type case à cocher</div> <span></span>
+        <div class="date-field-form">
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+                <span class="input-libelle-radio">oui</span>
+            </div>
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+                <span class="input-libelle-radio">non</span>
+            </div>
+        </div>
+    </label>    
+</div>
+<div class="line" >
+    <input id="date-radio" {{ (type=="date")?"checked":""}} name="type_field" type='radio' value="date">
+    <label for="date-radio">
+        <div>type date</div> <span></span>
+        {# <div class="date-field-form"> #}
+            <input type='text' value='  JJ' maxlength='2' class='day'>
+            <input type='text' value='MM' maxlength='2' class='month'>
+            <input type='text' value=' AAAA' maxlength='4' class='year'>
+        {# </div> #}
+    </label>
+    
+</div>
+<div class="line" >
+    <input id="period-radio" {{ (type=="period")?"checked":""}} name="type_field" type='radio' value="period">
+    <label for="period-radio">
+        <div>type période </div><span></span>
+        {# <div class="date-field-form"> #}
+            <input type='text' value='  JJ' maxlength='2' class='day'>
+            <input type='text' value='MM' maxlength='2' class='month'>
+            <input type='text' value=' AAAA' maxlength='4' class='year'>
+        {# </div> #}
+        <div class="period-a">à</div>
+        {# <div class="date-field-form"> #}
+            <input type='text' value='  JJ' maxlength='2' class='day'>
+            <input type='text' value='MM' maxlength='2' class='month'>
+            <input type='text' value=' AAAA' maxlength='4' class='year'>
+        {# </div> #}
+    </label>
+</div>
+<input type="hidden" name='level' value="{{ level }}">
+{% if field_id is defined and field_id > 0 %}
+    <button class ="update btn-valider">
+        sauvegarder
+    </button>
+{% else %}
+    <button class ="ajouter btn-valider">
+        ajouter
+    </button>
+{% endif %}
