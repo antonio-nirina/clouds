@@ -9,6 +9,7 @@
 		
 		<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/acceuil.css">
+		<link rel="stylesheet" href="css/swiper.css">
 
 	</head>
 
@@ -43,6 +44,8 @@
 									<li class = "play-log"></li>
 								</ul>
 							</div>
+							
+							<div style = "clear:both;"></div>
 						</div>
 					</div>
 				</div>
@@ -72,8 +75,9 @@
 			<!-- SLIDE -->
 			<div class="container bg-slide">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-12 hidden-xs-down">
 						<div class = "slide">
+							<!--
 							<div class = "slideshow">
 								<ul>
 									<li><img src="images/cloudsRewards/slide1.png" alt="" width="750" height="349" class = "img-fluid logo-img" /></li>
@@ -85,11 +89,27 @@
 								<span class = "fleche-gauche"></span>
 								<span class = "fleche-droite"></span>
 							</div>
+							-->
+							
+							<div class="swiper-container">
+								<div class="swiper-wrapper">
+								  <div class="swiper-slide"><img src="images/cloudsRewards/slide1.png" alt="" width = "100%"  class = "logo-img" /></div>
+								  <div class="swiper-slide"><img src="images/cloudsRewards/slide1.png" alt="" width = "100%" class = "logo-img" /></div>
+								  <div class="swiper-slide"><img src="images/cloudsRewards/slide1.png" alt="" width = "100%" class = "logo-img" /></div>
+								  <div class="swiper-slide"><img src="images/cloudsRewards/slide1.png" alt="" width = "100%" class = "logo-img" /></div>
+								  <div class="swiper-slide"><img src="images/cloudsRewards/slide1.png" alt="" width = "100%" class = "logo-img" /></div>
+								</div>
+								<!-- Add Arrows -->
+								<div class="swiper-button-next"></div>
+								<div class="swiper-button-prev"></div>
+							</div>
 							<div class = "clearBoth"></div>
 						</div>
 					</div>
 				</div>
 			</div>
+			
+			
 			<!-- FIN SLIDE -->
 			
 			<!-- BODY -->
@@ -175,7 +195,7 @@
 									<span class = "lib-date-block-centre-large">Loren ipsum dolor sit amet, consectetur adipiscing elit</span>
 								</p>
 								
-								<p class = "img-titre-block-centre">
+								<p class = "img-titre-block-centre hidden-xs-down">
 									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
 								</p>
 								
@@ -205,6 +225,9 @@
 							
 							<!-- SEP DATE -->
 							<div class = "content-sep-date">
+								<div class = "content-sep-date-positionnement">
+									<span>12/10</span>
+								</div>
 							</div>
 							<!-- FIN SEP DATE -->
 							
@@ -217,7 +240,7 @@
 									<span class = "lib-date-block-centre-large">Du 15 octobre 2017 au 22 février 2018</span>
 								</p>
 								
-								<p class = "img-titre-block-centre">
+								<p class = "img-titre-block-centre hidden-xs-down">
 									<!--
 									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
 									-->
@@ -244,6 +267,10 @@
 							</div>
 							<!-- FIN DATE CHALLENGE -->
 							
+							<!-- SEP DATE -->
+							<div class = "content-sep-date-vide"></div>
+							<!-- FIN SEP DATE -->
+							
 							<!-- TROPHEES -->
 							<div class = "content-trophees">
 								<p class = "titre-block-centre">
@@ -253,7 +280,7 @@
 									<span class = "lib-date-block-centre-large">Nulla vestitum ipsumocci, veluctus </span>
 								</p>
 								
-								<p class = "img-titre-block-centre">
+								<p class = "img-titre-block-centre hidden-xs-down">
 									<!--
 									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
 									-->
@@ -271,6 +298,9 @@
 							
 							<!-- SEP DATE -->
 							<div class = "content-sep-date">
+								<div class = "content-sep-date-positionnement">
+									<span>15/10</span>
+								</div>
 							</div>
 							<!-- FIN SEP DATE -->
 							
@@ -285,7 +315,7 @@
 									-->
 								</p>
 								
-								<p class = "img-titre-block-centre">
+								<p class = "img-titre-block-centre hidden-xs-down">
 									<!--
 									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
 									-->
@@ -409,8 +439,32 @@
 			<!-- FOOTER -->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-12 content-footer">
-						
+					<div class="col-12">
+						<div class = "footer">
+							<div class = "content-lefter-footer">
+								<span class = "copyright-footer">© Cloud rewards 2017</span>
+							</div>
+							
+							<div class = "content-center-footer">
+								<ul class = "page-standards-footer">
+									<li class = "page-mention-legale"><a href = "">mentions légales</a></li>
+									<li class = "page-reglement"><a href = "">réglement</a></li>
+									<li class = "page-contact"><a href = "">contact</a></li>
+								</ul>
+								
+								<ul class = "rs-sociaux-footer">
+									<li class = "rs-fb"><a href = ""></a></li>
+									<li class = "rs-linkdin"><a href = ""></a></li>
+									<li class = "rs-viadeo"><a href = ""></a></li>
+									<li class = "rs-gplus"><a href = ""></a></li>
+									<li class = "rs-twitter"><a href = ""></a></li>
+									<li class = "rs-autre"><a href = ""></a></li>
+								</ul>
+							</div>
+							
+							<div class = "content-righter-footer">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -426,5 +480,14 @@
 		<script src="js/bootstrap/bootstrap.min.js"></script>
 		<script src="js/ie10-viewport-bug-workaround.js"></script>
 		<script src="js/slide.js"></script>
+		<script src="js/swiper.min.js"></script>
+		<script>
+			var swiper = new Swiper('.swiper-container', {
+			  navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			  },
+			});
+		  </script>
 	</body>
 </html>

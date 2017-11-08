@@ -5,3 +5,8 @@ $(function(){
 	 })
   }, 3500);
 });
+
+$(document).ready(function(){
+	var HeightContentCenter = $('div.content-center').outerHeight();
+	$('div.content-sep-date-ligne').css('height', HeightContentCenter+'px');
+});
