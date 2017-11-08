@@ -4,6 +4,7 @@ namespace AppBundle\DataFixtures\ORM;
 use AdminBundle\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\DataFixtures\ORM\RegistrationFormDataFixtures;
 
 class ProgramFixtures extends Fixture
 {
@@ -21,8 +22,11 @@ class ProgramFixtures extends Fixture
         $program->setClient($this->getReference('client_test'));
         $program->setDateLaunch(new \DateTime());
         $program->setDotationSupport(false);
-        $manager->persist($program);
+        $program->setRegistrationFormData($this->getReference('regist-form-data'));
 
+        $this->getReference('regist-form-data')->setProgram($program);
+
+        $manager->persist($program);
         $manager->flush();
         
         $this->addReference('program', $program);
@@ -32,7 +36,8 @@ class ProgramFixtures extends Fixture
     {
         return array(
             ProgramTypeFixtures::class,
-            ClientFixtures::class
+            ClientFixtures::class,
+            RegistrationFormDataFixtures::class
         );
     }
 }

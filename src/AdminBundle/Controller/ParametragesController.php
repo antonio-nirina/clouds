@@ -3,6 +3,7 @@
 
 namespace AdminBundle\Controller;
 
+use AdminBundle\Entity\RegistrationFormData;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +16,11 @@ use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Form\FormStructureDeclarationType;
 use AdminBundle\Form\FormStructureType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use AdminBundle\Form\RegistrationImportType;
+use AdminBundle\Component\SiteForm\SpecialFieldIndex;
+use AdminBundle\Form\RegistrationFormHeaderDataType;
+use AdminBundle\Form\RegistrationFormIntroDataType;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Route("/admin/parametrages")
@@ -95,99 +100,143 @@ class ParametragesController extends Controller
     public function inscriptionsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
         $programs = $em->getRepository(Program::class)->findAll();
-        $site_form_field_settings = array();
-        $site_form_setting = null;
-        if (!empty($programs)) {
-            $program = $programs[0];
-            $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeWithField(
-                $program,
-                SiteFormType::REGISTRATION_TYPE
-            );
-            $site_form_field_settings = $site_form_setting->getSiteFormFieldSettings();
+        if (empty($programs) || is_null($programs[0])) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+        $program = $programs[0];
+        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+            ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
+        if (is_null($registration_site_form_setting)) {
+            return $this->redirectToRoute("fos_user_security_logout");
         }
 
-        $form_structure_form = $this->createForm(FormStructureType::class);
-        $form_structure_form->handleRequest($request);
-        if ($form_structure_form->isSubmitted() && $form_structure_form->isValid()) {
-            $field_order = json_decode($form_structure_form->getData()['field-order']);
-            $field_order = array_flip($field_order);
+        $registration_site_form_field_settings = $registration_site_form_setting->getSiteFormFieldSettings();
 
-            $current_field_list = json_decode($form_structure_form->getData()['current-field-list']);
-            if (!is_null($current_field_list)) {
-                foreach ($current_field_list as $field_data) {
-                    $field = $em->getRepository(SiteFormFieldSetting::class)->findOneById(intval($field_data->id));
-                    if (!is_null($field)) {
-                        $field->setPublished(boolval($field_data->published));
-                        $field->setMandatory(boolval($field_data->mandatory));
-                        if (array_key_exists($field->getId(), $field_order)) {
-                            $field->setFieldOrder($field_order[$field->getId()]);
-                        }
-                    }
+        $registration_form_data = $program->getRegistrationFormData();
+        if (is_null($registration_form_data)) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+        $current_header_image = $registration_form_data->getHeaderImage();
+        $registration_form_data->setHeaderImage("");
+
+        $form_factory = $this->get("form.factory");
+        $form_structure_form = $form_factory->createNamed("form_structure", FormStructureType::class);
+        $header_data_form = $form_factory->createNamed(
+            "header_data",
+            RegistrationFormHeaderDataType::class,
+            $registration_form_data
+        );
+        $intro_data_form = $form_factory->createNamed(
+            "introduction_data",
+            RegistrationFormIntroDataType::class,
+            $registration_form_data
+        );
+
+        if ("POST" === $request->getMethod()) {
+            if ($request->request->has("form_structure")) {
+                $form_structure_form->handleRequest($request);
+                if ($form_structure_form->isSubmitted() && $form_structure_form->isValid()) {
+                    $fields_manager = $this->container->get("admin.form_field_manager");
+
+                    $field_order = $form_structure_form->getData()["field-order"];
+
+                    $current_field_list = $form_structure_form->getData()["current-field-list"];
+                    $fields_manager->adjustFieldOrder($field_order, $current_field_list);
+
+                    $new_field_list = $form_structure_form->getData()["new-field-list"];
+                    $fields_manager->addNewFields($new_field_list, $registration_site_form_setting);
+
+                    $delete_field_list = $form_structure_form->getData()["delete-field-action-list"];
+                    $fields_manager->deleteField($delete_field_list, $registration_site_form_setting);
+
+                    $fields_manager->save();
+
+                    return $this->redirectToRoute("admin_parametrages_inscriptions");
                 }
             }
 
-            $new_field_list = json_decode($form_structure_form->getData()['new-field-list']);
-            if (!is_null($new_field_list)) {
-                foreach ($new_field_list as $new_field) {
-                    if (!is_null($site_form_setting)
-                        &&
-                        (
-                            is_int($site_form_setting->getCustomFieldAllowed())
-                            && $site_form_setting->getCustomFieldAllowed() > 0
-                        )
-                    ) {
-                        $field = new SiteFormFieldSetting();
-                        $field->setSiteFormSetting($site_form_setting)
-                                ->setFieldType($new_field->field_type)
-                                ->setMandatory(boolval($new_field->mandatory))
-                                ->setLabel($new_field->label)
-                                ->setFieldOrder(30); // big value, to put new field at the bottom
-                        if (array_key_exists('choices', $new_field)) {
-                            $choices = array_map('strval', (array)$new_field->choices);
-                            $choices = array_map('strval', array_flip($choices)); // VALUE is the same as KEY
-                            $add_data["choices"] = $choices;
-                            $field->setAdditionalData($add_data);
-                        }
-                        $site_form_setting->addSiteFormFieldSetting($field);
-                        $em->persist($field);
-
-                        $site_form_setting->setCustomFieldAllowed(($site_form_setting->getCustomFieldAllowed()) - 1);
+            if ($request->request->has("header_data")) {
+                $header_data_form->handleRequest($request);
+                if ($header_data_form->isSubmitted() && $header_data_form->isValid()) {
+                    $header_image_file = $registration_form_data->getHeaderImage();
+                    if (!is_null($header_image_file)) {
+                        $header_image_file->move(
+                            $this->getParameter("registration_header_image_upload_dir"),
+                            $header_image_file->getClientOriginalName()
+                        );
+                        $registration_form_data->setHeaderImage($header_image_file->getClientOriginalName());
+                    } else {
+                        $registration_form_data->setHeaderImage($current_header_image);
                     }
+
+                    $em->flush();
+
+                    return $this->redirectToRoute("admin_parametrages_inscriptions");
                 }
             }
 
-            $field_to_delete_list = ('' != $form_structure_form->getData()['delete-field-action-list'])
-                                        ? explode(',', $form_structure_form->getData()['delete-field-action-list'])
-                                        : array();
-            if (!empty($field_to_delete_list)) {
-                foreach ($field_to_delete_list as $field_to_delete_id) {
-                    $field = $em->getRepository(SiteFormFieldSetting::class)->findOneById($field_to_delete_id);
-                    if (!is_null($field)) {
-                        $em->remove($field);
-                        $site_form_setting->setCustomFieldAllowed($site_form_setting->getCustomFieldAllowed() + 1);
-                    }
+            if ($request->request->has("introduction_data")) {
+                $intro_data_form->handleRequest($request);
+                if ($intro_data_form->isSubmitted() && $intro_data_form->isValid()) {
+                    $registration_form_data->setHeaderImage($current_header_image);
+                    $em->flush();
+
+                    return $this->redirectToRoute("admin_parametrages_inscriptions");
                 }
             }
-            $em->flush();
-
-            return $this->redirectToRoute('admin_parametrages_inscriptions');
         }
 
-        return $this->render('AdminBundle:Parametrages:Inscriptions.html.twig', array(
-            'site_form_field_settings' => $site_form_field_settings,
-            'form_structure_form' => $form_structure_form->createView(),
-            'field_type_list' => FieldTypeName::FIELD_NAME,
-            'custom_field_allowed' => $site_form_setting->getCustomFieldAllowed(),
+        return $this->render("AdminBundle:Parametrages:Inscriptions.html.twig", array(
+            "site_form_field_settings" => $registration_site_form_field_settings,
+            "form_structure_form" => $form_structure_form->createView(),
+            "field_type_list" => FieldTypeName::FIELD_NAME,
+            "custom_field_allowed" => $registration_site_form_setting->getCustomFieldAllowed(),
+            "header_data_form" =>  $header_data_form->createView(),
+            "current_header_image" => $current_header_image,
+            "intro_data_form" => $intro_data_form->createView(),
         ));
     }
 
     /**
      * @Route("/inscriptions/imports", name="admin_parametrages_inscriptions_imports")
      */
-    public function importsAction()
+    public function importsAction(Request $request)
     {
-        return $this->render('AdminBundle:Parametrages:Imports.html.twig', array());
+        $em = $this->getDoctrine()->getManager();
+        $programs = $em->getRepository(Program::class)->findAll();
+        if (empty($programs) || is_null($programs[0])) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+        $program = $programs[0];
+        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+            ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
+        if (is_null($registration_site_form_setting)) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+
+        $registration_import_form = $this->createForm(RegistrationImportType::class);
+        $registration_import_form->handleRequest($request);
+        $error_list = array();
+        if ($registration_import_form->isSubmitted() && $registration_import_form->isValid()) {
+            $import_file = $registration_import_form->getData()["registration_data"];
+            $registration_handler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
+            $registration_handler->setSiteFormSetting($registration_site_form_setting);
+            $registration_handler->import($import_file);
+
+            if (!empty($registration_handler->getErrorList())) {
+                $error_list = $registration_handler->getErrorList();
+            } else {
+                $this->addFlash('success_message', 'Import de données effectué avec succès');
+                return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
+            }
+        }
+
+        return $this->render("AdminBundle:Parametrages:Imports.html.twig", array(
+            "registration_form" => $registration_import_form->createView(),
+            "error_list" => $error_list,
+        ));
     }
 
     /**

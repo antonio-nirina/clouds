@@ -321,5 +321,40 @@ $(document).ready(function(){
      * Selection multiple : champs à publier, rendre obligatoire
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Image Header
+     * *********************************************************************************************
+     */
+    //  preview d'image après choix d'image
+    function createImagePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.header-image-preview-img').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $('.header-image-input').on('change', function(){
+        createImagePreview(this);
+    });
+
+    // preview du message
+    $('.header-message-input').on('input', function(){
+        $('.header-message-preview').text($(this).val());
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Image Header
+     * *********************************************************************************************
+     */
 });
 

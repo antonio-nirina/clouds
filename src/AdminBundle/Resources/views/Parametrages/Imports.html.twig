@@ -39,6 +39,19 @@
 						<div class = "col-12 col-md-12 col-lg-12">
 							<ul class = "content-option">
 								<li class = "options">
+                                    {% for message in app.flashes('success_message') %}
+									<div class="flash-notice">
+										{{ message }}
+									</div>
+                                    {% endfor %}
+
+                                    {% if error_list is defined and error_list is not empty %}
+									<div>
+										{% for error in error_list %}
+										<span>{{ error }}</span>
+										{% endfor %}
+									</div>
+                                    {% endif %}
 									<div class = "content-titre">
 										Pour commencer votre programme aujourd'hui. Choisissez une option :
 									</div>
@@ -58,9 +71,17 @@
 												<span class = "libelle_btn_dowload">Télécharger le modèle</span>
 											</button>
 										</a>
-										<button id = "btn-valider-challenge" class = "btn-valider-upload">
+
+										{% if registration_form is defined and registration_form is not null %}
+											{{ form_start(registration_form, {"attr": {"novalidate": "novalidate"}}) }}
+												{{ form_widget(registration_form.registration_data) }}
+												{{ form_errors(registration_form.registration_data) }}
+											<input type="submit" value="Importer le fichier complété">
+											{{ form_end(registration_form) }}
+										{% endif %}
+										{#<button id = "btn-valider-challenge" class = "btn-valider-upload">
 											<span class = "libelle_btn_upload">Importer le fichier complété</span>
-										</button>
+										</button>#}
 									</div>
 								</li>
 								

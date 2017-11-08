@@ -247,7 +247,7 @@ class SiteFormFieldSettingManager
     {
         $site_form_setting = $this->em->getRepository('AdminBundle:SiteFormSetting')->findAllDefaultFields($program, $site_form_type);
         $default_fields = $site_form_setting->getSiteFormFieldSettings();
-
+        
         foreach ($default_fields as $field) {
             $field_clone = clone $field;
             $field_clone->setLevel($level);

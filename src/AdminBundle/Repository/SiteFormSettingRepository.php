@@ -12,7 +12,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->where($qb->expr()->eq('site_form_setting.id', ':id'))
             ->setParameter('id', $id);
 
-        return $qb->getQuery()->getSingleResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     public function findByProgramAndType($program, $form_type)
@@ -27,7 +27,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('program', $program)
             ->setParameter('form_type', $form_type);
 
-        return $qb->getQuery()->getSingleResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     public function findByProgramAndTypeWithField($program, $form_type)
@@ -45,7 +45,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('program', $program)
             ->setParameter('form_type', $form_type);
 
-        return $qb->getQuery()->getSingleResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     public function findByProgramAndTypeWithFieldWithLevel($program, $form_type)
