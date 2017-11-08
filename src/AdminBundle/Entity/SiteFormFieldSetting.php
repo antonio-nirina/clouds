@@ -78,6 +78,7 @@ class SiteFormFieldSetting
 
     /**
      * @ORM\OneToOne(targetEntity="SiteFormFieldSetting")
+     * @ORM\JoinColumn(name="confirmation_field_id", referencedColumnName="id", onDelete="set null")
      */
     private $confirmation_field;
 
