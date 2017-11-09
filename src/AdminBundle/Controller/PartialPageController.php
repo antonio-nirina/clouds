@@ -1,6 +1,7 @@
 <?php
 namespace AdminBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Component\SiteForm\FieldType;
@@ -9,6 +10,7 @@ class PartialPageController extends Controller
 {
     private $text_type;
     private $choice_type;
+    private $single_checkbox_type;
 
     public function __construct()
     {
@@ -18,12 +20,16 @@ class PartialPageController extends Controller
             FieldType::ALPHANUM_TEXT,
             FieldType::ALPHA_TEXT,
             FieldType::EMAIL,
+            FieldType::PASSWORD,
         );
         $this->choice_type = array(
             FieldType::CHOICE_RADIO,
         );
         $this->date_type = array(
             FieldType::DATE,
+        );
+        $this->single_checkbox_type = array(
+            FieldType::CHECKBOX,
         );
     }
 
@@ -46,12 +52,44 @@ class PartialPageController extends Controller
             return $this->render($template, array(
                 'field' => $field,
             ));
+        } elseif (in_array($field->getFieldType(), $this->single_checkbox_type)) {
+            return $this->render('AdminBundle:PartialPage/SiteFormField:checkbox.html.twig', array(
+                'field' => $field,
+            ));
         }
 
         return new Response('');
     }
 
-    public function siteFormManyFieldsRowAction($field, $level)
+    
+    public function siteFormFieldRow2Action($field, $personalize = false)
+    {
+        if (in_array($field->getFieldType(), $this->text_type)) {
+            return $this->render('AdminBundle:PartialPage/SiteFormField:text2.html.twig', array(
+                'field' => $field,
+                'personalize' => $personalize
+            ));
+        } elseif (in_array($field->getFieldType(), $this->choice_type)) {
+            $choices = (!empty($field->getAdditionalData()) && array_key_exists('choices', $field->getAdditionalData()))
+                ? $field->getAdditionalData()["choices"]
+                : array();
+            return $this->render('AdminBundle:PartialPage/SiteFormField:radio2.html.twig', array(
+                'field' => $field,
+                'choices' => $choices,
+                'personalize' => $personalize
+            ));
+        } elseif (in_array($field->getFieldType(), $this->date_type)) {
+            $template = 'AdminBundle:PartialPage/SiteFormField:date2.html.twig';
+            return $this->render($template, array(
+                'field' => $field,
+                'personalize' => $personalize
+            ));
+        }
+
+        return new Response('');
+    }
+
+    public function siteFormManyFieldsRowAction($field, $personalize = false)
     {
         // dump($level);die;
         $em = $this->getDoctrine()->getManager();
@@ -60,11 +98,13 @@ class PartialPageController extends Controller
         $all_fields_row = $em->getRepository("AdminBundle:SiteFormFieldSetting")->findAllInRow(
             $row,
             $form_setting->getId(),
-            $level
+            $field->getLevel()
         );
 
         return $this->render('AdminBundle:PartialPage/SiteFormField:row.html.twig', array(
             'field' => $field,
-            'all_fields' => $all_fields_row));
+            'all_fields' => $all_fields_row,
+            'personalize' => $personalize
+        ));
     }
 }

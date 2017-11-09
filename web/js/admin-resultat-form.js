@@ -1,6 +1,10 @@
 //supprimer champs
-$('.delele-field-row-link').on('click', function(e){
+$('.tab-content').on('click', '.delele-field-row-link', function(e){
     e.preventDefault();
+
+    var input_custom = $(this).parents('.tab-pane').find("input[name=custom-field-allowed]");
+    var custom_field_allowed = input_custom.val();
+    var btn_add = $(this).parents('.tab-pane').find('.add-field-link-declaration');
 
     var form_field_row = $(this).parents('.form-field-row');
     var field_id = form_field_row.attr('data-field-id');
@@ -19,8 +23,20 @@ $('.delele-field-row-link').on('click', function(e){
     }
     delete_field_action_input.val(new_delete_field_action_list);
     $(this).parents('.form-field-row').remove();
+
+    //affichage bouton ou non   
+    custom_field_allowed = parseInt(custom_field_allowed) + 1;
+    input_custom.val(custom_field_allowed);
+    if( custom_field_allowed > 0) {
+        btn_add.html("ajouter un champ ("+custom_field_allowed+" maximum)");
+        btn_add.parents('.add-field-form-block table').css('display','table');
+    }
+    else
+        btn_add.parents('.add-field-form-block table').css('display','none');
+
 });
 
+//valider les modifications
 $(".btn-valider.valider").on('click',function(e){
     e.preventDefault();
 
@@ -68,11 +84,12 @@ $(".btn-valider.valider").on('click',function(e){
         add_field_form_list.each(function(){
             var new_field_label = $(this).find('.input-field-label');
             if('' != new_field_label.val().trim())
-            {
+            { 
                 var new_field_datas_el = {
                     "label": $(this).find('.input-field-label').val(),
                     "mandatory": $(this).find('.checkbox-mandatory').is(":checked") ? true : false,
-                    "field_type": $(this).find('.select-field-type').val()
+                    "field_type": $(this).find('.select-field-type').val(),
+                    "level": $(this).parents('.tab-pane').find('input[name=level]').val()
                 };
 
                 if(field_type_with_choice.indexOf($(this).find('.select-field-type').val()) >= 0)
@@ -110,50 +127,207 @@ $(".btn-valider.valider").on('click',function(e){
     }
     $('#form_structure_declaration_new-field-list').val(JSON.stringify(new_field_datas_list));
     
-    // Ordonnancement des champs
-    var field_list = $('.sortable-table').find('tbody').find('tr.form-field-row');
+    // Ordonnancement des champs par produits
+    var pane = $('.tab-pane');
     var field_list_order = [];
-    if(field_list.length > 0)
-    {
-        field_list.each(function(){
-            field_list_order.push($(this).attr('data-field-id'));
-        });
-    }
+    pane.each(function(){
+        var arr_id = [];
+        var field_list = $(this).find('.sortable-table').find('tbody').find('tr.form-field-row');
+        if(field_list.length > 0)
+        {
+            field_list.each(function(){
+                arr_id.push($(this).attr('data-field-id'));
+            });
+        }
+        field_list_order.push(arr_id);
+    });
+
     $('#form_structure_declaration_field-order').val(JSON.stringify(field_list_order));
 
-     $(this).parents().find('form').submit();
+    // console.log($('#form_structure_declaration_field-order').val());
+    // console.log($('#form_structure_declaration_new-field-list').val());
+    // console.log($('#form_structure_declaration_delete-field-action-list').val());
+
+    // console.log($('#form_structure_declaration_current-field-list').val());
+    $(this).parents().find('form').submit();
     // console.log($(this).parents().find('form').serialize());
 });
 
-$('.btn-valider.btn-next-product').on('click',function(){
-    $("#form_structure_declaration_next").val('ok');
-    $(".btn-valider.valider").trigger('click');
+var config_editor = $('input[name=config_editor]').val();
+var admin_new_resultat = $('input[name=admin_new_resultat]').val();
+var admin_new_field_resultat = $('input[name=admin_new_field_resultat]').val();
+CKEDITOR.replace( 'editor', {
+        language: 'fr',
+        uiColor: '#9AB8F3',
+        height: 150,
+        width: 600,
+        customConfig: config_editor,
+    });
+$('#product-tabs a:first').tab('show');
+
+//suppression formulaire
+$('#product-tabs').on('click', '.delete-form-level', function(e){
+    e.preventDefault();
+    var a = $(this).parent(),
+        next = a.parent().find('a[data-toggle=tab]');
+    var href = a.attr('href');
+    var level = href.replace('#tab-form-',"");
+    var route = $('input[name=admin_delete_resultat]').val();
+    $.ajax({
+        type: "POST",
+        url: route.replace("PLACEHOLDER",level),
+        success: function(html){
+            a.remove();
+            $(href).remove();
+            next.click();
+        }
+    })
+})
+
+//nouveau formulaire
+$('.btn-next-product').on('click',function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: admin_new_resultat,
+        success : function(html) {
+            $('.new-add').html(html);                        
+            $('.new-add').find('.tab-pane').detach().appendTo('.tab-content');
+            $('.new-add').find('a[data-toggle=tab]').detach().insertBefore($('.btn-next-product')).tab('show');
+        }
+    });
 });
 
-// Ajout nouveau formulaire d'ajout de champ
+// Ajout nouveau champ
 var nb_added = 0;
-$('.add-field-link-declaration').on('click', function(e){
+$(document).on('click','.add-field-link-declaration', function(e){
     e.preventDefault();
+    var custom_field_allowed = $(this).next("input[name=custom-field-allowed]").val();
+    custom_field_allowed = parseInt(custom_field_allowed);
 
-    var custom_field_allowed = $("input[name=custom-field-allowed]").val();
-    if($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length < custom_field_allowed)
-    {
-        var new_add_field_form = $(this).parents('.add-field-form-block').find('.add-field-form.template').clone();
-        new_add_field_form.removeClass('template');
-        nb_added++;
-        new_add_field_form.find('.cl3-row').attr('id','cl3-row'+'-'+nb_added);
-        new_add_field_form.find('.cl3-row+label').attr('for','cl3-row'+'-'+nb_added);
-        $(this).parents('.add-field-form-block').find('.add-field-form-container').append(new_add_field_form);
-        new_add_field_form.show();
-    }
+    if(custom_field_allowed >0) {
+        var level = $(this).parents('.tab-pane').find("input[name=level]").val();
+        var data = {'level':level};
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: admin_new_field_resultat,
+            success: function(html){
+                $('.modal-content .content').html(html);
+                $("input[name=type_field]:checked").val()
+                $('#btn-modal').click();
+            }
+        });
+    }  
     else
     {
         alert(custom_field_allowed+' nouveau(x) champ(s) maximum');
     }
 });
 
-var max_add = $('input[name=max-allowed]').val();
-for(var i=0;i<max_add;i++){
-    $('.add-field-link-declaration').click();
-    if (i === 1) { break; }
-}
+$(document).on('click','.edit-field-row-link',function(e){
+    e.preventDefault();
+    var form_field_row = $(this).parents('.form-field-row');
+    var field_id = form_field_row.attr('data-field-id');
+    var level = $(this).parents('.tab-pane').find("input[name=level]").val();
+    var data = {'level':level, 'field_id': field_id};
+
+    $.ajax({
+            type: 'POST',
+            data: data,
+            url: admin_new_field_resultat,
+            success: function(html){
+                $('.modal-content .content').html(html);
+                $("input[name=type_field]:checked").val()
+                $('#btn-modal').click();
+            }
+        });
+});
+
+$(document).on('click', '.moveup-field-row-link', function(e) {
+    e.preventDefault();
+    var form_field_row = $(this).parents('.form-field-row');
+    var prev = form_field_row.prev('tr');
+    if ( prev.hasClass('head-personalized')) {
+        alert("ne peut plus monter");
+    } else {
+        form_field_row.detach().insertBefore(prev);
+    }
+});
+
+$(document).on('click', '.movedown-field-row-link', function(e) {
+    e.preventDefault();
+    var form_field_row = $(this).parents('.form-field-row');
+    var next = form_field_row.next('tr');  console.log(next);
+    if ("undefined" == typeof next || next.length ==0) {
+        alert('ne peut plus descendre')
+    } else {
+        form_field_row.detach().insertAfter(next);
+    }
+});
+
+$('.modal-content .content').on('click', '.update.btn-valider', function(e){
+    var level = $(this).prev("input[name=level]").val();
+    var type = $("input[name=type_field]:checked").val();
+    var label = $("input[name=intitule]").val();
+    var field_id = $("input[name=field_id]").val();
+
+    if(label.trim() == "") {
+        alert("ajouter un intitulé");
+    }
+    else {
+        var data = {'level':level,'label': label,'type_field': type,'field_id': field_id,'update': true};
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: admin_new_field_resultat,
+            success: function(html){
+                $('#sortable-table-'+level).append(html);
+                form_field_row = $('#sortable-table-'+level).find('.form-field-row[data-field-id='+field_id+']');
+                console.log(form_field_row[0]); console.log(form_field_row[1]);
+                var new_content = $(form_field_row[1]).html();
+                console.log(new_content);
+                $(form_field_row[0]).html(new_content);
+                form_field_row[1].remove();
+
+                $('.close-modal').click();
+            }
+        });
+    }
+})
+
+//valider ajout champ
+$('.modal-content .content').on('click', '.ajouter.btn-valider', function(){
+    var level = $(this).prev("input[name=level]").val();
+    var type = $("input[name=type_field]:checked").val();
+    var label = $("input[name=intitule]").val();
+
+    if(label.trim() == "") {
+        alert("ajouter un intitulé");
+    }
+    else {
+        var data = {'level':level, 'label': label, 'type_field': type, 'validate': true};
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: admin_new_field_resultat,
+            success: function(html){
+                $('#sortable-table-'+level).append(html);                                
+                var custom_field_allowed = $('#sortable-table-'+level).parents('.tab-pane').find("input[name=custom-field-allowed]").val();
+                console.log(custom_field_allowed);
+                custom_field_allowed = parseInt(custom_field_allowed) - 1;
+                console.log(custom_field_allowed);
+                $('#sortable-table-'+level).parents('.tab-pane').find("input[name=custom-field-allowed]").val(custom_field_allowed);
+                btn_add = $('#sortable-table-'+level).parents('.tab-pane').find('.add-field-link-declaration');
+                if( custom_field_allowed > 0) {
+                    btn_add.html("ajouter un champ ("+custom_field_allowed+" maximum)");
+                    btn_add.parents('.add-field-form-block table').css('display','table');
+                }
+                else
+                    btn_add.parents('.add-field-form-block table').css('display','none');
+                    
+                $('.close-modal').click(); 
+            }
+        });
+    }
+});

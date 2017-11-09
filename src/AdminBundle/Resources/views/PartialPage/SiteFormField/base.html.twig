@@ -1,14 +1,19 @@
 <tr class="form-field-row" data-field-id="{{ field.id }}">
-    <td>
-        <input id="cl1-row{{ field.id }}" class="form-field-published" type="checkbox" {{ field.published ? "checked" : '' }}>
+    <td class="field-parameter-state-container">
+        <input id="cl1-row{{ field.id }}" class="form-field-published styled-checkbox" type="checkbox" {{ field.published ? "checked" : '' }}>
         <label for="cl1-row{{ field.id }}"><span></span></label> 
     </td>
-    <td>
-        <input id="cl2-row{{ field.id }}" class="form-field-mandatory" type="checkbox" {{ field.mandatory ? "checked" : '' }}>
+    <td class="field-parameter-state-container">
+        <input id="cl2-row{{ field.id }}" class="form-field-mandatory styled-checkbox" type="checkbox" {{ field.mandatory ? "checked" : '' }}>
         <label for="cl2-row{{ field.id }}"><span></span></label>      
     </td>
-    <td>
+    <td class="field-container">
     {% block content %}{% endblock %}
     </td>
-    <td><a href="#" class="delele-field-row-link">Supprimer</a></td>
+    {#<td><a href="#" class="delete-field-row-link">Supprimer</a></td>#}
+    <td class="field-edit-option-container"><a href="#" class="edit-field-row-link"><i class="fa fa-pencil-square-o"></i></a></td>
+    <td class="field-reorder-option-container">
+        <a href="#" class="reorder-up-field-row-link"><i class="fa fa-caret-up fa-2x"></i></a>
+        <a href="#" class="reorder-down-field-row-link"><i class="fa fa-caret-down fa-2x"></i></a>
+    </td>
 </tr>

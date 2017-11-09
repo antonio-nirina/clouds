@@ -107,7 +107,7 @@ class ParametragesController extends Controller
         }
         $program = $programs[0];
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
-            ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
+            ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
@@ -249,9 +249,51 @@ class ParametragesController extends Controller
         return $response;
     }
     /**
-     * @Route("/resultats/declaration", name="admin_resultats_declaration")
+     * @Route("/resultats/declaration/new", name="admin_new_resultat_declaration")
+     * @Method("POST")
      */
-    public function formulaireDeclarationAction(Request $request)
+    public function newFormulaireDeclaration()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $url = 'cloud-rewards.peoplestay.com';
+        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $program = $program[0];
+        if ("Challenge" === $program->getType()->getType()) {
+            $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
+            $default_lines = 5;
+        } else {
+            $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
+        }
+
+        $fields_manager = $this->container->get('admin.form_field_manager');
+        $all_level = $fields_manager->getMaxLevel($program, $site_form_type);
+        $max_level = (!empty($all_level))?(int) $all_level[0]['level']:0;
+        $new_level = $max_level+1;
+
+        $fields_manager->rechargeDefaultFieldFor($program, $site_form_type, $new_level);
+
+        $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeAndLevelWithField($program, $site_form_type, $new_level);
+
+        // dump($site_form_setting); die;
+
+        return $this->render('AdminBundle:Parametrages:New_declaration.html.twig', array(
+            'site_form_setting' => $site_form_setting,
+            'site_form_field_settings' => $site_form_setting->getSiteFormFieldSettings(),
+            'max_line' => $site_form_setting->getCustomFieldAllowed() + $default_lines
+        ));
+    }
+
+    /**
+     * @Route("/resultats/declaration/delete/{level}", name="admin_delete_resultat_declaration")
+     * @Method("POST")
+     */
+    public function deleteFormulaireDeclaration($level)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -269,18 +311,123 @@ class ParametragesController extends Controller
             $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
         }
 
-        $current_level = 1;
-        if ($request->get('product')) {
-            $current_level = (int) $request->get('product');
+        $fields_manager = $this->container->get('admin.form_field_manager');
+        $fields_manager->removeFieldsForLevel($program, $site_form_type, $level);
+
+        return new Response('done');
+    }
+
+    /**
+     * @Route("/resultats/declaration/new_field", name="admin_new_field_declaration")
+     * @Method("POST")
+     */
+    public function newFieldDeclaration(Request $request)
+    {
+        $level = ($request->get('level'))?$request->get('level'):'';
+        $type = ($request->get('type_field'))?$request->get('type_field'):"alphanum";
+        $label = ($request->get('label'))?$request->get('label'):"";
+        $field_id = ($request->get('field_id'))?$request->get('field_id'):"";
+
+        $em = $this->getDoctrine()->getManager();
+        $fields_manager = $this->container->get('admin.form_field_manager');
+        
+        if (!empty($field_id)) {//update
+            $field = $em->getRepository('AdminBundle:SiteFormFieldSetting')->find($field_id);
+
+            if ($request->get('update')) {
+                $field = $fields_manager->updateField($field, $type, $label);
+                return $this->render('AdminBundle:Parametrages:Partial_new.html.twig', array(
+                    'field' => $field,
+                    'label' => $label,
+                    'personalize' => true
+                ));
+            } else {
+                $row = $field->getInRow();
+                $type = ($row)?"period":$field->getFieldType();
+                $type = ($type == 'text')?"alphanum":$type;
+                $label = $field->getLabel();
+            }
         }
+
+        if ($request->get('validate')) {//validate
+            $new_field = [
+                            'level' => $level,
+                            'label' => $label,
+                            "mandatory" => false,
+                            "field_type" => $type
+                            ];
+            if ($type == "choice-radio") {
+                $new_field["choices"] = ["oui"=>"oui","non"=>"non"];
+            }
+
+            $url = 'cloud-rewards.peoplestay.com';
+            $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+
+            if (empty($program)) {//redirection si program n'existe pas
+                return $this->redirectToRoute('fos_user_security_logout');
+            }
+
+            $program = $program[0];
+            if ("Challenge" === $program->getType()->getType()) {
+                $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
+            } else {
+                $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
+            }
+
+            $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeWithFieldWithLevel($program, $site_form_type);
+            $field = $fields_manager->addNewField($new_field, $site_form_setting);
+
+            // dump($field); die;
+            return $this->render('AdminBundle:Parametrages:Partial_new.html.twig', array(
+                'field' => $field,
+                'label' => $label,
+                'personalize' => true
+            ));
+        }
+        
+        return $this->render('AdminBundle:Parametrages:New_field_declaration.html.twig', array(
+            'level' => $level,
+            'type' => $type,
+            'label' => $label,
+            'field_id' => $field_id
+        ));
+    }
+
+    /**
+     * @Route("/resultats/declaration", name="admin_resultats_declaration")
+     */
+    public function formulaireDeclarationAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $url = 'cloud-rewards.peoplestay.com';
+        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $program = $program[0];
+        if ("Challenge" === $program->getType()->getType()) {
+            $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
+            $default_lines = 5;
+        } else {
+            $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
+        }
+
+        $fields_manager = $this->container->get('admin.form_field_manager');
+        $all_level = $fields_manager->getMaxLevel($program, $site_form_type);
+        
+        $max_level = (!empty($all_level))?(int) $all_level[0]['level']:1;
+        if (empty($all_level)) {
+            $fields_manager->rechargeDefaultFieldFor($program, $site_form_type, $max_level);
+        }
+
+        $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeWithFieldWithLevel($program, $site_form_type);
+        $arranged_fields = $fields_manager->getArrangedFields($site_form_setting);
 
         $form_structure_form = $this->createForm(FormStructureDeclarationType::class);
         $form_structure_form->handleRequest($request);
-
-        $fields_manager = $this->container->get('admin.form_field_manager');
-        $site_form_setting = $fields_manager->rechargeDefaultFieldFor($program, $site_form_type, $current_level);
-        $site_form_field_settings = $site_form_setting->getSiteFormFieldSettings();
-
 
         if ($form_structure_form->isSubmitted() && $form_structure_form->isValid()) {
             //dump($request); die;
@@ -304,25 +451,27 @@ class ParametragesController extends Controller
             //adjust current field
             $field_order = $form_structure_form->getData()['field-order'];
             $current_field_list = $form_structure_form->getData()['current-field-list'];
-            $fields_manager->adjustFieldOrder($field_order, $current_field_list);
+            $fields_manager->adjustFieldAndOrder($field_order, $current_field_list);
 
             //add new field
-            $new_field_list = $form_structure_form->getData()['new-field-list'];
-            $fields_manager->addNewFields($new_field_list, $site_form_setting, $current_level);
+            // $new_field_list = $form_structure_form->getData()['new-field-list'];
+            // if (!empty($new_field_list)) {
+            //     $fields_manager->addNewFields($new_field_list, $site_form_setting, true);
+            // }
 
             //delete field
             $delete_field_list = $form_structure_form->getData()['delete-field-action-list'];
-            $fields_manager->deleteField($delete_field_list, $site_form_setting);
+            $fields_manager->deleteField($delete_field_list, $site_form_setting, true);
             //save modification
             $fields_manager->save();
 
             $next_form = $form_structure_form->getData()['next'];//next product
-            // dump($next_form); die;
-            if (!empty($next_form)) {
-                return $this->redirect($this->generateUrl('admin_resultats_declaration', array(
-                    'product' => $current_level+1
-                )));
-            }
+            // // dump($next_form); die;
+            // if (!empty($next_form)) {
+            //     return $this->redirect($this->generateUrl('admin_resultats_declaration', array(
+            //         'product' => $current_level+1
+            //     )));
+            // }
 
             $program->setParamLevel(3);
             $em->flush();
@@ -333,11 +482,9 @@ class ParametragesController extends Controller
         return $this->render('AdminBundle:Parametrages:Declarations.html.twig', array(
             'site_form_setting' => $site_form_setting,
             'form_structure_form' => $form_structure_form->createView(),
-            'site_form_field_settings' => $site_form_field_settings,
+            'fields' => $arranged_fields,
             'field_type_list' => FieldTypeName::FIELD_NAME,
-            'custom_field_allowed' => $site_form_setting->getCustomFieldAllowed(),
-            'next_level' => $current_level+1,
-            'current_level' => $current_level
+            'max_line' => $site_form_setting->getCustomFieldAllowed()+ $default_lines
         ));
     }
 }

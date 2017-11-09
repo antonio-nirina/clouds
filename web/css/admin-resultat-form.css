@@ -7,8 +7,12 @@
     width: 100%;
     text-align: left;
 }
+.full-width > .row, .full-width > div {
+    padding: 0;
+}
 .row.full-width {
     display: contents;
+    padding: 0;
 }
 .btn-valider.btn-next-product {
     width: auto !important;
@@ -20,20 +24,31 @@
 .date-field-form input {
     display: inline-block;
     pointer-events: none;
-}    
+}
+.date-field-form {
+    width : 65%;
+    text-align: left;
+    margin: 11px 0;
+}
+.one-row.many-field label, .one-row.many-field .date-field-form {
+    width : auto;
+}
+.one-row.many-field label:nth-child(1) {
+    width: 28%;
+}
 .one-row label {
     padding : 0 20px;
 }
 input.day, input.month {
-    width: 50px;
+    width: 40px;
 }
 input.year {                    
-    width: 70px;
+    width: 60px;
 }
 input[type="checkbox"] {
     display:none;
 }
-input[type="checkbox"] + label span{
+input[type="checkbox"] + label > span, input[type="radio"] + label > span{
     display:inline-block;
     width:25px;
     height:25px;
@@ -43,12 +58,260 @@ input[type="checkbox"] + label span{
     cursor:pointer;
     background: url('../images/cloudsRewards/checkbox-off.png');
 }
-input[type="checkbox"]:checked + label span{
+input[type="checkbox"]:checked + label > span, input[type="radio"]:checked + label > span{
     background: url('../images/cloudsRewards/checked-on.png');
+}
+input[type="checkbox"] + label div {
+    padding-left: 38px;
+    margin-top: -25px;
+}
+input[type="checkbox"] + label div span, table{
+    font-size: 14px;    
+}
+.champs-form {
+    width: 65%;
+    border: 1px solid grey;
+    height: 35px;
+    border-radius: 5px;
+    margin-top: 11px;
+}
+.sortable-table td label {
+    width: 28%;
+    vertical-align: center;
 }
 .sortable-table th {
     text-align: center;
 }
+.sortable-table input[type="checkbox"] + label > span {
+    margin-top : 11px;
+}
+td.checking {
+    background-color: #F9F9F9;
+}
 .row .row label {
     text-align: left;
+}
+.content-bloc-droite h3, .content-bloc-droite h5, .alert.alert-info h5 {
+    font-weight : 300;
+}
+.content-bloc-droite {
+    min-height: 101px;
+}
+span.bold {
+    font-weight: bold;
+}
+.add {
+    color: #4a83e4 !important;
+    height: 30px;
+    padding : 5px;
+    background-color: #F0F0F0;
+}
+.add:before {
+    content: "\f055";
+    font-size: 25px;
+    margin-right: 5px;
+    font-family: fontawesome;
+    position: relative;
+    top: 3px;
+}
+.add.add-field-link-declaration {
+    background: none;
+}
+
+.options-form, .alert.alert-info h5, .add-form tfoot {
+    text-align: left;
+}
+textarea {
+    display:none;
+}
+#cke_1_bottom {
+    display: none;
+}
+.cke_top, .cke_chrome  {
+    border-bottom: 1px solid #817F80 !important;
+}
+.cke_1.cke_chrome {
+    border-color: #817F80 !important;
+}
+.cke_1 .cke_top {
+    background-color: #C4DAFF !important;
+    border-bottom-color: #817F80 !important;
+}
+#cke_editor {
+    width: 96% !important;
+    margin-left: 35px;
+    margin-top: 5px;
+}
+.alert-parent {
+    margin-top: 30px;
+}
+th {
+    font-weight: normal;
+    background-color: #E4E7F8;
+}
+th.ajout {
+    padding: 10px;    
+}
+sortable-table td {
+    padding : 10px;
+}
+th label {
+    text-align: center !important;
+}
+table, th, td, tr {
+   border: 1px solid #CACCC9;
+}
+table {
+    margin-bottom: 25px;
+    border-collapse: collapse;
+}
+.delete-form-level {
+    display: inline-block;
+    width:14px;
+    height:14px;
+    border-radius:100%;
+    background-color:#9E9E9E;
+    position: relative;
+    top: 5px;
+    margin-left: 5px;
+}
+.close-modal {
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius:100%;
+    background-color:#CACACA;
+    cursor: pointer;
+    float: right;
+}
+.delete-form-level::before {
+    content: "x";
+    position: relative;
+    top: -8px;
+    color: #505050;
+    font-size: 12px;
+    right: -4px;
+}
+.close-modal::before {
+    content: "x";
+    position: relative;
+    top: -7px;
+    color: #fff;
+    font-size: 20px;
+}
+.head-personalized {
+    background-color: #E4E7F8;
+}
+.head-personalized td {
+    padding: 5px 0; 
+    border: none;
+}
+.one-row.many-field, .sortable-table th:nth-child(3), .sortable-table td:nth-child(3), .sortable-table th:last-of-type, .sortable-table td:last-of-type {
+    border: none;
+}
+.add-form td {
+    padding: 10px;
+}
+#product-tabs {
+    display: inline-block !important;
+    text-align: left;
+    border-bottom: 1px solid;
+}
+#product-tabs a {
+    background: #F0F0F0;                    
+    padding: 5px;
+    text-decoration: none;
+    margin-left: 3px;
+    display: inline-flex;
+}
+#product-tabs a.active {
+    color: #fff;
+    background: #505050;
+}
+.modal-header {
+    border: none;
+    display: block;
+}
+#btn-modal {
+    display: none;
+}
+.modal-content .content {
+    padding-left : 5%;
+    font-size: 14px;
+    padding-bottom: 30px;
+}
+.modal-content .content h4 {
+    font-weight: 300;
+    color: #7D88E4;
+    text-align: left;
+}
+.modal-content .content .line, .modal-content .content .intitule{
+    text-align: left;
+    padding: 13px;                    
+}
+.modal-content .content .intitule{
+    padding-top: 30px
+}
+.modal-content .content .intitule input {
+    width: 55%;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #BABABA!important;
+    font-style:normal!important;
+    font-size: 12px;                    
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: #BABABA!important;
+   opacity:  1!important;
+   font-style:normal!important;
+    font-size: 12px;                   
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: #BABABA!important;
+   opacity:  1!important;
+   font-style:normal!important;
+    font-size: 12px;                   
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: #BABABA!important;
+   font-style:normal!important;
+    font-size: 12px;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color: #BABABA!important;
+   font-style:normal!important;
+    font-size: 12px;
+}
+.modal-content .content .line input {
+    pointer-events: none;
+}
+.modal-content .content .line .date-field-form {
+    margin: -9px;                    
+}
+.modal-content .content .line .period-a {                    
+    width: 44px;text-align: center;
+}
+.modal-content .content .line >input[type=radio] {
+    display: none;
+}
+.modal-content .content .line >input[type=radio]+ label >span {
+    margin-right: 20px;
+}
+.modal-content .content label {
+    width : 90%;
+}
+ .modal-content .content label, .modal-content .content label .date-field-form{
+    display : inline-block;
+    text-align: left;
+}
+.modal-content .content label > div {
+    display: inline-block;
+    width: 30%;
+}               
+
+@media only screen and (min-width:980px) {
+    .row.principal {
+        margin-left: -30px;
+        margin-right: -30px;
+    }
 }
