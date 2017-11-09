@@ -16,4 +16,5 @@ class SpecialFieldIndex
     const USER_PRO_EMAIL = 'user-pro-email';
     const USER_PHONE = 'user-phone';
     const USER_MOBILE_PHONE = 'user-mobile-phone';
+    const USER_PASSWORD = 'user-password';
 }
