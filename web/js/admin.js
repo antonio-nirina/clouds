@@ -52,5 +52,40 @@ $(document).ready(function(){
 			}
 		})
 	})
+
+	/**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Selection multiple : champs à publier, rendre obligatoire
+     * *********************************************************************************************
+     */
+    $('.checkbox-publish-all').on('click', function(e){
+        if($(this).is(':checked'))
+        {
+            $('.form-field-published').prop("checked", true);
+        }
+        else
+        {
+            $('.form-field-published').prop("checked", false);
+        }
+    });
+
+    $('.checkbox-mandatory-all').on('click', function(e){
+        if($(this).is(':checked'))
+        {
+            $('.form-field-mandatory').prop("checked", true);
+        }
+        else
+        {
+            $('.form-field-mandatory').prop("checked", false);
+        }
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Selection multiple : champs à publier, rendre obligatoire
+     * *********************************************************************************************
+     */
 });
 

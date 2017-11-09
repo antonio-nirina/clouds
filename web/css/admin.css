@@ -1402,3 +1402,10 @@ li.options{
 		background-position: -302px -15px;
 	}
 }
+   
+button.btn-valider {
+    background: linear-gradient(to right, #2969D7, #568CE7 );
+    background: -webkit-linear-gradient(to right, #2969D7, #568CE7 );
+    background: -o-linear-gradient(to right, #2969D7, #568CE7 );
+    background: -moz-linear-gradient(to right, #2969D7, #568CE7 );
+}

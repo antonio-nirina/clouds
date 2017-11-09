@@ -369,18 +369,15 @@ table {
 .modal-content .content label > div {
     display: inline-block;
     width: 30%;
-}   
-button.btn-valider {
-    background: linear-gradient(to right, #2969D7, #568CE7 );
-    background: -webkit-linear-gradient(to right, #2969D7, #568CE7 );
-    background: -o-linear-gradient(to right, #2969D7, #568CE7 );
-    background: -moz-linear-gradient(to right, #2969D7, #568CE7 );
 }
 .add:before {
     color: : linear-gradient(to right, #2969D7, #568CE7 );
     color: -webkit-linear-gradient(to right, #2969D7, #568CE7 );
     color: -o-linear-gradient(to right, #2969D7, #568CE7 );
     color: -moz-linear-gradient(to right, #2969D7, #568CE7 );
+}
+.fieldset {
+    box-shadow: 2px 2px 3px #aaa;
 }
 section.active {
     background-color: white;
