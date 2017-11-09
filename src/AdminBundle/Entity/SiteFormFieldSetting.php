@@ -77,10 +77,21 @@ class SiteFormFieldSetting
     private $level;
 
     /**
+     *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $personalizable;
 
+    /**
+     * @ORM\OneToOne(targetEntity="SiteFormFieldSetting")
+     * @ORM\JoinColumn(name="confirmation_field_id", referencedColumnName="id", onDelete="set null")
+     */
+    private $confirmation_field;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_confirmation_field;
 
     public function __clone()
     {
@@ -417,7 +428,19 @@ class SiteFormFieldSetting
     public function setPersonalizable($personalizable)
     {
         $this->personalizable = $personalizable;
+        return $this;
+    }
 
+    /**
+     * Set confirmationField
+     *
+     * @param \AdminBundle\Entity\SiteFormFieldSetting $confirmationField
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setConfirmationField(\AdminBundle\Entity\SiteFormFieldSetting $confirmationField = null)
+    {
+        $this->confirmation_field = $confirmationField;
         return $this;
     }
 
@@ -429,5 +452,39 @@ class SiteFormFieldSetting
     public function getPersonalizable()
     {
         return $this->personalizable;
+    }
+
+    /**
+     * Get confirmationField
+     *
+     * @return \AdminBundle\Entity\SiteFormFieldSetting
+     */
+    public function getConfirmationField()
+    {
+        return $this->confirmation_field;
+    }
+
+    /**
+     * Set isConfirmationField
+     *
+     * @param boolean $isConfirmationField
+     *
+     * @return SiteFormFieldSetting
+     */
+    public function setIsConfirmationField($isConfirmationField)
+    {
+        $this->is_confirmation_field = $isConfirmationField;
+
+        return $this;
+    }
+
+    /**
+     * Get isConfirmationField
+     *
+     * @return boolean
+     */
+    public function getIsConfirmationField()
+    {
+        return $this->is_confirmation_field;
     }
 }

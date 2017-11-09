@@ -10,4 +10,6 @@ class FieldType
     const EMAIL = 'email';
     const CHOICE_RADIO = "choice-radio";
     const DATE = "date";
+    const PASSWORD = "password";
+    const CHECKBOX = "checkbox";
 }
