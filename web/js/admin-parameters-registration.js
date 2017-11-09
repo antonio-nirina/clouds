@@ -312,4 +312,31 @@ $(document).ready(function(){
      * Image Header
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Section active
+     * *********************************************************************************************
+     */
+    $('.fieldset').on('click', function(e){
+        $('.fieldset').removeClass('active');
+        $(this).addClass('active');
+
+        $('.cke_wysiwyg_frame').contents().find('body').css(
+            'background-color', '#F5F5F5'
+        )
+        $(this).find('iframe.cke_wysiwyg_frame').contents().find('body').css(
+            'background-color', '#FFFFFF'
+        );
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Section active
+     * *********************************************************************************************
+     */
+
+
 });
