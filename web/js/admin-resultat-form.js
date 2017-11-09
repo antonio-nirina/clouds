@@ -5,6 +5,7 @@ $('.tab-content').on('click', '.delele-field-row-link', function(e){
     var input_custom = $(this).parents('.tab-pane').find("input[name=custom-field-allowed]");
     var custom_field_allowed = input_custom.val();
     var btn_add = $(this).parents('.tab-pane').find('.add-field-link-declaration');
+    var tr_perso = $(this).parents('.tab-pane').find('.head-personalized');
 
     var form_field_row = $(this).parents('.form-field-row');
     var field_id = form_field_row.attr('data-field-id');
@@ -25,6 +26,9 @@ $('.tab-content').on('click', '.delele-field-row-link', function(e){
     $(this).parents('.form-field-row').remove();
 
     //affichage bouton ou non   
+    next_perso = tr_perso.next('tr');
+    if (next_perso.length == 0 || 'undefined' == typeof next_perso)
+        tr_perso.css('display','none');
     custom_field_allowed = parseInt(custom_field_allowed) + 1;
     input_custom.val(custom_field_allowed);
     if( custom_field_allowed > 0) {
@@ -248,7 +252,8 @@ $(document).on('click', '.moveup-field-row-link', function(e) {
     e.preventDefault();
     var form_field_row = $(this).parents('.form-field-row');
     var prev = form_field_row.prev('tr');
-    if ( prev.hasClass('head-personalized')) {
+    console.log(prev);
+    if ( prev.hasClass('head-personalized') || prev.length == 0) {
         alert("ne peut plus monter");
     } else {
         form_field_row.detach().insertBefore(prev);
@@ -258,7 +263,8 @@ $(document).on('click', '.moveup-field-row-link', function(e) {
 $(document).on('click', '.movedown-field-row-link', function(e) {
     e.preventDefault();
     var form_field_row = $(this).parents('.form-field-row');
-    var next = form_field_row.next('tr');  console.log(next);
+    var next = form_field_row.next('tr');  
+    console.log(next);
     if ("undefined" == typeof next || next.length ==0) {
         alert('ne peut plus descendre')
     } else {
@@ -284,9 +290,9 @@ $('.modal-content .content').on('click', '.update.btn-valider', function(e){
             success: function(html){
                 $('#sortable-table-'+level).append(html);
                 form_field_row = $('#sortable-table-'+level).find('.form-field-row[data-field-id='+field_id+']');
-                console.log(form_field_row[0]); console.log(form_field_row[1]);
+                // console.log(form_field_row[0]); console.log(form_field_row[1]);
                 var new_content = $(form_field_row[1]).html();
-                console.log(new_content);
+                // console.log(new_content);
                 $(form_field_row[0]).html(new_content);
                 form_field_row[1].remove();
 
@@ -312,11 +318,12 @@ $('.modal-content .content').on('click', '.ajouter.btn-valider', function(){
             data: data,
             url: admin_new_field_resultat,
             success: function(html){
-                $('#sortable-table-'+level).append(html);                                
+                $('#sortable-table-'+level).find('tbody').append(html);
+                $('#sortable-table-'+level).find('.head-personalized').css('display','');
                 var custom_field_allowed = $('#sortable-table-'+level).parents('.tab-pane').find("input[name=custom-field-allowed]").val();
-                console.log(custom_field_allowed);
+                // console.log(custom_field_allowed);
                 custom_field_allowed = parseInt(custom_field_allowed) - 1;
-                console.log(custom_field_allowed);
+                // console.log(custom_field_allowed);
                 $('#sortable-table-'+level).parents('.tab-pane').find("input[name=custom-field-allowed]").val(custom_field_allowed);
                 btn_add = $('#sortable-table-'+level).parents('.tab-pane').find('.add-field-link-declaration');
                 if( custom_field_allowed > 0) {

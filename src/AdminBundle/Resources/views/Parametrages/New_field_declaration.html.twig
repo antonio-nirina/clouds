@@ -1,18 +1,18 @@
 <input type="hidden" name="field_id" value="{{ (field_id is defined)?field_id:"" }}">
 <div><h4>personnaliser le champ</h4></div>
-<div class="intitule">
+<div class="row intitule">
     <label>
         <div>intitulé du champ</div>
         <input name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
     </label>    
 </div>
-<div class="line" >
+<div class="row line" >
     <input id="alpha-radio" {{ (type=="alphanum")?"checked":""}} name="type_field" type='radio' value="alphanum">
     <label for="alpha-radio">
         <div>type alphanumérique</div> <span></span> <input type='text' >
     </label>
 </div>
-<div class="line" >
+<div class="row line" >
     <input id="choice-radio" {{ (type=="choice-radio")?"checked":""}} name="type_field" type='radio' value="choice-radio">
     <label for="choice-radio">
         <div>type case à cocher</div> <span></span>
@@ -28,32 +28,32 @@
         </div>
     </label>    
 </div>
-<div class="line" >
+<div class="row line" >
     <input id="date-radio" {{ (type=="date")?"checked":""}} name="type_field" type='radio' value="date">
     <label for="date-radio">
         <div>type date</div> <span></span>
         {# <div class="date-field-form"> #}
             <input type='text' value='  JJ' maxlength='2' class='day'>
             <input type='text' value='MM' maxlength='2' class='month'>
-            <input type='text' value=' AAAA' maxlength='4' class='year'>
+            <input type='text' value='AAAA' maxlength='4' class='year'>
         {# </div> #}
     </label>
     
 </div>
-<div class="line" >
+<div class="row line" >
     <input id="period-radio" {{ (type=="period")?"checked":""}} name="type_field" type='radio' value="period">
     <label for="period-radio">
         <div>type période </div><span></span>
         {# <div class="date-field-form"> #}
             <input type='text' value='  JJ' maxlength='2' class='day'>
             <input type='text' value='MM' maxlength='2' class='month'>
-            <input type='text' value=' AAAA' maxlength='4' class='year'>
+            <input type='text' value='AAAA' maxlength='4' class='year'>
         {# </div> #}
         <div class="period-a">à</div>
         {# <div class="date-field-form"> #}
             <input type='text' value='  JJ' maxlength='2' class='day'>
             <input type='text' value='MM' maxlength='2' class='month'>
-            <input type='text' value=' AAAA' maxlength='4' class='year'>
+            <input type='text' value='AAAA' maxlength='4' class='year'>
         {# </div> #}
     </label>
 </div>

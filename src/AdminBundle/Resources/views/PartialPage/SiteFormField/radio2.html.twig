@@ -1,7 +1,7 @@
 {% extends "AdminBundle:PartialPage/SiteFormField:base2.html.twig" %}
 {% block content %}
-    <label>{{ field.label }} {{ field.mandatory ? '*' : '' }}</label>
-    <div class="date-field-form">
+    <label class="col-sm-12 col-md-4">{{ field.label }} {{ field.mandatory ? '*' : '' }}</label>
+    <div class="col-sm-12 col-md-8  date-field-form">
         {% if(choices is defined and choices is not empty) %}
             {% for key, choice in choices %}
                 <div class="champs-form-radio">

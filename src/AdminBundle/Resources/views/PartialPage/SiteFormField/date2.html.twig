@@ -1,9 +1,9 @@
 {% extends "AdminBundle:PartialPage/SiteFormField:base2.html.twig" %}
 {% block content %}
-    <label>{{ field.label }} {{ field.mandatory ? '*' : '' }}</label>
-    <div class="date-field-form">
+    <label class="col-sm-12 col-md-4">{{ field.label }} {{ field.mandatory ? '*' : '' }}</label>
+    <div class="col-sm-12 col-md-8 date-field-form">
         <input type='text' value='  JJ' maxlength='2' class='day'>
         <input type='text' value='MM' maxlength='2' class='month'>
-        <input type='text' value=' AAAA' maxlength='4' class='year'>
+        <input type='text' value='AAAA' maxlength='4' class='year'>
     </div>
 {% endblock %}

@@ -41,13 +41,17 @@
     <div class = "row principal">
         <div class = "col-12 col-md-12 sous-menu-main">
             <section id = "create-form-inscription" class = "fieldset active">  
-                <div class = "content-bloc-droite">
-                    <h3 class = "hidden-sm-down">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h3>
-                    <h5 class = "hidden-md-up">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h5>                     
-                </div>
                 
-                <div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
-                </div> 
+                <div class = "row full-width no-contents">
+                    <div class = "col-md-10 col-sm-12 content-bloc-droite">
+                        <h3 class = "hidden-sm-down">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h3>
+                        <h5 class = "hidden-md-up">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h5>                     
+                    </div>
+                    
+                    <div class = "col-md-2 hidden-sm-down">
+                        <div class = " content-bloc-gauche img-form-declaration rounded-circle"></div> 
+                    </div>
+                </div>
 
                 <div class = "row full-width">
                     <div class = "row col-12 col-md-10">
@@ -140,6 +144,7 @@
                                         {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
                                         {% set row_set = [] %}
                                         {% set nb_line = 0 %}
+                                        {% set has_personalizable = false %} 
                                         {% for site_form_field_setting in site_form_field_settings %}
                                             {% if site_form_field_setting.personalizable != true %}
                                                 {% if site_form_field_setting.inRow not in row_set %}
@@ -159,12 +164,14 @@
                                                             ))
                                                         }}
                                                     {% endif %}                                        
-                                                {% endif %}                                        
-                                            {% endif %}                                        
+                                                {% endif %} 
+                                            {% else %}  
+                                                    {% set has_personalizable = true %}      
+                                            {% endif %}                                       
                                         {% endfor %}
                                         {# {{ dump(row_set) }} #}
                                        {% endif %}                                       
-                                        <tr class="head-personalized">
+                                        <tr {{ (not has_personalizable)?"style='display:none'":""}} class="head-personalized">
                                             <td></td>
                                             <td></td>
                                             <td>champ(s) pesonnalisé(s)</td>

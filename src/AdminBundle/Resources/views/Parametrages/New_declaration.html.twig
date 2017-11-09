@@ -28,33 +28,38 @@
                     <th width="15%"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>             
             {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
                 {% set row_set = [] %}
                 {% set nb_line = 0 %}
+                {% set has_personalizable = false %} 
                 {% for site_form_field_setting in site_form_field_settings %}
-                    {% if site_form_field_setting.inRow not in row_set %}
-                        {% if site_form_field_setting.inRow != null %}
-                            {{ render(controller(
-                                'AdminBundle:PartialPage:siteFormManyFieldsRow',
-                                {'field' : site_form_field_setting}
-                                ))
-                            }}
-                            {% set row_set = row_set|merge([site_form_field_setting.inRow]) %}
-                            {% set nb_line = nb_line + 1 %}
-                        {% else %}
-                            {% set nb_line = nb_line + 1 %}
-                            {{ render(controller(
-                                'AdminBundle:PartialPage:siteFormFieldRow',
-                                {'field' : site_form_field_setting}
-                                ))
-                            }}
-                        {% endif %}                                        
+                    {% if site_form_field_setting.personalizable != true %}
+                        {% if site_form_field_setting.inRow not in row_set %}
+                            {% if site_form_field_setting.inRow != null %}
+                                {{ render(controller(
+                                    'AdminBundle:PartialPage:siteFormManyFieldsRow',
+                                    {'field' : site_form_field_setting}
+                                    ))
+                                }}
+                                {% set row_set = row_set|merge([site_form_field_setting.inRow]) %}
+                                {% set nb_line = nb_line + 1 %}
+                            {% else %}
+                                {% set nb_line = nb_line + 1 %}
+                                {{ render(controller(
+                                    'AdminBundle:PartialPage:siteFormFieldRow2',
+                                    {'field' : site_form_field_setting}
+                                    ))
+                                }}
+                            {% endif %}                                        
+                        {% endif %} 
+                    {% else %}  
+                            {% set has_personalizable = true %}      
                     {% endif %}                                        
                 {% endfor %}
                 {# {{ dump(row_set) }} #}
                {% endif %}
-               <tr class="head-personalized">
+               <tr {{ (not has_personalizable)?"style='display:none'":""}}  class="head-personalized">
                     <td></td>
                     <td></td>
                     <td>champ(s) pesonnalisé(s)</td>

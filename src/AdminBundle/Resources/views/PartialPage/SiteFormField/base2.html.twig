@@ -7,15 +7,15 @@
         <input id="cl2-row{{ field.id }}" class="form-field-mandatory" type="checkbox" {{ field.mandatory ? "checked" : '' }}>
         <label for="cl2-row{{ field.id }}"><span></span></label>      
     </td>
-    <td class="one-row">
+    <td class="row">
     {% block content %}{% endblock %}
     </td>
     <td>
         {% if personalize %}
-            <a href="#" class="edit-field-row-link">editer</a>
-            <a href="#" class="delele-field-row-link">Supprimer</a>
-            <a href="#" class="moveup-field-row-link">up</a>
-            <a href="#" class="movedown-field-row-link">down</a>
+            <a href="#" class="edit-field-row-link"></a>
+            <a href="#" class="delele-field-row-link"></a>
+            <a href="#" class="moveup-field-row-link"></a>
+            <a href="#" class="movedown-field-row-link"></a>
         {% endif %}
     </td> 
 </tr>

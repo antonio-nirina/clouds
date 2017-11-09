@@ -118,6 +118,11 @@ class SiteFormFieldSettingManager
         if ($type != 'period') {
             $field->setFieldType($type);
             $field->setInRow(false);
+
+            if ($type == 'choice-radio') {
+                $add_data["choices"] = ["oui"=>"oui","non"=>"non"];
+                $field->setAdditionalData($add_data);
+            }
         } else {
             $type = 'date';
             $order = $field->getFieldOrder();
