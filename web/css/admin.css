@@ -1409,3 +1409,26 @@ button.btn-valider {
     background: -o-linear-gradient(to right, #2969D7, #568CE7 );
     background: -moz-linear-gradient(to right, #2969D7, #568CE7 );
 }
+
+.add:before {
+	content: "\f055";
+	font-size: 25px;
+	margin-right: 5px;
+	font-family: fontawesome;
+	position: relative;
+	top: 3px;
+}
+
+.moveup-field-row-link {
+	height: 12px;
+	margin-bottom: 10px;
+	background-position: left top !important;
+	background: url('../images/cloudsRewards/up-down.png') left center no-repeat;
+}
+.movedown-field-row-link {
+	height: 12px;
+	margin-left: -36px;
+	margin-bottom: 1px;
+	background-position: left bottom !important;
+	background: url('../images/cloudsRewards/up-down.png') left center no-repeat;
+}
