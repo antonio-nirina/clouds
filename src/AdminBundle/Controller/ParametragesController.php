@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class ParametragesController extends Controller
 {
 
-    public function sidebarAction()
+    public function sidebarAction($active)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -38,7 +38,8 @@ class ParametragesController extends Controller
         $level = $program[0]->getParamLevel();
 
         return $this->render('AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig', array(
-                                    'level' => $level
+                                    'level' => $level,
+                                    'active' => $active
                                 ));
     }
 

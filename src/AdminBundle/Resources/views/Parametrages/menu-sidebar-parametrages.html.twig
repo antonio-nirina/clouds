@@ -1,16 +1,8 @@
-<style>
-	.image-checked {
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-	}
-</style>
 <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar">
 	<div class="list-group border-0 card text-center text-md-left">
-		<a href="{{ path("admin_parametrages_programme") }}" class="list-group-item d-inline-block collapsed active" data-parent="#sidebar">			
+		<a href="{{ path("admin_parametrages_programme") }}" class="list-group-item d-inline-block collapsed {{ (active == 1)?'active':'' }}" data-parent="#sidebar">			
 			{% if level >= 1 %}
-				<img class='image-checked' src='{{ asset("images//cloudsRewards/checked-on.png")}}'>
+				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}
 				<span class = "numero-menu">1</span>
 			{% endif %}
@@ -18,9 +10,9 @@
 			<span class = "text-menu">programme</span>
 		</a>
 		{# {{ dump(level) }} #}
-		<a href="{{ path("admin_parametrages_inscriptions") }}" class="list-group-item d-inline-block collapsed" data-parent="#sidebar">
+		<a href="{{ path("admin_parametrages_inscriptions") }}" class="list-group-item d-inline-block collapsed {{ (active == 2)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 2 %}
-				<img class='image-checked' src='{{ asset("images//cloudsRewards/checked-on.png")}}'>
+				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">2</span>
 			{% endif %}
@@ -28,9 +20,9 @@
 			<span class = "text-menu">inscriptions</span>
 		</a>
 		
-		<a href="{{ path("admin_resultats_declaration") }}" class="list-group-item d-inline-block collapsed" data-parent="#sidebar">
+		<a href="{{ path("admin_resultats_declaration") }}" class="list-group-item d-inline-block collapsed {{ (active == 3)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 3 %}
-				<img class='image-checked' src='{{ asset("images//cloudsRewards/checked-on.png")}}'>
+				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">3</span>
 			{% endif %}
@@ -38,9 +30,9 @@
 			<span class = "text-menu">résultats</span>
 		</a>
 		
-		<a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar">
+		<a href="#" class="list-group-item d-inline-block collapsed {{ (active == 4)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 4 %}
-				<img class='image-checked' src='{{ asset("images//cloudsRewards/checked-on.png")}}'>
+				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">4</span>
 			{% endif %}
@@ -48,9 +40,9 @@
 			<span class = "text-menu">points</span>
 		</a>
 		
-		<a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar">
+		<a href="#" class="list-group-item d-inline-block collapsed {{ (active == 5)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 5 %}
-				<img class='image-checked' src='{{ asset("images//cloudsRewards/checked-on.png")}}'>
+				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">5</span>
 			{% endif %}
@@ -58,9 +50,9 @@
 			<span class = "text-menu">design</span>
 		</a>
 		
-		<a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar">
+		<a href="#" class="list-group-item d-inline-block collapsed {{ (active == 6)?'active':'' }}" data-parent="#sidebar">
 			{% if level == 6 %}
-				<img class='image-checked' src='{{ asset("images//cloudsRewards/checked-on.png")}}'>
+				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">6</span>
 			{% endif %}

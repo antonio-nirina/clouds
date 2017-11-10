@@ -33,6 +33,16 @@ $(document).ready(function(){
 		}
 	});
 
+    $('.program-choose .fieldset').on('mouseenter',function(){
+        $('.fieldset.active').removeClass('active').addClass('inactive');
+        if(!($(this).hasClass('active'))) {
+            $(this).addClass('active');
+        }
+        if($(this).hasClass('inactive')) {
+            $(this).removeClass('inactive');
+        }
+    });
+
 	//bouton multi-opération pour les programmes
 	$('.checkboxBtn.program').on('click', function(){
 		if ($(this).hasClass('est-mode')) {
@@ -44,7 +54,6 @@ $(document).ready(function(){
 
 	$('.radioBtn.program').on('click',function(){
 		$('.fieldset .checkboxBtn.program').each(function(){
-			console.log($(this));
 			if($(this).hasClass('est-mode'))
 			{
 				$(this).removeClass('est-mode').addClass('no-mode');

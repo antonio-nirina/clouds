@@ -10,10 +10,10 @@
 {% endblock %}
 
 {% block main %}
-	{{ render(controller('AdminBundle:Parametrages:sidebar')) }}
+	{{ render(controller('AdminBundle:Parametrages:sidebar',{'active':1})) }}
 	{# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
 
-	<main class="col-md-9  offset-md-1 float-left main">
+	<main class="col-md-9  offset-md-1 float-left main program-choose">
 		{# {{ dump(all_program_type) }}
 		{{ dump(program) }} #}		
 		<div class = "row">
@@ -22,7 +22,7 @@
 					<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
 						<ul class="navbar-nav content-menu-niv-3">
 							<li class="nav-item-niv-3 form-inscription">
-								<a class="nav-link-niv-3 menu-page-active" href="form-inscription.php">Quel est votre programme de récompenses <span class = "bulle-aide"></span></a>
+								<a class="nav-link-niv-3 menu-page-active" href="form-inscription.php">quel est votre programme de récompenses ?</a> <span class = "bulle-aide"></span>
 							</li>
 						</ul>
 					</div>
@@ -57,7 +57,7 @@
 									<label id="mode-radio" class="checkboxBtn program {{ multi_operation }}">
 										<input type="hidden" name="challenge_mode">
 									</label>
-									<span class="libelle-mode">Mode multi-opérations</span>
+									<span class="libelle-mode">mode multi-opérations</span>
 								</p>
 							</div>					
 							<div class ="content-bloc-gauche hidden-sm-down rounded-circle">
@@ -66,7 +66,7 @@
 							<div>
 								<p class = "btn-valider-recompense">
 									<button class ="btn-valider btn-valider-program">
-										Valider
+										valider
 									</button>
 								</p>						
 							</div>
@@ -77,4 +77,3 @@
 		{% endfor %}
 	</main>
 {% endblock %}
-

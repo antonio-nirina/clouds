@@ -171,10 +171,14 @@ textarea {
 }
 .cke_1.cke_chrome {
     border-color: #817F80 !important;
+    border-radius: 0 0 7px 7px;
 }
 .cke_1 .cke_top {
     background-color: #B6CEF4 !important;
     border-bottom-color: #817F80 !important;
+}
+.cke_reset {
+    border-radius: 0 0 9px 9px;
 }
 #cke_editor {
     width: 96% !important;
@@ -198,7 +202,7 @@ sortable-table td {
 th label {
     text-align: center !important;
 }
-table, th, td, tr {
+table, th, td, tr, thead, tfoot, tbody {
    border: 1px solid #cbcbcb;
 }
 table {
@@ -377,6 +381,10 @@ table {
     color: -moz-linear-gradient(to right, #2969D7, #568CE7 );
 }
 .fieldset {
+    box-shadow: none;
+    border : none;
+}
+.fieldset.active {
     box-shadow: 2px 2px 3px #aaa;
 }
 section.active {

@@ -2,7 +2,7 @@
 
 {% block main %}
 
-{{ render(controller('AdminBundle:Parametrages:sidebar')) }}
+{{ render(controller('AdminBundle:Parametrages:sidebar',{'active':2})) }}
 {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
 
 <main class="col-md-9 offset-md-1 float-left main">
@@ -13,11 +13,13 @@
 				<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
 					<ul class="navbar-nav content-menu-niv-3">
 						<li class="nav-item-niv-3 form-inscription">
-							<a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions") }}">Formulaire d'inscription <span class = "bulle-aide"></span></a>
+							<a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions") }}">Formulaire d'inscription </a>
+							<span class = "bulle-aide"></span>
 						</li>
 
 						<li class="nav-item-niv-3 form-imports">
-							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions_imports") }}">Import de fichiers et flux <span class = "bulle-aide"></span></a>
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions_imports") }}">Import de fichiers et flux </a>
+							<span class = "bulle-aide"></span>
 						</li>
 					</ul>
 				</div>
