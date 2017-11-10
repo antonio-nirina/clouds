@@ -135,6 +135,7 @@ class RegistrationModel
         $this->createInfoElement(SpecialFieldIndex::USER_PRO_EMAIL);
         $this->createInfoElement(SpecialFieldIndex::USER_PHONE);
         $this->createInfoElement(SpecialFieldIndex::USER_MOBILE_PHONE);
+        $this->createInfoElement(SpecialFieldIndex::USER_PASSWORD);
         array_push($this->header_row_index_list, $this->current_row); // to save user data headers row index
 
         $this->addBlankRow();

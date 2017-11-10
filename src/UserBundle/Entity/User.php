@@ -23,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          name="username_canonical",
  *          type="string",
  *          length=180,
- *          unique=true,
+ *          unique=false,
  *          nullable=true
  *     )
  * ),
@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          name="email",
  *          type="string",
  *          length=180,
- *          nullable=true
+ *          nullable=true,
  *     )
  * ),
  *  @ORM\AttributeOverride(name="emailCanonical",
@@ -40,7 +40,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          name="email_canonical",
  *          type="string",
  *          length=180,
- *          unique=true,
+ *          unique=false,
  *          nullable=true
  *     )
  * ),
