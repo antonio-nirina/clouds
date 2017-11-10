@@ -264,6 +264,9 @@ $(document).ready(function(){
 
     $('.header-image-input').on('change', function(){
         createImagePreview(this);
+        var image_file_name = $(this).val().split('\\').pop();
+        $('.upload-img-button').find('i').css('margin-right', '10px');
+        $('.upload-img-button').find('.img-name-container').text(image_file_name);
     });
 
     // preview du message
@@ -319,6 +322,25 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions
      * Edition champ
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Upload image header
+     * *********************************************************************************************
+     */
+    $('.upload-img-button').on('click', function(e){
+        e.preventDefault();
+        $('.header-image-input').trigger('click');
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Upload image header
      * *********************************************************************************************
      */
 
