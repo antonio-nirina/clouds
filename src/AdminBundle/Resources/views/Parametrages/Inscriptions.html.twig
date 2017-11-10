@@ -43,13 +43,13 @@
 	<div class = "row">
 		<div class = "col-12 col-md-12">
             <section class="fieldset active">
-				<div class="row">
+				<div class="row smaller-block-title-container">
 					<div class="col-lg-10">
-						<h4 class="hidden-sm-down block-title">Header du formulaire</h4>
+						<h3 class="hidden-sm-down block-title">Header du formulaire</h3>
 						<h5 class="hidden-md-up block-title">Header du formulaire</h5>
 					</div>
 					<div class="col-lg-2">
-						<div class="corner-circle-img img-form-inscription rounded-circle"></div>
+						<div class="hidden-sm-down corner-circle-img img-param-registration-form-header rounded-circle"></div>
 					</div>
 				</div>
 				<div class="row">
@@ -73,7 +73,7 @@
                                         <p>formats de fichier pris en charge : jpeg, png, gif</p>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row error-message-container">
                                     <div class="col-lg-12">
                                 {{ form_errors(header_data_form.header_image) }}
                                     </div>
@@ -87,10 +87,10 @@
                             <div class="col-lg-11">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                {{ form_widget(header_data_form.header_message, {"attr": {"class": "large-input-text"}}) }}
+                                {{ form_widget(header_data_form.header_message, {"attr": {"class": "large-input-text header-message-input"}}) }}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row error-message-container">
                                     <div class="col-lg-12">
                                 {{ form_errors(header_data_form.header_message) }}
                                     </div>
@@ -111,7 +111,9 @@
                         </div>
                         <div class="row submit-button-container">
                             <div class="col-lg-12">
-                                <input type="submit" value="valider" class="btn-valider">
+								<button class ="btn-valider valider">
+									valider
+								</button>
                             </div>
                         </div>
 						{{ form_end(header_data_form) }}
@@ -123,11 +125,11 @@
 			<section class="fieldset">
 				<div class="row">
 					<div class="col-lg-10">
-						<h4 class="hidden-sm-down block-title">Texte d'introduction au formulaire</h4>
+						<h3 class="hidden-sm-down block-title">Texte d'introduction au formulaire</h3>
 						<h5 class="hidden-md-up block-title">Texte d'introduction au formulaire</h5>
 					</div>
 					<div class="col-lg-2">
-						<div class="corner-circle-img img-form-inscription rounded-circle"></div>
+						<div class="hidden-sm-down corner-circle-img img-param-registration-form-intro rounded-circle"></div>
 					</div>
 				</div>
 				<div class="row">
@@ -143,7 +145,7 @@
                                         {{ form_widget(intro_data_form.introduction_text_title, {"attr": {"class": "large-input-text"}}) }}
 									</div>
 								</div>
-								<div class="row">
+								<div class="row error-message-container">
 									<div class="col-lg-12">
                                         {{ form_errors(intro_data_form.introduction_text_title) }}
 									</div>
@@ -160,14 +162,16 @@
                                 {{ form_widget(intro_data_form.introduction_text_content, {"attr": {"class": "large-textarea"}}) }}
 							</div>
 						</div>
-						<div class="row">
+						<div class="row error-message-container">
 							<div class="col-lg-12">
                                 {{ form_errors(intro_data_form.introduction_text_content) }}
 							</div>
 						</div>
 						<div class="row submit-button-container">
 							<div class="col-lg-12">
-								<input type="submit" value="valider" class="btn-valider">
+								<button class ="btn-valider valider">
+									valider
+								</button>
 							</div>
 						</div>
                         {{ form_end(intro_data_form) }}
@@ -177,11 +181,11 @@
 			<section id = "create-form-inscription" class = "fieldset">
 				<div class="row">
 					<div class="col-lg-10">
-						<h4 class="hidden-sm-down block-title">Créer le formulaire d'inscription à votre programme de récompense</h4>
+						<h3 class="hidden-sm-down block-title">Créer le formulaire d'inscription à votre programme de récompense</h3>
 						<h5 class="hidden-md-up block-title">Créer le formulaire d'inscription à votre programme de récompense</h5>
 					</div>
 					<div class="col-lg-2">
-						<div class="corner-circle-img img-form-inscription rounded-circle"></div>
+						<div class="hidden-sm-down corner-circle-img img-form-inscription rounded-circle"></div>
 					</div>
 				</div>
 				<div class="row">
@@ -209,11 +213,21 @@
 						</table>
 					</div>
 				</div>
+                {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+                <div class="row add-field-link-container">
+                    <div class="col-lg-12">
+                        <a class="add-field-link add" href="#">ajouter un champ ({{ custom_field_allowed }} maximum)</a>
+                    </div>
+                </div>
+                {% endif %}
 				<div class="row submit-button-container">
 					<div class="col-lg-12">
                         {{ form_start(form_structure_form) }}
                         {{ form_widget(form_structure_form) }}
-						<input type="submit" value="valider" id="form-structure-submit" class="btn-valider">
+						{#<input type="submit" value="valider" id="form-structure-submit" class="btn-valider">#}
+						<button id="form-structure-submit" class ="btn-valider valider">
+							valider
+						</button>
                         {{ form_end(form_structure_form) }}
 					</div>
 				</div>
@@ -464,13 +478,21 @@
 			<script src="{{ asset('js/admin-parameters-registration.js') }}"></script>
 			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 			<script>
-                CKEDITOR.replace( 'introduction_data_introduction_text_content', {
-                    language: 'fr',
-                    uiColor: '#9AB8F3',
-                    height: 150,
-                    width: 600,
-                    customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
-                });
+				$(document).ready(function(){
+                    CKEDITOR.replace( 'introduction_data_introduction_text_content', {
+                        language: 'fr',
+                        uiColor: '#9AB8F3',
+                        height: 150,
+                        width: 600,
+                        customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
+                    });
+
+                    CKEDITOR.on("instanceReady", function(){
+                        $('.cke_wysiwyg_frame').contents().find('body').css(
+                            'background-color', '#F5F5F5'
+                        )
+					});
+				});
 			</script>
         {% endblock %}
     {% endembed %}

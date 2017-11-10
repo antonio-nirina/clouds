@@ -116,7 +116,7 @@ $(document).ready(function(){
     $('.add-field-link').on('click', function(e){
         e.preventDefault();
 
-        var custom_field_allowed = $("input[name=custom-field-allowed]").val();
+        /*var custom_field_allowed = $("input[name=custom-field-allowed]").val();
         if($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length < custom_field_allowed)
         {
             var new_add_field_form = $(this).parents('.add-field-form-block').find('.add-field-form.template').clone();
@@ -127,7 +127,7 @@ $(document).ready(function(){
         else
         {
             alert(custom_field_allowed+' nouveau(x) champ(s) maximum');
-        }
+        }*/
     });
 
     // Ajout de nouvelle option (pour champ à choix, exp bouton radio)
@@ -278,4 +278,48 @@ $(document).ready(function(){
      * Image Header
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Section active
+     * *********************************************************************************************
+     */
+    $('.fieldset').on('click', function(e){
+        $('.fieldset').removeClass('active');
+        $(this).addClass('active');
+
+        $('.cke_wysiwyg_frame').contents().find('body').css(
+            'background-color', '#F5F5F5'
+        )
+        $(this).find('iframe.cke_wysiwyg_frame').contents().find('body').css(
+            'background-color', '#FFFFFF'
+        );
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Section active
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Edition champ
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.edit-field-row-link', function(e){
+        e.preventDefault();
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Edition champ
+     * *********************************************************************************************
+     */
+
 });
