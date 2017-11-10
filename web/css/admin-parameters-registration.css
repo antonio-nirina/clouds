@@ -103,7 +103,7 @@
 }
 
 .styled-checkbox:checked + label{
-    background: url('../images/cloudsRewards/checked-on.png') no-repeat;
+    background: url('../images/cloudsRewards/checkon.png') no-repeat;
     height: 25px;
     width: 25px;
     display: inline-block;
@@ -112,7 +112,7 @@
 }
 
 .styled-checkbox + label{
-    background: url('../images/cloudsRewards/checkbox-off.png') no-repeat;
+    background: url('../images/cloudsRewards/checkoff.png') no-repeat;
     height: 25px;
     width: 25px;
     display: inline-block;
