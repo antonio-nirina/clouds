@@ -283,3 +283,21 @@ i{
     background: url('../images/cloudsRewards/edit.png') no-repeat;
     background-position: center;
 }
+
+.header-image-input{
+    display: none;
+}
+
+.upload-img-button{
+    border: solid 3px #457FE3;
+    color: #457FE3;
+    background-color: inherit;
+    border-radius: 50px ;
+    font-size: 14px;
+    padding: 5px 10px 5px 10px;
+    min-width: 50px;
+}
+
+.upload-img-button i{
+    color: inherit;
+}
