@@ -1,5 +1,11 @@
 {% extends "AdminBundle:PartialPage/SiteFormField:base.html.twig" %}
 {% block content %}
-    <label>{{ field.label }} {{ field.mandatory ? '*' : '' }}</label>
-    <div class="champs-form"></div>
+    <div class="row">
+        <div class="col-lg-5">
+            <label>{{ field.label }} {{ field.mandatory ? '*' : '' }}</label>
+        </div>
+        <div class="col-lg-7">
+            <div class="champs-form"></div>
+        </div>
+    </div>
 {% endblock %}

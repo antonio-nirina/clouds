@@ -1,9 +1,32 @@
+.fieldset{
+    color: 	#404040;
+}
+
+.fieldset h3, h4, h5{
+    font-weight: 300;
+    color: 	#505050;
+}
+
+
 #create-form-inscription{
     height: auto;
 }
 
+.error-message-container{
+    color: #BC4540;
+}
+
+.error-message-container ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.smaller-block-title-container{
+    height: 60px;
+}
+
 .fieldset{
-    padding:30px 30px 50px 30px;
+    padding:20px 20px 50px 20px;
     margin-top:10px;
     margin-bottom: 30px;
     position:relative;
@@ -13,11 +36,11 @@
 }
 
 .fieldset.active{
-    padding:30px 30px 50px 30px;
+    /*padding:30px 30px 50px 30px;*/
     margin-top:10px;
     position:relative;
     box-shadow: 0.5px 1.5px 2px #AAAAAA;
-    background-color: #F5F5F5;
+    background-color: #FFFFFF;
     border-top: solid 2px #7782DB;
 }
 
@@ -26,8 +49,8 @@
 }
 
 .corner-circle-img{
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     background-repeat: no-repeat;
     border: 3px solid #BEBEBE;
     float: right;
@@ -38,18 +61,21 @@
     background-position: -76px -29px;
 }
 
+.img-param-registration-form-header{
+    background:url('../images/cloudsRewards/hand-computer.png') no-repeat;
+    background-position: -110px -70px;
+}
+
+.img-param-registration-form-intro{
+    background:url('../images/cloudsRewards/hand-writing.png') no-repeat;
+    background-size: 380px;
+    background-position: -190px -70px;
+}
+
 .block-title{
     color: #535353 ;
 }
 
-/*section.fieldset.active{
-    background-color: #FFFFFF;
-    border-top: 2px solid #7782DB;
-}
-
-section.fieldset{
-    background-color: #F5F5F5;
-}*/
 
 .block-table-container{
     /*padding: 0 30px 0 30px;*/
@@ -60,7 +86,16 @@ section.fieldset{
     margin-top: 20px;
     border-collapse: collapse;
     border: 1px solid #CBCBCB;
+    color: 	#505050;
+}
 
+.block-table th, th span{
+    font-family: "Lato";
+    font-weight: normal;
+}
+
+.block-table .field-parameter-state-container, .field-edit-option-container, .field-reorder-option-container{
+    background-color: #F9F9F9;
 }
 
 .styled-checkbox{
@@ -170,10 +205,12 @@ i{
     border-radius: 5px;
     padding: 5px 0 5px 10px;
     font-size: 14px;
+    background-color: inherit;
 }
 
 .large-textarea{
     width: 100%;
+    background-color: inherit;
 }
 
 .cke{
@@ -198,7 +235,10 @@ i{
 
 .header-preview-container .header-message-preview{
     color: #FFFFFF;
-    font-size: xx-large;
+    font-weight: 100;
+    font-size: 30px;
+    letter-spacing: 3px;
+    /*font-size: xx-large;*/
     position: absolute;
     top: 30%;
     left: 50%;
