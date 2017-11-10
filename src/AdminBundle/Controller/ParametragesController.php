@@ -143,7 +143,7 @@ class ParametragesController extends Controller
                     $field_order = $form_structure_form->getData()["field-order"];
 
                     $current_field_list = $form_structure_form->getData()["current-field-list"];
-                    $fields_manager->adjustFieldOrder($field_order, $current_field_list);
+                    $fields_manager->adjustFieldAndOrder($field_order, $current_field_list);
 
                     $new_field_list = $form_structure_form->getData()["new-field-list"];
                     $fields_manager->addNewFields($new_field_list, $registration_site_form_setting);
