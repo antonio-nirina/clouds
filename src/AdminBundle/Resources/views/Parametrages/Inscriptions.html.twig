@@ -109,7 +109,9 @@
                         </div>
                         <div class="row submit-button-container">
                             <div class="col-lg-12">
-                                <input type="submit" value="valider" class="btn-valider">
+								<button class ="btn-valider valider">
+									valider
+								</button>
                             </div>
                         </div>
 						{{ form_end(header_data_form) }}
@@ -165,7 +167,9 @@
 						</div>
 						<div class="row submit-button-container">
 							<div class="col-lg-12">
-								<input type="submit" value="valider" class="btn-valider">
+								<button class ="btn-valider valider">
+									valider
+								</button>
 							</div>
 						</div>
                         {{ form_end(intro_data_form) }}
@@ -211,7 +215,10 @@
 					<div class="col-lg-12">
                         {{ form_start(form_structure_form) }}
                         {{ form_widget(form_structure_form) }}
-						<input type="submit" value="valider" id="form-structure-submit" class="btn-valider">
+						{#<input type="submit" value="valider" id="form-structure-submit" class="btn-valider">#}
+						<button id="form-structure-submit" class ="btn-valider valider">
+							valider
+						</button>
                         {{ form_end(form_structure_form) }}
 					</div>
 				</div>
