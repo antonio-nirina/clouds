@@ -345,4 +345,32 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Checkbox champs à publier
+     * *********************************************************************************************
+     */
+    $(document).on("click", ".form-field-published", function(){
+        if(!$(this).is(":checked"))
+        {
+            $(this).parents('.block-table').find('.checkbox-publish-all').prop("checked", false);
+        }
+    });
+
+    $(document).on("click", ".form-field-mandatory", function(){
+        if(!$(this).is(":checked"))
+        {
+            $(this).parents('.block-table').find('.checkbox-mandatory-all').prop("checked", false);
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Checkbox champs à publier
+     * *********************************************************************************************
+     */
+
 });
