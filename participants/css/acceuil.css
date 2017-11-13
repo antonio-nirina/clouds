@@ -110,19 +110,32 @@ hr {
    color: white;
 }
 
-div.content-mon-compte:hover,
-div.content-classement:hover,
-div.content-contact:hover,
-div.content-edito:hover,
-div.content-date-challenge:hover,
-div.content-trophees:hover,
-div.content-nouveaux-challenge:hover,
-div.content-challenge-en-cours:hover,
-div.content-flux-cadeaux:hover,
-div.content-rs-sociaux:hover{
-	border-top:2px solid #7682da;
-	background:white;
+div.content-mon-compte,
+div.content-classement,
+div.content-contact,
+div.content-edito,
+div.content-date-challenge,
+div.content-trophees,
+div.content-nouveaux-challenge,
+div.content-challenge-en-cours,
+div.content-flux-cadeaux,
+div.content-rs-sociaux{
+	position:relative;
 }
+
+p.block-active-hover{
+	display:none;
+	margin:0;
+	padding:0;
+	position:absolute;
+	height:2px;
+	background:#7682da;
+	width:100%;
+	top:0;
+	left:0;
+}
+
+
 
 .header{
 	background: url('../images/cloudsRewards/bandeau-header.png');
@@ -157,7 +170,6 @@ form.form-search{
 	margin: 0 auto;
 	background:url('../images/cloudsRewards/barre-recherche-barre.png');
 	background-repeat:no-repeat;
-	
 }
 
 div#collapsingNavbarNiv1{
@@ -173,6 +185,7 @@ input.input-text-search{
 	border:0;
 	color:white;
 	font-size:14px;
+	font-family: "Lato-Light";
 }
 
 span.search-loup{
@@ -393,6 +406,8 @@ div.content-contact{
 	margin-bottom:5%;
 	background:#f5f5f5;
 	padding:10px;
+	padding-bottom: 15px;
+	padding-left: 15px;
 }
 
 div.content-center,
@@ -427,7 +442,7 @@ div.content-rs-sociaux{
 	width:100%;
 	margin-bottom:5%;
 	background:#f5f5f5;
-	padding:10px;
+	padding-bottom: 15px;
 }
 
 p.ligne-1-block{
@@ -466,7 +481,11 @@ p.mon-compte-nom{
 p.mon-compte-nom span{
 	color:#505050;
 	font-size:15px;
-	font-family: "Lato-Light";
+	font-family: "Lato-Regular";
+}
+
+p.mon-compte-nom span.lib-nom-mon-compte{
+	font-family: "Lato-Bold";
 }
 
 p.mon-compte-points{
@@ -590,7 +609,19 @@ ul.liste-flux-cadeaux{
 
 ul.liste-flux-cadeaux li{
 	clear:both;
-	margin-bottom:10px;
+	width: 100%;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 15px;
+}
+
+div.content-challenge-en-cours p.ligne-1-block,
+div.content-challenge-en-cours p.date-infos-date,
+div.content-challenge-en-cours p.date-infos,
+div.content-rs-sociaux p.date-infos,
+div.content-rs-sociaux p.ligne-1-block,
+div.content-flux-cadeaux p.ligne-1-block{
+	padding-left:15px;
 }
 
 p.img-cadeaux-flux{
@@ -606,6 +637,7 @@ p.descr-cadeaux-flux{
 	margin:0;
 	padding:0;
 	margin-left:68px;
+	line-height:19px;
 }
 
 
@@ -615,6 +647,7 @@ p.descr-cadeaux-flux span.desc-cadeaux{
 	display:block;
 	font-size:14px;
 	font-family: "Lato-Regular";
+	margin-top: -4px;
 }
 
 p.descr-cadeaux-flux span.vue-cadeaux{
@@ -631,9 +664,10 @@ p.descr-cadeaux-flux span.btn-cadeaux{
 	text-align: right;
 	color: white;
 	font-size: 12px;
-	padding-right: 4px;
+	padding-right: 3px;
 	cursor: pointer;
 	font-family: "Lato-Regular";
+	margin-top: 9px;
 }
 
 span.nav-fleche-gauche-cadeaux{
@@ -762,6 +796,7 @@ div.content-nouveaux-challenge{
 	margin-bottom:0;
 	background:#f5f5f5;
 	padding:10px;
+	padding-left: 30px;
 }
 
 p.titre-block-centre{
@@ -855,7 +890,7 @@ p.btn-jaime-block-center span{
 	color: white;
 	position: relative;
 	top: -4px;
-	left: 8px;
+	left: 9px;
 	font-size: 12px;
 	font-family: "Lato-Regular";
 }
@@ -868,7 +903,7 @@ img.trophees-3-premiers{
 img.nouveaux-img-challenge{
 	margin:0 auto;
 	display:block;
-	box-shadow: 0px 8px 8px grey;
+	box-shadow: 0px 2px 8px grey;
 }
 
 div.content-sep-date-ligne{
@@ -916,11 +951,12 @@ div.content-sep-date-vide{
 
 div.footer{
 	display: block;
-	background: url('../images/cloudsRewards/bg-footer.png');
+	/*background: url('../images/cloudsRewards/bg-footer.png');*/
 	background-repeat: no-repeat;
 	height:200px;
 	margin-top:30px;
 	padding-top:15px;
+	background:#505050;
 }
 
 div.content-lefter-footer{
@@ -1048,6 +1084,10 @@ ul.rs-sociaux-footer li.rs-autre{
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
+	div.bg-slide {
+		background:none;
+	}
+	
 	div#collapsingNavbarNiv1{
 		width: 100%;
 		background: #1f63d5;
@@ -1066,9 +1106,18 @@ ul.rs-sociaux-footer li.rs-autre{
 		left:0;
 	}
 	
+	div.content-center{
+		margin-left:0;
+	}
+	
+	ul.rs-sociaux-footer {
+		width:81%;
+	}
+	
 	ul.menu-content{
 		text-align:left;
 		margin-bottom:5px;
+		line-height: 30px;
 	}
 	
 	.logo {
@@ -1076,17 +1125,30 @@ ul.rs-sociaux-footer li.rs-autre{
 	}
 	
 	div.form-search {
-		width: 100%;
+		width: 100%!important;
+		margin: 15px auto;
+		display: block;
 	}
 	
 	form.form-search{
-		width: 100%;
+		/*width: 100%!important;*/
 	}
 	
 	.log{
 		float:none;
-		width:100%;
-		margin-top: 23px;
+		width:100%!important;
+		margin: 15px auto;
+		display:block;
+		height: 60px;
+	}
+	
+	.log-content{
+		    width: auto;
+			margin: 0 auto;
+			display: block;
+			position: absolute;
+			left: 50%;
+			margin-left: -120px;
 	}
 	
 	.log-content li{
@@ -1159,11 +1221,20 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	.menu-top{
 		height:51px;
+	}
+	
+	form.form-search{
+		width:64%;
+		max-width: 234px;
 	}
 }
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767px) {
+	div.bg-slide {
+		background:none;
+	}
+	
 	div#collapsingNavbarNiv1{
 		width: 100%;
 		background: #1f63d5;
@@ -1182,9 +1253,18 @@ ul.rs-sociaux-footer li.rs-autre{
 		left:0;
 	}
 	
+	div.content-center{
+		margin-left:0;
+	}
+	
+	ul.rs-sociaux-footer {
+		width:81%;
+	}
+	
 	ul.menu-content{
 		text-align:left;
 		margin-bottom:5px;
+		line-height: 30px;
 	}
 	
 	.logo {
@@ -1193,16 +1273,26 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	div.form-search {
 		width: 100%;
+		margin: 15px auto;
+		display: block;
 	}
 	
 	form.form-search{
-		width: 100%;
+		width: 47%;
+	}
+	
+	.log-content {
+		margin: 0 auto;
+		display: block;
+		width: 40%;
 	}
 	
 	.log{
 		float:none;
 		width:100%;
-		margin-top: 23px;
+		margin: 15px auto;
+		display:block;
+		height: 60px;
 	}
 	
 	.log-content li{
@@ -1275,12 +1365,6 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	.menu-top{
 		height:51px;
-	}
-	
-	p.rs-sociaux-ligne-1, p.rs-sociaux-ligne-2{
-		display:inline-block;
-		letter-spacing: 2em;
-		margin-left:5%;
 	}
 }
 
@@ -1293,6 +1377,8 @@ ul.rs-sociaux-footer li.rs-autre{
 		top: 82px;
 		z-index: 20;
 		left:0;
+		padding-left: 15%;
+		padding-right: 15%;
 	}
 	
 	div#collapsingNavbarNiv2{
@@ -1307,6 +1393,11 @@ ul.rs-sociaux-footer li.rs-autre{
 	ul.menu-content{
 		text-align:left;
 		margin-bottom:5px;
+		line-height: 30px;
+	}
+	
+	ul.menu-content li{
+		margin-left:4%;
 	}
 	
 	.logo {
@@ -1327,6 +1418,10 @@ ul.rs-sociaux-footer li.rs-autre{
 		margin-bottom: 17px;
 	}
 	
+	span.nav-fleche-gauche-cadeaux{
+		margin-left: 87%;
+	}
+	
 	div.content-center, div.slide{
 		margin-left:0;
 	}
@@ -1334,7 +1429,7 @@ ul.rs-sociaux-footer li.rs-autre{
 	p.rs-sociaux-ligne-1, p.rs-sociaux-ligne-2{
 		display:inline-block;
 		letter-spacing: 2em;
-		margin-left:5%;
+		margin-left: 15%;
 	}
 	
 	.log-content li{
@@ -1344,13 +1439,19 @@ ul.rs-sociaux-footer li.rs-autre{
 	div.slide{
 		width:100%;
 		margin-left:0;
-		margin-top: 5px;
+		margin: 0 auto;
+		display: block;
+		padding-top: 15px;
 	}
 	
 	div.content-lefter{
 		width:100%;
 		float:none;
 		margin-left:0;
+		max-width: 1024px;
+		display: block;
+		margin:0 auto;
+		margin-top:15px;
 	}
 	
 	div.bg-slide{
@@ -1359,6 +1460,10 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	div.content-center{
 		width:100%;
+		max-width: 1024px;
+		display: block;
+		margin:0 auto;
+		margin-top:15px;
 	}
 	
 	div.slide-lefter,
@@ -1367,15 +1472,18 @@ ul.rs-sociaux-footer li.rs-autre{
 	}
 	
 	.principale{
-		padding-left:10px;
-		padding-right:10px;
+		padding-left:15px;
+		padding-right:15px;
 	}
 	
 	div.content-righter{
 		width:100%;
 		margin-right:0;
 		float:none;
-		margin-top:15px;
+		max-width: 1024px;
+		margin: 0 auto;
+		display: block;
+		margin-top:30px;
 	}
 	
 	.row{
@@ -1388,25 +1496,40 @@ ul.rs-sociaux-footer li.rs-autre{
 		left: -18px;
 	}
 	
+	/*
 	div.content-lefter-footer{
 		width:100%;
 		float:none;
 		margin-left:0;
 		text-align: center;
 	}
+	*/
 	
 	div.content-center-footer{
-		width:100%;
-		float:none;
-		margin-left:0;
+		margin-left: 20%;
 	}
 	
+	/*
 	ul.page-standards-footer{
 		width:100%;
 	}
+	*/
+	
 	
 	.menu-top{
 		height:51px;
+	}
+	
+	
+	div.content-challenge-en-cours, div.content-flux-cadeaux, div.content-rs-sociaux,
+	div.content-mon-compte, div.content-classement, div.content-contact	{
+		margin-top: 15px;
+		margin-bottom:0;
+	}
+	
+	div.content-rs-sociaux,
+	div.content-contact{
+		margin-bottom:30px;
 	}
 }
 
@@ -1419,25 +1542,9 @@ ul.rs-sociaux-footer li.rs-autre{
 		top: 82px;
 		z-index: 20;
 		left:0;
+		padding-left:20%;
+		padding-right:20%;
 	}
-	
-	/*
-	div#collapsingNavbarNiv2{
-		width: 100%;
-		background: #505050;
-		position: absolute;
-		top: 51px;
-		z-index: 10;
-		left:0;
-	}
-	*/
-	
-	/*
-	ul.menu-content{
-		text-align:left;
-		margin-bottom:5px;
-	}
-	*/
 	
 	.logo {
 		width: 100%!important;
@@ -1457,6 +1564,10 @@ ul.rs-sociaux-footer li.rs-autre{
 		margin-bottom: 17px;
 	}
 	
+	span.nav-fleche-gauche-cadeaux{
+		margin-left:90%;
+	}
+	
 	div.content-center, div.slide{
 		margin-left:0;
 	}
@@ -1464,7 +1575,7 @@ ul.rs-sociaux-footer li.rs-autre{
 	p.rs-sociaux-ligne-1, p.rs-sociaux-ligne-2{
 		display:inline-block;
 		letter-spacing: 2em;
-		margin-left:5%;
+		margin-left: 18%;
 	}
 	
 	.log-content li{
@@ -1474,13 +1585,19 @@ ul.rs-sociaux-footer li.rs-autre{
 	div.slide{
 		width:100%;
 		margin-left:0;
-		margin-top: 5px;
+		margin: 0 auto;
+		display: block;
+		padding-top: 15px;
 	}
 	
 	div.content-lefter{
 		width:100%;
 		float:none;
 		margin-left:0;
+		max-width: 1024px;
+		display: block;
+		margin:0 auto;
+		margin-top:15px;
 	}
 	
 	div.bg-slide{
@@ -1489,6 +1606,10 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	div.content-center{
 		width:100%;
+		max-width: 1024px;
+		display: block;
+		margin:0 auto;
+		margin-top:15px;
 	}
 	
 	div.slide-lefter,
@@ -1497,15 +1618,18 @@ ul.rs-sociaux-footer li.rs-autre{
 	}
 	
 	.principale{
-		padding-left:10px;
-		padding-right:10px;
+		padding-left:0px;
+		padding-right:0px;
 	}
 	
 	div.content-righter{
 		width:100%;
 		margin-right:0;
 		float:none;
-		margin-top:15px;
+		max-width: 1024px;
+		margin: 0 auto;
+		display: block;
+		margin-top:30px;
 	}
 	
 	.row{
@@ -1518,25 +1642,40 @@ ul.rs-sociaux-footer li.rs-autre{
 		left: -18px;
 	}
 	
+	/*
 	div.content-lefter-footer{
 		width:100%;
 		float:none;
 		margin-left:0;
 		text-align: center;
 	}
+	*/
 	
 	div.content-center-footer{
-		width:100%;
-		float:none;
-		margin-left:0;
+		margin-left: 20%;
 	}
 	
+	/*
 	ul.page-standards-footer{
 		width:100%;
 	}
+	*/
+	
 	
 	.menu-top{
 		height:51px;
+	}
+	
+	
+	div.content-challenge-en-cours, div.content-flux-cadeaux, div.content-rs-sociaux,
+	div.content-mon-compte, div.content-classement, div.content-contact	{
+		margin-top: 15px;
+		margin-bottom:0;
+	}
+	
+	div.content-rs-sociaux,
+	div.content-contact{
+		margin-bottom:30px;
 	}
 }
 
