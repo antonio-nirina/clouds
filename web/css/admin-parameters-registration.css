@@ -296,6 +296,7 @@ i{
     font-size: 14px;
     padding: 5px 10px 5px 10px;
     min-width: 50px;
+    cursor:pointer;
 }
 
 .upload-img-button i{
