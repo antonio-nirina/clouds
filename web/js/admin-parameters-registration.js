@@ -265,7 +265,8 @@ $(document).ready(function(){
     $('.header-image-input').on('change', function(){
         createImagePreview(this);
         var image_file_name = $(this).val().split('\\').pop();
-        $('.upload-img-button').find('i').css('margin-right', '10px');
+        $('.upload-img-button').css('background-position', '15px');
+        $('.upload-img-button').find('.img-name-container').css('margin-left', '30px');
         $('.upload-img-button').find('.img-name-container').text(image_file_name);
     });
 

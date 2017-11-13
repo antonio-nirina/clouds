@@ -297,8 +297,8 @@ i{
     padding: 5px 10px 5px 10px;
     min-width: 50px;
     cursor:pointer;
-}
 
-.upload-img-button i{
-    color: inherit;
+    min-height: 35px;
+    background: url('../images/cloudsRewards/upload-blue.png') no-repeat;
+    background-position: 50% 50% ;
 }
