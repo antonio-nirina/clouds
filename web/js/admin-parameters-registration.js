@@ -289,7 +289,7 @@ $(document).ready(function(){
      * Section active
      * *********************************************************************************************
      */
-    $('.fieldset').on('click', function(e){
+    $('.fieldset').on('mouseenter', function(e){
         $('.fieldset').removeClass('active');
         $(this).addClass('active');
 
