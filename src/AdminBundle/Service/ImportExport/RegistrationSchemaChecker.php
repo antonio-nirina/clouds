@@ -218,8 +218,8 @@ class RegistrationSchemaChecker extends SchemaChecker
             if (!is_null($this->user_data_first_row_index)) {
                 $user_email_list = array();
                 for ($i = $this->user_data_first_row_index; $i < $this->data_size; $i++) {
-                    if ('' != trim(($this->array_data[$i])[$email_field_col_index])) {
-                        array_push($user_email_list, ($this->array_data[$i])[$email_field_col_index]);
+                    if ('' != trim($this->array_data[$i][$email_field_col_index])) {
+                        array_push($user_email_list, $this->array_data[$i][$email_field_col_index]);
                     }
                 }
 
@@ -231,8 +231,8 @@ class RegistrationSchemaChecker extends SchemaChecker
                 for ($i = $this->user_data_first_row_index; $i < $this->data_size; $i++) {
                     // SEARCH CRITERIAS MUST BE INCREASED : ADD program, program_user linked to user
                     $user_with_email = $this->manager->getRepository('UserBundle\Entity\User')
-                        ->findOneByEmail(($this->array_data[$i])[$email_field_col_index]);
-                    if ('' != trim(($this->array_data[$i])[$email_field_col_index])) {
+                        ->findOneByEmail($this->array_data[$i][$email_field_col_index]);
+                    if ('' != trim($this->array_data[$i][$email_field_col_index])) {
                         if (!is_null($user_with_email)) {
                             $this->addError($this->createErrorWithIndex(
                                 self::ERROR_EXISTENT_USER_WITH_EMAIL,
