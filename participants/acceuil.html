@@ -6,7 +6,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Participants</title>
-		
+		<!--
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+		-->
 		<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/acceuil.css">
 		<link rel="stylesheet" href="css/swiper.css">
@@ -21,32 +23,39 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 content-header">
-						<div class = "header">
-							<div class = "logo">
-								<img src = "images/cloudsRewards/logo-cloud-rewards.png" width = "291" height = "50" alt = "" title = "" class = "img-fluid logo-img">
+						<nav class="navbar navbar-toggleable-lg navbar-inverse bg-inverse header">
+							<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarNiv1">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class = "logo navbar-brand abs">
+								<span class = "logo-cloud-rewards"></span>
+								<!--
+								<img src = "images/cloudsRewards/log.png" width = "291" height = "50" alt = "" title = "" class = "img-fluid logo-img">
+								-->
 							</div>
-							
-							<div class = "form-search">
-								<form class = "form-search" name = "search" method = "POST" action = "">
-									<span class = "search-loup"></span>
-									<input class = "input-text-search" type = "text" name = "search" value = "" placeholder = "rechercher">
-								</form>
+							<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
+								<div class = "navbar-nav form-search">
+									<form class = "form-search" name = "search" method = "POST" action = "">
+										<span class = "search-loup"></span>
+										<input class = "input-text-search light" type = "text" name = "search" value = "" placeholder = "rechercher">
+									</form>
+								</div>
+								
+								<div class = "navbar-nav log">
+									<ul class = "log-content">
+										<li class = "on-off-log"></li>
+										<li class = "status-log"></li>
+										<li class = "casque-log"></li>
+										<li class = "mail-log"></li>
+										<li class = "infos-log"></li>
+										<li class = "cloche-log"></li>
+										<li class = "play-log"></li>
+									</ul>
+								</div>
+								
+								<div style = "clear:both;"></div>
 							</div>
-							
-							<div class = "log">
-								<ul class = "log-content">
-									<li class = "on-off-log"></li>
-									<li class = "status-log"></li>
-									<li class = "casque-log"></li>
-									<li class = "mail-log"></li>
-									<li class = "infos-log"></li>
-									<li class = "cloche-log"></li>
-									<li class = "play-log"></li>
-								</ul>
-							</div>
-							
-							<div style = "clear:both;"></div>
-						</div>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -56,26 +65,58 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
+						<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-top">
+							<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarNiv2">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class = "navbar-brand abs">
+								
+							</div>
+							<div class="navbar-collapse collapse" id="collapsingNavbarNiv2">
+								<ul class = "navbar-nav menu-content">
+									<li><a href = "" class = "menu-lib active light">accueil</a></li>
+									<li><a href = "" class = "menu-lib light">déclarer mes ventes</a></li>
+									<li><a href = "" class = "menu-lib light">découvrez le programme</a></li>
+									<li><a href = "" class = "menu-lib light">classement</a></li>
+									<li><a href = "" class = "menu-lib light">cadeaux</a></li>
+									<li><a href = "" class = "menu-lib light">mes points</a></li>
+								</ul>
+								<div class = "clearBoth"></div>
+								
+								<div style = "clear:both;"></div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+			
+			<!--
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
 						<div class = "menu-top">
 							<ul class = "menu-content">
-								<li><a href = "" class = "menu-lib active">accueil</a></li>
-								<li><a href = "" class = "menu-lib">déclarer mes ventes</a></li>
-								<li><a href = "" class = "menu-lib">découvrez le programme</a></li>
-								<li><a href = "" class = "menu-lib">classement</a></li>
-								<li><a href = "" class = "menu-lib">cadeaux</a></li>
-								<li><a href = "" class = "menu-lib">mes points</a></li>
+								<li><a href = "" class = "menu-lib active light">accueil</a></li>
+								<li><a href = "" class = "menu-lib light">déclarer mes ventes</a></li>
+								<li><a href = "" class = "menu-lib light">découvrez le programme</a></li>
+								<li><a href = "" class = "menu-lib light">classement</a></li>
+								<li><a href = "" class = "menu-lib light">cadeaux</a></li>
+								<li><a href = "" class = "menu-lib light">mes points</a></li>
 							</ul>
 							<div class = "clearBoth"></div>
 						</div>
 					</div>
 				</div>
 			</div>
+			-->
 			<!-- FIN MENU TOP -->
 			
 			<!-- SLIDE -->
 			<div class="container bg-slide">
 				<div class="row">
-					<div class="col-12 hidden-xs-down">
+					<div class="col-12 content-body">
+						<div class = "slide-lefter">&nbsp;</div>
+						<div class = "slide-righter">&nbsp;</div>
 						<div class = "slide">
 							<!--
 							<div class = "slideshow">
@@ -102,6 +143,8 @@
 								<!-- Add Arrows -->
 								<div class="swiper-button-next"></div>
 								<div class="swiper-button-prev"></div>
+								
+								
 							</div>
 							<div class = "clearBoth"></div>
 						</div>
@@ -115,25 +158,26 @@
 			<!-- BODY -->
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-12 content-body">
 						<!-- LEFTER -->
 						<div class = "content-lefter">
 							<!--MON COMPTE -->
 							<div class = "content-mon-compte">
+								<p class = "block-active-hover" id = "block-active-hover-mon-compte"></p>
 								<p class = "ligne-1-block">
-									<span class = "titre-block">mon compte</span>
+									<span class = "titre-block light">mon compte</span>
 									<span class = "titre-block-img-mon-compte"></span>
 								</p>
 								
-								<p class = "mon-compte-nom">
-									<span>Martin Bourdais</span>
+								<p class = "mon-compte-nom light">
+									<span class = "lib-nom-mon-compte">Martin Bourdais</span>
 								</p>
 								
-								<p class = "mon-compte-points">
+								<p class = "mon-compte-points light">
 									<span>1&nbsp;358 pts</span>
 								</p>
 								
-								<p class = "mon-compte-btn">
+								<p class = "mon-compte-btn light">
 									<span>accéder</span>
 								</p>
 							</div>
@@ -141,37 +185,39 @@
 							
 							<!--MON CLASSEMENT -->
 							<div class = "content-classement">
+								<p class = "block-active-hover" id = "block-active-hover-classement"></p>
 								<p class = "ligne-1-block">
-									<span class = "titre-block">classement</span>
+									<span class = "titre-block light">classement</span>
 									<span class = "titre-block-img-classement"></span>
 								</p>
 								
-								<p class = "mon-compte-nom">
+								<p class = "mon-compte-nom light">
 									<span>consulter votre classement en temps réel !</span>
 								</p>
 								
-								<p class = "mon-compte-points">
-									<span>52e</span>
+								<p class = "mon-compte-points light">
+									<span>52<sup>e</sup></span>
 								</p>
 								
-								<p class = "mon-compte-btn">
-									<span>plus de details</span>
+								<p class = "mon-compte-btn light">
+									<span>plus de détails</span>
 								</p>
 							</div>
 							<!--FIN CLASSEMENT -->
 							
 							<!--MON CONTACT -->
 							<div class = "content-contact">
+								<p class = "block-active-hover" id = "block-active-hover-contact"></p>
 								<p class = "ligne-1-block">
-									<span class = "titre-block">contact</span>
+									<span class = "titre-block light">contact</span>
 									<span class = "titre-block-img-contact"></span>
 								</p>
 								
-								<p class = "mon-compte-nom">
-									<span>vous souhaitez nous contacter.n'hésitez pas!</span>
+								<p class = "mon-compte-nom light">
+									<span>vous souhaitez nous contacter, n'hésitez pas!</span>
 								</p>
 								
-								<p class = "mon-compte-btn">
+								<p class = "mon-compte-btn light">
 									<span>nous contacter</span>
 								</p>
 							</div>
@@ -179,241 +225,92 @@
 						</div>
 						<!-- FIN LEFTER -->
 						
-						<!-- CENTER -->
-						<div class = "content-center">
-							<!-- SEP DATE LIGNE -->
-							<div class = "content-sep-date-ligne"></div>
-							<!-- FIN SEP DATE LIGNE -->
-							
-							
-							<!-- EDITO -->
-							<div class = "content-edito">
-								<p class = "titre-block-centre">
-									<span class = "lib-titre-block-centre">édito</span>
-									<span class = "lib-date-block-centre">17 octobre - 11h50</span>
-									
-									<span class = "lib-date-block-centre-large">Loren ipsum dolor sit amet, consectetur adipiscing elit</span>
-								</p>
-								
-								<p class = "img-titre-block-centre hidden-xs-down">
-									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
-								</p>
-								
-								<p class = "descr-block-centre">
-									<span class = "descr-1">
-										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
-									</span>
-									
-									<span class = "descr-2">
-										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
-									</span>
-									
-									<span class = "descr-3">
-										Bon challenge
-									</span>
-									
-									<span class = "descr-4">
-										Helena DEMETIS
-									</span>
-								</p>
-								
-								<p class = "btn-jaime-block-center">
-									<span class = "lib-btn-jaime">J'aime 73</span>
-								</p>
-							</div>
-							<!-- FIN EDITO -->
-							
-							<!-- SEP DATE -->
-							<div class = "content-sep-date">
-								<div class = "content-sep-date-positionnement">
-									<span>12/10</span>
-								</div>
-							</div>
-							<!-- FIN SEP DATE -->
-							
-							<!-- DATE CHALLENGE -->
-							<div class = "content-date-challenge">
-								<p class = "titre-block-centre">
-									<span class = "lib-titre-block-centre">les dates du challenge</span>
-									<span class = "lib-date-block-centre">12 octobre - 11h05</span>
-									
-									<span class = "lib-date-block-centre-large">Du 15 octobre 2017 au 22 février 2018</span>
-								</p>
-								
-								<p class = "img-titre-block-centre hidden-xs-down">
-									<!--
-									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
-									-->
-								</p>
-								
-								<p class = "descr-block-centre">
-									<span class = "descr-1">
-										
-									</span>
-									
-									<span class = "descr-2">
-										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
-									</span>
-									
-									<span class = "descr-3">
-										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
-									</span>
-									
-								</p>
-								
-								<p class = "btn-jaime-block-center">
-									<span class = "lib-btn-jaime">J'aime 19</span>
-								</p>
-							</div>
-							<!-- FIN DATE CHALLENGE -->
-							
-							<!-- SEP DATE -->
-							<div class = "content-sep-date-vide"></div>
-							<!-- FIN SEP DATE -->
-							
-							<!-- TROPHEES -->
-							<div class = "content-trophees">
-								<p class = "titre-block-centre">
-									<span class = "lib-titre-block-centre">trophée pour les 3 premiers</span>
-									<span class = "lib-date-block-centre">12 octobre - 8h05</span>
-									
-									<span class = "lib-date-block-centre-large">Nulla vestitum ipsumocci, veluctus </span>
-								</p>
-								
-								<p class = "img-titre-block-centre hidden-xs-down">
-									<!--
-									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
-									-->
-								</p>
-								
-								<p class = "descr-block-centre">
-									<img src = "images/cloudsRewards/trophee-3-premiers.png" width = "375" height = "236" class = "img-fluid trophees-3-premiers">
-								</p>
-								
-								<p class = "btn-jaime-block-center">
-									<span class = "lib-btn-jaime">J'aime 38</span>
-								</p>
-							</div>
-							<!-- FIN TROPHEES -->
-							
-							<!-- SEP DATE -->
-							<div class = "content-sep-date">
-								<div class = "content-sep-date-positionnement">
-									<span>15/10</span>
-								</div>
-							</div>
-							<!-- FIN SEP DATE -->
-							
-							<!-- NOUVEAUX CHALLENGE -->
-							<div class = "content-nouveaux-challenge">
-								<p class = "titre-block-centre">
-									<span class = "lib-titre-block-centre">bientôt notre nouveau challenge</span>
-									<span class = "lib-date-block-centre">15 septembre - 14h03</span>
-									
-									<!--
-									<span class = "lib-date-block-centre-large">Nulla vestitum ipsumocci, veluctus </span>
-									-->
-								</p>
-								
-								<p class = "img-titre-block-centre hidden-xs-down">
-									<!--
-									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
-									-->
-								</p>
-								
-								<p class = "descr-block-centre">
-									<img src = "images/cloudsRewards/nouveaux-challenge.png" width = "410" height = "274" class = "img-fluid nouveaux-img-challenge">
-								</p>
-								
-								<p class = "btn-jaime-block-center">
-									<span class = "lib-btn-jaime">J'aime 38</span>
-								</p>
-							</div>
-							<!-- FIN NOUVEAUX CHALLENGE -->
-						</div>
-						<!-- FIN CENTER -->
-						
 						<!-- RIGHTER -->
 						<div class = "content-righter">
 							<!-- CHALLENGE EN COURS -->
 							<div class = "content-challenge-en-cours">
+								<p class = "block-active-hover" id = "block-active-hover-challenge-en-cours"></p>
 								<p class = "ligne-1-block">
-									<span class = "titre-block-date">17</span>
-									<span class = "titre-block-lib-date-mois">octobre 2017</span>
+									<span class = "titre-block-date bold">17</span>
+									<span class = "titre-block-lib-date-mois light">octobre 2017</span>
 									<br>
-									<span class = "titre-block-lib-date-jour">mardi</span>
+									<span class = "titre-block-lib-date-jour regular">mardi</span>
 								</p>
 								
+								<hr>
+								
 								<p class = "date-infos">
-									<span>vous souhaitez nous contacter.n'hésitez pas!</span>
+									<span class = "regular">fin du challenge en cours le</span>
 								</p>
 								
 								<p class = "date-infos-date">
-									<span>01 février 2018</span>
+									<span class = "light">01 février 2018</span>
 								</p>
 							</div>
 							<!-- FIN CHALLENGE EN COURS -->
 							
 							<!-- FLUX CADEAUX -->
 							<div class = "content-flux-cadeaux">
+								<p class = "block-active-hover" id = "block-active-hover-flux-cadeaux"></p>
 								<p class = "ligne-1-block">
-									<span class = "titre-block">le fil cadeaux</span>
+									<span class = "titre-block light">le fil cadeaux</span>
 									<span class = "titre-block-img-cadeaux"></span>
 								</p>
 								
 								<ul class = "liste-flux-cadeaux">
-									<li>
+									<li class = "pair">
 										<p class = "img-cadeaux-flux">
 											<img src = "images/cloudsRewards/img-flux-cadeaux.png" width = "58" height = "79" class = "img-fluid">
 										</p>
 										<p class = "descr-cadeaux-flux">
-											<span class = "lib-cadeaux">iPhone 8 plus</span>
-											<span class = "desc-cadeaux">64 Go 5,5"</span>
-											<span class = "vue-cadeaux">22&nbsp;975</span>
-											<span class = "btn-cadeaux">J'aime 3</span>
+											<span class = "lib-cadeaux regular">iPhone 8 plus</span>
+											<span class = "desc-cadeaux regular">64 Go 5,5"</span>
+											<span class = "vue-cadeaux light">22&nbsp;975 pts</span>
+											<span class = "btn-cadeaux regular">J'aime 3</span>
 										</p>
 									</li>
 									
-									<li>
+									<li class = "impair">
 										<p class = "img-cadeaux-flux">
-											<img src = "images/cloudsRewards/img-flux-cadeaux.png" width = "58" height = "79" class = "img-fluid">
+											<img src = "images/cloudsRewards/img-flux-cadeaux2.png" width = "58" height = "79" class = "img-fluid">
 										</p>
 										<p class = "descr-cadeaux-flux">
-											<span class = "lib-cadeaux">iPhone 8 plus</span>
-											<span class = "desc-cadeaux">64 Go 5,5"</span>
-											<span class = "vue-cadeaux">22&nbsp;975</span>
-											<span class = "btn-cadeaux">J'aime 3</span>
+											<span class = "lib-cadeaux regular">Week-end pour 2</span>
+											<span class = "desc-cadeaux regular">sur la côte d'azur</span>
+											<span class = "vue-cadeaux light">3&nbsp;875 pts</span>
+											<span class = "btn-cadeaux regular">J'aime 50</span>
 										</p>
 									</li>
 									
-									<li>
+									<li class = "pair">
 										<p class = "img-cadeaux-flux">
-											<img src = "images/cloudsRewards/img-flux-cadeaux.png" width = "58" height = "79" class = "img-fluid">
+											<img src = "images/cloudsRewards/img-flux-cadeaux3.png" width = "58" height = "79" class = "img-fluid">
 										</p>
 										<p class = "descr-cadeaux-flux">
-											<span class = "lib-cadeaux">iPhone 8 plus</span>
-											<span class = "desc-cadeaux">64 Go 5,5"</span>
-											<span class = "vue-cadeaux">22&nbsp;975</span>
-											<span class = "btn-cadeaux">J'aime 3</span>
+											<span class = "lib-cadeaux regular">Nespresso Krups</span>
+											<span class = "desc-cadeaux regular">Inissia</span>
+											<span class = "vue-cadeaux light">2&nbsp;000 pts</span>
+											<span class = "btn-cadeaux regular">J'aime 22</span>
 										</p>
 									</li>
 								</ul>
 								<span class = "nav-fleche-gauche-cadeaux"></span>
-								<span class = "lib-nav-cadeaux">1 sur 3</span>
+								<span class = "lib-nav-cadeaux light">1 sur 3</span>
 								<span class = "nav-fleche-droite-cadeaux"></span>
 								
-								<span class = "btn-acces-boutique">acceder à la boutique</span>
+								<span class = "btn-acces-boutique light">accéder à la boutique</span>
 							</div>
 							<!-- FIN FLUX CADEAUX -->
 							
 							<!-- RESEAUX SOCIAUX -->
 							<div class = "content-rs-sociaux">
+								<p class = "block-active-hover" id = "block-active-hover-rs-sociaux"></p>
 								<p class = "ligne-1-block">
-									<span class = "titre-block">réseaux sociaux</span>
+									<span class = "titre-block light">réseaux sociaux</span>
 								</p>
 								
 								<p class = "date-infos">
-									<span>suivez votre challenge !</span>
+									<span class = "light">suivez votre challenge !</span>
 								</p>
 								
 								<p class = "rs-sociaux-ligne-1">
@@ -431,6 +328,165 @@
 							<!-- FIN RESEAUX SOCIAUX -->
 						</div>
 						<!-- FIN RIGHTER -->
+						
+						<!-- CENTER -->
+						<div class = "content-center">
+							<!-- SEP DATE LIGNE -->
+							<div class = "content-sep-date-ligne"></div>
+							<!-- FIN SEP DATE LIGNE -->
+							
+							
+							<!-- EDITO -->
+							<div class = "content-edito">
+								<p class = "block-active-hover" id = "block-active-hover-edito"></p>
+								<p class = "titre-block-centre">
+									<span class = "lib-titre-block-centre light">édito</span>
+									<span class = "lib-date-block-centre regular">17 octobre - 11h50</span>
+									
+									<span class = "lib-date-block-centre-large bold">Loren ipsum dolor sit amet, consectetur adipiscing elit</span>
+								</p>
+								
+								<p class = "img-titre-block-centre hidden-xs-down">
+									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
+								</p>
+								
+								<p class = "descr-block-centre">
+									<span class = "descr-1 regular">
+										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
+									</span>
+									
+									<span class = "descr-2 regular">
+										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
+									</span>
+									
+									<span class = "descr-3 regular">
+										Bon challenge
+									</span>
+									
+									<span class = "descr-4 regular">
+										Helena DEMETIS
+									</span>
+								</p>
+								
+								<p class = "btn-jaime-block-center light">
+									<span class = "lib-btn-jaime regular">J'aime 73</span>
+								</p>
+							</div>
+							<!-- FIN EDITO -->
+							
+							<!-- SEP DATE -->
+							<div class = "content-sep-date">
+								<div class = "content-sep-date-positionnement">
+									<span class = "light">12/10</span>
+								</div>
+							</div>
+							<!-- FIN SEP DATE -->
+							
+							<!-- DATE CHALLENGE -->
+							<div class = "content-date-challenge">
+								<p class = "block-active-hover" id = "block-active-hover-date-challenge"></p>
+								<p class = "titre-block-centre">
+									<span class = "lib-titre-block-centre light">les dates du challenge</span>
+									<span class = "lib-date-block-centre regular">12 octobre - 11h05</span>
+									
+									<span class = "lib-date-block-centre-large bold">Du 15 octobre 2017 au 22 février 2018</span>
+								</p>
+								
+								<p class = "img-titre-block-centre hidden-xs-down">
+									<!--
+									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
+									-->
+								</p>
+								
+								<p class = "descr-block-centre">
+									<span class = "descr-1">
+										
+									</span>
+									
+									<span class = "descr-2 regular">
+										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
+									</span>
+									
+									<span class = "descr-3 regular">
+										Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
+									</span>
+									
+								</p>
+								
+								<p class = "btn-jaime-block-center">
+									<span class = "lib-btn-jaime regular">J'aime 19</span>
+								</p>
+							</div>
+							<!-- FIN DATE CHALLENGE -->
+							
+							<!-- SEP DATE -->
+							<div class = "content-sep-date-vide"></div>
+							<!-- FIN SEP DATE -->
+							
+							<!-- TROPHEES -->
+							<div class = "content-trophees">
+								<p class = "block-active-hover" id = "block-active-hover-trophees"></p>
+								<p class = "titre-block-centre">
+									<span class = "lib-titre-block-centre light">trophée pour les 3 premiers</span>
+									<span class = "lib-date-block-centre regular">12 octobre - 8h05</span>
+									
+									<span class = "lib-date-block-centre-large bold">Nulla vestitum ipsumocci, veluctus </span>
+								</p>
+								
+								<p class = "img-titre-block-centre hidden-xs-down">
+									<!--
+									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
+									-->
+								</p>
+								
+								<p class = "descr-block-centre">
+									<img src = "images/cloudsRewards/trophee-3-premiers.png" width = "375" height = "236" class = "img-fluid trophees-3-premiers">
+								</p>
+								
+								<p class = "btn-jaime-block-center">
+									<span class = "lib-btn-jaime regular">J'aime 38</span>
+								</p>
+							</div>
+							<!-- FIN TROPHEES -->
+							
+							<!-- SEP DATE -->
+							<div class = "content-sep-date">
+								<div class = "content-sep-date-positionnement">
+									<span class = "light">15/10</span>
+								</div>
+							</div>
+							<!-- FIN SEP DATE -->
+							
+							<!-- NOUVEAUX CHALLENGE -->
+							<div class = "content-nouveaux-challenge">
+								<p class = "block-active-hover" id = "block-active-hover-nouveaux-challenge"></p>
+								<p class = "titre-block-centre">
+									<span class = "lib-titre-block-centre light">bientôt notre nouveau challenge</span>
+									<span class = "lib-date-block-centre regular">15 septembre - 14h03</span>
+									
+									<!--
+									<span class = "lib-date-block-centre-large">Nulla vestitum ipsumocci, veluctus </span>
+									-->
+								</p>
+								
+								<p class = "img-titre-block-centre hidden-xs-down">
+									<!--
+									<img src = "images/cloudsRewards/edito.png" width = "107" height = "107" class = "img-fluid">
+									-->
+								</p>
+								
+								<p class = "descr-block-centre">
+									<img src = "images/cloudsRewards/nouveaux-challenge.png" width = "410" height = "274" class = "img-fluid nouveaux-img-challenge">
+								</p>
+								
+								<p class = "btn-jaime-block-center">
+									<span class = "lib-btn-jaime regular">J'aime 38</span>
+								</p>
+							</div>
+							<!-- FIN NOUVEAUX CHALLENGE -->
+						</div>
+						<!-- FIN CENTER -->
+						
 					</div>
 				</div>
 			</div>
@@ -442,14 +498,14 @@
 					<div class="col-12">
 						<div class = "footer">
 							<div class = "content-lefter-footer">
-								<span class = "copyright-footer">© Cloud rewards 2017</span>
+								<span class = "copyright-footer light">© cloud rewards 2017</span>
 							</div>
 							
 							<div class = "content-center-footer">
 								<ul class = "page-standards-footer">
-									<li class = "page-mention-legale"><a href = "">mentions légales</a></li>
-									<li class = "page-reglement"><a href = "">réglement</a></li>
-									<li class = "page-contact"><a href = "">contact</a></li>
+									<li class = "page-mention-legale "><a class = "light" href = "">mentions légales</a></li>
+									<li class = "page-reglement"><a class = "light" href = "">réglement</a></li>
+									<li class = "page-contact"><a class = "light" href = "">contact</a></li>
 								</ul>
 								
 								<ul class = "rs-sociaux-footer">
@@ -474,13 +530,13 @@
 		<!-- FIN CONTENEUR PRINCIPALE -->
 		
 		<script src="js/jquery/jquery.backstretch.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" ></script>
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js" ></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="js/bootstrap/bootstrap.min.js"></script>
 		<script src="js/ie10-viewport-bug-workaround.js"></script>
 		<script src="js/slide.js"></script>
 		<script src="js/swiper.min.js"></script>
+		<script src="js/acceuil.js"></script>
 		<script>
 			var swiper = new Swiper('.swiper-container', {
 			  navigation: {
@@ -488,6 +544,6 @@
 				prevEl: '.swiper-button-prev',
 			  },
 			});
-		  </script>
+		</script>
 	</body>
 </html>

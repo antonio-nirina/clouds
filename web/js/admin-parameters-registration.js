@@ -264,6 +264,10 @@ $(document).ready(function(){
 
     $('.header-image-input').on('change', function(){
         createImagePreview(this);
+        var image_file_name = $(this).val().split('\\').pop();
+        $('.upload-img-button').css('background-position', '15px');
+        $('.upload-img-button').find('.img-name-container').css('margin-left', '30px');
+        $('.upload-img-button').find('.img-name-container').text(image_file_name);
     });
 
     // preview du message
@@ -285,7 +289,7 @@ $(document).ready(function(){
      * Section active
      * *********************************************************************************************
      */
-    $('.fieldset').on('click', function(e){
+    $('.fieldset').on('mouseenter', function(e){
         $('.fieldset').removeClass('active');
         $(this).addClass('active');
 
@@ -319,6 +323,53 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions
      * Edition champ
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Upload image header
+     * *********************************************************************************************
+     */
+    $('.upload-img-button').on('click', function(e){
+        e.preventDefault();
+        $('.header-image-input').trigger('click');
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Upload image header
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Checkbox champs à publier
+     * *********************************************************************************************
+     */
+    $(document).on("click", ".form-field-published", function(){
+        if(!$(this).is(":checked"))
+        {
+            $(this).parents('.block-table').find('.checkbox-publish-all').prop("checked", false);
+        }
+    });
+
+    $(document).on("click", ".form-field-mandatory", function(){
+        if(!$(this).is(":checked"))
+        {
+            $(this).parents('.block-table').find('.checkbox-mandatory-all').prop("checked", false);
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Checkbox champs à publier
      * *********************************************************************************************
      */
 

@@ -22,18 +22,17 @@
 }
 
 .fieldset{
-    padding:20px 20px 50px 20px;
+    padding:20px 24px 50px 24px;
     margin-top:10px;
     margin-bottom: 30px;
     position:relative;
     box-shadow: 0px 0px #000000;
     background-color: #F5F5F5;
     height: auto;
-    color: 	#404040;
+    color: 	#505050;
 }
 
 .fieldset.active{
-    /*padding:30px 30px 50px 30px;*/
     margin-top:10px;
     position:relative;
     box-shadow: 1.5px 1.5px 2px #AAAAAA;
@@ -70,7 +69,7 @@
 }
 
 .block-title{
-    color: #535353 ;
+    color: #505050 ;
 }
 
 
@@ -173,10 +172,6 @@
     text-align: center;
 }
 
-i{
-    color: #4E4E4E;
-}
-
 .info-container{
     margin: 10px 0 10px 0;
 }
@@ -257,6 +252,13 @@ i{
     align-items: center;
 }
 
+.add-field-link:hover{
+    font-size: 14px;
+    color: #245EDC!important;
+    display: flex;
+    align-items: center;
+}
+
 .add:before{
     position: static;
 }
@@ -282,4 +284,28 @@ i{
     display: block;
     background: url('../images/cloudsRewards/edit.png') no-repeat;
     background-position: center;
+}
+
+.header-image-input{
+    display: none;
+}
+
+.upload-img-button{
+    border: solid 3px #457FE3;
+    color: #457FE3;
+    background-color: inherit;
+    border-radius: 50px ;
+    font-size: 14px;
+    padding: 5px 10px 5px 10px;
+    min-width: 50px;
+    cursor:pointer;
+
+    min-height: 35px;
+    background: url('../images/cloudsRewards/upload-blue.png') no-repeat;
+    background-position: 50% 50% ;
+}
+
+.btn-valider:hover{
+    background: none;
+    background: #1d61d4;
 }

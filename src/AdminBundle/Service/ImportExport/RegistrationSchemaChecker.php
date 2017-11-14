@@ -3,6 +3,7 @@ namespace AdminBundle\Service\ImportExport;
 
 use AdminBundle\Service\FileHandler\CSVHandler;
 use AdminBundle\Service\ImportExport\SchemaChecker;
+use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 
 class RegistrationSchemaChecker extends SchemaChecker
 {
@@ -14,11 +15,14 @@ class RegistrationSchemaChecker extends SchemaChecker
     const ERROR_NO_COMPANY_HEADER_FOUND = "Pas d'en-têtes de données de société trouvés";
     const ERROR_NO_USER_TITLE_FOUND = "Pas de titre de données de participant trouvé";
     const ERROR_NO_USER_HEADER_FOUND = "Pas d'en-têtes de données de participant trouvés";
+    const ERROR_DUPLICATE_USER_DATA = "Existence de doublon non autorisé";
+    const ERROR_EXISTENT_USER_WITH_EMAIL = "Adresse email déjà utilisée";
 
     private $company_data_title_row_index;
     private $user_data_title_row_index;
     private $company_data_header_row_index;
     private $user_data_header_row_index;
+    private $user_data_first_row_index;
 
     private function checkCompanyDatas()
     {
@@ -100,6 +104,7 @@ class RegistrationSchemaChecker extends SchemaChecker
                     if ($this->increaseRowIndex()) {
                         if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
                             $blank_row = false;
+                            $this->user_data_first_row_index = $this->row_index;
                             while (!$blank_row) {
                                 $error_list = $this->checkRow(
                                     $this->array_data,
@@ -192,6 +197,54 @@ class RegistrationSchemaChecker extends SchemaChecker
             $this->increaseRowIndexToNextNotBlankRow();
             if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
                 $this->addError($this->createErrorWithIndex(self::ERROR_INVALID_DATA, $this->row_index));
+                return $this->error_list;
+            }
+        }
+
+        // check if there are same email
+        // or mail already used in application
+        $email_field = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
+            ->findOneBy(array(
+                'site_form_setting' => $this->site_form_setting,
+                'special_field_index' => SpecialFieldIndex::USER_EMAIL,
+                'published' => true,
+            ));
+
+        if (in_array($email_field->getLabel(), $this->array_model[$this->user_data_header_row_index])) {
+            $email_field_col_index = array_keys(
+                $this->array_model[$this->user_data_header_row_index],
+                $email_field->getLabel()
+            )[0];
+            if (!is_null($this->user_data_first_row_index)) {
+                $user_email_list = array();
+                for ($i = $this->user_data_first_row_index; $i < $this->data_size; $i++) {
+                    if ('' != trim($this->array_data[$i][$email_field_col_index])) {
+                        array_push($user_email_list, $this->array_data[$i][$email_field_col_index]);
+                    }
+                }
+
+                if (count(array_unique($user_email_list)) < count($user_email_list)) {
+                    $this->addError(self::ERROR_DUPLICATE_USER_DATA.', colonne "'.$email_field->getLabel().'"');
+                    return $this->error_list;
+                }
+
+                for ($i = $this->user_data_first_row_index; $i < $this->data_size; $i++) {
+                    // SEARCH CRITERIAS MUST BE INCREASED : ADD program, program_user linked to user
+                    $user_with_email = $this->manager->getRepository('UserBundle\Entity\User')
+                        ->findOneByEmail($this->array_data[$i][$email_field_col_index]);
+                    if ('' != trim($this->array_data[$i][$email_field_col_index])) {
+                        if (!is_null($user_with_email)) {
+                            $this->addError($this->createErrorWithIndex(
+                                self::ERROR_EXISTENT_USER_WITH_EMAIL,
+                                $i,
+                                $email_field_col_index
+                            ));
+                            return $this->error_list;
+                        }
+                    }
+                }
+            } else {
+                $this->addError(self::ERROR_NO_USER_DATA_FOUND);
                 return $this->error_list;
             }
         }
