@@ -1408,10 +1408,31 @@ button.btn-valider {
     background: -webkit-linear-gradient(to right, #2969D7, #568CE7 );
     background: -o-linear-gradient(to right, #2969D7, #568CE7 );
     background: -moz-linear-gradient(to right, #2969D7, #568CE7 );
+    font-size: 15px;
+}
+button.btn-valider:hover {
+    background: linear-gradient(to right, #1d61d4, #1d61d4 ) !important; 
+    background: -webkit-linear-gradient(to right, #1d61d4, #1d61d4 ) !important;
+    background: -o-linear-gradient(to right, #1d61d4, #1d61d4 ) !important;
+    background: -moz-linear-gradient(to right, #1d61d4, #1d61d4 ) !important;
+}
+.add:before {
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #2969D7), color-stop(1, #568CE7));
+    background-image: gradient(linear, left top, right top, color-stop(0, #2969D7), color-stop(1, #568CE7));
+    color:transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.add:hover:before{
+    color: #1d61d4 !important;
 }
 .menu-page-active, .menu-page {
     margin-right: 5px;
-    font-size: 16px;
+    font-size: 17px;
+}
+.menu-page-active:hover, .menu-page:hover {
+    font-weight: 900;
+    color: #7682da;
 }
 /* btn aide*/
 .bulle-aide {
@@ -1422,10 +1443,13 @@ button.btn-valider {
 .bulle-aide:before {
     content: "?";
     color: white;
-    font-size: 14px;
+    font-size: 17px;
     position: relative;
     top: -5px;
     font-weight: 900;
+}
+.bulle-aide:hover {
+	background-color: #7682da; 
 }
 /*sidebar correct*/
 .image-checked {
@@ -1434,8 +1458,16 @@ button.btn-valider {
 	left: 10px;
 	display: block;
 }
+#sidebar {
+	max-width: 92px;
+	box-shadow: 5px 0 5px -5px #aaa;
+}
 #sidebar a {
-	font-size: 14px;	
+	font-size: 13px;
+	color : #404040;	
+}
+#sidebar a:hover {
+	background: white;
 }
 #sidebar a.active {
 	background: white;
@@ -1447,8 +1479,11 @@ button.btn-valider {
 .img-menu {
 	top: 37px;
 }
-#sidebar a.active .text-menu {
+#sidebar a.active .text-menu, #sidebar a.active .numero-menu {
 	color: #7682da;
+}
+#sidebar a.active .numero-menu {	
+	border: 1px solid #7682da;
 }
 .numero-menu {
     width: 20px;
@@ -1458,10 +1493,6 @@ button.btn-valider {
 }
 #sidebar .list-group-item {
 	margin-top : 0 !important;
-}
-#sidebar {
-	height: 100%;
-	border-right: 2px solid #000;
 }
 .add:before {
 	content: "\f055";
@@ -1483,4 +1514,60 @@ button.btn-valider {
 	margin-bottom: 1px;
 	background-position: left bottom !important;
 	background: url('../images/cloudsRewards/up-down.png') left center no-repeat;
+}
+.download, .upload {	
+	width: auto;
+	padding: 20px;	
+}
+.download {
+	background: url('../images/cloudsRewards/download-btn.png') center center no-repeat; 
+}
+.upload {
+	background: url('../images/cloudsRewards/upload-btn.png') center center no-repeat; 
+}
+.date-field-form input[type=text] {
+	border-radius : 5px;
+	color: #BABABA;
+    height: 35px;
+    padding: 6px;
+    border: 1px solid grey;
+    font-size: 14px;
+    margin-right: 3px;
+}
+.content-bloc-droite h3, .content-bloc-droite h5 {
+    font-weight : 300;
+    font-size: 25px;
+    color: #505050;  
+}
+.modal-content {
+	box-shadow: 3px 3px 3px -1px #aaa, 0px 0px 5px -1px #aaa;
+	border: none !important;
+}
+.modal-backdrop.show {
+    opacity: 0.75 !important;
+    background-color: #f6f6f6;
+}
+.close-modal::before {
+   	content: "×";
+    position: absolute;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 23px;
+    width: 23px;
+    left: 0;
+    /*text-align: center;    */
+}
+.close-modal {
+    display: block;
+    width: 23px;
+    height: 23px;
+    border-radius: 100%;
+    background-color: #CACACA;
+    cursor: pointer;
+    float: right;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }

@@ -27,7 +27,7 @@
                         </li>
 
                         <li class="nav-item-niv-3 form-imports">
-                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions_imports") }}">import de fichiers des résultas </a>
+                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_resultats_declaration_import") }}">import de fichiers des résultas </a>
                             <span class = "bulle-aide"></span>
                         </li>
                     </ul>
@@ -45,11 +45,12 @@
             <section id = "create-form-inscription" class = "fieldset active">  
                 
                 <div class = "row full-width no-contents">
-                    <div class = "col-md-10 col-sm-12 content-bloc-droite">
-                        <h3 class = "hidden-sm-down">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h3>
-                        <h5 class = "hidden-md-up">Cette rubrique vous permet de créer le formulaire <br>de déclaration des résultats par vos participants</h5>                     
+                    <div class = "col-md-8 col-sm-12 content-bloc-droite">
+                        <h3 class = "hidden-sm-down">Cette rubrique vous permet de créer le formulaire de déclaration des résultats par vos participants</h3>
+                        <h5 class = "hidden-md-up">Cette rubrique vous permet de créer le formulaire de déclaration des résultats par vos participants</h5>                     
                     </div>
-                    
+                    <div class = "col-md-2 hidden-sm-down">
+                    </div>
                     <div class = "col-md-2 hidden-sm-down">
                         <div class = " content-bloc-gauche img-form-declaration rounded-circle"></div> 
                     </div>
@@ -124,16 +125,16 @@
                                 <table id="sortable-table-{{ site_form_field_settings[0].level }}" class="sortable-table" width="100%">
                                     <thead>
                                         <tr>
-                                            <th width="15%">
-                                                <input id="cl1" class="checkbox-publish-all" type="checkbox">
-                                                <label for="cl1">
+                                            <th class="thead-fix">
+                                                <input id="cl-{{ site_form_field_settings[0].level }}-1" class="checkbox-publish-all" type="checkbox">
+                                                <label for="cl-{{ site_form_field_settings[0].level }}-1">
                                                     champs à publier <br>
                                                     <span></span>
                                                 </label>    
-                                            </th width="15%">
+                                            </th class="thead-fix">
                                             <th>
-                                                <input id="cl2" class="checkbox-mandatory-all" type="checkbox">
-                                                <label for="cl2">
+                                                <input id="cl-{{ site_form_field_settings[0].level }}-2" class="checkbox-mandatory-all" type="checkbox">
+                                                <label for="cl-{{ site_form_field_settings[0].level }}-2">
                                                     rendre obligatoire <br>
                                                     <span></span>
                                                 </label> 

@@ -1,0 +1,136 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-resultat-form.css") }}" rel="stylesheet"> 
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+{{ render(controller('AdminBundle:Parametrages:sidebar',{'active':3})) }}
+{# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+<main class="col-md-9  offset-md-1 float-left main">
+    {# {{ dump(site_form_setting) }} #}
+    <div class = "row">
+        <div class = "col-12 col-md-12 sous-menu-main">
+            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                    <ul class="navbar-nav content-menu-niv-3">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_resultats_declaration") }}">formulaire de déclaration </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+
+                        <li class="nav-item-niv-3 form-imports">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration_import") }}">import de fichiers des résultas </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                </div>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+                    <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                </button>
+                <a class="navbar-brand abs" href="#"></a>
+            </nav>
+        </div>
+    </div>
+
+    <div class = "row principal">
+        <div class = "row col-12 col-md-12 sous-menu-main">
+            <section id = "create-form-inscription" class = "fieldset active little">  
+                
+                <div class = "row full-width no-contents">
+                    <div class = "col-md-10 col-sm-12 content-bloc-droite">
+                        <h3 class = "hidden-sm-down">Cette rubrique vous permet d'importer directement le fichier de vos participants et de leurs résultats sous format CSV, dans votre plateforme de récompense.</h3>
+                        <h5 class = "hidden-md-up">Cette rubrique vous permet d'importer directement le fichier de vos participants et de leurs résultats sous format CSV, dans votre plateforme de récompense.</h5>                  
+                    </div>
+                    
+                    <div class = "col-md-2 hidden-sm-down">
+                        <div class = " content-bloc-gauche img-form-declaration rounded-circle"></div> 
+                    </div>
+                </div>
+
+                <div class = "row full-width">
+                    <div class = "row col-12 col-md-12">
+                        <div class="col-md-12 col-sm-12 line-option"> 
+                            <div class="options-form"> 
+                                {# {{ form_start(setting_form,{"attr": {"novalidate": "novalidate"}}) }}  
+                                    {{ form_widget(setting_form) }}
+                                {{ form_end(setting_form) }}   #}                      
+                                <input id="c1" name="frequency" type="radio" value = "monthly">
+                                <label for="c1">
+                                    <span></span>
+                                    <div>
+                                        <b>vous ferez une mise à jour mensuelle ou trimestrielle des résultats de vos participants ?</b>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 line-option"> 
+                            <div class="options-form">
+                                <input id="c2" name="frequency" type="radio"  value = "dayly">
+                                <label for="c2">
+                                    <span></span>  
+                                    <div>                              
+                                        <b>vous ferez plusieurs mises à jour des résultats de vos participants dans le mois ?</b>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 line-option">                             
+                        </div>
+                        <div class="col-md-12 col-sm-12 line-option"> 
+                            <div class="options-form">
+                                <input id="c3" name="piece_request" type="checkbox"  value = "">
+                                <label for="c3">
+                                    <span></span>  
+                                    <div>                              
+                                        <b>les récompenses de vos participants seront différentes en fonction des produits vendus ?</b><br>
+                                        <span>(5 produits maximum)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 line-option">
+                            <div class="options-form"> 
+                                <input id="c4" name="header" type="checkbox" value = "">
+                                <label for="c4">
+                                    <span></span>  
+                                    <div>
+                                        <b>les récompenses de vos participants seront différents en fonction de leur rang commercial ?</b><br>
+                                        <span>(6 rangs maximum, exemple : directeur national, directeur régional, directeur d'agence, agent commercial, distributeur, assistant commercial)</span>
+                                    </div>                              
+                                </label>                                                         
+                            </div>
+                        </div>                        
+                    </div>
+                </div>            
+                <div class = "row">
+                    <div class = "col-md-6">
+                        <button class ="btn-valider btn-download">
+                            <span class="download"></span>
+                            télécharger le modèle
+                        </button>
+                    </div>
+                    <div class = "col-md-6">
+                        <button class ="btn-valider btn-upload">
+                            <span class="upload"></span>                          
+                            importer le fichier complété
+                        </button>                        
+                        {{ form_start(form_upload,{"attr": {"novalidate": "novalidate"}}) }}  
+                            {{ form_widget(form_upload,{"attr": {"style": "display:none"}}) }}
+                            {{ form_errors(form_upload.uploaded_file) }}
+                        {{ form_end(form_upload) }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

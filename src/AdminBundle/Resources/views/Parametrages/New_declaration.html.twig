@@ -10,16 +10,16 @@
         <table id='sortable-table-{{ site_form_field_settings[0].level }}' class="sortable-table" width="100%">
             <thead>
                 <tr>
-                    <th width="15%">
-                        <input id="cl1" class="checkbox-publish-all" type="checkbox">
-                        <label for="cl1">
+                    <th class="thead-fix">
+                        <input id="cl-{{ site_form_field_settings[0].level }}-1" class="checkbox-publish-all" type="checkbox">
+                        <label for="cl-{{ site_form_field_settings[0].level }}-1">
                             champs à publier <br>
                             <span></span>
                         </label>    
-                    </th width="15%">
+                    </th class="thead-fix">
                     <th>
-                        <input id="cl2" class="checkbox-mandatory-all" type="checkbox">
-                        <label for="cl2">
+                        <input id="cl-{{ site_form_field_settings[0].level }}-2" class="checkbox-mandatory-all" type="checkbox">
+                        <label for="cl-{{ site_form_field_settings[0].level }}-2">
                             rendre obligatoire <br>
                             <span></span>
                         </label> 

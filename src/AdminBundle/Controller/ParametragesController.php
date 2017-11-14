@@ -3,24 +3,26 @@
 
 namespace AdminBundle\Controller;
 
+use AdminBundle\Component\SiteForm\FieldTypeName;
+use AdminBundle\Component\SiteForm\SiteFormType;
+use AdminBundle\Component\SiteForm\SpecialFieldIndex;
+use AdminBundle\Entity\Program;
 use AdminBundle\Entity\RegistrationFormData;
+use AdminBundle\Entity\SiteFormFieldSetting;
+use AdminBundle\Entity\SiteFormSetting;
+use AdminBundle\Form\FormStructureDeclarationType;
+use AdminBundle\Form\FormStructureType;
+use AdminBundle\Form\RegistrationFormHeaderDataType;
+use AdminBundle\Form\RegistrationFormIntroDataType;
+use AdminBundle\Form\RegistrationImportType;
+use AdminBundle\Form\ResultSettingType;
+use AdminBundle\Form\ResultSettingUploadType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AdminBundle\Entity\Program;
-use AdminBundle\Entity\SiteFormSetting;
-use AdminBundle\Entity\SiteFormFieldSetting;
-use AdminBundle\Component\SiteForm\SiteFormType;
-use AdminBundle\Form\FormStructureDeclarationType;
-use AdminBundle\Form\FormStructureType;
-use AdminBundle\Component\SiteForm\FieldTypeName;
-use AdminBundle\Form\RegistrationImportType;
-use AdminBundle\Component\SiteForm\SpecialFieldIndex;
-use AdminBundle\Form\RegistrationFormHeaderDataType;
-use AdminBundle\Form\RegistrationFormIntroDataType;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Route("/admin/parametrages")
@@ -486,6 +488,62 @@ class ParametragesController extends Controller
             'fields' => $arranged_fields,
             'field_type_list' => FieldTypeName::FIELD_NAME,
             'max_line' => $site_form_setting->getCustomFieldAllowed()+ $default_lines
+        ));
+    }
+
+    /**
+     * @Route("/resultats/declaration/import", name="admin_resultats_declaration_import")
+     */
+    public function importDeclarationAction(Request $request)
+    {
+        $setting_form = $this->createForm(ResultSettingType::class);
+        $upload_form = $this->createForm(ResultSettingUploadType::class);
+        $upload_form->handleRequest($request);
+        $error_list = array();
+        if ($upload_form->isSubmitted() && $upload_form->isValid()) {
+            // $import_file = $upload_form->getData()["uploaded_file"];
+            // $registration_handler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
+            // $registration_handler->setSiteFormSetting($registration_site_form_setting);
+            // $registration_handler->import($import_file);
+
+            // if (!empty($registration_handler->getErrorList())) {
+            //     $error_list = $registration_handler->getErrorList();
+            // } else {
+            //     $this->addFlash('success_message', 'Import de données effectué avec succès');
+            //     return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
+            // }
+        }
+        return $this->render('AdminBundle:Parametrages:Import_declaration.html.twig', array(
+            'form_upload' => $upload_form->createView(),
+            'setting_form' => $setting_form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/resultats/declaration/model", name="admin_resultats_declaration_model")
+     */
+    public function createDeclarationModelAction(Request $request)
+    {
+        
+        $upload_form = $this->createForm(ResultSettingUploadType::class);
+        $upload_form->handleRequest($request);
+        $error_list = array();
+        
+        if ($upload_form->isSubmitted() && $upload_form->isValid()) {
+            // $import_file = $upload_form->getData()["uploaded_file"];
+            // $registration_handler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
+            // $registration_handler->setSiteFormSetting($registration_site_form_setting);
+            // $registration_handler->import($import_file);
+
+            // if (!empty($registration_handler->getErrorList())) {
+            //     $error_list = $registration_handler->getErrorList();
+            // } else {
+            //     $this->addFlash('success_message', 'Import de données effectué avec succès');
+            //     return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
+            // }
+        }
+        return $this->render('AdminBundle:Parametrages:Import_declaration.html.twig', array(
+            'form_upload' => $upload_form->createView(),
         ));
     }
 }

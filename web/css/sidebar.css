@@ -1,7 +1,7 @@
 #sidebar {
     overflow: hidden;
     z-index: 3;
-	border-right: 1px solid #cccaff !important;
+	/*border-right: 1px solid #cccaff !important;*/
 }
 #sidebar .list-group {
     background-color: #ebeeef;

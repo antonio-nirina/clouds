@@ -68,27 +68,59 @@ $(document).ready(function(){
      * Selection multiple : champs à publier, rendre obligatoire
      * *********************************************************************************************
      */
-    $('.checkbox-publish-all').on('click', function(e){
+    $(document).on('click', '.checkbox-publish-all', function(e){        
         if($(this).is(':checked'))
         {
-            $('.form-field-published').prop("checked", true);
+            $(this).parents('table').find('.form-field-published').prop("checked", true);
         }
         else
         {
-            $('.form-field-published').prop("checked", false);
+            $(this).parents('table').find('.form-field-published').prop("checked", false);
+        }
+    });
+    $(document).on('click', '.checkbox-mandatory-all', function(e){
+        if($(this).is(':checked'))
+        {
+            $(this).parents('table').find('.form-field-mandatory').prop("checked", true);
+        }
+        else
+        {
+            $(this).parents('table').find('.form-field-mandatory').prop("checked", false);
+        }
+    });
+    $(document).on('click','.form-field-published', function(e){    
+        if(!$(this).is(':checked'))
+        {
+            $(this).parents('table').find('.checkbox-publish-all').prop("checked", false);
+        }
+        else
+        {
+            var all_checked = true;
+            $(this).parents('table').find('.form-field-published').each(function(){
+                if(!$(this).is(':checked'))
+                    all_checked = false;               
+            });
+            if(all_checked)
+                $(this).parents('table').find('.checkbox-publish-all').prop("checked", true);
+        }
+    });
+    $(document).on('click','.form-field-mandatory', function(e){    
+        if(!$(this).is(':checked'))
+        {
+            $(this).parents('table').find('.checkbox-mandatory-all').prop("checked", false);
+        }
+        else
+        {
+            var all_checked = true;
+            $(this).parents('table').find('.form-field-mandatory').each(function(){
+                if(!$(this).is(':checked'))
+                    all_checked = false;               
+            });
+            if(all_checked)
+                $(this).parents('table').find('.checkbox-mandatory-all').prop("checked", true);
         }
     });
 
-    $('.checkbox-mandatory-all').on('click', function(e){
-        if($(this).is(':checked'))
-        {
-            $('.form-field-mandatory').prop("checked", true);
-        }
-        else
-        {
-            $('.form-field-mandatory').prop("checked", false);
-        }
-    });
     /**
      * *********************************************************************************************
      * FIN
@@ -96,5 +128,15 @@ $(document).ready(function(){
      * Selection multiple : champs à publier, rendre obligatoire
      * *********************************************************************************************
      */
+    
+    $('.btn-valider.btn-download').on('click',  function(){
+        alert('download');
+    });
+    $('.btn-valider.btn-upload').on('click',  function(){
+        $("#result_setting_upload_uploaded_file").click();
+    });
+    $("#result_setting_upload_uploaded_file").on('change',function() {
+        $(this).parents('form').submit();
+    });
 });
 
