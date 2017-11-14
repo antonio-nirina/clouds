@@ -40,6 +40,10 @@
     border-top: solid 2px #7782DB;
 }
 
+.fieldset .custom-field-allowed-container{
+    margin-right: 2px;
+}
+
 .content-bloc-gauche{
     position: static;
 }
@@ -192,6 +196,14 @@
 /**
  * Form elements
  */
+.input-text{
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    width:60%;
+}
+
 .large-input-text{
     border: 1px solid #636363;
     width: 100%;
@@ -308,4 +320,131 @@
 .btn-valider:hover{
     background: none;
     background: #1d61d4;
+}
+
+#btn-modal{
+    display: none;
+}
+
+.styled-radio{
+    display: none;
+}
+
+.styled-radio:checked + label{
+    background: url('../images/cloudsRewards/checkon.png') no-repeat;
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
+}
+
+.styled-radio + label{
+    background: url('../images/cloudsRewards/checkoff.png') no-repeat;
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
+}
+
+.narrow-block-label{
+    display: inline-block;
+    width: 100px;
+    margin: 0 0 0 20px !important;
+}
+
+.block-label{
+    display: inline-block;
+    width: 80%;
+    margin: 0 0 0 20px !important;
+}
+
+.modal-content{
+    border: none;
+    border-radius: 0;
+    box-shadow: 3px 3px 3px -1px #aaa, 0px 0px 5px -1px #aaa;	border: none !important;
+}
+
+
+.modal-content .content label{
+    margin: 0;
+}
+
+.modal-content .content {
+    padding-left : 5%;
+    font-size: 14px;
+    padding-bottom: 30px;
+}
+.modal-content .content h4 {
+    font-weight: 300;
+    color: #2A6BD9;
+    text-align: left;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.modal-content .modal-header{
+    border: none;
+}
+
+.modal-content .content .submit-button-container{
+    margin-top: 10px;
+}
+
+.modal-backdrop.show {
+    opacity: 0.75 !important;
+    background-color: #f6f6f6;
+}
+/*
+.modal-backdrop {
+    background-color: rgba(246, 246, 246, 0.75);
+    background-color: rgb(246, 246, 246);
+}
+*/
+
+.champs-form{
+    height:30px;
+}
+
+.form-row{
+    padding: 10px 0 10px 0;
+}
+
+.form-label{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.block-label .champs-form-radio:first-child .input-radio{
+    margin-left: 0;
+}
+
+.modal-content ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #BABABA!important;
+    font-style:normal!important;
+    font-size: 12px;
+}
+.modal-content :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #BABABA!important;
+    opacity:  1!important;
+    font-style:normal!important;
+    font-size: 12px;
+}
+.modal-content ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #BABABA!important;
+    opacity:  1!important;
+    font-style:normal!important;
+    font-size: 12px;
+}
+.modal-content :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #BABABA!important;
+    font-style:normal!important;
+    font-size: 12px;
+}
+.modal-content ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #BABABA!important;
+    font-style:normal!important;
+    font-size: 12px;
 }

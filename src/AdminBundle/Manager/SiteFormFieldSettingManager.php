@@ -139,7 +139,7 @@ class SiteFormFieldSettingManager
         return $field;
     }
 
-    public function addNewField($new_field, SiteFormSetting $site_form_setting)
+    public function addNewField($new_field, SiteFormSetting $site_form_setting, $reduce_custom_field_allowed = false)
     {
         if (!is_null($site_form_setting)
             &&
@@ -150,6 +150,9 @@ class SiteFormFieldSettingManager
         ) {
             $type = ($new_field['field_type']=="alphanum")?"text":$new_field['field_type'];
 
+            if (!array_key_exists('mandatory', $new_field) || !array_key_exists('label', $new_field)) {
+                return;
+            }
 
             if ($type != 'period') {
                 $field = new SiteFormFieldSetting();
@@ -157,11 +160,12 @@ class SiteFormFieldSettingManager
                         ->setFieldType($type)
                         ->setMandatory($new_field['mandatory'])
                         ->setLabel($new_field['label'])
-                        ->setFieldOrder(100)
-                        ->setPersonalizable(true); // big value, to put new field at the bottom
+                        ->setFieldOrder(100) // big value, to put new field at the bottom
+                        ->setPersonalizable(true);
                 if (isset($new_field['level'])) {
                     $field->setLevel($new_field['level']);
-                    $order = $this->getRepository()->findLastOrder($field->getSiteFormSetting()->getId(), $new_field['level']);
+                    $order = $this->getRepository()
+                        ->findLastOrder($field->getSiteFormSetting()->getId(), $new_field['level']);
                     $field->setFieldOrder($order);
                 }
 
@@ -177,8 +181,8 @@ class SiteFormFieldSettingManager
                         ->setFieldType('date')
                         ->setMandatory($new_field['mandatory'])
                         ->setLabel($new_field['label'])
-                        ->setFieldOrder(100)
-                        ->setPersonalizable(true); // big value, to put new field at the bottom
+                        ->setFieldOrder(100) // big value, to put new field at the bottom
+                        ->setPersonalizable(true);
                 if (isset($new_field['level'])) {
                     $field->setLevel($new_field['level']);
                     $order = (int) $this->getRepository()->findLastOrder($field->getSiteFormSetting()->getId(), $new_field['level']);
@@ -195,10 +199,18 @@ class SiteFormFieldSettingManager
                 $this->em->persist($field2);
             }
 
+            if (true == $reduce_custom_field_allowed) {
+                if (is_int($site_form_setting->getCustomFieldAllowed())) {
+                    $site_form_setting->setCustomFieldAllowed(($site_form_setting->getCustomFieldAllowed()) - 1);
+                }
+            }
+
             $this->save();
 
             return $field;
         }
+
+        return;
     }
 
     /**

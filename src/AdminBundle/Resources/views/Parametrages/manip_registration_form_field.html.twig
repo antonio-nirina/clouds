@@ -1,0 +1,58 @@
+<input type="hidden" name="field_id" value="{{ (field_id is defined)?field_id:"" }}">
+<div class="row">
+    <div class="col-lg-12">
+        <h4>personnaliser le champ</h4>
+    </div>
+</div>
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label">intitulé du champ</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="input-text" name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
+    </div>
+</div>
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label" for="alpha-radio">type alphanumérique</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="styled-radio" id="alpha-radio" {{ (type==constant('TEXT', field_type))?"checked":""}} name="type_field" type='radio' value="{{ constant('TEXT', field_type) }}">
+        <label for="alpha-radio"></label>
+        <label for="alpha-radio" class="narrow-block-label">
+            <div class="champs-form"></div>
+        </label>
+    </div>
+</div>
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label" for="choice-radio">type case à cocher</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="styled-radio" id="choice-radio" {{ (type==constant('CHOICE_RADIO', field_type))?"checked":""}} name="type_field" type='radio' value="{{ constant('CHOICE_RADIO', field_type) }}">
+        <label for="choice-radio"></label>
+        <label for="choice-radio" class="block-label">
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+                <span class="input-libelle-radio">oui</span>
+            </div>
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+                <span class="input-libelle-radio">non</span>
+            </div>
+        </label>
+    </div>
+</div>
+<div class="row submit-button-container">
+    <div class="col-lg-12">
+        {% if field_id is defined and field_id > 0 %}
+            <button class ="update-field btn-valider">
+                sauvegarder
+            </button>
+        {% else %}
+            <button class ="add-field btn-valider">
+                ajouter
+            </button>
+        {% endif %}
+    </div>
+</div>

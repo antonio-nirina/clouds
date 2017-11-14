@@ -112,43 +112,63 @@ $(document).ready(function(){
      * Gestion d'ajout de nouveau champ
      * *********************************************************************************************
      */
-    // Ajout nouveau formulaire d'ajout de champ
+    var admin_new_registration_form_field_url = $('input[name=admin-new-registration-form-field]').val();
     $('.add-field-link').on('click', function(e){
         e.preventDefault();
+        var custom_field_allowed = $("input[name=custom-field-allowed]").val();
 
-        /*var custom_field_allowed = $("input[name=custom-field-allowed]").val();
-        if($('.add-field-form-block').find('.add-field-form-container').find('.add-field-form').length < custom_field_allowed)
-        {
-            var new_add_field_form = $(this).parents('.add-field-form-block').find('.add-field-form.template').clone();
-            new_add_field_form.removeClass('template');
-            $(this).parents('.add-field-form-block').find('.add-field-form-container').append(new_add_field_form);
-            new_add_field_form.show();
+        custom_field_allowed = parseInt(custom_field_allowed);
+        if(custom_field_allowed >0) {
+            $.ajax({
+                type: 'GET',
+                url:admin_new_registration_form_field_url,
+                success: function(html){
+                    $('.modal-content .content').html(html);
+                    $('#btn-modal').trigger('click');
+                }
+            });
         }
         else
         {
             alert(custom_field_allowed+' nouveau(x) champ(s) maximum');
-        }*/
+        }
     });
 
-    // Ajout de nouvelle option (pour champ à choix, exp bouton radio)
-    $('.add-field-form-block').on('click', '.add-option-link', function(e){
+    $(document).on('click', '.add-field', function(e){
         e.preventDefault();
-        var new_option_field = $(this).parents('.select-field-option-container').find('.add-option-field.template').clone();
-        new_option_field.removeClass('template');
-        $(this).parents('.select-field-option-container').find('.option-container').append(new_option_field);
-        new_option_field.show();
-    });
+        var type = $("input[name=type_field]:checked").val();
+        var label = $("input[name=intitule]").val();
 
-    // Afficher/Cacher le bloc d'option en fonction du type de champ à ajouter choisi
-    $('.add-field-form-block').on('change', '.select-field-type', function(e){
-        e.preventDefault();
-        if(field_type_with_choice.indexOf($(this).val()) >= 0)
+        if(label.trim() == "")
         {
-            $(this).parents('.add-field-form').find('.select-field-option-container').show();
+            alert("ajouter un intitulé");
+        }
+        else if("undefined" == typeof type)
+        {
+            alert("choisir un type");
         }
         else
         {
-            $(this).parents('.add-field-form').find('.select-field-option-container').hide();
+            var data = {"label": label, 'field_type': type, 'validate': true};
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: admin_new_registration_form_field_url,
+                success: function(html){
+                    var block_table = $('.block-table');
+                    block_table.find('tbody').append(html);
+                    var custom_field_allowed = $('input[name=custom-field-allowed]');
+                    custom_field_allowed.val(parseInt(custom_field_allowed.val()) - 1);
+                    $('.custom-field-allowed-container').text(custom_field_allowed.val());
+
+                    console.log(parseInt(custom_field_allowed.val()))
+                    if(parseInt(custom_field_allowed.val()) <= 0)
+                    {
+                        $('.add-field-link-container').hide();
+                    }
+                    $('.close-modal').trigger('click');
+                }
+            });
         }
     });
 
@@ -167,7 +187,7 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
     // reord - monter
-    $('.reorder-up-field-row-link').on('click', function(e){
+    $(document).on('click', '.reorder-up-field-row-link', function(e){
         e.preventDefault();
         var upper_row = $(this).parents('.form-field-row').prev('.form-field-row');
         if(upper_row.length > 0)
@@ -177,7 +197,7 @@ $(document).ready(function(){
     });
 
     // reord - descendre
-    $('.reorder-down-field-row-link').on('click', function(e){
+    $(document).on('click', '.reorder-down-field-row-link', function(e){
         e.preventDefault();
         var lower_row = $(this).parents('.form-field-row').next('.form-field-row');
         if(lower_row.length > 0)
@@ -348,7 +368,7 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * Paramétrages - Inscriptions
-     * Checkbox champs à publier
+     * Checkbox publier et obligatoire
      * *********************************************************************************************
      */
     $(document).on("click", ".form-field-published", function(){
@@ -369,7 +389,7 @@ $(document).ready(function(){
      * *********************************************************************************************
      * FIN
      * Paramétrages - Inscriptions
-     * Checkbox champs à publier
+     * Checkbox publier et obligatoire
      * *********************************************************************************************
      */
 
