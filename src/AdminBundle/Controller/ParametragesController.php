@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
+use AdminBundle\Component\SiteForm\FieldType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -104,7 +105,7 @@ class ParametragesController extends Controller
      * @Route("/inscriptions", name="admin_parametrages_inscriptions")
      */
 
-    public function inscriptionsAction(Request $request)
+    public function createRegistrationFormAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -207,9 +208,150 @@ class ParametragesController extends Controller
     }
 
     /**
+     * @Route("/inscriptions/creation-formulaire/nouveau-champ", name="admin_new_registration_form_field")
+     */
+    public function addRegistrationFormFieldAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
+        $programs = $em->getRepository(Program::class)->findAll();
+        if (empty($programs) || is_null($programs[0])) {
+            return new Response('');
+        }
+        $program = $programs[0];
+        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+            ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
+        if (is_null($registration_site_form_setting)) {
+            return new Response('');
+        }
+
+        if ($request->isMethod('GET')) {
+            return $this->render("AdminBundle:Parametrages:manip_registration_form_field.html.twig", array(
+                "type" => FieldType::TEXT,
+                "field_type" => new FieldType(),
+            ));
+        }
+
+        if ($request->isMethod('POST')) {
+            if ($request->get('validate')
+                && $request->get('label')
+                && $request->get('field_type')
+                && !is_null($request->get('field_type'))
+            ) {
+                $new_field = array(
+                    "mandatory" => false,
+                    "label" => $request->get('label'),
+                    "field_type" => $request->get('field_type'),
+                );
+                if (FieldType::CHOICE_RADIO == $request->get('field_type')) {
+                    $yes_no_choices_array = array(
+                        "oui" => "oui",
+                        "non" => "non,"
+                    );
+                    $new_field["choices"] = $yes_no_choices_array;
+                }
+                $field = $site_form_field_setting_manager->addNewField(
+                    $new_field,
+                    $registration_site_form_setting,
+                    true
+                );
+                if (!is_null($field)) {
+                    $response = $this->forward(
+                        'AdminBundle:PartialPage:siteFormFieldRow',
+                        array('field' => $field)
+                    );
+
+                    return $response;
+                }
+            }
+        }
+
+        return new Response('');
+    }
+
+    /**
+     * @Route("/inscriptions/creation-formulaire/editer-champ", name="admin_edit_registration_form_field")
+     */
+    public function editRegistrationFormFieldAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
+
+        $programs = $em->getRepository(Program::class)->findAll();
+        if (empty($programs) || is_null($programs[0])) {
+            return new Response('');
+        }
+        $program = $programs[0];
+        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+            ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
+        if (is_null($registration_site_form_setting)) {
+            return new Response('');
+        }
+
+        if ($request->isMethod('GET')) {
+            if ($request->get('field_id')) {
+                $field = $em->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
+                    ->findBySiteFormSettingAndId($registration_site_form_setting, $request->get('field_id'));
+                if (!is_null($field)) {
+                    $custom_choice_radio_choices = array();
+                    if (FieldType::CHOICE_RADIO == $field->getFieldType()) {
+                        $custom_choice_radio_choices["choices"] = array();
+                        if (array_key_exists("choices", $field->getAdditionalData())) {
+                            $custom_choice_radio_choices = $field->getAdditionalData()["choices"];
+                        }
+                    }
+                    return $this->render(
+                        "AdminBundle:Parametrages:manip_registration_form_field.html.twig",
+                        array(
+                            "type" => $field->getFieldType(),
+                            "custom_choice_radio_choices" => $custom_choice_radio_choices,
+                            "field_id" => $field->getId(),
+                            "field_type" => new FieldType(),
+                            "label" => $field->getLabel(),
+                        )
+                    );
+                }
+            }
+        }
+
+        if ($request->isMethod('POST')) {
+            if ($request->get('validate')
+                && $request->get('label')
+                && $request->get('field_type')
+                && !is_null($request->get('field_type'))
+                && $request->get('field_id')
+            ) {
+                $field = $em->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
+                    ->findBySiteFormSettingAndId($registration_site_form_setting, $request->get('field_id'));
+                if (!is_null($field)) {
+                    $custom_choices = null;
+                    if ($request->get('options')) {
+                        $custom_choices = $request->get('options');
+                    }
+                    $site_form_field_setting_manager->updateFieldWithCustomChoices(
+                        $field,
+                        $request->get('field_type'),
+                        $request->get('label'),
+                        $custom_choices
+                    );
+                    $response = $this->forward(
+                        'AdminBundle:PartialPage:siteFormFieldRow',
+                        array('field' => $field)
+                    );
+
+                    return $response;
+                }
+            }
+        }
+
+        return new Response('');
+    }
+
+    /**
      * @Route("/inscriptions/imports", name="admin_parametrages_inscriptions_imports")
      */
-    public function importsAction(Request $request)
+    public function importRegistrationDataAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $programs = $em->getRepository(Program::class)->findAll();
@@ -249,7 +391,7 @@ class ParametragesController extends Controller
     /**
      * @Route("/inscriptions/imports/telecharger-modele", name="admin_parametrages_inscriptiions_imports_telecharger_modele")
      */
-    public function importDownloadModel()
+    public function downloadRegistrationModelAction()
     {
         $response = $this->get('AdminBundle\Service\ImportExport\RegistrationModel')->createResponse();
 
@@ -507,6 +649,7 @@ class ParametragesController extends Controller
         if (empty($program)) {//redirection si program n'existe pas
             return $this->redirectToRoute('fos_user_security_logout');
         }
+        
         $result_setting = $em->getRepository('AdminBundle:ResultSetting')->findByProgram($program);
         $result_setting = $result_setting[0];
         $setting_form = $this->createForm(ResultSettingType::class, $result_setting);

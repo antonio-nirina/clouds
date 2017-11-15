@@ -196,8 +196,8 @@
 						<table class="reorder-table block-table">
 							<thead>
 							<tr>
-								<th><span>champs à publier</span><input id="checkbox-publish-all" class="checkbox-publish-all styled-checkbox" type="checkbox"><label for="checkbox-publish-all"></label></th>
-								<th><span>rendre obligatoire</span><input id="checkbox-mandatory-all" class="checkbox-mandatory-all styled-checkbox" type="checkbox"><label for="checkbox-mandatory-all"></label></th>
+								<th class="text-and-checkbox-container"><span>champs à publier</span><input id="checkbox-publish-all" class="checkbox-publish-all styled-checkbox" type="checkbox"><label for="checkbox-publish-all"></label></th>
+								<th class="text-and-checkbox-container"><span>rendre obligatoire</span><input id="checkbox-mandatory-all" class="checkbox-mandatory-all styled-checkbox" type="checkbox"><label for="checkbox-mandatory-all"></label></th>
 								<th>liste des champs</th>
 								<th>éditer</th>
 								<th>ordre</th>
@@ -216,13 +216,18 @@
 						</table>
 					</div>
 				</div>
-                {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
-                <div class="row add-field-link-container">
+
+				{% set add_field_link_container_state = '' %}
+                {% if custom_field_allowed is defined and custom_field_allowed <= 0 %}
+					{% set add_field_link_container_state = 'style="display:none"' %}
+                {% endif %}
+                <div class="row add-field-link-container" {{ add_field_link_container_state | raw }}>
                     <div class="col-lg-12">
-                        <a class="add-field-link add" href="#">ajouter un champ ({{ custom_field_allowed }} maximum)</a>
+                        <a class="add-field-link add" href="#">ajouter un champ (<span class="custom-field-allowed-container">{{ custom_field_allowed }}</span> maximum)</a>
                     </div>
                 </div>
-                {% endif %}
+
+
 				<div class="row submit-button-container">
 					<div class="col-lg-12">
                         {{ form_start(form_structure_form) }}
@@ -234,6 +239,26 @@
                         {{ form_end(form_structure_form) }}
 					</div>
 				</div>
+
+                <!-- Modal button -->
+                <button type="button" id="btn-modal" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"> modal</button>
+                <!-- Modal -->
+                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+								<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                            </div>
+                            <div class="content">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="custom-field-allowed" value="{{ custom_field_allowed }}">
+                <input type="hidden" name="admin-new-registration-form-field" value="{{ path('admin_new_registration_form_field') }}">
+                <input type="hidden" name="admin-edit-registration-form-field" value="{{ path('admin_edit_registration_form_field') }}">
+
 
 				{#<div class = "content-bloc-droite">
 					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>

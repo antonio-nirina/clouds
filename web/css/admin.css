@@ -356,8 +356,8 @@ section.inactive{
 	border: 0;
 	background: none;
 	background-color: #4a83e4;
-	width: 100px;
-	padding: 5px;
+	min-width: 100px;
+	padding: 5px 20px;
 	color: white;
 	border-radius: 27px;
 	font-size:12px;
@@ -1426,6 +1426,11 @@ button.btn-valider:hover {
 .add:hover:before{
     color: #1d61d4 !important;
 }
+
+.add, .add:visited, .add:active {
+    text-decoration:none !important;
+}
+
 .menu-page-active, .menu-page {
     margin-right: 5px;
     font-size: 17px;
@@ -1570,4 +1575,15 @@ button.btn-valider:hover {
     display: flex;
     justify-content: center;
     align-content: center;
+}
+
+th {
+	font-weight: normal;
+	background-color: #E3E6F8 !important;
+	background-color: 	rgba(118, 130, 218, 0.2) !important;
+}
+
+.head-personalized{
+	background-color: #E3E6F8 !important;
+	background-color: 	rgba(118, 130, 218, 0.2) !important;
 }
