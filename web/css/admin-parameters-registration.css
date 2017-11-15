@@ -120,9 +120,10 @@
     cursor:pointer;
 }
 
-.block-table th{
-    background-color: #DCDFF0;
-}
+/*.block-table th{*/
+    /*background-color: #E3E6F8 !important;*/
+    /*background-color: 	rgba(118, 130, 218, 0.2) !important;*/
+/*}*/
 
 .block-table .reorder-up-field-row-link{
     display: block;
@@ -134,12 +135,12 @@
 
 .block-table .field-reorder-option-container{
     text-align: center;
-    width: 6%;
+    width: 5%;
 }
 
 .block-table .field-edit-option-container{
     text-align: center;
-    width: 10%;
+    width: 8%;
 }
 
 .block-table th, .block-table td{
@@ -157,7 +158,7 @@
 .block-table tr td.field-parameter-state-container{
     text-align: center;
     vertical-align: middle;
-    width: 12%;
+    width: 143px;
 }
 
 
@@ -169,6 +170,10 @@
 
 .block-table tr td.field-container dl{
     margin: 0 0 0 0;
+}
+
+.block-table th.text-and-checkbox-container{
+    padding-top: 10px;
 }
 
 .submit-button-container{
@@ -313,8 +318,14 @@
     cursor:pointer;
 
     min-height: 35px;
+    max-height: 35px;
+
     background: url('../images/cloudsRewards/upload-blue.png') no-repeat;
     background-position: 50% 50% ;
+
+    max-width: 40%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .btn-valider:hover{
@@ -388,6 +399,14 @@
     border: none;
 }
 
+.modal-header{
+    display: block;
+}
+
+.close-modal{
+    text-align: center;
+}
+
 .modal-content .content .submit-button-container{
     margin-top: 10px;
 }
@@ -451,4 +470,11 @@
     color: #BABABA!important;
     font-style:normal!important;
     font-size: 12px;
+}
+
+@media (max-width: 800px){
+    .champs-form-radio .input-radio{
+        margin: 0;
+    }
+
 }
