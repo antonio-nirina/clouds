@@ -32,6 +32,11 @@ class Role
     private $rank;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $network;
+
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="role")
      */
     private $program_users;
@@ -157,5 +162,29 @@ class Role
     public function getProgramUsers()
     {
         return $this->program_users;
+    }
+
+    /**
+     * Set network
+     *
+     * @param string $network
+     *
+     * @return Role
+     */
+    public function setNetwork($network)
+    {
+        $this->network = $network;
+
+        return $this;
+    }
+
+    /**
+     * Get network
+     *
+     * @return string
+     */
+    public function getNetwork()
+    {
+        return $this->network;
     }
 }

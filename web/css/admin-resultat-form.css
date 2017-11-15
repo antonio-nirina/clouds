@@ -376,12 +376,16 @@ span.up-down {
     border : none;
 }
 .fieldset.little {
-    max-width: 750px;
+    max-width: 770px;
+    padding-bottom: 100px;
 }
 .row.sous-menu-main {
     justify-content: center;
 }
-.little .content-bloc-droite h3, .little .content-bloc-droite h5 {
+.little .content-bloc-droite h3 {
+    margin-right: 30px;
+}
+.little .content-bloc-droite h5 {
     margin-right: 10px;
 }
 .fieldset.active {
@@ -407,6 +411,9 @@ section.active {
 .btn-download, .btn-upload {
     width: auto;
     padding: 7px 15px 7px 5px;
+}
+.img-import-declaration {
+    background: url('../images/cloudsRewards/import_result.png') center top;
 }
 /*correction*/
 .full-width > .row {
@@ -444,5 +451,10 @@ th label {
     }
     .modal-content .content input[name=intitule] {
         width: 90%;
+    }
+}
+@media only screen and (min-width: 980px) {
+    .row.button-row {
+        padding: 0 8%;
     }
 }

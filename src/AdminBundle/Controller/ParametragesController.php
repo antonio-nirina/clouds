@@ -23,6 +23,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @Route("/admin/parametrages")
@@ -496,12 +500,34 @@ class ParametragesController extends Controller
      */
     public function importDeclarationAction(Request $request)
     {
-        $setting_form = $this->createForm(ResultSettingType::class);
+        $em = $this->getDoctrine()->getManager();
+        $url = 'cloud-rewards.peoplestay.com';
+        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $result_setting = $em->getRepository('AdminBundle:ResultSetting')->findByProgram($program);
+        $result_setting = $result_setting[0];
+        $setting_form = $this->createForm(ResultSettingType::class, $result_setting);
         $upload_form = $this->createForm(ResultSettingUploadType::class);
-        $upload_form->handleRequest($request);
+        
+        if ($request->get('result_setting')) {//get model
+            $setting_form->handleRequest($request);
+            if ($setting_form->isSubmitted() && $setting_form->isValid()) {
+                $em->flush();
+                $monthly = $result_setting->getMonthly();
+                $by_product = $result_setting->getByProduct();
+                $by_rank = $result_setting->getByRank();
+                $response = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel')->createResponse($monthly, $by_product, $by_rank);
+                return $response;
+            }
+        }
+
+        $upload_form->handleRequest($request);//upload fichier
         $error_list = array();
         if ($upload_form->isSubmitted() && $upload_form->isValid()) {
-            // $import_file = $upload_form->getData()["uploaded_file"];
+            // $import_file = $registration_import_form->getData()["uploaded_file"];
             // $registration_handler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
             // $registration_handler->setSiteFormSetting($registration_site_form_setting);
             // $registration_handler->import($import_file);
@@ -516,34 +542,7 @@ class ParametragesController extends Controller
         return $this->render('AdminBundle:Parametrages:Import_declaration.html.twig', array(
             'form_upload' => $upload_form->createView(),
             'setting_form' => $setting_form->createView(),
-        ));
-    }
-
-    /**
-     * @Route("/resultats/declaration/model", name="admin_resultats_declaration_model")
-     */
-    public function createDeclarationModelAction(Request $request)
-    {
-        
-        $upload_form = $this->createForm(ResultSettingUploadType::class);
-        $upload_form->handleRequest($request);
-        $error_list = array();
-        
-        if ($upload_form->isSubmitted() && $upload_form->isValid()) {
-            // $import_file = $upload_form->getData()["uploaded_file"];
-            // $registration_handler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
-            // $registration_handler->setSiteFormSetting($registration_site_form_setting);
-            // $registration_handler->import($import_file);
-
-            // if (!empty($registration_handler->getErrorList())) {
-            //     $error_list = $registration_handler->getErrorList();
-            // } else {
-            //     $this->addFlash('success_message', 'Import de données effectué avec succès');
-            //     return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
-            // }
-        }
-        return $this->render('AdminBundle:Parametrages:Import_declaration.html.twig', array(
-            'form_upload' => $upload_form->createView(),
+            'result_setting' => $result_setting
         ));
     }
 }

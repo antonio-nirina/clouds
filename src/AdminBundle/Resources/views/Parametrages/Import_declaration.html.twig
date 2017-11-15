@@ -51,66 +51,65 @@
                     </div>
                     
                     <div class = "col-md-2 hidden-sm-down">
-                        <div class = " content-bloc-gauche img-form-declaration rounded-circle"></div> 
+                        <div class = " content-bloc-gauche img-import-declaration rounded-circle"></div> 
                     </div>
                 </div>
 
                 <div class = "row full-width">
                     <div class = "row col-12 col-md-12">
-                        <div class="col-md-12 col-sm-12 line-option"> 
-                            <div class="options-form"> 
-                                {# {{ form_start(setting_form,{"attr": {"novalidate": "novalidate"}}) }}  
-                                    {{ form_widget(setting_form) }}
-                                {{ form_end(setting_form) }}   #}                      
-                                <input id="c1" name="frequency" type="radio" value = "monthly">
-                                <label for="c1">
-                                    <span></span>
-                                    <div>
-                                        <b>vous ferez une mise à jour mensuelle ou trimestrielle des résultats de vos participants ?</b>
-                                    </div>
-                                </label>
+                        {{ form_start(setting_form,{"attr": {"novalidate": "novalidate"}}) }} 
+                            <div class="col-md-12 col-sm-12 line-option"> 
+                                <div class="options-form">
+                                    {{ form_widget(setting_form.monthly.0) }}
+                                    <label for="result_setting_monthly_0">
+                                        <span></span>
+                                        <div>
+                                            <b>vous ferez une mise à jour mensuelle ou trimestrielle des résultats de vos participants ?</b>
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 line-option"> 
-                            <div class="options-form">
-                                <input id="c2" name="frequency" type="radio"  value = "dayly">
-                                <label for="c2">
-                                    <span></span>  
-                                    <div>                              
-                                        <b>vous ferez plusieurs mises à jour des résultats de vos participants dans le mois ?</b>
-                                    </div>
-                                </label>
+                            <div class="col-md-12 col-sm-12 line-option"> 
+                                <div class="options-form">
+                                    {{ form_widget(setting_form.monthly.1) }}
+                                    <label for="result_setting_monthly_1">
+                                        <span></span>  
+                                        <div>                              
+                                            <b>vous ferez plusieurs mises à jour des résultats de vos participants dans le mois ?</b>
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 line-option">                             
-                        </div>
-                        <div class="col-md-12 col-sm-12 line-option"> 
-                            <div class="options-form">
-                                <input id="c3" name="piece_request" type="checkbox"  value = "">
-                                <label for="c3">
-                                    <span></span>  
-                                    <div>                              
-                                        <b>les récompenses de vos participants seront différentes en fonction des produits vendus ?</b><br>
-                                        <span>(5 produits maximum)</span>
-                                    </div>
-                                </label>
+                            <div class="col-md-12 col-sm-12 line-option">                             
                             </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12 line-option">
-                            <div class="options-form"> 
-                                <input id="c4" name="header" type="checkbox" value = "">
-                                <label for="c4">
-                                    <span></span>  
-                                    <div>
-                                        <b>les récompenses de vos participants seront différents en fonction de leur rang commercial ?</b><br>
-                                        <span>(6 rangs maximum, exemple : directeur national, directeur régional, directeur d'agence, agent commercial, distributeur, assistant commercial)</span>
-                                    </div>                              
-                                </label>                                                         
+                            <div class="col-md-12 col-sm-12 line-option"> 
+                                <div class="options-form">
+                                    {{ form_widget(setting_form.by_product) }}
+                                    <label for="result_setting_by_product">
+                                        <span></span>  
+                                        <div>                              
+                                            <b>les récompenses de vos participants seront différentes en fonction des produits vendus ?</b><br>
+                                            <span>(5 produits maximum)</span>
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
-                        </div>                        
+                            <div class="col-md-12 col-sm-12 line-option">
+                                <div class="options-form"> 
+                                    {{ form_widget(setting_form.by_rank) }} 
+                                    <label for="result_setting_by_rank">
+                                        <span></span>  
+                                        <div>
+                                            <b>les récompenses de vos participants seront différents en fonction de leur rang commercial ?</b><br>
+                                            <span>(6 rangs maximum, exemple : directeur national, directeur régional, directeur d'agence, agent commercial, distributeur, assistant commercial)</span>
+                                        </div>                              
+                                    </label>                                                         
+                                </div>
+                            </div>                        
+                        {{ form_end(setting_form) }}
                     </div>
                 </div>            
-                <div class = "row">
+                <div class = "row button-row">
                     <div class = "col-md-6">
                         <button class ="btn-valider btn-download">
                             <span class="download"></span>
@@ -128,6 +127,7 @@
                         {{ form_end(form_upload) }}
                     </div>
                 </div>
+                <input type='hidden' name="url" value="{{ path("admin_resultats_declaration_import") }}">
             </section>
         </div>
     </div>
