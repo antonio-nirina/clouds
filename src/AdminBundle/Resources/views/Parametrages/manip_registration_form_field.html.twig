@@ -1,0 +1,115 @@
+<input type="hidden" name="field_id" value="{{ (field_id is defined)?field_id:"" }}">
+<div class="row">
+    <div class="col-lg-12">
+        <h4>personnaliser le champ</h4>
+    </div>
+</div>
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label">intitulé du champ</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="input-text" name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
+    </div>
+</div>
+
+{% if constant('PASSWORD', field_type) == type %}
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label" for="password-radio">type mot de passe</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="styled-radio" id="password-radio" {{ (type==constant('PASSWORD', field_type))?"checked":""}} name="type_field" type='radio' value="{{ constant('PASSWORD', field_type) }}">
+        <label for="password-radio"></label>
+        <label for="password-radio" class="narrow-block-label">
+            <div class="champs-form"></div>
+        </label>
+    </div>
+</div>
+{% endif %}
+
+{% if constant('EMAIL', field_type) == type %}
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label" for="email-radio">type e-mail</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="styled-radio" id="email-radio" {{ (type==constant('EMAIL', field_type))?"checked":""}} name="type_field" type='radio' value="{{ constant('EMAIL', field_type) }}">
+        <label for="email-radio"></label>
+        <label for="email-radio" class="narrow-block-label">
+            <div class="champs-form"></div>
+        </label>
+    </div>
+</div>
+{% endif %}
+
+{% if constant('CHECKBOX', field_type) == type %}
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label" for="checkbox-radio">type checkbox</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="styled-radio" id="checkbox-radio" {{ (type==constant('CHECKBOX', field_type))?"checked":""}} name="type_field" type='radio' value="{{ constant('CHECKBOX', field_type) }}">
+        <label for="checkbox-radio"></label>
+        <label for="checkbox-radio" class="block-label">
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+            </div>
+        </label>
+    </div>
+</div>
+{% endif %}
+
+<div class="row form-row">
+    <div class="col-lg-3">
+        <label class="form-label" for="alpha-radio">type alphanumérique</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="styled-radio" id="alpha-radio" {{ (type==constant('TEXT', field_type))?"checked":""}} name="type_field" type='radio' value="{{ constant('TEXT', field_type) }}">
+        <label for="alpha-radio"></label>
+        <label for="alpha-radio" class="narrow-block-label">
+            <div class="champs-form"></div>
+        </label>
+    </div>
+</div>
+<div class="row form-row choice-radio-row">
+    <div class="col-lg-3">
+        <label class="form-label" for="choice-radio">type case à cocher</label>
+    </div>
+    <div class="col-lg-9">
+        <input class="styled-radio" id="choice-radio" {{ (type==constant('CHOICE_RADIO', field_type))?"checked":""}} name="type_field" type='radio' value="{{ constant('CHOICE_RADIO', field_type) }}">
+        <label for="choice-radio"></label>
+        <label for="choice-radio" class="block-label">
+            {% if custom_choice_radio_choices is defined and custom_choice_radio_choices is not empty %}
+                {% for key, choice in custom_choice_radio_choices %}
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+                <span class="input-libelle-radio">{{ choice }}</span>
+            </div>
+                {% endfor %}
+            {% else %}
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+                <span class="input-libelle-radio">oui</span>
+            </div>
+            <div class="champs-form-radio">
+                <span class="input-radio"></span>
+                <span class="input-libelle-radio">non</span>
+            </div>
+            {% endif %}
+        </label>
+    </div>
+</div>
+<div class="row submit-button-container">
+    <div class="col-lg-12">
+        {% if field_id is defined and field_id > 0 %}
+            <button class ="edit-field btn-valider">
+                sauvegarder
+            </button>
+        {% else %}
+            <button class ="add-field btn-valider">
+                ajouter
+            </button>
+        {% endif %}
+    </div>
+</div>
