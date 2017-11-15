@@ -134,7 +134,7 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '.add-field', function(e){
+    $(document).on('click', '.btn-valider.add-field', function(e){
         e.preventDefault();
         var type = $("input[name=type_field]:checked").val();
         var label = $("input[name=intitule]").val();
@@ -161,7 +161,6 @@ $(document).ready(function(){
                     custom_field_allowed.val(parseInt(custom_field_allowed.val()) - 1);
                     $('.custom-field-allowed-container').text(custom_field_allowed.val());
 
-                    console.log(parseInt(custom_field_allowed.val()))
                     if(parseInt(custom_field_allowed.val()) <= 0)
                     {
                         $('.add-field-link-container').hide();
@@ -177,6 +176,87 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions
      * Gestion d'ajout de nouveau champ
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions
+     * Gestion édition champ
+     * *********************************************************************************************
+     */
+    function retrieveOptionList(row_element){
+        var option_list = [];
+        var option_container = row_element.find('.block-label').find('.champs-form-radio').find('.input-libelle-radio');
+        option_container.each(function(){
+            option_list.push($(this).text());
+        });
+        return option_list;
+    }
+
+    var admin_edit_registration_form_field_url = $('input[name=admin-edit-registration-form-field]').val();
+    $(document).on('click', '.edit-field-row-link', function(e){
+        e.preventDefault();
+        var form_field_row = $(this).parents('.form-field-row');
+        var field_id = form_field_row.attr('data-field-id');
+        var data = {"field_id": field_id};
+        $.ajax({
+            type: "GET",
+            data: data,
+            url: admin_edit_registration_form_field_url,
+            success: function(html){
+                $('.modal-content .content').html(html);
+                $('#btn-modal').trigger('click');
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-valider.edit-field', function(e){
+        e.preventDefault();
+        var type = $("input[name=type_field]:checked").val();
+        var label = $("input[name=intitule]").val();
+        var field_id = $("input[name=field_id]").val();
+        if(label.trim() == "")
+        {
+            alert("ajouter un intitulé");
+        }
+        else if("undefined" == typeof type)
+        {
+            alert("choisir un type");
+        }
+        else
+        {
+            var data = {"label": label, 'field_type': type, 'field_id': field_id, 'validate': true};
+            if("choice-radio" == type)
+            {
+                var choice_radio_row = $('.row.choice-radio-row');
+                var option_list = retrieveOptionList(choice_radio_row);
+                data["options"] = option_list;
+            }
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: admin_edit_registration_form_field_url,
+                success: function(html){
+                    var current_field_row = $('.form-field-row[data-field-id='+field_id+']');
+                    if("undefined" != typeof current_field_row)
+                    {
+                        current_field_row.before(html);
+                        current_field_row.remove();
+                    }
+                    $('.close-modal').trigger('click');
+                }
+            });
+        }
+    });
+
+
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions
+     * Gestion édition champ
      * *********************************************************************************************
      */
 
@@ -222,18 +302,18 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
     // Supprimer nouveau champ
-    $('.add-field-form-block').on('click', '.remove-field-form-link', function(e){
+    /*$('.add-field-form-block').on('click', '.remove-field-form-link', function(e){
         e.preventDefault();
         $(this).parents('.add-field-form').remove();
-    });
+    });*/
 
     // Supprimer option créée
-    $('.add-field-form-block').on('click', '.remove-option-field-link', function(e){
+    /*$('.add-field-form-block').on('click', '.remove-option-field-link', function(e){
         e.preventDefault();
         $(this).parents('.add-option-field').remove();
-    });
+    });*/
 
-    $('.delete-field-row-link').on('click', function(e){
+    /*$('.delete-field-row-link').on('click', function(e){
         e.preventDefault();
         var form_field_row = $(this).parents('.form-field-row');
         var field_id = form_field_row.attr('data-field-id');
@@ -250,7 +330,7 @@ $(document).ready(function(){
         }
         delete_field_action_input.val(new_delete_field_action_list);
         $(this).parents('.form-field-row').remove();
-    });
+    });*/
 
     /**
      * *********************************************************************************************
@@ -325,24 +405,6 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions
      * Section active
-     * *********************************************************************************************
-     */
-
-    /**
-     * *********************************************************************************************
-     * Paramétrages - Inscriptions
-     * Edition champ
-     * *********************************************************************************************
-     */
-    $(document).on('click', '.edit-field-row-link', function(e){
-        e.preventDefault();
-    });
-
-    /**
-     * *********************************************************************************************
-     * FIN
-     * Paramétrages - Inscriptions
-     * Edition champ
      * *********************************************************************************************
      */
 

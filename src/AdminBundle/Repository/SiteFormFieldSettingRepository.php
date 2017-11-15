@@ -67,4 +67,17 @@ class SiteFormFieldSettingRepository extends EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    public function findBySiteFormSettingAndId($site_form_setting, $field_id)
+    {
+        $qb = $this->createQueryBuilder('site_form_field_setting');
+        $qb->addSelect('site_form_setting')
+            ->join('site_form_field_setting.site_form_setting', 'site_form_setting')
+            ->where($qb->expr()->eq('site_form_setting', ':site_form_setting'))
+            ->andWhere($qb->expr()->eq('site_form_field_setting.id', ':id'))
+            ->setParameter('site_form_setting', $site_form_setting)
+            ->setParameter('id', $field_id);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

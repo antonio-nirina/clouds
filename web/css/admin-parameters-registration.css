@@ -417,7 +417,11 @@
     align-items: center;
 }
 
-.block-label .champs-form-radio:first-child .input-radio{
+.block-label  .champs-form-radio:first-child .input-radio{
+    margin-left: 0;
+}
+
+.block-table .champs-form-radio:first-child .input-radio{
     margin-left: 0;
 }
 

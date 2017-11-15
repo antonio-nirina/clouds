@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Manager;
 
+use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Entity\Program;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Entity\SiteFormSetting;
@@ -137,6 +138,33 @@ class SiteFormFieldSettingManager
         $this->save();
 
         return $field;
+    }
+
+    public function updateFieldWithCustomChoices(SiteFormFieldSetting $field, $type, $label, $custom_choices = null)
+    {
+        $field->setLabel($label)
+            ->setFieldType($type);
+        $additional_datas = array();
+        if (FieldType::CHOICE_RADIO == $type) {
+            $additional_datas = array("choices" => array());
+            if (!is_null($custom_choices) && !empty($custom_choices)) {
+                $choices_list = array();
+                foreach ($custom_choices as $choice) {
+                    $choices_list[$choice] = $choice;
+                }
+                $additional_datas["choices"] = $choices_list;
+            }
+            $field->setAdditionalData($additional_datas);
+        } else {
+            $additional_data = $field->getAdditionalData();
+            if (is_array($additional_data) && array_key_exists("choices", $additional_data)) {
+                unset($additional_data["choices"]);
+            }
+            $field->setAdditionalData($additional_data);
+
+        }
+        $this->save();
+        return;
     }
 
     public function addNewField($new_field, SiteFormSetting $site_form_setting, $reduce_custom_field_allowed = false)
