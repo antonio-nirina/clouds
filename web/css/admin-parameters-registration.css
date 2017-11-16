@@ -8,8 +8,16 @@
     height: auto;
 }
 
+#import-form-inscription{
+    height: auto;
+}
+
 .error-message-container{
     color: #BC4540;
+}
+
+.message-container{
+    color: #6b9311;
 }
 
 .error-message-container ul{
@@ -477,4 +485,19 @@
         margin: 0;
     }
 
+}
+
+.btn-valider-suivante, .btn-valider-contacter {
+    min-width: 100px;
+    width: auto;
+    padding: 5px 20px;
+}
+
+.btn-download, .btn-upload {
+    width: auto;
+    padding: 7px 15px 7px 5px;
+}
+
+.hidden-upload-form input[type=file], input[type=submit]{
+    display: none;
 }

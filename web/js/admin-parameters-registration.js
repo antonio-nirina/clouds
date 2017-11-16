@@ -455,4 +455,26 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions - Import
+     * Upload de fichier
+     * *********************************************************************************************
+     */
+    $('.btn-valider.btn-upload').on('click',  function(){
+        $(this).next('form').find('input[type=file]').click();
+    });
+
+    $('.hidden-upload-form').find('input[type=file]').on('change', function(){
+        console.log('changement et submit');
+        $(this).parent('form').submit();
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions - Import
+     * Upload de fichier
+     * *********************************************************************************************
+     */
+
 });
