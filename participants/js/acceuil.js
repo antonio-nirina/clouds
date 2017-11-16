@@ -92,7 +92,8 @@ $(document).ready(function(){
 		},
 		mouseleave: function () {
 			$('p#block-active-hover-edito').hide();
-			$(this).css('background', '#f5f5f5');
+			//$(this).css('background', '#f5f5f5');
+			$(this).css('background', 'white');
 			$(this).css('box-shadow', 'none');
 		}
 	});
@@ -106,7 +107,8 @@ $(document).ready(function(){
 		},
 		mouseleave: function () {
 			$('p#block-active-hover-date-challenge').hide();
-			$(this).css('background', '#f5f5f5');
+			//$(this).css('background', '#f5f5f5');
+			$(this).css('background', 'white');
 			$(this).css('box-shadow', 'none');
 		}
 	});
@@ -120,7 +122,8 @@ $(document).ready(function(){
 		},
 		mouseleave: function () {
 			$('p#block-active-hover-trophees').hide();
-			$(this).css('background', '#f5f5f5');
+			//$(this).css('background', '#f5f5f5');
+			$(this).css('background', 'white');
 			$(this).css('box-shadow', 'none');
 		}
 	});
@@ -134,7 +137,8 @@ $(document).ready(function(){
 		},
 		mouseleave: function () {
 			$('p#block-active-hover-nouveaux-challenge').hide();
-			$(this).css('background', '#f5f5f5');
+			//$(this).css('background', '#f5f5f5');
+			$(this).css('background', 'white');
 			$(this).css('box-shadow', 'none');
 		}
 	});
