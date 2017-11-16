@@ -45,13 +45,13 @@
             <section id = "create-form-inscription" class = "fieldset active">  
                 
                 <div class = "row full-width no-contents">
-                    <div class = "col-md-8 col-sm-12 content-bloc-droite">
+                    <div class = "col-md-8 col-lg-9 col-sm-12 content-bloc-droite">
                         <h3 class = "hidden-sm-down">Cette rubrique vous permet de créer le formulaire de déclaration des résultats par vos participants</h3>
                         <h5 class = "hidden-md-up">Cette rubrique vous permet de créer le formulaire de déclaration des résultats par vos participants</h5>                     
                     </div>
-                    <div class = "col-md-2 hidden-sm-down">
+                    <div class = "col-md-2 col-lg-1 hidden-sm-down">
                     </div>
-                    <div class = "col-md-2 hidden-sm-down">
+                    <div class = "col-md-2 col-lg-2 hidden-sm-down">
                         <div class = " content-bloc-gauche img-form-declaration rounded-circle"></div> 
                     </div>
                 </div>
@@ -131,8 +131,8 @@
                                                     champs à publier <br>
                                                     <span></span>
                                                 </label>    
-                                            </th class="thead-fix">
-                                            <th>
+                                            </th>
+                                            <th class="thead-fix">
                                                 <input id="cl-{{ site_form_field_settings[0].level }}-2" class="checkbox-mandatory-all" type="checkbox">
                                                 <label for="cl-{{ site_form_field_settings[0].level }}-2">
                                                     rendre obligatoire <br>
@@ -177,7 +177,7 @@
                                         <tr {{ (not has_personalizable)?"style='display:none'":""}} class="head-personalized">
                                             <td></td>
                                             <td></td>
-                                            <td>champ(s) pesonnalisé(s)</td>
+                                            <td>champ(s) personnalisé(s)</td>
                                             <td></td>                                            
                                         </tr>
                                         {% for site_form_field_setting in site_form_field_settings %}

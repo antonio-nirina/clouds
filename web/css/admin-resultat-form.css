@@ -225,26 +225,31 @@ table {
 }
 .delele-field-row-link {
     background: url('../images/cloudsRewards/delete.png') left center no-repeat;
-}
-span.up-down {
-    background: url('../images/cloudsRewards/up-down.png') left center no-repeat;    
+}     
+span.up-down {   
     position: relative;
 }
 .moveup-field-row-link {
-    height: 12px;
+    height: 13px;
     margin-bottom: 10px;
-    background: none !important;
     position: absolute;
+    background: url('../images/cloudsRewards/up-down-full.png') left 4px no-repeat !important;
     left: 0;
     top: 0;
 }
 .movedown-field-row-link {
     height: 12px;
     margin-bottom: 1px;
-    background: none !important;
     position: absolute;
+    background: url('../images/cloudsRewards/up-down-full.png') left bottom no-repeat !important;
     right: 0;
     bottom: 0;
+}
+tr.head-personalized + tr .moveup-field-row-link {
+    background: url('../images/cloudsRewards/up-down.png') left 4px no-repeat !important;
+}
+tr:last-of-type .movedown-field-row-link {
+    background: url('../images/cloudsRewards/up-down.png') left bottom no-repeat !important;
 }
 .sortable-table td:last-of-type {
     padding-left : 26px;
@@ -401,7 +406,7 @@ section.active {
         margin-right: -30px;
     }
     th.thead-fix {
-        width: 143px;
+        width: 147px;
     }
 }
 .line-option {
@@ -451,6 +456,12 @@ th label {
     }
     .modal-content .content input[name=intitule] {
         width: 90%;
+    }
+    td.row > label + div {
+        margin-left: 15px;
+    }
+    .row td.row label {
+        padding-left: 15px;
     }
 }
 @media only screen and (min-width: 980px) {
