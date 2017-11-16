@@ -678,10 +678,10 @@ p.descr-cadeaux-flux span.btn-cadeaux{
 	background-repeat: no-repeat;
 	width: 71px;
 	height: 20px;
-	text-align: right;
+	text-align: left;
 	color: white;
 	font-size: 12px;
-	padding-right: 3px;
+	padding-left: 20px;
 	cursor: pointer;
 	font-family: "Lato-Regular";
 	margin-top: 9px;
