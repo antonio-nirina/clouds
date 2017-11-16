@@ -1,4 +1,33 @@
 /*
+ * Import font 'Lato'
+ */
+
+@font-face {
+	font-family: "Lato-Light";
+	src: url('../font/Lato/fonts/Lato-Light.ttf');
+}
+
+@font-face {
+	font-family: "Lato-Regular";
+	src: url('../font/Lato/fonts/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "Lato-LightItalic";
+	src: url('../font/Lato/fonts/Lato-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "Lato-Bold";
+	src: url('../font/Lato/fonts/Lato-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "Lato-BoldItalic";
+	src: url('../font/Lato/fonts/Lato-BoldItalic.ttf') format('truetype');
+}
+
+/*
  * Base structure
  */
 
@@ -19,22 +48,26 @@ a:hover{
 body {
   padding:0;
   margin:0;
-  font-family: 'Lato', sans-serif !important;
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9{
+	padding-right:0!important;
+	padding-left:0!important;
 }
 
 .principale{
+	padding-left: 0;
+	padding-right: 0;
+	max-width:1920px!important;
+	width:100%!important;
 	margin:0 auto;
-	position:relative;
-	padding:0!important;
 	background:url('../images/cloudsRewards/bg-login.png') no-repeat left top;
-	background-position: -297px 0px;
-	max-height: 1000px;
-	height:1000px;
+	position:relative;
 }
 
 .container{
-	width:1400px!important;
-	max-width:100%!important;
+	max-width:1920px!important;
+	width:100%!important;
 }
 
 /*
@@ -96,11 +129,11 @@ h1 {
 	background-repeat:no-repeat;
 	margin:0;
 	padding:0;
-	padding-left:30px;
 	height:126px;
-	width:inherit;
-	position:fixed;
+	width:100%;
 	z-index:100;
+	padding-left:100px;
+	padding-right:100px;
 }
 
 .menu-niv-2{
@@ -561,13 +594,22 @@ li.options{
 .content-message-login p{
 	margin:0;
 	padding:0;
+	width: 306px;
+	font-size: 15px;
+	color: rgb(80,80,80);
+	font-family: "Lato-Bold";
+	text-align: center;
+	margin: 0 auto;
 }
 
 .content-message-login h3{
 	margin:0;
 	padding:0;
-	margin-top:30px;
 	color:#7682da;
+	font-size: 28px;
+	font-family: "Lato-Light";
+	text-align: center;
+	margin-top:80px;
 }
 
 .description-message{
@@ -575,22 +617,35 @@ li.options{
 }
 
 .content-footer{
+	display: block;
+	/*background: url('../images/cloudsRewards/bg-footer.png');*/
+	background-repeat: no-repeat;
 	height:200px;
-	background:url('../images/cloudsRewards/bg-footer.png') top left no-repeat;
-	position:fixed;
-	bottom:0;
+	padding-top:15px;
+	background:#505050;
+	padding-left: 100px;
+	padding-right: 100px;
 }
 
 .btn-inscris{
 	background:none;
 	border:0;
-	background:url('../images/cloudsRewards/btn-inscript.png') top left no-repeat;
+	background:url('../images/cloudsRewards/btn-bleu.png') top left no-repeat;
 	width:130px;
 	height:34px;
+	
+	font-size: 15px;
+	color: white;
+	font-family: "Lato-Regular";
+	text-align: center;
 }
 
 .content-btn-inscris{
 	margin-top:80px!important;
+	font-size: 15px;
+	color: rgb(128,128,128);
+	font-family: "Lato-Regular";
+	text-align: center;
 }
 
 .input-identifiant, .input-password{
@@ -657,457 +712,153 @@ li.options{
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
-	.lien-footer{
-		list-style:none;
-		padding:0;
-		margin:0;
-		margin-top:10px;
-	}
-
-	.lien-footer li{
-		text-align:center;
-	}
-	
-	.rs-content{
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		padding-left: 37px;
-		margin-top: 20px;
-	}
-	
-	.rs-content li{
-		float: left;
+	div.footer{
 		display: block;
-		padding-left: 10px;
-		text-align:center;
-	}
-	
-	.rs-content .rs-fb a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: 0px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-linkdin a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -38px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-viadeo a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -83px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-gplus a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -126px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-twitter a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -172px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-autre a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -216px 0px;
-		display:block;
-	}
-	
-	
-	
-	.lien-footer li a{
-		color:#999999;
-		text-decoration:none;
-		font-size:13px;
+		/*background: url('../images/cloudsRewards/bg-footer.png');*/
+		background-repeat: no-repeat;
+		height:200px;
+		margin-top:30px;
+		padding-top:15px;
+		background:#505050;
 	}
 
-	.mot-de-passe-oublie{
-		text-decoration:underline;
-		text-align:left;
+	div.content-lefter-footer{
+		width: 14%;
+		display: inline-block;
+		float: left;
+	}
+
+	div.content-righter-footer{
+		width: 14%;
+		margin-right: 5%;
+		display: inline-block;
+		float: right;
+	}
+
+	div.content-center-footer{
+		width: 60%;
+		display: inline-block;
 		float:right;
 	}
 
-	.check-souvenir{
-		display:inline-block;
-		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
-		width:17px;
-		height:17px;
-		vertical-align: middle;
-		cursor:pointer;
+	span.copyright-footer{
+		color:#9a9a9a;
+		font-size:12px;
 	}
 
-	.checked-souvenir{
-		display:inline-block;
-		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
-		width:17px;
-		height:17px;
-		vertical-align: bottom;
-		cursor:pointer;
-	}
-
-	
-	.btn-connexion{
-		height:26px;
-		padding:0;
-		margin:0;
-		background:none;
-		border:0;
-		width:102px;
-		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
-		color:white;
-		font-size:13px;
-		margin-top:10px;
-	}
-
-	.content-message-login{
-		background: white;
-		text-align: center;
-		height: 800px;
-		position: absolute;
-		top: 140px;
-		padding: 20px;
-		width: 98%;
-		left: 1%;
-	}
-	
-	.input-identifiant{
-		height:26px;
-		padding:0;
-		margin:0;
-		background:none;
-		border:0;
-		width:258px;
-		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
-	}
-	
-	.menu-niv-1{
-		height: auto !important;
-		background-repeat: repeat-y;
-		border: 0;
-		width:100%;
-	}
-	
-	.content-footer{
-		width:100%;
-	}
-	
-	.navbar-toggler-right {
-		position: absolute;
-		right: 1rem;
-		top: 63px!important;
-	}
-	
-	.form-connexion {
-		height: 100%;
-		width: 100%;
-		margin-top:56px;
-	}
-	
-	.lib_connexion{
-		margin-left: 0 !important;
-	}
-	
-
-	.form-connexion p{
+	ul.page-standards-footer{
 		margin:0;
 		padding:0;
-		margin-bottom:5px;
-	}
-	
-	.lib-identifiant, .lib-password, .lib_connexion, .mot-de-passe-oublie{
-		font-size: 12px;
-		color: white;
-		display:block;
-		margin-top:5px;
-	}
-	
-	.lib-souvenir{
-		font-size: 12px;
-		color: white;
-	}
-	
-	.content-btn-action{
-		margin-top:20px;
-		margin-left:40px;
-		margin-bottom: 40px;
-		text-align:center;
-	}
-
-	.btn-valider-download,
-	.btn-valider-upload{
-		border: 0;
-		background: none;
-		background-color: #4a83e4;
-		width: 190px;
-		padding: 9px;
-		color: white;
-		border-radius: 27px;
-		font-size: 12px;
-		cursor: pointer;
-		margin-top: 20px;
-	}
-
-	.btn-valider-download{
-		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-	}
-
-	.btn-valider-upload{
-		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-		/*float:right;*/
-	}
-	
-	.fieldset{
-		height:280px;
-	}
-	
-	#create-form-inscription{
-		height:1263px;
-	}
-	
-	#import-form-inscription{
-		height: 1260px;
-	}
-	
-	.numero-menu{
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
-		border-radius: 22px;
-		width: 26px;
-		text-align: center;
-		height: 28px;
-		display:none;
-	}
-
-	.img-menu{
-		position: absolute;
-		top: 27px;
-		left: 50%;
-		width: 18px;
-		height: 20px;
-		margin-left: -9px;
-	}
-
-	.text-menu{
-		position: absolute;
-		top: 53px;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		color: #807f81;
-		display:none;
-	}
-	
-	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
-	}
-	
-	.content-log-header{
-		margin-top:97px;
-	}
-
-	.log-header{
-		position: relative;
-		margin-left: 10px;
-		cursor: pointer;
-		display: block;
-		float: left;
-	}
-
-
-	.log-content-header{
-		padding-top:10px;
-		width:100%;
-	}
-
-	#play{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
-		margin-top: 8px;
-	}
-
-	#notification{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
-		margin-top: 8px;
-	}
-
-	#question-marque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
-
-	#mail{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
-
-	#casque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
-
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
-
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		background-position: -302px -15px;
-		margin-top: 8px;
-	}
-}
-
-/* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) and (max-width: 767px) {
-	.lien-footer{
 		list-style:none;
-		padding:0;
-		margin:0;
-		margin-top:10px;
-	}
-
-	.lien-footer li{
-		float: left;
-		display: block;
-		margin-left: 43px;
-		text-align: center;
-	}
-	
-	.rs-content{
-		clear:both;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		padding-left: 33px;
-		margin-top: 60px;
-	}
-	
-	.rs-content li{
-		float: left;
-		display: block;
-		padding-left: 10px;
+		width:80%;
+		margin:0 auto;
 		text-align:center;
 	}
-	
-	.rs-content .rs-fb a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: 0px 0px;
-		display:block;
+
+	ul.page-standards-footer li{
+		display:inline-block;
 	}
-	
-	.rs-content .rs-linkdin a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -38px 0px;
-		display:block;
+
+	ul.page-standards-footer li.page-reglement{
+		margin-left:20px;
+		margin-right:20px;
 	}
-	
-	.rs-content .rs-viadeo a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -83px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-gplus a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -126px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-twitter a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -172px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-autre a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -216px 0px;
-		display:block;
-	}
-	
-	
-	
-	.lien-footer li a{
-		color:#999999;
+
+	ul.page-standards-footer li a{
 		text-decoration:none;
-		font-size:13px;
+		color:#9a9a9a;
+		font-size:12px;
+	}
+
+	ul.page-standards-footer li a:hover{
+		text-decoration:none;
+	}
+
+	ul.rs-sociaux-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
+		text-align:center;
+		margin-top:20px;
+		letter-spacing: 10px;
+	}
+
+	ul.rs-sociaux-footer li{
+		display:inline-block;
+	}
+
+	ul.rs-sociaux-footer li.rs-fb{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:10px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-linkdin{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-38px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-viadeo{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-83px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-gplus{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-125px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-twitter{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-173px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-autre{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-216px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
 	}
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
-		margin-left:16px;
+		/*float:right;*/
+		margin-left: 33px;
+	}
+	
+	.mot-de-passe-oublie:hover{
+		text-decoration:underline;
+		color:white;
+	}
+	
+	.lib_connexion{
+		margin-left: 72px!important;
+		font-size: 20px!important;
+		color: rgb(255,255,255)!important;
+		font-family: "Lato-Light"!important;
 	}
 	
 	.check-souvenir{
@@ -1115,7 +866,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 79px;
+		margin-left: 72px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -1125,259 +876,683 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 89px;
-		vertical-align: bottom;
+		margin-left: 72px;
+		vertical-align: middle;
 		cursor:pointer;
-	}
-	
-	.btn-connexion{
-		height:26px;
-		padding:0;
-		margin:0;
-		background:none;
-		border:0;
-		width:102px;
-		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
-		color:white;
-		font-size:13px;
-	}
-	
-	.input-identifiant{
-		height:26px;
-		padding:0;
-		margin:0;
-		background:none;
-		border:0;
-		width:258px;
-		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
-		margin-left: 27px;
-	}
-	
-	.lib_connexion{
-		margin-left: 87px !important;
-	}
-	
-	.menu-niv-1{
-		height: auto !important;
-		background-repeat: repeat-y;
-		border: 0;
-	}
-	
-	.content-message-login{
-		background: white;
-		text-align: center;
-		height: 700px;
-		position: absolute;
-		top: 140px;
-		padding: 20px;
-	}
-	
-	.form-connexion {
-		height: 100%;
-		width: 100%;
-	}
-	
-
-	.form-connexion p{
-		margin:0;
-		padding:0;
-		margin-bottom:5px;
-	}
-	
-	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
-		font-size: 12px;
-		color: white
-	}
-	
-	.content-btn-action{
-		margin-top:20px;
-		margin-left:40px;
-		margin-bottom: 40px;
-		text-align:center;
-	}
-
-	.btn-valider-download,
-	.btn-valider-upload{
-		border: 0;
-		background: none;
-		background-color: #4a83e4;
-		width: 190px;
-		padding: 9px;
-		color: white;
-		border-radius: 27px;
-		font-size: 12px;
-		cursor: pointer;
-		margin-top: 20px;
-	}
-
-	.btn-valider-download{
-		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-	}
-
-	.btn-valider-upload{
-		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-		/*float:right;*/
-	}
-	
-	.form-input-part-1{
-		margin-top:53px;
-	}
-	
-	.content-bloc-droite{
-		margin-right:0;
-	}
-	
-	.fieldset{
-		height:280px;
-	}
-	
-	#create-form-inscription{
-		height:1242px;
-	}
-	
-	#import-form-inscription{
-		height: 979px;
-	}
-	
-	.numero-menu{
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
-		border-radius: 22px;
-		width: 26px;
-		text-align: center;
-		height: 28px;
-		display:none;
-	}
-
-	.img-menu{
-		position: absolute;
-		top: 27px;
-		left: 50%;
-		width: 18px;
-		height: 20px;
-		margin-left: -9px;
-	}
-
-	.text-menu{
-		position: absolute;
-		top: 53px;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		color: #807f81;
-		display:none;
-	}
-	
-	.nav-item-niv-2{
-		display:block;
-	}
-
-	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
-	}
-	
-	.content-log-header{
-		margin-top:97px;
-	}
-
-	.log-header{
-		position: relative;
-		margin-left: 10px;
-		cursor: pointer;
-		display: block;
-		float: left;
-	}
-
-
-	.log-content-header{
-		padding-top:10px;
-		width:100%;
-	}
-
-	#play{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
-		margin-top: 8px;
-	}
-
-	#notification{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
-		margin-top: 8px;
-	}
-
-	#question-marque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
-
-	#mail{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
-
-	#casque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
-
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
-
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		background-position: -302px -15px;
-		margin-top: 8px;
+		margin-top:2px;
 	}
 	
 	/* hack Chrome / Safari */
 	@media screen and (-webkit-min-device-pixel-ratio:0) {
 		.mot-de-passe-oublie{
-			margin-left:21px;
+			margin-left:32px;
 		}
+		
+		.input-identifiant {
+			margin-left: 21px!important;
+		}
+		
+		.lib_connexion{
+			margin-left:75px!important;
+		}
+		
+		.check-souvenir{
+			margin-left: 75px;
+		}
+
+		.checked-souvenir{
+			margin-left: 75px;
+		}
+	}
+	
+	
+	
+	.btn-connexion{
+		height:26px;
+		padding:0;
+		margin:0;
+		background:none;
+		border:0;
+		width:102px;
+		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
+		margin-left:3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
+	}
+	
+	.input-identifiant{
+		height:26px;
+		padding:0;
+		margin:0;
+		background:none;
+		border:0;
+		width:258px;
+		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
+		margin-left: 18px;
+	}
+	
+	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
+		font-size: 12px;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
+	}
+	
+	.form-connexion {
+		height: 100%;
+		float: right;
+	}
+	
+
+	.form-connexion p{
+		margin:0;
+		padding:0;
+		margin-bottom: 3px;
+	}
+	
+	.content-message-login{
+		background: white;
+		text-align: center;
+		padding: 20px;
+		height: 650px;
+		max-width:400px;
+	}
+	
+	.content-btn-action{
+		margin-top:20px;
+		margin-left:40px;
+		margin-bottom: 40px;
+	}
+
+	.btn-valider-download,
+	.btn-valider-upload{
+		border: 0;
+		background: none;
+		background-color: #4a83e4;
+		width: 200px;
+		padding: 9px;
+		color: white;
+		border-radius: 27px;
+		font-size: 12px;
+		cursor: pointer;
+		margin-top: 20px;
+	}
+
+	.btn-valider-download{
+		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
+		background-repeat:no-repeat;
+		background-position: 13px 10px;
+	}
+
+	.btn-valider-upload{
+		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
+		background-repeat:no-repeat;
+		background-position: 13px 10px;
+		float:right;
+	}
+
+	.form-input-part-1{
+		margin-top:120px;
+	}
+
+	.content-bloc-droite{
+		margin-right:120px;
+	}
+	
+	.fieldset{
+		height:200px;
+	}
+	
+	#create-form-inscription{
+		height:1024px;
+	}
+	
+	#import-form-inscription{
+		height: 822px;
+	}
+
+	.numero-menu{
+		position: absolute;
+		top: 0;
+		left: 10px;
+		display: block;
+		color: #807f81;
+		border: 1px solid #807f81;
+		border-radius: 22px;
+		width: 26px;
+		text-align: center;
+		height: 28px;
+	}
+
+	.img-menu{
+		position: absolute;
+		top: 27px;
+		left: 50%;
+		width: 18px;
+		height: 20px;
+		margin-left: -9px;
+	}
+
+	.text-menu{
+		position: absolute;
+		top: 53px;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		color: #807f81;
+	}
+	.nav-item-niv-2{
+		float:left;
+		display:block;
+		margin-left:40px;
+	}
+
+	.form-search{
+		position:absolute;
+		left:50%;
+		margin-left:-100px;
+		width:200px;
+	}
+	
+	.log-header{
+		display:block;
+		float:left;
+		position: relative;
+		top: 13px;
+		margin-left:10px;
+		cursor:pointer;
+	}
+
+
+	.log-content-header{
+		padding-top:10px;
+		width:100%;
+	}
+
+	#play{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		border-radius:20px;
+		background-position: 0px -14px;
+	}
+
+	#notification{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		border-radius:20px;
+		background-position: -46px -15px;
+	}
+
+	#question-marque{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		background-position: -94px -15px;
+		border-radius:20px;
+	}
+
+	#mail{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		background-position: -140px -15px;
+		border-radius:20px;
+	}
+
+	#casque{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		background-position: -186px -15px;
+		border-radius:20px;
+	}
+
+	#profil{
+		width:42px;
+		height:42px;
+		background-color:white;
+		border-radius:20px;
+		top: 0!important;
+	}
+
+	#power{
+		width:23px;
+		height:22px;
+		background-color:white;
+		border-radius:20px;
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		background-position: -302px -15px;
+	}
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767px) {
+	div.footer{
+		display: block;
+		/*background: url('../images/cloudsRewards/bg-footer.png');*/
+		background-repeat: no-repeat;
+		height:200px;
+		margin-top:30px;
+		padding-top:15px;
+		background:#505050;
+	}
+
+	div.content-lefter-footer{
+		width: 14%;
+		display: inline-block;
+		float: left;
+	}
+
+	div.content-righter-footer{
+		width: 14%;
+		margin-right: 5%;
+		display: inline-block;
+		float: right;
+	}
+
+	div.content-center-footer{
+		width: 60%;
+		display: inline-block;
+		float:right;
+	}
+
+	span.copyright-footer{
+		color:#9a9a9a;
+		font-size:12px;
+	}
+
+	ul.page-standards-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
+		text-align:center;
+	}
+
+	ul.page-standards-footer li{
+		display:inline-block;
+	}
+
+	ul.page-standards-footer li.page-reglement{
+		margin-left:20px;
+		margin-right:20px;
+	}
+
+	ul.page-standards-footer li a{
+		text-decoration:none;
+		color:#9a9a9a;
+		font-size:12px;
+	}
+
+	ul.page-standards-footer li a:hover{
+		text-decoration:none;
+	}
+
+	ul.rs-sociaux-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
+		text-align:center;
+		margin-top:20px;
+		letter-spacing: 10px;
+	}
+
+	ul.rs-sociaux-footer li{
+		display:inline-block;
+	}
+
+	ul.rs-sociaux-footer li.rs-fb{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:10px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-linkdin{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-38px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-viadeo{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-83px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-gplus{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-125px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-twitter{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-173px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-autre{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-216px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+	
+	.mot-de-passe-oublie{
+		text-decoration:underline;
+		/*float:right;*/
+		margin-left: 33px;
+	}
+	
+	.mot-de-passe-oublie:hover{
+		text-decoration:underline;
+		color:white;
+	}
+	
+	.lib_connexion{
+		margin-left: 72px!important;
+		font-size: 20px!important;
+		color: rgb(255,255,255)!important;
+		font-family: "Lato-Light"!important;
+	}
+	
+	.check-souvenir{
+		display:inline-block;
+		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
+		width:17px;
+		height:17px;
+		margin-left: 72px;
+		vertical-align: middle;
+		cursor:pointer;
+	}
+
+	.checked-souvenir{
+		display:inline-block;
+		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
+		width:17px;
+		height:17px;
+		margin-left: 72px;
+		vertical-align: middle;
+		cursor:pointer;
+		margin-top:2px;
+	}
+	
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:32px;
+		}
+		
+		.input-identifiant {
+			margin-left: 21px!important;
+		}
+		
+		.lib_connexion{
+			margin-left:75px!important;
+		}
+		
+		.check-souvenir{
+			margin-left: 75px;
+		}
+
+		.checked-souvenir{
+			margin-left: 75px;
+		}
+	}
+	
+	
+	
+	.btn-connexion{
+		height:26px;
+		padding:0;
+		margin:0;
+		background:none;
+		border:0;
+		width:102px;
+		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
+		margin-left:3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
+	}
+	
+	.input-identifiant{
+		height:26px;
+		padding:0;
+		margin:0;
+		background:none;
+		border:0;
+		width:258px;
+		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
+		margin-left: 18px;
+	}
+	
+	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
+		font-size: 12px;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
+	}
+	
+	.form-connexion {
+		height: 100%;
+		float: right;
+	}
+	
+
+	.form-connexion p{
+		margin:0;
+		padding:0;
+		margin-bottom: 3px;
+	}
+	
+	.content-message-login{
+		background: white;
+		text-align: center;
+		padding: 20px;
+		height: 650px;
+		max-width:400px;
+	}
+	
+	.content-btn-action{
+		margin-top:20px;
+		margin-left:40px;
+		margin-bottom: 40px;
+	}
+
+	.btn-valider-download,
+	.btn-valider-upload{
+		border: 0;
+		background: none;
+		background-color: #4a83e4;
+		width: 200px;
+		padding: 9px;
+		color: white;
+		border-radius: 27px;
+		font-size: 12px;
+		cursor: pointer;
+		margin-top: 20px;
+	}
+
+	.btn-valider-download{
+		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
+		background-repeat:no-repeat;
+		background-position: 13px 10px;
+	}
+
+	.btn-valider-upload{
+		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
+		background-repeat:no-repeat;
+		background-position: 13px 10px;
+		float:right;
+	}
+
+	.form-input-part-1{
+		margin-top:120px;
+	}
+
+	.content-bloc-droite{
+		margin-right:120px;
+	}
+	
+	.fieldset{
+		height:200px;
+	}
+	
+	#create-form-inscription{
+		height:1024px;
+	}
+	
+	#import-form-inscription{
+		height: 822px;
+	}
+
+	.numero-menu{
+		position: absolute;
+		top: 0;
+		left: 10px;
+		display: block;
+		color: #807f81;
+		border: 1px solid #807f81;
+		border-radius: 22px;
+		width: 26px;
+		text-align: center;
+		height: 28px;
+	}
+
+	.img-menu{
+		position: absolute;
+		top: 27px;
+		left: 50%;
+		width: 18px;
+		height: 20px;
+		margin-left: -9px;
+	}
+
+	.text-menu{
+		position: absolute;
+		top: 53px;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		color: #807f81;
+	}
+	.nav-item-niv-2{
+		float:left;
+		display:block;
+		margin-left:40px;
+	}
+
+	.form-search{
+		position:absolute;
+		left:50%;
+		margin-left:-100px;
+		width:200px;
+	}
+	
+	.log-header{
+		display:block;
+		float:left;
+		position: relative;
+		top: 13px;
+		margin-left:10px;
+		cursor:pointer;
+	}
+
+
+	.log-content-header{
+		padding-top:10px;
+		width:100%;
+	}
+
+	#play{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		border-radius:20px;
+		background-position: 0px -14px;
+	}
+
+	#notification{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		border-radius:20px;
+		background-position: -46px -15px;
+	}
+
+	#question-marque{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		background-position: -94px -15px;
+		border-radius:20px;
+	}
+
+	#mail{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		background-position: -140px -15px;
+		border-radius:20px;
+	}
+
+	#casque{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width:23px;
+		height:22px;
+		background-position: -186px -15px;
+		border-radius:20px;
+	}
+
+	#profil{
+		width:42px;
+		height:42px;
+		background-color:white;
+		border-radius:20px;
+		top: 0!important;
+	}
+
+	#power{
+		width:23px;
+		height:22px;
+		background-color:white;
+		border-radius:20px;
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		background-position: -302px -15px;
 	}
 }
 
@@ -1766,115 +1941,153 @@ li.options{
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) and (max-width: 1199px) {
-	.lien-footer{
-		list-style:none;
-		padding:0;
-		margin:0;
-		margin-top:10px;
+	div.footer{
+		display: block;
+		/*background: url('../images/cloudsRewards/bg-footer.png');*/
+		background-repeat: no-repeat;
+		height:200px;
+		margin-top:30px;
+		padding-top:15px;
+		background:#505050;
 	}
 
-	.lien-footer li{
+	div.content-lefter-footer{
+		width: 14%;
+		display: inline-block;
 		float: left;
-		display: block;
-		text-align: center;
 	}
-	
-	.copyright{
-		margin-left:30px;
+
+	div.content-righter-footer{
+		width: 14%;
+		margin-right: 5%;
+		display: inline-block;
+		float: right;
 	}
-	
-	.espacement{
-		margin-left:50%;
+
+	div.content-center-footer{
+		width: 60%;
+		display: inline-block;
+		float:right;
 	}
-	
-	.mentions{
-		margin-left:30px;
+
+	span.copyright-footer{
+		color:#9a9a9a;
+		font-size:12px;
 	}
-	
-	.reglements{
-		margin-left:30px;
-	}
-	
-	.contact{
-		margin-left:30px;
-	}
-	
-	.rs-content{
-		clear:both;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		padding-left: 71%;
-		margin-top: 60px;
-	}
-	
-	.rs-content li{
-		float: left;
-		display: block;
-		padding-left: 10px;
+
+	ul.page-standards-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
 		text-align:center;
 	}
-	
-	.rs-content .rs-fb a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: 0px 0px;
-		display:block;
+
+	ul.page-standards-footer li{
+		display:inline-block;
 	}
-	
-	.rs-content .rs-linkdin a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -38px 0px;
-		display:block;
+
+	ul.page-standards-footer li.page-reglement{
+		margin-left:20px;
+		margin-right:20px;
 	}
-	
-	.rs-content .rs-viadeo a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -83px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-gplus a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -126px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-twitter a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -172px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-autre a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -216px 0px;
-		display:block;
-	}
-	
-	
-	
-	.lien-footer li a{
-		color:#999999;
+
+	ul.page-standards-footer li a{
 		text-decoration:none;
-		font-size:13px;
+		color:#9a9a9a;
+		font-size:12px;
+	}
+
+	ul.page-standards-footer li a:hover{
+		text-decoration:none;
+	}
+
+	ul.rs-sociaux-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
+		text-align:center;
+		margin-top:20px;
+		letter-spacing: 10px;
+	}
+
+	ul.rs-sociaux-footer li{
+		display:inline-block;
+	}
+
+	ul.rs-sociaux-footer li.rs-fb{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:10px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-linkdin{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-38px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-viadeo{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-83px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-gplus{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-125px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-twitter{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-173px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-autre{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-216px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
 	}
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
 		/*float:right;*/
-		margin-left:16px;
+		margin-left: 33px;
+	}
+	
+	.mot-de-passe-oublie:hover{
+		text-decoration:underline;
+		color:white;
+	}
+	
+	.lib_connexion{
+		margin-left: 72px!important;
+		font-size: 20px!important;
+		color: rgb(255,255,255)!important;
+		font-family: "Lato-Light"!important;
 	}
 	
 	.check-souvenir{
@@ -1882,7 +2095,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 79px;
+		margin-left: 72px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -1892,10 +2105,36 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 79px;
-		vertical-align: bottom;
+		margin-left: 72px;
+		vertical-align: middle;
 		cursor:pointer;
+		margin-top:2px;
 	}
+	
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:32px;
+		}
+		
+		.input-identifiant {
+			margin-left: 21px!important;
+		}
+		
+		.lib_connexion{
+			margin-left:75px!important;
+		}
+		
+		.check-souvenir{
+			margin-left: 75px;
+		}
+
+		.checked-souvenir{
+			margin-left: 75px;
+		}
+	}
+	
+	
 	
 	.btn-connexion{
 		height:26px;
@@ -1905,8 +2144,10 @@ li.options{
 		border:0;
 		width:102px;
 		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
-		color:white;
-		font-size:13px;
+		margin-left:3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
 	}
 	
 	.input-identifiant{
@@ -1917,37 +2158,33 @@ li.options{
 		border:0;
 		width:258px;
 		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
-		margin-left: 27px;
+		margin-left: 18px;
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
-		color: white
-	}
-	
-	.lib_connexion{
-		margin-left: 79px !important;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
 	}
 	
 	.form-connexion {
 		height: 100%;
-		width: 100%;
+		float: right;
 	}
 	
 
 	.form-connexion p{
 		margin:0;
 		padding:0;
-		margin-bottom:5px;
+		margin-bottom: 3px;
 	}
 	
 	.content-message-login{
 		background: white;
 		text-align: center;
-		height: 860px;
-		position: absolute;
-		top: 140px;
 		padding: 20px;
+		height: 650px;
+		max-width:400px;
 	}
 	
 	.content-btn-action{
@@ -1982,11 +2219,11 @@ li.options{
 		background-position: 13px 10px;
 		float:right;
 	}
-	
+
 	.form-input-part-1{
 		margin-top:120px;
 	}
-	
+
 	.content-bloc-droite{
 		margin-right:120px;
 	}
@@ -2000,9 +2237,9 @@ li.options{
 	}
 	
 	#import-form-inscription{
-		height: 900px;
+		height: 822px;
 	}
-	
+
 	.numero-menu{
 		position: absolute;
 		top: 0;
@@ -2038,7 +2275,7 @@ li.options{
 		display:block;
 		margin-left:40px;
 	}
-	
+
 	.form-search{
 		position:absolute;
 		left:50%;
@@ -2123,133 +2360,157 @@ li.options{
 		background-repeat:no-repeat;
 		background-position: -302px -15px;
 	}
-	
-	/* hack Chrome / Safari */
-	@media screen and (-webkit-min-device-pixel-ratio:0) {
-		.mot-de-passe-oublie{
-			margin-left:21px;
-		}
-	}
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
-	.lien-footer{
-		list-style:none;
-		padding:0;
-		margin:0;
-		margin-top:10px;
+	div.footer{
+		display: block;
+		/*background: url('../images/cloudsRewards/bg-footer.png');*/
+		background-repeat: no-repeat;
+		height:200px;
+		margin-top:30px;
+		padding-top:15px;
+		background:#505050;
 	}
 
-	.lien-footer li{
+	div.content-lefter-footer{
+		width: 14%;
+		display: inline-block;
 		float: left;
-		display: block;
-		text-align: center;
 	}
-	
-	.copyright{
-		margin-left:30px;
+
+	div.content-righter-footer{
+		width: 14%;
+		margin-right: 5%;
+		display: inline-block;
+		float: right;
 	}
-	
-	.espacement{
-		margin-left:62%;
+
+	div.content-center-footer{
+		width: 60%;
+		display: inline-block;
+		float:right;
 	}
-	
-	.mentions{
-		margin-left:30px;
+
+	span.copyright-footer{
+		color:#9a9a9a;
+		font-size:12px;
 	}
-	
-	.reglements{
-		margin-left:30px;
-	}
-	
-	.contact{
-		margin-left:30px;
-	}
-	
-	.rs-content{
-		clear:both;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		padding-left: 78%;
-		margin-top: 60px;
-	}
-	
-	.rs-content li{
-		float: left;
-		display: block;
-		padding-left: 10px;
+
+	ul.page-standards-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
 		text-align:center;
 	}
-	
-	.rs-content .rs-fb a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: 0px 0px;
-		display:block;
+
+	ul.page-standards-footer li{
+		display:inline-block;
 	}
-	
-	.rs-content .rs-linkdin a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -38px 0px;
-		display:block;
+
+	ul.page-standards-footer li.page-reglement{
+		margin-left:20px;
+		margin-right:20px;
 	}
-	
-	.rs-content .rs-viadeo a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -83px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-gplus a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -126px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-twitter a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -172px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-autre a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -216px 0px;
-		display:block;
-	}
-	
-	
-	
-	.lien-footer li a{
-		color:#999999;
+
+	ul.page-standards-footer li a{
 		text-decoration:none;
-		font-size:13px;
+		color:#9a9a9a;
+		font-size:12px;
+	}
+
+	ul.page-standards-footer li a:hover{
+		text-decoration:none;
+	}
+
+	ul.rs-sociaux-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
+		text-align:center;
+		margin-top:20px;
+		letter-spacing: 10px;
+	}
+
+	ul.rs-sociaux-footer li{
+		display:inline-block;
+	}
+
+	ul.rs-sociaux-footer li.rs-fb{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:10px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-linkdin{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-38px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-viadeo{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-83px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-gplus{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-125px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-twitter{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-173px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-autre{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-216px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
 	}
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
 		/*float:right;*/
-		margin-left:15px;
+		margin-left: 33px;
 	}
 	
-	/* hack Chrome / Safari */
-	@media screen and (-webkit-min-device-pixel-ratio:0) {
-		.mot-de-passe-oublie{
-			margin-left:20px;
-		}
+	.mot-de-passe-oublie:hover{
+		text-decoration:underline;
+		color:white;
+	}
+	
+	.lib_connexion{
+		margin-left: 72px!important;
+		font-size: 20px!important;
+		color: rgb(255,255,255)!important;
+		font-family: "Lato-Light"!important;
 	}
 	
 	.check-souvenir{
@@ -2257,7 +2518,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 81px;
+		margin-left: 72px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -2267,11 +2528,36 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 81px;
+		margin-left: 72px;
 		vertical-align: middle;
 		cursor:pointer;
 		margin-top:2px;
 	}
+	
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:32px;
+		}
+		
+		.input-identifiant {
+			margin-left: 21px!important;
+		}
+		
+		.lib_connexion{
+			margin-left:75px!important;
+		}
+		
+		.check-souvenir{
+			margin-left: 75px;
+		}
+
+		.checked-souvenir{
+			margin-left: 75px;
+		}
+	}
+	
+	
 	
 	.btn-connexion{
 		height:26px;
@@ -2281,9 +2567,10 @@ li.options{
 		border:0;
 		width:102px;
 		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
-		color:white;
-		font-size:13px;
 		margin-left:3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
 	}
 	
 	.input-identifiant{
@@ -2294,37 +2581,33 @@ li.options{
 		border:0;
 		width:258px;
 		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
-		margin-left: 27px;
+		margin-left: 18px;
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
-		color: white
-	}
-	
-	.lib_connexion{
-		margin-left: 79px !important;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
 	}
 	
 	.form-connexion {
 		height: 100%;
-		width: 100%;
+		float: right;
 	}
 	
 
 	.form-connexion p{
 		margin:0;
 		padding:0;
-		margin-bottom:5px;
+		margin-bottom: 3px;
 	}
 	
 	.content-message-login{
 		background: white;
 		text-align: center;
-		height: 760px;
-		position: absolute;
-		top: 140px;
 		padding: 20px;
+		height: 650px;
+		max-width:400px;
 	}
 	
 	.content-btn-action{

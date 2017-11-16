@@ -3,10 +3,10 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<a class="navbar-brand abs" href="#">
-		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "" class = "img-fluid">
+		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "">
 	</a>
 	<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
-		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-7 col-xl-5 offset-md-2 offset-lg-2 offset-xl-5">
+		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-7 col-xl-5 offset-md-2 offset-lg-5 offset-xl-7">
 			<form role= "form" class = "form-connexion" name = "form-connexion" action = '{{ path("fos_user_security_check") }}' method="post">
 				{% if csrf_token %}
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
