@@ -128,15 +128,5 @@ $(document).ready(function(){
      * Selection multiple : champs à publier, rendre obligatoire
      * *********************************************************************************************
      */
-    
-    $('.btn-valider.btn-download').on('click',  function(){
-        alert('download');
-    });
-    $('.btn-valider.btn-upload').on('click',  function(){
-        $("#result_setting_upload_uploaded_file").click();
-    });
-    $("#result_setting_upload_uploaded_file").on('change',function() {
-        $(this).parents('form').submit();
-    });
 });
 
