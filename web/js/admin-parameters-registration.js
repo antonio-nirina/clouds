@@ -380,6 +380,8 @@ $(document).ready(function(){
 
         $('.upload-img-button').removeClass('hidden-button');
         $('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+
+        $('.header-preview-container').removeClass('no-image');
     });
 
     // preview du message
@@ -467,6 +469,29 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions - Import
      * Upload de fichier
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions - Import
+     * Preview d'image de header - sans image
+     * *********************************************************************************************
+     */
+    var header_image_preview_img = $('img.header-image-preview-img');
+    if('undefined' != typeof header_image_preview_img)
+    {
+        if(header_image_preview_img.attr('src').trim().length <= 0)
+        {
+            header_image_preview_img.parents('.header-preview-container').addClass('no-image');
+        }
+    }
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions - Import
+     * Preview d'image de header - sans image
      * *********************************************************************************************
      */
 

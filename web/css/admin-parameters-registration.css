@@ -198,8 +198,24 @@
     font-size: 12px;
 }
 
+.row-header-preview-container{
+    margin: 15px 0 0 0 !important;
+}
 .header-preview-container{
-    padding: 20px 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.header-preview-container.no-image{
+    background-color: #FFFFFF !important;
+    height: 75px;
+}
+
+.header-preview-container.no-image .header-message-preview{
+    color: #505050 !important;
+}
+
+.header-image-preview-img{
+    max-width: 100%;
 }
 
 .form-element-container{

@@ -108,7 +108,7 @@
                                 <span> prévisualisation </span>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row row-header-preview-container">
                             <div class="col-lg-12 header-preview-container">
                                 <span class="header-message-preview">{{ header_data_form.vars.value.headerMessage }}</span>
                                 {% set header_image_src = (current_header_image is null) or ("" == current_header_image) ? '' : registration_header_image_location ~ current_header_image %}
