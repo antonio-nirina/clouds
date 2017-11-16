@@ -433,7 +433,8 @@ div.content-trophees,
 div.content-nouveaux-challenge{
 	width:100%;
 	margin-bottom:5%;
-	background:#f5f5f5;
+	/*background:#f5f5f5;*/
+	background:white;
 }
 
 div.content-righter,
@@ -522,6 +523,13 @@ p.mon-compte-btn{
 	margin:0 auto;
 	margin-top:10px;
 	cursor:pointer;
+}
+
+p.mon-compte-btn:hover{
+	width:130px;
+	height:34px;
+	background: url('../images/cloudsRewards/btn-bleu-hover.png');
+	background-position: -6px -6px;
 }
 
 p.mon-compte-btn span{
@@ -725,6 +733,13 @@ span.btn-acces-boutique{
 	font-family: "Lato-Light";
 }
 
+span.btn-acces-boutique:hover{
+	width: 170px;
+	height: 34px;
+	background: url('../images/cloudsRewards/btn-bleu-large-hover.png');
+	background-position: -106px -25px;
+}
+
 p.rs-sociaux-ligne-1,
 p.rs-sociaux-ligne-2{
 	margin:0;
@@ -803,7 +818,8 @@ div.content-trophees,
 div.content-nouveaux-challenge{
 	width:100%;
 	margin-bottom:0;
-	background:#f5f5f5;
+	/*background:#f5f5f5;*/
+	background:white;
 	padding:10px;
 	padding-left: 30px;
 	padding-right: 30px;
@@ -1094,6 +1110,11 @@ ul.rs-sociaux-footer li.rs-autre{
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
+	div.content-body{
+		padding-left:15px!important;
+		padding-right:15px!important;
+	}
+	
 	div.bg-slide {
 		background:none;
 	}
@@ -1241,6 +1262,11 @@ ul.rs-sociaux-footer li.rs-autre{
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767px) {
+	div.content-body{
+		padding-left:15px!important;
+		padding-right:15px!important;
+	}
+	
 	div.bg-slide {
 		background:none;
 	}
@@ -1553,6 +1579,11 @@ ul.rs-sociaux-footer li.rs-autre{
 		margin-top:17px;
 	}
 	
+	div.content-body{
+		padding-left:15px!important;
+		padding-right:15px!important;
+	}
+	
 	div.bg-slide {
 		background:none;
 	}
@@ -1639,10 +1670,12 @@ ul.rs-sociaux-footer li.rs-autre{
 		display:none;
 	}
 	
+	/*
 	.principale{
 		padding-left:15px;
 		padding-right:15px;
 	}
+	*/
 	
 	div.content-righter{
 		width:100%;
@@ -1673,15 +1706,22 @@ ul.rs-sociaux-footer li.rs-autre{
 	}
 	*/
 	
-	div.content-center-footer{
-		margin-left: 20%;
+	div.content-lefter-footer{
+		width:100%;
+		float:none;
+		margin-left:0;
+		text-align: center;
 	}
 	
-	/*
+	div.content-center-footer{
+		width:100%;
+		float:none;
+		margin-left:0;
+	}
+	
 	ul.page-standards-footer{
 		width:100%;
 	}
-	*/
 	
 	
 	.menu-top{
