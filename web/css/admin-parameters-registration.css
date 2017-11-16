@@ -321,19 +321,20 @@
     background-color: inherit;
     border-radius: 50px ;
     font-size: 14px;
-    padding: 5px 10px 5px 10px;
+    padding: 7px 15px 7px 5px;
     min-width: 50px;
     cursor:pointer;
 
-    min-height: 35px;
-    max-height: 35px;
+    /*min-height: 35px;
+    max-height: 35px;*/
 
-    background: url('../images/cloudsRewards/upload-blue.png') no-repeat;
-    background-position: 50% 50% ;
-
-    max-width: 40%;
+    max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.choose-upload-img-button{
+    margin-top : 0;
 }
 
 .btn-valider:hover{
@@ -500,4 +501,13 @@
 
 .hidden-upload-form input[type=file], input[type=submit]{
     display: none;
+}
+
+.hidden-button{
+    display: none;
+}
+
+span.blue-upload{
+    background: url('../images/cloudsRewards/upload-blue.png') center center no-repeat;
+    padding: 20px;
 }
