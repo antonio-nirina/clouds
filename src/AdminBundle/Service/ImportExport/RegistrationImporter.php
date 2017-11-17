@@ -12,6 +12,7 @@ use UserBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager;
 use AdminBundle\Exception\NoSiteFormSettingSetException;
 use AdminBundle\Service\EntityHydrator\UserHydrator;
+use AdminBundle\Service\EntityHydrator\ProgramUserCompanyHydrator;
 
 class RegistrationImporter extends CSVFileContentBrowser
 {
@@ -19,17 +20,20 @@ class RegistrationImporter extends CSVFileContentBrowser
     private $manager;
     private $user_manager;
     private $user_hydrator;
+    private $program_user_company_hydrator;
 
     public function __construct(
         CSVHandler $csv_handler,
         EntityManager $manager,
         UserManager $user_manager,
-        UserHydrator $user_hydrator
+        UserHydrator $user_hydrator,
+        ProgramUserCompanyHydrator $program_user_company_hydrator
     ) {
         parent::__construct($csv_handler);
         $this->manager = $manager;
         $this->user_manager = $user_manager;
         $this->user_hydrator = $user_hydrator;
+        $this->program_user_company_hydrator = $program_user_company_hydrator;
     }
 
     public function setSiteFormSetting(SiteFormSetting $site_form_setting)
@@ -108,34 +112,12 @@ class RegistrationImporter extends CSVFileContentBrowser
                 $related_field_setting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
                     ->findBySiteFormSettingAndLabel($this->site_form_setting, $header_row[$key]);
                 if (!is_null($related_field_setting)) {
-                    if (in_array(
-                        SpecialFieldIndex::USER_COMPANY_NAME,
-                        $related_field_setting->getSpecialFieldIndex()
-                    )) {
-                        $program_user_company->setName($col_element);
-                    } elseif (in_array(
-                        SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS,
-                        $related_field_setting->getSpecialFieldIndex()
-                    )) {
-                        $program_user_company->setPostalAddress($col_element);
-                    } elseif (in_array(
-                        SpecialFieldIndex::USER_COMPANY_POSTAL_CODE,
-                        $related_field_setting->getSpecialFieldIndex()
-                    )) {
-                        $program_user_company->setPostalCode($col_element);
-                    } elseif (in_array(
-                        SpecialFieldIndex::USER_COMPANY_CITY,
-                        $related_field_setting->getSpecialFieldIndex()
-                    )) {
-                        $program_user_company->setCity($col_element);
-                    } elseif (in_array(
-                        SpecialFieldIndex::USER_COMPANY_COUNTRY,
-                        $related_field_setting->getSpecialFieldIndex()
-                    )) {
-                        $program_user_company->setCountry($col_element);
-                    } else {
-                        $additional_data[$header_row[$key]] = $col_element;
-                    }
+                    $this->program_user_company_hydrator->hydrate(
+                        $related_field_setting,
+                        $header_row[$key],
+                        $col_element,
+                        $program_user_company
+                    );
                 }
             }
         }
@@ -158,12 +140,15 @@ class RegistrationImporter extends CSVFileContentBrowser
                 if ("" != $header_row[$key]) {
                     $related_field_setting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
                         ->findBySiteFormSettingAndLabel($this->site_form_setting, $header_row[$key]);
-                    $app_user = $this->user_hydrator->hydrate(
-                        $related_field_setting,
-                        $header_row[$key],
-                        $col_element,
-                        $app_user
-                    );
+                    if (!is_null($related_field_setting)) {
+                        $app_user = $this->user_hydrator->hydrate(
+                            $related_field_setting,
+                            $header_row[$key],
+                            $col_element,
+                            $app_user
+                        );
+                    }
+
                 }
             }
 
