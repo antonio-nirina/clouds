@@ -23,6 +23,7 @@ class RegistrationSchemaChecker extends SchemaChecker
     private $company_data_header_row_index;
     private $user_data_header_row_index;
     private $user_data_first_row_index;
+    private $company_data_row_index;
 
     private function checkCompanyDatas()
     {
@@ -38,6 +39,7 @@ class RegistrationSchemaChecker extends SchemaChecker
                 )) {
                     if ($this->increaseRowIndex()) {
                         if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
+                            $this->company_data_row_index = $this->row_index;
                             $error_list = $this->checkRow(
                                 $this->array_data,
                                 $this->array_model,
@@ -251,6 +253,13 @@ class RegistrationSchemaChecker extends SchemaChecker
             }
         }
 
+        $this->checkEntityConstraints();
+
         return array_unique($this->error_list);
+    }
+
+    public function checkEntityConstraints()
+    {
+        return array();
     }
 }

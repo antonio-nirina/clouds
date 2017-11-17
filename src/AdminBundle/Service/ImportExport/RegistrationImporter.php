@@ -11,18 +11,25 @@ use AdminBundle\Entity\ProgramUser;
 use UserBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager;
 use AdminBundle\Exception\NoSiteFormSettingSetException;
+use AdminBundle\Service\EntityHydrator\UserHydrator;
 
 class RegistrationImporter extends CSVFileContentBrowser
 {
     private $site_form_setting;
     private $manager;
     private $user_manager;
+    private $user_hydrator;
 
-    public function __construct(CSVHandler $csv_handler, EntityManager $manager, UserManager $user_manager)
-    {
+    public function __construct(
+        CSVHandler $csv_handler,
+        EntityManager $manager,
+        UserManager $user_manager,
+        UserHydrator $user_hydrator
+    ) {
         parent::__construct($csv_handler);
         $this->manager = $manager;
         $this->user_manager = $user_manager;
+        $this->user_hydrator = $user_hydrator;
     }
 
     public function setSiteFormSetting(SiteFormSetting $site_form_setting)
@@ -146,59 +153,20 @@ class RegistrationImporter extends CSVFileContentBrowser
             $program_user = new ProgramUser();
             $program_user->setProgram($this->site_form_setting->getProgram());
             $app_user = $this->user_manager->createUser();
-            $additional_data = array();
+
             foreach ($this->array_data[$this->row_index] as $key => $col_element) {
                 if ("" != $header_row[$key]) {
                     $related_field_setting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
                         ->findBySiteFormSettingAndLabel($this->site_form_setting, $header_row[$key]);
-                    if (!is_null($related_field_setting)) {
-                        if (in_array(
-                            SpecialFieldIndex::USER_NAME,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setName($col_element);
-                        } elseif (in_array(
-                            SpecialFieldIndex::USER_FIRSTNAME,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setFirstname($col_element);
-                        } elseif (in_array(
-                            SpecialFieldIndex::USER_EMAIL,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setEmail($col_element);
-                        } elseif (in_array(
-                            SpecialFieldIndex::USER_CIVILITY,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setCivility($col_element);
-                        } elseif (in_array(
-                            SpecialFieldIndex::USER_PRO_EMAIL,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setProEmail($col_element);
-                        } elseif (in_array(
-                            SpecialFieldIndex::USER_PHONE,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setPhone($col_element);
-                        } elseif (in_array(
-                            SpecialFieldIndex::USER_MOBILE_PHONE,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setMobilePhone($col_element);
-                        } elseif (in_array(
-                            SpecialFieldIndex::USER_PASSWORD,
-                            $related_field_setting->getSpecialFieldIndex()
-                        )) {
-                            $app_user->setPassword($col_element);
-                        } else {
-                            $additional_data[$header_row[$key]] = $col_element;
-                        }
-                    }
+                    $app_user = $this->user_hydrator->hydrate(
+                        $related_field_setting,
+                        $header_row[$key],
+                        $col_element,
+                        $app_user
+                    );
                 }
             }
-            $app_user->setCustomization($additional_data);
+
             $app_user->setProgramUser($program_user);
             $program_user->setAppUser($app_user);
 
