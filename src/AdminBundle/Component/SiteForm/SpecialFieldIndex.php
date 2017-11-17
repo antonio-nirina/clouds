@@ -17,4 +17,7 @@ class SpecialFieldIndex
     const USER_PHONE = 'user-phone';
     const USER_MOBILE_PHONE = 'user-mobile-phone';
     const USER_PASSWORD = 'user-password';
+
+    const USER_COMPANY_FIELD = 'company-field';
+    const USER_FIELD = 'user-field';
 }

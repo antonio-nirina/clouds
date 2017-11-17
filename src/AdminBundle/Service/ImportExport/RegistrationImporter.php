@@ -10,6 +10,7 @@ use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 use AdminBundle\Entity\ProgramUser;
 use UserBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager;
+use AdminBundle\Exception\NoSiteFormSettingSetException;
 
 class RegistrationImporter extends CSVFileContentBrowser
 {
@@ -31,12 +32,48 @@ class RegistrationImporter extends CSVFileContentBrowser
 
     public function importData($model, $data)
     {
+        if (is_null($this->site_form_setting)) {
+            throw new NoSiteFormSettingSetException();
+        }
+
         $this->addData($model, $data);
         $this->increaseRowIndexToNextNotBlankRow(); // go to company data title row, following given structure
         $this->increaseRowIndex(); // go to company data header row, following given structure
         $company_header_row = $this->array_data[$this->row_index];
         $this->increaseRowIndex(); // go to company data row, following given structure
-        $program_user_company = $this->createCompanyData($this->array_data[$this->row_index], $company_header_row);
+
+        $user_company_name_field = $this->manager
+            ->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
+            ->findOneBySiteFormSettingAndSpecialIndex($this->site_form_setting, SpecialFieldIndex::USER_COMPANY_NAME);
+        $program = $this->site_form_setting->getProgram();
+
+        $program_user_company = null;
+        if (!is_null($user_company_name_field)) {
+            $user_company_name_index = array_keys(
+                $company_header_row,
+                $user_company_name_field->getLabel()
+            )[0];
+            $user_company_name = $this->array_data[$this->row_index][$user_company_name_index];
+            $user_company = $this->manager
+                ->getRepository('AdminBundle\Entity\ProgramUserCompany')
+                ->findOneByNameAndProgram($user_company_name, $program);
+            if (is_null($user_company)) {
+                $program_user_company = $this->createCompanyData(
+                    $this->array_data[$this->row_index],
+                    $company_header_row
+                );
+                $this->manager->persist($program_user_company);
+            } else {
+                $program_user_company = $user_company;
+            }
+        } else {
+            $program_user_company = $this->createCompanyData(
+                $this->array_data[$this->row_index],
+                $company_header_row
+            );
+            $this->manager->persist($program_user_company);
+        }
+
         $this->increaseRowIndex(); // go to blank line
         $this->increaseRowIndexToNextNotBlankRow(); // go to user data title row, following given structure
         $this->increaseRowIndex(); // go to user data header row, following given structure
@@ -44,8 +81,9 @@ class RegistrationImporter extends CSVFileContentBrowser
         $this->increaseRowIndex(); // go to first user data, following given structure
         $user_list = $this->createUserData($this->row_index, $user_header_row, $program_user_company);
 
-        $this->manager->persist($program_user_company);
+
         foreach ($user_list as $user_element) {
+            $program_user_company->addProgramUser($user_element["program_user"]);
             $this->manager->persist($user_element["program_user"]);
             $this->user_manager->updateUser($user_element["app_user"]);
         }
@@ -63,24 +101,33 @@ class RegistrationImporter extends CSVFileContentBrowser
                 $related_field_setting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
                     ->findBySiteFormSettingAndLabel($this->site_form_setting, $header_row[$key]);
                 if (!is_null($related_field_setting)) {
-                    switch ($related_field_setting->getSpecialFieldIndex()) {
-                        case SpecialFieldIndex::USER_COMPANY_NAME:
-                            $program_user_company->setName($col_element);
-                            break;
-                        case SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS:
-                            $program_user_company->setPostalAddress($col_element);
-                            break;
-                        case SpecialFieldIndex::USER_COMPANY_POSTAL_CODE:
-                            $program_user_company->setPostalCode($col_element);
-                            break;
-                        case SpecialFieldIndex::USER_COMPANY_CITY:
-                            $program_user_company->setCity($col_element);
-                            break;
-                        case SpecialFieldIndex::USER_COMPANY_COUNTRY:
-                            $program_user_company->set($col_element);
-                            break;
-                        default:
-                            $additional_data[$header_row[$key]] = $col_element;
+                    if (in_array(
+                        SpecialFieldIndex::USER_COMPANY_NAME,
+                        $related_field_setting->getSpecialFieldIndex()
+                    )) {
+                        $program_user_company->setName($col_element);
+                    } elseif (in_array(
+                        SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS,
+                        $related_field_setting->getSpecialFieldIndex()
+                    )) {
+                        $program_user_company->setPostalAddress($col_element);
+                    } elseif (in_array(
+                        SpecialFieldIndex::USER_COMPANY_POSTAL_CODE,
+                        $related_field_setting->getSpecialFieldIndex()
+                    )) {
+                        $program_user_company->setPostalCode($col_element);
+                    } elseif (in_array(
+                        SpecialFieldIndex::USER_COMPANY_CITY,
+                        $related_field_setting->getSpecialFieldIndex()
+                    )) {
+                        $program_user_company->setCity($col_element);
+                    } elseif (in_array(
+                        SpecialFieldIndex::USER_COMPANY_COUNTRY,
+                        $related_field_setting->getSpecialFieldIndex()
+                    )) {
+                        $program_user_company->setCountry($col_element);
+                    } else {
+                        $additional_data[$header_row[$key]] = $col_element;
                     }
                 }
             }
@@ -105,34 +152,53 @@ class RegistrationImporter extends CSVFileContentBrowser
                     $related_field_setting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
                         ->findBySiteFormSettingAndLabel($this->site_form_setting, $header_row[$key]);
                     if (!is_null($related_field_setting)) {
-                        switch ($related_field_setting->getSpecialFieldIndex()) {
-                            case SpecialFieldIndex::USER_NAME:
-                                $app_user->setName($col_element);
-                                break;
-                            case SpecialFieldIndex::USER_FIRSTNAME:
-                                $app_user->setFirstname($col_element);
-                                break;
-                            case SpecialFieldIndex::USER_EMAIL:
-                                $app_user->setEmail($col_element);
-                                break;
-                            case SpecialFieldIndex::USER_CIVILITY:
-                                $app_user->setCivility($col_element);
-                                break;
-                            case SpecialFieldIndex::USER_PRO_EMAIL:
-                                $app_user->setProEmail($col_element);
-                                break;
-                            case SpecialFieldIndex::USER_PHONE:
-                                $app_user->setPhone($col_element);
-                                break;
-                            case SpecialFieldIndex::USER_MOBILE_PHONE:
-                                $app_user->setMobilePhone($col_element);
-                                break;
-                            default:
-                                $additional_data[$header_row[$key]] = $col_element;
+                        if (in_array(
+                            SpecialFieldIndex::USER_NAME,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setName($col_element);
+                        } elseif (in_array(
+                            SpecialFieldIndex::USER_FIRSTNAME,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setFirstname($col_element);
+                        } elseif (in_array(
+                            SpecialFieldIndex::USER_EMAIL,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setEmail($col_element);
+                        } elseif (in_array(
+                            SpecialFieldIndex::USER_CIVILITY,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setCivility($col_element);
+                        } elseif (in_array(
+                            SpecialFieldIndex::USER_PRO_EMAIL,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setProEmail($col_element);
+                        } elseif (in_array(
+                            SpecialFieldIndex::USER_PHONE,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setPhone($col_element);
+                        } elseif (in_array(
+                            SpecialFieldIndex::USER_MOBILE_PHONE,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setMobilePhone($col_element);
+                        } elseif (in_array(
+                            SpecialFieldIndex::USER_PASSWORD,
+                            $related_field_setting->getSpecialFieldIndex()
+                        )) {
+                            $app_user->setPassword($col_element);
+                        } else {
+                            $additional_data[$header_row[$key]] = $col_element;
                         }
                     }
                 }
             }
+            $app_user->setCustomization($additional_data);
             $app_user->setProgramUser($program_user);
             $program_user->setAppUser($app_user);
 

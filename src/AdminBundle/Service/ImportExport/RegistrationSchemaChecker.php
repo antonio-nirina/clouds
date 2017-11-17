@@ -7,7 +7,7 @@ use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 
 class RegistrationSchemaChecker extends SchemaChecker
 {
-    const ERROR_NO_COMPANY_DATA_FOUND = "Pas de données de société trouvées.";
+    const ERROR_NO_COMPANY_DATA_FOUND = "Pas de données de société trouvées";
     const ERROR_NO_USER_DATA_FOUND = "Pas de données de participant trouvées";
     const ERROR_INCORRECT_HEADER = "En-tête(s) incorrect(s)";
     const ERROR_NOT_UNIQUE_COMPANY_DATA = "La ligne de données de société doit être unique";
@@ -204,12 +204,7 @@ class RegistrationSchemaChecker extends SchemaChecker
         // check if there are same email
         // or mail already used in application
         $email_field = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
-            ->findOneBy(array(
-                'site_form_setting' => $this->site_form_setting,
-                'special_field_index' => SpecialFieldIndex::USER_EMAIL,
-                'published' => true,
-            ));
-
+            ->findOneBySiteFormSettingAndSpecialIndex($this->site_form_setting, SpecialFieldIndex::USER_EMAIL);
         if (in_array($email_field->getLabel(), $this->array_model[$this->user_data_header_row_index])) {
             $email_field_col_index = array_keys(
                 $this->array_model[$this->user_data_header_row_index],
@@ -228,10 +223,17 @@ class RegistrationSchemaChecker extends SchemaChecker
                     return $this->error_list;
                 }
 
+                $program = $this->site_form_setting->getProgram();
+
                 for ($i = $this->user_data_first_row_index; $i < $this->data_size; $i++) {
                     // SEARCH CRITERIAS MUST BE INCREASED : ADD program, program_user linked to user
                     $user_with_email = $this->manager->getRepository('UserBundle\Entity\User')
                         ->findOneByEmail($this->array_data[$i][$email_field_col_index]);
+
+
+                    $user_with_email = $this->manager->getRepository('AdminBundle\Entity\ProgramUser')
+                        ->findOneByEmailAndProgram($this->array_data[$i][$email_field_col_index], $program);
+
                     if ('' != trim($this->array_data[$i][$email_field_col_index])) {
                         if (!is_null($user_with_email)) {
                             $this->addError($this->createErrorWithIndex(
