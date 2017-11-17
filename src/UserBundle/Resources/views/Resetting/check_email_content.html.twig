@@ -1,0 +1,24 @@
+<div class = "container principale">
+	{{ include("UserBundle::menu-top-check-email.html.twig") }}
+	
+	<div class="container-fluid">
+		<div class="row d-flex d-md-block flex-nowrap wrapper">
+			<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4 offset-md-1 offset-lg-2 offset-xl-3 offset-sm-2">
+				<div class = "content-message-login">
+					<h3>CHALLENGE 2017</h3>
+					<p class = "description-message">
+						<span style = "display:block;margin-bottom:50px;">Remarques</span>
+						<span>Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.</span>
+						<span>Vous ne pouvez demander un nouveau mot de passe que toutes les 2 heures</span>
+						<span>Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau</span>
+					</p>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	{# {{ include("UserBundle::footer.html.twig") }} #}		
+	{% block footer %}
+		{% embed 'UserBundle::footer.html.twig' %}{% endembed %}
+	{% endblock %}
+</div>

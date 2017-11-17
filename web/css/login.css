@@ -664,6 +664,7 @@ li.options{
 .lib-username{
 	color:white;
 	font-size:12px;
+	font-family: "Lato-Regular";
 }
 
 .lib_mot_de_passe_oublie{
@@ -680,7 +681,7 @@ li.options{
 	border: 0;
 	width: 258px;
 	background: url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
-	margin-left:5px;
+	margin-left:10px;
 }
 
 .input-password-second{
@@ -697,6 +698,7 @@ li.options{
 .lib-password-first{
 	font-size: 12px;
 	color: white;
+	font-family: "Lato-Regular";
 }
 
 .lib-password-second{
@@ -705,13 +707,22 @@ li.options{
 }
 
 .lib_changer_mot_de_passe{
-	color:white;
-	font-size:12px;
-	margin-left:162px!important;
+	color: white;
+    font-size: 20px;
+    margin-left: 162px!important;
+    font-family: "Lato-light";
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
+	.lib_changer_mot_de_passe{
+		margin-left: -24px !important;
+	}
+	
+	.input-password-first{
+		margin-left:0!important;
+	}
+
 	div.footer{
 		display: block;
 		/*background: url('../images/cloudsRewards/bg-footer.png');*/
@@ -720,6 +731,22 @@ li.options{
 		margin-top:30px;
 		padding-top:15px;
 		background:#505050;
+	}
+	
+	.lib_mot_de_passe_oublie{
+		margin-left:0!important;
+		font-size: 20px !important;
+		color: rgb(255,255,255) !important;
+		font-family: "Lato-Light" !important;
+		text-align: center;
+	}
+	
+	.content-message-login h3{
+		font-size:20px;
+	}
+	
+	.content-message-login p{
+		font-size:13px;
 	}
 
 	div.content-lefter-footer{
@@ -750,7 +777,6 @@ li.options{
 		margin:0;
 		padding:0;
 		list-style:none;
-		width:80%;
 		margin:0 auto;
 		text-align:center;
 	}
@@ -855,10 +881,11 @@ li.options{
 	}
 	
 	.lib_connexion{
-		margin-left: 72px!important;
+		/*margin-left: 72px!important;*/
 		font-size: 20px!important;
 		color: rgb(255,255,255)!important;
 		font-family: "Lato-Light"!important;
+		text-align:center;
 	}
 	
 	.check-souvenir{
@@ -866,7 +893,6 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 72px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -876,7 +902,6 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 72px;
 		vertical-align: middle;
 		cursor:pointer;
 		margin-top:2px;
@@ -885,23 +910,23 @@ li.options{
 	/* hack Chrome / Safari */
 	@media screen and (-webkit-min-device-pixel-ratio:0) {
 		.mot-de-passe-oublie{
-			margin-left:32px;
+			/*margin-left:32px;*/
 		}
 		
 		.input-identifiant {
-			margin-left: 21px!important;
+			margin-left: 5px!important;
 		}
 		
 		.lib_connexion{
-			margin-left:75px!important;
+			/*margin-left:75px!important;*/
 		}
 		
 		.check-souvenir{
-			margin-left: 75px;
+			margin-left: 5px;
 		}
 
 		.checked-souvenir{
-			margin-left: 75px;
+			margin-left: 5px;
 		}
 	}
 	
@@ -929,13 +954,16 @@ li.options{
 		border:0;
 		width:258px;
 		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
-		margin-left: 18px;
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
 		color: rgb(255,255,255);
 		font-family: "Lato-Regular";
+	}
+	
+	.lib-identifiant, .lib-password{
+		display:block;
 	}
 	
 	.form-connexion {
@@ -1130,6 +1158,75 @@ li.options{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		background-position: -302px -15px;
+	}
+	
+	.menu-niv-1{
+		padding-left:15px;
+		padding-right:15px;
+	}
+	
+	.navbar-toggler-right {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+	}
+	
+	#collapsingNavbarNiv1{
+		background: #1d61d4;
+		position: absolute;
+		top: 126px;
+		width: 100%;
+		left: 0;
+	}
+	
+	.form-connexion{
+		height: 100%;
+		width: 95%;
+		margin: 0 auto;
+		float:none;
+		padding-bottom:10px;
+		text-align:center;
+	}
+	
+	.content-message-login{
+		max-width:inherit;
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	
+	.content-message-login p{
+		width:inherit;
+	}
+	
+	.container{
+		/*min-width:400px;*/
+	}
+	
+	.content-footer{
+		padding:0;
+	}
+	
+	img{
+		width:100%;
+		max-width:291px;
+	}
+	
+	div.content-lefter-footer{
+		float:none;
+		text-align:center;
+		display:block;
+		width:100%;
+		padding-top: 20px;
+	}
+	
+	div.content-center-footer{
+		float:none;
+		width:100%;
+		display:block;
+	}
+	
+	.navbar-brand{
+		text-align:center;
 	}
 }
 
@@ -1144,6 +1241,21 @@ li.options{
 		padding-top:15px;
 		background:#505050;
 	}
+	
+	.lib_changer_mot_de_passe{
+		margin-left: 0px !important;
+	}
+	
+	.input-password-first{
+		margin-left: 0px !important;
+	}
+	
+	.lib_mot_de_passe_oublie{
+		margin-left:56px!important;
+		font-size: 20px !important;
+		color: rgb(255,255,255) !important;
+		font-family: "Lato-Light" !important;
+	}
 
 	div.content-lefter-footer{
 		width: 14%;
@@ -1554,119 +1666,228 @@ li.options{
 		background-repeat:no-repeat;
 		background-position: -302px -15px;
 	}
+	
+	.menu-niv-1{
+		padding-left:15px;
+		padding-right:15px;
+	}
+	
+	.navbar-toggler-right {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+	}
+	
+	#collapsingNavbarNiv1{
+		background: #1d61d4;
+		position: absolute;
+		top: 126px;
+		width: 100%;
+		left: 0;
+	}
+	
+	.form-connexion{
+		height: 100%;
+		width: 77%;
+		margin: 0 auto;
+		float:none;
+		padding-bottom:10px;
+	}
+	
+	.content-message-login{
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	
+	.content-message-login p{
+		width:inherit;
+	}
+	
+	.container{
+		min-width:400px;
+	}
+	
+	.content-footer{
+		padding:0;
+	}
+	
+	div.content-lefter-footer{
+		float:none;
+		text-align:center;
+		display:block;
+		width:100%;
+		padding-top: 20px;
+	}
+	
+	div.content-center-footer{
+		float:none;
+		width:100%;
+		display:block;
+	}
+	
+	.navbar-brand{
+		text-align:center;
+		padding-top: 1.25rem;
+	}
 }
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991px) {
-	.lien-footer{
-		list-style:none;
-		padding:0;
-		margin:0;
-		margin-top:10px;
+	div.footer{
+		display: block;
+		/*background: url('../images/cloudsRewards/bg-footer.png');*/
+		background-repeat: no-repeat;
+		height:200px;
+		margin-top:30px;
+		padding-top:15px;
+		background:#505050;
+	}
+	
+	.input-password-first{
+		margin-left:1px!important;
+	}
+	
+	.lib_changer_mot_de_passe{
+		margin-left:72px!important;
 	}
 
-	.lien-footer li{
+	div.content-lefter-footer{
+		width: 14%;
+		display: inline-block;
 		float: left;
-		display: block;
-		text-align: center;
 	}
-	
-	.copyright{
-		margin-left:30px;
+
+	div.content-righter-footer{
+		width: 14%;
+		margin-right: 5%;
+		display: inline-block;
+		float: right;
 	}
-	
-	.espacement{
-		margin-left:243px;
+
+	div.content-center-footer{
+		width: 60%;
+		display: inline-block;
+		float:right;
 	}
-	
-	.mentions{
-		margin-left:30px;
+
+	span.copyright-footer{
+		color:#9a9a9a;
+		font-size:12px;
 	}
-	
-	.reglements{
-		margin-left:30px;
-	}
-	
-	.contact{
-		margin-left:30px;
-	}
-	
-	.rs-content{
-		clear:both;
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		padding-left: 460px;
-		margin-top: 60px;
-	}
-	
-	.rs-content li{
-		float: left;
-		display: block;
-		padding-left: 10px;
+
+	ul.page-standards-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
 		text-align:center;
 	}
-	
-	.rs-content .rs-fb a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: 0px 0px;
-		display:block;
+
+	ul.page-standards-footer li{
+		display:inline-block;
 	}
-	
-	.rs-content .rs-linkdin a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -38px 0px;
-		display:block;
+
+	ul.page-standards-footer li.page-reglement{
+		margin-left:20px;
+		margin-right:20px;
 	}
-	
-	.rs-content .rs-viadeo a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -83px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-gplus a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -126px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-twitter a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -172px 0px;
-		display:block;
-	}
-	
-	.rs-content .rs-autre a{
-		width:24px;
-		height:24px;
-		background:url('../images/cloudsRewards/rs.png') top left no-repeat;
-		background-position: -216px 0px;
-		display:block;
-	}
-	
-	
-	
-	.lien-footer li a{
-		color:#999999;
+
+	ul.page-standards-footer li a{
 		text-decoration:none;
-		font-size:13px;
+		color:#9a9a9a;
+		font-size:12px;
+	}
+
+	ul.page-standards-footer li a:hover{
+		text-decoration:none;
+	}
+
+	ul.rs-sociaux-footer{
+		margin:0;
+		padding:0;
+		list-style:none;
+		width:80%;
+		margin:0 auto;
+		text-align:center;
+		margin-top:20px;
+		letter-spacing: 10px;
+	}
+
+	ul.rs-sociaux-footer li{
+		display:inline-block;
+	}
+
+	ul.rs-sociaux-footer li.rs-fb{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:10px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-linkdin{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-38px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-viadeo{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-83px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-gplus{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-125px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-twitter{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-173px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
+	}
+
+	ul.rs-sociaux-footer li.rs-autre{
+		background: url('../images/cloudsRewards/rs.png');
+		background-repeat: no-repeat;
+		background-position:-216px 0px;
+		width:25px;
+		height:25px;
+		cursor:pointer;
 	}
 	
 	.mot-de-passe-oublie{
 		text-decoration:underline;
 		/*float:right;*/
-		margin-left:16px;
+		margin-left: 33px;
+	}
+	
+	.mot-de-passe-oublie:hover{
+		text-decoration:underline;
+		color:white;
+	}
+	
+	.lib_connexion{
+		margin-left: 72px!important;
+		font-size: 20px!important;
+		color: rgb(255,255,255)!important;
+		font-family: "Lato-Light"!important;
 	}
 	
 	.check-souvenir{
@@ -1674,7 +1895,7 @@ li.options{
 		background:url('../images/cloudsRewards/radio-se-souvenir.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 79px;
+		margin-left: 72px;
 		vertical-align: middle;
 		cursor:pointer;
 	}
@@ -1684,16 +1905,36 @@ li.options{
 		background:url('../images/cloudsRewards/radio-checked.png') top left no-repeat;
 		width:17px;
 		height:17px;
-		margin-left: 79px;
-		vertical-align: bottom;
+		margin-left: 72px;
+		vertical-align: middle;
 		cursor:pointer;
+		margin-top:2px;
 	}
 	
-	.menu-niv-1{
-		height: auto !important;
-		background-repeat: repeat-y;
-		border: 0;
+	/* hack Chrome / Safari */
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.mot-de-passe-oublie{
+			margin-left:32px;
+		}
+		
+		.input-identifiant {
+			margin-left: 21px!important;
+		}
+		
+		.lib_connexion{
+			margin-left:75px!important;
+		}
+		
+		.check-souvenir{
+			margin-left: 75px;
+		}
+
+		.checked-souvenir{
+			margin-left: 75px;
+		}
 	}
+	
+	
 	
 	.btn-connexion{
 		height:26px;
@@ -1703,8 +1944,10 @@ li.options{
 		border:0;
 		width:102px;
 		background:url('../images/cloudsRewards/btn-connexion.png') top left no-repeat;
-		color:white;
-		font-size:13px;
+		margin-left:3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
 	}
 	
 	.input-identifiant{
@@ -1715,45 +1958,39 @@ li.options{
 		border:0;
 		width:258px;
 		background:url('../images/cloudsRewards/input-identifiant.png') top left no-repeat;
-		margin-left: 27px;
-	}
-	
-	.lib_connexion{
-		margin-left: 87px !important;
+		margin-left: 18px;
 	}
 	
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
-		color: white
+		color: rgb(255,255,255);
+		font-family: "Lato-Regular";
 	}
-	
 	
 	.form-connexion {
 		height: 100%;
-		width: 100%;
+		float: right;
 	}
 	
 
 	.form-connexion p{
 		margin:0;
 		padding:0;
-		margin-bottom:5px;
+		margin-bottom: 3px;
 	}
 	
 	.content-message-login{
 		background: white;
 		text-align: center;
-		height: 800px;
-		position: absolute;
-		top: 70px;
 		padding: 20px;
+		height: 650px;
+		max-width:400px;
 	}
 	
 	.content-btn-action{
 		margin-top:20px;
 		margin-left:40px;
 		margin-bottom: 40px;
-		text-align:center;
 	}
 
 	.btn-valider-download,
@@ -1761,7 +1998,7 @@ li.options{
 		border: 0;
 		background: none;
 		background-color: #4a83e4;
-		width: 190px;
+		width: 200px;
 		padding: 9px;
 		color: white;
 		border-radius: 27px;
@@ -1780,29 +2017,29 @@ li.options{
 		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
 		background-repeat:no-repeat;
 		background-position: 13px 10px;
-		/*float:right;*/
+		float:right;
 	}
-	
+
 	.form-input-part-1{
-		margin-top:53px;
+		margin-top:120px;
 	}
-	
+
 	.content-bloc-droite{
 		margin-right:120px;
 	}
 	
 	.fieldset{
-		height:280px;
+		height:200px;
 	}
 	
 	#create-form-inscription{
-		height:950px;
+		height:1024px;
 	}
 	
 	#import-form-inscription{
-		height: 1091px;
+		height: 822px;
 	}
-	
+
 	.numero-menu{
 		position: absolute;
 		top: 0;
@@ -1833,27 +2070,26 @@ li.options{
 		text-align: center;
 		color: #807f81;
 	}
-	
 	.nav-item-niv-2{
+		float:left;
 		display:block;
+		margin-left:40px;
 	}
-	
+
 	.form-search{
 		position:absolute;
-		left:17px;
+		left:50%;
+		margin-left:-100px;
 		width:200px;
 	}
 	
-	.content-log-header{
-		margin-top:97px;
-	}
-
 	.log-header{
+		display:block;
+		float:left;
 		position: relative;
-		margin-left: 10px;
-		cursor: pointer;
-		display: block;
-		float: left;
+		top: 13px;
+		margin-left:10px;
+		cursor:pointer;
 	}
 
 
@@ -1869,7 +2105,6 @@ li.options{
 		height:22px;
 		border-radius:20px;
 		background-position: 0px -14px;
-		margin-top: 8px;
 	}
 
 	#notification{
@@ -1879,7 +2114,6 @@ li.options{
 		height:22px;
 		border-radius:20px;
 		background-position: -46px -15px;
-		margin-top: 8px;
 	}
 
 	#question-marque{
@@ -1889,7 +2123,6 @@ li.options{
 		height:22px;
 		background-position: -94px -15px;
 		border-radius:20px;
-		margin-top: 8px;
 	}
 
 	#mail{
@@ -1899,7 +2132,6 @@ li.options{
 		height:22px;
 		background-position: -140px -15px;
 		border-radius:20px;
-		margin-top: 8px;
 	}
 
 	#casque{
@@ -1909,7 +2141,6 @@ li.options{
 		height:22px;
 		background-position: -186px -15px;
 		border-radius:20px;
-		margin-top: 8px;
 	}
 
 	#profil{
@@ -1928,14 +2159,78 @@ li.options{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		background-position: -302px -15px;
-		margin-top: 8px;
 	}
 	
-	/* hack Chrome / Safari */
-	@media screen and (-webkit-min-device-pixel-ratio:0) {
-		.mot-de-passe-oublie{
-			margin-left:21px;
-		}
+	.menu-niv-1{
+		padding-left:15px;
+		padding-right:15px;
+	}
+	
+	.navbar-toggler-right {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+	}
+	
+	#collapsingNavbarNiv1{
+		background: #1d61d4;
+		position: absolute;
+		top: 126px;
+		width: 100%;
+		left: 0;
+	}
+	
+	.form-connexion{
+		height: 100%;
+		width: 77%;
+		margin: 0 auto;
+		float:none;
+		padding-bottom:10px;
+	}
+	
+	.content-message-login{
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	
+	.content-message-login p{
+		width:inherit;
+	}
+	
+	.container{
+		min-width:400px;
+	}
+	
+	.content-footer{
+		padding:0;
+	}
+	
+	div.content-lefter-footer{
+		float:none;
+		text-align:center;
+		display:block;
+		width:100%;
+		padding-top: 20px;
+	}
+	
+	div.content-center-footer{
+		float:none;
+		width:100%;
+		display:block;
+	}
+	
+	.navbar-brand{
+		text-align:center;
+		padding-top: 1.25rem;
+	}
+	
+	.principale{
+		background-position: -406px 0px;
+	}
+	
+	.content-footer{
+		padding-left: 15%;
+		padding-right: 15%;
 	}
 }
 
@@ -1950,9 +2245,16 @@ li.options{
 		padding-top:15px;
 		background:#505050;
 	}
+	
+	.lib_changer_mot_de_passe{
+		margin-left:72px!important;
+	}
+	
+	.input-password-first{
+		margin-left:1px!important;
+	}
 
 	div.content-lefter-footer{
-		width: 14%;
 		display: inline-block;
 		float: left;
 	}
@@ -1965,7 +2267,6 @@ li.options{
 	}
 
 	div.content-center-footer{
-		width: 60%;
 		display: inline-block;
 		float:right;
 	}
@@ -1979,9 +2280,7 @@ li.options{
 		margin:0;
 		padding:0;
 		list-style:none;
-		width:80%;
 		margin:0 auto;
-		text-align:center;
 	}
 
 	ul.page-standards-footer li{
@@ -2007,9 +2306,6 @@ li.options{
 		margin:0;
 		padding:0;
 		list-style:none;
-		width:80%;
-		margin:0 auto;
-		text-align:center;
 		margin-top:20px;
 		letter-spacing: 10px;
 	}
@@ -2359,6 +2655,15 @@ li.options{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		background-position: -302px -15px;
+	}
+	
+	.principale{
+		background-position: -218px 0px;
+	}
+	
+	.content-footer{
+		padding-left: 15%;
+		padding-right: 15%;
 	}
 }
 
@@ -2373,11 +2678,26 @@ li.options{
 		padding-top:15px;
 		background:#505050;
 	}
+	
+	.lib_changer_mot_de_passe{
+		margin-left:72px!important;
+	}
+	
+	.input-password-first{
+		margin-left:1px!important;
+	}
 
 	div.content-lefter-footer{
 		width: 14%;
 		display: inline-block;
 		float: left;
+	}
+	
+	.lib_mot_de_passe_oublie{
+		margin-left:56px!important;
+		font-size: 20px !important;
+		color: rgb(255,255,255) !important;
+		font-family: "Lato-Light" !important;
 	}
 
 	div.content-righter-footer{
@@ -2388,7 +2708,6 @@ li.options{
 	}
 
 	div.content-center-footer{
-		width: 60%;
 		display: inline-block;
 		float:right;
 	}
@@ -2402,9 +2721,6 @@ li.options{
 		margin:0;
 		padding:0;
 		list-style:none;
-		width:80%;
-		margin:0 auto;
-		text-align:center;
 	}
 
 	ul.page-standards-footer li{
@@ -2430,9 +2746,7 @@ li.options{
 		margin:0;
 		padding:0;
 		list-style:none;
-		width:80%;
 		margin:0 auto;
-		text-align:center;
 		margin-top:20px;
 		letter-spacing: 10px;
 	}
@@ -2782,5 +3096,10 @@ li.options{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		background-position: -302px -15px;
+	}
+	
+	.content-footer{
+		padding-left: 15%;
+		padding-right: 15%;
 	}
 }
