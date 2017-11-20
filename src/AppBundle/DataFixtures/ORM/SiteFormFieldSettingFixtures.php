@@ -20,7 +20,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("société")
             ->setFieldOrder(9)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_COMPANY_NAME)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_COMPANY_NAME, SpecialFieldIndex::USER_COMPANY_FIELD)
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($company);
         $manager->persist($company);
@@ -30,7 +32,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("adresse postale")
             ->setFieldOrder(10)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS, SpecialFieldIndex::USER_COMPANY_FIELD)
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($address);
         $manager->persist($address);
@@ -40,7 +44,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("code postale")
             ->setFieldOrder(11)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_COMPANY_POSTAL_CODE)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_COMPANY_POSTAL_CODE, SpecialFieldIndex::USER_COMPANY_FIELD)
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($postal_code);
         $manager->persist($postal_code);
@@ -50,7 +56,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("ville")
             ->setFieldOrder(12)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_COMPANY_CITY)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_COMPANY_CITY, SpecialFieldIndex::USER_COMPANY_FIELD)
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($city);
         $manager->persist($city);
@@ -61,7 +69,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("téléphone")
             ->setFieldOrder(6)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_PHONE)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_PHONE, SpecialFieldIndex::USER_FIELD)
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($phone);
         $manager->persist($phone);
@@ -82,7 +92,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("civilité")
             ->setFieldOrder(1)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_CIVILITY)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_CIVILITY, SpecialFieldIndex::USER_FIELD)
+            )
             ->setAdditionalData(array(
                 "choices" => array(
                     "Mme" => "Mme",
@@ -99,7 +111,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("prénom")
             ->setFieldOrder(2)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_FIRSTNAME)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_FIRSTNAME, SpecialFieldIndex::USER_FIELD)
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($firstname);
         $manager->persist($firstname);
@@ -110,7 +124,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("nom")
             ->setFieldOrder(3)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_NAME)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_NAME, SpecialFieldIndex::USER_FIELD)
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($name);
         $manager->persist($name);
@@ -131,7 +147,7 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("email professionnel")
             ->setFieldOrder(10)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_PRO_EMAIL)
+            ->setSpecialFieldIndex(array(SpecialFieldIndex::USER_PRO_EMAIL))
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($pro_email);
         $manager->persist($pro_email);*/
@@ -153,7 +169,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("e-mail")
             ->setFieldOrder(4)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_EMAIL)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_EMAIL, SpecialFieldIndex::USER_FIELD)
+            )
             ->setConfirmationField($email_confirm)
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($email);
@@ -165,7 +183,7 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setLabel("numéro de téléphone")
             ->setFieldOrder(12)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_PHONE)
+            ->setSpecialFieldIndex(array(SpecialFieldIndex::USER_PHONE))
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($phone_2);
         $manager->persist($phone_2);*/
@@ -196,7 +214,9 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setMandatory(true)
             ->setFieldOrder(7)
             ->setPublished(true)
-            ->setSpecialFieldIndex(SpecialFieldIndex::USER_PASSWORD)
+            ->setSpecialFieldIndex(
+                array(SpecialFieldIndex::USER_PASSWORD, SpecialFieldIndex::USER_FIELD)
+            )
             ->setConfirmationField($password_confirm)
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($password);

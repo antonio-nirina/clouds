@@ -67,7 +67,7 @@ class SiteFormFieldSetting
     private $site_form_setting;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $special_field_index;
 

@@ -42,17 +42,48 @@ class SiteFormFieldSettingRepository extends EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findBySiteFormSettingAndSpecialIndex($site_form_setting, $special_index)
+    public function findOneBySiteFormSettingAndSpecialIndex($site_form_setting, $special_index, $published_state = true)
     {
         $qb = $this->createQueryBuilder('site_form_field_setting');
         $qb->addSelect('site_form_setting')
             ->join('site_form_field_setting.site_form_setting', 'site_form_setting')
             ->where($qb->expr()->eq('site_form_setting', ':site_form_setting'))
-            ->andWhere($qb->expr()->eq('site_form_field_setting.special_field_index', ':special_field_index'))
+            ->andWhere(
+                $qb->expr()->like(
+                    'site_form_field_setting.special_field_index',
+                    ':special_field_index'
+                )
+            )
+            ->andWhere($qb->expr()->eq('site_form_field_setting.published', ':published_state'))
             ->setParameter('site_form_setting', $site_form_setting)
-            ->setParameter('special_field_index', $special_index);
+            ->setParameter('special_field_index', '%'.$special_index.'%')
+            ->setParameter('published_state', $published_state);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findListBySiteFormSettingAndSpecialIndex(
+        $site_form_setting,
+        $special_index,
+        $published_state = true
+    ) {
+        $qb = $this->createQueryBuilder('site_form_field_setting');
+        $qb->addSelect('site_form_setting')
+            ->join('site_form_field_setting.site_form_setting', 'site_form_setting')
+            ->where($qb->expr()->eq('site_form_setting', ':site_form_setting'))
+            ->andWhere(
+                $qb->expr()->like(
+                    'site_form_field_setting.special_field_index',
+                    ':special_field_index'
+                )
+            )
+            ->andWhere($qb->expr()->eq('site_form_field_setting.published', ':published_state'))
+            ->orderBy('site_form_field_setting.field_order', 'ASC')
+            ->setParameter('site_form_setting', $site_form_setting)
+            ->setParameter('special_field_index', '%'.$special_index.'%')
+            ->setParameter('published_state', $published_state);
+
+        return $qb->getQuery()->getResult();
     }
 
     public function findBySiteFormSettingAndLabel($site_form_setting, $label)

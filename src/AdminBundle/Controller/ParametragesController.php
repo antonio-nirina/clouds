@@ -243,6 +243,7 @@ class ParametragesController extends Controller
                     "mandatory" => false,
                     "label" => $request->get('label'),
                     "field_type" => $request->get('field_type'),
+                    "special_field_index" => array(SpecialFieldIndex::USER_FIELD),
                 );
                 if (FieldType::CHOICE_RADIO == $request->get('field_type')) {
                     $yes_no_choices_array = array(
@@ -393,7 +394,21 @@ class ParametragesController extends Controller
      */
     public function downloadRegistrationModelAction()
     {
-        $response = $this->get('AdminBundle\Service\ImportExport\RegistrationModel')->createResponse();
+        $em = $this->getDoctrine()->getManager();
+        $programs = $em->getRepository(Program::class)->findAll();
+        if (empty($programs) || is_null($programs[0])) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+        $program = $programs[0];
+        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+            ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
+        if (is_null($registration_site_form_setting)) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+
+        $model = $this->get('AdminBundle\Service\ImportExport\RegistrationModel');
+        $model->setSiteFormSetting($registration_site_form_setting);
+        $response = $model->createResponse();
 
         return $response;
     }

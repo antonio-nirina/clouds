@@ -17,15 +17,15 @@ class SchemaChecker extends CSVFileContentBrowser
     protected $manager;
     protected $validator;
 
-    const ERROR_SCHEMA_CHECKER_INTERNAL_ERROR = "Erreur interne, vérification du dessin d'enregistrement";
-    const ERROR_NO_ASSOCIATED_FORM = "Erreur interne. Pas de formulaire associé";
-    const ERROR_NO_ASSOCIATED_FIELD = "Erreur interne. Pas de champ associé";
+    const ERROR_SCHEMA_CHECKER_INTERNAL_ERROR = "Erreur interne, vérification du dessin d'enregistrement.";
+    const ERROR_NO_ASSOCIATED_FORM = "Erreur interne. Pas de formulaire associé.";
+    const ERROR_NO_ASSOCIATED_FIELD = "Erreur interne. Pas de champ associé.";
     const ERROR_INVALID_DATA = "Donnée invalide.";
-    const ERROR_NO_HEADER_FOUND = "Pas d'entêtes trouvées";
-    const ERROR_NO_DATA_FOUND = "Pas de données trouvées";
-    const ERROR_WRONG_GENERAL_STRUCTURE = "Structure générale incorrect";
-    const ERROR_INVALID_DATA_FORMAT = "Format de donnée invalide";
-    const ERROR_MISSING_VALUE_ON_MANDATORY_FIELD = "Donnée absent sur champ obligatoire";
+    const ERROR_NO_HEADER_FOUND = "Pas d'entêtes trouvées.";
+    const ERROR_NO_DATA_FOUND = "Pas de données trouvées.";
+    const ERROR_WRONG_GENERAL_STRUCTURE = "Structure générale incorrect.";
+    const ERROR_INVALID_DATA_FORMAT = "Format de donnée invalide.";
+    const ERROR_MISSING_VALUE_ON_MANDATORY_FIELD = "Donnée absent sur champ obligatoire.";
 
     public function __construct(CSVHandler $csv_handler, EntityManager $manager, ValidatorInterface $validator)
     {
@@ -58,7 +58,7 @@ class SchemaChecker extends CSVFileContentBrowser
 
     protected function createErrorWithIndex($error_message, $row_index, $col_index = null)
     {
-        $message = $error_message. ', Ligne: '.($row_index+1); // 0-based index to 1-based index (human readable)
+        $message = $error_message. ' Ligne: '.($row_index+1); // 0-based index to 1-based index (human readable)
         return is_null($col_index)
             ? $message
             : $message.', Colonne: '.($col_index+1); // 0-based index to 1-based index (human readable)
