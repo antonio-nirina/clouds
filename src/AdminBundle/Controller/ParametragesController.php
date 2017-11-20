@@ -412,6 +412,38 @@ class ParametragesController extends Controller
 
         return $response;
     }
+
+
+    /**
+     * @Route("/inscriptions/imports/etre-contacte",  name="admin_parameters_registration_import_be_contacted")
+     */
+    public function beContactedAction(Request $request)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
+            || !$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $programs = $em->getRepository(Program::class)->findAll();
+        if (empty($programs) || is_null($programs[0])) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+        $program = $programs[0];
+        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+            ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
+        if (is_null($registration_site_form_setting)) {
+            return $this->redirectToRoute("fos_user_security_logout");
+        }
+
+        $mailer = $this->get('AdminBundle\Service\Mailer\SuperAdminNotificationMailer');
+        $mailer->sendBeContactedNotification($this->getUser());
+        $this->addFlash('success_email_sent_message', 'Demande de contact envoyé.');
+
+        return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
+    }
+
+
     /**
      * @Route("/resultats/declaration/new", name="admin_new_resultat_declaration")
      * @Method("POST")
