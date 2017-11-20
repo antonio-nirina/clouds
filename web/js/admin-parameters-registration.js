@@ -350,6 +350,16 @@ $(document).ready(function(){
      * Image Header
      * *********************************************************************************************
      */
+    $('.btn-upload.choose-upload-img-button').on('click', function(e){
+        e.preventDefault();
+        $('.header-image-input').trigger('click');
+    });
+
+    $('.upload-img-button').on('click', function(e){
+        e.preventDefault();
+        $('.header-image-input').trigger('click');
+    });
+
     //  preview d'image après choix d'image
     function createImagePreview(input) {
         if (input.files && input.files[0]) {
@@ -366,15 +376,18 @@ $(document).ready(function(){
         createImagePreview(this);
         var image_file_name = $(this).val().split('\\').pop();
         $('.upload-img-button').css('background-position', '15px');
-        $('.upload-img-button').find('.img-name-container').css('margin-left', '30px');
         $('.upload-img-button').find('.img-name-container').text(image_file_name);
+
+        $('.upload-img-button').removeClass('hidden-button');
+        $('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+
+        $('.header-preview-container').removeClass('no-image');
     });
 
     // preview du message
     $('.header-message-input').on('input', function(){
         $('.header-message-preview').text($(this).val());
     });
-
     /**
      * *********************************************************************************************
      * FIN
@@ -405,25 +418,6 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions
      * Section active
-     * *********************************************************************************************
-     */
-
-    /**
-     * *********************************************************************************************
-     * Paramétrages - Inscriptions
-     * Upload image header
-     * *********************************************************************************************
-     */
-    $('.upload-img-button').on('click', function(e){
-        e.preventDefault();
-        $('.header-image-input').trigger('click');
-    });
-
-    /**
-     * *********************************************************************************************
-     * FIN
-     * Paramétrages - Inscriptions
-     * Upload image header
      * *********************************************************************************************
      */
 
@@ -461,7 +455,8 @@ $(document).ready(function(){
      * Upload de fichier
      * *********************************************************************************************
      */
-    $('.btn-valider.btn-upload').on('click',  function(){
+    $('.btn-upload.btn-upload-registration-data').on('click',  function(e){
+        e.preventDefault();
         $(this).next('form').find('input[type=file]').click();
     });
 
@@ -474,6 +469,29 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions - Import
      * Upload de fichier
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions - Import
+     * Preview d'image de header - sans image
+     * *********************************************************************************************
+     */
+    var header_image_preview_img = $('img.header-image-preview-img');
+    if('undefined' != typeof header_image_preview_img)
+    {
+        if(header_image_preview_img.attr('src').trim().length <= 0)
+        {
+            header_image_preview_img.parents('.header-preview-container').addClass('no-image');
+        }
+    }
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions - Import
+     * Preview d'image de header - sans image
      * *********************************************************************************************
      */
 

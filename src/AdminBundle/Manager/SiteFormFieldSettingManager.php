@@ -197,6 +197,10 @@ class SiteFormFieldSettingManager
                     $field->setFieldOrder($order);
                 }
 
+                if (isset($new_field['special_field_index'])) {
+                    $field->setSpecialFieldIndex($new_field['special_field_index']);
+                }
+
                 if (array_key_exists('choices', $new_field)) {
                     $add_data["choices"] = $new_field["choices"];
                     $field->setAdditionalData($add_data);

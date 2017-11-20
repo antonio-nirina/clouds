@@ -4,6 +4,7 @@ namespace UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -81,11 +82,13 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     protected $firstname;
 
@@ -101,16 +104,19 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
+     * @Assert\Length(max=5)
      */
     protected $civility;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     protected $pro_email;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
+     * @Assert\Length(max=25)
      */
     protected $phone;
     /**
@@ -120,21 +126,25 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     protected $address_1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     protected $address_2;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     protected $postal_code;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     protected $city;
 

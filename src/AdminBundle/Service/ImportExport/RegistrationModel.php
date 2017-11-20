@@ -9,6 +9,7 @@ use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use AdminBundle\Exception\NoSiteFormSettingSetException;
 
 class RegistrationModel
 {
@@ -18,28 +19,12 @@ class RegistrationModel
     private $current_row;
     private $current_col;
     private $filesystem;
+    private $site_form_setting;
 
     const WRITER_TYPE = "CSV";
     const FILE_NAME_AND_EXT = "modele.csv";
     const COMPANY_INFOS_TITLE = "Coordonnées de la société";
     const USER_INFOS_TITLE = "Coordonnées du bénéficiaire";
-
-    const COMPANY_SPECIAL_FIELD_INDEX_LIST = array(
-        SpecialFieldIndex::USER_COMPANY_NAME,
-        SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS,
-        SpecialFieldIndex::USER_COMPANY_POSTAL_CODE,
-        SpecialFieldIndex::USER_COMPANY_CITY
-    );
-
-    const USER_SPECIAL_FIELD_INDEX_LIST = array(
-        SpecialFieldIndex::USER_NAME,
-        SpecialFieldIndex::USER_FIRSTNAME,
-        SpecialFieldIndex::USER_EMAIL,
-        SpecialFieldIndex::USER_CIVILITY,
-        SpecialFieldIndex::USER_PRO_EMAIL,
-        SpecialFieldIndex::USER_PHONE,
-        SpecialFieldIndex::USER_MOBILE_PHONE
-    );
 
     private $company_header_list;
     private $user_header_list;
@@ -76,6 +61,11 @@ class RegistrationModel
         $this->header_row_index_list = array();
     }
 
+    public function setSiteFormSetting($site_form_setting)
+    {
+        $this->site_form_setting = $site_form_setting;
+    }
+
     public function getCompanyHeaderList()
     {
         return $this->company_header_list;
@@ -86,7 +76,7 @@ class RegistrationModel
         return $this->user_header_list;
     }
 
-    public function createObject()
+    private function createObject()
     {
         $this->createCompanyInfoBlock();
         $this->createUserInfoBlock();
@@ -101,6 +91,41 @@ class RegistrationModel
         return $writer;
     }
 
+    private function createInfoElements($special_field_index, $header_list)
+    {
+        if (is_null($this->site_form_setting)) {
+            throw new NoSiteFormSettingSetException("No site form setting set!");
+        }
+
+        $user_company_field_list = $this->em->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
+            ->findListBySiteFormSettingAndSpecialIndex($this->site_form_setting, $special_field_index);
+
+        if (!empty($user_company_field_list)) {
+            foreach ($user_company_field_list as $field) {
+                $this->php_excel_object->setActiveSheetIndex(0)
+                    ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $field->getLabel());
+                $this->current_col++;
+                array_push($header_list, $field->getLabel());
+            }
+        }
+
+        return;
+    }
+
+    private function createCompanyInfoElements()
+    {
+        $this->createInfoElements(SpecialFieldIndex::USER_COMPANY_FIELD, $this->company_header_list);
+
+        return;
+    }
+
+    private function createUserInfoElements()
+    {
+        $this->createInfoElements(SpecialFieldIndex::USER_FIELD, $this->user_header_list);
+
+        return;
+    }
+
     private function createCompanyInfoBlock()
     {
         $this->php_excel_object->setActiveSheetIndex(0)
@@ -109,14 +134,15 @@ class RegistrationModel
         array_push($this->title_row_index_list, $this->current_row);
         $this->current_row++;
 
-        $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_NAME);
-        $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS);
-        $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_POSTAL_CODE);
-        $this->createInfoElement(SpecialFieldIndex::USER_COMPANY_CITY);
+        $this->createCompanyInfoElements();
+
         array_push($this->header_row_index_list, $this->current_row); // to save company data headers row index
 
-//        $this->php_excel_object->setActiveSheetIndex(0)
-//            ->mergeCellsByColumnAndRow(0, $this->current_row - 1, $this->current_col - 1, $this->current_row - 1);
+       /* $this->php_excel_object->setActiveSheetIndex(0)
+            ->mergeCellsByColumnAndRow(0, $this->current_row - 1, $this->current_col - 1, $this->current_row - 1);*/
+        $this->addBlankRow();
+
+        return;
     }
 
     private function createUserInfoBlock()
@@ -129,40 +155,11 @@ class RegistrationModel
         array_push($this->title_row_index_list, $this->current_row);
         $this->current_row++;
 
-        $this->createInfoElement(SpecialFieldIndex::USER_NAME);
-        $this->createInfoElement(SpecialFieldIndex::USER_FIRSTNAME);
-        $this->createInfoElement(SpecialFieldIndex::USER_EMAIL);
-        $this->createInfoElement(SpecialFieldIndex::USER_CIVILITY);
-        $this->createInfoElement(SpecialFieldIndex::USER_PRO_EMAIL);
-        $this->createInfoElement(SpecialFieldIndex::USER_PHONE);
-        $this->createInfoElement(SpecialFieldIndex::USER_MOBILE_PHONE);
-        $this->createInfoElement(SpecialFieldIndex::USER_PASSWORD);
+        $this->createUserInfoElements();
+
         array_push($this->header_row_index_list, $this->current_row); // to save user data headers row index
 
         $this->addBlankRow();
-    }
-
-    private function createInfoElement($special_field_index)
-    {
-        // /!\ NEED TO ADD "SITE FORM" PARAMETER, to distinguish which form is used, which form is connected to fields
-        $field = $this->em->getRepository(SiteFormFieldSetting::class)
-            ->findOneBy(
-                array(
-                    "special_field_index" => $special_field_index,
-                    "published" => true,
-                )
-            );
-        if (!is_null($field)) {
-            $this->php_excel_object->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $field->getLabel());
-            $this->current_col++;
-
-            if (in_array($special_field_index, self::COMPANY_SPECIAL_FIELD_INDEX_LIST)) {
-                array_push($this->company_header_list, $field->getLabel());
-            } elseif (in_array($special_field_index, self::USER_SPECIAL_FIELD_INDEX_LIST)) {
-                array_push($this->user_header_list, $field->getLabel());
-            }
-        }
     }
 
     private function addBlankRow()
@@ -196,6 +193,8 @@ class RegistrationModel
         $save_path = $this->container->getParameter("registration_model_dir").'/'.self::FILE_NAME_AND_EXT;
         $this->save_path = $save_path;
         $writer->save($save_path);
+
+        return;
     }
 
     public function removeSavedFile()

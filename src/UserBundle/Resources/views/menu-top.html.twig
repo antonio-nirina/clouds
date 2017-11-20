@@ -3,10 +3,10 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<a class="navbar-brand abs" href="#">
-		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "" class = "img-fluid">
+		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "">
 	</a>
 	<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
-		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-7 col-xl-5 offset-md-2 offset-lg-2 offset-xl-5">
+		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-8 col-xl-6 offset-md-2 offset-lg-4 offset-xl-6">
 			<form role= "form" class = "form-connexion" name = "form-connexion" action = '{{ path("fos_user_security_check") }}' method="post">
 				{% if csrf_token %}
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -18,9 +18,9 @@
 					<p class = "lib_connexion">connexion</p>
 				{% endif %}
 				
-				<p><span class = "lib-identifiant">identifiant</span><input class = "input-identifiant" type = "text" name = "_username" value = "{{ last_username }}" placeholder = "Identifiant..." required></p>
+				<p><span class = "lib-identifiant hidden-xs-down">identifiant</span><input class = "input-identifiant" type = "text" name = "_username" value = "{{ last_username }}" placeholder = "Identifiant..." required></p>
 				<p>
-					<span class = "lib-password">mot de passe</span>
+					<span class = "lib-password hidden-xs-down">mot de passe</span>
 					<input class = "input-password" type = "password" name = "_password" value = "" placeholder = "Mot de passe..." required>
 					<input id = "submit-form-login" class = "btn-connexion" type = "submit" name = "_submit" value = "connexion">
 				</p>

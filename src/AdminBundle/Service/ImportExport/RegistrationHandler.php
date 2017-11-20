@@ -55,9 +55,11 @@ class RegistrationHandler
             . '/' . $file->getClientOriginalName();
         $array_import_file = $this->csv_handler->createArray($import_file_path);
 
+        $this->model->setSiteFormSetting($this->site_form_setting);
         $this->model->save();
         $this->schema_checker->setSiteFormSetting($this->site_form_setting);
         $error_list = $this->schema_checker->check($this->model, $array_import_file);
+
         if (!empty($error_list)) {
             $this->error_list = $error_list;
             $this->removeFile($import_file_path);

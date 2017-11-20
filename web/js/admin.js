@@ -179,26 +179,5 @@ $(document).ready(function(){
      * Selection multiple : champs à publier, rendre obligatoire
      * *********************************************************************************************
      */
-    //declartion import
-    $('.btn-valider.btn-download').on('click',  function(){
-        $('form[name=result_setting]').submit();
-        // var url = $('input[name=url]').val();
-        // var data = $('form[name=result_setting]').serialize();
-
-        // $.ajax({
-        //     type : 'POST',
-        //     data : data,
-        //     url : url,
-        //     success : function(html){
-        //         console.log(html);
-        //     }
-        // });
-    });
-    $('.btn-valider.btn-upload').on('click',  function(){
-        $("#result_setting_upload_uploaded_file").click();
-    });
-    $("#result_setting_upload_uploaded_file").on('change',function() {
-        $(this).parents('form').submit();
-    });
 });
 
