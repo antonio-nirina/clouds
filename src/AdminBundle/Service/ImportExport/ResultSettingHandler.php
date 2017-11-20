@@ -2,16 +2,17 @@
 
 namespace AdminBundle\Service\ImportExport;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Liuggio\ExcelBundle\Factory as PHPExcelFactory;
-use AdminBundle\Service\ImportExport\RegistrationModel;
-use Symfony\Component\Filesystem\Filesystem;
+use AdminBundle\Entity\ResultSetting;
 use AdminBundle\Service\FileHandler\CSVHandler;
-use AdminBundle\Service\ImportExport\RegistrationSchemaChecker;
-use AdminBundle\Entity\SiteFormSetting;
+use AdminBundle\Service\ImportExport\ResultSettingImporter;
+use AdminBundle\Service\ImportExport\ResultSettingModel;
+use AdminBundle\Service\ImportExport\ResultSettingSchemaChecker;
+use Liuggio\ExcelBundle\Factory as PHPExcelFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class RegistrationHandler
+class ResultSettingHandler
 {
     private $import_file;
     private $container;
@@ -21,17 +22,14 @@ class RegistrationHandler
     private $filesystem;
     private $csv_handler;
     private $schema_checker;
-    private $importer;
-    private $site_form_setting;
 
     public function __construct(
         ContainerInterface $container,
         PHPExcelFactory $php_excel,
-        RegistrationModel $model,
+        ResultSettingModel $model,
         Filesystem $filesystem,
         CSVHandler $csv_handler,
-        RegistrationSchemaChecker $schema_checker,
-        RegistrationImporter $importer
+        ResultSettingSchemaChecker $schema_checker
     ) {
         $this->container = $container;
         $this->php_excel = $php_excel;
@@ -40,7 +38,6 @@ class RegistrationHandler
         $this->error_list = array();
         $this->csv_handler = $csv_handler;
         $this->schema_checker = $schema_checker;
-        $this->importer = $importer;
     }
 
     public function getErrorList()
@@ -51,32 +48,35 @@ class RegistrationHandler
     public function import(UploadedFile $file)
     {
         $this->uploadImportFile($file);
-        $import_file_path = $this->container->getParameter('registration_import_file_upload_dir')
+        $import_file_path = $this->container->getParameter('result_setting_upload')
             . '/' . $file->getClientOriginalName();
-        $array_import_file = $this->csv_handler->createArray($import_file_path);
+        $data_import_file = $this->csv_handler->createArray($import_file_path);
 
-        $this->model->save();
-        $this->schema_checker->setSiteFormSetting($this->site_form_setting);
-        $error_list = $this->schema_checker->check($this->model, $array_import_file);
+        $monthly = $this->result_setting->getMonthly();
+        $by_product = $this->result_setting->getByProduct();
+        $by_rank = $this->result_setting->getByRank();
+        $this->model->save($monthly, $by_product, $by_rank);
+        
+        $error_list = $this->schema_checker->check($this->model, $data_import_file);
+        
         if (!empty($error_list)) {
             $this->error_list = $error_list;
             $this->removeFile($import_file_path);
             $this->model->removeSavedFile();
             return $this->error_list;
         } else {
-            $this->importer->setSiteFormSetting($this->site_form_setting);
-            $this->importer->importData($this->model, $array_import_file);
+            $error_list = $this->schema_checker->import($this->model, $data_import_file);
         }
+
         $this->removeFile($import_file_path);
         $this->model->removeSavedFile();
-
         return $this->error_list;
     }
 
-    private function uploadImportFile(UploadedFile $file)
+    private function uploadImportFile(UploadedFile $file)//copy file server side
     {
         $file->move(
-            $this->container->getParameter('registration_import_file_upload_dir'),
+            $this->container->getParameter('result_setting_upload'),
             $file->getClientOriginalName()
         );
 
@@ -88,14 +88,11 @@ class RegistrationHandler
         if ($this->filesystem->exists($file_path)) {
             $this->filesystem->remove($file_path);
         }
-
         return;
     }
 
-    public function setSiteFormSetting(SiteFormSetting $site_form_setting)
+    public function setResultSetting(ResultSetting $result_setting)
     {
-        $this->site_form_setting = $site_form_setting;
-
-        return;
+        $this->result_setting = $result_setting;
     }
 }

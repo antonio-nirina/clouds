@@ -1,10 +1,9 @@
 function sidebar_height() {
-    console.log('start');
-    var main_height = $('main').height();
+    var main_height = $(document).height() - $('.menu-niv-1').height() - $('.menu-niv-2').height();
     var container_display = $('#sidebar').parent().css('display');
 
     if( container_display == "block") {
-        $('#sidebar').height(main_height + 50);
+        $('#sidebar').height(main_height);
         $('#sidebar').css({'box-shadow':'5px -7px 5px -5px #aaa,5px 7px 5px -5px #aaa'})
     } else {
         $('#sidebar').css({'height':'auto','box-shadow':'5px -7px 5px -5px #aaa'});

@@ -14,3 +14,8 @@ services:
     admin.form_field_manager:
         class: AdminBundle\Manager\SiteFormFieldSettingManager
         arguments: ['@doctrine.orm.entity_manager']
+
+    admin.program:
+        class: AdminBundle\Manager\ProgramManager
+        arguments: ['@doctrine.orm.entity_manager', '@request_stack']
+

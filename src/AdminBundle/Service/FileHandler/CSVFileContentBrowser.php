@@ -38,6 +38,11 @@ abstract class CSVFileContentBrowser
         }
     }
 
+    public function resetToBegin()
+    {
+        $this->row_index = 0;
+    }
+
     public function increaseRowIndexToNextNotBlankRow()
     {
         while ($this->csv_handler->isBlankRow($this->array_data[$this->row_index])

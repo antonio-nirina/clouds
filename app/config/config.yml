@@ -13,6 +13,8 @@ parameters:
     # Parameters - Registration -Import : import file upload directory
     registration_import_file_upload_dir: '%kernel.project_dir%/web/registration/import'
     registration_model_dir: '%kernel.project_dir%/web/registration/model'
+    result_setting_upload : '%kernel.project_dir%/web/result/upload'
+    result_setting_model : '%kernel.project_dir%/web/result/model'
     registration_header_image_upload_dir: '%kernel.project_dir%/web/registration/upload/header'
     registration_header_image_location: 'registration/upload/header/'
 

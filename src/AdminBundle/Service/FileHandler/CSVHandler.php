@@ -1,4 +1,5 @@
 <?php
+
 namespace AdminBundle\Service\FileHandler;
 
 use Symfony\Component\Debug\Exception\ContextErrorException;

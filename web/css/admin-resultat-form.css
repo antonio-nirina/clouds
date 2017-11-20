@@ -379,9 +379,10 @@ tr:last-of-type .movedown-field-row-link {
 .fieldset {
     box-shadow: none;
     border : none;
+    max-width: 1024px !important;
 }
 .fieldset.little {
-    max-width: 770px;
+    max-width: 770px !important;
     padding-bottom: 100px;
 }
 .row.sous-menu-main {
@@ -389,9 +390,11 @@ tr:last-of-type .movedown-field-row-link {
 }
 .little .content-bloc-droite h3 {
     margin-right: 30px;
+    text-align: justify;
 }
 .little .content-bloc-droite h5 {
     margin-right: 10px;
+    text-align: justify;
 }
 .fieldset.active {
     box-shadow: 2px 2px 3px #aaa;
@@ -468,4 +471,13 @@ th label {
     .row.button-row {
         padding: 0 8%;
     }
+}
+.error-message-container {
+    padding-top: 25px;
+    color: red;
+    text-align: left;
+}
+.message-container {
+    color: green;
+    margin-top: 25px;
 }

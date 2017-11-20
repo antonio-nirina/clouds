@@ -39,10 +39,8 @@ class ParametragesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $url = 'cloud-rewards.peoplestay.com';
-
-        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
-        $level = $program[0]->getParamLevel();
+        $program = $this->container->get('admin.program')->getCurrent();
+        $level = $program->getParamLevel();
 
         return $this->render('AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig', array(
                                     'level' => $level,
@@ -57,15 +55,12 @@ class ParametragesController extends Controller
     public function programmeAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $url = 'cloud-rewards.peoplestay.com';
-        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+        $program = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {//redirection si program n'existe pas
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $program = $program[0];
         $current_program = $program->getType();
         $program_type_repo = $em->getRepository('AdminBundle:ProgramType');
         $all_program_type = $program_type_repo->findAll();
@@ -404,15 +399,12 @@ class ParametragesController extends Controller
     public function newFormulaireDeclaration()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $url = 'cloud-rewards.peoplestay.com';
-        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+        $program = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {//redirection si program n'existe pas
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $program = $program[0];
         if ("Challenge" === $program->getType()->getType()) {
             $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
             $default_lines = 5;
@@ -445,15 +437,12 @@ class ParametragesController extends Controller
     public function deleteFormulaireDeclaration($level)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $url = 'cloud-rewards.peoplestay.com';
-        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+        $program = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {//redirection si program n'existe pas
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $program = $program[0];
         if ("Challenge" === $program->getType()->getType()) {
             $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
         } else {
@@ -548,15 +537,12 @@ class ParametragesController extends Controller
     public function formulaireDeclarationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $url = 'cloud-rewards.peoplestay.com';
-        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+        $program = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {//redirection si program n'existe pas
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $program = $program[0];
         if ("Challenge" === $program->getType()->getType()) {
             $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
             $default_lines = 5;
@@ -643,49 +629,54 @@ class ParametragesController extends Controller
     public function importDeclarationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $url = 'cloud-rewards.peoplestay.com';
-        $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
+        $program = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {//redirection si program n'existe pas
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        
+
         $result_setting = $em->getRepository('AdminBundle:ResultSetting')->findByProgram($program);
         $result_setting = $result_setting[0];
         $setting_form = $this->createForm(ResultSettingType::class, $result_setting);
         $upload_form = $this->createForm(ResultSettingUploadType::class);
         
-        if ($request->get('result_setting')) {//get model
+        if ($request->get('result_setting')) {//download model
             $setting_form->handleRequest($request);
             if ($setting_form->isSubmitted() && $setting_form->isValid()) {
                 $em->flush();
                 $monthly = $result_setting->getMonthly();
                 $by_product = $result_setting->getByProduct();
                 $by_rank = $result_setting->getByRank();
-                $response = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel')->createResponse($monthly, $by_product, $by_rank);
+                $response = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel')
+                ->createResponse($monthly, $by_product, $by_rank);
                 return $response;
             }
         }
-
-        $upload_form->handleRequest($request);//upload fichier
+        
         $error_list = array();
-        if ($upload_form->isSubmitted() && $upload_form->isValid()) {
-            // $import_file = $registration_import_form->getData()["uploaded_file"];
-            // $registration_handler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
-            // $registration_handler->setSiteFormSetting($registration_site_form_setting);
-            // $registration_handler->import($import_file);
+        $fresh_upload_form = $upload_form;
+        if ($request->get('result_setting_upload')) {//upload fichier
+            $upload_form->handleRequest($request);
+            if ($upload_form->isSubmitted() && $upload_form->isValid()) {
+                $imported_file = $upload_form->getData()["uploaded_file"];
+                $result_setting_handler = $this->get("AdminBundle\Service\ImportExport\ResultSettingHandler");
+                $result_setting_handler->setResultSetting($result_setting);
+                $result_setting_handler->import($imported_file);
 
-            // if (!empty($registration_handler->getErrorList())) {
-            //     $error_list = $registration_handler->getErrorList();
-            // } else {
-            //     $this->addFlash('success_message', 'Import de données effectué avec succès');
-            //     return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
-            // }
+                if (!empty($result_setting_handler->getErrorList())) {
+                    $error_list = $result_setting_handler->getErrorList();
+                } else {
+                    $this->addFlash('success_message', 'Import de données effectué avec succès');
+                    return $this->redirectToRoute("admin_resultats_declaration_import");
+                }
+            }
         }
+        // $upload_form->refresh();
+
         return $this->render('AdminBundle:Parametrages:Import_declaration.html.twig', array(
             'form_upload' => $upload_form->createView(),
             'setting_form' => $setting_form->createView(),
-            'result_setting' => $result_setting
+            'error_list' => $error_list
         ));
     }
 }

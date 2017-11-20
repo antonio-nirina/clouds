@@ -29,11 +29,6 @@ class Sales
     private $ca;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program")
-     */
-    private $program;
-
-    /**
      * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
@@ -57,6 +52,12 @@ class Sales
      * @ORM\Column(name="date_to", type="datetime", nullable=true)
      */
     private $date_to;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ProgramUser")
+     * @ORM\JoinColumn(name="program_user_id", referencedColumnName="id")
+     */
+    private $program_user;
 
     /**
      * Get id
@@ -258,5 +259,29 @@ class Sales
     public function getProgram()
     {
         return $this->program;
+    }
+
+    /**
+     * Set programUser
+     *
+     * @param \AdminBundle\Entity\ProgramUser $programUser
+     *
+     * @return Sales
+     */
+    public function setProgramUser(\AdminBundle\Entity\ProgramUser $programUser = null)
+    {
+        $this->program_user = $programUser;
+
+        return $this;
+    }
+
+    /**
+     * Get programUser
+     *
+     * @return \AdminBundle\Entity\ProgramUser
+     */
+    public function getProgramUser()
+    {
+        return $this->program_user;
     }
 }
