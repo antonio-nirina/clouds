@@ -139,6 +139,8 @@ class RegistrationModel
 
        /* $this->php_excel_object->setActiveSheetIndex(0)
             ->mergeCellsByColumnAndRow(0, $this->current_row - 1, $this->current_col - 1, $this->current_row - 1);*/
+        $this->addBlankRow();
+
         return;
     }
 
