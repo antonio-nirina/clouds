@@ -161,9 +161,11 @@
                                     </div>
                                 </div>
                                 <div class = "content-btn-action btn-etape-suivante">
-                                    <button id = "btn-valider-option" class = "btn-valider-suivante btn-valider">
-                                        étape suivante
-                                    </button>
+                                    <a href="{{ path("admin_resultats_declaration_import") }}">
+                                        <button id = "btn-valider-option" class = "btn-valider-suivante btn-valider">
+                                            étape suivante
+                                        </button>
+                                    </a>
                                 </div>
                             </li>
 
@@ -176,14 +178,26 @@
                                         <input id = "option-option-3" class = "input-radio" type = "hidden" name = "option-3" value = "1">
                                     </label>
                                     <div class = "content-description-texte">
-                                        <p>Vous préférez mettre en place un système d'échange d'informations continu entre vous CRM et votre plateforme de récompense ?</p>
+                                        <p>Vous préférez mettre en place un système d'échange d'informations continu entre votre CRM et votre plateforme de récompense ?</p>
                                         <p>Dans ce cas notre équipe prendra contact avec vous pour vous accompagner dans la mise en place d'un web service ou d'une API</p>
                                     </div>
                                 </div>
                                 <div class = "content-btn-action btn-etape-contacter">
-                                    <button id = "btn-valider-option" class = "btn-valider-contacter btn-valider">
-                                        être contacté
-                                    </button>
+                                    <a href="{{ path("admin_parameters_registration_import_be_contacted") }}">
+                                        <button id = "btn-valider-option" class = "btn-valider-contacter btn-valider">
+                                            être contacté
+                                        </button>
+                                    </a>
+                                    {% for message in app.flashes('success_email_sent_message') %}
+                                    <div class="message-container">
+                                        {{ message }}
+                                    </div>
+                                    {% endfor %}
+                                    {% for message in app.flashes('failure_email_sent_message') %}
+                                        <div class="error-message-container">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </li>
                         </ul>

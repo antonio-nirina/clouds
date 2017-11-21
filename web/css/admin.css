@@ -1,11 +1,38 @@
 /*
- * Base structure
+ * Import font 'Lato'
  */
 
-html{
-	background:#ebeeef;
-	font-family: FontAwesome;
+@font-face {
+	font-family: "Lato-Light";
+	src: url('../font/Lato/fonts/Lato-Light.ttf');
 }
+
+@font-face {
+	font-family: "Lato-Regular";
+	src: url('../font/Lato/fonts/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "Lato-LightItalic";
+	src: url('../font/Lato/fonts/Lato-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "Lato-Bold";
+	src: url('../font/Lato/fonts/Lato-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "Lato-BoldItalic";
+	src: url('../font/Lato/fonts/Lato-BoldItalic.ttf') format('truetype');
+}
+
+
+
+/*
+ * Base structure
+ */
+ 
 
 .bg-faded{
 	background:#ebeeef!important;
@@ -16,12 +43,35 @@ a:hover{
 }
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+html{
+	margin:0;
+	padding:0;
+}
+
 body {
-  padding:0;
-  margin:0;
-  /*font-family: FontAwesome!important;*/
-  font-family: 'Lato', sans-serif !important;
-  background:#ebeeef!important;
+	margin:0;
+	padding:0;
+	/*background:#e7edf1;*/
+	background:#ebeeef;
+	font-family: "Lato-Light";
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9{
+	/*padding-right:0!important;*/
+	/*padding-left:0!important;*/
+}
+
+.container{
+	max-width:1920px!important;
+	width:100%!important;
+}
+
+.principale{
+	padding-left: 0;
+	padding-right: 0;
+	max-width:1920px!important;
+	width:100%!important;
+	margin:0 auto;
 }
 
 /*
@@ -83,11 +133,12 @@ h1 {
 	background-repeat:no-repeat;
 	margin:0;
 	padding:0;
+	height:82px;
 }
 
 .menu-niv-2{
 	background:#505050!important;
-	min-height: 58px;
+	height: 45px;
 }
 
 .menu-niv-3{
@@ -117,6 +168,7 @@ h1 {
 	background-repeat: no-repeat !important;
 	width:290px;
 	background-position: left bottom !important;
+	margin:0 auto;
 }
 
 .search input{
@@ -125,7 +177,8 @@ h1 {
 	color: white !important;
 	margin-left: 10px !important;
 	height: 40px !important;
-	padding-top: 19px
+	padding-top: 19px;
+	font-size:14px;
 }
 
 .icone-search{
@@ -158,25 +211,20 @@ h1 {
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: white!important;
-	font-style:italic!important;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    color: white!important;
    opacity:  1!important;
-   font-style:italic!important;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
    color: white!important;
    opacity:  1!important;
-   font-style:italic!important;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
    color: white!important;
-   font-style:italic!important;
 }
 ::-ms-input-placeholder { /* Microsoft Edge */
    color: white!important;
-   font-style:italic!important;
 }
 
 .content-menu-niv-2{
@@ -190,9 +238,14 @@ h1 {
 .nav-item-niv-2 a{
 	color:grey;
 	text-decoration:none;
+	font-size:17px;
 }
 
 .nav-item-niv-2 a.active{
+	color:white;
+}
+
+.nav-item-niv-2 a:hover{
 	color:white;
 }
 
@@ -240,7 +293,8 @@ h1 {
 
 section.active{
 	background-color:white;
-	border-top: 2px solid blue;
+	/*border-top: 2px solid blue;*/
+	box-shadow: 1px 1px 2px #aaa;
 }
 
 section.inactive{
@@ -294,10 +348,13 @@ section.inactive{
 }
 
 .description-recompenses{
-	text-align: justify;
 	margin: 0;
 	padding: 0;
 	padding-left: 36px;
+	/*width: 491px;*/
+	color: rgb(80,80,80);
+	font-family: "Lato-Light";
+	text-align: left;
 }
 
 .mode-recompense{
@@ -309,6 +366,9 @@ section.inactive{
 }
 
 .libelle-mode{
+	font-size: 15px;
+	color: rgb(80,80,80);
+	font-family: "Lato-Regular";
 }
 
 .content-bloc-gauche{
@@ -504,6 +564,26 @@ li.options{
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
+	.logo-cloud-rewards{
+		background: url('../images/cloudsRewards/log.png');
+		background-repeat: no-repeat;
+		width: 296px;
+		height: 55px;
+		background-position: -344px -14px;
+		transform: scale(0.8);
+		position: relative;
+		left: -22px;
+		display: block;
+	}
+	
+	.navbar-toggler-right {
+		position: absolute;
+		right: 0rem;
+		bottom: 2px;
+	}
+	
+	
+	
 	.content-btn-action{
 		margin-top:20px;
 		margin-left:40px;
@@ -1228,6 +1308,10 @@ li.options{
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
+	#collapsingNavbarNiv1{
+		width:70%;
+	}
+	
 	.content-btn-action{
 		margin-top:20px;
 		margin-left:40px;
@@ -1302,6 +1386,115 @@ li.options{
 		height: 20px;*/
 		margin-left: -9px;
 	}
+	
+	.img-programme-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+	}
+	
+	.img-programme-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		border-left: 3px solid #7682da;
+	}
+	
+	.img-inscriptions-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+	}
+	
+	.img-inscriptions-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+	}
+	
+	.img-resultats-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+	}
+	
+	.img-resultats-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+	}
+	
+	.img-points-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+	}
+	
+	.img-points-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+	}
+	
+	.img-design-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+	}
+	
+	.img-design-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+	}
+	
+	.img-contenus-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+	}
+	
+	.img-contenus-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+	}
 
 	.text-menu{
 		position: absolute;
@@ -1318,19 +1511,29 @@ li.options{
 	}
 
 	.form-search{
-		position:absolute;
-		left:50%;
-		margin-left:-100px;
-		width:200px;
+		width:50%;
+	}
+	
+	.content-log-header{
+		width:50%;
+	}
+	
+	.content-log-header ul{
+		padding:0;
+		margin:0;
+		list-style:none;
+		float:right;
 	}
 	
 	.log-header{
 		display:block;
 		float:left;
-		position: relative;
-		top: 13px;
 		margin-left:10px;
 		cursor:pointer;
+	}
+	
+	.logo-content{
+		width:30%;
 	}
 
 
@@ -1339,67 +1542,82 @@ li.options{
 		width:100%;
 	}
 
-	#play{
+	li#play a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
+		height:25px;
+		background-position: -1252px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#notification{
+	li#notification a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
+		height:25px;
+		background-position: -1298px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#question-marque{
+	li#question-marque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
+		height:25px;
+		background-position: -1344px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#mail{
+	li#mail a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
+		height:25px;
+		background-position: -1391px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#casque{
+	li#casque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
+		height:25px;
+		background-position: -1438px -25px;
+		margin-top: 10px;
+		display:block;
+	}
+	
+
+	li#profil a{
+		width: 48px;
+		height: 48px;
+		background: url('../images/cloudsRewards/log.png');
+		background-position: -1485px -12px;
+		display:block;
 	}
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
-
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
+	li#power a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		background-position: -302px -15px;
+		width:23px;
+		height:25px;
+		background-position: -1558px -25px;
+		margin-top: 10px;
+		display:block;
+	}
+	
+	.logo-cloud-rewards{
+		background:url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width: 296px;
+		height: 55px;
+		background-position: -344px -14px;
+		display:inline-block;
 	}
 }
    
@@ -1447,7 +1665,8 @@ button.btn-valider:hover {
 
 .menu-page-active, .menu-page {
     margin-right: 5px;
-    font-size: 17px;
+	font-size: 17px;
+	font-family: "Lato-Bold";
 }
 .menu-page-active:hover, .menu-page:hover {
     font-weight: 900;
@@ -1478,25 +1697,37 @@ button.btn-valider:hover {
 	display: block;
 }
 #sidebar {
-	max-width: 92px;
+	max-width: 100px;
 	box-shadow: 5px -7px 5px -5px #aaa,5px 7px 5px -5px #aaa;
 }
 .container-fluid {
 	z-index: 1;
 }
 .menu-niv-1, .menu-niv-2 {
-	z-index: 2;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 #sidebar a {
 	font-size: 13px;
-	color : #404040;	
+	color: rgb(64,64,64)!important;
+	font-family: "Lato-Regular";	
+}
+.border-left-hover-active{
+	display:none;
+	background: #7682da;
+	width: 3px;
+	height: inherit;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 #sidebar a:hover {
 	background: white;
+	/*background:url('../images/cloudsRewards/menu/fond-picto-blue.png');*/
 }
 #sidebar a.active {
 	background: white;
-	border-left: 3px solid #7682da;
+	/*background:url('../images/cloudsRewards/menu/fond-picto-blue.png');*/
 }
 .text-menu {
 	top: 60px;
@@ -1606,4 +1837,14 @@ th {
 .head-personalized{
 	background-color: #E3E6F8 !important;
 	background-color: 	rgba(118, 130, 218, 0.2) !important;
+}
+
+.block-active-hover{
+	display:none;
+	position: absolute;
+	background: #7682da;
+	height: 2px;
+	width: 100%;
+	left: 0;
+	top: 0;
 }

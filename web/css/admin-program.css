@@ -59,12 +59,15 @@
 .FontRec {
     color: #7682da;
     font-size: 30px;
-    font-weight: 300;
 }
+
+/*
 .fieldset.active {
     box-shadow: 1px 1px 2px #aaa;
     border-top: 2px solid #7682DA !important;    
 }
+*/
+
 section.active {
     background-color: white;
 }

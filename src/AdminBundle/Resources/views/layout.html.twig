@@ -7,20 +7,22 @@
 	{% endblock %}
 
 	<body>
-		{{ include("AdminBundle::menu-top.html.twig") }}
-		
-		{{ include("AdminBundle::menu-top-niv-2.html.twig") }}
-		
-		<div class="container-fluid">
-			<div class="row d-flex d-md-block flex-nowrap wrapper">
+		<div class = "container principale">
+			{{ include("AdminBundle::menu-top.html.twig") }}
+			
+			{{ include("AdminBundle::menu-top-niv-2.html.twig") }}
+			
+			<div class="container-fluid">
+				<div class="row d-flex d-md-block flex-nowrap wrapper">
 
-				{% block main %}
-				{% endblock %}
+					{% block main %}
+					{% endblock %}
+				</div>
 			</div>
+			{# {{ include("AdminBundle::footer.html.twig") }} #}		
+			{% block footer %}
+				{% embed 'AdminBundle::footer.html.twig' %}{% endembed %}
+			{% endblock %}
 		</div>
-		{# {{ include("AdminBundle::footer.html.twig") }} #}		
-		{% block footer %}
-			{% embed 'AdminBundle::footer.html.twig' %}{% endembed %}
-		{% endblock %}
 	</body>
 </html>
