@@ -613,3 +613,6 @@ th label {
 .second-logo label {
     padding-right: 15px;
 }
+.btn-valider.btn-upload + input[type=file]{
+    display: none;
+}

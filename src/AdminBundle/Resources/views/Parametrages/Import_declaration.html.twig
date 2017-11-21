@@ -150,3 +150,11 @@
 </main>
 
 {% endblock %}
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('js/admin-import.js') }}"></script>           
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

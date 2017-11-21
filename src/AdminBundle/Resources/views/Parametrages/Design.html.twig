@@ -300,33 +300,8 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
-            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>
-                <script>
-                    $(document).ready( function() {
-                        $('.color-value').each( function() {
-                            $(this).minicolors({
-                              control: $(this).attr('data-control') || 'brightness',
-                              defaultValue: $(this).attr('data-defaultValue') || '',
-                              format: $(this).attr('data-format') || 'hex',
-                              keywords: $(this).attr('data-keywords') || '',
-                              inline: $(this).attr('data-inline') === 'true',
-                              letterCase: $(this).attr('data-letterCase') || 'lowercase',
-                              opacity: $(this).attr('data-opacity'),
-                              position: $(this).attr('data-position') || 'bottom left',
-                              swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
-                              change: function(value, opacity) {
-                                if( !value ) return;
-                                if( opacity ) value += ', ' + opacity;
-                                if( typeof console === 'object' ) {
-                                  console.log(value);
-                                }
-                              },
-                              theme: 'bootstrap'
-                            });
-                        });
-                    });
-                </script>
-            </script>
+            <script src="{{ asset("js/admin-import.js") }}"></script>
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>            
         {% endblock %}
     {% endembed %}
 {% endblock %}

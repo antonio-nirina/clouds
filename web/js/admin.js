@@ -178,6 +178,6 @@ $(document).ready(function(){
      * Paramétrages - Inscriptions
      * Selection multiple : champs à publier, rendre obligatoire
      * *********************************************************************************************
-     */
+     */    
 });
 

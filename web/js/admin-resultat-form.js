@@ -338,4 +338,3 @@ $('.modal-content .content').on('click', '.ajouter.btn-valider', function(){
         });
     }
 });
-
