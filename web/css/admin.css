@@ -1422,6 +1422,7 @@ button.btn-valider {
     background: -o-linear-gradient(to right, #1D61D4, #598FEA );
     background: -moz-linear-gradient(to right, #1D61D4, #598FEA );
     font-size: 15px;
+    min-width: 120px !important;
 }
 button.btn-valider:hover {
     background: linear-gradient(to right, #1d61d4, #1d61d4 ) !important; 

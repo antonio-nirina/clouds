@@ -694,4 +694,13 @@ class ParametragesController extends Controller
             'error_list' => $error_list
         ));
     }
+
+    /**
+     * @Route("/design", name="admin_param_design")
+     */
+    public function designAction(Request $request)
+    {
+        return $this->render('AdminBundle:Parametrages:Design.html.twig', array(
+        ));
+    }
 }
