@@ -104,11 +104,17 @@ class ParametragesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $programs = $em->getRepository(Program::class)->findAll();
+        /*$programs = $em->getRepository(Program::class)->findAll();
         if (empty($programs) || is_null($programs[0])) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
-        $program = $programs[0];
+        $program = $programs[0];*/
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
@@ -210,11 +216,18 @@ class ParametragesController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
-        $programs = $em->getRepository(Program::class)->findAll();
+
+        /*$programs = $em->getRepository(Program::class)->findAll();
         if (empty($programs) || is_null($programs[0])) {
             return new Response('');
         }
-        $program = $programs[0];
+        $program = $programs[0];*/
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
@@ -274,11 +287,17 @@ class ParametragesController extends Controller
         $em = $this->getDoctrine()->getManager();
         $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
 
-        $programs = $em->getRepository(Program::class)->findAll();
+        /*$programs = $em->getRepository(Program::class)->findAll();
         if (empty($programs) || is_null($programs[0])) {
             return new Response('');
         }
-        $program = $programs[0];
+        $program = $programs[0];*/
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
@@ -350,11 +369,17 @@ class ParametragesController extends Controller
     public function importRegistrationDataAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $programs = $em->getRepository(Program::class)->findAll();
+        /*$programs = $em->getRepository(Program::class)->findAll();
         if (empty($programs) || is_null($programs[0])) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
-        $program = $programs[0];
+        $program = $programs[0];*/
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
@@ -390,11 +415,17 @@ class ParametragesController extends Controller
     public function downloadRegistrationModelAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $programs = $em->getRepository(Program::class)->findAll();
+        /*$programs = $em->getRepository(Program::class)->findAll();
         if (empty($programs) || is_null($programs[0])) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
-        $program = $programs[0];
+        $program = $programs[0];*/
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
@@ -420,11 +451,18 @@ class ParametragesController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $programs = $em->getRepository(Program::class)->findAll();
+
+        /*$programs = $em->getRepository(Program::class)->findAll();
         if (empty($programs) || is_null($programs[0])) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
-        $program = $programs[0];
+        $program = $programs[0];*/
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
         if (is_null($registration_site_form_setting)) {
