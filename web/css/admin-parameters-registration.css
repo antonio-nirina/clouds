@@ -3,6 +3,11 @@
     color: 	#505050;
 }
 
+.form-content-inscription{
+	padding-left:15px!important;
+	padding-right:15px!important;
+}
+
 
 #create-form-inscription{
     height: auto;

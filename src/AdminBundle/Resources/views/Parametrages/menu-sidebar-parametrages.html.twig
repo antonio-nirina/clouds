@@ -1,63 +1,69 @@
 <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar">
 	<div class="list-group border-0 card text-center text-md-left">
-		<a href="{{ path("admin_parametrages_programme") }}" class="list-group-item d-inline-block collapsed {{ (active == 1)?'active':'' }}" data-parent="#sidebar">			
+		<a id = "programme" href="{{ path("admin_parametrages_programme") }}" class="list-group-item d-inline-block collapsed {{ (active == 1)?'active':'' }}" data-parent="#sidebar">			
 			{% if level >= 1 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}
 				<span class = "numero-menu">1</span>
 			{% endif %}
-			<img class = "img-menu" src = "{{ asset('images/cloudsRewards/menu/menu-programme.png') }}" {# width = "18" height = "20" #}>
+			<span id = "img-programme" class = "img-menu img-programme-desactive"></span>
 			<span class = "text-menu">programme</span>
+			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 		{# {{ dump(level) }} #}
-		<a href="{{ path("admin_parametrages_inscriptions") }}" class="list-group-item d-inline-block collapsed {{ (active == 2)?'active':'' }}" data-parent="#sidebar">
+		<a id = "inscriptions" href="{{ path("admin_parametrages_inscriptions") }}" class="list-group-item d-inline-block collapsed {{ (active == 2)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 2 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">2</span>
 			{% endif %}
-			<img class = "img-menu" src = "{{ asset('images/cloudsRewards/menu/menu-inscription.png') }}" {# width = "18" height = "20" #}>
+			<span id = "img-inscriptions" class = "img-menu img-inscriptions-desactive"></span>
 			<span class = "text-menu">inscriptions</span>
+			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 		
-		<a href="{{ path("admin_resultats_declaration") }}" class="list-group-item d-inline-block collapsed {{ (active == 3)?'active':'' }}" data-parent="#sidebar">
+		<a id = "resultats" href="{{ path("admin_resultats_declaration") }}" class="list-group-item d-inline-block collapsed {{ (active == 3)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 3 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">3</span>
 			{% endif %}
-			<img class = "img-menu" src = "{{ asset('images/cloudsRewards/menu/menu-resultat.png') }}" {# width = "18" height = "20" #}>
+			<span id = "img-resultats" class = "img-menu img-resultats-desactive"></span>
 			<span class = "text-menu">résultats</span>
+			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 		
-		<a href="#" class="list-group-item d-inline-block collapsed {{ (active == 4)?'active':'' }}" data-parent="#sidebar">
+		<a id = "points" href="#" class="list-group-item d-inline-block collapsed {{ (active == 4)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 4 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">4</span>
 			{% endif %}
-			<img class = "img-menu" src = "{{ asset('images/cloudsRewards/menu/menu-point.png') }}" {# width = "18" height = "20" #}>
+			<span id = "img-points" class = "img-menu img-points-desactive"></span>
 			<span class = "text-menu">points</span>
+			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 		
-		<a href="#" class="list-group-item d-inline-block collapsed {{ (active == 5)?'active':'' }}" data-parent="#sidebar">
+		<a id = "design" href="#" class="list-group-item d-inline-block collapsed {{ (active == 5)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 5 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">5</span>
 			{% endif %}
-			<img class = "img-menu" src = "{{ asset('images/cloudsRewards/menu/menu-design.png') }}" {# width = "18" height = "20" #}>
+			<span id = "img-design" class = "img-menu img-design-desactive"></span>
 			<span class = "text-menu">design</span>
+			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 		
-		<a href="#" class="list-group-item d-inline-block collapsed {{ (active == 6)?'active':'' }}" data-parent="#sidebar">
+		<a id = "contenus" href="#" class="list-group-item d-inline-block collapsed {{ (active == 6)?'active':'' }}" data-parent="#sidebar">
 			{% if level == 6 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
 				<span class = "numero-menu">6</span>
 			{% endif %}
-			<img class = "img-menu" src = "{{ asset('images/cloudsRewards/menu/menu-contenu.png') }}" {# width = "18" height = "20" #}>
+			<span id = "img-contenus" class = "img-menu img-contenus-desactive"></span>
 			<span class = "text-menu">contenus</span>
+			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 	</div>
 </div>
