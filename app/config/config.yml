@@ -18,6 +18,9 @@ parameters:
     registration_header_image_upload_dir: '%kernel.project_dir%/web/registration/upload/header'
     registration_header_image_location: 'registration/upload/header/'
 
+    # Parameters - Registration - Import : Email texts
+    be_contacted_email_subject: "Etre contacté"
+
 framework:
     #esi: ~
     translator: { fallbacks: ['%locale%'] }

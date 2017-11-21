@@ -52,7 +52,7 @@ class UserHydrator
             SpecialFieldIndex::USER_PASSWORD,
             $related_field_setting->getSpecialFieldIndex()
         )) {
-            $app_user->setPassword($value);
+            $app_user->setPlainPassword($value);
         } else {
             $additional_data[$key] = $value;
             if (is_null($app_user->getCustomization())) {

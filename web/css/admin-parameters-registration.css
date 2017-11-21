@@ -43,6 +43,7 @@
     background-color: #F5F5F5;
     height: auto;
     color: 	#505050;
+    max-width: 1024px;
 }
 
 .fieldset.active{
