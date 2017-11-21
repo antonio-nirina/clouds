@@ -433,7 +433,11 @@ class ParametragesController extends Controller
 
         $mailer = $this->get('AdminBundle\Service\Mailer\SuperAdminNotificationMailer');
         $mailer->sendBeContactedNotification($this->getUser());
-        $this->addFlash('success_email_sent_message', 'Demande de contact envoyé.');
+        if (!empty($mailer->getErrorList())) {
+            $this->addFlash('failure_email_sent_message', 'Erreur. Demande de contact non envoyé.');
+        } else {
+            $this->addFlash('success_email_sent_message', 'Demande de contact envoyé.');
+        }
 
         return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
     }

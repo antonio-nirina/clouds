@@ -11,6 +11,7 @@ class SuperAdminNotificationMailer
     private $em;
     private $twig;
     private $container;
+    private $error_list;
 
     public function __construct(
         \Swift_Mailer $mailer,
@@ -22,6 +23,11 @@ class SuperAdminNotificationMailer
         $this->em = $em;
         $this->twig = $twig;
         $this->container = $container;
+    }
+
+    public function getErrorList()
+    {
+        return $this->error_list;
     }
 
     private function retrieveRecipientEmailList()
@@ -53,7 +59,10 @@ class SuperAdminNotificationMailer
                         )),
                         'text/html'
                     );
-                $this->mailer->send($message);
+                $failures = null;
+                if (!$this->mailer->send($message, $failures)) {
+                    $this->error_list = $failures;
+                }
             }
         }
 

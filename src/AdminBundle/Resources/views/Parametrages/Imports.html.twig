@@ -193,6 +193,11 @@
                                         {{ message }}
                                     </div>
                                     {% endfor %}
+                                    {% for message in app.flashes('failure_email_sent_message') %}
+                                        <div class="error-message-container">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </li>
                         </ul>
