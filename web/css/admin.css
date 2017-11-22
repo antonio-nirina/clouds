@@ -565,23 +565,130 @@ li.options{
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	.logo-cloud-rewards{
-		background: url('../images/cloudsRewards/log.png');
+		background: url('../images/cloudsRewards/logo-cloud-rewards.png');
 		background-repeat: no-repeat;
-		width: 296px;
+		width: 76%;
 		height: 55px;
-		background-position: -344px -14px;
-		transform: scale(0.8);
-		position: relative;
-		left: -22px;
 		display: block;
+		background-size: contain;
+		margin-top: 10px;
+		margin-left:15px;
+	}
+	
+	.block-title{
+		text-align:center!important;
+	}
+	
+	.block-table tr td.field-container{
+		padding:0!important;
+	}
+	
+	.content-menu-niv-3{
+		text-align:left;
+		margin:0!important;
+	}
+	
+	.bulle-aide{
+		text-align:center;
+	}
+	
+	.block-table-container{
+		padding:0!important;
 	}
 	
 	.navbar-toggler-right {
 		position: absolute;
-		right: 0rem;
-		bottom: 2px;
+		right: 0;
+		top: 12px;
+		margin-right:15px;
 	}
 	
+	.add-field-link{
+		width:109%;
+	}
+	
+	.header-preview-container .header-message-preview{
+		top:38px!important;
+	}
+	
+	.btn-download, .btn-upload{
+		padding:9px!important;
+	}
+	
+	.btn-valider{
+		position: relative;
+		/*left: -21px;*/
+	}
+	
+	.menu-niv-1{
+		height:inherit!important;
+	}
+	
+	.mode-recompense{
+		width:inherit!important;
+	}
+	
+	.content-bloc-droite{
+		float:none;
+	}
+	
+	.menu-niv-2{
+		height:61px;
+	}
+	
+	.menu-niv-3{
+		min-height: 54px;
+	}
+	
+	.mode-recompense{
+		margin-left:0;
+		width: 70% !important;
+	}
+	
+	.nav-item-niv-3{
+		margin-left:0;
+		float:none;
+	}
+	
+	.FontRec{
+		display:block!important;
+		font-size:26px!important;
+	}
+	
+	.description-recompenses{
+		text-align:justify;
+	}
+	
+	.fieldset{
+		width: 100%;
+	}
+	
+	
+	
+	.menu-niv-1, .menu-niv-2{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	.navbar{
+		padding:0;
+	}
+	
+	#collapsingNavbarNiv1{
+		width:100%;
+		background:#1d61d4;
+		padding-bottom:10px;
+	}
+	
+	#collapsingNavbarNv2{
+		width:100%;
+		background:#505050;
+		padding-bottom:10px;
+		position:relative;
+		z-index:1000;
+		margin-top:40px;
+		padding-left:10px;
+	}
 	
 	
 	.content-btn-action{
@@ -641,7 +748,6 @@ li.options{
 		width: 26px;
 		text-align: center;
 		height: 28px;
-		display:none;
 	}
 
 	.img-menu{
@@ -651,6 +757,127 @@ li.options{
 		width: 18px;
 		height: 20px;
 		margin-left: -9px;
+	}
+	
+	.img-programme-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		margin-top: 20px;
+	}
+	
+	.img-programme-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		border-left: 3px solid #7682da;
+		margin-top: 20px;
+	}
+	
+	.img-inscriptions-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		margin-top: 20px;
+	}
+	
+	.img-inscriptions-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		margin-top: 20px;
+	}
+	
+	.img-resultats-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		margin-top: 20px;
+	}
+	
+	.img-resultats-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		margin-top: 20px;
+	}
+	
+	.img-points-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+		margin-top: 20px;
+	}
+	
+	.img-points-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+		margin-top: 20px;
+	}
+	
+	.img-design-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+		margin-top: 20px;
+	}
+	
+	.img-design-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+		margin-top: 20px;
+	}
+	
+	.img-contenus-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		margin-top: 20px;
+	}
+	
+	.img-contenus-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		margin-top: 20px;
 	}
 
 	.text-menu{
@@ -664,13 +891,22 @@ li.options{
 	}
 	
 	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
+		width: 90%;
+		margin: 0 auto;
+	}
+	
+	.search{
+		width:100%;
 	}
 	
 	.content-log-header{
-		margin-top:97px;
+		/*margin-top:97px;*/
+	}
+	
+	.content-log-header ul{
+		padding: 0;
+		width: 94%;
+		margin: 20px auto;
 	}
 
 	.log-header{
@@ -687,78 +923,168 @@ li.options{
 		width:100%;
 	}
 
-	#play{
+	#play a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
+		width:24px;
+		height:24px;
+		background-position: -1251px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#notification{
+	#notification a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
+		width:24px;
+		height:24px;
+		background-position: -1297px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#question-marque{
+	#question-marque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1344px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#mail{
+	#mail a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1390px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#casque{
+	#casque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1437px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
-
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
+	#profil a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		background-position: -302px -15px;
+		width: 47px;
+		height: 47px;
+		background-position: -1485px -12px;
+		display:block;
+	}
+
+	#power a{
+		background: url('../images/cloudsRewards/log.png');
+		width:24px;
+		height:24px;
+		background-position: -1556px -26px;
+		background-repeat:no-repeat;
 		margin-top: 8px;
+		display:block;
 	}
 }
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767px) {
+	.logo-cloud-rewards{
+		background: url('../images/cloudsRewards/logo-cloud-rewards.png');
+		background-repeat: no-repeat;
+		width: 76%;
+		height: 55px;
+		display: block;
+		background-size: contain;
+		margin: 10px auto;
+	}
+	
+	.header-preview-container .header-message-preview{
+		top:37px!important;
+	}
+	
+	.navbar-toggler-right {
+		position: absolute;
+		right: 0;
+		top: 12px;
+		margin-right:15px;
+	}
+	
+	.btn-valider{
+		position: relative;
+		/*left: -21px;*/
+	}
+	
+	.menu-niv-1{
+		height:inherit!important;
+	}
+	
+	.content-bloc-droite{
+		float:none;
+	}
+	
+	.menu-niv-2{
+		height:61px;
+	}
+	
+	.menu-niv-3{
+		min-height: 54px;
+	}
+	
+	
+	.nav-item-niv-3{
+		margin-left:0;
+		float:none;
+	}
+	
+	.FontRec{
+		display:block!important;
+		font-size:26px!important;
+	}
+	
+	.description-recompenses{
+		text-align:justify;
+	}
+	
+	.fieldset{
+		width: 100%;
+	}
+	
+	
+	
+	.menu-niv-1, .menu-niv-2{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	.navbar{
+		padding:0;
+	}
+	
+	#collapsingNavbarNiv1{
+		width:100%;
+		background:#1d61d4;
+		padding-bottom:10px;
+		margin-top: -3px;
+	}
+	
+	#collapsingNavbarNv2{
+		width:100%;
+		background:#505050;
+		padding-bottom:10px;
+		position:relative;
+		z-index:1000;
+		margin-top: 48px;
+		padding-left:10px;
+	}
+	
+	
 	.content-btn-action{
 		margin-top:20px;
 		margin-left:40px;
@@ -793,24 +1119,16 @@ li.options{
 		/*float:right;*/
 	}
 	
-	.form-input-part-1{
-		margin-top:53px;
-	}
-	
-	.content-bloc-droite{
-		margin-right:0;
-	}
-	
 	.fieldset{
 		height:280px;
 	}
 	
 	#create-form-inscription{
-		height:1242px;
+		height:1263px;
 	}
 	
 	#import-form-inscription{
-		height: 979px;
+		height: 1260px;
 	}
 	
 	.numero-menu{
@@ -824,7 +1142,6 @@ li.options{
 		width: 26px;
 		text-align: center;
 		height: 28px;
-		display:none;
 	}
 
 	.img-menu{
@@ -834,6 +1151,127 @@ li.options{
 		width: 18px;
 		height: 20px;
 		margin-left: -9px;
+	}
+	
+	.img-programme-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		margin-top: 20px;
+	}
+	
+	.img-programme-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		border-left: 3px solid #7682da;
+		margin-top: 20px;
+	}
+	
+	.img-inscriptions-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		margin-top: 20px;
+	}
+	
+	.img-inscriptions-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		margin-top: 20px;
+	}
+	
+	.img-resultats-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		margin-top: 20px;
+	}
+	
+	.img-resultats-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		margin-top: 20px;
+	}
+	
+	.img-points-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+		margin-top: 20px;
+	}
+	
+	.img-points-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+		margin-top: 20px;
+	}
+	
+	.img-design-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+		margin-top: 20px;
+	}
+	
+	.img-design-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+		margin-top: 20px;
+	}
+	
+	.img-contenus-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		margin-top: 20px;
+	}
+	
+	.img-contenus-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		margin-top: 20px;
 	}
 
 	.text-menu{
@@ -846,18 +1284,23 @@ li.options{
 		display:none;
 	}
 	
-	.nav-item-niv-2{
-		display:block;
-	}
-
 	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
+		width: 90%;
+		margin: 0 auto;
+	}
+	
+	.search{
+		width:53%;
 	}
 	
 	.content-log-header{
-		margin-top:97px;
+		/*margin-top:97px;*/
+	}
+	
+	.content-log-header ul{
+		padding: 0;
+		width: 43%;
+		margin: 20px auto;
 	}
 
 	.log-header{
@@ -874,78 +1317,169 @@ li.options{
 		width:100%;
 	}
 
-	#play{
+	#play a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
+		width:24px;
+		height:24px;
+		background-position: -1251px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#notification{
+	#notification a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
+		width:24px;
+		height:24px;
+		background-position: -1297px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#question-marque{
+	#question-marque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1344px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#mail{
+	#mail a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1390px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#casque{
+	#casque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1437px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
-
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
+	#profil a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		background-position: -302px -15px;
+		width: 47px;
+		height: 47px;
+		background-position: -1485px -12px;
+		display:block;
+	}
+
+	#power a{
+		background: url('../images/cloudsRewards/log.png');
+		width:24px;
+		height:24px;
+		background-position: -1556px -26px;
+		background-repeat:no-repeat;
 		margin-top: 8px;
+		display:block;
 	}
 }
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991px) {
+	.logo-cloud-rewards{
+		background: url('../images/cloudsRewards/logo-cloud-rewards.png');
+		background-repeat: no-repeat;
+		width: 76%;
+		height: 55px;
+		display: block;
+		background-size: contain;
+		margin-top:10px;
+		margin-left:15px;
+		margin-bottom:9px;
+	}
+	
+	.header-preview-container .header-message-preview{
+		top:37px!important;
+	}
+	
+	.navbar-toggler-right {
+		position: absolute;
+		right: 15px;
+		top: 12px;
+	}
+	
+	.btn-valider{
+		position: relative;
+		/*left: -21px;*/
+	}
+	
+	.menu-niv-1{
+		height:inherit!important;
+	}
+	
+	.content-bloc-droite{
+		float:none;
+	}
+	
+	.menu-niv-2{
+		height:61px;
+	}
+	
+	.menu-niv-3{
+		min-height: 54px;
+	}
+	
+	
+	.nav-item-niv-3{
+		margin-left:0;
+		float:none;
+	}
+	
+	.FontRec{
+		display:block!important;
+		font-size:26px!important;
+	}
+	
+	.description-recompenses{
+		text-align:justify;
+	}
+	
+	.fieldset{
+		width: 100%;
+	}
+	
+	
+	
+	.menu-niv-1, .menu-niv-2{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	.navbar{
+		padding:0;
+	}
+	
+	#collapsingNavbarNiv1{
+		width:100%;
+		background:#1d61d4;
+		padding-bottom:10px;
+		margin-top: -3px;
+	}
+	
+	#collapsingNavbarNv2{
+		width:100%;
+		background:#505050;
+		padding-bottom:10px;
+		position:relative;
+		z-index:1000;
+		margin-top: 48px;
+		padding-left:10px;
+	}
+	
+	
 	.content-btn-action{
 		margin-top:20px;
 		margin-left:40px;
@@ -980,24 +1514,16 @@ li.options{
 		/*float:right;*/
 	}
 	
-	.form-input-part-1{
-		margin-top:53px;
-	}
-	
-	.content-bloc-droite{
-		margin-right:120px;
-	}
-	
 	.fieldset{
 		height:280px;
 	}
 	
 	#create-form-inscription{
-		height:950px;
+		height:1263px;
 	}
 	
 	#import-form-inscription{
-		height: 1091px;
+		height: 1260px;
 	}
 	
 	.numero-menu{
@@ -1021,6 +1547,115 @@ li.options{
 		height: 20px;
 		margin-left: -9px;
 	}
+	
+	.img-programme-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+	}
+	
+	.img-programme-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		border-left: 3px solid #7682da;
+	}
+	
+	.img-inscriptions-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+	}
+	
+	.img-inscriptions-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+	}
+	
+	.img-resultats-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+	}
+	
+	.img-resultats-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+	}
+	
+	.img-points-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+	}
+	
+	.img-points-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+	}
+	
+	.img-design-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+	}
+	
+	.img-design-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+	}
+	
+	.img-contenus-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+	}
+	
+	.img-contenus-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+	}
 
 	.text-menu{
 		position: absolute;
@@ -1031,18 +1666,23 @@ li.options{
 		color: #807f81;
 	}
 	
-	.nav-item-niv-2{
-		display:block;
+	.form-search{
+		width: 90%;
+		margin: 0 auto;
 	}
 	
-	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
+	.search{
+		width:42%;
 	}
 	
 	.content-log-header{
-		margin-top:97px;
+		/*margin-top:97px;*/
+	}
+	
+	.content-log-header ul{
+		padding: 0;
+		width: 35%;
+		margin: 20px auto;
 	}
 
 	.log-header{
@@ -1059,78 +1699,82 @@ li.options{
 		width:100%;
 	}
 
-	#play{
+	#play a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
+		width:24px;
+		height:24px;
+		background-position: -1251px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#notification{
+	#notification a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
+		width:24px;
+		height:24px;
+		background-position: -1297px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#question-marque{
+	#question-marque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1344px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#mail{
+	#mail a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1390px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#casque{
+	#casque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
+		width:24px;
+		height:24px;
+		background-position: -1437px -26px;
 		margin-top: 8px;
+		display:block;
 	}
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
-
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
+	#profil a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		background-position: -302px -15px;
+		width: 47px;
+		height: 47px;
+		background-position: -1485px -12px;
+		display:block;
+	}
+
+	#power a{
+		background: url('../images/cloudsRewards/log.png');
+		width:24px;
+		height:24px;
+		background-position: -1556px -26px;
+		background-repeat:no-repeat;
 		margin-top: 8px;
+		display:block;
 	}
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) and (max-width: 1199px) {
+	#collapsingNavbarNiv1{
+		width:70%;
+	}
+	
 	.content-btn-action{
 		margin-top:20px;
 		margin-left:40px;
@@ -1163,11 +1807,11 @@ li.options{
 		background-position: 13px 10px;
 		float:right;
 	}
-	
+
 	.form-input-part-1{
 		margin-top:120px;
 	}
-	
+
 	.content-bloc-droite{
 		margin-right:120px;
 	}
@@ -1181,9 +1825,9 @@ li.options{
 	}
 	
 	#import-form-inscription{
-		height: 900px;
+		height: 822px;
 	}
-	
+
 	.numero-menu{
 		position: absolute;
 		top: 0;
@@ -1201,9 +1845,118 @@ li.options{
 		position: absolute;
 		top: 27px;
 		left: 50%;
-		width: 18px;
-		height: 20px;
+		/*width: 18px;
+		height: 20px;*/
 		margin-left: -9px;
+	}
+	
+	.img-programme-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+	}
+	
+	.img-programme-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		border-left: 3px solid #7682da;
+	}
+	
+	.img-inscriptions-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+	}
+	
+	.img-inscriptions-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+		mask-image: url('../images/cloudsRewards/menu/inscription.svg');
+	}
+	
+	.img-resultats-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+	}
+	
+	.img-resultats-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+		mask-image: url('../images/cloudsRewards/menu/resultats.svg');
+	}
+	
+	.img-points-desactive{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+	}
+	
+	.img-points-active{
+		background-repeat:no-repeat;
+		width:18px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/points.svg');
+		mask-image: url('../images/cloudsRewards/menu/points.svg');
+	}
+	
+	.img-design-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+	}
+	
+	.img-design-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/design.svg');
+		mask-image: url('../images/cloudsRewards/menu/design.svg');
+	}
+	
+	.img-contenus-desactive{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #505050;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+	}
+	
+	.img-contenus-active{
+		background-repeat:no-repeat;
+		width:21px;
+		height:20px;
+		background-color: #7682da;
+		-webkit-mask-image: url('../images/cloudsRewards/menu/contenus.svg');
+		mask-image: url('../images/cloudsRewards/menu/contenus.svg');
 	}
 
 	.text-menu{
@@ -1219,21 +1972,31 @@ li.options{
 		display:block;
 		margin-left:40px;
 	}
-	
+
 	.form-search{
-		position:absolute;
-		left:50%;
-		margin-left:-100px;
-		width:200px;
+		width:50%;
+	}
+	
+	.content-log-header{
+		width:50%;
+	}
+	
+	.content-log-header ul{
+		padding:0;
+		margin:0;
+		list-style:none;
+		float:right;
 	}
 	
 	.log-header{
 		display:block;
 		float:left;
-		position: relative;
-		top: 13px;
 		margin-left:10px;
 		cursor:pointer;
+	}
+	
+	.logo-content{
+		width:30%;
 	}
 
 
@@ -1242,67 +2005,82 @@ li.options{
 		width:100%;
 	}
 
-	#play{
+	li#play a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
+		height:25px;
+		background-position: -1252px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#notification{
+	li#notification a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
+		height:25px;
+		background-position: -1298px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#question-marque{
+	li#question-marque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
+		height:25px;
+		background-position: -1344px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#mail{
+	li#mail a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
+		height:25px;
+		background-position: -1391px -25px;
+		margin-top: 10px;
+		display:block;
 	}
 
-	#casque{
+	li#casque a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
+		height:25px;
+		background-position: -1438px -25px;
+		margin-top: 10px;
+		display:block;
+	}
+	
+
+	li#profil a{
+		width: 48px;
+		height: 48px;
+		background: url('../images/cloudsRewards/log.png');
+		background-position: -1485px -12px;
+		display:block;
 	}
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
-
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
+	li#power a{
 		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
-		background-position: -302px -15px;
+		width:23px;
+		height:25px;
+		background-position: -1558px -25px;
+		margin-top: 10px;
+		display:block;
+	}
+	
+	.logo-cloud-rewards{
+		background:url('../images/cloudsRewards/log.png');
+		background-repeat:no-repeat;
+		width: 296px;
+		height: 55px;
+		background-position: -344px -14px;
+		display:inline-block;
 	}
 }
 
@@ -1706,6 +2484,8 @@ button.btn-valider:hover {
 .menu-niv-1, .menu-niv-2 {
 	padding-left: 15px;
 	padding-right: 15px;
+	position:relative;
+	z-index:1000;
 }
 #sidebar a {
 	font-size: 13px;

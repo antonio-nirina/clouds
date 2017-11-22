@@ -13,23 +13,19 @@
 	{{ render(controller('AdminBundle:Parametrages:sidebar',{'active':1})) }}
 	{# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
 
-	<main class="col-md-9  offset-md-1 float-left main program-choose">
+	<main class="col-xs-10 col-md-9  offset-md-1 float-left main program-choose">
 		{# {{ dump(all_program_type) }}
 		{{ dump(program) }} #}		
 		<div class = "row">
 			<div class = "col-12 col-md-12 sous-menu-main">
 				<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
-					<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+					<div class="navbar" id="collapsingNavbarFormInscription">
 						<ul class="navbar-nav content-menu-niv-3">
 							<li class="nav-item-niv-3 form-inscription">
 								<a class="nav-link-niv-3 menu-page-active" href="form-inscription.php">quel est votre programme de récompenses ?</a> <span class = "bulle-aide"></span>
 							</li>
 						</ul>
 					</div>
-					<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
-						<i class="fa fa-navicon fa-2x py-2 p-1"></i>
-					</button>
-					<a class="navbar-brand abs" href="#"></a>
 				</nav>
 			</div>
 		</div>
