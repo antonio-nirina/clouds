@@ -50,7 +50,7 @@
 			<span class = "text-menu">design</span>
 		</a>
 		
-		<a href="#" class="list-group-item d-inline-block collapsed {{ (active == 6)?'active':'' }}" data-parent="#sidebar">
+		<a href="{{ path("admin_content_configure_login_portal") }}" class="list-group-item d-inline-block collapsed {{ (active == 6)?'active':'' }}" data-parent="#sidebar">
 			{% if level == 6 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				

@@ -58,8 +58,8 @@
 }
 
 .corner-circle-img{
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     background-repeat: no-repeat;
     border: 3px solid #BEBEBE;
     float: right;
@@ -129,6 +129,25 @@
     cursor:pointer;
 }
 
+.styled-checkbox.bigger:checked + label{
+    background: url('../images/cloudsRewards/check-on.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
+}
+
+.styled-checkbox.bigger + label{
+    background: url('../images/cloudsRewards/check-off.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
+}
+
+
 /*.block-table th{*/
     /*background-color: #E3E6F8 !important;*/
     /*background-color: 	rgba(118, 130, 218, 0.2) !important;*/
@@ -196,7 +215,12 @@
 
 .info-container p{
     margin: 0;
-    font-size: 12px;
+    font-size: 13px;
+}
+
+.info-container p span.bigger{
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .row-header-preview-container{
@@ -246,6 +270,8 @@
 .large-textarea{
     width: 100%;
     background-color: inherit;
+    border: 1px solid #636363;
+    border-radius: 5px;
 }
 
 .cke{
@@ -527,4 +553,85 @@
 span.blue-upload{
     background: url('../images/cloudsRewards/upload-blue.png') center center no-repeat;
     padding: 20px;
+}
+
+/* spécifique aux pages "contenus" */
+.img-content-login-portal{
+    background:url('../images/cloudsRewards/Hands-close-up-of-businesswoman-typing-on-the-keyboard.png') no-repeat;
+    background-position: -78px -35px;
+}
+
+.fieldset-nav-tabs{
+    border-bottom: 1px solid;
+    padding-left: 11px;
+}
+
+.fieldset-nav-tabs .tab{
+    width: auto;
+    height: 30px;
+    border-radius: 3px 3px 0 0;
+    background-color: #efefef;
+    font-size: 14px;
+    color: 	#505050;
+    font-family: "Lato";
+    font-weight: 400;
+    margin-right: 4px;
+    padding: 0 5px 0 9px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    outline: 0;
+}
+
+.fieldset-nav-tabs .tab.active{
+    background-color: #4f4f4f;
+    color: #FFFFFF;
+}
+
+.fieldset-nav-tabs .tab.active a{
+    color: inherit !important;
+}
+
+.fieldset-nav-tabs .tab.active .delete-tab{
+    background: url('../images/cloudsRewards/close1.png') no-repeat;
+}
+.fieldset-nav-tabs .tab .delete-tab{
+    width: 15px;
+    height: 15px;
+    background: url('../images/cloudsRewards/close2.png') no-repeat;
+    margin-left: 5px;
+    position: relative;
+    display: inline-block;
+}
+.fieldset-nav-tabs .add-option-tab.add{
+    color: #245EDC !important;
+}
+
+.nav-tabs-container{
+    margin-top: 64px;
+    margin-bottom: 25px;
+}
+
+.login-portal-image-preview{
+    max-width: 95%;
+}
+
+.login-portal-image-preview-container{
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.slide-unit-order-container{
+    display: inline-block;
+    text-align: center;
+    margin-right: 12px;
+}
+
+.slide-unit-order-container .styled-checkbox + label{
+    margin: 0 0 0 0!important;
+}
+
+.slide-unit-order-label-container label{
+    position: absolute;
+    bottom: 0;
 }

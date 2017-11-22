@@ -768,4 +768,17 @@ class ParametragesController extends Controller
             'error_list' => $error_list
         ));
     }
+
+    /**
+     * @Route("/contenus/portail-identification", name="admin_content_configure_login_portal")
+     */
+    public function configureLoginPortalAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Parametrages:content_configure_login_portal.html.twig');
+    }
 }
