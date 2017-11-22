@@ -1,6 +1,6 @@
 <div class="col-md-1 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar">
 	<div class="list-group border-0 card text-center text-md-left">
-		<a id = "programme" href="{{ path("admin_parametrages_programme") }}" class="list-group-item d-inline-block collapsed {{ (active == 1)?'active':'' }}" data-parent="#sidebar">			
+		<a id = "programme" href="{{ path("admin_parametrages_programme") }}" class="list-group-item d-inline-block collapsed {{ (active == 1)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 1 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}
@@ -54,7 +54,7 @@
 			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 		
-		<a id = "contenus" href="#" class="list-group-item d-inline-block collapsed {{ (active == 6)?'active':'' }}" data-parent="#sidebar">
+		<a href="{{ path("admin_content_configure_login_portal") }}" id = "contenus" href="#" class="list-group-item d-inline-block collapsed {{ (active == 6)?'active':'' }}" data-parent="#sidebar">
 			{% if level == 6 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				

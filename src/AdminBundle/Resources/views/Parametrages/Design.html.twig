@@ -15,7 +15,7 @@
 {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':5})) }}
 
 <main class="col-md-9  offset-md-1 float-left main">
-    {# {{ dump(site_form_setting) }} #}
+    {# {{ dump(site_design_form) }} #}
     <div class = "row">
         <div class = "col-12 col-md-12 sous-menu-main">
             <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
@@ -49,30 +49,39 @@
                         <div class = " content-bloc-gauche img-design-logo rounded-circle"></div> 
                     </div>
                 </div>
-                <div class = "row full-width second-logo">
-                    <div class = "col-12 col-md-10 logo-row">
-                        <label for="societe-nom"><span class='bld'>nom de la société *</span></label>
-                        <input type="text" name="societe-nom" id="societe-nom">
-                    </div>
-                    <div class = "col-12 col-md-10 logo-row">
-                        <label for="societe-logo"><span class='bld'>logo de la société</span></label>
-                        <button class ="btn-valider btn-upload">
-                            <span class="upload"></span>                          
-                            choisissez un fichier...
-                        </button>
-                        <input type="file" name="societe-logo" id="societe-logo">
-                        <p>(pour un rendu optimal, exporter en png fond transparent au dimensions : L 290px x H 66px)</p>
-                    </div>
-                </div>
-                <div class = "row full-width">
-                    <div class = "col-12 col-md-12">
-                        <div class="validation">
-                            <button class ="btn-valider valider">
-                                valider
+                {{ form_start(site_design_form) }}
+                    <div class = "row full-width second-logo">                    
+                        <div class = "col-12 col-md-10 logo-row">
+                            <label for="site_design_setting_logo_name"><span class='bld'>nom de la société *</span></label>
+                            {{ form_widget(site_design_form.logo_name) }}                            
+                        </div>
+                        <div class = "col-12 col-md-10 logo-row">
+                            <label for="societe-logo"><span class='bld'>logo de la société</span></label>
+                            <button class="upload-img-button hidden-button">
+                                <span class="blue-upload"></span>
+                                <span class="img-name-container"></span>
                             </button>
+                            <button class ="btn-valider btn-upload">
+                                <span class="upload"></span>                          
+                                choisissez un fichier...
+                            </button>
+                            {{ form_widget(site_design_form.logo_path) }}
+                            <p>(pour un rendu optimal, exporter en png fond transparent au dimensions : L 290px x H 66px)</p>
+                            <p>
+                                {{ form_errors(site_design_form) }}
+                            </p>
+                        </div>                    
+                    </div>                
+                    <div class = "row full-width">
+                        <div class = "col-12 col-md-12">
+                            <div class="validation">
+                                <button class ="btn-valider valider">
+                                    valider
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {{ form_end(site_design_form, {'render_rest': false}) }}
             </section>
 
             <section id = "create-form-inscription" class = "fieldset inactive">                  
@@ -81,7 +90,7 @@
                         <h3 class = "hidden-sm-down">Customiser à vos couleurs</h3>
                         <h5 class = "hidden-md-up">Customiser à vos couleurs</h5> 
                         <p>
-                            Sélectionner une couleur, copier/coller la référence pour la reporter dans le champ de la couleur que vous souhaitez modifier.
+                            Cliquer dans chaque pastille pour en modifier la couleur.
                         </p>                    
                     </div>
                     <div class = "col-md-2 col-lg-1 hidden-sm-down">
@@ -90,84 +99,72 @@
                         <div class = " content-bloc-gauche img-design-color rounded-circle"></div> 
                     </div>
                 </div> 
-
-                <div class="row full-width second-couleur">
-                    <div class="col-md-6 col-12 roue">
-                        <img src="{{ asset('images/cloudsRewards/roue.png') }}">
-                    </div>
-                    <div class="col-md-6 col-12 first-color">
-                        <div class="form-group-color">
-                            <label for="default-value">Couleur selectionnée</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#1d61d4">                            
+                {{ form_start(site_design_form) }}
+                    <div class="row full-width all-colors">
+                        <div class="col-lg-3 col-sm-6 col-12">                            
+                            <div class="form-group-color">
+                                <label for="default-value"><span class="bld">Couleur 1 </span>(principale/boutons)</label>
+                                <br>
+                                {{ form_widget(site_design_form.colors.couleur_1, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_1.vars.value}}) }}                                                           
+                            </div>
+                        </div> 
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group-color">
+                                <label for="default-value"><span class="bld">Couleur 1 Bis </span>(dégradé)</label>
+                                <br>
+                                {{ form_widget(site_design_form.colors.couleur_1_bis, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_1_bis.vars.value}}) }}    
+                            </div>
                         </div>
-                    </div> 
-                </div>
-
-                <div class="row full-width all-colors">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-color">
-                            <label for="default-value"><span class="bld">Couleur 1 </span>(principale/boutons)</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#1d61d4">                            
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group-color">
+                                <label for="default-value"><span class="bld">Couleur 2 </span>(sidebar/titres...)</label>
+                                <br>
+                                {{ form_widget(site_design_form.colors.couleur_2, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_2.vars.value}}) }}                           
+                            </div>
                         </div>
-                    </div> 
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-color">
-                            <label for="default-value"><span class="bld">Couleur 1 Bis </span>(dégradé)</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#598fea">                            
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group-color">
+                                <label for="default-value"><span class="bld">Couleur 3 </span>(menu)</label>
+                                <br>
+                                {{ form_widget(site_design_form.colors.couleur_3, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_3.vars.value}}) }}                            
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-color">
-                            <label for="default-value"><span class="bld">Couleur 2 </span>(sidebar/titres...)</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#7682da">                            
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group-color">
+                                <label for="default-value"><span class="bld">Couleur 4 </span>(police)</label>
+                                <br>
+                                {{ form_widget(site_design_form.colors.couleur_4, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_4.vars.value}}) }}                           
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-color">
-                            <label for="default-value"><span class="bld">Couleur 3 </span>(menu)</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#505050">                            
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group-color">
+                                <label for="default-value"><span class="bld">Couleur 5 </span>(sidebar off)</label>
+                                <br>
+                                {{ form_widget(site_design_form.colors.couleur_5, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_5.vars.value}}) }}                            
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-color">
-                            <label for="default-value"><span class="bld">Couleur 4 </span>(police)</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#505050">                            
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group-color">
+                                <label for="default-value"><span class="bld">Couleur 6 </span>(background)</label>
+                                <br>
+                                {{ form_widget(site_design_form.colors.couleur_6, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_6.vars.value}}) }}                            
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-color">
-                            <label for="default-value"><span class="bld">Couleur 5 </span>(sidebar off)</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#807f81">                            
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-color">
-                            <label for="default-value"><span class="bld">Couleur 6 </span>(background)</label>
-                            <br>
-                            <input type="text" id="default-value" class="color-value" data-defaultValue="#ebeeef">                            
+                    </div>                                           
+                
+                    <div class = "row full-width">
+                        <div class = "col-12 col-md-12">
+                            <div class="validation">
+                                <button class ="btn-valider valider">
+                                    valider
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>                                           
-            
-                <div class = "row full-width">
-                    <div class = "col-12 col-md-12">
-                        <div class="validation">
-                            <button class ="btn-valider valider">
-                                valider
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {{ form_end(site_design_form, {'render_rest': false}) }}
             </section>
 
-            <section id = "create-form-inscription" class = "fieldset inactive">                  
+            <section id = "create-form-inscription" class = "fieldset inactive">                
                 <div class = "row full-width no-contents">
                     <div class = "col-md-8 col-lg-9 col-sm-12 content-bloc-droite">
                         <h3 class = "hidden-sm-down">Choisissez votre police</h3>
@@ -182,111 +179,113 @@
                         <div class = " content-bloc-gauche img-design-police rounded-circle"></div> 
                     </div>
                 </div> 
-
-                <div class = "row full-width second">
-                    <div class = "row col-12 col-md-12">
-                            <div class="col-md-6 col-sm-12 police-option">
-                                <div class="police-opt">
-                                    <span class="police-title">Roboto</span> 
-                                    <div class="right-radio">
-                                        <input id="roboto" type="radio" name="police" value="Roboto">
-                                        <label for="roboto">                                         
-                                            <span></span>           
-                                        </label>
-                                    </div>                                    
-                                    <div class='police-img'>
-                                        <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                
+                {{ form_start(site_design_form) }}
+                    <div class = "row full-width second">
+                        <div class = "row col-12 col-md-12">
+                                <div class="col-md-6 col-sm-12 police-option">
+                                    <div class="police-opt">                                        
+                                        <span class="police-title">Roboto</span> 
+                                        <div class="right-radio">
+                                            {{ form_widget(site_design_form.police.0) }}
+                                            <label for="site_design_setting_police_0">                                         
+                                                <span></span>           
+                                            </label>
+                                        </div>                                    
+                                        <div class='police-img'>
+                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                
+                                 <div class="col-md-6 col-sm-12 police-option">
+                                    <div class="police-opt">
+                                        <span class="police-title">Open Sans</span> 
+                                        <div class="right-radio">
+                                            {{ form_widget(site_design_form.police.1) }}
+                                            <label for="site_design_setting_police_1">                                         
+                                                <span></span>           
+                                            </label>
+                                        </div>                                    
+                                        <div class='police-img'>
+                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 police-option">
+                                    <div class="police-opt">
+                                        <span class="police-title">Lato</span> 
+                                        <div class="right-radio">
+                                            {{ form_widget(site_design_form.police.2) }}
+                                            <label for="site_design_setting_police_2">
+                                                <span></span>           
+                                            </label>
+                                        </div>                                    
+                                        <div class='police-img'>
+                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-sm-12 police-option">
+                                    <div class="police-opt">
+                                        <span class="police-title">Adamina</span> 
+                                        <div class="right-radio">
+                                            {{ form_widget(site_design_form.police.3) }}
+                                            <label for="site_design_setting_police_3">                                         
+                                                <span></span>           
+                                            </label>
+                                        </div>                                    
+                                        <div class='police-img'>
+                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-6 col-sm-12 police-option">
+                                    <div class="police-opt">
+                                        <span class="police-title">Petrona</span> 
+                                        <div class="right-radio">
+                                            {{ form_widget(site_design_form.police.4) }}
+                                            <label for="site_design_setting_police_4">
+                                                <span></span>           
+                                            </label>
+                                        </div>                                    
+                                        <div class='police-img'>
+                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-6 col-sm-12 police-option">
+                                    <div class="police-opt">
+                                        <span class="police-title">Comfortaa</span> 
+                                        <div class="right-radio">
+                                            {{ form_widget(site_design_form.police.5) }}
+                                            <label for="site_design_setting_police_5">
+                                                <span></span>           
+                                            </label>
+                                        </div>                                    
+                                        <div class='police-img'>
+                                            <img src="{{ asset('images/cloudsRewards/comforta-img.png')}}">
+                                        </div>
+                                    </div>
+                                </div>                     
                             
-                             <div class="col-md-6 col-sm-12 police-option">
-                                <div class="police-opt">
-                                    <span class="police-title">Open Sans</span> 
-                                    <div class="right-radio">
-                                        <input id="open_sans" type="radio" name="police" value="Open Sans">
-                                        <label for="open_sans">                                         
-                                            <span></span>           
-                                        </label>
-                                    </div>                                    
-                                    <div class='police-img'>
-                                        <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
-                                    </div>
-                                </div>
+                        </div>
+                    </div>              
+                
+                    <div class = "row full-width">
+                        <div class = "col-12 col-md-12">
+                            <div class="validation">
+                                <button class ="btn-valider valider">
+                                    valider
+                                </button>
                             </div>
-
-                            <div class="col-md-6 col-sm-12 police-option">
-                                <div class="police-opt">
-                                    <span class="police-title">Lato</span> 
-                                    <div class="right-radio">
-                                        <input id="Lato" type="radio" name="police" value="Lato">
-                                        <label for="Lato">                                         
-                                            <span></span>           
-                                        </label>
-                                    </div>                                    
-                                    <div class='police-img'>
-                                        <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6 col-sm-12 police-option">
-                                <div class="police-opt">
-                                    <span class="police-title">Adamina</span> 
-                                    <div class="right-radio">
-                                        <input id="Adamina" type="radio" name="police" value="Adamina">
-                                        <label for="Adamina">                                         
-                                            <span></span>           
-                                        </label>
-                                    </div>                                    
-                                    <div class='police-img'>
-                                        <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div class="col-md-6 col-sm-12 police-option">
-                                <div class="police-opt">
-                                    <span class="police-title">Petrona</span> 
-                                    <div class="right-radio">
-                                        <input id="Petrona" type="radio" name="police" value="Petrona">
-                                        <label for="Petrona">                                         
-                                            <span></span>           
-                                        </label>
-                                    </div>                                    
-                                    <div class='police-img'>
-                                        <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div class="col-md-6 col-sm-12 police-option">
-                                <div class="police-opt">
-                                    <span class="police-title">Comfortaa</span> 
-                                    <div class="right-radio">
-                                        <input id="comfortaa" type="radio" name="police" value="Comfortaa">
-                                        <label for="comfortaa">                                         
-                                            <span></span>           
-                                        </label>
-                                    </div>                                    
-                                    <div class='police-img'>
-                                        <img src="{{ asset('images/cloudsRewards/comforta-img.png')}}">
-                                    </div>
-                                </div>
-                            </div>                     
-                        
-                    </div>
-                </div>              
-            
-                <div class = "row full-width">
-                    <div class = "col-12 col-md-12">
-                        <div class="validation">
-                            <button class ="btn-valider valider">
-                                valider
-                            </button>
                         </div>
                     </div>
-                </div>
+                {{ form_end(site_design_form, {'render_rest': false}) }}
             </section>
         </div>
     </div>

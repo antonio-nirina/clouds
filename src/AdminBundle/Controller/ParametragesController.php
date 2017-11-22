@@ -3,6 +3,7 @@
 
 namespace AdminBundle\Controller;
 
+use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
@@ -17,17 +18,17 @@ use AdminBundle\Form\RegistrationFormIntroDataType;
 use AdminBundle\Form\RegistrationImportType;
 use AdminBundle\Form\ResultSettingType;
 use AdminBundle\Form\ResultSettingUploadType;
+use AdminBundle\Form\SiteDesignSettingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
-use AdminBundle\Component\SiteForm\FieldType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/admin/parametrages")
@@ -774,7 +775,37 @@ class ParametragesController extends Controller
      */
     public function designAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
+        $site_design = $site_design[0];
+        $site_design_form = $this->createForm(SiteDesignSettingType::class, $site_design);
+        // $site_design_form->handleRequest($request);
+
+        // if ($site_design_form->isSubmitted() && $site_design_form->isValid()) {
+        //     dump($request); die;
+        // }
+
         return $this->render('AdminBundle:Parametrages:Design.html.twig', array(
+            'site_design_form' => $site_design_form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/contenus/portail-identification", name="admin_content_configure_login_portal")
+     */
+    public function configureLoginPortalAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Parametrages:content_configure_login_portal.html.twig');
     }
 }
