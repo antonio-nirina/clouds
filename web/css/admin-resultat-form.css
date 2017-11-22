@@ -383,18 +383,16 @@ tr:last-of-type .movedown-field-row-link {
 }
 .fieldset.little {
     max-width: 770px !important;
-    padding-bottom: 100px;
+    padding-bottom: 10px;
 }
 .row.sous-menu-main {
     justify-content: center;
 }
 .little .content-bloc-droite h3 {
     margin-right: 30px;
-    text-align: justify;
 }
 .little .content-bloc-droite h5 {
     margin-right: 10px;
-    text-align: justify;
 }
 .fieldset.active {
     box-shadow: 2px 2px 3px #aaa;
@@ -515,6 +513,7 @@ th label {
     padding: 15px;
     max-width: 400px;
     text-align: left;
+    background-color: white;
 }
 .img-comforta {
     background: url('../images/cloudsRewards/comforta-img.png') no-repeat;
@@ -592,7 +591,7 @@ th label {
     }
 }
 .all-colors {
-    padding: 0 15px !important;
+    padding: 30px 15px 0 !important;
 }
 .bld {
     font-weight: bold;
@@ -603,7 +602,7 @@ th label {
 }
 .logo-row {
     text-align: left;
-    padding: 15px !important;
+    padding: 0 15px 15px !important;
 }
 .logo-row input[type=text] {
     border: 1px solid;
@@ -613,6 +612,15 @@ th label {
 .second-logo label {
     padding-right: 15px;
 }
+.second-logo label[for=societe-logo] {
+    padding-right: 28px;    
+}
 .btn-valider.btn-upload + input[type=file]{
     display: none;
+}
+#site_design_setting_logo_name {
+    min-width: 75%;
+}
+input[type=text] {
+    padding-left: 15px !important;
 }

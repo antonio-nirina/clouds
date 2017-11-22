@@ -1848,3 +1848,32 @@ th {
 	left: 0;
 	top: 0;
 }
+/*bouton upload avec fichier*/
+.upload-img-button {
+    border: solid 3px #457FE3;
+    color: #457FE3;
+    background-color: inherit;
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 7px 15px 7px 5px;
+    min-width: 50px;
+    cursor: pointer;
+    min-height: 35px;
+    max-height: 35px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 0;
+}
+span.blue-upload {
+    background: url('../images/cloudsRewards/upload-blue.png') center center no-repeat;
+    padding: 20px;
+}
+.upload-img-button {
+    color: #457FE3;
+    font-size: 14px;
+    cursor: pointer;
+}
+.hidden-button {
+    display: none;
+}
