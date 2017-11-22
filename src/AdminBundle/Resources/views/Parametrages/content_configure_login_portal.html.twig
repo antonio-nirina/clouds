@@ -1,0 +1,421 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+    {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':6})) }}
+    {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_content_configure_login_portal") }}">portail / identification </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">page d'accueil </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">pages standard </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">tableaux / réseaux </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+                        <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset active">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <h3 class="hidden-sm-down block-title">Création / édition du portail d'identification</h3>
+                            <h5 class="hidden-md-up block-title">Création / édition du portail d'identification</h5>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="hidden-sm-down corner-circle-img img-content-login-portal rounded-circle"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-md-12">
+                            <div class="row form-element-container">
+                                <div class="col-lg-1 col-md-1 col-sm-12">
+                                    <label>titre</label>
+                                </div>
+                                <div class="col-lg-11 col-md-11 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <input type="text" class="large-input-text">
+                                        </div>
+                                    </div>
+                                    {#<div class="row error-message-container">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <ul>
+                                                <li>Message d'erreur</li>
+                                            </ul>
+                                        </div>
+                                    </div>#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>texte</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <textarea class="large-textarea" id="login_portal_textarea"></textarea>
+                        </div>
+                        {#<div class="col-lg-12 error-message-container">
+                            <ul>
+                                <li>Message d'erreur</li>
+                            </ul>
+                        </div>#}
+                    </div>
+                    <div class="row nav-tabs-container">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <ul class="nav nav-tabs fieldset-nav-tabs">
+                                <a class="tab active" data-toggle="tab" href="#tab-form-1">
+                                    <span>slide 1</span>
+                                    <span class="delete-tab"></span>
+                                </a>
+                                <a class="tab" data-toggle="tab" href="#tab-form-2">
+                                    <span>slide 2</span>
+                                    <span class="delete-tab"></span>
+                                </a>
+                                <a class="tab" data-toggle="tab" href="#tab-form-3">
+                                    <span>slide 3</span>
+                                    <span class="delete-tab"></span>
+                                </a>
+                                <a href="#" class="tab add-option-tab add">
+                                    <span>ajouter un slide</span>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row tab-content">
+                        <div class="col-lg-12 col-md-12 col-sm-12 tab-pane in active" id="tab-form-1">
+                            <div class="row form-element-container">
+                                <div class="col-lg-1 col-md-1 col-sm-12">
+                                    <label>image</label>
+                                </div>
+                                <div class="col-lg-11 col-md-11 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <input type="file" class="slide-image-input" style="display: none">
+                                            <button class="btn-valider btn-upload choose-upload-img-button">
+                                                <span class="upload"></span> Choisissez un fichier...
+                                            </button>
+                                            <button class="upload-img-button hidden-button">
+                                                <span class="blue-upload"></span><span class="img-name-container"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                            <p>taille optimale de l'image : <span class="bigger">1920x766 px</span></p>
+                                            <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                            <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row error-message-container">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            {#<ul>
+                                                <li>Error</li>
+                                            </ul>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label>prévisualisation</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 login-portal-image-preview-container">
+                                    <img class="login-portal-image-preview" src="{{ asset("images/cloudsRewards/login_portal_image.png") }}">
+                                </div>
+                            </div>
+                            <div class="row form-element-container">
+                                <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
+                                    <label>ordre d'apparition</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12">
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-1-order-1">1</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-1" checked>
+                                            <label for="slide-1-order-1"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-1-order-2">2</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-2">
+                                            <label for="slide-1-order-2"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-1-order-3">3</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-3">
+                                            <label for="slide-1-order-3"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-1-order-4">4</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-4">
+                                            <label for="slide-1-order-4"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 tab-pane" id="tab-form-2">
+                            <div class="row form-element-container">
+                                <div class="col-lg-1 col-md-1 col-sm-12">
+                                    <label>image</label>
+                                </div>
+                                <div class="col-lg-11 col-md-11 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <input type="file" class="slide-image-input" style="display: none">
+                                            <button class="btn-valider btn-upload choose-upload-img-button">
+                                                <span class="upload"></span> Choisissez un fichier...
+                                            </button>
+                                            <button class="upload-img-button hidden-button">
+                                                <span class="blue-upload"></span><span class="img-name-container"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                            <p>taille optimale de l'image : <span class="bigger">1920x766 px</span></p>
+                                            <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                            <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row error-message-container">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            {#<ul>
+                                                <li>Error</li>
+                                            </ul>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label>prévisualisation</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 login-portal-image-preview-container">
+                                    <img class="login-portal-image-preview" src="{{ asset("images/cloudsRewards/login_portal_image_2.jpg") }}">
+                                </div>
+                            </div>
+                            <div class="row form-element-container">
+                                <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
+                                    <label>ordre d'apparition</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12">
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-2-order-1">1</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-1" checked>
+                                            <label for="slide-2-order-1"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-2-order-2">2</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-2">
+                                            <label for="slide-2-order-2"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-2-order-3">3</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-3">
+                                            <label for="slide-2-order-3"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-2-order-4">4</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-4">
+                                            <label for="slide-2-order-4"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 tab-pane" id="tab-form-3">
+                            <div class="row form-element-container">
+                                <div class="col-lg-1 col-md-1 col-sm-12">
+                                    <label>image</label>
+                                </div>
+                                <div class="col-lg-11 col-md-11 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <input type="file" class="slide-image-input" style="display: none">
+                                            <button class="btn-valider btn-upload choose-upload-img-button">
+                                                <span class="upload"></span> Choisissez un fichier...
+                                            </button>
+                                            <button class="upload-img-button hidden-button">
+                                                <span class="blue-upload"></span><span class="img-name-container"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                            <p>taille optimale de l'image : <span class="bigger">1920x766 px</span></p>
+                                            <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                            <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row error-message-container">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            {#<ul>
+                                                <li>Error</li>
+                                            </ul>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label>prévisualisation</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 login-portal-image-preview-container">
+                                    <img class="login-portal-image-preview" src="{{ asset("images/cloudsRewards/login_portal_image_3.jpg") }}">
+                                </div>
+                            </div>
+                            <div class="row form-element-container">
+                                <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
+                                    <label>ordre d'apparition</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12">
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-3-order-1">1</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-1" checked>
+                                            <label for="slide-3-order-1"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-3-order-2">2</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-2">
+                                            <label for="slide-3-order-2"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-3-order-3">3</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-3">
+                                            <label for="slide-3-order-3"></label>
+                                        </div>
+                                    </div>
+                                    <div class="slide-unit-order-container">
+                                        <div>
+                                            <label for="slide-3-order-4">4</label>
+                                        </div>
+                                        <div>
+                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-4">
+                                            <label for="slide-3-order-4"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row submit-button-container">
+                        <div class="col-lg-12">
+                            <button class ="btn-valider valider">
+                                valider
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class = "row separator"></div>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+            <script>
+                $(document).ready(function(){
+                    CKEDITOR.replace( 'login_portal_textarea', {
+                        language: 'fr',
+                        uiColor: '#9AB8F3',
+                        height: 150,
+                        width: 600,
+                        customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
+                    });
+                });
+            </script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
