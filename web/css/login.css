@@ -32,12 +32,12 @@
  */
 
 html{
-	background:#ebeeef;
+	background:var(--couleur_6);
 	font-family: FontAwesome;
 }
 
 .bg-faded{
-	background:#ebeeef!important;
+	background:var(--couleur_6)!important;
 }
 
 a:hover{
@@ -137,7 +137,7 @@ h1 {
 }
 
 .menu-niv-2{
-	background:#505050!important;
+	background:var(--couleur_4)!important;
 	min-height: 58px;
 }
 
@@ -200,7 +200,7 @@ h1 {
 }
 
 .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active{
-	background-color: #ebeeef!important;
+	background-color: var(--couleur_6)!important;
 }
 
 .navbar-nav{
@@ -291,7 +291,7 @@ h1 {
 
 section.active{
 	background-color:white;
-	border-top: 2px solid blue;
+	border-top: 2px solid var(--color_2);
 }
 
 section.inactive{
@@ -430,7 +430,7 @@ section.inactive{
 }
 
 .menu-page-active{
-	color: #7682da;
+	color: var(--couleur_2);
 	font-weight: bold;
 	text-decoration: none;
 	line-height: 43px;
@@ -502,7 +502,7 @@ li.options{
 }
 
 .content-titre{
-	color:#7682da;
+	color:var(--couleur_2);
 	font-size:17px;
 }
 
@@ -597,7 +597,7 @@ li.options{
 	width: 306px;
 	font-size: 15px;
 	color: rgb(80,80,80);
-	font-family: "Lato-Bold";
+	font-family: var(--police_bold);
 	text-align: center;
 	margin: 0 auto;
 }
@@ -605,9 +605,9 @@ li.options{
 .content-message-login h3{
 	margin:0;
 	padding:0;
-	color:#7682da;
+	color:var(--couleur_2);
 	font-size: 28px;
-	font-family: "Lato-Light";
+	font-family: var(--police_light);
 	text-align: center;
 	margin-top:80px;
 }
@@ -622,7 +622,7 @@ li.options{
 	background-repeat: no-repeat;
 	height:200px;
 	padding-top:15px;
-	background:#505050;
+	background:var(--couleur_4);
 	padding-left: 100px;
 	padding-right: 100px;
 }
@@ -636,7 +636,7 @@ li.options{
 	
 	font-size: 15px;
 	color: white;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 	text-align: center;
 }
 
@@ -644,7 +644,7 @@ li.options{
 	margin-top:80px!important;
 	font-size: 15px;
 	color: rgb(128,128,128);
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 	text-align: center;
 }
 
@@ -664,7 +664,7 @@ li.options{
 .lib-username{
 	color:white;
 	font-size:12px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 .lib_mot_de_passe_oublie{
@@ -698,7 +698,7 @@ li.options{
 .lib-password-first{
 	font-size: 12px;
 	color: white;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 .lib-password-second{
@@ -710,7 +710,7 @@ li.options{
 	color: white;
     font-size: 20px;
     margin-left: 162px!important;
-    font-family: "Lato-light";
+    font-family: var(--police_light);
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
@@ -730,14 +730,14 @@ li.options{
 		height:200px;
 		margin-top:30px;
 		padding-top:15px;
-		background:#505050;
+		background:var(--couleur_4);
 	}
 	
 	.lib_mot_de_passe_oublie{
 		margin-left:0!important;
 		font-size: 20px !important;
 		color: rgb(255,255,255) !important;
-		font-family: "Lato-Light" !important;
+		font-family: var(--police_light) !important;
 		text-align: center;
 	}
 	
@@ -884,7 +884,7 @@ li.options{
 		/*margin-left: 72px!important;*/
 		font-size: 20px!important;
 		color: rgb(255,255,255)!important;
-		font-family: "Lato-Light"!important;
+		font-family: var(--police_light) !important;
 		text-align:center;
 	}
 	
@@ -943,7 +943,7 @@ li.options{
 		margin-left:3px;
 		font-size: 13px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.input-identifiant{
@@ -959,7 +959,7 @@ li.options{
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.lib-identifiant, .lib-password{
@@ -1044,8 +1044,8 @@ li.options{
 		top: 0;
 		left: 10px;
 		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
+		color: var(--couleur_5);
+		border: 1px solid var(--couleur_5);
 		border-radius: 22px;
 		width: 26px;
 		text-align: center;
@@ -1067,7 +1067,7 @@ li.options{
 		left: 0;
 		width: 100%;
 		text-align: center;
-		color: #807f81;
+		color: var(--couleur_5);
 	}
 	.nav-item-niv-2{
 		float:left;
@@ -1172,7 +1172,7 @@ li.options{
 	}
 	
 	#collapsingNavbarNiv1{
-		background: #1d61d4;
+		background: var(--couleur_1);
 		position: absolute;
 		top: 126px;
 		width: 100%;
@@ -1239,7 +1239,7 @@ li.options{
 		height:200px;
 		margin-top:30px;
 		padding-top:15px;
-		background:#505050;
+		background:var(--couleur_4);
 	}
 	
 	.lib_changer_mot_de_passe{
@@ -1254,7 +1254,7 @@ li.options{
 		margin-left:56px!important;
 		font-size: 20px !important;
 		color: rgb(255,255,255) !important;
-		font-family: "Lato-Light" !important;
+		font-family: var(--police_light) !important;
 	}
 
 	div.content-lefter-footer{
@@ -1393,7 +1393,7 @@ li.options{
 		margin-left: 72px!important;
 		font-size: 20px!important;
 		color: rgb(255,255,255)!important;
-		font-family: "Lato-Light"!important;
+		font-family: var(--police_light) !important;
 	}
 	
 	.check-souvenir{
@@ -1453,7 +1453,7 @@ li.options{
 		margin-left:3px;
 		font-size: 13px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.input-identifiant{
@@ -1470,7 +1470,7 @@ li.options{
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.form-connexion {
@@ -1551,8 +1551,8 @@ li.options{
 		top: 0;
 		left: 10px;
 		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
+		color: var(--couleur_5);
+		border: 1px solid var(--couleur_5);
 		border-radius: 22px;
 		width: 26px;
 		text-align: center;
@@ -1574,7 +1574,7 @@ li.options{
 		left: 0;
 		width: 100%;
 		text-align: center;
-		color: #807f81;
+		color: var(--couleur_5);
 	}
 	.nav-item-niv-2{
 		float:left;
@@ -1679,7 +1679,7 @@ li.options{
 	}
 	
 	#collapsingNavbarNiv1{
-		background: #1d61d4;
+		background: var(--couleur_1);
 		position: absolute;
 		top: 126px;
 		width: 100%;
@@ -1740,7 +1740,7 @@ li.options{
 		height:200px;
 		margin-top:30px;
 		padding-top:15px;
-		background:#505050;
+		background:var(--couleur_4);
 	}
 	
 	.input-password-first{
@@ -1887,7 +1887,7 @@ li.options{
 		margin-left: 72px!important;
 		font-size: 20px!important;
 		color: rgb(255,255,255)!important;
-		font-family: "Lato-Light"!important;
+		font-family: var(--police_light) !important;
 	}
 	
 	.check-souvenir{
@@ -1947,7 +1947,7 @@ li.options{
 		margin-left:3px;
 		font-size: 13px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.input-identifiant{
@@ -1964,7 +1964,7 @@ li.options{
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.form-connexion {
@@ -2045,8 +2045,8 @@ li.options{
 		top: 0;
 		left: 10px;
 		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
+		color: var(--couleur_5);
+		border: 1px solid var(--couleur_5);
 		border-radius: 22px;
 		width: 26px;
 		text-align: center;
@@ -2068,7 +2068,7 @@ li.options{
 		left: 0;
 		width: 100%;
 		text-align: center;
-		color: #807f81;
+		color: var(--couleur_5);
 	}
 	.nav-item-niv-2{
 		float:left;
@@ -2173,7 +2173,7 @@ li.options{
 	}
 	
 	#collapsingNavbarNiv1{
-		background: #1d61d4;
+		background: var(--couleur_1);
 		position: absolute;
 		top: 126px;
 		width: 100%;
@@ -2243,7 +2243,7 @@ li.options{
 		height:200px;
 		margin-top:30px;
 		padding-top:15px;
-		background:#505050;
+		background:var(--couleur_4);
 	}
 	
 	.lib_changer_mot_de_passe{
@@ -2383,7 +2383,7 @@ li.options{
 		margin-left: 72px!important;
 		font-size: 20px!important;
 		color: rgb(255,255,255)!important;
-		font-family: "Lato-Light"!important;
+		font-family: var(--police_light) !important;
 	}
 	
 	.check-souvenir{
@@ -2443,7 +2443,7 @@ li.options{
 		margin-left:3px;
 		font-size: 13px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.input-identifiant{
@@ -2460,7 +2460,7 @@ li.options{
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.form-connexion {
@@ -2541,8 +2541,8 @@ li.options{
 		top: 0;
 		left: 10px;
 		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
+		color: var(--couleur_5);
+		border: 1px solid var(--couleur_5);
 		border-radius: 22px;
 		width: 26px;
 		text-align: center;
@@ -2564,7 +2564,7 @@ li.options{
 		left: 0;
 		width: 100%;
 		text-align: center;
-		color: #807f81;
+		color: var(--couleur_5);
 	}
 	.nav-item-niv-2{
 		float:left;
@@ -2676,7 +2676,7 @@ li.options{
 		height:200px;
 		margin-top:30px;
 		padding-top:15px;
-		background:#505050;
+		background:var(--couleur_4);
 	}
 	
 	.lib_changer_mot_de_passe{
@@ -2697,7 +2697,7 @@ li.options{
 		margin-left:56px!important;
 		font-size: 20px !important;
 		color: rgb(255,255,255) !important;
-		font-family: "Lato-Light" !important;
+		font-family: var(--police_light) !important;
 	}
 
 	div.content-righter-footer{
@@ -2824,7 +2824,7 @@ li.options{
 		margin-left: 72px!important;
 		font-size: 20px!important;
 		color: rgb(255,255,255)!important;
-		font-family: "Lato-Light"!important;
+		font-family: var(--police_light) !important;
 	}
 	
 	.check-souvenir{
@@ -2884,7 +2884,7 @@ li.options{
 		margin-left:3px;
 		font-size: 13px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.input-identifiant{
@@ -2901,7 +2901,7 @@ li.options{
 	.lib-identifiant, .lib-password, .lib_connexion, .lib-souvenir, .mot-de-passe-oublie{
 		font-size: 12px;
 		color: rgb(255,255,255);
-		font-family: "Lato-Regular";
+		font-family: var(--police);
 	}
 	
 	.form-connexion {
@@ -2982,8 +2982,8 @@ li.options{
 		top: 0;
 		left: 10px;
 		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
+		color: var(--couleur_5);
+		border: 1px solid var(--couleur_5);
 		border-radius: 22px;
 		width: 26px;
 		text-align: center;
@@ -3005,7 +3005,7 @@ li.options{
 		left: 0;
 		width: 100%;
 		text-align: center;
-		color: #807f81;
+		color: var(--couleur_5);
 	}
 	.nav-item-niv-2{
 		float:left;
@@ -3102,4 +3102,16 @@ li.options{
 		padding-left: 15%;
 		padding-right: 15%;
 	}
+}
+button.btn-valider, .menu-niv-1 {
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+    background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+    background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+    background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );    
+}
+button.btn-valider:hover {
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important; 
+    background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+    background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+    background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
 }

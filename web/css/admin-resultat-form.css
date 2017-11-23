@@ -126,7 +126,7 @@ td.checking {
 .content-bloc-droite h3, .content-bloc-droite h5 {
     font-weight : 300;
     font-size: 25px;
-    color: #505050;  
+    color: var(--couleur_4);  
 }
 span.bold {
     font-weight: bold;
@@ -399,7 +399,7 @@ tr:last-of-type .movedown-field-row-link {
 }
 section.active {
     background-color: white;
-    border-top: 3px solid #7682DA;
+    border-top: 3px solid var(--couleur_2);
 }
 @media only screen and (min-width:980px) {
     .row.principal {

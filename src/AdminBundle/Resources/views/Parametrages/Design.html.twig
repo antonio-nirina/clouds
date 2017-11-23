@@ -15,7 +15,10 @@
 {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':5})) }}
 
 <main class="col-md-9  offset-md-1 float-left main">
-    {# {{ dump(site_design_form) }} #}
+    {# {{ dump(site_design_form_logo) }}
+    {{ dump(site_design_form_colors) }}
+    {{ dump(site_design_form_police) }} #}
+
     <div class = "row">
         <div class = "col-12 col-md-12 sous-menu-main">
             <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
@@ -49,11 +52,11 @@
                         <div class = " content-bloc-gauche img-design-logo rounded-circle"></div> 
                     </div>
                 </div>
-                {{ form_start(site_design_form) }}
+                {{ form_start(site_design_form_logo) }}
                     <div class = "row full-width second-logo">                    
                         <div class = "col-12 col-md-10 logo-row">
                             <label for="site_design_setting_logo_name"><span class='bld'>nom de la société *</span></label>
-                            {{ form_widget(site_design_form.logo_name) }}                            
+                            {{ form_widget(site_design_form_logo.logo_name) }}                            
                         </div>
                         <div class = "col-12 col-md-10 logo-row">
                             <label for="societe-logo"><span class='bld'>logo de la société</span></label>
@@ -65,10 +68,10 @@
                                 <span class="upload"></span>                          
                                 choisissez un fichier...
                             </button>
-                            {{ form_widget(site_design_form.logo_path) }}
+                            {{ form_widget(site_design_form_logo.logo_path) }}
                             <p>(pour un rendu optimal, exporter en png fond transparent au dimensions : L 290px x H 66px)</p>
                             <p>
-                                {{ form_errors(site_design_form) }}
+                                {{ form_errors(site_design_form_logo) }}
                             </p>
                         </div>                    
                     </div>                
@@ -81,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                {{ form_end(site_design_form, {'render_rest': false}) }}
+                {{ form_end(site_design_form_logo) }}
             </section>
 
             <section id = "create-form-inscription" class = "fieldset inactive">                  
@@ -99,55 +102,55 @@
                         <div class = " content-bloc-gauche img-design-color rounded-circle"></div> 
                     </div>
                 </div> 
-                {{ form_start(site_design_form) }}
+                {{ form_start(site_design_form_colors) }}
                     <div class="row full-width all-colors">
                         <div class="col-lg-3 col-sm-6 col-12">                            
                             <div class="form-group-color">
                                 <label for="default-value"><span class="bld">Couleur 1 </span>(principale/boutons)</label>
                                 <br>
-                                {{ form_widget(site_design_form.colors.couleur_1, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_1.vars.value}}) }}                                                           
+                                {{ form_widget(site_design_form_colors.colors.couleur_1, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form_colors.colors.couleur_1.vars.value}}) }}                                                           
                             </div>
                         </div> 
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group-color">
                                 <label for="default-value"><span class="bld">Couleur 1 Bis </span>(dégradé)</label>
                                 <br>
-                                {{ form_widget(site_design_form.colors.couleur_1_bis, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_1_bis.vars.value}}) }}    
+                                {{ form_widget(site_design_form_colors.colors.couleur_1_bis, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form_colors.colors.couleur_1_bis.vars.value}}) }}    
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group-color">
                                 <label for="default-value"><span class="bld">Couleur 2 </span>(sidebar/titres...)</label>
                                 <br>
-                                {{ form_widget(site_design_form.colors.couleur_2, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_2.vars.value}}) }}                           
+                                {{ form_widget(site_design_form_colors.colors.couleur_2, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form_colors.colors.couleur_2.vars.value}}) }}                           
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group-color">
                                 <label for="default-value"><span class="bld">Couleur 3 </span>(menu)</label>
                                 <br>
-                                {{ form_widget(site_design_form.colors.couleur_3, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_3.vars.value}}) }}                            
+                                {{ form_widget(site_design_form_colors.colors.couleur_3, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form_colors.colors.couleur_3.vars.value}}) }}                            
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group-color">
                                 <label for="default-value"><span class="bld">Couleur 4 </span>(police)</label>
                                 <br>
-                                {{ form_widget(site_design_form.colors.couleur_4, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_4.vars.value}}) }}                           
+                                {{ form_widget(site_design_form_colors.colors.couleur_4, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form_colors.colors.couleur_4.vars.value}}) }}                           
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group-color">
                                 <label for="default-value"><span class="bld">Couleur 5 </span>(sidebar off)</label>
                                 <br>
-                                {{ form_widget(site_design_form.colors.couleur_5, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_5.vars.value}}) }}                            
+                                {{ form_widget(site_design_form_colors.colors.couleur_5, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form_colors.colors.couleur_5.vars.value}}) }}                            
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group-color">
                                 <label for="default-value"><span class="bld">Couleur 6 </span>(background)</label>
                                 <br>
-                                {{ form_widget(site_design_form.colors.couleur_6, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form.colors.couleur_6.vars.value}}) }}                            
+                                {{ form_widget(site_design_form_colors.colors.couleur_6, {"attr":{'class':"color-value" , 'data-defaultValue': site_design_form_colors.colors.couleur_6.vars.value}}) }}                            
                             </div>
                         </div>
                     </div>                                           
@@ -161,7 +164,7 @@
                             </div>
                         </div>
                     </div>
-                {{ form_end(site_design_form, {'render_rest': false}) }}
+                {{ form_end(site_design_form_colors) }}
             </section>
 
             <section id = "create-form-inscription" class = "fieldset inactive">                
@@ -180,14 +183,14 @@
                     </div>
                 </div> 
                 
-                {{ form_start(site_design_form) }}
+                {{ form_start(site_design_form_police) }}
                     <div class = "row full-width second">
                         <div class = "row col-12 col-md-12">
                                 <div class="col-md-6 col-sm-12 police-option">
                                     <div class="police-opt">                                        
                                         <span class="police-title">Roboto</span> 
                                         <div class="right-radio">
-                                            {{ form_widget(site_design_form.police.0) }}
+                                            {{ form_widget(site_design_form_police.police.0) }}
                                             <label for="site_design_setting_police_0">                                         
                                                 <span></span>           
                                             </label>
@@ -202,7 +205,7 @@
                                     <div class="police-opt">
                                         <span class="police-title">Open Sans</span> 
                                         <div class="right-radio">
-                                            {{ form_widget(site_design_form.police.1) }}
+                                            {{ form_widget(site_design_form_police.police.1) }}
                                             <label for="site_design_setting_police_1">                                         
                                                 <span></span>           
                                             </label>
@@ -217,7 +220,7 @@
                                     <div class="police-opt">
                                         <span class="police-title">Lato</span> 
                                         <div class="right-radio">
-                                            {{ form_widget(site_design_form.police.2) }}
+                                            {{ form_widget(site_design_form_police.police.2) }}
                                             <label for="site_design_setting_police_2">
                                                 <span></span>           
                                             </label>
@@ -232,7 +235,7 @@
                                     <div class="police-opt">
                                         <span class="police-title">Adamina</span> 
                                         <div class="right-radio">
-                                            {{ form_widget(site_design_form.police.3) }}
+                                            {{ form_widget(site_design_form_police.police.3) }}
                                             <label for="site_design_setting_police_3">                                         
                                                 <span></span>           
                                             </label>
@@ -247,7 +250,7 @@
                                     <div class="police-opt">
                                         <span class="police-title">Petrona</span> 
                                         <div class="right-radio">
-                                            {{ form_widget(site_design_form.police.4) }}
+                                            {{ form_widget(site_design_form_police.police.4) }}
                                             <label for="site_design_setting_police_4">
                                                 <span></span>           
                                             </label>
@@ -262,7 +265,7 @@
                                     <div class="police-opt">
                                         <span class="police-title">Comfortaa</span> 
                                         <div class="right-radio">
-                                            {{ form_widget(site_design_form.police.5) }}
+                                            {{ form_widget(site_design_form_police.police.5) }}
                                             <label for="site_design_setting_police_5">
                                                 <span></span>           
                                             </label>
@@ -285,7 +288,7 @@
                             </div>
                         </div>
                     </div>
-                {{ form_end(site_design_form, {'render_rest': false}) }}
+                {{ form_end(site_design_form_police) }}
             </section>
         </div>
     </div>

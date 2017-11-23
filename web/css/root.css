@@ -1,0 +1,33 @@
+:root {
+    --couleur_1: #1d61d4;
+    --couleur_1_bis: #598fea;
+    --couleur_2: #7682da;
+    --couleur_3: #505050;
+    --couleur_4: #505050;
+    --couleur_5: #807f81;
+    --couleur_6: #ebeeef;
+
+    --police: 'Lato-Regular';
+    --police_light: 'Lato-Light';
+    --police_bold: 'Lato-Bold';
+    
+    /*--police: 'Roboto-Regular'; 
+    --police_light: 'Roboto-Light';
+    --police_bold: 'Roboto-Bold';*/
+
+    /*--police: 'OpenSans-Regular';    
+    --police_light: 'OpenSans-Light';
+    --police_bold: 'OpenSans-Bold';*/
+
+    /*--police: 'Adamina-Regular';
+    --police_light: 'Adamina-Light';
+    --police_bold: 'Adamina-Bold';*/
+
+   /* --police: 'Petrona-Regular';    
+    --police_light: 'Petrona-Light';
+    --police_bold: 'Petrona-Bold';*/
+
+    /*--police: 'Comfortaa';
+    --police_light: 'Comfortaa-Light';
+    --police_bold: 'Comfortaa-Bold';*/
+}

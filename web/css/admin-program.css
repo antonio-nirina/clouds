@@ -57,14 +57,14 @@
     pointer-events : none;
 }
 .FontRec {
-    color: #7682da;
+    color: var(--couleur_2);
     font-size: 30px;
 }
 
 /*
 .fieldset.active {
     box-shadow: 1px 1px 2px #aaa;
-    border-top: 2px solid #7682DA !important;    
+    border-top: 2px solid var(--couleur_2) !important;    
 }
 */
 

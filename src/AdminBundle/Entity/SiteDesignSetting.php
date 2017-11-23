@@ -19,15 +19,15 @@ class SiteDesignSetting
     private $id;
 
     /**
-     * @ORM\Column(name="name_logo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name_logo", type="string", nullable=true)
      */
     private $logo_name;
 
     /**
-     * @ORM\Column(name="logo_path", type="string", length=255, nullable=true)
+     * @ORM\Column(name="logo_path", type="string" ,nullable=true)
      * @Assert\Image(
      *     maxSize = "8M",
-     *     mimeTypes = {"image/jpeg", "image/png", "image/gif"}
+     *     mimeTypes = {"image/png"}
      * )
      */
     private $logo_path;
@@ -38,7 +38,7 @@ class SiteDesignSetting
     private $colors;
 
     /**
-     * @ORM\Column(name="police", type="string", length=255, nullable=true)
+     * @ORM\Column(name="police", type="string", nullable=true)
      */
     private $police;
 

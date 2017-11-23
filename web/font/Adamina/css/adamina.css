@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "Adamina-Light";
+    font-weight: 400;
+    src: url('../fonts/Adamina-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Adamina-Regular";
+    src: url('../fonts/Adamina-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Adamina-Bold";
+    font-weight: bold;
+    src: url('../fonts/Adamina-Regular.ttf') format('truetype');
+}

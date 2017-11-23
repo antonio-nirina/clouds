@@ -49,6 +49,19 @@ class ParametragesController extends Controller
                                 ));
     }
 
+    public function rootAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
+        $site_design = $site_design[0];
+
+        $has_root = $this->container->get('app.design_root')->exists($program->getId());
+        return $this->render('root.html.twig', array(
+                                    'link' => $has_root
+                                ));
+    }
+
     /**
      * @Route("/", name="admin_parametrages_programme")
      * @Method({"GET","POST"})
@@ -784,15 +797,67 @@ class ParametragesController extends Controller
 
         $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
         $site_design = $site_design[0];
-        $site_design_form = $this->createForm(SiteDesignSettingType::class, $site_design);
-        // $site_design_form->handleRequest($request);
+        $logo_path = $this->container->get('admin.logo')->getTargetDir().'/'.$program->getId();
+        if ($file = $site_design->getLogoPath()) {
+            $site_design->setLogoPath(new File($logo_path.'/'.$file));
+        }
+        
+        $site_design_form_logo = $this->createForm(SiteDesignSettingType::class, $site_design)
+                                      ->remove('police')
+                                      ->remove('colors');//form logo
 
-        // if ($site_design_form->isSubmitted() && $site_design_form->isValid()) {
-        //     dump($request); die;
-        // }
+        $site_design_form_colors = $this->createForm(SiteDesignSettingType::class, $site_design)
+                                        ->remove('police')
+                                        ->remove('logo_name')
+                                        ->remove('logo_path');//form couleurs
+
+        $site_design_form_police = $this->createForm(SiteDesignSettingType::class, $site_design)
+                                        ->remove('colors')
+                                        ->remove('logo_name')
+                                        ->remove('logo_path');//form police
+
+        if ($request->get('site_design_setting')) {
+            if (array_key_exists('logo_name', $request->get('site_design_setting'))) {//logo
+                $site_design_form_logo->handleRequest($request);
+                if ($site_design_form_logo->isSubmitted() && $site_design_form_logo->isValid()) {
+                    if ($request->files->get('site_design_setting')) {
+                        $file = $site_design->getLogoPath();
+                        $file_name = $this->container->get('admin.logo')->upload($file, $program->getId());
+                        $site_design->setLogoPath($file_name);
+                    }
+                }
+                $em->flush();
+            }
+
+            if (array_key_exists('colors', $request->get('site_design_setting'))) {//couleur
+                $site_design_form_colors->handleRequest($request);
+                if ($site_design_form_colors->isSubmitted() && $site_design_form_colors->isValid()) {
+                    $this->container->get('app.design_root')->resetRoot(
+                        $program->getId(),
+                        $site_design->getColors(),
+                        $site_design->getPolice()
+                    );
+                    $em->flush();
+                }
+            }
+
+            if (array_key_exists('police', $request->get('site_design_setting'))) {//police
+                $site_design_form_police->handleRequest($request);
+                if ($site_design_form_police->isSubmitted() && $site_design_form_police->isValid()) {
+                    $this->container->get('app.design_root')->resetRoot(
+                        $program->getId(),
+                        $site_design->getColors(),
+                        $site_design->getPolice()
+                    );
+                    $em->flush();
+                }
+            }
+        }
 
         return $this->render('AdminBundle:Parametrages:Design.html.twig', array(
-            'site_design_form' => $site_design_form->createView(),
+            'site_design_form_logo' => $site_design_form_logo->createView(),
+            'site_design_form_colors' => $site_design_form_colors->createView(),
+            'site_design_form_police' => $site_design_form_police->createView(),
         ));
     }
 

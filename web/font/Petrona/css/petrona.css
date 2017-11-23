@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "Petrona-Light";
+    font-weight: 400;
+    src: url('../fonts/Petrona-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Petrona-Regular";
+    src: url('../fonts/Petrona-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Petrona-Bold";
+    font-weight: bold;
+    src: url('../fonts/Petrona-Regular.ttf') format('truetype');
+}

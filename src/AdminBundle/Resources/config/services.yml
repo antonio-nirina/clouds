@@ -19,3 +19,12 @@ services:
         class: AdminBundle\Manager\ProgramManager
         arguments: ['@doctrine.orm.entity_manager', '@request_stack']
 
+    admin.logo:
+        class: AppBundle\Service\FileHandler\LogoUploader
+        arguments: ['%logo_path%']
+
+    app.design_root:
+        class: AppBundle\Service\FileHandler\DesignRoot  
+        arguments: ['%css_root%']
+    
+

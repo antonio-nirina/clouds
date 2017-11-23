@@ -17,6 +17,8 @@ parameters:
     result_setting_model : '%kernel.project_dir%/web/result/model'
     registration_header_image_upload_dir: '%kernel.project_dir%/web/registration/upload/header'
     registration_header_image_location: 'registration/upload/header/'
+    logo_path: '%kernel.project_dir%/web/images/logo'
+    css_root: 'css/root'
 
     # Parameters - Registration - Import : Email texts
     be_contacted_email_subject: "Etre contacté"

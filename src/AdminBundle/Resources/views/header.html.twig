@@ -9,10 +9,11 @@
 
 	{% block stylesheets %}
 		{# On charge les CSS #}
+		{{ render(controller('AdminBundle:Parametrages:root')) }}		
+
 		<link href='{{ asset("css/bootstrap/bootstrap.min.css") }}' rel="stylesheet">
 		<link href='{{ asset("font/font-awesome/css/font-awesome.css") }}' rel="stylesheet">
 		<link href='{{ asset("css/admin.css") }}' rel="stylesheet">
-		<link href='{{ asset("css/sidebar.css") }}' rel="stylesheet">
-		<link href="{{ asset("font/Lato/css/lato.css") }}" rel="stylesheet">
+		<link href='{{ asset("css/sidebar.css") }}' rel="stylesheet">		
 	{% endblock %}
 </head>

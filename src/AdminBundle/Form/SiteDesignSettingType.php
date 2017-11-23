@@ -22,7 +22,7 @@ class SiteDesignSettingType extends AbstractType
         $builder->add('police', ChoiceType::class, array(
                             'choices'  => array(
                                 'Roboto' => "Roboto",
-                                'Open Sans' => "Open Sans",
+                                'Open Sans' => "OpenSans",
                                 'Lato' => "Lato",
                                 'Adamina' => "Adamina",
                                 'Petrona' => "Petrona",
@@ -32,6 +32,9 @@ class SiteDesignSettingType extends AbstractType
                         ))
                 ->add('colors', CollectionType::class, array(
                     "entry_type" => TextType::class,
+                    "entry_options" => array(
+                        "required" => false
+                    )
                 ))
                 ->add('logo_path', FileType::class, array(
                     'required' => false
