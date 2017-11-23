@@ -2267,8 +2267,9 @@ li.options{
 	}
 
 	div.content-center-footer{
-		display: inline-block;
-		float:right;
+		display: block;
+		margin: 0 auto;
+		width: 247px;
 	}
 
 	span.copyright-footer{
@@ -2661,10 +2662,6 @@ li.options{
 		background-position: -218px 0px;
 	}
 	
-	.content-footer{
-		padding-left: 15%;
-		padding-right: 15%;
-	}
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
@@ -2708,8 +2705,9 @@ li.options{
 	}
 
 	div.content-center-footer{
-		display: inline-block;
-		float:right;
+		display: block;
+		margin: 0 auto;
+		width: 247px;
 	}
 
 	span.copyright-footer{
@@ -3098,8 +3096,5 @@ li.options{
 		background-position: -302px -15px;
 	}
 	
-	.content-footer{
-		padding-left: 15%;
-		padding-right: 15%;
-	}
+	
 }

@@ -51,7 +51,6 @@ html{
 body {
 	margin:0;
 	padding:0;
-	/*background:#e7edf1;*/
 	background:#ebeeef;
 	font-family: "Lato-Light";
 }
@@ -189,12 +188,6 @@ h1 {
 	margin-top: -8px;
 }
 
-/*
-.menu-content-sidebare{
-	margin-top:50px!important;
-}
-*/
-
 .nav-link{
 	position:relative;
 	margin-top:10px;
@@ -249,42 +242,11 @@ h1 {
 	color:white;
 }
 
-/*
-.accueil{
-	width:75px;
-}
-
-.dashboard{
-	width:100px;
-}
-
-.communication{
-	width:120px;
-}
-
-.participants{
-	width:100px;
-}
-
-.validations{
-	width:100px;
-}
-
-.multu-operations{
-	width:140px;
-}
-
-.parametrages{
-	width:100px;
-}
-*/
-
 .sous-menu-main{
 	text-align:center;
 }
 
 .fieldset{
-	/*width:100%;*/
 	padding:10px;
 	margin-top:10px;
 	position:relative;
@@ -293,8 +255,11 @@ h1 {
 
 section.active{
 	background-color:white;
-	/*border-top: 2px solid blue;*/
 	box-shadow: 1px 1px 2px #aaa;
+}
+
+#collapsingNavbarFormInscription{
+	margin:0 auto;
 }
 
 section.inactive{
@@ -430,12 +395,14 @@ section.inactive{
 }
 
 .menu-page{
-	color: grey;
-	font-weight: bold;
 	text-decoration: none;
 	line-height: 43px;
 	display: inline-block;
 	border: 0;
+	text-align:center;
+	font-size: 17px;
+	color: rgb(80,80,80);
+	font-family: "Lato-Bold";
 }
 
 .menu-page-active{
@@ -445,6 +412,13 @@ section.inactive{
 	line-height: 43px;
 	display: inline-block;
 	border-bottom: 2px solid;
+	text-align:center;
+	font-family: "Lato-Bold";
+	font-size: 17px;
+}
+
+.menu-page-active:active{
+	text-decoration:none;
 }
 
 
@@ -490,11 +464,6 @@ dt {
 	border-radius: 14px;
 }
 
-
-main{
-	/*border-left: 1px solid #cccaff !important;*/
-}
-
 .input-libelle-radio{
 	margin-left:10px;
 }
@@ -512,7 +481,8 @@ li.options{
 
 .content-titre{
 	color:#7682da;
-	font-size:17px;
+	font-size: 15px;
+	font-family: "Lato-Bold";
 }
 
 .content-description{
@@ -523,6 +493,9 @@ li.options{
 	margin:0;
 	padding:0;
 	text-align:justify;
+	font-size: 14px;
+	color: rgb(64,64,64);
+	font-family: "Lato-Regular";
 }
 
 .content-description-texte{
@@ -562,6 +535,15 @@ li.options{
 	left:12px;
 }
 
+.menu-page-active:active, 
+.menu-page:active{
+	text-decoration:none!important;
+}
+
+.import-choix{
+	font-family: "Lato-Bold";
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	.logo-cloud-rewards{
@@ -575,6 +557,102 @@ li.options{
 		margin-left:15px;
 	}
 	
+	#product-tabs{
+		padding-left:0!important;
+	}
+	
+	#cke_editor{
+		margin-left:0!important;
+		margin-right:0!important;
+	}
+	
+	.row td.row label{
+		padding:0!important;
+	}
+	
+	.champs-form{
+		margin:0!important;
+	}
+	
+	input[type="text"]{
+		padding-left:0!important;
+		text-align: center;
+	}
+	
+	td.row > label + div{
+		margin-left:O!important;
+	}
+	
+	.date-field-form{
+		margin:0!important;
+		min-width: 142px;
+	}
+	
+	.add.add-field-link-declaration{
+		padding:0!important;
+	}
+	
+	
+	
+	.row td.row{
+		margin:7px!important;
+	}
+	
+	.date-field-form input[type="text"]{
+		margin-right:0!important;
+		padding:0!important;
+	}
+	
+	label.second{
+		display:block;
+	}
+	
+	#product-tabs a{
+		width:100%;
+		margin-left:0!important;
+		position:relative;
+	}
+	
+	.sortable-table input[type="checkbox"] + label > span, .modal .modal-content input[type="radio"] + label > span{
+		margin:0!important;
+	}
+	
+	.tab-content{
+		margin-left:-15px!important;
+		margin-right:-15px!important;
+	}
+	
+	.delete-form-level{
+		position:absolute!important;
+		right:5px;
+		top:8px!important;
+	}
+	
+	.full-width > .row{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	.content-bloc-droite{
+		padding-right:15px!important;
+	}
+	
+	.content-bloc-droite h3, .content-bloc-droite h5{
+		text-align:center;
+	}
+	
+	.block-table tr td.field-parameter-state-container{
+		width:inherit!important;
+	}
+	
+	.styled-checkbox + label{
+		width:20px!important;
+	}
+	
+	#collapsingNavbarFormInscription {
+		margin: 0!important;
+	}
+	
 	.block-title{
 		text-align:center!important;
 	}
@@ -586,6 +664,7 @@ li.options{
 	.content-menu-niv-3{
 		text-align:left;
 		margin:0!important;
+		padding:0;
 	}
 	
 	.bulle-aide{
@@ -693,9 +772,13 @@ li.options{
 	
 	.content-btn-action{
 		margin-top:20px;
-		margin-left:40px;
+		/*margin-left:40px;*/
 		margin-bottom: 40px;
 		text-align:center;
+	}
+	
+	.download, .upload{
+		padding:11px!important;
 	}
 
 	.btn-valider-download,
@@ -1005,8 +1088,97 @@ li.options{
 		margin: 10px auto;
 	}
 	
+	#product-tabs{
+		padding-left:0!important;
+	}
+	
+	#cke_editor{
+		margin-left:0!important;
+		margin-right:0!important;
+	}
+	
+	.row td.row label{
+		padding:0!important;
+	}
+	
+	.champs-form{
+		margin:0!important;
+	}
+	
+	input[type="text"]{
+		padding-left:0!important;
+		text-align: center;
+	}
+	
+	td.row > label + div{
+		margin-left:O!important;
+	}
+	
+	.date-field-form{
+		margin:0!important;
+		min-width: 142px;
+	}
+	
+	.add.add-field-link-declaration{
+		padding:0!important;
+	}
+	
+	
+	
+	.row td.row{
+		margin:7px!important;
+	}
+	
+	.date-field-form input[type="text"]{
+		margin-right:0!important;
+		padding:0!important;
+	}
+	
+	label.second{
+		display:block;
+	}
+	
+	#product-tabs a{
+		width:100%;
+		margin-left:0!important;
+		position:relative;
+	}
+	
+	.sortable-table input[type="checkbox"] + label > span, .modal .modal-content input[type="radio"] + label > span{
+		margin:0!important;
+	}
+	
+	.tab-content{
+		margin-left:-15px!important;
+		margin-right:-15px!important;
+	}
+	
+	.delete-form-level{
+		position:absolute!important;
+		right:5px;
+		top:8px!important;
+	}
+	
+	.full-width > .row{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	
+	.content-menu-niv-3{
+		padding:0!important;
+	}
+	
 	.header-preview-container .header-message-preview{
 		top:37px!important;
+	}
+	
+	.block-table tr td.field-parameter-state-container{
+		width:50px!important;
+	}
+	
+	.styled-checkbox + label{
+		width:20px!important;
 	}
 	
 	.navbar-toggler-right {
@@ -1027,6 +1199,7 @@ li.options{
 	
 	.content-bloc-droite{
 		float:none;
+		padding-left:0!important;
 	}
 	
 	.menu-niv-2{
@@ -1401,6 +1574,129 @@ li.options{
 		margin-bottom:9px;
 	}
 	
+	.little .content-bloc-droite h3{
+		margin-right:55px!important;
+	}
+	
+	#product-tabs{
+		padding-left:0!important;
+	}
+	
+	#cke_editor{
+		margin-left:0!important;
+		margin-right:0!important;
+	}
+	
+	.row td.row label{
+		padding:0!important;
+	}
+	
+	.champs-form{
+		margin:0!important;
+	}
+	
+	input[type="text"]{
+		padding-left:0!important;
+		text-align: center;
+	}
+	
+	td.row > label + div{
+		margin-left:O!important;
+	}
+	
+	.date-field-form{
+		margin:0!important;
+		min-width: 142px;
+	}
+	
+	.add.add-field-link-declaration{
+		padding:0!important;
+	}
+	
+	
+	
+	.row td.row{
+		margin:7px!important;
+	}
+	
+	.date-field-form input[type="text"]{
+		margin-right:0!important;
+		padding:0!important;
+	}
+	
+	label.second{
+		display:block;
+	}
+	
+	#product-tabs a{
+		width:100%;
+		margin-left:0!important;
+		position:relative;
+	}
+	
+	.sortable-table input[type="checkbox"] + label > span, .modal .modal-content input[type="radio"] + label > span{
+		margin:0!important;
+	}
+	
+	.tab-content{
+		margin-left:-15px!important;
+		margin-right:-15px!important;
+	}
+	
+	.delete-form-level{
+		position:absolute!important;
+		right:5px;
+		top:8px!important;
+	}
+	
+	.full-width > .row{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	
+	.content-menu-niv-3{
+		padding:0!important;
+	}
+	
+	
+	.styled-checkbox + label{
+		width:20px!important;
+	}
+	
+	.navbar-toggler-right {
+		position: absolute;
+		right: 0;
+		top: 12px;
+		margin-right:15px;
+	}
+	
+	.btn-valider{
+		position: relative;
+		/*left: -21px;*/
+	}
+	
+	.menu-niv-1{
+		height:inherit!important;
+	}
+	
+	.btn-download, .btn-upload{
+		padding:10px!important;
+		font-family:"Lato-Regular"!important;
+	}
+	
+	.content-menu-niv-3{
+		padding:0!important;
+	}
+	
+	.block-table tr td.field-parameter-state-container{
+		width:50px!important;
+	}
+	
+	.styled-checkbox + label{
+		width:20px!important;
+	}
+	
 	.header-preview-container .header-message-preview{
 		top:37px!important;
 	}
@@ -1479,10 +1775,14 @@ li.options{
 		padding-left:10px;
 	}
 	
+	.download, .upload{
+		padding:13px!important;
+	}
+	
 	
 	.content-btn-action{
 		margin-top:20px;
-		margin-left:40px;
+		/*margin-left:40px;*/
 		margin-bottom: 40px;
 		text-align:center;
 	}
@@ -1773,6 +2073,108 @@ li.options{
 @media (min-width: 992px) and (max-width: 1199px) {
 	#collapsingNavbarNiv1{
 		width:70%;
+	}
+	
+	#product-tabs{
+		padding-left:0!important;
+	}
+	
+	#cke_editor{
+		margin-left:0!important;
+		margin-right:0!important;
+	}
+	
+	.row td.row label{
+		padding:0!important;
+	}
+	
+	.champs-form{
+		margin:0!important;
+	}
+	
+	input[type="text"]{
+		padding-left:0!important;
+		text-align: center;
+	}
+	
+	td.row > label + div{
+		margin-left:O!important;
+	}
+	
+	.date-field-form{
+		margin:0!important;
+		min-width: 142px;
+	}
+	
+	.add.add-field-link-declaration{
+		padding:0!important;
+	}
+	
+	.navbar{
+		padding:0!important;
+	}
+	
+	
+	
+	.row td.row{
+		margin:7px!important;
+	}
+	
+	.date-field-form input[type="text"]{
+		margin-right:0!important;
+		padding:0!important;
+	}
+	
+	label.second{
+		display:block;
+	}
+	
+	#product-tabs a{
+		margin-left:0!important;
+		position:relative;
+		width:128px;
+	}
+	
+	th.thead-fix{
+		width:78px;!important;
+	}
+	
+	.add.btn-next-product{
+		width:160px!important;
+	}
+	
+	.sortable-table input[type="checkbox"] + label > span, .modal .modal-content input[type="radio"] + label > span{
+		margin:0!important;
+	}
+	
+	.tab-content{
+		margin-left:-15px!important;
+		margin-right:-15px!important;
+	}
+	
+	.delete-form-level{
+		position:absolute!important;
+		right:5px;
+		top:8px!important;
+	}
+	
+	.full-width > .row{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	.btn-etape-suivante, .btn-etape-contacter{
+		margin-left:0!important;
+	}
+	
+	.field-container .col-lg-5, 
+	.field-container .col-lg-7{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	.block-table tr td.field-parameter-state-container{
+		width:80px!important;
 	}
 	
 	.content-btn-action{
@@ -2090,6 +2492,79 @@ li.options{
 		width:70%;
 	}
 	
+	#product-tabs{
+		padding-left:0!important;
+	}
+	
+	#cke_editor{
+		margin-left:15px!important;
+	}
+	
+	.row td.row label{
+		padding:0!important;
+	}
+	
+	.champs-form{
+		margin:0!important;
+	}
+	
+	input[type="text"]{
+		padding-left:0!important;
+		text-align: center;
+	}
+	
+	td.row > label + div{
+		margin-left:O!important;
+	}
+	
+	.date-field-form{
+		margin:0!important;
+		min-width: 142px;
+	}
+	
+	.add.add-field-link-declaration{
+		padding:0!important;
+	}
+	
+	
+	
+	.row td.row{
+		margin:7px!important;
+	}
+	
+	.date-field-form input[type="text"]{
+		margin-right:0!important;
+		padding:0!important;
+	}
+	
+	label.second{
+		display:block;
+	}
+	
+	#product-tabs a{
+		margin-left:0!important;
+		position:relative;
+	}
+	
+	th.thead-fix{
+		width:78px;!important;
+	}
+	
+	.add.btn-next-product{
+		width:160px!important;
+	}
+	
+	.btn-etape-suivante, .btn-etape-contacter{
+		margin-left:0!important;
+	}
+	
+	.field-container .col-lg-5, 
+	.field-container .col-lg-7{
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	
+	
 	.content-btn-action{
 		margin-top:20px;
 		margin-left:40px;
@@ -2129,6 +2604,7 @@ li.options{
 
 	.content-bloc-droite{
 		margin-right:120px;
+		padding-left: 15px!important;
 	}
 	
 	.fieldset{
@@ -2399,16 +2875,9 @@ li.options{
 	}
 }
    
-/*button.btn-valider {
-    background: linear-gradient(to right, #2969D7, #568CE7 );
-    background: -webkit-linear-gradient(to right, #2969D7, #568CE7 );
-    background: -o-linear-gradient(to right, #2969D7, #568CE7 );
-    background: -moz-linear-gradient(to right, #2969D7, #568CE7 );
-    font-size: 15px;
-}*/
+
 .btn-valider {
-	font-family: Lato !important;
-	font-weight: 400 !important;
+	font-family: "Lato-Regular" !important;
 	font-size: 15px !important;
 }
 
@@ -2420,12 +2889,14 @@ button.btn-valider {
     font-size: 15px;
     min-width: 120px !important;
 }
+
 button.btn-valider:hover {
     background: linear-gradient(to right, #1d61d4, #1d61d4 ) !important; 
     background: -webkit-linear-gradient(to right, #1d61d4, #1d61d4 ) !important;
     background: -o-linear-gradient(to right, #1d61d4, #1d61d4 ) !important;
     background: -moz-linear-gradient(to right, #1d61d4, #1d61d4 ) !important;
 }
+
 .add:before {
     background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #2969D7), color-stop(1, #568CE7));
     background-image: gradient(linear, left top, right top, color-stop(0, #2969D7), color-stop(1, #568CE7));
@@ -2433,6 +2904,7 @@ button.btn-valider:hover {
     -webkit-background-clip: text;
     background-clip: text;
 }
+
 .add:hover:before{
     color: #1d61d4 !important;
 }
@@ -2444,11 +2916,11 @@ button.btn-valider:hover {
 .menu-page-active, .menu-page {
     margin-right: 5px;
 	font-size: 17px;
-	font-family: "Lato-Bold";
 }
 .menu-page-active:hover, .menu-page:hover {
-    font-weight: 900;
     color: #7682da;
+	font-family: "Lato-Bold";
+	font-size: 17px;
 }
 /* btn aide*/
 .bulle-aide {
@@ -2503,11 +2975,9 @@ button.btn-valider:hover {
 }
 #sidebar a:hover {
 	background: white;
-	/*background:url('../images/cloudsRewards/menu/fond-picto-blue.png');*/
 }
 #sidebar a.active {
 	background: white;
-	/*background:url('../images/cloudsRewards/menu/fond-picto-blue.png');*/
 }
 .text-menu {
 	top: 60px;

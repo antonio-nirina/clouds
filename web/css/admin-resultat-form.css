@@ -6,8 +6,8 @@
     margin-right: 0;
     margin-bottom: 50px;
     text-align: left;
-    padding-left: 15px !important;
-    padding-right: 33px !important;
+    padding-left: 15px ;
+    padding-right: 33px;
     float: none;
     min-height: 80px;
 }
@@ -103,6 +103,9 @@ input[type="checkbox"] + label div span, table{
 }
 .sortable-table th {
     text-align: center;
+	font-size: 14px;
+	color: rgb(64,64,64);
+	font-family: "Lato-Regular";
 }
 .sortable-table input[type="checkbox"] + label > span {
     margin-top : 11px;
@@ -114,7 +117,7 @@ td.checking {
     text-align: left;
 }
 .row td.row {
-    margin: 0 !important;
+    margin: 0;
 }
 .row td.row label {
     padding: 20px 0px 15px 25px;
@@ -380,10 +383,12 @@ tr:last-of-type .movedown-field-row-link {
     box-shadow: none;
     border : none;
     max-width: 1024px !important;
+	margin:10px auto;
 }
 .fieldset.little {
-    max-width: 770px !important;
+    /*max-width: 770px !important;*/
     padding-bottom: 10px;
+	margin: 10px auto;
 }
 .row.sous-menu-main {
     justify-content: center;
@@ -408,6 +413,9 @@ section.active {
     }
     th.thead-fix {
         width: 147px;
+		font-size: 14px;
+		color: rgb(64,64,64);
+		font-family: "Lato-Regular";
     }
 }
 .line-option {
@@ -423,8 +431,8 @@ section.active {
 }
 /*correction*/
 .full-width > .row {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .row.full-width.tab-content {
     margin-right: 0px;
@@ -468,6 +476,7 @@ th label {
 @media only screen and (min-width: 980px) {
     .row.button-row {
         padding: 0 8%;
+		padding-bottom: 20px
     }
 }
 .error-message-container {
@@ -622,5 +631,5 @@ th label {
     min-width: 75%;
 }
 input[type=text] {
-    padding-left: 15px !important;
+    padding-left: 15px;
 }

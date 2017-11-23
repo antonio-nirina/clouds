@@ -1,6 +1,10 @@
                      
 <a data-toggle="tab"  href="#tab-form-{{ site_form_field_settings[0].level }}">
-    CA ou produit {{ site_form_field_settings[0].level }}
+	{% if site_form_field_settings[0].level > 1 %}
+		produit {{ site_form_field_settings[0].level }}
+	{% else %}
+		CA ou produit {{ site_form_field_settings[0].level }}
+	{% endif %}
     <span class="delete-form-level"></span>
 </a>
                        

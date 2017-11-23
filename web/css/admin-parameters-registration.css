@@ -1,6 +1,7 @@
 .fieldset h3, h4, h5{
-    font-weight: 300;
-    color: 	#505050;
+    font-size: 25px;
+	color: rgb(64,64,64);
+	font-family: "Lato-Light";
 }
 
 .form-content-inscription{
@@ -44,6 +45,8 @@
     height: auto;
     color: 	#505050;
     max-width: 1024px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .fieldset.active{
@@ -101,11 +104,6 @@
     border-collapse: collapse;
     border: 1px solid #CBCBCB;
     color: 	#505050;
-}
-
-.block-table th, th span{
-    font-family: "Lato";
-    font-weight: normal;
 }
 
 .block-table .field-parameter-state-container, .field-edit-option-container, .field-reorder-option-container{
@@ -186,6 +184,9 @@
 
 .block-table th{
     text-align: center;
+	font-size: 14px;
+	color: rgb(64,64,64);
+	font-family: "Lato-Regular";
 }
 
 .block-table tr td.field-parameter-state-container{
