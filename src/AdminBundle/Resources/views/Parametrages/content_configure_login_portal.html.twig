@@ -129,8 +129,7 @@
                                     <div class="col-lg-11 col-md-11 col-sm-12">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <input type="file" class="slide-image-input" style="display: none">
-                                                {{ form_widget(slide.image) }}
+                                                {{ form_widget(slide.image, {"attr":{"class": "hidden-input-file slide-image-input"}}) }}
                                                 <button class="btn-valider btn-upload choose-upload-img-button">
                                                     <span class="upload"></span> Choisissez un fichier...
                                                 </button>
@@ -194,8 +193,7 @@
                                 <div class="col-lg-11 col-md-11 col-sm-12">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            {#<input type="file" class="slide-image-input" style="display: none">#}
-                                            {{ form_widget(login_portal_data_form.login_portal_slides.vars.prototype.image) }}
+                                            {{ form_widget(login_portal_data_form.login_portal_slides.vars.prototype.image, {"attr":{"class": "hidden-input-file slide-image-input"}}) }}
                                             <button class="btn-valider btn-upload choose-upload-img-button">
                                                 <span class="upload"></span> Choisissez un fichier...
                                             </button>

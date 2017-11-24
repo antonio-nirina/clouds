@@ -210,4 +210,60 @@ $(document).ready(function(){
      * mini plugin ordre d'apparition slide
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - IContenus - Portail d'identification
+     * Upload image
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.btn-upload.choose-upload-img-button', function(e){
+        e.preventDefault();
+        $(this).parent().find('.slide-image-input').trigger('click');
+    });
+
+    $(document).on('click', '.upload-img-button', function(e){
+        e.preventDefault();
+        $(this).parent().find('.slide-image-input').trigger('click');
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - IContenus - Portail d'identification
+     * Upload image
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - IContenus - Portail d'identification
+     * Gestion bouton et preview
+     * *********************************************************************************************
+     */
+    //  preview d'image après choix d'image
+    function createImagePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(input).parents('.tab-pane').find('.login-portal-image-preview').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).on('change', '.slide-image-input', function(){
+        createImagePreview(this);
+        var image_file_name = $(this).val().split('\\').pop();
+        $(this).parent().find('.upload-img-button').css('background-position', '15px');
+        $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
+        $(this).parent().find('.upload-img-button').removeClass('hidden-button');
+        $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+    })
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - IContenus - Portail d'identification
+     * Gestion bouton et preview
+     * *********************************************************************************************
+     */
 });
