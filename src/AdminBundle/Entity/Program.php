@@ -113,6 +113,11 @@ class Program
     private $registration_form_data;
 
     /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\LoginPortalData", inversedBy="program")
+     */
+    private $login_portal_data;
+
+    /**
      * @ORM\PrePersist
      */
     public function initProgram()
@@ -576,5 +581,29 @@ class Program
     public function getRegistrationFormData()
     {
         return $this->registration_form_data;
+    }
+
+    /**
+     * Set loginPortalData
+     *
+     * @param \AdminBundle\Entity\LoginPortalData $loginPortalData
+     *
+     * @return Program
+     */
+    public function setLoginPortalData(\AdminBundle\Entity\LoginPortalData $loginPortalData = null)
+    {
+        $this->login_portal_data = $loginPortalData;
+
+        return $this;
+    }
+
+    /**
+     * Get loginPortalData
+     *
+     * @return \AdminBundle\Entity\LoginPortalData
+     */
+    public function getLoginPortalData()
+    {
+        return $this->login_portal_data;
     }
 }
