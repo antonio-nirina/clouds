@@ -10,8 +10,7 @@ class LoginPortalSlideFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $slide_1 = new LoginPortalSlide();
-        $slide_1->setImage('login_portal_image.png')
-            ->setSlideOrder(1);
+        $slide_1->setSlideOrder(1);
 
         $slide_2 = new LoginPortalSlide();
         $slide_2->setSlideOrder(2);
