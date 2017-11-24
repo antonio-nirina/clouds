@@ -7,6 +7,7 @@ use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
+use AdminBundle\Entity\LoginPortalSlide;
 use AdminBundle\Entity\Program;
 use AdminBundle\Entity\RegistrationFormData;
 use AdminBundle\Entity\SiteFormFieldSetting;
@@ -19,6 +20,7 @@ use AdminBundle\Form\RegistrationImportType;
 use AdminBundle\Form\ResultSettingType;
 use AdminBundle\Form\ResultSettingUploadType;
 use AdminBundle\Form\SiteDesignSettingType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,6 +31,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use AdminBundle\Form\LoginPortalDataType;
 
 /**
  * @Route("/admin/parametrages")
@@ -279,7 +282,8 @@ class ParametragesController extends Controller
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
-            return $this->redirectToRoute('fos_user_security_logout');
+//            return $this->redirectToRoute('fos_user_security_logout');
+            return new Response('');
         }
 
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
@@ -349,7 +353,8 @@ class ParametragesController extends Controller
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
-            return $this->redirectToRoute('fos_user_security_logout');
+//            return $this->redirectToRoute('fos_user_security_logout');
+            return new Response('');
         }
 
         $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
@@ -841,7 +846,7 @@ class ParametragesController extends Controller
         if ($file = $site_design->getLogoPath()) {
             $site_design->setLogoPath(new File($logo_path.'/'.$file));
         }
-        
+
         $site_design_form_logo = $this->createForm(SiteDesignSettingType::class, $site_design)
                                       ->remove('police')
                                       ->remove('colors');//form logo
@@ -914,13 +919,137 @@ class ParametragesController extends Controller
     /**
      * @Route("/contenus/portail-identification", name="admin_content_configure_login_portal")
      */
-    public function configureLoginPortalAction()
+    public function configureLoginPortalAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        return $this->render('AdminBundle:Parametrages:content_configure_login_portal.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $login_portal_data = $program->getLoginPortalData();
+        $original_slides = new ArrayCollection();
+        foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
+            $original_slides->add($slide);
+        }
+
+        $original_slides_image = array();
+        foreach ($original_slides as $slide) {
+            $original_slides_image[$slide->getId()] = $slide->getImage();
+        }
+
+        $form_factory = $this->get('form.factory');
+        $login_portal_data_form = $form_factory->createNamed(
+            "login_portal_data_form",
+            LoginPortalDataType::class,
+            $login_portal_data
+        );
+        $login_portal_data_form->handleRequest($request);
+
+        if ($login_portal_data_form->isSubmitted() && $login_portal_data_form->isValid()) {
+            foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
+                if (is_null($slide->getId())) {
+                    $slide->setLoginPortalData($login_portal_data);
+                    $em->persist($slide);
+                }
+
+                if (is_null($slide->getImage())) {
+                    if (array_key_exists($slide->getId(), $original_slides_image)) {
+                        $slide->setImage($original_slides_image[$slide->getId()]);
+                    }
+                } else {
+                    $image = $slide->getImage();
+                    $image->move(
+                        $this->getParameter('content_login_portal_slide_image_upload_dir'),
+                        $image->getClientOriginalName()
+                    );
+                    $slide->setImage($image->getClientOriginalName());
+                }
+            }
+
+            foreach ($original_slides as $original_slide) {
+                if (false === $login_portal_data->getLoginPortalSlides()->contains($original_slide)) {
+                    $original_slide->setLoginPortalData(null);
+                    $login_portal_data->removeLoginPortalSlide($original_slide);
+                    $em->remove($original_slide);
+                }
+            }
+            $em->flush();
+
+            return $this->redirectToRoute("admin_content_configure_login_portal");
+        }
+
+        return $this->render('AdminBundle:Parametrages:content_configure_login_portal.html.twig', array(
+            'login_portal_data_form' => $login_portal_data_form->createView(),
+            'original_slides_image' => $original_slides_image,
+        ));
+    }
+
+    /**
+     * @Route("/contenus/portail-identification/ajout-slide", name="admin_content_configure_login_portal_add_slide")
+     */
+    public function addLoginPortalSlideAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $login_portal_data = $program->getLoginPortalData();
+        if (is_null($login_portal_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $max_slide_order = 0;
+        if (!$login_portal_data->getLoginPortalSlides()->isEmpty()) {
+            $max_slide_order = $em->getRepository('AdminBundle\Entity\LoginPortalData')
+                ->retrieveMaxSlideOrderByLoginPortalData($login_portal_data);
+        }
+
+        $new_slide = new LoginPortalSlide();
+        $new_slide->setSlideOrder($max_slide_order + 1);
+        $new_slide->setLoginPortalData($login_portal_data);
+        $login_portal_data->addLoginPortalSlide($new_slide);
+        $em->persist($new_slide);
+        $em->flush();
+
+        return new Response($new_slide->getId());
+    }
+
+    /**
+     * @Route(
+     *     "/contenus/portail-identification/suppression-slide/{id}",
+     *     name="admin_content_configure_login_portal_delete_slide"),
+     *     requirements={"id": "\d+"}
+     */
+    public function deleteLoginPortalSlideAction($id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $login_portal_data = $program->getLoginPortalData();
+        if (is_null($login_portal_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $to_del_slide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+            ->findOneBy(array(
+                'login_portal_data' => $login_portal_data,
+                'id' => $id,
+            ));
+        if (is_null($to_del_slide)) {
+            return new Response('');
+        }
+
+        $login_portal_data->removeLoginPortalSlide($to_del_slide);
+        $to_del_slide->setLoginPortalData(null);
+        $em->remove($to_del_slide);
+        $em->flush();
+
+        return new Response('<html><body>OK</body></html>');
     }
 }

@@ -364,7 +364,7 @@
     background-position: center;
 }
 
-.header-image-input{
+.hidden-input-file{
     display: none;
 }
 
@@ -644,4 +644,12 @@ span.blue-upload{
 .slide-unit-order-label-container label{
     position: absolute;
     bottom: 0;
+}
+
+.block-model{
+    display: none;
+}
+
+.block-model-container{
+    display: none;
 }

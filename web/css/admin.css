@@ -7,8 +7,11 @@
 	background:var(--couleur_6)!important;
 }
 
-a:hover{
-	text-decoration:none;
+a:hover,
+a:active,
+a:link,
+a:focus{
+	text-decoration:none!important;
 }
 
 /* Move down content because we have a fixed navbar that is 50px tall */

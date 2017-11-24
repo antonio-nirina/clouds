@@ -23,6 +23,10 @@ parameters:
     # Parameters - Registration - Import : Email texts
     be_contacted_email_subject: "Etre contacté"
 
+    # Parameters - Content - Login portal : import file upload directory
+    content_login_portal_slide_image_upload_dir: '%kernel.project_dir%/web/content/login_portal/slide'
+    content_login_portal_slide_image_location: 'content/login_portal/slide/'
+
 framework:
     #esi: ~
     translator: { fallbacks: ['%locale%'] }
@@ -55,6 +59,7 @@ twig:
     globals:
         registration_header_image_upload_dir: '%registration_header_image_upload_dir%'
         registration_header_image_location: '%registration_header_image_location%'
+        content_login_portal_slide_image_location: '%content_login_portal_slide_image_location%'
 
 # Doctrine Configuration
 doctrine:
