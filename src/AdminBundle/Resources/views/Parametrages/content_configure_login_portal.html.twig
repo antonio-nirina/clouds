@@ -167,7 +167,7 @@
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
-                                        <img class="login-portal-image-preview" src="{{ asset(content_login_portal_slide_image_location ~ slide_image) }}">
+                                        <img class="login-portal-image-preview" src="{{ '' != slide_image ? asset(content_login_portal_slide_image_location ~ slide_image) : '' }}">
                                     </div>
                                 </div>
                                 <div class="row form-element-container">
