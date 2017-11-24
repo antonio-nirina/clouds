@@ -880,6 +880,42 @@ class ParametragesController extends Controller
         $em->persist($new_slide);
         $em->flush();
 
+        return new Response($new_slide->getId());
+    }
+
+    /**
+     * @Route(
+     *     "/contenus/portail-identification/suppression-slide/{id}",
+     *     name="admin_content_configure_login_portal_delete_slide"),
+     *     requirements={"id": "\d+"}
+     */
+    public function deleteLoginPortalSlideAction($id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $login_portal_data = $program->getLoginPortalData();
+        if (is_null($login_portal_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $to_del_slide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+            ->findOneBy(array(
+                'login_portal_data' => $login_portal_data,
+                'id' => $id,
+            ));
+        if (is_null($to_del_slide)) {
+            return new Response('');
+        }
+
+        $login_portal_data->removeLoginPortalSlide($to_del_slide);
+        $to_del_slide->setLoginPortalData(null);
+        $em->remove($to_del_slide);
+        $em->flush();
+
         return new Response('<html><body>OK</body></html>');
     }
 }

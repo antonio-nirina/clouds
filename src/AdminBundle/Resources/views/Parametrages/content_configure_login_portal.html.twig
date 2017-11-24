@@ -104,7 +104,7 @@
                                 {% for slide in login_portal_data_form.login_portal_slides %}
                                 <a class="tab nav-tab {{ 1 == loop.index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ loop.index }}">
                                     <span class="tab-name-container">slide {{ loop.index }}</span>
-                                    <span class="delete-tab"></span>
+                                    <span class="delete-tab" data-slide-id="{{ slide.vars.value.getId }}"></span>
                                 </a>
                                 {% endfor %}
                                 <a href="#" class="tab add-option-tab add add-slide-link">
@@ -116,6 +116,7 @@
                                 <span class="delete-tab"></span>
                             </a>
                             <input type="hidden" name="add_slide_url" value="{{ path("admin_content_configure_login_portal_add_slide") }}">
+                            <input type="hidden" name="delete_slide_url" value="{{ path("admin_content_configure_login_portal_delete_slide", {"id": "__id__"}) }}">
                         </div>
                     </div>
                     <div class="row tab-content">

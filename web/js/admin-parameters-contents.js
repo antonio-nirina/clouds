@@ -12,11 +12,13 @@ $(document).ready(function(){
             type: 'GET',
             url: add_slide_url,
             success: function(html){
-                if(-1 != html.indexOf('OK'))
+                if(html.match(/\d+/))
                 {
                     var new_tab_content = addNewTabContent();
                     var new_tab_nav = addNewTabNav(new_tab_content.attr('id'));
+                    new_tab_nav.find('.delete-tab').attr('data-slide-id', html);
                     new_tab_nav.trigger('click');
+
                     renameExistentTab();
 
                     removeRadioOrder($('.tab-content .radio-order-form-element'));
@@ -73,6 +75,51 @@ $(document).ready(function(){
      */
 
     /**
+     * *********************************************************************************************
+     * Paramétrages - Contenus - Portail d'identification
+     * Suppression de slide
+     * *********************************************************************************************
+     */
+    var part_delete_slide_url = $('input[name=delete_slide_url]').val();
+    $(document).on('click', '.delete-tab', function(e){
+        e.preventDefault();
+        var slide_id = $(this).attr('data-slide-id');
+        var delete_slide_url = part_delete_slide_url.replace(/__id__/, slide_id);
+        var current_delete_link = $(this);
+        $.ajax({
+            type: 'GET',
+            url: delete_slide_url,
+            success: function(html){
+                if(-1 != html.indexOf('OK'))
+                {
+                    var tab_content_id = current_delete_link.parents('.nav-tab').attr('href');
+
+                    if (current_delete_link.parents('.nav-tab').prev('.nav-tab').length > 0) {
+                        current_delete_link.parents('.nav-tab').prev('.nav-tab').trigger('click');
+                    } else {
+                        current_delete_link.parents('.nav-tab').next('.nav-tab').trigger('click');
+                    }
+                    $(tab_content_id).remove();
+                    current_delete_link.parents('.nav-tab').remove();
+
+                    renameExistentTab();
+
+                    removeRadioOrder($('.tab-content .radio-order-form-element'));
+                    radioOrder($('.tab-content .radio-order-form-element'));
+                }
+            }
+        });
+    })
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Contenus - Portail d'identification
+     * Suppression de slide
+     * *********************************************************************************************
+     */
+
+    /**
     * *********************************************************************************************
     * Paramétrages - Contenus - Portail d'identification
     * Validation
@@ -122,9 +169,18 @@ $(document).ready(function(){
 
             if('' !== $(this).val().trim())
             {
-                $(this).parent('')
-                    .find('.slide-unit-order-container[data-order='+$(this).val()+']')
-                    .find('input[type=radio]').prop('checked', true);
+                if($(this).val() > slide_number)
+                {
+                    $(this).parent('')
+                        .find('.slide-unit-order-container[data-order='+slide_number+']')
+                        .find('input[type=radio]').prop('checked', true);
+                }
+                else
+                {
+                    $(this).parent('')
+                        .find('.slide-unit-order-container[data-order='+$(this).val()+']')
+                        .find('input[type=radio]').prop('checked', true);
+                }
             }
             else
             {
