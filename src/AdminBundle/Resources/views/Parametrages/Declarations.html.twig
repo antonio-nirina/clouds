@@ -109,27 +109,22 @@
                     <div class="alert-parent">
                         <div class= "col-12 col-md-12 navbar">
                             <ul class="nav navbar-nav" id="product-tabs">
-								{% set nb_field = fields|length %}
-								{% if nb_field > 1 %}
-									{% for field in fields %}                                
+								{% for field in fields %}
+									{% if field[0].level > 1 %}
 										<a data-toggle="tab"  href="#tab-form-{{ field[0].level }}">
 											produit {{ field[0].level }}
 											<span class="delete-form-level"></span>
 										</a>
-									{% endfor %}
-								{% else %}
-									{% for field in fields %}                                
+									{% else %}
 										<a data-toggle="tab"  href="#tab-form-{{ field[0].level }}">
 											CA ou produit {{ field[0].level }}
 											<span class="delete-form-level"></span>
 										</a>
-									{% endfor %}
-								{% endif %}
-								
-                                
-                                    <a href="#" class ="add add-product btn-next-product">
-                                        ajouter un produit
-                                    </a>                                   
+									{% endif %}
+								{% endfor %}
+								<a href="#" class ="add add-product btn-next-product">
+									ajouter un produit
+								</a>                                   
                             </ul>
                         </div>
                     </div>
