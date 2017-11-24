@@ -62,75 +62,139 @@
                             <div class="hidden-sm-down corner-circle-img img-content-login-portal rounded-circle"></div>
                         </div>
                     </div>
+                    {% if login_portal_data_form is defined %}
+                        {{ form_start(login_portal_data_form, {"attr": {"novalidate": "novalidate"}}) }}
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-md-12">
                             <div class="row form-element-container">
                                 <div class="col-lg-1 col-md-1 col-sm-12">
-                                    <label>titre</label>
+                                    {{ form_label(login_portal_data_form.title, 'titre') }}
                                 </div>
                                 <div class="col-lg-11 col-md-11 col-sm-12">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <input type="text" class="large-input-text">
+                                            {{ form_widget(login_portal_data_form.title, {"attr": {"class": "large-input-text"}}) }}
                                         </div>
                                     </div>
-                                    {#<div class="row error-message-container">
+                                    <div class="row error-message-container">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <ul>
-                                                <li>Message d'erreur</li>
-                                            </ul>
+                                            {{ form_errors(login_portal_data_form.title) }}
                                         </div>
-                                    </div>#}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>texte</label>
+                            {{ form_label(login_portal_data_form.text, 'texte') }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <textarea class="large-textarea" id="login_portal_textarea"></textarea>
+                            {{ form_widget(login_portal_data_form.text, {"attr": {"class": "large-textarea"}}) }}
                         </div>
-                        {#<div class="col-lg-12 error-message-container">
-                            <ul>
-                                <li>Message d'erreur</li>
-                            </ul>
-                        </div>#}
+                        <div class="col-lg-12 error-message-container">
+                            {{ form_errors(login_portal_data_form.text) }}
+                        </div>
                     </div>
                     <div class="row nav-tabs-container">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <ul class="nav nav-tabs fieldset-nav-tabs">
-                                <a class="tab active" data-toggle="tab" href="#tab-form-1">
-                                    <span>slide 1</span>
+                                {% for slide in login_portal_data_form.login_portal_slides %}
+                                <a class="tab nav-tab {{ 1 == loop.index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ loop.index }}">
+                                    <span class="tab-name-container">slide {{ loop.index }}</span>
                                     <span class="delete-tab"></span>
                                 </a>
-                                <a class="tab" data-toggle="tab" href="#tab-form-2">
-                                    <span>slide 2</span>
-                                    <span class="delete-tab"></span>
-                                </a>
-                                <a class="tab" data-toggle="tab" href="#tab-form-3">
-                                    <span>slide 3</span>
-                                    <span class="delete-tab"></span>
-                                </a>
-                                <a href="#" class="tab add-option-tab add">
+                                {% endfor %}
+                                <a href="#" class="tab add-option-tab add add-slide-link">
                                     <span>ajouter un slide</span>
                                 </a>
                             </ul>
+                            <a class="tab nav-tab tab-model block-model" data-toggle="tab" href="">
+                                <span class="tab-name-container"></span>
+                                <span class="delete-tab"></span>
+                            </a>
+                            <input type="hidden" name="add_slide_url" value="{{ path("admin_content_configure_login_portal_add_slide") }}">
                         </div>
                     </div>
                     <div class="row tab-content">
-                        <div class="col-lg-12 col-md-12 col-sm-12 tab-pane in active" id="tab-form-1">
+                        {% for slide in login_portal_data_form.login_portal_slides %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 tab-pane {{ 1 == loop.index ? 'in active' : '' }}" id="tab-form-{{ loop.index }}" data-tab-index="{{ loop.index }}">
+                                <div class="row form-element-container">
+                                    <div class="col-lg-1 col-md-1 col-sm-12">
+                                        <label>image</label>
+                                    </div>
+                                    <div class="col-lg-11 col-md-11 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <input type="file" class="slide-image-input" style="display: none">
+                                                {{ form_widget(slide.image) }}
+                                                <button class="btn-valider btn-upload choose-upload-img-button">
+                                                    <span class="upload"></span> Choisissez un fichier...
+                                                </button>
+                                                <button class="upload-img-button hidden-button">
+                                                    <span class="blue-upload"></span><span class="img-name-container"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                <p>taille optimale de l'image : <span class="bigger">1920x766 px</span></p>
+                                                <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                                <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row error-message-container">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_errors(slide.image) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <label>prévisualisation</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 login-portal-image-preview-container">
+                                        {% set slide_image = '' %}
+                                        {% if original_slides_image is defined %}
+                                            {% if slide.vars.value.getId in original_slides_image | keys %}
+                                                {% if original_slides_image[slide.vars.value.getId] is not null and original_slides_image[slide.vars.value.getId] is not empty %}
+                                                    {% set slide_image = original_slides_image[slide.vars.value.getId] %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        <img class="login-portal-image-preview" src="{{ asset(content_login_portal_slide_image_location ~ slide_image) }}">
+                                    </div>
+                                </div>
+                                <div class="row form-element-container">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
+                                        {{ form_label(slide.slide_order, "ordre d'apparition") }}
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12">
+                                        {{ form_widget(slide.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12">
+                                    {{ form_errors(slide.slide_order) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="block-model-container">
+                        <div class="col-lg-12 col-md-12 col-sm-12 tab-pane block-model tab-content-model">
                             <div class="row form-element-container">
                                 <div class="col-lg-1 col-md-1 col-sm-12">
-                                    <label>image</label>
+                                    {{ form_label(login_portal_data_form.login_portal_slides.vars.prototype.image, 'image') }}
                                 </div>
                                 <div class="col-lg-11 col-md-11 col-sm-12">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <input type="file" class="slide-image-input" style="display: none">
+                                            {#<input type="file" class="slide-image-input" style="display: none">#}
+                                            {{ form_widget(login_portal_data_form.login_portal_slides.vars.prototype.image) }}
                                             <button class="btn-valider btn-upload choose-upload-img-button">
                                                 <span class="upload"></span> Choisissez un fichier...
                                             </button>
@@ -148,9 +212,7 @@
                                     </div>
                                     <div class="row error-message-container">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            {#<ul>
-                                                <li>Error</li>
-                                            </ul>#}
+                                            {{ form_errors(login_portal_data_form.login_portal_slides.vars.prototype.image) }}
                                         </div>
                                     </div>
                                 </div>
@@ -162,235 +224,46 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 login-portal-image-preview-container">
-                                    <img class="login-portal-image-preview" src="{{ asset("images/cloudsRewards/login_portal_image.png") }}">
+                                    <img class="login-portal-image-preview" src="">
                                 </div>
                             </div>
                             <div class="row form-element-container">
                                 <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
-                                    <label>ordre d'apparition</label>
+                                    {{ form_label(login_portal_data_form.login_portal_slides.vars.prototype.slide_order, "ordre d'apparition") }}
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12">
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-1-order-1">1</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-1" checked>
-                                            <label for="slide-1-order-1"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-1-order-2">2</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-2">
-                                            <label for="slide-1-order-2"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-1-order-3">3</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-3">
-                                            <label for="slide-1-order-3"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-1-order-4">4</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-1-order" class="styled-checkbox bigger" type="radio" id="slide-1-order-4">
-                                            <label for="slide-1-order-4"></label>
-                                        </div>
-                                    </div>
+                                {{ form_widget(login_portal_data_form.login_portal_slides.vars.prototype.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 tab-pane" id="tab-form-2">
-                            <div class="row form-element-container">
-                                <div class="col-lg-1 col-md-1 col-sm-12">
-                                    <label>image</label>
-                                </div>
-                                <div class="col-lg-11 col-md-11 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <input type="file" class="slide-image-input" style="display: none">
-                                            <button class="btn-valider btn-upload choose-upload-img-button">
-                                                <span class="upload"></span> Choisissez un fichier...
-                                            </button>
-                                            <button class="upload-img-button hidden-button">
-                                                <span class="blue-upload"></span><span class="img-name-container"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 info-container">
-                                            <p>taille optimale de l'image : <span class="bigger">1920x766 px</span></p>
-                                            <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
-                                            <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="row error-message-container">
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            {#<ul>
-                                                <li>Error</li>
-                                            </ul>#}
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="slide-unit-order-container block-model slide-unit-order-container-model" data-order="">
+                            <div>
+                                <label for="" class="slide-unit-order-label-container">1</label>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label>prévisualisation</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 login-portal-image-preview-container">
-                                    <img class="login-portal-image-preview" src="{{ asset("images/cloudsRewards/login_portal_image_2.jpg") }}">
-                                </div>
-                            </div>
-                            <div class="row form-element-container">
-                                <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
-                                    <label>ordre d'apparition</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12">
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-2-order-1">1</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-1" checked>
-                                            <label for="slide-2-order-1"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-2-order-2">2</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-2">
-                                            <label for="slide-2-order-2"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-2-order-3">3</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-3">
-                                            <label for="slide-2-order-3"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-2-order-4">4</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-2-order" class="styled-checkbox bigger" type="radio" id="slide-2-order-4">
-                                            <label for="slide-2-order-4"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 tab-pane" id="tab-form-3">
-                            <div class="row form-element-container">
-                                <div class="col-lg-1 col-md-1 col-sm-12">
-                                    <label>image</label>
-                                </div>
-                                <div class="col-lg-11 col-md-11 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <input type="file" class="slide-image-input" style="display: none">
-                                            <button class="btn-valider btn-upload choose-upload-img-button">
-                                                <span class="upload"></span> Choisissez un fichier...
-                                            </button>
-                                            <button class="upload-img-button hidden-button">
-                                                <span class="blue-upload"></span><span class="img-name-container"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 info-container">
-                                            <p>taille optimale de l'image : <span class="bigger">1920x766 px</span></p>
-                                            <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
-                                            <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="row error-message-container">
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            {#<ul>
-                                                <li>Error</li>
-                                            </ul>#}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label>prévisualisation</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 login-portal-image-preview-container">
-                                    <img class="login-portal-image-preview" src="{{ asset("images/cloudsRewards/login_portal_image_3.jpg") }}">
-                                </div>
-                            </div>
-                            <div class="row form-element-container">
-                                <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
-                                    <label>ordre d'apparition</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12">
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-3-order-1">1</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-1" checked>
-                                            <label for="slide-3-order-1"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-3-order-2">2</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-2">
-                                            <label for="slide-3-order-2"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-3-order-3">3</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-3">
-                                            <label for="slide-3-order-3"></label>
-                                        </div>
-                                    </div>
-                                    <div class="slide-unit-order-container">
-                                        <div>
-                                            <label for="slide-3-order-4">4</label>
-                                        </div>
-                                        <div>
-                                            <input name="slide-3-order" class="styled-checkbox bigger" type="radio" id="slide-3-order-4">
-                                            <label for="slide-3-order-4"></label>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div>
+                                <input class="styled-checkbox bigger" value="" type="radio" id="">
+                                <label for=""></label>
                             </div>
                         </div>
                     </div>
                     <div class="row submit-button-container">
                         <div class="col-lg-12">
-                            <button class ="btn-valider valider">
+                            <button class ="btn-valider valider submit-form">
                                 valider
                             </button>
                         </div>
                     </div>
+                        {{ form_end(login_portal_data_form) }}
+                    {%  endif %}
+
+                    {#<div class="row">
+                        {{ form_start(login_portal_data_form, {"attr": {"novalidate": "novalidate"}}) }}
+                        {{ form_widget(login_portal_data_form) }}
+                        <button class ="btn-valider valider">
+                            valider
+                        </button>
+                        {{ form_end(login_portal_data_form) }}
+                    </div>#}
                 </section>
             </div>
         </div>
@@ -404,10 +277,11 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
+            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
             <script>
                 $(document).ready(function(){
-                    CKEDITOR.replace( 'login_portal_textarea', {
+                    CKEDITOR.replace( 'login_portal_data_form_text', {
                         language: 'fr',
                         uiColor: '#9AB8F3',
                         height: 150,

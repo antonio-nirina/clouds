@@ -5,6 +5,10 @@ trait SlideTrait
 {
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *     maxSize = "8M",
+     *     mimeTypes = {"image/jpeg", "image/png", "image/gif"}
+     * )
      */
     private $image;
 

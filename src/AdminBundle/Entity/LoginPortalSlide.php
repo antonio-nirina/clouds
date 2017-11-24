@@ -3,6 +3,7 @@ namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AdminBundle\Traits\EntityTraits\SlideTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -85,7 +86,7 @@ class LoginPortalSlide
     /**
      * Set loginPortalData
      *
-     * @param \AdminBundle\Entity\LoginPortalDat $loginPortalData
+     * @param \AdminBundle\Entity\LoginPortalData $loginPortalData
      *
      * @return LoginPortalSlide
      */

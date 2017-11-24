@@ -640,3 +640,11 @@ span.blue-upload{
     position: absolute;
     bottom: 0;
 }
+
+.block-model{
+    display: none;
+}
+
+.block-model-container{
+    display: none;
+}
