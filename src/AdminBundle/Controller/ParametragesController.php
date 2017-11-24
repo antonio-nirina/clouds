@@ -842,7 +842,8 @@ class ParametragesController extends Controller
                 }
             }
             $em->flush();
-            die();
+            
+            return $this->redirectToRoute("admin_content_configure_login_portal");
         }
 
         return $this->render('AdminBundle:Parametrages:content_configure_login_portal.html.twig', array(
