@@ -19,6 +19,12 @@
     <div class = "row">
         <div class = "col-12 col-md-12 sous-menu-main">
             <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+				<ul class="content-menu-niv-3 hidden-lg-up">
+					<li class="nav-item-niv-3 form-imports">
+						<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration_import") }}">import de fichiers des résultas </a>
+						<span class = "bulle-aide"></span>
+					</li>
+				</ul>
                 <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
                     <ul class="navbar-nav content-menu-niv-3">
                         <li class="nav-item-niv-3 form-inscription">
@@ -26,14 +32,14 @@
                             <span class = "bulle-aide"></span>
                         </li>
 
-                        <li class="nav-item-niv-3 form-imports">
+                        <li class="nav-item-niv-3 form-imports hidden-md-down">
                             <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration_import") }}">import de fichiers des résultas </a>
                             <span class = "bulle-aide"></span>
                         </li>
                     </ul>
                 </div>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
-                    <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand abs" href="#"></a>
             </nav>
@@ -41,7 +47,7 @@
     </div>
 
     <div class = "row principal">
-        <div class = "row col-12 col-md-12 sous-menu-main">
+        <div class = "col-12 col-md-12 sous-menu-main">
             <section id = "create-form-inscription" class = "fieldset active little">  
                 
                 <div class = "row full-width no-contents">
@@ -64,7 +70,7 @@
                                     <label for="result_setting_monthly_0">
                                         <span></span>
                                         <div>
-                                            <b>vous ferez une mise à jour mensuelle ou trimestrielle des résultats de vos participants ?</b>
+                                            <span class = "import-choix">vous ferez une mise à jour mensuelle ou trimestrielle des résultats de vos participants ?</span>
                                         </div>
                                     </label>
                                 </div>
@@ -75,7 +81,7 @@
                                     <label for="result_setting_monthly_1">
                                         <span></span>  
                                         <div>                              
-                                            <b>vous ferez plusieurs mises à jour des résultats de vos participants dans le mois ?</b>
+                                            <span class = "import-choix">vous ferez plusieurs mises à jour des résultats de vos participants dans le mois ?</span>
                                         </div>
                                     </label>
                                 </div>
@@ -88,7 +94,7 @@
                                     <label for="result_setting_by_product">
                                         <span></span>  
                                         <div>                              
-                                            <b>les récompenses de vos participants seront différentes en fonction des produits vendus ?</b><br>
+                                            <span class = "import-choix">les récompenses de vos participants seront différentes en fonction des produits vendus ?</span><br>
                                             <span>(5 produits maximum)</span>
                                         </div>
                                     </label>
@@ -100,7 +106,7 @@
                                     <label for="result_setting_by_rank">
                                         <span></span>  
                                         <div>
-                                            <b>les récompenses de vos participants seront différents en fonction de leur rang commercial ?</b><br>
+                                            <span class = "import-choix">les récompenses de vos participants seront différents en fonction de leur rang commercial ?</span><br>
                                             <span>(6 rangs maximum, exemple : directeur national, directeur régional, directeur d'agence, agent commercial, distributeur, assistant commercial)</span>
                                         </div>                              
                                     </label>                                                         

@@ -1,6 +1,8 @@
 .fieldset h3, h4, h5{
-    font-weight: 300;
     color: 	var(--couleur_4);
+    font-size: 25px;
+	/*color: rgb(64,64,64);*/
+	font-family: var(--police_light);
 }
 
 .form-content-inscription{
@@ -44,6 +46,8 @@
     height: auto;
     color: 	var(--couleur_4);
     max-width: 1024px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .fieldset.active{
@@ -102,12 +106,10 @@
     border: 1px solid #CBCBCB;
     color: 	var(--couleur_4);
 }
-
 .block-table th, th span{
     font-family: var(--police);
     font-weight: normal;
 }
-
 .block-table .field-parameter-state-container, .field-edit-option-container, .field-reorder-option-container{
     background-color: #F9F9F9;
 }
@@ -186,6 +188,9 @@
 
 .block-table th{
     text-align: center;
+	font-size: 14px;
+	color: rgb(64,64,64);
+	font-family: "Lato-Regular";
 }
 
 .block-table tr td.field-parameter-state-container{
