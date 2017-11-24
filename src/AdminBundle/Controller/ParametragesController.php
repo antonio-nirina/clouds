@@ -62,6 +62,46 @@ class ParametragesController extends Controller
                                 ));
     }
 
+    public function logoAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
+        $site_design = $site_design[0];
+        $logo_path = false;
+        $name = false;
+
+        if ($file = $site_design->getLogoPath()) {
+            $logo_path = $this->container->getParameter('logo_path').'/'.$program->getId().'/'.$site_design->getLogoPath();
+        } else if ($site_design->getLogoName()) {
+            $name = true;
+        }
+        return $this->render('logo.html.twig', array(
+                                    'link' => $logo_path,
+                                    'name' => $name
+                                ));
+    }
+
+    public function logoLoginAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
+        $site_design = $site_design[0];
+        $logo_path = false;
+        $name = false;
+
+        if ($file = $site_design->getLogoPath()) {
+            $logo_path = $this->container->getParameter('logo_path').'/'.$program->getId().'/'.$site_design->getLogoPath();
+        } else if ($site_design->getLogoName()) {
+            $name = true;
+        }
+        return $this->render('logo_login.html.twig', array(
+                                    'link' => $logo_path,
+                                    'name' => $name
+                                ));
+    }
+
     /**
      * @Route("/", name="admin_parametrages_programme")
      * @Method({"GET","POST"})
@@ -825,7 +865,13 @@ class ParametragesController extends Controller
                         $file_name = $this->container->get('admin.logo')->upload($file, $program->getId());
                         $site_design->setLogoPath($file_name);
                     }
+                } else if ($file) {
+                    $site_design->setLogoPath($file);
                 }
+                $this->container->get('app.design_root')->resetRoot(
+                    $program->getId(),
+                    $site_design
+                );
                 $em->flush();
             }
 
@@ -834,9 +880,11 @@ class ParametragesController extends Controller
                 if ($site_design_form_colors->isSubmitted() && $site_design_form_colors->isValid()) {
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
-                        $site_design->getColors(),
-                        $site_design->getPolice()
+                        $site_design
                     );
+                    if ($file) {
+                        $site_design->setLogoPath($file);
+                    }
                     $em->flush();
                 }
             }
@@ -846,9 +894,11 @@ class ParametragesController extends Controller
                 if ($site_design_form_police->isSubmitted() && $site_design_form_police->isValid()) {
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
-                        $site_design->getColors(),
-                        $site_design->getPolice()
+                        $site_design
                     );
+                    if ($file) {
+                        $site_design->setLogoPath($file);
+                    }
                     $em->flush();
                 }
             }

@@ -2,9 +2,7 @@
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarNiv1">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<a class="navbar-brand abs" href="#">
-		<img src = "{{ asset('images/cloudsRewards/logo-cloud-rewards.png') }}" alt = "" title = "">
-	</a>
+	{{ render(controller("AdminBundle:Parametrages:logoLogin")) }}
 	<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
 		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-8 col-xl-6 offset-md-2 offset-lg-4 offset-xl-6">
 			<form role= "form" class = "form-connexion" name = "form-connexion" action = '{{ path("fos_user_security_check") }}' method="post">

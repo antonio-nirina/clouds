@@ -633,3 +633,11 @@ th label {
 input[type=text] {
     padding-left: 15px;
 }
+@media only screen and (min-width: 960px) {
+    .validation-droite {
+        padding-right: 30% ;
+    }
+    .validation-gauche {
+        padding-left: 30% ;
+    }
+}

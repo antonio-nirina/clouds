@@ -289,7 +289,8 @@ section.inactive{
 	padding: 0;
 	padding-left: 36px;
 	/*width: 491px;*/
-	color: rgb(80,80,80);
+	/*color: rgb(80,80,80);*/
+	color: var(--couleur_4);
 	font-family: var(--police_light);
 	text-align: left;
 }
@@ -304,7 +305,8 @@ section.inactive{
 
 .libelle-mode{
 	font-size: 15px;
-	color: rgb(80,80,80);
+	/*color: rgb(80,80,80);*/
+	color: var(--couleur_4);	
 	font-family: var(--police);
 }
 
@@ -373,7 +375,8 @@ section.inactive{
 	border: 0;
 	text-align:center;
 	font-size: 17px;
-	color: rgb(80,80,80);
+	/*color: rgb(80,80,80);*/
+	color: var(--couleur_4);	
 	font-family: "Lato-Bold";
 }
 
@@ -518,7 +521,7 @@ li.options{
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
-	.logo-cloud-rewards{
+	.logo-cloud-rewards, .nom-logo{
 		background: url('../images/cloudsRewards/logo-cloud-rewards.png');
 		background-repeat: no-repeat;
 		width: 76%;
@@ -1050,7 +1053,7 @@ li.options{
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767px) {
-	.logo-cloud-rewards{
+	.logo-cloud-rewards, .nom-logo{
 		background: url('../images/cloudsRewards/logo-cloud-rewards.png');
 		background-repeat: no-repeat;
 		width: 76%;
@@ -1534,7 +1537,7 @@ li.options{
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991px) {
-	.logo-cloud-rewards{
+	.logo-cloud-rewards, .nom-logo{
 		background: url('../images/cloudsRewards/logo-cloud-rewards.png');
 		background-repeat: no-repeat;
 		width: 76%;
@@ -2448,7 +2451,7 @@ li.options{
 		display:block;
 	}
 	
-	.logo-cloud-rewards{
+	.logo-cloud-rewards, .nom-logo{
 		background:url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width: 296px;
@@ -2523,7 +2526,7 @@ li.options{
 	}
 	
 	.add.btn-next-product{
-		width:160px!important;
+		width:162px!important;
 	}
 	
 	.btn-etape-suivante, .btn-etape-contacter{
@@ -2828,7 +2831,7 @@ li.options{
 	}
 
 	li#power a{
-		background: url('../images/cloudsRewards/log.png');
+		background: '../images/cloudsRewards/log.png';
 		background-repeat:no-repeat;
 		width:23px;
 		height:25px;
@@ -2837,7 +2840,7 @@ li.options{
 		display:block;
 	}
 	
-	.logo-cloud-rewards{
+	.logo-cloud-rewards, .nom-logo{
 		background:url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width: 296px;
@@ -2846,7 +2849,18 @@ li.options{
 		display:inline-block;
 	}
 }
-   
+.logo-cloud-rewards {
+	background-repeat: no-repeat !important;
+}
+.nom-logo {
+	background : none !important;
+	display: var(--nom_logo_display);
+	font-family: var(--police_bold);
+	font-size: 1.5em;
+}
+.nom-logo:before {
+	content: var(--nom_logo_content);
+}
 
 .btn-valider {
 	font-family: var(--police) !important;
@@ -2854,10 +2868,10 @@ li.options{
 }
 
 button.btn-valider, .menu-niv-1 {
-    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
     background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
     background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
     background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );    
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );    
 }
 button.btn-valider {
 	font-size: 15px;
@@ -2865,10 +2879,10 @@ button.btn-valider {
 }
 
 button.btn-valider:hover {
-    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important; 
     background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
     background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
     background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
 }
 
 .add:before {
@@ -3055,13 +3069,13 @@ button.btn-valider:hover {
 
 th {
 	font-weight: normal;
-	background-color: #E3E6F8 !important;
-	background-color: 	rgba(118, 130, 218, 0.2) !important;
+	/*background-color: #E3E6F8 !important;*/
+	background-color: 	var(--couleur_th)/*rgba(118, 130, 218, 0.2)*/ !important;
 }
 
 .head-personalized{
-	background-color: #E3E6F8 !important;
-	background-color: 	rgba(118, 130, 218, 0.2) !important;
+	/*background-color: #E3E6F8 !important;*/
+	background-color: 	var(--couleur_th)/*rgba(118, 130, 218, 0.2)*/ !important;
 }
 
 .block-active-hover{

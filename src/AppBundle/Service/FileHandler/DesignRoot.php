@@ -2,8 +2,9 @@
 
 namespace AppBundle\Service\FileHandler;
 
-use Symfony\Component\Filesystem\Filesystem;
+use AdminBundle\Entity\SiteDesignSetting;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class DesignRoot
 {
@@ -28,11 +29,17 @@ class DesignRoot
         }
     }
 
-    public function resetRoot($id, $colors, $police)
+    public function resetRoot($id, SiteDesignSetting $site_design)
     {
+        $colors = $site_design->getColors();
+        $police = $site_design->getPolice();
+        $path =   $site_design->getLogoPath();
+        $nom = $site_design->getLogoName();
+
         $default = file_get_contents($this->default);
+        $colors['couleur_th'] = $this->hex2rgba($colors["couleur_2"], true);
         $new_root_css = str_replace(
-            array("#1d61d4","#598fea","#7682da","#505050","#505050","#807f81","#ebeeef"),
+            array("#1d61d4","#598fea","#7682da","#505050","#505050","#807f81","#ebeeef","rgba(118, 130, 218, 0.2)"),
             array(
                 $colors["couleur_1"],
                 $colors["couleur_1_bis"],
@@ -41,9 +48,27 @@ class DesignRoot
                 $colors["couleur_4"],
                 $colors["couleur_5"],
                 $colors["couleur_6"],
+                $colors["couleur_th"],
             ),
             $default
         );
+
+        if ($nom) {
+            $new_root_css = str_replace(
+                array("cloudRewards", '--nom_logo_display: none'),
+                array($nom, '--nom_logo_display: inherit'),
+                $new_root_css
+            );
+        }
+
+        if ($path) {
+            $new_root_css = str_replace(
+                '--nom_logo_display: inherit',
+                '--nom_logo_display: none',
+                $new_root_css
+            );
+        }
+
         $new_root_css = str_replace(
             array("Lato-Light","Lato-Regular","Lato-Bold"),
             array(
@@ -54,5 +79,36 @@ class DesignRoot
             $new_root_css
         );
         $this->fs->dumpFile($this->root_path.'/'.$id.'/root.css', $new_root_css);
+    }
+
+    public function hex2rgba($hex, $blur = false)
+    {
+        $hex = str_replace("#", "", $hex);
+        
+        switch (strlen($hex)) {
+            case 3:
+                $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
+                $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
+                $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));
+                $a = 1;
+                break;
+            case 6:
+                $r = hexdec(substr($hex, 0, 2));
+                $g = hexdec(substr($hex, 2, 2));
+                $b = hexdec(substr($hex, 4, 2));
+                $a = 1;
+                break;
+            case 8:
+                $a = hexdec(substr($hex, 0, 2)) / 255;
+                $r = hexdec(substr($hex, 2, 2));
+                $g = hexdec(substr($hex, 4, 2));
+                $b = hexdec(substr($hex, 6, 2));
+                break;
+        }
+        if ($blur) {
+            $a = 0.2;
+        }
+        $rgba = array($r, $g, $b, $a);
+        return 'rgba('.implode(', ', $rgba).')';
     }
 }

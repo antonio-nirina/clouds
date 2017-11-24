@@ -11,6 +11,17 @@ $(document).ready(function(){
             $(this).next("input[type=file]").click();
         }
     });
+    $('.initialize').on('click',function(e){
+        e.preventDefault();
+        $('#site_design_setting_colors_couleur_1').val('#1d61d4');
+        $('#site_design_setting_colors_couleur_1_bis').val('#598fea');
+        $('#site_design_setting_colors_couleur_2').val('#7682da');
+        $('#site_design_setting_colors_couleur_3').val('#505050');
+        $('#site_design_setting_colors_couleur_4').val('#505050');
+        $('#site_design_setting_colors_couleur_5').val('#807f81');
+        $('#site_design_setting_colors_couleur_6').val('#ebeeef');
+        $(this).parents('form').submit();
+    });
     $('.upload-img-button').on('click', function(e) {
         e.preventDefault();        
         $(this).next('.btn-valider.btn-upload').click();

@@ -3101,14 +3101,28 @@ li.options{
 	}*/
 }
 button.btn-valider, .menu-niv-1 {
-    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
     background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
     background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
     background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );    
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );    
 }
 button.btn-valider:hover {
-    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important; 
     background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
     background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
     background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+    background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;    
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important; 
+}
+.logo-image {
+	max-height: 66px;
+	object-fit: contain;
+}
+.nom-logo {
+	background : none !important;
+	display: var(--nom_logo_display);
+	font-family: var(--police_bold);
+	font-size: 1.5em;
+}
+.nom-logo:before {
+	content: var(--nom_logo_content);
 }
