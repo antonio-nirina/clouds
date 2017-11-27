@@ -14,6 +14,15 @@ a:focus{
 	text-decoration:none!important;
 }
 
+a:active,
+a:link,
+a:focus{
+	color:#505050;
+	/*border:0;*/
+	/*border-style:none;*/
+	outline-style:none;
+}
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 html{
 	margin:0;
@@ -119,9 +128,9 @@ h1 {
 }
 
 .nav-item-niv-3{
-	float: left;
-	display: block;
-	margin-left: 40px;
+	/*float: left;*/
+	display: inline-block;
+	margin-left: 2%;
 }
 
 
@@ -201,6 +210,8 @@ h1 {
 
 .content-menu-niv-3{
 	margin:0 auto;
+	width:100%;
+	text-align:center;
 }
 
 .nav-item-niv-2 a{
@@ -536,6 +547,55 @@ li.options{
 		margin-left:15px;
 	}
 	
+	.btn-content-retour-valider{
+		width:90%!important;
+		margin:0 auto!important;
+	}
+	
+	.modal-content .content .line, .modal-content .content .intitule{
+		padding-top: 80px!important;
+	}
+	
+	.fieldset-nav-tabs{
+		padding:0!important;
+		margin:0;
+		display:block;
+	}
+	
+	.fieldset-nav-tabs .tab{
+		display:block!important;
+		width:100%!important;
+		position:relative;
+	}
+	
+	.fieldset-nav-tabs .tab .delete-tab{
+		position:absolute!important;
+		right: 5px;
+		top: 7px
+	}
+	
+	.tab-name-container{
+		position:absolute;
+		top: 3px;
+	}
+	
+	.styled-checkbox.bigger + label{
+		width:25px!important;
+	}
+	
+	.ajout-btn-slide{
+		position: absolute;
+		top: 7px;
+	}
+	
+	.submit-button-container-contenu{
+		margin-top:-56px!important;
+	}
+	
+	button.btn-valider{
+		margin-top: 88px;
+	}
+	
 	#product-tabs{
 		padding-left:0!important;
 	}
@@ -640,6 +700,10 @@ li.options{
 		padding:0!important;
 	}
 	
+	.police-opt{
+		margin:0 auto;
+	}
+	
 	.content-menu-niv-3{
 		text-align:left;
 		margin:0!important;
@@ -706,6 +770,7 @@ li.options{
 	.nav-item-niv-3{
 		margin-left:0;
 		float:none;
+		display:block;
 	}
 	
 	.FontRec{
@@ -1067,6 +1132,59 @@ li.options{
 		margin: 10px auto;
 	}
 	
+	.btn-content-retour-valider{
+		width:100%!important;
+		margin:0 auto!important;
+	}
+	
+	.modal-content .content .line, .modal-content .content .intitule{
+		padding-top: 80px!important;
+	}
+	
+	.fieldset-nav-tabs{
+		padding:0!important;
+		margin:0;
+		display:block;
+	}
+	
+	.fieldset-nav-tabs .tab{
+		display:block!important;
+		width:100%!important;
+		position:relative;
+	}
+	
+	.fieldset-nav-tabs .tab .delete-tab{
+		position:absolute!important;
+		right: 5px;
+		top: 7px
+	}
+	
+	.tab-name-container{
+		position:absolute;
+		top: 3px;
+	}
+	
+	.styled-checkbox.bigger + label{
+		width:25px!important;
+	}
+	
+	.ajout-btn-slide{
+		position: absolute;
+		top: 7px;
+	}
+	
+	.submit-button-container-contenu{
+		margin-top:-56px!important;
+	}
+	
+	.police-opt{
+		max-width:100%!important;
+	}
+	
+	button.btn-valider{
+		margin-top: 88px;
+	}
+	
 	#product-tabs{
 		padding-left:0!important;
 	}
@@ -1193,6 +1311,7 @@ li.options{
 	.nav-item-niv-3{
 		margin-left:0;
 		float:none;
+		display:block;
 	}
 	
 	.FontRec{
@@ -1553,6 +1672,63 @@ li.options{
 		margin-bottom:9px;
 	}
 	
+	.btn-content-retour-valider{
+		width:100%!important;
+		margin:0 auto!important;
+	}
+	
+	.fieldset-nav-tabs{
+		padding:0!important;
+		margin:0;
+		display:block;
+	}
+	
+	.fieldset-nav-tabs .tab{
+		display:block!important;
+		width:100%!important;
+		position:relative;
+	}
+	
+	.fieldset-nav-tabs .tab .delete-tab{
+		position:absolute!important;
+		right: 5px;
+		top: 7px
+	}
+	
+	.tab-name-container{
+		position:absolute;
+		top: 3px;
+	}
+	
+	.styled-checkbox.bigger + label{
+		width:25px!important;
+	}
+	
+	.ajout-btn-slide{
+		position: absolute;
+		top: 7px;
+	}
+	
+	.submit-button-container-contenu{
+		margin-top:-56px!important;
+	}
+	
+	.police-opt{
+		max-width:100%!important;
+	}
+	
+	.modal-content .content .line, .modal-content .content .intitule{
+		padding-top: 80px!important;
+	}
+	
+	button.btn-valider{
+		margin-top: 88px;
+	}
+	
+	.modal-content .content label > div.titre-label{
+		width:100%!important;
+	}
+	
 	.little .content-bloc-droite h3{
 		margin-right:55px!important;
 	}
@@ -1711,6 +1887,7 @@ li.options{
 	.nav-item-niv-3{
 		margin-left:0;
 		float:none;
+		display:block;
 	}
 	
 	.FontRec{
@@ -2054,6 +2231,11 @@ li.options{
 		width:70%;
 	}
 	
+	.btn-content-retour-valider{
+		width:82%!important;
+		margin:0 auto!important;
+	}
+	
 	#product-tabs{
 		padding-left:0!important;
 	}
@@ -2360,6 +2542,7 @@ li.options{
 	
 	.content-log-header{
 		width:50%;
+		padding-right:15px;
 	}
 	
 	.content-log-header ul{
@@ -2378,6 +2561,7 @@ li.options{
 	
 	.logo-content{
 		width:30%;
+		padding-left:15px;
 	}
 
 
@@ -2469,6 +2653,11 @@ li.options{
 @media (min-width: 1200px) {
 	#collapsingNavbarNiv1{
 		width:70%;
+	}
+	
+	.btn-content-retour-valider{
+		width:60%!important;
+		margin:0 auto!important;
 	}
 	
 	#product-tabs{
@@ -2835,7 +3024,7 @@ li.options{
 	}
 
 	li#power a{
-		background: '../images/cloudsRewards/log.png';
+		background: url('../images/cloudsRewards/log.png');
 		background-repeat:no-repeat;
 		width:23px;
 		height:25px;

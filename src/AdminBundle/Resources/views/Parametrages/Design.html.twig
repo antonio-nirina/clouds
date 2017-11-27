@@ -21,16 +21,16 @@
 
     <div class = "row">
         <div class = "col-12 col-md-12 sous-menu-main">
-            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
-                <div class="navbar" id="collapsingNavbarFormInscription">
-                    <ul class="navbar-nav content-menu-niv-3">
-                        <li class="nav-item-niv-3 form-inscription">
-                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration") }}">design : marque, logo, couleurs et police </a>
-                            <span class = "bulle-aide"></span>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+				<div class="navbar" id="collapsingNavbarFormInscription">
+					<ul class="navbar-nav content-menu-niv-3">
+						<li class="nav-item-niv-3 form-inscription">
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration") }}">design : marque, logo, couleurs et police </a> 
+							<span class = "bulle-aide"></span>
+						</li>
+					</ul>
+				</div>
+			</nav>
         </div>
     </div>
 
@@ -154,7 +154,7 @@
                         </div>
                     </div>                                           
                 
-                    <div class = "row full-width">
+                    <div class = "row full-width btn-content-retour-valider">
                         <div class = "col-12 col-md-6">
                             <div class="validation validation-gauche">
                                 <button class ="btn-valider valider">
@@ -195,7 +195,7 @@
                 
                 {{ form_start(site_design_form_police) }}
                     <div class = "row full-width second">
-                        <div class = "row col-12 col-md-12">
+                        <div class = "row">
                                 <div class="col-md-6 col-sm-12 police-option">
                                     <div class="police-opt">                                        
                                         <span class="police-title roboto">Roboto</span> 

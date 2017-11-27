@@ -294,7 +294,8 @@ tr:last-of-type .movedown-field-row-link {
 }
 .modal-content .content .line, .modal-content .content .intitule{
     text-align: left;
-    padding: 13px;                    
+    padding: 13px;
+	padding-top:28px;
 }
 .modal-content .content .intitule{
     padding-top: 30px
@@ -374,6 +375,7 @@ tr:last-of-type .movedown-field-row-link {
  .modal-content .content label, .modal-content .content label .date-field-form{
     display : inline-block;
     text-align: left;
+	height:18px;
 }
 .modal-content .content label > div {
     display: inline-block;
@@ -444,14 +446,17 @@ th label {
 .modal-content .content input[type=text] {
     height: 35px;
     border-radius: 5px;
-    padding-left: 15px;
+    padding-left: 15px!important;
     border: 1px solid gray;
+	text-align:left;
 }
 .modal-content .content input.day, .modal-content .content input.month, .modal-content .content input.year {    
     color: #BABABA;
     padding: 6px;
     font-size: 14px;
     margin-right: 3px;
+	text-align:center;
+	padding-left: 0!important;
 }
 .modal-content .content input[type="radio"] + label div {
     padding-left: 0;
@@ -519,7 +524,7 @@ th label {
 }
 .police-opt {
     border: 1px solid;
-    padding: 15px;
+    padding: 8px;
     max-width: 400px;
     text-align: left;
     /*background-color: white;*/
@@ -549,7 +554,7 @@ th label {
 }
 @media only screen and (max-width: 1026px) {
     .police-option {
-        max-width: 100% !important;
+        /*max-width: 100% !important;*/
         flex: 0 auto;
     }
 }
