@@ -26,7 +26,6 @@ class SiteDesignSetting
     /**
      * @ORM\Column(name="logo_path", type="string" ,nullable=true)
      * @Assert\Image(
-     *     maxSize = "8M",
      *     mimeTypes = {"image/png"}
      * )
      */

@@ -191,15 +191,21 @@ $('#product-tabs').on('click', '.delete-form-level', function(e){
 //nouveau formulaire
 $('.btn-next-product').on('click',function(e){
     e.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: admin_new_resultat,
-        success : function(html) {
-            $('.new-add').html(html);                        
-            $('.new-add').find('.tab-pane').detach().appendTo('.tab-content');
-            $('.new-add').find('a[data-toggle=tab]').detach().insertBefore($('.btn-next-product')).tab('show');
-        }
-    });
+    var nb = $(this).parent().find('a').length;
+    if (nb < 6) {
+        $.ajax({
+            type: 'POST',
+            url: admin_new_resultat,
+            success : function(html) {
+                $('.new-add').html(html);                        
+                $('.new-add').find('.tab-pane').detach().appendTo('.tab-content');
+                $('.new-add').find('a[data-toggle=tab]').detach().insertBefore($('.btn-next-product')).tab('show');
+            }
+        });
+    } else {
+        alert('nombre de produits maximum déjà atteint');
+    }
+    
 });
 
 // Ajout nouveau champ

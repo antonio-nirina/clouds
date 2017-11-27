@@ -842,8 +842,8 @@ class ParametragesController extends Controller
 
         $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
         $site_design = $site_design[0];
-        $logo_path = $this->container->get('admin.logo')->getTargetDir().'/'.$program->getId();
         if ($file = $site_design->getLogoPath()) {
+            $logo_path = $this->container->get('admin.logo')->getTargetDir().'/'.$program->getId();
             $site_design->setLogoPath(new File($logo_path.'/'.$file));
         }
 
@@ -864,20 +864,23 @@ class ParametragesController extends Controller
         if ($request->get('site_design_setting')) {
             if (array_key_exists('logo_name', $request->get('site_design_setting'))) {//logo
                 $site_design_form_logo->handleRequest($request);
+                // dump($site_design_form_logo->isValid()); die;
                 if ($site_design_form_logo->isSubmitted() && $site_design_form_logo->isValid()) {
                     if ($request->files->get('site_design_setting')) {
                         $file = $site_design->getLogoPath();
                         $file_name = $this->container->get('admin.logo')->upload($file, $program->getId());
                         $site_design->setLogoPath($file_name);
+                    } else {
+                        $site_design->setLogoPath($file);
                     }
-                } else if ($file) {
-                    $site_design->setLogoPath($file);
+
+                    $this->container->get('app.design_root')->resetRoot(
+                        $program->getId(),
+                        $site_design
+                    );
+                    $em->flush();
+                    $this->redirectToRoute('admin_param_design');
                 }
-                $this->container->get('app.design_root')->resetRoot(
-                    $program->getId(),
-                    $site_design
-                );
-                $em->flush();
             }
 
             if (array_key_exists('colors', $request->get('site_design_setting'))) {//couleur
@@ -891,6 +894,7 @@ class ParametragesController extends Controller
                         $site_design->setLogoPath($file);
                     }
                     $em->flush();
+                    $this->redirectToRoute('admin_param_design');
                 }
             }
 
@@ -905,6 +909,7 @@ class ParametragesController extends Controller
                         $site_design->setLogoPath($file);
                     }
                     $em->flush();
+                    $this->redirectToRoute('admin_param_design');
                 }
             }
         }

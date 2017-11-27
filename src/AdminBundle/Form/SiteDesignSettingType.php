@@ -4,6 +4,7 @@ namespace AdminBundle\Form;
 
 use AdminBundle\Entity\SiteDesignSetting;
 use AdminBundle\Entity\SiteFormFieldSetting;
+use AdminBundle\Validator\Constraints\FileExtensionConstraint;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class SiteDesignSettingType extends AbstractType
 {
@@ -37,7 +39,16 @@ class SiteDesignSettingType extends AbstractType
                     )
                 ))
                 ->add('logo_path', FileType::class, array(
-                    'required' => false
+                    'required' => false,
+                    "constraints" => array(
+                        new FileExtensionConstraint('png'),
+                        new File(
+                            array(
+                                "mimeTypes" => "image/png",
+                                "maxSize" => "8M"
+                            )
+                        )
+                    )
                 ))
                 ->add('logo_name', TextType::class);
     }
