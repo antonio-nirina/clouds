@@ -654,3 +654,7 @@ span.blue-upload{
 .block-model-container{
     display: none;
 }
+
+.submit-button-container ~ div{
+    display: none;
+}

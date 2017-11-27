@@ -35,6 +35,7 @@ class LoginPortalData
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\LoginPortalSlide", mappedBy="login_portal_data")
+     * @Assert\Valid()
      */
     private $login_portal_slides;
 
