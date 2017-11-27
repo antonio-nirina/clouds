@@ -35,7 +35,11 @@ $(document).ready(function(){
         tab_nav_model.removeClass('tab-model');
         tab_nav_model.attr('href', '#'+target_id);
         var last_nav_tab = $('.nav-tabs-container').find('ul').find('.nav-tab').last();
-        last_nav_tab.after(tab_nav_model);
+        if(last_nav_tab.length > 0){
+            last_nav_tab.after(tab_nav_model);
+        } else {
+            $('.nav-tabs-container').find('ul').find('.tab.add-option-tab').before(tab_nav_model);
+        }
         tab_nav_model.show();
         return tab_nav_model;
     }
@@ -51,7 +55,9 @@ $(document).ready(function(){
         var html_tab_content_model = tab_content_model.wrap('<div class="model-wrapper"></div>').parent().html();
         html_tab_content_model = html_tab_content_model.replace(/__name__/g, new_tab_content_id);
         var tab_content_container = $('.tab-content');
-        tab_content_container.append($($.parseHTML(html_tab_content_model)));
+        tab_content_model = $($.parseHTML(html_tab_content_model));
+        tab_content_container.append(tab_content_model);
+        // tab_content_model.show();
         return tab_content_model;
     }
 
