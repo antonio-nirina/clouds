@@ -1057,4 +1057,12 @@ class ParametragesController extends Controller
 
         return new Response('<html><body>OK</body></html>');
     }
+
+    /**
+     * @Route("/tableaux-reseaux",name="admin_table_network")
+     */
+    public function tableauReseauAction()
+    {
+        return $this->render('AdminBundle:Parametrages:table_reseau.html.twig');
+    }
 }
