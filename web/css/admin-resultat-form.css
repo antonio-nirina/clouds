@@ -48,7 +48,7 @@
     border-radius: 100%;
     position: absolute;
     right: 16px;
-    border: 4px solid #BDBDBD;
+    /*border: 3px solid #BDBDBD;*/
 }
 input.day, input.month {
     width: 40px;
@@ -522,7 +522,7 @@ th label {
     padding: 15px;
     max-width: 400px;
     text-align: left;
-    background-color: white;
+    /*background-color: white;*/
 }
 .img-comforta {
     background: url('../images/cloudsRewards/comforta-img.png') no-repeat;
@@ -572,6 +572,7 @@ th label {
     border-radius: 100% !important;
     border: 1px solid;
     margin-top: -7px;
+    cursor: pointer;
 }
 .minicolors-position-bottom .minicolors-panel {
     top: 48px !important;
@@ -617,6 +618,7 @@ th label {
     border: 1px solid;
     padding: 7px !important;
     border-radius: 8px;
+    text-align: left;
 }
 .second-logo label {
     padding-right: 15px;
@@ -633,11 +635,48 @@ th label {
 input[type=text] {
     padding-left: 15px;
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 769px) {
     .validation-droite {
-        padding-right: 30% ;
+        padding-left: 8% ;
+        display: flex;
+        justify-content: left;
+        flex-flow: row wrap;
     }
     .validation-gauche {
-        padding-left: 30% ;
+        padding-right: 8% ;
+        display: flex;
+        justify-content: right;
     }
 }
+.validation-droite form {
+    flex-basis: 100%;
+    text-align: left;
+}
+.police-text {
+    word-wrap: break-word;
+    max-width: 295px;
+    display: block;
+    font-size: 24px;
+}
+.lato {
+    font-family : "Lato-Regular";
+}
+.adamina {
+    font-family: "Adamina-Regular";
+}
+.opensans {
+    font-family: "OpenSans-Regular";
+}
+.roboto {
+    font-family: 'Roboto-Regular';
+}
+.petrona {
+    font-family: 'Petrona-Regular';
+}
+.comfortaa {
+    font-family: 'Comfortaa-Regular';
+}
+.upload-img-button {
+    margin-top: 20px;
+}
+

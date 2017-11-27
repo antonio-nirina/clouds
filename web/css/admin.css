@@ -320,7 +320,8 @@ section.inactive{
 	border-radius: 54px;
 	position:absolute;
 	right:10px;
-	border: 2px solid grey;
+	border: 3px solid #BEBEBE;
+	box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
 }
 
 .img-challenge{

@@ -22,7 +22,7 @@
     <div class = "row">
         <div class = "col-12 col-md-12 sous-menu-main">
             <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
-                <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                <div class="navbar" id="collapsingNavbarFormInscription">
                     <ul class="navbar-nav content-menu-niv-3">
                         <li class="nav-item-niv-3 form-inscription">
                             <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_resultats_declaration") }}">design : marque, logo, couleurs et police </a>
@@ -30,10 +30,6 @@
                         </li>
                     </ul>
                 </div>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
-                    <i class="fa fa-navicon fa-2x py-2 p-1"></i>
-                </button>
-                <a class="navbar-brand abs" href="#"></a>
             </nav>
         </div>
     </div>
@@ -70,10 +66,9 @@
                             </button>
                             {{ form_widget(site_design_form_logo.logo_path) }}
                             <p>(pour un rendu optimal, exporter en png fond transparent au dimensions : L 290px x H 66px)</p>
-                            <p>
-                                {{ form_errors(site_design_form_logo) }}
-                            </p>
-                        </div>                    
+                            
+                            {{ form_errors(site_design_form_logo.logo_path) }}
+                        </div>                 
                     </div>                
                     <div class = "row full-width">
                         <div class = "col-12 col-md-12">
@@ -170,7 +165,7 @@
                         <div class = "col-12 col-md-6">
                             <div class="validation validation-droite">
                                 <button class ="btn-valider valider initialize">
-                                    retour au couleurs par défaut
+                                    retour aux couleurs par défaut
                                 </button>
                             </div>
                         </div>                        
@@ -211,7 +206,10 @@
                                             </label>
                                         </div>                                    
                                         <div class='police-img'>
-                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                            {# <img src="{{ asset('images/cloudsRewards/roboto-img.png')}}"> #}
+                                            <span class="police-text roboto">
+                                                ​‌A​‌B​‌C​‌D​‌E​‌F​‌G​‌H​‌I​‌J​‌K​‌L​‌M​‌N​‌O​‌P​‌Q​‌R​‌S​‌T​‌U​‌V​‌W​‌X​‌Y​‌Z​‌​‌a​‌b​‌c​‌d​‌e​‌f​‌g​‌h​‌i​‌j​‌k​‌l​‌m​‌n​‌o​‌p​‌q​‌r​‌s​‌t​‌u​‌v​‌w​‌x​‌y​‌z​‌‘​‌?​‌’​‌“​‌!​‌”​‌(​‌%​‌)​‌[​‌#​‌]​‌{​‌@​‌}​‌/​‌&​‌\​‌<​‌-​‌+​‌÷​‌×​‌=​‌>​‌®​‌©​‌$​‌€​‌£​‌¥​‌¢​‌:​‌;​‌,​‌.​‌*
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +224,10 @@
                                             </label>
                                         </div>                                    
                                         <div class='police-img'>
-                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                            {# <img src="{{ asset('images/cloudsRewards/opensans-img.png')}}"> #}
+                                            <span class="police-text opensans">
+                                                ​‌A​‌B​‌C​‌D​‌E​‌F​‌G​‌H​‌I​‌J​‌K​‌L​‌M​‌N​‌O​‌P​‌Q​‌R​‌S​‌T​‌U​‌V​‌W​‌X​‌Y​‌Z​‌​‌a​‌b​‌c​‌d​‌e​‌f​‌g​‌h​‌i​‌j​‌k​‌l​‌m​‌n​‌o​‌p​‌q​‌r​‌s​‌t​‌u​‌v​‌w​‌x​‌y​‌z​‌‘​‌?​‌’​‌“​‌!​‌”​‌(​‌%​‌)​‌[​‌#​‌]​‌{​‌@​‌}​‌/​‌&​‌\​‌<​‌-​‌+​‌÷​‌×​‌=​‌>​‌®​‌©​‌$​‌€​‌£​‌¥​‌
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +242,10 @@
                                             </label>
                                         </div>                                    
                                         <div class='police-img'>
-                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                            {# <img src="{{ asset('images/cloudsRewards/lato-img.png')}}"> #}
+                                            <span class="police-text lato">
+                                                ​‌A​‌B​‌C​‌D​‌E​‌F​‌G​‌H​‌I​‌J​‌K​‌L​‌M​‌N​‌O​‌P​‌Q​‌R​‌S​‌T​‌U​‌V​‌W​‌X​‌Y​‌Z​‌​‌a​‌b​‌c​‌d​‌e​‌f​‌g​‌h​‌i​‌j​‌k​‌l​‌m​‌n​‌o​‌p​‌q​‌r​‌s​‌t​‌u​‌v​‌w​‌x​‌y​‌z​‌‘​‌?​‌’​‌“​‌!​‌”​‌(​‌%​‌)​‌[​‌#​‌]​‌{​‌@​‌}​‌/​‌&​‌\​‌<​‌-​‌+​‌÷​‌×​‌=​‌>​‌®​‌©​‌$​‌€​‌£​‌¥​‌¢​‌:​‌;​‌,​‌.​‌*
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -256,7 +260,10 @@
                                             </label>
                                         </div>                                    
                                         <div class='police-img'>
-                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                            {# <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}"> #}
+                                            <span class="police-text adamina">
+                                                ​‌A​‌B​‌C​‌D​‌E​‌F​‌G​‌H​‌I​‌J​‌K​‌L​‌M​‌N​‌O​‌P​‌Q​‌R​‌S​‌T​‌U​‌V​‌W​‌X​‌Y​‌Z​‌​‌a​‌b​‌c​‌d​‌e​‌f​‌g​‌h​‌i​‌j​‌k​‌l​‌m​‌n​‌o​‌p​‌q​‌r​‌s​‌t​‌u​‌v​‌w​‌x​‌y​‌z​‌‘​‌?​‌’​‌“​‌!​‌”​‌(​‌%​‌)​‌[​‌#​‌]​‌{​‌@​‌}​‌/​‌&​‌\​‌<​‌-​‌
+                                            </span>
                                         </div>
                                     </div>
                                 </div> 
@@ -271,7 +278,10 @@
                                             </label>
                                         </div>                                    
                                         <div class='police-img'>
-                                            <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}">
+                                            {# <img src="{{ asset('images/cloudsRewards/petrona-img.png')}}"> #}
+                                            <span class="police-text petrona">
+                                                ​‌A​‌B​‌C​‌D​‌E​‌F​‌G​‌H​‌I​‌J​‌K​‌L​‌M​‌N​‌O​‌P​‌Q​‌R​‌S​‌T​‌U​‌V​‌W​‌X​‌Y​‌Z​‌​‌a​‌b​‌c​‌d​‌e​‌f​‌g​‌h​‌i​‌j​‌k​‌l​‌m​‌n​‌o​‌p​‌q​‌r​‌s​‌t​‌u​‌v​‌w​‌x​‌y​‌z​‌‘​‌?​‌’​‌“​‌!​‌”​‌(​‌%​‌)​‌[​‌#​‌]​‌{​‌@​‌}​‌/​‌&​‌\​‌<​‌-​‌+​‌÷​‌×​‌=​‌>​‌®​‌©​‌$​‌€​‌£​‌¥​‌¢​‌:​‌;​‌,​‌.​‌*
+                                            </span>
                                         </div>
                                     </div>
                                 </div> 
@@ -286,7 +296,10 @@
                                             </label>
                                         </div>                                    
                                         <div class='police-img'>
-                                            <img src="{{ asset('images/cloudsRewards/comforta-img.png')}}">
+                                            {# <img src="{{ asset('images/cloudsRewards/comforta-img.png')}}"> #}
+                                            <span class="police-text comfortaa">
+                                                ​‌A​‌B​‌C​‌D​‌E​‌F​‌G​‌H​‌I​‌J​‌K​‌L​‌M​‌N​‌O​‌P​‌Q​‌R​‌S​‌T​‌U​‌V​‌W​‌X​‌Y​‌Z​‌​‌a​‌b​‌c​‌d​‌e​‌f​‌g​‌h​‌i​‌j​‌k​‌l​‌m​‌n​‌o​‌p​‌q​‌r​‌s​‌t​‌u​‌v​‌w​‌x​‌y​‌z​‌‘​‌?​‌’​‌“​‌!​‌”​‌(​‌%​‌)​‌[​‌#​‌]​‌{​‌@​‌}​‌/​‌&​‌\​‌<​‌-​‌
+                                            </span>
                                         </div>
                                     </div>
                                 </div>                     

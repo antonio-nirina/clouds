@@ -114,24 +114,29 @@
                             </div>                        
                         {{ form_end(setting_form) }}
                     </div>
-                </div>            
-                <div class = "row button-row">
-                    <div class = "col-md-6">
-                        <button class ="btn-valider btn-download">
-                            <span class="download"></span>
-                            télécharger le modèle
-                        </button>
+                </div>  
+
+                <div class = "row full-width button-row">
+                    <div class = "col-12 col-md-6">
+                        <div class="validation-gauche">
+                            <button class ="btn-valider btn-download">
+                                <span class="download"></span>
+                                télécharger le modèle
+                            </button>
+                        </div>
                     </div>
-                    <div class = "col-md-6">
-                        <button class ="btn-valider btn-upload">
-                            <span class="upload"></span>                          
-                            importer le fichier complété
-                        </button>                        
-                        {{ form_start(form_upload,{"attr": {"novalidate": "novalidate"}}) }}  
-                            {{ form_widget(form_upload,{"attr": {"style": "display:none"}}) }}
-                            {{ form_errors(form_upload.uploaded_file) }}
-                        {{ form_end(form_upload) }}
-                    </div>
+                    <div class = "col-12 col-md-6">
+                        <div class="validation-droite">
+                            <button class ="btn-valider btn-upload">
+                                <span class="upload"></span>                          
+                                importer le fichier complété
+                            </button>               
+                            {{ form_start(form_upload,{"attr": {"novalidate": "novalidate"}}) }}  
+                                {{ form_widget(form_upload,{"attr": {"style": "display:none"}}) }}
+                                {{ form_errors(form_upload.uploaded_file) }}
+                            {{ form_end(form_upload) }}
+                        </div>
+                    </div>                        
                 </div>
                 <input type='hidden' name="url" value="{{ path("admin_resultats_declaration_import") }}">
 

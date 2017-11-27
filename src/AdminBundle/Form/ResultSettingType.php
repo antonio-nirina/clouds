@@ -16,7 +16,7 @@ class ResultSettingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('monthly',ChoiceType::class, array(
+        $builder->add('monthly', ChoiceType::class, array(
                     'choices'  => array(
                         'Oui' => true,
                         'Non' => false),
