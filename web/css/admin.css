@@ -547,6 +547,11 @@ li.options{
 		margin-left:15px;
 	}
 	
+	.btn-content-retour-valider{
+		width:90%!important;
+		margin:0 auto!important;
+	}
+	
 	.modal-content .content .line, .modal-content .content .intitule{
 		padding-top: 80px!important;
 	}
@@ -1127,6 +1132,11 @@ li.options{
 		margin: 10px auto;
 	}
 	
+	.btn-content-retour-valider{
+		width:100%!important;
+		margin:0 auto!important;
+	}
+	
 	.modal-content .content .line, .modal-content .content .intitule{
 		padding-top: 80px!important;
 	}
@@ -1660,6 +1670,11 @@ li.options{
 		margin-top:10px;
 		margin-left:15px;
 		margin-bottom:9px;
+	}
+	
+	.btn-content-retour-valider{
+		width:100%!important;
+		margin:0 auto!important;
 	}
 	
 	.fieldset-nav-tabs{
@@ -2216,7 +2231,10 @@ li.options{
 		width:70%;
 	}
 	
-	
+	.btn-content-retour-valider{
+		width:82%!important;
+		margin:0 auto!important;
+	}
 	
 	#product-tabs{
 		padding-left:0!important;
@@ -2635,6 +2653,11 @@ li.options{
 @media (min-width: 1200px) {
 	#collapsingNavbarNiv1{
 		width:70%;
+	}
+	
+	.btn-content-retour-valider{
+		width:50%!important;
+		margin:0 auto!important;
 	}
 	
 	#product-tabs{
