@@ -275,6 +275,7 @@
     padding: 5px 0 5px 10px;
     font-size: 14px;
     background-color: inherit;
+	text-align:left!important;
 }
 
 .large-textarea{
