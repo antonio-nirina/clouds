@@ -1135,6 +1135,7 @@ class ParametragesController extends Controller
                         }
                     }
                     $em->flush();
+                    return $this->redirectToRoute('admin_content_configure_home_page');
                 }
             }
 
@@ -1142,10 +1143,9 @@ class ParametragesController extends Controller
                 $home_page_editorial_data_form->handleRequest($request);
                 if ($home_page_editorial_data_form->isSubmitted() && $home_page_editorial_data_form->isValid()) {
                     $em->flush();
+                    return $this->redirectToRoute('admin_content_configure_home_page');
                 }
             }
-
-            return $this->redirectToRoute('admin_content_configure_home_page');
         }
 
 

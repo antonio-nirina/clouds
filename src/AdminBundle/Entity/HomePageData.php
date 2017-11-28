@@ -2,6 +2,7 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\HomePageDataRepository")
@@ -28,6 +29,7 @@ class HomePageData
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\HomePageSlide", mappedBy="home_page_data")
+     * @Assert\Valid()
      */
     private $home_page_slides;
     /**
