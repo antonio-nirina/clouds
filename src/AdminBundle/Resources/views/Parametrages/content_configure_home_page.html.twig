@@ -48,8 +48,8 @@
                             </li>
                         </ul>
                     </div>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
-                        <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="navbar-brand abs" href="#"></a>
                 </nav>
@@ -161,13 +161,13 @@
                                         </div>
                                     </div>
                                     <div class="row form-element-container">
-                                        <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
+                                        <div class="col-lg-2 col-md-12 col-sm-12 slide-unit-order-label-container">
                                             {{ form_label(slide.slide_order, "ordre d'apparition") }}
                                         </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-12">
+                                        <div class="col-lg-10 col-md-12 col-sm-12 slide-orders">
                                             {{ form_widget(slide.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
                                         </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-12 error-message-container">
+                                        <div class="col-lg-10 col-md-12 col-sm-12 error-message-container">
                                             {{ form_errors(slide.slide_order) }}
                                         </div>
                                     </div>
