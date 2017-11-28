@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new AdminBundle\AdminBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new BeneficiaryBundle\BeneficiaryBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

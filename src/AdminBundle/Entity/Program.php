@@ -118,6 +118,11 @@ class Program
     private $login_portal_data;
 
     /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\HomePageData", inversedBy="program")
+     */
+    private $home_page_data;
+
+    /**
      * @ORM\PrePersist
      */
     public function initProgram()
@@ -605,5 +610,29 @@ class Program
     public function getLoginPortalData()
     {
         return $this->login_portal_data;
+    }
+
+    /**
+     * Set homePageData
+     *
+     * @param \AdminBundle\Entity\HomePageData $homePageData
+     *
+     * @return Program
+     */
+    public function setHomePageData(\AdminBundle\Entity\HomePageData $homePageData = null)
+    {
+        $this->home_page_data = $homePageData;
+
+        return $this;
+    }
+
+    /**
+     * Get homePageData
+     *
+     * @return \AdminBundle\Entity\HomePageData
+     */
+    public function getHomePageData()
+    {
+        return $this->home_page_data;
     }
 }

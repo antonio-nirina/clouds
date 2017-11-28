@@ -32,6 +32,9 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use AdminBundle\Form\LoginPortalDataType;
+use AdminBundle\Form\HomePageSlideDataType;
+use AdminBundle\Entity\HomePageSlide;
+use AdminBundle\Form\HomePageEditorialType;
 
 /**
  * @Route("/admin/parametrages")
@@ -933,6 +936,10 @@ class ParametragesController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $login_portal_data = $program->getLoginPortalData();
+        if (is_null($login_portal_data)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $original_slides = new ArrayCollection();
         foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
             $original_slides->add($slide);
@@ -1052,6 +1059,165 @@ class ParametragesController extends Controller
 
         $login_portal_data->removeLoginPortalSlide($to_del_slide);
         $to_del_slide->setLoginPortalData(null);
+        $em->remove($to_del_slide);
+        $em->flush();
+
+        return new Response('<html><body>OK</body></html>');
+    }
+
+    /**
+     * @Route("/contenus/page-accueil", name="admin_content_configure_home_page")
+     */
+    public function configureHomePageAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $home_page_data = $program->getHomePageData();
+        if (is_null($home_page_data)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $original_slides = new ArrayCollection();
+        foreach ($home_page_data->getHomePageSlides() as $slide) {
+            $original_slides->add($slide);
+        }
+
+        $original_slides_image = array();
+        foreach ($original_slides as $slide) {
+            $original_slides_image[$slide->getId()] = $slide->getImage();
+        }
+
+        $form_factory = $this->get('form.factory');
+        $home_page_slide_data_form = $form_factory->createNamed(
+            'home_page_slide_data_form',
+            HomePageSlideDataType::class,
+            $home_page_data
+        );
+        $home_page_editorial_data_form = $form_factory->createNamed(
+            'home_page_editorial_data_form',
+            HomePageEditorialType::class,
+            $home_page_data
+        );
+
+        $em = $this->getDoctrine()->getManager();
+        if ("POST" === $request->getMethod()) {
+            if ($request->request->has('home_page_slide_data_form')) {
+                $home_page_slide_data_form->handleRequest($request);
+                if ($home_page_slide_data_form->isSubmitted() && $home_page_slide_data_form->isValid()) {
+                    foreach ($home_page_data->getHomePageSlides() as $slide) {
+                        if (is_null($slide->getId())) {
+                            $slide->setHomePageData($home_page_data);
+                            $em->persist($slide);
+                        }
+
+                        if (is_null($slide->getImage())) {
+                            if (array_key_exists($slide->getId(), $original_slides_image)) {
+                                $slide->setImage($original_slides_image[$slide->getId()]);
+                            }
+                        } else {
+                            $image = $slide->getImage();
+                            $image->move(
+                                $this->getParameter('content_home_page_slide_image_upload_dir'),
+                                $image->getClientOriginalName()
+                            );
+                            $slide->setImage($image->getClientOriginalName());
+                        }
+                    }
+
+                    foreach ($original_slides as $original_slide) {
+                        if (false === $home_page_data->getHomePageSlides()->contains($original_slide)) {
+                            $original_slide->setHomePageData(null);
+                            $home_page_data->removeHomePageSlide($original_slide);
+                            $em->remove($original_slide);
+                        }
+                    }
+                    $em->flush();
+                    return $this->redirectToRoute('admin_content_configure_home_page');
+                }
+            }
+
+            if ($request->request->has('home_page_editorial_data_form')) {
+                $home_page_editorial_data_form->handleRequest($request);
+                if ($home_page_editorial_data_form->isSubmitted() && $home_page_editorial_data_form->isValid()) {
+                    $em->flush();
+                    return $this->redirectToRoute('admin_content_configure_home_page');
+                }
+            }
+        }
+
+
+        return $this->render('AdminBundle:Parametrages:content_configure_home_page.html.twig', array(
+            'home_page_slide_data_form' => $home_page_slide_data_form->createView(),
+            'home_page_editorial_data_form' => $home_page_editorial_data_form->createView(),
+            'original_slides_image' => $original_slides_image,
+        ));
+    }
+
+    /**
+     * @Route("/contenus/page-accueil/ajout-slide", name="admin_content_configure_home_page_add_slide")
+     */
+    public function addHomePageSlideAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $home_page_data = $program->getHomePageData();
+        if (is_null($home_page_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $max_slide_order = 0;
+        if (!$home_page_data->getHomePageSlides()->isEmpty()) {
+            $max_slide_order = $em->getRepository('AdminBundle\Entity\HomePageData')
+                ->retrieveMaxSlideOrderByHomePageData($home_page_data);
+        }
+        $new_slide = new HomePageSlide();
+        $new_slide->setSlideOrder($max_slide_order + 1)
+            ->setHomePageData($home_page_data);
+        $home_page_data->addHomePageSlide($new_slide);
+
+        $em->persist($new_slide);
+        $em->flush();
+
+        return new Response($new_slide->getId());
+    }
+
+    /**
+     * @Route(
+     *     "/contenus/page-accueil/suppression-slide/{id}",
+     *     name="admin_content_configure_home_page_delete_slide"),
+     *     requirements={"id": "\d+"}
+     */
+    public function deleteHomePageSlideAction($id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $home_page_data = $program->getHomePageData();
+        if (is_null($home_page_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $to_del_slide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+            ->findOneBy(array(
+                'home_page_data' => $home_page_data,
+                'id' => $id
+            ));
+        if (is_null($to_del_slide)) {
+            return new Response('');
+        }
+
+        $home_page_data->removeHomePageSlide($to_del_slide);
+        $to_del_slide->setHomePageData(null);
         $em->remove($to_del_slide);
         $em->flush();
 

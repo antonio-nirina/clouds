@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@AdminBundle/Resources/config/services.yml" }
+    - { resource: "@BeneficiaryBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -26,6 +27,10 @@ parameters:
     # Parameters - Content - Login portal : import file upload directory
     content_login_portal_slide_image_upload_dir: '%kernel.project_dir%/web/content/login_portal/slide'
     content_login_portal_slide_image_location: 'content/login_portal/slide/'
+
+    # Parameters - Content - Home page : import file upload directory
+    content_home_page_slide_image_upload_dir: '%kernel.project_dir%/web/content/home_page/slide'
+    content_home_page_slide_image_location: 'content/home_page/slide/'
 
 framework:
     #esi: ~
@@ -60,6 +65,8 @@ twig:
         registration_header_image_upload_dir: '%registration_header_image_upload_dir%'
         registration_header_image_location: '%registration_header_image_location%'
         content_login_portal_slide_image_location: '%content_login_portal_slide_image_location%'
+        content_home_page_slide_image_location: '%content_home_page_slide_image_location%'
+
 
 # Doctrine Configuration
 doctrine:

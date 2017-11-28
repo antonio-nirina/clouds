@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    {% block header %}
+        {% embed 'BeneficiaryBundle::header.html.twig' %}{% endembed %}
+    {% endblock %}
+
+    <body>
+        <!-- CONTENEUR PRINCIPALE -->
+        <div class = "container principale">
+
+            <!-- HEADER -->
+            {{ include("BeneficiaryBundle::menu_top.html.twig") }}
+            <!-- FIN HEADER -->
+
+            <!-- MENU TOP -->
+            {{ include("BeneficiaryBundle::menu_top_niv_2.html.twig") }}
+            <!-- FIN MENU TOP -->
+
+            <!-- SLIDE -->
+            {% block slide %}{% endblock %}
+            <!-- FIN SLIDE -->
+
+            <!-- BODY -->
+            <div class="container-fluid">
+                <div class="row">
+                    {% block main %}{% endblock %}
+                </div>
+            </div>
+            <!-- FIN BODY -->
+
+            <!-- FOOTER -->
+            {{ include("BeneficiaryBundle::page_footer.html.twig") }}
+            <!-- FIN FOOTER -->
+
+        </div>
+        <!-- FIN CONTENEUR PRINCIPALE -->
+
+        {% block footer %}
+            {% embed 'BeneficiaryBundle::footer.html.twig' %}{% endembed %}
+        {% endblock %}
+    </body>
+</html>
