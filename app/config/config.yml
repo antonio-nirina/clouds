@@ -27,6 +27,10 @@ parameters:
     content_login_portal_slide_image_upload_dir: '%kernel.project_dir%/web/content/login_portal/slide'
     content_login_portal_slide_image_location: 'content/login_portal/slide/'
 
+    # Parameters - Content - Home page : import file upload directory
+    content_home_page_slide_image_upload_dir: '%kernel.project_dir%/web/content/home_page/slide'
+    content_home_page_slide_image_location: 'content/home_page/slide/'
+
 framework:
     #esi: ~
     translator: { fallbacks: ['%locale%'] }
@@ -60,6 +64,8 @@ twig:
         registration_header_image_upload_dir: '%registration_header_image_upload_dir%'
         registration_header_image_location: '%registration_header_image_location%'
         content_login_portal_slide_image_location: '%content_login_portal_slide_image_location%'
+        content_home_page_slide_image_location: '%content_home_page_slide_image_location%'
+
 
 # Doctrine Configuration
 doctrine:
