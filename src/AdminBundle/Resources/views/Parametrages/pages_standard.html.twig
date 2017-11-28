@@ -1,0 +1,184 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-pages-standard.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+    {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':6})) }}
+    {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+					<ul class="content-menu-niv-3 hidden-lg-up">
+						<li class="nav-item-niv-3 form-inscription">
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_pages_standard") }}">pages standard </a>
+							<span class = "bulle-aide"></span>
+						</li>
+					</ul>
+                    <div class="navbar-collapse collapse col-12" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_content_configure_login_portal") }}">portail / identification </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_content_configure_home_page") }}">page d'accueil </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page menu-page-active" href="{{ path("admin_pages_standard") }}">pages standard </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">tableaux / réseaux </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+				<section class="fieldset active">
+					<div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <h3 class="hidden-sm-down block-title">Choisissez les pages que vous souhaitez voir apparaître dans vos rubriques</h3>
+                            <h5 class="hidden-md-up block-title">Choisissez les pages que vous souhaitez voir apparaître dans vos rubriques</h5>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="hidden-sm-down corner-circle-img img-content-pages-standard rounded-circle"></div>
+                        </div>
+                    </div>
+					
+					<div class="row">
+						<div class = "col-12">
+							<div class = "content-pages-chooses">
+								<ul class = "list-choix-page">
+									<li data-role = "onglet" class = "page-list-active">
+										<span class = "lib-onglet-choix-page">présentation de la société</span>
+										<span id = "presentation-societe" class = "checkon-onglet-choix-page" data-role = "checked-unchecked"></span>
+									</li>
+									<li data-role = "onglet" class = "pages-list">
+										<span class = "lib-onglet-choix-page">découvrez le programme</span>
+										<span id = "decouvrez-programme" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+									</li>
+									<li data-role = "onglet" class = "pages-list">
+										<span class = "lib-onglet-choix-page">actualité des partenaire</span>
+										<span id = "actualite-partenaire" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+									</li>
+									<li data-role = "onglet" class = "pages-list">
+										<span class = "lib-onglet-choix-page">cadeaux</span>
+										<span id = "cadeaux" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+									</li>
+									<li data-role = "onglet" class = "pages-list">
+										<span class = "lib-onglet-choix-page">mentions légale</span>
+										<span id = "mentions-legales" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+									</li>
+									<li data-role = "onglet" class = "pages-list">
+										<span class = "lib-onglet-choix-page">règlement</span>
+										<span id = "reglement" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+									</li>
+									<li class = "pages-list-ajout">
+										<span class = "img-ajout-page add"></span>
+										<span class = "lib-ajout-page">ajouter une page</span>
+									</li>
+								</ul>
+							</div>
+							
+							<div class = "content-page-content">
+								<div class = "content-dynamic-pages">
+									<form name = "formChoixPage" method = "POST" action = "">
+										<label class = "champForm">
+											<span class = "lib-form">nom du menu</span>
+											<input class = "input-form-text" type = "text" name = "" value = "" placeholder = "présentation de la société" style = "padding-left:10px!important;">
+										</label>
+										
+										<div class = "clearBoth"></div>
+										
+										
+										<label class = "champForm">
+											<span class = "lib-form">titre</span>
+											<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "" placeholder = "présentation de la société">
+										</label>
+										
+										<div class = "clearBoth"></div>
+										<div class = "clearBoth"></div>
+										
+										<label class = "champForm">
+											<span class = "lib-form block">ajouter logo ou image</span>
+											<button class="btn-valider btn-upload choose-upload-img-button">
+												<span class="upload"></span> choisissez un fichier...
+											</button>
+											<div class = "info-container">
+                                                <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                                <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+											</div>
+										</label>
+										
+										<div class = "clearBoth"></div>
+										<div class = "clearBoth"></div>
+										
+										<label class = "champForm">
+											<span class = "lib-form block editeur">texte</span>
+											<textarea id="login_portal_data_form_text" name="login_portal_data_form[text]" class="large-textarea"></textarea>
+										</label>
+										
+										<label class = "champForm">
+											<button class="btn-valider valider submit-form block-center">
+												valider
+											</button>
+										</label>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</section>
+			</div>
+        </div>
+
+        <div class = "row separator"></div>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('js/admin-pages-standard.js') }}"></script>
+			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+			<script>
+                $(document).ready(function(){
+                    CKEDITOR.replace( 'login_portal_data_form_text', {
+                        language: 'fr',
+                        uiColor: '#9AB8F3',
+                        height: 150,
+                        width: 600,
+                        customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
+                    });
+                });
+            </script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

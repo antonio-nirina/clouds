@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\DataFixtures\ORM\RegistrationFormDataFixtures;
 use AppBundle\DataFixtures\ORM\LoginPortalDataFixtures;
+use AppBundle\DataFixtures\ORM\HomePageDataFixtures;
 
 class ProgramFixtures extends Fixture
 {
@@ -25,6 +26,7 @@ class ProgramFixtures extends Fixture
         $program->setDotationSupport(false);
         $program->setRegistrationFormData($this->getReference('regist-form-data'));
         $program->setLoginPortalData($this->getReference('login-portal-data'));
+        $program->setHomePageData($this->getReference('home-page-data'));
 
         $this->getReference('regist-form-data')->setProgram($program);
         $this->getReference('login-portal-data')->setProgram($program);
@@ -41,7 +43,8 @@ class ProgramFixtures extends Fixture
             ProgramTypeFixtures::class,
             ClientFixtures::class,
             RegistrationFormDataFixtures::class,
-            LoginPortalDataFixtures::class
+            LoginPortalDataFixtures::class,
+            HomePageDataFixtures::class,
         );
     }
 }
