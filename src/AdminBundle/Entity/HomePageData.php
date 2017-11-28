@@ -18,7 +18,7 @@ class HomePageData
     private $id;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\Editorial", mappedBy="home_page_data")
      */
     private $editorial;
 
@@ -48,30 +48,6 @@ class HomePageData
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set editorial
-     *
-     * @param string $editorial
-     *
-     * @return HomePageData
-     */
-    public function setEditorial($editorial)
-    {
-        $this->editorial = $editorial;
-
-        return $this;
-    }
-
-    /**
-     * Get editorial
-     *
-     * @return string
-     */
-    public function getEditorial()
-    {
-        return $this->editorial;
     }
 
     /**
@@ -130,5 +106,29 @@ class HomePageData
     public function getHomePageSlides()
     {
         return $this->home_page_slides;
+    }
+
+    /**
+     * Set editorial
+     *
+     * @param \AdminBundle\Entity\Editorial $editorial
+     *
+     * @return HomePageData
+     */
+    public function setEditorial(\AdminBundle\Entity\Editorial $editorial = null)
+    {
+        $this->editorial = $editorial;
+
+        return $this;
+    }
+
+    /**
+     * Get editorial
+     *
+     * @return \AdminBundle\Entity\Editorial
+     */
+    public function getEditorial()
+    {
+        return $this->editorial;
     }
 }
