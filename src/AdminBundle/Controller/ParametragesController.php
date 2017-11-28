@@ -1065,4 +1065,12 @@ class ParametragesController extends Controller
     {
         return $this->render('AdminBundle:Parametrages:table_reseau.html.twig');
     }
+	
+	/**
+     * @Route("/pages-standard",name="admin_pages_standard")
+     */
+    public function pagesStandardAction()
+    {
+        return $this->render('AdminBundle:Parametrages:pages_standard.html.twig');
+    }
 }

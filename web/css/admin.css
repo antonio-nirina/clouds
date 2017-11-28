@@ -396,7 +396,7 @@ section.inactive{
 }
 
 .menu-page-active{
-	color: var(--couleur_2);
+	color: var(--couleur_2)!important;
 	font-weight: bold;
 	text-decoration: none;
 	line-height: 43px;
@@ -2693,8 +2693,6 @@ li.options{
 	.add.add-field-link-declaration{
 		padding:0!important;
 	}
-	
-	
 	
 	.row td.row{
 		margin:7px!important;
