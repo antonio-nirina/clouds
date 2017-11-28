@@ -565,7 +565,9 @@ span.blue-upload{
     padding: 20px;
 }
 
-/* spécifique aux pages "contenus" */
+/*
+ * spécifique aux pages "contenus"
+ */
 .img-content-login-portal{
     background:url('../images/cloudsRewards/Hands-close-up-of-businesswoman-typing-on-the-keyboard.png') no-repeat;
     background-position: -78px -35px;
@@ -626,7 +628,16 @@ span.blue-upload{
     max-width: 95%;
 }
 
+.slide-image-preview{
+    max-width: 95%;
+}
+
 .login-portal-image-preview-container{
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.slide-image-preview-container{
     text-align: center;
     padding-bottom: 25px;
 }
@@ -656,4 +667,37 @@ span.blue-upload{
 
 .submit-button-container ~ div{
     display: none;
+}
+
+.img-content-home-page-slide{
+    background:url('../images/cloudsRewards/hand-computer.png') no-repeat;
+    background-position: -103px -51px;
+}
+
+.img-content-home-page-editorial{
+    background:url('../images/cloudsRewards/hand-writing.png') no-repeat;
+    background-position: -188px -60px;
+}
+
+.slide-image-preview-container .slide-message-preview{
+    color: #FFFFFF;
+    font-weight: 100;
+    font-size: 30px;
+    letter-spacing: 3px;
+    /*font-size: xx-large;*/
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slide-image-preview-container.no-image .no-image-block{
+    height: 350px;
+    background-color: #CCCCCC;
+    width: 75%;
+    margin: auto;
+}
+
+.slide-image-preview-container.no-image .slide-message-preview{
+    color: var(--couleur_4) !important;
 }

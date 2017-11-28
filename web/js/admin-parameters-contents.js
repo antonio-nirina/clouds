@@ -1,7 +1,7 @@
 $(document).ready(function(){
     /**
      * *********************************************************************************************
-     * Paramétrages - Contenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Ajout de slide
      * *********************************************************************************************
      */
@@ -31,6 +31,7 @@ $(document).ready(function(){
     function addNewTabNav(target_id)
     {
         var tab_nav_model = $('.nav-tabs-container').find('.block-model.tab-model').clone();
+        console.log(tab_nav_model);
         tab_nav_model.removeClass('block-model');
         tab_nav_model.removeClass('tab-model');
         tab_nav_model.attr('href', '#'+target_id);
@@ -75,14 +76,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Contenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Ajout de slide
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Contenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Suppression de slide
      * *********************************************************************************************
      */
@@ -120,7 +121,7 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Contenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Suppression de slide
      * *********************************************************************************************
      */
@@ -219,7 +220,7 @@ $(document).ready(function(){
 
     /**
      * *********************************************************************************************
-     * Paramétrages - IContenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Upload image
      * *********************************************************************************************
      */
@@ -235,14 +236,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - IContenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Upload image
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - IContenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Gestion bouton et preview
      * *********************************************************************************************
      */
@@ -252,6 +253,7 @@ $(document).ready(function(){
             var reader = new FileReader();
             reader.onload = function (e) {
                 $(input).parents('.tab-pane').find('.login-portal-image-preview').attr('src', e.target.result);
+                $(input).parents('.tab-pane').find('.image-preview').attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
@@ -264,12 +266,66 @@ $(document).ready(function(){
         $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
         $(this).parent().find('.upload-img-button').removeClass('hidden-button');
         $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+        $(this).parents('.tab-pane').find('.slide-image-preview-container').removeClass('no-image');
     })
+
+    $(document).on('input', '.slide-message-input', function(){
+        $(this).parents('.tab-pane').find('.slide-message-preview').text($(this).val());
+    });
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - IContenus - Portail d'identification
+     * Paramétrages - Contenus - Portail d'identification, Page d'accueil
      * Gestion bouton et preview
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Contenus - Page d'accueil
+     * Section active
+     * *********************************************************************************************
+     */
+    $('.fieldset').on('mouseenter', function(e){
+        $('.fieldset').removeClass('active');
+        $(this).addClass('active');
+
+        $('.cke_wysiwyg_frame').contents().find('body').css(
+            'background-color', '#F5F5F5'
+        )
+        $(this).find('iframe.cke_wysiwyg_frame').contents().find('body').css(
+            'background-color', '#FFFFFF'
+        );
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Contenus - Page d'accueil
+     * Section active
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Contenus - Page d'accueil
+     * Preview d'image de header - sans image
+     * *********************************************************************************************
+     */
+    /*var image_preview_img = $('img.slide-image-preview');
+    if('undefined' != typeof image_preview_img)
+    {
+        if(image_preview_img.attr('src').trim().length <= 0)
+        {
+            image_preview_img.parents('.slide-image-preview-container').addClass('no-image');
+        }
+    }*/
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Contenus - Page d'accueil
+     * Preview d'image de header - sans image
      * *********************************************************************************************
      */
 });
