@@ -252,8 +252,8 @@ $(document).ready(function(){
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $(input).parents('.tab-pane').find('.login-portal-image-preview').attr('src', e.target.result);
-                $(input).parents('.tab-pane').find('.image-preview').attr('src', e.target.result);
+                // $(input).parents('.tab-pane').find('.login-portal-image-preview').attr('src', e.target.result);
+                $(input).parents('.tab-pane').find('.slide-image-preview').attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
