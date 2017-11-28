@@ -277,15 +277,15 @@
                         {{ form_start(home_page_editorial_data_form, {"attr": {"novalidate": "novalidate"}}) }}
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            {{ form_label(home_page_editorial_data_form.editorial, 'texte') }}
+                            {{ form_label(home_page_editorial_data_form.content, 'texte') }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            {{ form_widget(home_page_editorial_data_form.editorial, {"attr": {"class": "large-textarea"}}) }}
+                            {{ form_widget(home_page_editorial_data_form.content, {"attr": {"class": "large-textarea"}}) }}
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 error-message-container">
-                            {{ form_errors(home_page_editorial_data_form.editorial) }}
+                            {{ form_errors(home_page_editorial_data_form.content) }}
                         </div>
                     </div>
                     <div class="row submit-button-container">
@@ -314,7 +314,7 @@
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
             <script>
                 $(document).ready(function(){
-                    CKEDITOR.replace( 'home_page_editorial_data_form_editorial', {
+                    CKEDITOR.replace( 'home_page_editorial_data_form_content', {
                         language: 'fr',
                         uiColor: '#9AB8F3',
                         height: 150,

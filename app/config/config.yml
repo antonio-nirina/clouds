@@ -32,6 +32,9 @@ parameters:
     content_home_page_slide_image_upload_dir: '%kernel.project_dir%/web/content/home_page/slide'
     content_home_page_slide_image_location: 'content/home_page/slide/'
 
+    # Application time zone
+    app_time_zone: 'Europe/Paris'
+
 framework:
     #esi: ~
     translator: { fallbacks: ['%locale%'] }

@@ -5,6 +5,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use AdminBundle\Entity\HomePageData;
 use AppBundle\DataFixtures\ORM\HomePageSlideFixtures;
+use AppBundle\DataFixtures\ORM\EditorialFixtures;
 
 class HomePageDataFixtures extends Fixture
 {
@@ -19,6 +20,9 @@ class HomePageDataFixtures extends Fixture
         $home_page_data->addHomePageSlide($this->getReference('home-page-slide-3'));
         $this->getReference('home-page-slide-3')->setHomePageData($home_page_data);
 
+        $home_page_data->setEditorial($this->getReference('editorial'));
+        $this->getReference('editorial')->setHomePageData($home_page_data);
+
         $manager->persist($home_page_data);
         $manager->flush();
 
@@ -29,6 +33,7 @@ class HomePageDataFixtures extends Fixture
     {
         return array(
             HomePageSlideFixtures::class,
+            EditorialFixtures::class,
         );
     }
 }

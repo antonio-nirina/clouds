@@ -1080,6 +1080,11 @@ class ParametragesController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
+        $editorial = $home_page_data->getEditorial();
+        if (is_null($editorial)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $original_slides = new ArrayCollection();
         foreach ($home_page_data->getHomePageSlides() as $slide) {
             $original_slides->add($slide);
@@ -1099,7 +1104,7 @@ class ParametragesController extends Controller
         $home_page_editorial_data_form = $form_factory->createNamed(
             'home_page_editorial_data_form',
             HomePageEditorialType::class,
-            $home_page_data
+            $editorial
         );
 
         $em = $this->getDoctrine()->getManager();
@@ -1142,6 +1147,10 @@ class ParametragesController extends Controller
             if ($request->request->has('home_page_editorial_data_form')) {
                 $home_page_editorial_data_form->handleRequest($request);
                 if ($home_page_editorial_data_form->isSubmitted() && $home_page_editorial_data_form->isValid()) {
+                    $editorial->setLastEdit(new \DateTime(
+                        'now',
+                        new \DateTimeZone($this->getParameter('app_time_zone'))
+                    ));
                     $em->flush();
                     return $this->redirectToRoute('admin_content_configure_home_page');
                 }

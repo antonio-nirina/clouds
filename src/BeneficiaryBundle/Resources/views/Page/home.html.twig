@@ -245,7 +245,7 @@
                 </p>
 
                 <p class = "descr-block-centre">
-                                            <span class = "descr-1 regular">
+                                            {#<span class = "descr-1 regular">
                                                 Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
                                             </span>
 
@@ -259,7 +259,10 @@
 
                     <span class = "descr-4 regular">
                                                 Helena DEMETIS
-                                            </span>
+                                            </span>#}
+                    {% if editorial is defined %}
+                        {{ editorial.content | raw }}
+                    {% endif %}
                 </p>
 
                 <p class = "btn-jaime-block-center light">
