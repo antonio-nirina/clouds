@@ -14,12 +14,14 @@ use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Entity\SiteFormSetting;
 use AdminBundle\Form\FormStructureDeclarationType;
 use AdminBundle\Form\FormStructureType;
+use AdminBundle\Form\LoginPortalDataType;
 use AdminBundle\Form\RegistrationFormHeaderDataType;
 use AdminBundle\Form\RegistrationFormIntroDataType;
 use AdminBundle\Form\RegistrationImportType;
 use AdminBundle\Form\ResultSettingType;
 use AdminBundle\Form\ResultSettingUploadType;
 use AdminBundle\Form\SiteDesignSettingType;
+use AdminBundle\Form\SiteTableNetworkSettingType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -31,7 +33,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use AdminBundle\Form\LoginPortalDataType;
 
 /**
  * @Route("/admin/parametrages")
@@ -1059,10 +1060,30 @@ class ParametragesController extends Controller
     }
 
     /**
-     * @Route("/tableaux-reseaux",name="admin_table_network")
+     * @Route("/contenus/tableaux-reseaux",name="admin_table_network")
      */
-    public function tableauReseauAction()
+    public function tableauReseauAction(Request $request)
     {
-        return $this->render('AdminBundle:Parametrages:table_reseau.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $site_table_network = $em->getRepository("AdminBundle:SiteTableNetworkSetting")->findBy(
+            array('program' => $program)
+        );
+
+        $site_table_network_form = $this->createForm(SiteTableNetworkSettingType::class, $site_table_network[0]);
+        $site_table_network_form->handleRequest($request);
+        // dump($site_table_network_form); die;
+        if ($site_table_network_form->isSubmitted() && $site_table_network_form->isValid()) {
+            $em->flush();
+        }
+
+        return $this->render('AdminBundle:Parametrages:table_reseau.html.twig', array(
+            "site_table_network" => $site_table_network_form->createView(),
+        ));
     }
 }

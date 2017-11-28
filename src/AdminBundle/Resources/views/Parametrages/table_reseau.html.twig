@@ -1,0 +1,183 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-resultat-form.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+    {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':6})) }}
+    {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+        {{ form_start(site_table_network) }}
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_content_configure_login_portal") }}">portail / identification </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">page d'accueil </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">pages standard </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_table_network") }}">tableaux / réseaux </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
+                        <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <div class = "row">   
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <section class="fieldset active">
+                    <div class="row table-network">
+                        <div class="col-md-1 col-sm-6 col-xs-12">
+                            {{ form_widget(site_table_network.has_classment,{'attr': {'class':'mode'}}) }}
+                            <label for="site_table_network_setting_has_classment">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-1 col-sm-6 col-xs-12 circle">
+                            <div class="table-circle cup"></div>
+                        </div>
+                        <div class="col-md-9 col-12">
+                            <span class="libelle-mode">Souhaitez-vous faire apparaître dans un tableau, le classement des participants d'un même rang ? </span>
+                        </div>
+                    </div>                        
+                </section>
+            </div>
+        </div>
+        <div class = "row">   
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <section class="fieldset inactive">
+                    <div class="row table-network">
+                        <div class="col-md-1 col-sm-6">
+                            {{ form_widget(site_table_network.has_like,{'attr': {'class':'mode'}}) }}
+                            <label for="site_table_network_setting_has_like">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-1 col-sm-6 circle">
+                            <div class="table-circle like"></div>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <span class="libelle-mode">Souhaitez-vous que les participants d'un même rang puissent liker les résultats des autres participants dans ce tableau ? </span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class = "row">   
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <section class="fieldset inactive">
+                    <div class="row table-network">
+                        <div class="col-md-1 col-sm-6">
+                            {{ form_widget(site_table_network.has_facebook,{'attr': {'class':'mode'}}) }}
+                            <label for="site_table_network_setting_has_facebook">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-1 col-sm-6 circle">
+                            <div class="table-circle facebook"></div>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <span class="libelle-mode">souhaitez-vous créer un lien vers la page facebook de votre entreprise ou une page facebook dédiée au challenge ? </span>
+                            <div class="form-link">
+                                <label for="facebook-input">lien de la page</label>
+                                {{ form_widget(site_table_network.facebook_link) }}
+                                <span class="delete-input"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class = "row">   
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <section class="fieldset inactive">
+                    <div class="row table-network">
+                        <div class="col-md-1 col-sm-6">
+                            {{ form_widget(site_table_network.has_linkedin,{'attr': {'class':'mode'}}) }}
+                            <label for="site_table_network_setting_has_linkedin">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-1 col-sm-6 circle">
+                            <div class="table-circle linkedin"></div>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <span class="libelle-mode">souhaitez-vous créer un lien vers la page linkedin de votre entreprise ou une page linkedin dédiée au challenge ? </span>
+                            <div class="form-link">
+                                <label for="linkedin-input">lien de la page</label>
+                                {{ form_widget(site_table_network.linkedin_link) }}
+                                <span class="delete-input"></span>
+                            </div>                            
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class = "row">   
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <section class="fieldset inactive">
+                    <div class="row table-network">
+                        <div class="col-md-1 col-sm-6">
+                            {{ form_widget(site_table_network.has_twitter,{'attr': {'class':'mode'}}) }}
+                            <label for="site_table_network_setting_has_twitter">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="col-md-1 col-sm-6 circle">
+                            <div class="table-circle twitter"></div>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <span class="libelle-mode">souhaitez-vous créer un lien vers le compte twitter de votre entreprise ou un compte twitter dédié au challenge ? </span>
+                            <div class="form-link">
+                                <label for="twitter-input">lien de la page</label>
+                                {{ form_widget(site_table_network.twitter_link) }}
+                                <span class="delete-input"></span>
+                            </div>                            
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>        
+        {{ form_end(site_table_network) }}
+        
+
+        <div class = "row separator"></div>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('js/admin-import.js') }}"></script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

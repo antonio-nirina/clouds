@@ -640,19 +640,6 @@ th label {
 input[type=text] {
     padding-left: 15px;
 }
-@media only screen and (min-width: 769px) {
-    .validation-droite {
-        padding-left: 8% ;
-        display: flex;
-        justify-content: left;
-        flex-flow: row wrap;
-    }
-    .validation-gauche {
-        padding-right: 8% ;
-        display: flex;
-        justify-content: right;
-    }
-}
 .validation-droite form {
     flex-basis: 100%;
     text-align: left;
@@ -684,4 +671,134 @@ input[type=text] {
 .upload-img-button {
     margin-top: 20px;
 }
+.table-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #BEBEBE;
+    box-shadow: 0 0 3px grey inset, 0 0 0 1px #BEBEBE;
+}
+.delete-input {
+    width: 25px;
+    height: 25px;
+    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+}
+.table-network input[type=text] {
+    border: 1px solid;
+    width: 70%;
+    border-radius: 7px;
+    padding: 4px;
+    padding-left: 10px !important;
+    text-align: left;
+}
+.row.table-network {
+    align-items: center;
+}
+.table-network .circle {
+    min-width: 110px;
+    display: flex;
+    justify-content: center;
+}
+.table-network > div {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.form-link {
+    display: flex;
+    align-items: center;
+    font-family: var(--police_light);
+    margin-top: 15px;
+}
+.form-link > * {
+    margin-right: 10px;
+}
+.table-circle.cup {
+    background: url('../images/cloudsRewards/coupe-table.png') center center no-repeat;
+}
+.table-circle.like {
+    background: url('../images/cloudsRewards/pouce-table.png') center center no-repeat;
+}
+.table-circle.facebook {
+    background: url('../images/cloudsRewards/fb-table.png') center center no-repeat;
+}
+.table-circle.linkedin {
+    background: url('../images/cloudsRewards/in-table.png') center center no-repeat;
+}
+.table-circle.twitter {
+    background: url('../images/cloudsRewards/twit-table.png') center center no-repeat;
+}
+.libelle-mode {
+    font-family: var(--police_bold);
+    text-align: left;
+    display: inline-block;
+}
+input[type="checkbox"].mode + label > span {
+    display:inline-block;
+    width:45px;
+    height:20px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    background: url('../images/cloudsRewards/on-off-off.png') no-repeat;
+}
+input[type="checkbox"].mode:checked + label > span {
+    background: url('../images/cloudsRewards/on-off.png') no-repeat;
+}
 
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    #site_design_setting_logo_name {
+        min-width: 60% !important;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    #site_design_setting_logo_name {
+        min-width: 80%;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .validation-droite {
+        padding-left: 8% ;
+        display: flex;
+        justify-content: left;
+        flex-flow: row wrap;
+    }
+    .validation-gauche {
+        padding-right: 8% ;
+        display: flex;
+        justify-content: right;
+    }    
+}
+@media only screen and (max-width: 767px) {
+    .validation-droite button {
+        margin-top : 20px !important;
+    }     
+}
+@media only screen and (max-width: 575px) {
+    #site_design_setting_logo_name {
+        width: 90% !important;
+    }           
+    .logo-row .btn-upload {
+        margin-top : 0;
+    } 
+    .row.table-network {
+        justify-content: center;
+    }
+    .table-network input[type=text] {
+        width: 100%;
+    }
+    .form-link {
+        flex-flow: column wrap;
+    }
+    .form-link > * {
+        margin-top: 10px;
+    }
+}
+@media only screen and (max-width: 416px) {
+    .police-opt {
+        max-width: 90%;
+    }
+    .police-text {
+        max-width: 198px !important;
+    }
+}

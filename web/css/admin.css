@@ -392,7 +392,7 @@ section.inactive{
 	font-size: 17px;
 	/*color: rgb(80,80,80);*/
 	color: var(--couleur_4);	
-	font-family: "Lato-Bold";
+	font-family: var(--police_bold);
 }
 
 .menu-page-active{
@@ -403,7 +403,7 @@ section.inactive{
 	display: inline-block;
 	border-bottom: 2px solid;
 	text-align:center;
-	font-family: "Lato-Bold";
+	font-family: var(--police_bold);
 	font-size: 17px;
 }
 
@@ -485,7 +485,7 @@ li.options{
 	text-align:justify;
 	font-size: 14px;
 	color: rgb(64,64,64);
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 .content-description-texte{
@@ -531,7 +531,7 @@ li.options{
 }
 
 .import-choix{
-	font-family: "Lato-Bold";
+	font-family: var(--police_bold);
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
@@ -1837,7 +1837,7 @@ li.options{
 	
 	.btn-download, .btn-upload{
 		padding:10px!important;
-		font-family:"Lato-Regular"!important;
+		font-family:var(--police)!important;
 	}
 	
 	.content-menu-niv-3{
@@ -3308,4 +3308,9 @@ span.blue-upload {
 }
 .hidden-button {
     display: none;
+}
+@media only screen and (min-width: 768px) {/*correction longueur sidebar*/
+	#sidebar {
+		min-width: 100px !important;
+	}
 }

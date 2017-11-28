@@ -1,4 +1,38 @@
 $(document).ready(function(){
+    // tableau - réseau
+    $('.form-link input[type=text]').each(function(){
+        var value = $(this).val();
+        if (value) {
+            $(this).next('.delete-input').css('display','inline-block');
+        } else {
+            $(this).next('.delete-input').css('display','none');            
+        }        
+    });
+
+    var submit;
+    $('.form-link input[type=text]').on('keyup', function(){
+        var value = $(this).val();
+        if (value) {
+            $(this).next('.delete-input').css('display','inline-block');
+        } else {
+            $(this).next('.delete-input').css('display','none');            
+        } 
+        if (submit) {
+            clearTimeout(submit);
+        }
+        submit = setTimeout(function(){
+            // $(this).parents().find('form').submit();
+        },2000);
+    });
+
+    $('.delete-input').on('click', function() {
+        $(this).prev('.form-link input[type=text]').val('');
+        // $(this).parents().find('form').submit();
+    })
+    $('input.mode').on('change', function() {
+        // $(this).parents().find('form').submit();
+    });
+
     //declartion import
     $('.btn-valider.btn-download').on('click',  function(){
         $('form[name=result_setting]').submit();
