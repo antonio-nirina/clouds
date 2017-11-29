@@ -1,36 +1,44 @@
 $(document).ready(function(){
     // tableau - réseau
-    $('.form-link input[type=text]').each(function(){
-        var value = $(this).val();
-        if (value) {
+    $('.table-network .form-link input[type=text]').each(function(){
+        if ($(this).val()) {
             $(this).next('.delete-input').css('display','inline-block');
         } else {
-            $(this).next('.delete-input').css('display','none');            
-        }        
-    });
-
-    var submit;
-    $('.form-link input[type=text]').on('keyup', function(){
-        var value = $(this).val();
-        if (value) {
-            $(this).next('.delete-input').css('display','inline-block');
-        } else {
-            $(this).next('.delete-input').css('display','none');            
-        } 
-        if (submit) {
-            clearTimeout(submit);
+            $(this).next('.delete-input').css('display','none');
         }
-        submit = setTimeout(function(){
-            // $(this).parents().find('form').submit();
-        },2000);
+        $(this).parent().next('div').css('display','none');   
     });
-
-    $('.delete-input').on('click', function() {
+    $('.table-network .form-link input[type=text]').on('keyup', function(){
+        if ($(this).val()) {
+            $(this).next('.delete-input').css('display','inline-block');            
+        } else {
+            $(this).next('.delete-input').css('display','none');
+        }
+        $(this).parent().next('div').css('display','block');
+    });
+    function submit_table_network() 
+    {        
+        var url = $('input[name=redirect]').val();
+        $('form[name=site_table_network_setting').ajaxSubmit({
+            type: 'POST',
+            dataType: 'json',
+            url: url,
+            success: function(){
+            }
+        });
+    }
+    $('.table-network input.mode').on('change', function() {
+        submit_table_network();
+    });
+    $('.table-network .delete-input').on('click', function() {
         $(this).prev('.form-link input[type=text]').val('');
-        // $(this).parents().find('form').submit();
-    })
-    $('input.mode').on('change', function() {
-        // $(this).parents().find('form').submit();
+        submit_table_network();
+        $(this).css('display','none');
+        $(this).parent().next('div').css('display','none');
+    });
+    $('.table-network .btn-valider').on('click', function() {
+        submit_table_network();
+        $(this).parent().css('display','none');
     });
 
     //declartion import

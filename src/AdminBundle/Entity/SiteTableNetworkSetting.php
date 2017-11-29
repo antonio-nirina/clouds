@@ -34,7 +34,7 @@ class SiteTableNetworkSetting
     private $has_facebook;
 
     /**
-     * @ORM\Column(name="facebook_link", type="text")
+     * @ORM\Column(name="facebook_link", type="text", nullable=true)
      */
     private $facebook_link;
 
@@ -44,7 +44,7 @@ class SiteTableNetworkSetting
     private $has_linkedin;
 
     /**
-     * @ORM\Column(name="linkedin_link", type="text")
+     * @ORM\Column(name="linkedin_link", type="text", nullable=true)
      */
     private $linkedin_link;
 
@@ -54,12 +54,12 @@ class SiteTableNetworkSetting
     private $has_twitter;
 
     /**
-     * @ORM\Column(name="twitter_link", type="text")
+     * @ORM\Column(name="twitter_link", type="text", nullable=true)
      */
     private $twitter_link;
 
     /**
-     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\Program")
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="site_table_network_setting")
      */
     private $program;
 

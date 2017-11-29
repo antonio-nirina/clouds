@@ -42,7 +42,7 @@ class SiteDesignSetting
     private $police;
 
     /**
-     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\Program")
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="site_design_setting")
      */
     private $program;
 

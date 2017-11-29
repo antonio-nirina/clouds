@@ -27,8 +27,16 @@ class PageController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
+        $table_network = $program->getSiteTableNetworkSetting();
+        $has_network = false;
+        if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
+            $has_network = true;
+        }
+        
         return $this->render('BeneficiaryBundle:Page:home.html.twig', array(
             'editorial' => $editorial,
+            'has_network' => $has_network,
+            'table_network' => $table_network
         ));
     }
 }

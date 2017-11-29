@@ -801,6 +801,23 @@ p.rs-sociaux-ligne-2 span.rs-ligne-2-twitter{
 	margin-left:30px;
 }
 
+p.rs-sociaux-ligne-1 span.rs-ligne-1-twitter {
+    background: url('../images/cloudsRewards/rs-sociaux-part.png');
+    background-repeat: repeat;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    background-position: -66px -55px;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+.content-rs-sociaux a {
+	text-decoration: none;
+	outline: 0;
+}
+
 p.rs-sociaux-ligne-2 span.rs-ligne-2-pink{
 	background: url('../images/cloudsRewards/rs-sociaux-part.png');
 	background-repeat: no-repeat;

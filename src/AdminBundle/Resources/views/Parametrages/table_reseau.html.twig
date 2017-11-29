@@ -27,12 +27,12 @@
                             </li>
 
                             <li class="nav-item-niv-3 form-imports">
-                                <a class="nav-link-niv-3 menu-page" href="#">page d'accueil </a>
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_content_configure_home_page") }}">page d'accueil </a>
                                 <span class = "bulle-aide"></span>
                             </li>
 
                             <li class="nav-item-niv-3 form-imports">
-                                <a class="nav-link-niv-3 menu-page" href="#">pages standard </a>
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_pages_standard") }}">pages standard </a>
                                 <span class = "bulle-aide"></span>
                             </li>
 
@@ -54,16 +54,16 @@
             <div class = "col-12 col-md-12 sous-menu-main">
                 <section class="fieldset active">
                     <div class="row table-network">
-                        <div class="col-md-1 col-sm-6 col-xs-12">
+                        <div class="col-lg-1 col-md-12 col-sm-12">
                             {{ form_widget(site_table_network.has_classment,{'attr': {'class':'mode'}}) }}
                             <label for="site_table_network_setting_has_classment">
                                 <span></span>
                             </label>
                         </div>
-                        <div class="col-md-1 col-sm-6 col-xs-12 circle">
+                        <div class="col-lg-1 col-md-12 col-sm-12 circle">
                             <div class="table-circle cup"></div>
                         </div>
-                        <div class="col-md-9 col-12">
+                        <div class="col-lg-9 col-md-12 col-sm-12">
                             <span class="libelle-mode">Souhaitez-vous faire apparaître dans un tableau, le classement des participants d'un même rang ? </span>
                         </div>
                     </div>                        
@@ -74,16 +74,16 @@
             <div class = "col-12 col-md-12 sous-menu-main">
                 <section class="fieldset inactive">
                     <div class="row table-network">
-                        <div class="col-md-1 col-sm-6">
+                        <div class="col-lg-1 col-md-12 col-sm-12">
                             {{ form_widget(site_table_network.has_like,{'attr': {'class':'mode'}}) }}
                             <label for="site_table_network_setting_has_like">
                                 <span></span>
                             </label>
                         </div>
-                        <div class="col-md-1 col-sm-6 circle">
+                        <div class="col-lg-1 col-md-12 col-sm-12 circle">
                             <div class="table-circle like"></div>
                         </div>
-                        <div class="col-md-9 col-sm-12">
+                        <div class="col-lg-9 col-md-12 col-sm-12">
                             <span class="libelle-mode">Souhaitez-vous que les participants d'un même rang puissent liker les résultats des autres participants dans ce tableau ? </span>
                         </div>
                     </div>
@@ -94,21 +94,24 @@
             <div class = "col-12 col-md-12 sous-menu-main">
                 <section class="fieldset inactive">
                     <div class="row table-network">
-                        <div class="col-md-1 col-sm-6">
+                        <div class="col-lg-1 col-md-12 col-sm-12">
                             {{ form_widget(site_table_network.has_facebook,{'attr': {'class':'mode'}}) }}
                             <label for="site_table_network_setting_has_facebook">
                                 <span></span>
                             </label>
                         </div>
-                        <div class="col-md-1 col-sm-6 circle">
+                        <div class="col-lg-1 col-md-12 col-sm-12 circle">
                             <div class="table-circle facebook"></div>
                         </div>
-                        <div class="col-md-9 col-sm-12">
+                        <div class="col-lg-9 col-md-12 col-sm-12">
                             <span class="libelle-mode">souhaitez-vous créer un lien vers la page facebook de votre entreprise ou une page facebook dédiée au challenge ? </span>
                             <div class="form-link">
                                 <label for="facebook-input">lien de la page</label>
                                 {{ form_widget(site_table_network.facebook_link) }}
-                                <span class="delete-input"></span>
+                                <span class="delete-input"></span>                                
+                            </div>
+                            <div>
+                                <button class="btn-valider">valider</button>
                             </div>
                         </div>
                     </div>
@@ -119,22 +122,25 @@
             <div class = "col-12 col-md-12 sous-menu-main">
                 <section class="fieldset inactive">
                     <div class="row table-network">
-                        <div class="col-md-1 col-sm-6">
+                        <div class="col-lg-1 col-md-12 col-sm-12">
                             {{ form_widget(site_table_network.has_linkedin,{'attr': {'class':'mode'}}) }}
                             <label for="site_table_network_setting_has_linkedin">
                                 <span></span>
                             </label>
                         </div>
-                        <div class="col-md-1 col-sm-6 circle">
+                        <div class="col-lg-1 col-md-12 col-sm-12 circle">
                             <div class="table-circle linkedin"></div>
                         </div>
-                        <div class="col-md-9 col-sm-12">
+                        <div class="col-lg-9 col-md-12 col-sm-12">
                             <span class="libelle-mode">souhaitez-vous créer un lien vers la page linkedin de votre entreprise ou une page linkedin dédiée au challenge ? </span>
                             <div class="form-link">
                                 <label for="linkedin-input">lien de la page</label>
                                 {{ form_widget(site_table_network.linkedin_link) }}
                                 <span class="delete-input"></span>
-                            </div>                            
+                            </div>
+                            <div>
+                                <button class="btn-valider">valider</button>
+                            </div>                           
                         </div>
                     </div>
                 </section>
@@ -144,22 +150,25 @@
             <div class = "col-12 col-md-12 sous-menu-main">
                 <section class="fieldset inactive">
                     <div class="row table-network">
-                        <div class="col-md-1 col-sm-6">
+                        <div class="col-lg-1 col-md-12 col-sm-12">
                             {{ form_widget(site_table_network.has_twitter,{'attr': {'class':'mode'}}) }}
                             <label for="site_table_network_setting_has_twitter">
                                 <span></span>
                             </label>
                         </div>
-                        <div class="col-md-1 col-sm-6 circle">
+                        <div class="col-lg-1 col-md-12 col-sm-12 circle">
                             <div class="table-circle twitter"></div>
                         </div>
-                        <div class="col-md-9 col-sm-12">
+                        <div class="col-lg-9 col-md-12 col-sm-12">
                             <span class="libelle-mode">souhaitez-vous créer un lien vers le compte twitter de votre entreprise ou un compte twitter dédié au challenge ? </span>
                             <div class="form-link">
                                 <label for="twitter-input">lien de la page</label>
                                 {{ form_widget(site_table_network.twitter_link) }}
                                 <span class="delete-input"></span>
-                            </div>                            
+                            </div>
+                            <div>
+                                <button class="btn-valider">valider</button>
+                            </div>                         
                         </div>
                     </div>
                 </section>
@@ -167,7 +176,7 @@
         </div>        
         {{ form_end(site_table_network) }}
         
-
+        <input type="hidden" name="redirect" value="{{ path("admin_table_network") }}">
         <div class = "row separator"></div>
     </main>
 
@@ -177,6 +186,7 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script> {# utile pour soumettre le forme par ajax #}
             <script src="{{ asset('js/admin-import.js') }}"></script>
         {% endblock %}
     {% endembed %}

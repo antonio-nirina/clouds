@@ -773,6 +773,9 @@ input[type="checkbox"].mode:checked + label > span {
     .validation-droite button {
         margin-top : 20px !important;
     }     
+    .row.table-network {
+        justify-content: center;
+    }
 }
 @media only screen and (max-width: 575px) {
     #site_design_setting_logo_name {
@@ -780,10 +783,7 @@ input[type="checkbox"].mode:checked + label > span {
     }           
     .logo-row .btn-upload {
         margin-top : 0;
-    } 
-    .row.table-network {
-        justify-content: center;
-    }
+    }    
     .table-network input[type=text] {
         width: 100%;
     }

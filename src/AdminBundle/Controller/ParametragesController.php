@@ -1254,6 +1254,7 @@ class ParametragesController extends Controller
         $site_table_network_form->handleRequest($request);
         // dump($site_table_network_form); die;
         if ($site_table_network_form->isSubmitted() && $site_table_network_form->isValid()) {
+            // dump($request); die;
             $em->flush();
         }
 

@@ -197,28 +197,43 @@
             <!-- FIN FLUX CADEAUX -->
 
             <!-- RESEAUX SOCIAUX -->
-            <div class = "content-rs-sociaux">
-                <p class = "block-active-hover" id = "block-active-hover-rs-sociaux"></p>
-                <p class = "ligne-1-block">
-                    <span class = "titre-block light">réseaux sociaux</span>
-                </p>
+            {% if has_network %}
+                <div class = "content-rs-sociaux">
+                    <p class = "block-active-hover" id = "block-active-hover-rs-sociaux"></p>
+                    <p class = "ligne-1-block">
+                        <span class = "titre-block light">réseaux sociaux</span>
+                    </p>
 
-                <p class = "date-infos">
-                    <span class = "light">suivez votre challenge !</span>
-                </p>
+                    <p class = "date-infos">
+                        <span class = "light">suivez votre challenge !</span>
+                    </p>
 
-                <p class = "rs-sociaux-ligne-1">
-                    <span class = "rs-ligne-1-fb"></span>
-                    <span class = "rs-ligne-1-linkdin"></span>
-                    <span class = "rs-ligne-1-viadeo"></span>
-                </p>
+                    <p class = "rs-sociaux-ligne-1">
+                        {% if table_network.hasFacebook %}
+                            <a href={{ (table_network.facebookLink)?"http://#{table_network.facebookLink}":"#" }}>
+                                <span class = "rs-ligne-1-fb"></span>                                
+                            </a>
+                        {% endif %}
+                        {% if table_network.hasLinkedin %}
+                            <a href={{ (table_network.linkedinLink)?"http://#{table_network.linkedinLink}":"#" }}>
+                                <span class = "rs-ligne-1-linkdin"></span>                            
+                            </a>
+                        {% endif %}
+                        {% if table_network.hasTwitter %}
+                            <a href={{ (table_network.twitterLink)?"http://#{table_network.twitterLink}":"#" }}>
+                                <span class = "rs-ligne-1-twitter"></span>                           
+                            </a>
+                        {% endif %}
+                        {# <span class = "rs-ligne-1-viadeo"></span> #}
+                    </p>
 
-                <p class = "rs-sociaux-ligne-2">
-                    <span class = "rs-ligne-2-gplus"></span>
-                    <span class = "rs-ligne-2-twitter"></span>
-                    <span class = "rs-ligne-2-pink"></span>
-                </p>
-            </div>
+                    {# <p class = "rs-sociaux-ligne-2">
+                        <span class = "rs-ligne-2-gplus"></span> 
+                        <span class = "rs-ligne-2-twitter"></span>                       
+                        <span class = "rs-ligne-2-pink"></span>
+                    </p> #}
+                </div>
+            {% endif %}
             <!-- FIN RESEAUX SOCIAUX -->
         </div>
         <!-- FIN RIGHTER -->

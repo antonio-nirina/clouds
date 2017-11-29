@@ -1,9 +1,11 @@
 <?php
 namespace AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use AdminBundle\Entity\SiteDesignSetting;
 use AdminBundle\Entity\SiteFormSetting;
+use AdminBundle\Entity\SiteTableNetworkSetting;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="")
@@ -121,6 +123,16 @@ class Program
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\HomePageData", inversedBy="program")
      */
     private $home_page_data;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SiteDesignSetting", mappedBy="program")
+     */
+    private $site_design_setting;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SiteTableNetworkSetting", mappedBy="program")
+     */
+    private $site_table_network_setting;
 
     /**
      * @ORM\PrePersist
@@ -634,5 +646,53 @@ class Program
     public function getHomePageData()
     {
         return $this->home_page_data;
+    }
+
+    /**
+     * Set siteTableNetworkSetting
+     *
+     * @param \AdminBundle\Entity\SiteTableNetworkSetting $siteTableNetworkSetting
+     *
+     * @return Program
+     */
+    public function setSiteTableNetworkSetting(SiteTableNetworkSetting $siteTableNetworkSetting = null)
+    {
+        $this->site_table_network_setting = $siteTableNetworkSetting;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTableNetworkSetting
+     *
+     * @return \AdminBundle\Entity\SiteTableNetworkSetting
+     */
+    public function getSiteTableNetworkSetting()
+    {
+        return $this->site_table_network_setting;
+    }
+
+    /**
+     * Set siteDesignSetting
+     *
+     * @param \AdminBundle\Entity\SiteDesignSetting $siteDesignSetting
+     *
+     * @return Program
+     */
+    public function setSiteDesignSetting(SiteDesignSetting $siteDesignSetting = null)
+    {
+        $this->site_design_setting = $siteDesignSetting;
+
+        return $this;
+    }
+
+    /**
+     * Get siteDesignSetting
+     *
+     * @return \AdminBundle\Entity\SiteDesignSetting
+     */
+    public function getSiteDesignSetting()
+    {
+        return $this->site_design_setting;
     }
 }
