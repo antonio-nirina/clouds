@@ -41,7 +41,7 @@ class SiteFormFieldSettingFixtures extends Fixture
 
         $postal_code = new SiteFormFieldSetting();
         $postal_code->setFieldType(FieldType::TEXT)
-            ->setLabel("code postale")
+            ->setLabel("code postal")
             ->setFieldOrder(11)
             ->setPublished(true)
             ->setSpecialFieldIndex(
