@@ -158,7 +158,7 @@ h1 {
 	color: white !important;
 	margin-left: 10px !important;
 	height: 40px !important;
-	padding-top: 19px;
+	padding-top: 8px;
 	font-size:14px;
 	text-align: left!important;
     margin-left: 24px!important;
@@ -188,20 +188,29 @@ h1 {
 
 form.search input[type="text"]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: white!important;
+	text-align:left!important;
+	padding-left:0!important;
 }
 form.search input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    color: white!important;
    opacity:  1!important;
+   padding-left:0!important;
 }
 form.search input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
    color: white!important;
    opacity:  1!important;
+   text-align:left!important;
+   padding-left:0!important;
 }
 form.search input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10-11 */
    color: white!important;
+   text-align:left!important;
+   padding-left:0!important;
 }
 form.search input[type="text"]::-ms-input-placeholder { /* Microsoft Edge */
    color: white!important;
+   text-align:left!important;
+   padding-left:0!important;
 }
 
 .content-menu-niv-2{
@@ -629,10 +638,12 @@ li.options{
 		margin:0!important;
 	}
 	
+	/*
 	input[type="text"]{
 		padding-left:0!important;
 		text-align: center;
 	}
+	*/
 	
 	td.row > label + div{
 		margin-left:O!important;
@@ -656,6 +667,7 @@ li.options{
 	.date-field-form input[type="text"]{
 		margin-right:0!important;
 		padding:0!important;
+		text-align:center;
 	}
 	
 	label.second{
@@ -1234,10 +1246,12 @@ li.options{
 		margin:0!important;
 	}
 	
+	/*
 	input[type="text"]{
 		padding-left:0!important;
 		text-align: center;
 	}
+	*/
 	
 	td.row > label + div{
 		margin-left:O!important;
@@ -1261,6 +1275,7 @@ li.options{
 	.date-field-form input[type="text"]{
 		margin-right:0!important;
 		padding:0!important;
+		text-align:center;
 	}
 	
 	label.second{
@@ -1804,10 +1819,12 @@ li.options{
 		margin:0!important;
 	}
 	
+	/*
 	input[type="text"]{
 		padding-left:0!important;
 		text-align: center;
 	}
+	*/
 	
 	td.row > label + div{
 		margin-left:O!important;
@@ -1831,6 +1848,7 @@ li.options{
 	.date-field-form input[type="text"]{
 		margin-right:0!important;
 		padding:0!important;
+		text-align:center;
 	}
 	
 	label.second{
@@ -2307,10 +2325,12 @@ li.options{
 		margin:0!important;
 	}
 	
+	/*
 	input[type="text"]{
 		padding-left:0!important;
 		text-align: center;
 	}
+	*/
 	
 	td.row > label + div{
 		margin-left:O!important;
@@ -2338,6 +2358,7 @@ li.options{
 	.date-field-form input[type="text"]{
 		margin-right:0!important;
 		padding:0!important;
+		text-align:center;
 	}
 	
 	label.second{
@@ -2730,10 +2751,12 @@ li.options{
 		margin:0!important;
 	}
 	
+	/*
 	input[type="text"]{
 		padding-left:0!important;
 		text-align: center;
 	}
+	*/
 	
 	td.row > label + div{
 		margin-left:O!important;
@@ -2755,6 +2778,7 @@ li.options{
 	.date-field-form input[type="text"]{
 		margin-right:0!important;
 		padding:0!important;
+		text-align:center;
 	}
 	
 	label.second{

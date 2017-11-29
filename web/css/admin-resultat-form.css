@@ -637,9 +637,11 @@ th label {
 #site_design_setting_logo_name {
     min-width: 75%;
 }
+/*
 input[type=text] {
     padding-left: 15px;
 }
+*/
 .validation-droite form {
     flex-basis: 100%;
     text-align: left;

@@ -17,7 +17,7 @@
 // });
 
 $(document).ready(function(){
-	$('input#home_page_slide_data_form_home_page_slides_0_message').css('padding-left', '10px!important;');
+	$('input#header_data_header_message').css('padding-left', '10px!important;');
     //correction z-index 
     $(document).on('show.bs.modal', function () {
         $('main').parents('.container-fluid').css('z-index',"unset");
