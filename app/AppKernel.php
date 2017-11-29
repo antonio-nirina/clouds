@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new BeneficiaryBundle\BeneficiaryBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

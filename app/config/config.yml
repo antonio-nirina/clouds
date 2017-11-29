@@ -69,6 +69,7 @@ twig:
         registration_header_image_location: '%registration_header_image_location%'
         content_login_portal_slide_image_location: '%content_login_portal_slide_image_location%'
         content_home_page_slide_image_location: '%content_home_page_slide_image_location%'
+        locale: '%locale%'
 
 
 # Doctrine Configuration
@@ -111,3 +112,10 @@ fos_user:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
 
+# Liip Imageine Bundle configuration
+liip_imagine:
+    filter_sets:
+        750_width_filter:
+            filters:
+                relative_resize:
+                    widen: 750
