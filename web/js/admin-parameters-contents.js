@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
     /**
      * *********************************************************************************************
      * Paramétrages - Contenus - Portail d'identification, Page d'accueil

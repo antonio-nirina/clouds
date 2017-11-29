@@ -19,6 +19,12 @@
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+					<ul class="content-menu-niv-3 hidden-lg-up">
+						<li class="nav-item-niv-3 form-inscription">
+							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_table_network") }}">tableaux / réseaux </a>
+							<span class = "bulle-aide"></span>
+						</li>
+					</ul>
                     <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
                         <ul class="navbar-nav content-menu-niv-3">
                             <li class="nav-item-niv-3 form-inscription">
@@ -27,23 +33,23 @@
                             </li>
 
                             <li class="nav-item-niv-3 form-imports">
-                                <a class="nav-link-niv-3 menu-page" href="#">page d'accueil </a>
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_content_configure_home_page") }}">page d'accueil </a>
                                 <span class = "bulle-aide"></span>
                             </li>
 
                             <li class="nav-item-niv-3 form-imports">
-                                <a class="nav-link-niv-3 menu-page" href="#">pages standard </a>
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_pages_standard") }}">pages standard </a>
                                 <span class = "bulle-aide"></span>
                             </li>
 
-                            <li class="nav-item-niv-3 form-imports">
+                            <li class="nav-item-niv-3 form-imports hidden-md-down">
                                 <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_table_network") }}">tableaux / réseaux </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                         </ul>
                     </div>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription">
-                        <i class="fa fa-navicon fa-2x py-2 p-1"></i>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="navbar-brand abs" href="#"></a>
                 </nav>
