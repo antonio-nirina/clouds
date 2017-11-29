@@ -69,6 +69,7 @@ twig:
         registration_header_image_location: '%registration_header_image_location%'
         content_login_portal_slide_image_location: '%content_login_portal_slide_image_location%'
         content_home_page_slide_image_location: '%content_home_page_slide_image_location%'
+        locale: '%locale%'
 
 
 # Doctrine Configuration
