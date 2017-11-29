@@ -265,6 +265,9 @@ tr:last-of-type .movedown-field-row-link {
     position: relative;
     background: url('../images/cloudsRewards/close1.png') no-repeat;
 }
+a:not(.active) .delete-form-level {
+    background: url('../images/cloudsRewards/close2.png') no-repeat;
+}
 .head-personalized {
     background-color: #F6F7FA;
 }
@@ -760,13 +763,13 @@ input[type="checkbox"].mode:checked + label > span {
     .validation-droite {
         padding-left: 8% ;
         display: flex;
-        justify-content: left;
+        justify-content: flex-start;
         flex-flow: row wrap;
     }
     .validation-gauche {
         padding-right: 8% ;
         display: flex;
-        justify-content: right;
+        justify-content: flex-end;
     }    
 }
 @media only screen and (max-width: 767px) {

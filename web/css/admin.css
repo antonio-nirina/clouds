@@ -2355,7 +2355,7 @@ li.options{
 	}
 	
 	.add.btn-next-product{
-		width:160px!important;
+		width:162px!important;
 	}
 	
 	.sortable-table input[type="checkbox"] + label > span, .modal .modal-content input[type="radio"] + label > span{
@@ -3287,7 +3287,7 @@ button.btn-valider:hover {
     opacity: 0.75 !important;
     background-color: #f6f6f6;
 }
-.close-modal::before {
+/*.close-modal::before {
    	content: "×";
    	position: absolute;
    	color: white;
@@ -3303,13 +3303,14 @@ button.btn-valider:hover {
    	-webkit-transform: translateX(-50%) translateY(-50%);
    	-moz-transform: translateX(-50%) translateY(-50%);
    	-o-transform: translateX(-50%) translateY(-50%);
-}
+}*/
 .close-modal {
     width: 25px;
     height: 25px;
     cursor: pointer;
     float: right;
-    position: relative;
+    /*position: relative;*/
+    background: url(../images/cloudsRewards/close-table.png) center center no-repeat;
 }
 
 th {

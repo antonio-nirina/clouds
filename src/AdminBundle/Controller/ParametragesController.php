@@ -650,14 +650,11 @@ class ParametragesController extends Controller
                 $new_field["choices"] = ["oui"=>"oui","non"=>"non"];
             }
 
-            $url = 'cloud-rewards.peoplestay.com';
-            $program = $em->getRepository('AdminBundle:Program')->findByUrl($url);
-
+            $program = $this->container->get('admin.program')->getCurrent();
             if (empty($program)) {//redirection si program n'existe pas
-                return $this->redirectToRoute('fos_user_security_logout');
+                return new Response('');
             }
 
-            $program = $program[0];
             if ("Challenge" === $program->getType()->getType()) {
                 $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
             } else {

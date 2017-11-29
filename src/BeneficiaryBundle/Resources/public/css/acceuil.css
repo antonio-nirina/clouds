@@ -2,7 +2,7 @@
  * Import font 'Lato'
  */
 
-@font-face {
+/*@font-face {
 	font-family: "Lato-Light";
 	src: url('../fonts/Lato/Lato-Light.ttf');
 }
@@ -25,7 +25,7 @@
 @font-face {
 	font-family: "Lato-BoldItalic";
 	src: url('../fonts/Lato/Lato-BoldItalic.ttf') format('truetype');
-}
+}*/
 
 
 
@@ -39,8 +39,8 @@ body{
 	margin:0;
 	padding:0;
 	/*background:#e7edf1;*/
-	background:#ebeeef;
-	font-family: "Lato-Light";
+	background:var(--couleur_6);
+	font-family: var(--police_light);
 }
 
 /*
@@ -129,7 +129,7 @@ p.block-active-hover{
 	padding:0;
 	position:absolute;
 	height:2px;
-	background:#7682da;
+	background:var(--couleur_2);
 	width:100%;
 	top:0;
 	left:0;
@@ -187,7 +187,7 @@ input.input-text-search{
 	border:0;
 	color:white;
 	font-size:14px;
-	font-family: "Lato-Light";
+	font-family: var(--police_light);
 	width: 77%;
 }
 
@@ -460,11 +460,11 @@ p.ligne-1-block{
 }
 
 span.titre-block{
-	color: #7682da;
+	color: var(--couleur_2);
 	display: inline-block;
 	margin-top: 16px;
 	font-size: 20px;
-	font-family: "Lato-Light";
+	font-family: var(--police_light);
 }
 
 div.content-challenge-en-cours p.ligne-1-block{
@@ -491,13 +491,13 @@ p.mon-compte-nom{
 
 
 p.mon-compte-nom span{
-	color:#505050;
+	color:var(--couleur_4);
 	font-size:15px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 p.mon-compte-nom span.lib-nom-mon-compte{
-	font-family: "Lato-Bold";
+	font-family: var(--police_bold);
 }
 
 p.mon-compte-points{
@@ -507,9 +507,9 @@ p.mon-compte-points{
 }
 
 p.mon-compte-points span{
-	color:#7682da;
+	color:var(--couleur_2);
 	font-size:35px;
-	font-family: "Lato-Light";
+	font-family: var(--police_light);
 }
 
 p.mon-compte-btn{
@@ -517,7 +517,7 @@ p.mon-compte-btn{
 	padding:0;
 	text-align:center;
 	width:130px;
-	height:34px;
+	/*height:34px;*/
 	background: url('../images/cloudsRewards/btn-bleu.png');
 	background-repeat: no-repeat;
 	margin:0 auto;
@@ -527,7 +527,7 @@ p.mon-compte-btn{
 
 p.mon-compte-btn:hover{
 	width:130px;
-	height:34px;
+	/*height:34px;*/
 	background: url('../images/cloudsRewards/btn-bleu-hover.png');
 	background-position: -6px -6px;
 }
@@ -536,8 +536,8 @@ p.mon-compte-btn span{
 	color: #f5f8fd;
 	vertical-align: middle;
 	position: relative;
-	top: 2px;
-	font-family: "Lato-Light";
+	/*top: 2px;*/
+	font-family: var(--police_light);
 }
 
 span.titre-block-img-classement{
@@ -576,23 +576,23 @@ span.titre-block-img-cadeaux{
 span.titre-block-date{
 	font-size: 40px;
 	float: left;
-	color: #7682da;
+	color: var(--couleur_2);
 	margin-top: -9px;
-	font-family: "Lato-Bold";
+	font-family: var(--police_bold);
 }
 
 span.titre-block-lib-date-mois{
-	color: #7682da;
+	color: var(--couleur_2);
 	margin-left:5px;
 	font-size:16px;
-	font-family: "Lato-Light";
+	font-family: var(--police_light);
 }
 
 span.titre-block-lib-date-jour{
-	color: #7682da;
+	color: var(--couleur_2);
 	margin-left: 5px;
 	font-size: 16px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 	margin-top: -5px;
 	display: block;
 }
@@ -605,15 +605,15 @@ p.date-infos{
 }
 
 p.date-infos span{
-	color:#505050;
+	color:var(--couleur_4);
 	font-size:14px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 p.date-infos-date{
 	margin:0;
 	padding:0;
-	color: #7682da
+	color: var(--couleur_2)
 }
 
 ul.liste-flux-cadeaux{
@@ -660,15 +660,15 @@ p.descr-cadeaux-flux{
 
 p.descr-cadeaux-flux span.lib-cadeaux,
 p.descr-cadeaux-flux span.desc-cadeaux{
-	color:#505050;
+	color:var(--couleur_4);
 	display:block;
 	font-size:14px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 	margin-top: -4px;
 }
 
 p.descr-cadeaux-flux span.vue-cadeaux{
-	color:#7682da;
+	color:var(--couleur_2);
 	display:block;
 }
 
@@ -683,7 +683,7 @@ p.descr-cadeaux-flux span.btn-cadeaux{
 	font-size: 12px;
 	padding-left: 20px;
 	cursor: pointer;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 	margin-top: 9px;
 }
 
@@ -721,7 +721,7 @@ span.btn-acces-boutique{
 	padding: 0;
 	text-align: center;
 	width: 170px;
-	height: 34px;
+	/*height: 34px;*/
 	background: url('../images/cloudsRewards/btn-bleu-large.png');
 	background-repeat: no-repeat;
 	margin: 0 auto;
@@ -730,12 +730,12 @@ span.btn-acces-boutique{
 	display:block;
 	padding-top:4px;
 	color:white;
-	font-family: "Lato-Light";
+	font-family: var(--police_light);
 }
 
 span.btn-acces-boutique:hover{
 	width: 170px;
-	height: 34px;
+	/*height: 34px;*/
 	background: url('../images/cloudsRewards/btn-bleu-large-hover.png');
 	background-position: -106px -25px;
 }
@@ -849,25 +849,25 @@ p.titre-block-centre{
 }
 
 p.titre-block-centre span.lib-titre-block-centre{
-	color: #7682da;
+	color: var(--couleur_2);
 	display: block;
 	font-size: 25px;
-	font-family: "Lato-Light";
+	font-family: var(--police_light);
 }
 
 p.titre-block-centre span.lib-date-block-centre{
 	color: #808080;
 	display: block;
 	font-size: 12px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 p.titre-block-centre span.lib-date-block-centre-large{
-	color: #7682da;
+	color: var(--couleur_2);
 	display: block;
 	font-size: 15px;
 	margin-top: 24px;
-	font-family: "Lato-Bold";
+	font-family: var(--police_bold);
 }
 
 p.img-titre-block-centre{
@@ -883,40 +883,40 @@ p.descr-block-centre{
 p.descr-block-centre span.descr-1{
 	display:block;
 	text-align:justify;
-	color: #505050;
+	color: var(--couleur_4);
 	font-size:14px;
 	line-height: 15px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 p.descr-block-centre span.descr-2{
 	display:block;
 	text-align:justify;
-	color: #505050;
+	color: var(--couleur_4);
 	margin-top:20px;
 	font-size:14px;
 	line-height: 15px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 p.descr-block-centre span.descr-3{
 	display:block;
 	text-align:justify;
-	color: #505050;
+	color: var(--couleur_4);
 	margin-top:20px;
 	font-size:14px;
 	line-height: 15px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 p.descr-block-centre span.descr-4{
 	display:block;
 	text-align:justify;
-	color: #505050;
+	color: var(--couleur_4);
 	margin-top:20px;
 	font-size:14px;
 	line-height: 15px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 p.btn-jaime-block-center{
@@ -935,7 +935,7 @@ p.btn-jaime-block-center span{
 	top: -4px;
 	left: 9px;
 	font-size: 12px;
-	font-family: "Lato-Regular";
+	font-family: var(--police);
 }
 
 img.trophees-3-premiers{
@@ -999,7 +999,7 @@ div.footer{
 	height:200px;
 	margin-top:30px;
 	padding-top:15px;
-	background:#505050;
+	background:var(--couleur_4);
 }
 
 div.content-lefter-footer{
@@ -1147,7 +1147,7 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	div#collapsingNavbarNiv2{
 		width: 100%;
-		background: #505050;
+		background: var(--couleur_4);
 		position: absolute;
 		top: 51px;
 		z-index: 10;
@@ -1299,7 +1299,7 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	div#collapsingNavbarNiv2{
 		width: 100%;
-		background: #505050;
+		background: var(--couleur_4);
 		position: absolute;
 		top: 51px;
 		z-index: 10;
@@ -1440,7 +1440,7 @@ ul.rs-sociaux-footer li.rs-autre{
 	
 	div#collapsingNavbarNiv2{
 		width: 100%;
-		background: #505050;
+		background: var(--couleur_4);
 		position: absolute;
 		top: 51px;
 		z-index: 10;
@@ -1763,4 +1763,29 @@ ul.rs-sociaux-footer li.rs-autre{
 	ul.menu-content{
 		width:78%;
 	}
+}
+/*ajustement*/
+span.btn-acces-boutique, p.mon-compte-btn, .header {
+    background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+    background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+    background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );    
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );    
+}
+span.btn-acces-boutique:hover, p.mon-compte-btn:hover {
+	background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+    background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+    background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+    background: linear-gradient(to right, var(--couleur_1), var(--couleur_1) ) !important;
+}
+span.btn-acces-boutique, p.mon-compte-btn {
+	padding: 5px 5px;
+	color: white;
+	border-radius: 27px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.menu-top {
+	background: none;
+	background-color: var(--couleur_3) !important;
 }

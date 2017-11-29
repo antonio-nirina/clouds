@@ -39,13 +39,20 @@ class DesignRoot
         $default = file_get_contents($this->default);
         $colors['couleur_th'] = $this->hex2rgba($colors["couleur_2"], true);
         $new_root_css = str_replace(
-            array("#1d61d4","#598fea","#7682da","#505050","#505050","#807f81","#ebeeef","rgba(118, 130, 218, 0.2)"),
+            array(
+                "#1d61d4","#598fea",
+                "#7682da",
+                "--couleur_3: #505050",
+                "--couleur_4: #505050",
+                "#807f81",
+                "#ebeeef",
+                "rgba(118, 130, 218, 0.2)"),
             array(
                 $colors["couleur_1"],
                 $colors["couleur_1_bis"],
                 $colors["couleur_2"],
-                $colors["couleur_3"],
-                $colors["couleur_4"],
+                "--couleur_3: ".$colors["couleur_3"],
+                "--couleur_4: ".$colors["couleur_4"],
                 $colors["couleur_5"],
                 $colors["couleur_6"],
                 $colors["couleur_th"],
