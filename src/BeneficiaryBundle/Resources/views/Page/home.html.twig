@@ -19,11 +19,18 @@
                 <div class = "slide">
                     <div class="swiper-container hidden-md-up">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%"  class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
+                            {% if slide_list is defined and slide_list is not empty%}
+                                {% for slide in slide_list %}
+                            <div class="swiper-slide">
+                                <span class="slide-message">{{ slide.message }}</span>
+                                    {% if slide.image is not null and slide.image is not empty %}
+                                <img src="{{ asset(content_home_page_slide_image_location~slide.image) | imagine_filter('750_width_filter')}}" alt="" width = "100%" class = "logo-img" />
+                                    {% else %}
+                                <div class="no-slide-image"></div>
+                                    {% endif %}
+                            </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next"></div>
@@ -32,11 +39,18 @@
 
                     <div class="swiper-container hidden-md-down">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%"  class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
+                            {% if slide_list is defined and slide_list is not empty%}
+                                {% for slide in slide_list %}
+                            <div class="swiper-slide {{ slide.image is null ? 'no-image' : '' }}">
+                                <span class="slide-message">{{ slide.message }}</span>
+                                    {% if slide.image is not null and slide.image is not empty %}
+                                <img src="{{ asset(content_home_page_slide_image_location~slide.image) }}" alt="" width = "100%"  class = "logo-img" />
+                                    {% else %}
+                                <div class="no-slide-image"></div>
+                                    {% endif %}
+                            </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next"></div>

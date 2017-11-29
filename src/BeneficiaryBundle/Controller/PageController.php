@@ -27,8 +27,13 @@ class PageController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+            ->findByHomePageDataOrdered($home_page_data);
+
         return $this->render('BeneficiaryBundle:Page:home.html.twig', array(
             'editorial' => $editorial,
+            'slide_list' => $ordered_slide_list,
         ));
     }
 }
