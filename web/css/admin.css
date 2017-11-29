@@ -186,21 +186,21 @@ h1 {
 	display:block!important;
 }
 
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+form.search input[type="text"]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: white!important;
 }
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+form.search input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    color: white!important;
    opacity:  1!important;
 }
-::-moz-placeholder { /* Mozilla Firefox 19+ */
+form.search input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
    color: white!important;
    opacity:  1!important;
 }
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+form.search input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10-11 */
    color: white!important;
 }
-::-ms-input-placeholder { /* Microsoft Edge */
+form.search input[type="text"]::-ms-input-placeholder { /* Microsoft Edge */
    color: white!important;
 }
 
