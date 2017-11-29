@@ -17,14 +17,7 @@
 // });
 
 $(document).ready(function(){
-	// $(document).ajaxSuccess(function() {
-	//   sidebar_height();
-	// });
-    //sidebar height adjustment 
-    // setTimeout(function() {        
-    //     sidebar_height(); 
-    // }, 1000);
-
+	$('input#home_page_slide_data_form_home_page_slides_0_message').css('padding-left', '10px!important;');
     //correction z-index 
     $(document).on('show.bs.modal', function () {
         $('main').parents('.container-fluid').css('z-index',"unset");

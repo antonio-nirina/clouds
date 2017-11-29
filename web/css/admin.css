@@ -186,21 +186,21 @@ h1 {
 	display:block!important;
 }
 
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+form.search input[type="text"]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: white!important;
 }
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+form.search input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    color: white!important;
    opacity:  1!important;
 }
-::-moz-placeholder { /* Mozilla Firefox 19+ */
+form.search input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
    color: white!important;
    opacity:  1!important;
 }
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+form.search input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10-11 */
    color: white!important;
 }
-::-ms-input-placeholder { /* Microsoft Edge */
+form.search input[type="text"]::-ms-input-placeholder { /* Microsoft Edge */
    color: white!important;
 }
 
@@ -3349,20 +3349,29 @@ th {
     overflow: hidden;
     line-height: 0;
 }
+
 span.blue-upload {
     background: url('../images/cloudsRewards/upload-blue.png') center center no-repeat;
     padding: 20px;
 }
+
 .upload-img-button {
     color: #457FE3;
     font-size: 14px;
     cursor: pointer;
 }
+
 .hidden-button {
     display: none;
 }
+
 @media only screen and (min-width: 768px) {/*correction longueur sidebar*/
 	#sidebar {
 		min-width: 100px !important;
 	}
+}
+
+#login_portal_data_form_title,
+.slide-message-input{
+	padding-left:10px!important;
 }
