@@ -1125,6 +1125,28 @@ ul.rs-sociaux-footer li.rs-autre{
 	cursor:pointer;
 }
 
+.slide-message{
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 30px;
+	letter-spacing: 3px;
+}
+
+.swiper-slide{
+    color: #FFFFFF;
+}
+
+.swiper-slide.no-image{
+    color: var(--couleur_4);
+}
+
+div.no-slide-image{
+    height: 350px;
+    background-color: #CCCCCC;
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	div.content-body{

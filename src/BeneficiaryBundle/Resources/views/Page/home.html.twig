@@ -19,11 +19,18 @@
                 <div class = "slide">
                     <div class="swiper-container hidden-md-up">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%"  class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide1.png') }}" alt="" width = "100%" class = "logo-img" /></div>
+                            {% if slide_list is defined and slide_list is not empty%}
+                                {% for slide in slide_list %}
+                            <div class="swiper-slide">
+                                <span class="slide-message">{{ slide.message }}</span>
+                                    {% if slide.image is not null and slide.image is not empty %}
+                                <img src="{{ asset(content_home_page_slide_image_location~slide.image) | imagine_filter('750_width_filter')}}" alt="" width = "100%" class = "logo-img" />
+                                    {% else %}
+                                <div class="no-slide-image"></div>
+                                    {% endif %}
+                            </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next"></div>
@@ -32,11 +39,18 @@
 
                     <div class="swiper-container hidden-md-down">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%"  class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
-                            <div class="swiper-slide"><img src="{{ asset('bundles/beneficiary/images/cloudsRewards/slide-1024.jpg') }}" alt="" width = "100%" class = "logo-img" /></div>
+                            {% if slide_list is defined and slide_list is not empty%}
+                                {% for slide in slide_list %}
+                            <div class="swiper-slide {{ slide.image is null ? 'no-image' : '' }}">
+                                <span class="slide-message">{{ slide.message }}</span>
+                                    {% if slide.image is not null and slide.image is not empty %}
+                                <img src="{{ asset(content_home_page_slide_image_location~slide.image) }}" alt="" width = "100%"  class = "logo-img" />
+                                    {% else %}
+                                <div class="no-slide-image"></div>
+                                    {% endif %}
+                            </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next"></div>
@@ -250,8 +264,9 @@
                 <p class = "block-active-hover" id = "block-active-hover-edito"></p>
                 <p class = "titre-block-centre">
                     <span class = "lib-titre-block-centre light">édito</span>
-                    <span class = "lib-date-block-centre regular">17 octobre - 11h50</span>
-
+                    {% if editorial is defined and editorial.lastEdit is not null %}
+                    <span class = "lib-date-block-centre regular">{{ editorial.lastEdit | localizeddate('none', 'none', locale, null, "d MMMM - H'h'mm") }}</span>
+                    {% endif %}
                     <span class = "lib-date-block-centre-large bold">Loren ipsum dolor sit amet, consectetur adipiscing elit</span>
                 </p>
 
@@ -260,24 +275,9 @@
                 </p>
 
                 <p class = "descr-block-centre">
-                                            {#<span class = "descr-1 regular">
-                                                Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
-                                            </span>
-
-                    <span class = "descr-2 regular">
-                                                Ut semper urna in velit varius malescada. Fusce id orti tellus. Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus.Ut semper urna in velit varius malescada. Fusce id orti tellus
-                                            </span>
-
-                    <span class = "descr-3 regular">
-                                                Bon challenge
-                                            </span>
-
-                    <span class = "descr-4 regular">
-                                                Helena DEMETIS
-                                            </span>#}
-                    {% if editorial is defined %}
-                        {{ editorial.content | raw }}
-                    {% endif %}
+                {% if editorial is defined %}
+                    {{ editorial.content | raw }}
+                {% endif %}
                 </p>
 
                 <p class = "btn-jaime-block-center light">
