@@ -102,12 +102,23 @@
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                                      {{ form_widget(slide.image, {"attr":{"class": "hidden-input-file slide-image-input"}}) }}
+                                                    {% if slide.vars.value.getId in original_slides_image|keys and original_slides_image[slide.vars.value.getId] is not empty and original_slides_image[slide.vars.value.getId] is not null %}
+                                                    <button class="btn-valider btn-upload choose-upload-img-button  hidden-button">
+                                                        <span class="upload"></span> Choisissez un fichier...
+                                                    </button>
+                                                    <button class="upload-img-button">
+                                                        <span class="blue-upload"></span><span class="img-name-container">{{ original_slides_image[slide.vars.value.getId] }}</span>
+                                                    </button>
+                                                    <a href="#" class="delete-link delete-slide-image"></a>
+                                                    {% else %}
                                                     <button class="btn-valider btn-upload choose-upload-img-button">
                                                         <span class="upload"></span> Choisissez un fichier...
                                                     </button>
                                                     <button class="upload-img-button hidden-button">
                                                         <span class="blue-upload"></span><span class="img-name-container"></span>
                                                     </button>
+                                                    {% endif %}
+                                                    <input type="hidden" name="delete_slide_image_url" value="{{ path("admin_content_configure_home_page_delete_slide_image", {"slide_id": slide.vars.value.getId}) }}">
                                                 </div>
                                             </div>
                                             <div class="row">

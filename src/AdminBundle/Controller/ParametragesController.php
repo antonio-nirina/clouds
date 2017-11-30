@@ -1127,9 +1127,7 @@ class ParametragesController extends Controller
             return new Response('');
         }
 
-        dump('out');
         if (!is_null($slide->getImage())) {
-            dump('in');
             $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
                 ->retrieveNumberOfOtherSlideUsingImage($login_portal_data, $slide);
             if (0 == $number_other_slide_using_image) {
@@ -1312,6 +1310,53 @@ class ParametragesController extends Controller
         $to_del_slide->setHomePageData(null);
         $em->remove($to_del_slide);
         $em->flush();
+
+        return new Response('<html><body>OK</body></html>');
+    }
+
+    /**
+     * @Route(
+     *     "/contenus/page-accueil/suppression-slide-image/{slide_id}",
+     *     name="admin_content_configure_home_page_delete_slide_image"),
+     *     requirements={"slide_id": "\d+"}
+     */
+    public function deleteHomePageSlideImageAction($slide_id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $home_page_data = $program->getHomePageData();
+        if (is_null($home_page_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $slide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+            ->findOneBy(array(
+                'home_page_data' => $home_page_data,
+                'id' => $slide_id,
+            ));
+        if (is_null($slide)) {
+            return new Response('');
+        }
+
+        if (!is_null($slide->getImage())) {
+            $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+                ->retrieveNumberOfOtherSlideUsingImage($home_page_data, $slide);
+            if (0 == $number_other_slide_using_image) {
+                $filesystem = $this->get('filesystem');
+                $image_path = $this->getParameter('content_home_page_slide_image_upload_dir')
+                    .'/'
+                    .$slide->getImage();
+                if ($filesystem->exists($image_path)) {
+                    $filesystem->remove($image_path);
+                }
+            }
+            $slide->setImage(null);
+            $em->flush();
+        }
 
         return new Response('<html><body>OK</body></html>');
     }
