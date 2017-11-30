@@ -260,13 +260,27 @@ $(document).ready(function(){
     }
 
     $(document).on('change', '.slide-image-input', function(){
-        createImagePreview(this);
-        var image_file_name = $(this).val().split('\\').pop();
-        $(this).parent().find('.upload-img-button').css('background-position', '15px');
-        $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
-        $(this).parent().find('.upload-img-button').removeClass('hidden-button');
-        $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
-        $(this).parents('.tab-pane').find('.slide-image-preview-container').removeClass('no-image');
+        if('' == $(this).val().trim()){
+            var initial_image = $(this).parent().find('input[name=initial_image]').val();
+            var initial_image_name = $(this).parent().find('input[name=initial_image_name]').val();
+            if('' == initial_image_name.trim()){
+                $(this).parent().find('.upload-img-button').addClass('hidden-button');
+                $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
+                $(this).parents('.tab-pane').find('.slide-image-preview-container').addClass('no-image');
+                $(this).parents('.tab-pane').find('.slide-image-preview-container .slide-image-preview').attr('src', '');
+            } else {
+                $(this).parent().find('.upload-img-button').find('.img-name-container').text(initial_image_name);
+                $(this).parents('.tab-pane').find('.slide-image-preview-container .slide-image-preview').attr('src', initial_image);
+            }
+        } else {
+            createImagePreview(this);
+            var image_file_name = $(this).val().split('\\').pop();
+            $(this).parent().find('.upload-img-button').css('background-position', '15px');
+            $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
+            $(this).parent().find('.upload-img-button').removeClass('hidden-button');
+            $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+            $(this).parents('.tab-pane').find('.slide-image-preview-container').removeClass('no-image');
+        }
     })
 
     $(document).on('input', '.slide-message-input', function(){
