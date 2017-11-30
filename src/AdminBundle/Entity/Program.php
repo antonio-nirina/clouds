@@ -133,6 +133,11 @@ class Program
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SiteTableNetworkSetting", mappedBy="program")
      */
     private $site_table_network_setting;
+	
+	/**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SitePagesStandardSetting", mappedBy="program")
+     */
+    private $site_page_standard;
 
     /**
      * @ORM\PrePersist
@@ -149,6 +154,7 @@ class Program
     public function __construct()
     {
         $this->site_form_settings = new ArrayCollection();
+        $this->site_page_standard = new ArrayCollection();
     }
 
     /**
@@ -694,5 +700,39 @@ class Program
     public function getSiteDesignSetting()
     {
         return $this->site_design_setting;
+    }
+	
+	/**
+     * Add sitePagesStandardSetting
+     *
+     * @param \AdminBundle\Entity\SitePagesStandardSetting $sitePagesStandardSetting
+     *
+     * @return SitePagesStandardSetting
+     */
+    public function addSitePagesStandardSetting(\AdminBundle\Entity\SitePagesStandardSetting $sitePagesStandardSetting)
+    {
+        $this->site_page_standard[] = $sitePagesStandardSetting;
+
+        return $this;
+    }
+
+    /**
+     * Remove sitePagesStandardSetting
+     *
+     * @param \AdminBundle\Entity\SitePagesStandardSetting $sitePagesStandardSetting
+     */
+    public function removeSitePagesStandardSetting(\AdminBundle\Entity\SitePagesStandardSetting $sitePagesStandardSetting)
+    {
+        $this->site_page_standard->removeElement($sitePagesStandardSetting);
+    }
+
+    /**
+     * Get sitePagesStandardSetting
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSitePagesStandardSetting()
+    {
+        return $this->site_page_standard;
     }
 }

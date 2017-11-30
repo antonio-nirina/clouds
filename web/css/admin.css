@@ -3407,8 +3407,33 @@ span.blue-upload {
 	padding-left:10px!important;
 }
 
+button.btn-valider-etat{
+    background: white;  
+	font-size: 15px;
+	min-width: 120px !important;	
+	padding: 5px 9px !important;
+	font-family: var(--police) !important;
+	border-radius: 27px;
+	cursor: pointer;
+	margin-top: 20px;
+	border:2px solid var(--couleur_1);
+}
+
+button.btn-valider-etat .uploaded{
+	width: auto;
+	padding: 20px;
+	background: url('../images/cloudsRewards/upload-blue.png') center center no-repeat;
+}
+
+.img-delete-img{
+	margin-left:20px;
+	cursor:pointer;
+	display:none;
+}
+
 .cke_button_icon.cke_button__justifyblock_icon{
 	background: url('../../../images/cloudsRewards/custom-justify-text.png') no-repeat !important;
+	background: url('../images/cloudsRewards/custom-justify-text.png') no-repeat !important; /*for online server*/
 	background-size: 20px 16px !important;
 }
 .navbar-nav.content-menu-niv-3 {

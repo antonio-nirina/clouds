@@ -372,4 +372,3 @@ $(document).ready(function(){
 		$('div#sidebar a#contenus span.numero-menu').css({'color':'var(--couleur_2)', 'border':'1px solid var(--couleur_2)'});
 	}
 });
-

@@ -253,6 +253,17 @@ span.editeur{
 	display:block;
 }
 
+p.chargementAjax{
+	position:relative;
+	width:100%;
+	text-align:center;
+	display:none;
+}
+
+p.chargementAjax img{
+	width:12%;
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	#collapsingNavbarFormInscription {

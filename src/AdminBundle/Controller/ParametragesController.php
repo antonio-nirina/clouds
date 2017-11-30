@@ -12,6 +12,8 @@ use AdminBundle\Entity\Program;
 use AdminBundle\Entity\RegistrationFormData;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Entity\SiteFormSetting;
+use AdminBundle\Entity\SitePagesStandardDefault;
+
 use AdminBundle\Form\FormStructureDeclarationType;
 use AdminBundle\Form\FormStructureType;
 use AdminBundle\Form\RegistrationFormHeaderDataType;
@@ -1420,12 +1422,69 @@ class ParametragesController extends Controller
             "site_table_network" => $site_table_network_form->createView(),
         ));
     }
+	
+	/**
+     * @Route(
+     *     "/contenus/pages-standard/affiche-contenu-page",
+     *     name="admin_pages_standard_affiche")
+     */
+    public function affichePagesStandardAction(Request $request)
+    {
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$datas = array();
+			$datas['page'] = $request->get('id_page');
+			$datas['new_page'] = $request->get('new_page');
+			$response = $this->forward('AdminBundle:PartialPage:afficheContenuPagesStandard',
+                        array('datas' => $datas)
+                    );
+			return new Response($response->getContent());
+		}else{
+			return new Response('');
+		}
+	}
 
     /**
-     * @Route("/pages-standard",name="admin_pages_standard")
+     * @Route("/contenus/pages-standard",name="admin_pages_standard")
      */
-    public function pagesStandardAction()
+    public function pagesStandardAction(Request $request)
     {
-        return $this->render('AdminBundle:Parametrages:pages_standard.html.twig');
+		$program = $this->container->get('admin.program')->getCurrent();
+		
+		//redirection si program n'existe pas
+		if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		$AllPages = array();
+		$AllPagesSetting = array();
+		$AllPagesDefault = array();
+		
+		//Get all pages with programm
+		$AllPagesSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->findBy(
+            array('program' => $program)
+        );
+		
+		//Get all pages default
+		$AllPagesDefault = $em->getRepository(SitePagesStandardDefault::class)->findAll();
+		
+		if(count($AllPagesSetting) > 0){
+			$AllPages = $AllPagesSetting;
+		}else{
+			$AllPages = $AllPagesDefault;
+		}
+		
+		
+		
+        return $this->render('AdminBundle:Parametrages:pages_standard.html.twig', array(
+			'AllPages' => $AllPages
+		));
     }
 }
