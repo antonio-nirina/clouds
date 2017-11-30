@@ -574,8 +574,9 @@ li.options{
 	}
 	
 	.btn-content-retour-valider{
-		width:90%!important;
+		width:78%!important;
 		margin:0 auto!important;
+		justify-content: space-evenly;
 	}
 	
 	.modal-content .content .line, .modal-content .content .intitule{
@@ -1180,6 +1181,7 @@ li.options{
 	.btn-content-retour-valider{
 		width:100%!important;
 		margin:0 auto!important;
+		justify-content: space-evenly;
 	}
 	
 	.modal-content .content .line, .modal-content .content .intitule{
@@ -1745,6 +1747,7 @@ li.options{
 	.btn-content-retour-valider{
 		width:100%!important;
 		margin:0 auto!important;
+		justify-content: space-evenly;
 	}
 	
 	.fieldset-nav-tabs{
@@ -2307,6 +2310,7 @@ li.options{
 	.btn-content-retour-valider{
 		width:82%!important;
 		margin:0 auto!important;
+		justify-content: space-evenly;
 	}
 	
 	#product-tabs{
@@ -2734,6 +2738,7 @@ li.options{
 	.btn-content-retour-valider{
 		width:60%!important;
 		margin:0 auto!important;
+		justify-content: space-evenly;
 	}
 	
 	#product-tabs{
@@ -3405,4 +3410,11 @@ span.blue-upload {
 .cke_button_icon.cke_button__justifyblock_icon{
 	background: url('../../../images/cloudsRewards/custom-justify-text.png') no-repeat !important;
 	background-size: 20px 16px !important;
+}
+.navbar-nav.content-menu-niv-3 {
+	display: flex !important;
+	justify-content: space-evenly;
+}
+.navbar-nav.content-menu-niv-3.between {
+	justify-content: space-between;
 }

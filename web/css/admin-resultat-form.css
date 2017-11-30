@@ -768,6 +768,11 @@ input[type="checkbox"].mode:checked + label > span {
     display: flex;
     align-items: flex-end;
 }
+@media only screen and (min-width: 1200px) {
+    .button-row.btn-content-retour-valider {
+        width: 75% !important;
+    }
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     #site_design_setting_logo_name {
         min-width: 60% !important;
@@ -791,10 +796,7 @@ input[type="checkbox"].mode:checked + label > span {
         justify-content: flex-end;
     }    
 }
-@media only screen and (max-width: 767px) {
-    .validation-droite button {
-        margin-top : 20px !important;
-    }     
+@media only screen and (max-width: 767px) {        
     .row.table-network {
         justify-content: center;
     }    
@@ -808,6 +810,12 @@ input[type="checkbox"].mode:checked + label > span {
     }
 }
 @media only screen and (max-width: 575px) {
+    .validation-droite button {
+        margin-top : 20px !important;
+    } 
+    .button-row.btn-content-retour-valider {
+        width: 88% !important;
+    }
     #site_design_setting_logo_name {
         width: 90% !important;
     }     
