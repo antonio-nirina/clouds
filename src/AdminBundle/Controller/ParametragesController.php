@@ -272,6 +272,39 @@ class ParametragesController extends Controller
     }
 
     /**
+     * @Route(
+     *     "/inscriptions/header-formulaire/suppression-image",
+     *     name="admin_parameters_registration_delete_header_image")
+     */
+    public function deleteRegistrationFormHeaderImage()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $registration_form_data = $program->getRegistrationFormData();
+        if (is_null($registration_form_data)) {
+            return new Response('');
+        }
+
+        if (!is_null($registration_form_data->getHeaderImage())) {
+            $filesystem = $this->get('filesystem');
+            $image_path = $this->getParameter('registration_header_image_upload_dir')
+                .'/'
+                .$registration_form_data->getHeaderImage();
+            if ($filesystem->exists($image_path)) {
+                $filesystem->remove($image_path);
+            }
+            $registration_form_data->setHeaderImage(null);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+        }
+
+        return new Response('<html><body>OK</body></html>');
+    }
+
+    /**
      * @Route("/inscriptions/creation-formulaire/nouveau-champ", name="admin_new_registration_form_field")
      */
     public function addRegistrationFormFieldAction(Request $request)
@@ -1066,6 +1099,53 @@ class ParametragesController extends Controller
     }
 
     /**
+     * @Route(
+     *     "/contenus/portail-identification/suppression-slide-image/{slide_id}",
+     *     name="admin_content_configure_login_portal_delete_slide_image"),
+     *     requirements={"slide_id": "\d+"}
+     */
+    public function deleteLoginPortalSlideImageAction($slide_id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $login_portal_data = $program->getLoginPortalData();
+        if (is_null($login_portal_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $slide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+            ->findOneBy(array(
+                'login_portal_data' => $login_portal_data,
+                'id' => $slide_id,
+            ));
+        if (is_null($slide)) {
+            return new Response('');
+        }
+
+        if (!is_null($slide->getImage())) {
+            $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+                ->retrieveNumberOfOtherSlideUsingImage($login_portal_data, $slide);
+            if (0 == $number_other_slide_using_image) {
+                $filesystem = $this->get('filesystem');
+                $image_path = $this->getParameter('content_login_portal_slide_image_upload_dir')
+                    .'/'
+                    .$slide->getImage();
+                if ($filesystem->exists($image_path)) {
+                    $filesystem->remove($image_path);
+                }
+            }
+            $slide->setImage(null);
+            $em->flush();
+        }
+
+        return new Response('<html><body>OK</body></html>');
+    }
+
+    /**
      * @Route("/contenus/page-accueil", name="admin_content_configure_home_page")
      */
     public function configureHomePageAction(Request $request)
@@ -1229,6 +1309,53 @@ class ParametragesController extends Controller
         $to_del_slide->setHomePageData(null);
         $em->remove($to_del_slide);
         $em->flush();
+
+        return new Response('<html><body>OK</body></html>');
+    }
+
+    /**
+     * @Route(
+     *     "/contenus/page-accueil/suppression-slide-image/{slide_id}",
+     *     name="admin_content_configure_home_page_delete_slide_image"),
+     *     requirements={"slide_id": "\d+"}
+     */
+    public function deleteHomePageSlideImageAction($slide_id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $home_page_data = $program->getHomePageData();
+        if (is_null($home_page_data)) {
+            return new Response('');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $slide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+            ->findOneBy(array(
+                'home_page_data' => $home_page_data,
+                'id' => $slide_id,
+            ));
+        if (is_null($slide)) {
+            return new Response('');
+        }
+
+        if (!is_null($slide->getImage())) {
+            $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+                ->retrieveNumberOfOtherSlideUsingImage($home_page_data, $slide);
+            if (0 == $number_other_slide_using_image) {
+                $filesystem = $this->get('filesystem');
+                $image_path = $this->getParameter('content_home_page_slide_image_upload_dir')
+                    .'/'
+                    .$slide->getImage();
+                if ($filesystem->exists($image_path)) {
+                    $filesystem->remove($image_path);
+                }
+            }
+            $slide->setImage(null);
+            $em->flush();
+        }
 
         return new Response('<html><body>OK</body></html>');
     }

@@ -70,12 +70,27 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                 {{ form_widget(header_data_form.header_image, {"attr": {"class": "header-image-input hidden-input-file"}}) }}
-                                        <button class="btn-valider btn-upload choose-upload-img-button">
-                                            <span class="upload"></span> Choisissez un fichier...
-                                        </button>
-                                        <button class="upload-img-button hidden-button">
-                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                        {% if current_header_image is defined and current_header_image is not empty %}
+										<button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+											<span class="upload"></span> Choisissez un fichier...
 										</button>
+										<button class="upload-img-button">
+											<span class="blue-upload"></span><span class="img-name-container">{{ current_header_image }}</span>
+										</button>
+										<a href="#" class="delete-link delete-form-header-image"></a>
+										<input type="hidden" name="initial_image" value="{{ asset(registration_header_image_location~current_header_image) }}">
+										<input type="hidden" name="initial_image_name" value="{{ current_header_image }}">
+										{% else %}
+										<button class="btn-valider btn-upload choose-upload-img-button">
+											<span class="upload"></span> Choisissez un fichier...
+										</button>
+										<button class="upload-img-button hidden-button">
+											<span class="blue-upload"></span><span class="img-name-container"></span>
+										</button>
+										<input type="hidden" name="initial_image" value="">
+										<input type="hidden" name="initial_image_name" value="">
+										{% endif %}
+										<input type="hidden" name="delete_header_image_url" value="{{ path('admin_parameters_registration_delete_header_image') }}">
                                     </div>
                                 </div>
                                 <div class="row">

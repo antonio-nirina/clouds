@@ -265,8 +265,7 @@
                 <p class = "titre-block-centre">
                     <span class = "lib-titre-block-centre light">édito</span>
                     {% if editorial is defined and editorial.lastEdit is not null %}
-                    {#<span class = "lib-date-block-centre regular">{{ editorial.lastEdit | localizeddate('none', 'none', locale, null, "d MMMM - H'h'mm") }}</span>#}
-                    <span class = "lib-date-block-centre regular">{{ editorial.lastEdit | localizeddate('none', 'none', 'en', null, "d MMMM - H'h'mm") }}</span>
+                    <span class = "lib-date-block-centre regular">{{ editorial.lastEdit | localizeddate('none', 'none', locale, null, "d MMMM - H'h'mm") }}</span>
                     {% endif %}
                     <span class = "lib-date-block-centre-large bold">Loren ipsum dolor sit amet, consectetur adipiscing elit</span>
                 </p>

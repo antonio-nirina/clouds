@@ -32,7 +32,6 @@ $(document).ready(function(){
     function addNewTabNav(target_id)
     {
         var tab_nav_model = $('.nav-tabs-container').find('.block-model.tab-model').clone();
-        console.log(tab_nav_model);
         tab_nav_model.removeClass('block-model');
         tab_nav_model.removeClass('tab-model');
         tab_nav_model.attr('href', '#'+target_id);
@@ -261,13 +260,27 @@ $(document).ready(function(){
     }
 
     $(document).on('change', '.slide-image-input', function(){
-        createImagePreview(this);
-        var image_file_name = $(this).val().split('\\').pop();
-        $(this).parent().find('.upload-img-button').css('background-position', '15px');
-        $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
-        $(this).parent().find('.upload-img-button').removeClass('hidden-button');
-        $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
-        $(this).parents('.tab-pane').find('.slide-image-preview-container').removeClass('no-image');
+        if('' == $(this).val().trim()){
+            var initial_image = $(this).parent().find('input[name=initial_image]').val();
+            var initial_image_name = $(this).parent().find('input[name=initial_image_name]').val();
+            if('' == initial_image_name.trim()){
+                $(this).parent().find('.upload-img-button').addClass('hidden-button');
+                $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
+                $(this).parents('.tab-pane').find('.slide-image-preview-container').addClass('no-image');
+                $(this).parents('.tab-pane').find('.slide-image-preview-container .slide-image-preview').attr('src', '');
+            } else {
+                $(this).parent().find('.upload-img-button').find('.img-name-container').text(initial_image_name);
+                $(this).parents('.tab-pane').find('.slide-image-preview-container .slide-image-preview').attr('src', initial_image);
+            }
+        } else {
+            createImagePreview(this);
+            var image_file_name = $(this).val().split('\\').pop();
+            $(this).parent().find('.upload-img-button').css('background-position', '15px');
+            $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
+            $(this).parent().find('.upload-img-button').removeClass('hidden-button');
+            $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+            $(this).parents('.tab-pane').find('.slide-image-preview-container').removeClass('no-image');
+        }
     })
 
     $(document).on('input', '.slide-message-input', function(){
@@ -327,6 +340,45 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Contenus - Page d'accueil
      * Preview d'image de header - sans image
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions - Portail d'identification
+     * Suppression image header uploadé
+     * *********************************************************************************************
+     */
+    $('.delete-slide-image').on('click', function(e){
+        e.preventDefault();
+        var delete_slide_image_url = $(this).parent().find('input[name=delete_slide_image_url]').val();
+        var current_delete_link = $(this);
+        $.ajax({
+            type: 'GET',
+            url: delete_slide_image_url,
+            success: function(html){
+                if(-1 != html.indexOf('OK'))
+                {
+                    var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+                    wrapper.trigger('reset');
+                    current_delete_link.parent().find('input[type=file]').unwrap();
+
+                    current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+                    current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
+                    current_delete_link.parents('.tab-pane').find('.slide-image-preview-container .slide-image-preview')
+                        .attr('src', '');
+                    current_delete_link.parents('.tab-pane').find('.slide-image-preview-container').addClass('no-image');
+                    current_delete_link.hide();
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions - Portail d'identification
+     * Suppression image header uploadé
      * *********************************************************************************************
      */
 });

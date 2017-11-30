@@ -373,15 +373,27 @@ $(document).ready(function(){
 
 
     $('.header-image-input').on('change', function(){
-        createImagePreview(this);
-        var image_file_name = $(this).val().split('\\').pop();
-        $('.upload-img-button').css('background-position', '15px');
-        $('.upload-img-button').find('.img-name-container').text(image_file_name);
-
-        $('.upload-img-button').removeClass('hidden-button');
-        $('.btn-upload.choose-upload-img-button').addClass('hidden-button');
-
-        $('.header-preview-container').removeClass('no-image');
+        if('' == $(this).val().trim()){
+            var initial_image = $(this).parent().find('input[name=initial_image]').val();
+            var initial_image_name = $(this).parent().find('input[name=initial_image_name]').val();
+            if('' == initial_image_name.trim()){
+                $(this).parent().find('.upload-img-button').addClass('hidden-button');
+                $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
+                $(this).parents('.fieldset').find('.header-image-preview-img').attr('src', '');
+                $(this).parents('.fieldset').find('.header-preview-container').addClass('no-image');
+            } else {
+                $(this).parent().find('.img-name-container').text(initial_image_name);
+                $(this).parents('.fieldset').find('.header-image-preview-img').attr('src', initial_image);
+            }
+        } else {
+            createImagePreview(this);
+            var image_file_name = $(this).val().split('\\').pop();
+            $('.upload-img-button').css('background-position', '15px');
+            $('.upload-img-button').find('.img-name-container').text(image_file_name);
+            $('.upload-img-button').removeClass('hidden-button');
+            $('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+            $('.header-preview-container').removeClass('no-image');
+        }
     });
 
     // preview du message
@@ -461,7 +473,7 @@ $(document).ready(function(){
     });
 
     $('.hidden-upload-form').find('input[type=file]').on('change', function(){
-        console.log('changement et submit');
+        // console.log('changement et submit');
         $(this).parent('form').submit();
     });
     /**
@@ -492,6 +504,46 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Inscriptions - Import
      * Preview d'image de header - sans image
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions - Formulaire
+     * Suppression image header uploadé
+     * *********************************************************************************************
+     */
+    $('.delete-form-header-image').on('click', function(e){
+        e.preventDefault();
+        var delete_header_image_url = $(this).parent().find('input[name=delete_header_image_url]').val();
+        var current_delete_link = $(this);
+        $.ajax({
+            type: 'GET',
+            url: delete_header_image_url,
+            success: function(html){
+                if(-1 != html.indexOf('OK'))
+                {
+                    var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+                    wrapper.trigger('reset');
+                    current_delete_link.parent().find('input[type=file]').unwrap();
+
+                    current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+                    current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
+                    current_delete_link.parents('.fieldset').find('.row-header-preview-container .header-image-preview-img')
+                        .attr('src', '');
+                    current_delete_link.parents('.fieldset').find('.header-preview-container').addClass('no-image');
+                    current_delete_link.hide();
+
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions - Formulaire
+     * Suppression image header uploadé
      * *********************************************************************************************
      */
 
