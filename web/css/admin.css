@@ -132,8 +132,9 @@ h1 {
 	display: inline-block;
 	margin-left: 2%;
 }
-
-
+.nav-item-niv-3.single {
+	display: table-cell;
+}
 
 .active a{
 	color:grey;
@@ -3423,4 +3424,10 @@ button.btn-valider-etat .uploaded{
 	margin-left:20px;
 	cursor:pointer;
 	display:none;
+}
+
+.cke_button_icon.cke_button__justifyblock_icon{
+	background: url('../../../images/cloudsRewards/custom-justify-text.png') no-repeat !important;
+	background: url('../images/cloudsRewards/custom-justify-text.png') no-repeat !important; /*for online server*/
+	background-size: 20px 16px !important;
 }

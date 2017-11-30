@@ -37,6 +37,14 @@ class SiteDesignSetting
     private $colors;
 
     /**
+     * @ORM\Column(name="body_background", type="string" ,nullable=true)
+     * @Assert\Image(
+     *     mimeTypes = {"image/png", "image/jpeg", "image/jpg"}
+     * )
+     */
+    private $body_background;
+
+    /**
      * @ORM\Column(name="police", type="string", nullable=true)
      */
     private $police;
@@ -183,5 +191,29 @@ class SiteDesignSetting
     public function getProgram()
     {
         return $this->program;
+    }
+
+    /**
+     * Set bodyBackground
+     *
+     * @param string $bodyBackground
+     *
+     * @return SiteDesignSetting
+     */
+    public function setBodyBackground($bodyBackground)
+    {
+        $this->body_background = $bodyBackground;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyBackground
+     *
+     * @return string
+     */
+    public function getBodyBackground()
+    {
+        return $this->body_background;
     }
 }

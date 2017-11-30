@@ -325,7 +325,7 @@ ul.menu-content li a:hover{
 
 div.bg-slide{
 	background: url('../images/cloudsRewards/bg-slide.png');
-	background-repeat:no-repeat;
+	background-repeat:no-repeat !important;
 	background-position: 0px -123px;
 	margin-bottom:15px;
 }
@@ -1811,3 +1811,29 @@ span.btn-acces-boutique, p.mon-compte-btn {
 	background: none;
 	background-color: var(--couleur_3) !important;
 }
+/*logo*/
+.navbar-brand{display:inline-block;padding-top:.25rem;padding-bottom:.25rem;margin-right:1rem;font-size:1.25rem;line-height:inherit;white-space:nowrap;}
+.navbar-brand:focus,.navbar-brand:hover{text-decoration:none;}
+/*! CSS Used from: http://www.cloud-rewards.loc/css/admin.css */
+a:hover,a:active,a:link,a:focus{text-decoration:none!important;}
+a:active,a:link,a:focus{color:#505050;outline-style:none;}
+@media (max-width: 575px){
+.logo-cloud-rewards,.nom-logo{background:url(http://www.cloud-rewards.loc/images/cloudsRewards/logo-cloud-rewards.png);background-repeat:no-repeat;width:76%;height:55px;display:block;background-size:contain;margin-top:10px;margin-left:15px;}
+}
+@media (min-width: 576px) and (max-width: 767px){
+.logo-cloud-rewards,.nom-logo{background:url(http://www.cloud-rewards.loc/images/cloudsRewards/logo-cloud-rewards.png);background-repeat:no-repeat;width:76%;height:55px;display:block;background-size:contain;margin:10px auto;}
+}
+@media (min-width: 768px) and (max-width: 991px){
+.logo-cloud-rewards,.nom-logo{background:url(http://www.cloud-rewards.loc/images/cloudsRewards/logo-cloud-rewards.png);background-repeat:no-repeat;width:76%;height:55px;display:block;background-size:contain;margin-top:10px;margin-left:15px;margin-bottom:9px;}
+}
+@media (min-width: 992px) and (max-width: 1199px){
+.logo-content{width:30%;padding-left:15px;}
+.logo-cloud-rewards,.nom-logo{background:url(http://www.cloud-rewards.loc/images/cloudsRewards/log.png);background-repeat:no-repeat;width:296px;height:55px;background-position:-344px -14px;display:inline-block;}
+}
+@media (min-width: 1200px){
+.logo-content{width:30%;}
+.logo-cloud-rewards,.nom-logo{background:url(http://www.cloud-rewards.loc/images/cloudsRewards/log.png);background-repeat:no-repeat;width:296px;height:55px;background-position:-344px -14px;display:inline-block;}
+}
+.logo-cloud-rewards{background-repeat:no-repeat!important;}
+.nom-logo{background:none!important;display:var(--nom_logo_display);font-family:var(--police_bold);font-size:1.5em;}
+.nom-logo:before{content:var(--nom_logo_content);}

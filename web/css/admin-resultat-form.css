@@ -618,7 +618,7 @@ th label {
 .form-group-color, .second-logo p {
     font-size: 14px;
 }
-.logo-row {
+.logo-row, .background-row {
     text-align: left;
     padding: 0 15px 15px !important;
 }
@@ -628,11 +628,9 @@ th label {
     border-radius: 8px;
     text-align: left;
 }
-.second-logo label {
+.second-logo label, label.image-fond {
     padding-right: 15px;
-}
-.second-logo label[for=societe-logo] {
-    padding-right: 28px;    
+    min-width: 160px;
 }
 .btn-valider.btn-upload + input[type=file]{
     display: none;
@@ -705,9 +703,16 @@ input[type=text] {
     display: flex;
     justify-content: center;
 }
+.table-network .radio {
+    display: flex;
+    justify-content: center;
+}
 .table-network > div {
     margin-bottom: 20px;
     margin-top: 20px;
+}
+.table-network > div.cup-text {
+    text-align: left;    
 }
 .form-link {
     display: flex;
@@ -750,7 +755,19 @@ input[type="checkbox"].mode + label > span {
 input[type="checkbox"].mode:checked + label > span {
     background: url('../images/cloudsRewards/on-off.png') no-repeat;
 }
-
+.logo-row .upload-bloc .btn-upload, .background-row .upload-bloc .btn-upload {
+    margin-top : 20px !important;
+}
+.delete-upload {
+    width: 25px;
+    height: 35px;
+    background: url('../images/cloudsRewards/delete.png') left center no-repeat;
+    margin-left: 15px;
+}
+.upload-bloc {
+    display: flex;
+    align-items: flex-end;
+}
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     #site_design_setting_logo_name {
         min-width: 60% !important;
@@ -760,7 +777,7 @@ input[type="checkbox"].mode:checked + label > span {
     #site_design_setting_logo_name {
         min-width: 80%;
     }
-}
+} 
 @media only screen and (min-width: 768px) {
     .validation-droite {
         padding-left: 8% ;
@@ -780,20 +797,33 @@ input[type="checkbox"].mode:checked + label > span {
     }     
     .row.table-network {
         justify-content: center;
+    }    
+}
+@media only screen and (min-width: 576px) {
+    .table-network .circle {
+        justify-content: flex-end;
+    }
+    .table-network .radio {
+        justify-content: flex-start;
     }
 }
 @media only screen and (max-width: 575px) {
     #site_design_setting_logo_name {
         width: 90% !important;
-    }           
-    .logo-row .btn-upload {
-        margin-top : 0;
-    }    
+    }     
     .table-network input[type=text] {
         width: 100%;
     }
-    .form-link {
+    .upload-bloc .upload-img-button, .logo-row .upload-bloc .btn-upload, .background-row .upload-bloc .btn-upload {
+        margin-top : 0 !important;
+    }
+    .form-link, .upload-bloc {
         flex-flow: column wrap;
+        align-items: initial;        
+    }
+    .delete-upload {
+        align-self: center;
+        margin: 10px 0;
     }
     .form-link > * {
         margin-top: 10px;

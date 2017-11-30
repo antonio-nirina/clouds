@@ -19,6 +19,7 @@ parameters:
     registration_header_image_upload_dir: '%kernel.project_dir%/web/registration/upload/header'
     registration_header_image_location: 'registration/upload/header/'
     logo_path: 'images/logo'
+    background_path: 'images/background'
     css_root: 'css/root'
 
     # Parameters - Registration - Import : Email texts

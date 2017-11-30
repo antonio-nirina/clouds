@@ -68,12 +68,31 @@ $(document).ready(function(){
         e.preventDefault();        
         $(this).next('.btn-valider.btn-upload').click();
     });
+
+    $('.delete-upload').on('click', function(e){
+        var $el = $(this).parent().find('input[type=file]');
+        $el.wrap('<form>').closest('form').get(0).reset();
+        $el.unwrap();
+        $(this).next('input[type=hidden]').val('');
+        $(this).parent().find('.upload-img-button').addClass('hidden-button');
+        $(this).addClass('hidden-button');
+        $(this).parent().find('.btn-valider.btn-upload').removeClass('hidden-button');
+    });
+
     $('.btn-valider.btn-upload').next("input[type=file]").on('change', function() {  
         var image_file_name = $(this).val().split('\\').pop();
-        $(this).parent().find('.upload-img-button').css('background-position', '15px');
-        $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
-        $(this).parent().find('.upload-img-button').removeClass('hidden-button');
-        $(this).prev('.btn-valider.btn-upload').addClass('hidden-button');
+        if (image_file_name.length >0) {
+            $(this).parent().find('.upload-img-button').css('background-position', '15px');
+            $(this).parent().find('.upload-img-button').find('.img-name-container').html(image_file_name);
+            $(this).parent().find('.upload-img-button').removeClass('hidden-button');
+            $(this).parent().find('.delete-upload').removeClass('hidden-button');
+            $(this).prev('.btn-valider.btn-upload').addClass('hidden-button'); 
+        } else {
+            $(this).parent().find('.upload-img-button').addClass('hidden-button');
+            $(this).parent().find('.delete-upload').addClass('hidden-button');
+            $(this).prev('.btn-valider.btn-upload').removeClass('hidden-button');
+        }
+              
     });
     $("#result_setting_upload_uploaded_file").on('change',function() {
         $(this).parents('form').submit();
