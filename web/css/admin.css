@@ -3401,3 +3401,8 @@ span.blue-upload {
 .slide-message-input{
 	padding-left:10px!important;
 }
+
+.cke_button_icon.cke_button__justifyblock_icon{
+	background: url('../../../images/cloudsRewards/custom-justify-text.png') no-repeat !important;
+	background-size: 20px 16px !important;
+}
