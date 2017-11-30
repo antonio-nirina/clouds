@@ -6,7 +6,7 @@ use AdminBundle\Traits\EntityTraits\SlideTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\LoginPortalSlideRepository")
  * @ORM\Table(name="login_portal_slide")
  */
 class LoginPortalSlide
