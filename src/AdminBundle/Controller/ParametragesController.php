@@ -882,8 +882,7 @@ class ParametragesController extends Controller
                 $this->container->get('admin.logo')->getFile($logo, $program->getId())
             );
         }
-        dump($site_design);
-        dump($site_design->getBodyBackground());
+
         if ($background = $site_design->getBodyBackground()) {
             $site_design->setBodyBackground(
                 $this->container->get('admin.body_background')->getFile($background, $program->getId())
