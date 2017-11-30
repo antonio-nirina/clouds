@@ -567,6 +567,16 @@ span.blue-upload{
     padding: 20px;
 }
 
+.delete-link{
+    background:url('../images/cloudsRewards/delete.png') no-repeat;
+    height: 21px;
+    width: 16px;
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
+}
+
 /*
  * spécifique aux pages "contenus"
  */

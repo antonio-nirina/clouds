@@ -270,6 +270,39 @@ class ParametragesController extends Controller
     }
 
     /**
+     * @Route(
+     *     "/inscriptions/header-formulaire/suppression-image",
+     *     name="admin_parameters_registration_delete_header_image")
+     */
+    public function deleteRegistrationFormHeaderImage()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $registration_form_data = $program->getRegistrationFormData();
+        if (is_null($registration_form_data)) {
+            return new Response('');
+        }
+
+        if (!is_null($registration_form_data->getHeaderImage())) {
+            $filesystem = $this->get('filesystem');
+            $image_path = $this->getParameter('registration_header_image_upload_dir')
+                .'/'
+                .$registration_form_data->getHeaderImage();
+            if ($filesystem->exists($image_path)) {
+                $filesystem->remove($image_path);
+            }
+            $registration_form_data->setHeaderImage(null);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+        }
+
+        return new Response('<html><body>OK</body></html>');
+    }
+
+    /**
      * @Route("/inscriptions/creation-formulaire/nouveau-champ", name="admin_new_registration_form_field")
      */
     public function addRegistrationFormFieldAction(Request $request)
