@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block slide %}
-    <div class="container bg-slide">
+    <div class="container bg-slide" style={{ (background_link)?"background:url(#{asset(background_link)});background-repeat:no-repeat;":"" }}>
         <div class="row">
             <div class="col-12 content-body">
                 <div class = "slide-lefter">&nbsp;</div>

@@ -32,7 +32,12 @@ class PageController extends Controller
         if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
             $has_network = true;
         }
-        
+
+        $background_link = '';
+        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $background_link = $this->container->getParameter('background_path').'/'.$program->getId().'/'.$background;
+        }
+                
         $em = $this->getDoctrine()->getManager();
         $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')
             ->findByHomePageDataOrdered($home_page_data);
@@ -42,6 +47,7 @@ class PageController extends Controller
             'has_network' => $has_network,
             'table_network' => $table_network,
             'slide_list' => $ordered_slide_list,
+            'background_link' => $background_link
         ));
     }
 }

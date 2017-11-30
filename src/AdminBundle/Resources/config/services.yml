@@ -20,11 +20,15 @@ services:
         arguments: ['@doctrine.orm.entity_manager', '@request_stack']
 
     admin.logo:
-        class: AppBundle\Service\FileHandler\LogoUploader
+        class: AppBundle\Service\FileHandler\FileUploader
         arguments: ['%logo_path%']
 
     app.design_root:
-        class: AppBundle\Service\FileHandler\DesignRoot  
+        class: AppBundle\Service\FileHandler\DesignRoot
         arguments: ['%css_root%']
+
+    admin.body_background:
+        class: AppBundle\Service\FileHandler\FileUploader
+        arguments: ['%background_path%']
     
 

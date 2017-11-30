@@ -38,16 +38,14 @@ class SiteDesignSettingType extends AbstractType
                         "required" => false
                     )
                 ))
+                ->add("body_background", FileType::class, array(
+                    'required' => false,
+                    'constraints' => array(
+                    )
+                ))
                 ->add('logo_path', FileType::class, array(
                     'required' => false,
                     "constraints" => array(
-                        new FileExtensionConstraint('png'),
-                        new File(
-                            array(
-                                "mimeTypes" => "image/png",
-                                "maxSize" => "8M"
-                            )
-                        )
                     )
                 ))
                 ->add('logo_name', TextType::class);

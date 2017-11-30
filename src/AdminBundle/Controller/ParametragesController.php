@@ -843,14 +843,24 @@ class ParametragesController extends Controller
 
         $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
         $site_design = $site_design[0];
-        if ($file = $site_design->getLogoPath()) {
-            $logo_path = $this->container->get('admin.logo')->getTargetDir().'/'.$program->getId();
-            $site_design->setLogoPath(new File($logo_path.'/'.$file));
+
+        if ($logo = $site_design->getLogoPath()) {
+            $site_design->setLogoPath(
+                $this->container->get('admin.logo')->getFile($logo, $program->getId())
+            );
+        }
+        dump($site_design);
+        dump($site_design->getBodyBackground());
+        if ($background = $site_design->getBodyBackground()) {
+            $site_design->setBodyBackground(
+                $this->container->get('admin.body_background')->getFile($background, $program->getId())
+            );
         }
 
         $site_design_form_logo = $this->createForm(SiteDesignSettingType::class, $site_design)
                                       ->remove('police')
-                                      ->remove('colors');//form logo
+                                      ->remove('colors')
+                                      ->remove('body_background');//form logo
 
         $site_design_form_colors = $this->createForm(SiteDesignSettingType::class, $site_design)
                                         ->remove('police')
@@ -860,21 +870,28 @@ class ParametragesController extends Controller
         $site_design_form_police = $this->createForm(SiteDesignSettingType::class, $site_design)
                                         ->remove('colors')
                                         ->remove('logo_name')
-                                        ->remove('logo_path');//form police
+                                        ->remove('logo_path')
+                                        ->remove('body_background');//form police
 
+        
         if ($request->get('site_design_setting')) {
             if (array_key_exists('logo_name', $request->get('site_design_setting'))) {//logo
                 $site_design_form_logo->handleRequest($request);
-                // dump($site_design_form_logo->isValid()); die;
+                if ($background) {
+                    $site_design->setBodyBackground($background);
+                }
+                
                 if ($site_design_form_logo->isSubmitted() && $site_design_form_logo->isValid()) {
-                    if ($request->files->get('site_design_setting')) {
-                        $file = $site_design->getLogoPath();
-                        $file_name = $this->container->get('admin.logo')->upload($file, $program->getId());
-                        $site_design->setLogoPath($file_name);
-                    } else {
-                        $site_design->setLogoPath($file);
+                    if (array_key_exists('logo_path', $request->files->get('site_design_setting'))) {
+                        $logo = $this->container->get('admin.logo')->upload(
+                            $site_design->getLogoPath(),
+                            $program->getId()
+                        );
+                        $site_design->setLogoPath($logo);
+                    } elseif ($logo = $request->get('logo')) {
+                        $site_design->setLogoPath($logo);
                     }
-
+                    
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
                         $site_design
@@ -884,16 +901,28 @@ class ParametragesController extends Controller
                 }
             }
 
+            // die;
             if (array_key_exists('colors', $request->get('site_design_setting'))) {//couleur
                 $site_design_form_colors->handleRequest($request);
+                if ($logo) {
+                    $site_design->setLogoPath($logo);
+                }
+
                 if ($site_design_form_colors->isSubmitted() && $site_design_form_colors->isValid()) {
+                    if (array_key_exists('body_background', $request->files->get('site_design_setting'))) {
+                        $background = $this->container->get('admin.body_background')->upload(
+                            $site_design->getBodyBackground(),
+                            $program->getId()
+                        );
+                        $site_design->setBodyBackground($background);
+                    } elseif ($background = $request->get('background')) {
+                        $site_design->setBodyBackground($background);
+                    }
+
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
                         $site_design
                     );
-                    if ($file) {
-                        $site_design->setLogoPath($file);
-                    }
                     $em->flush();
                     $this->redirectToRoute('admin_param_design');
                 }
@@ -901,14 +930,18 @@ class ParametragesController extends Controller
 
             if (array_key_exists('police', $request->get('site_design_setting'))) {//police
                 $site_design_form_police->handleRequest($request);
+                if ($logo) {
+                    $site_design->setLogoPath($logo);
+                }
+                if ($background) {
+                    $site_design->setBodyBackground($background);
+                }
+
                 if ($site_design_form_police->isSubmitted() && $site_design_form_police->isValid()) {
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
                         $site_design
                     );
-                    if ($file) {
-                        $site_design->setLogoPath($file);
-                    }
                     $em->flush();
                     $this->redirectToRoute('admin_param_design');
                 }
@@ -919,6 +952,8 @@ class ParametragesController extends Controller
             'site_design_form_logo' => $site_design_form_logo->createView(),
             'site_design_form_colors' => $site_design_form_colors->createView(),
             'site_design_form_police' => $site_design_form_police->createView(),
+            'logo' => $logo,
+            'background' => $background
         ));
     }
 

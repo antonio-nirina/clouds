@@ -132,8 +132,9 @@ h1 {
 	display: inline-block;
 	margin-left: 2%;
 }
-
-
+.nav-item-niv-3.single {
+	display: table-cell;
+}
 
 .active a{
 	color:grey;
