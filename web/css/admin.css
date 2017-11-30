@@ -3404,5 +3404,6 @@ span.blue-upload {
 
 .cke_button_icon.cke_button__justifyblock_icon{
 	background: url('../../../images/cloudsRewards/custom-justify-text.png') no-repeat !important;
+	background: url('../images/cloudsRewards/custom-justify-text.png') no-repeat !important; /*for online server*/
 	background-size: 20px 16px !important;
 }
