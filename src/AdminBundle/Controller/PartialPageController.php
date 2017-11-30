@@ -107,4 +107,38 @@ class PartialPageController extends Controller
             'personalize' => $personalize
         ));
     }
+	
+	public function afficheContenuPagesStandardAction(array $datas){
+		if(isset($datas['page']) && !empty($datas['page'])){
+			
+			//On recupere les infos de la page parametrés
+			$em = $this->getDoctrine()->getManager();
+			
+			$PagesSettings = array();
+			$PagesSettings = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($datas['page']);
+			
+			//On recupere les pages par defaut
+			$PagesDefault = array();
+			$PagesDefault = $em->getRepository('AdminBundle:SitePagesStandardDefault')->find($datas['page']);
+			
+			$Page = array();
+			if(count($PagesSettings) > 0){
+				$Page = $PagesSettings;
+			}else{
+				$Page = $PagesDefault;
+			}
+		}
+		
+		$NewPage = "";
+		if(isset($datas['new_page']) && !empty($datas['new_page'])){
+			$NewPage = $datas['new_page'];
+		}
+		
+		
+		return $this->render('AdminBundle:PartialPage/Ajax:afficheContenuPagesStandard.html.twig', array(
+			'Page' => $Page,
+			'NewPage' => $NewPage,
+			'idpagehtml' => $datas['page']
+		));
+	}
 }

@@ -15,7 +15,7 @@
     {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
 
     <main class="col-md-9  offset-md-1 float-left main">
-
+		<input id = "url_ajax_affiche_page" type = "hidden" value = "{{ path("admin_pages_standard_affiche") }}" name = "url_ajax_affiche_page">
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
@@ -69,95 +69,58 @@
                         </div>
                     </div>
 					
-					<div class="row">
-						<div class = "col-12">
-							<div class = "content-pages-chooses">
-								<ul class = "list-choix-page">
-									<li data-role = "onglet" class = "page-list-active">
-										<span class = "lib-onglet-choix-page">présentation de la société</span>
-										<span id = "presentation-societe" class = "checkon-onglet-choix-page" data-role = "checked-unchecked"></span>
-									</li>
-									<li data-role = "onglet" class = "pages-list">
-										<span class = "lib-onglet-choix-page">découvrez le programme</span>
-										<span id = "decouvrez-programme" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
-									</li>
-									<li data-role = "onglet" class = "pages-list">
-										<span class = "lib-onglet-choix-page">actualité des partenaire</span>
-										<span id = "actualite-partenaire" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
-									</li>
-									<li data-role = "onglet" class = "pages-list">
-										<span class = "lib-onglet-choix-page">cadeaux</span>
-										<span id = "cadeaux" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
-									</li>
-									<li data-role = "onglet" class = "pages-list">
-										<span class = "lib-onglet-choix-page">mentions légale</span>
-										<span id = "mentions-legales" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
-									</li>
-									<li data-role = "onglet" class = "pages-list">
-										<span class = "lib-onglet-choix-page">règlement</span>
-										<span id = "reglement" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
-									</li>
-									<li class = "pages-list-ajout">
-										<span class = "img-ajout-page add"></span>
-										<span class = "lib-ajout-page">ajouter une page</span>
-									</li>
-								</ul>
-							</div>
-							
-							<div class = "content-page-content">
-								<div class = "content-dynamic-pages">
-									<form name = "formChoixPage" method = "POST" action = "">
-										<label class = "champForm">
-											<span class = "lib-form">nom du menu</span>
-											<input class = "input-form-text" type = "text" name = "" value = "" placeholder = "présentation de la société" style = "padding-left:10px!important;">
-										</label>
-										
-										<div class = "clearBoth"></div>
-										
-										
-										<label class = "champForm">
-											<span class = "lib-form">titre</span>
-											<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "" placeholder = "présentation de la société">
-										</label>
-										
-										<div class = "clearBoth"></div>
-										<div class = "clearBoth"></div>
-										
-										<label class = "champForm">
-											<span class = "lib-form block">ajouter logo ou image</span>
-											<button class="btn-valider btn-upload choose-upload-img-button">
-												<span class="upload"></span> choisissez un fichier...
-											</button>
-											<div class = "info-container">
-                                                <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
-                                                <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
-											</div>
-										</label>
-										
-										<div class = "clearBoth"></div>
-										<div class = "clearBoth"></div>
-										
-										<label class = "champForm">
-											<span class = "lib-form block editeur">texte</span>
-											<textarea id="login_portal_data_form_text" name="login_portal_data_form[text]" class="large-textarea"></textarea>
-										</label>
-										
-										<label class = "champForm">
-											<button class="btn-valider valider submit-form block-center">
-												valider
-											</button>
-										</label>
-									</form>
+					<form id = "IDFormPageStandard" name = "FormPageStandard" method = "POST" action = "">
+						<div class="row">
+							<div class = "col-12">
+								<div class = "content-pages-chooses">
+									<ul class = "list-choix-page">
+										{% set counter = 1 %}
+										{% for Pages in AllPages %}
+											{% if Pages.NomPage is defined %}
+												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
+													<span class = "lib-onglet-choix-page">{{ Pages.NomPage }}</span>
+													<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+												</li>
+											{% else %}
+												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
+													<span class = "lib-onglet-choix-page">{{ Pages.PageName }}</span>
+													<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+												</li>
+											{% endif %}
+											{% set counter = counter + 1 %}
+										{% endfor %}
+										<li class = "pages-list-ajout">
+											<span class = "img-ajout-page add"></span>
+											<span class = "lib-ajout-page">ajouter une page</span>
+										</li>
+									</ul>
+								</div>
+								
+								<div class = "content-page-content">
+									<div id = "id-content-dynamic-pages" class = "content-dynamic-pages"></div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
+						
+						<div class = "row">
+							<div class = "col-12">
+								<label class = "champForm">
+									<button class="btn-valider valider submit-form block-center">
+										valider
+									</button>
+								</label>
+							</div>
+						</div>
+					</form>
 				</section>
 			</div>
         </div>
 
         <div class = "row separator"></div>
+		
+		<p class = "chargementAjax">
+			<img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+		</p>
     </main>
 
 {% endblock %}

@@ -1,0 +1,67 @@
+<label class = "champForm">
+	<span class = "lib-form">nom du menu</span>
+	{% if Page.NomPage is defined %}
+		<input class = "input-form-text" type = "text" name = "" value = "{{ Page.NomPage }}" placeholder = "{{ Page.NomPage }}" style = "padding-left:10px!important;">
+	{% elseif Page.PageName is defined %}
+		<input class = "input-form-text" type = "text" name = "" value = "{{ Page.PageName }}" placeholder = "{{ Page.PageName }}" style = "padding-left:10px!important;">
+	{% else %}
+		<input id = "input-menu-{{ idpagehtml }}" class = "input-form-text renomer-page" type = "text" name = "" value = "{{ NewPage }}" placeholder = "{{ NewPage }}" style = "padding-left:10px!important;">
+	{% endif %}
+</label>
+
+<div class = "clearBoth"></div>
+
+
+<label class = "champForm">
+	<span class = "lib-form">titre</span>
+	{% if Page.NomPage is defined %}
+		<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "{{ Page.NomPage }}" placeholder = "{{ Page.NomPage }}">
+	{% elseif Page.PageName is defined %}
+		<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "{{ Page.PageName }}" placeholder = "{{ Page.PageName }}">
+	{% else %}
+		<input id = "input-titre-{{ idpagehtml }}" style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "{{ NewPage }}" placeholder = "{{ NewPage }}">
+	{% endif %}
+</label>
+
+<div class = "clearBoth"></div>
+<div class = "clearBoth"></div>
+
+<label class = "champForm">
+	<span class = "lib-form block">ajouter logo ou image</span>
+	<button id = "btn-upload-img-page-standard" class="btn-valider btn-upload choose-upload-img-button" type = "button">
+		<span id = "id-lib-upload" class="upload"></span> 
+		<span id = "lib-btn-pages">choisissez un fichier...</span>
+	</button>
+	<img class = "img-delete-img" src = "{{ asset("images/cloudsRewards/delete.png") }}">
+	<input style = "display:none;" id = "input-upload-img-page-standard" type = "file" name = "upload-img">
+	<div class = "info-container">
+		<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+		<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+	</div>
+</label>
+
+<div class = "clearBoth"></div>
+<div class = "clearBoth"></div>
+
+<label class = "champForm">
+	<span class = "lib-form block editeur">texte</span>
+	{% if Page.ContenuPage is defined %}
+		<textarea id="login_portal_data_form_text" name="login_portal_data_form[text]" class="large-textarea">{{ Page.ContenuPage }}</textarea>
+	{% else %}
+		<textarea id="login_portal_data_form_text" name="login_portal_data_form[text]" class="large-textarea"></textarea>
+	{% endif %}
+</label>
+
+{% block javascripts %}
+	<script>
+		$(document).ready(function(){
+			CKEDITOR.replace( 'login_portal_data_form_text', {
+				language: 'fr',
+				uiColor: '#9AB8F3',
+				height: 150,
+				width: 600,
+				customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
+			});
+		});
+	</script>
+{% endblock %}
