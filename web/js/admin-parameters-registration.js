@@ -495,4 +495,44 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions - Formulaire
+     * Suppression image header uploadé
+     * *********************************************************************************************
+     */
+    $('.delete-form-header-image').on('click', function(e){
+        e.preventDefault();
+        var delete_header_image_url = $(this).parent().find('input[name=delete_header_image_url]').val();
+        var current_delete_link = $(this);
+        $.ajax({
+            type: 'GET',
+            url: delete_header_image_url,
+            success: function(html){
+                if(-1 != html.indexOf('OK'))
+                {
+                    var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+                    wrapper.trigger('reset');
+                    current_delete_link.parent().find('input[type=file]').unwrap();
+
+                    current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+                    current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
+                    current_delete_link.parents('.fieldset').find('.row-header-preview-container .header-image-preview-img')
+                        .attr('src', '');
+                    current_delete_link.parents('.fieldset').find('.header-preview-container').addClass('no-image');
+                    current_delete_link.hide();
+
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions - Formulaire
+     * Suppression image header uploadé
+     * *********************************************************************************************
+     */
+
 });
