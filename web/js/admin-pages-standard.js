@@ -46,12 +46,19 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click', 'span[data-role="checked-unchecked"]', function(){
+		var IdPages = $(this).attr('id');
+		var ArrayIdPages = new Array;
+		ArrayIdPages = IdPages.split('-');
+		var Id = ArrayIdPages[2];
+		
 		if($(this).hasClass('check-onglet-choix-page')){
 			$(this).removeClass('check-onglet-choix-page');
 			$(this).addClass('checkon-onglet-choix-page');
+			$('#id-status-page-input-'+Id+'').val('1');
 		}else{
 			$(this).removeClass('checkon-onglet-choix-page');
 			$(this).addClass('check-onglet-choix-page');
+			$('#id-status-page-input-'+Id+'').val('0');
 		}
 	});
 	
@@ -78,10 +85,13 @@ $(document).ready(function(){
 		
 		var LastIdLi = parseInt(ArrayIdLastLi[3])+1;
 		
+		
 		var HtmlNewPage = '';
 		HtmlNewPage += '<li id = "li-onglet-page-'+LastIdLi+'" data-role = "onglet" class = "pages-list new_page">';
 		HtmlNewPage += '<span class = "lib-onglet-choix-page">Page '+LastNewPage+'</span>';
 		HtmlNewPage += '<span id = "onglet-page-LastIdLi" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>';
+		HtmlNewPage += '<input id = "id-nom-page-input-'+LastIdLi+'" type = "hidden" name = "nom_page[]" value = "Page '+LastNewPage+'">';
+		HtmlNewPage += '<input id = "id-status-page-input-'+LastIdLi+'" type = "hidden" name = "status_page[]" value = "0">';
 		HtmlNewPage += '</li>';
 		
 		$(HtmlNewPage).insertAfter('ul.list-choix-page li:eq('+LastLiPos+')');

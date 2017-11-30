@@ -1,11 +1,11 @@
 <label class = "champForm">
 	<span class = "lib-form">nom du menu</span>
 	{% if Page.NomPage is defined %}
-		<input class = "input-form-text" type = "text" name = "" value = "{{ Page.NomPage }}" placeholder = "{{ Page.NomPage }}" style = "padding-left:10px!important;">
+		<input class = "input-form-text" type = "text" name = "menu_page" value = "{{ Page.NomPage }}" placeholder = "{{ Page.NomPage }}" style = "padding-left:10px!important;">
 	{% elseif Page.PageName is defined %}
-		<input class = "input-form-text" type = "text" name = "" value = "{{ Page.PageName }}" placeholder = "{{ Page.PageName }}" style = "padding-left:10px!important;">
+		<input class = "input-form-text" type = "text" name = "menu_page" value = "{{ Page.PageName }}" placeholder = "{{ Page.PageName }}" style = "padding-left:10px!important;">
 	{% else %}
-		<input id = "input-menu-{{ idpagehtml }}" class = "input-form-text renomer-page" type = "text" name = "" value = "{{ NewPage }}" placeholder = "{{ NewPage }}" style = "padding-left:10px!important;">
+		<input id = "input-menu-{{ idpagehtml }}" class = "input-form-text renomer-page" type = "text" name = "menu_page" value = "{{ NewPage }}" placeholder = "{{ NewPage }}" style = "padding-left:10px!important;">
 	{% endif %}
 </label>
 
@@ -15,11 +15,11 @@
 <label class = "champForm">
 	<span class = "lib-form">titre</span>
 	{% if Page.NomPage is defined %}
-		<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "{{ Page.NomPage }}" placeholder = "{{ Page.NomPage }}">
+		<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page" value = "{{ Page.NomPage }}" placeholder = "{{ Page.NomPage }}">
 	{% elseif Page.PageName is defined %}
-		<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "{{ Page.PageName }}" placeholder = "{{ Page.PageName }}">
+		<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page" value = "{{ Page.PageName }}" placeholder = "{{ Page.PageName }}">
 	{% else %}
-		<input id = "input-titre-{{ idpagehtml }}" style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "" value = "{{ NewPage }}" placeholder = "{{ NewPage }}">
+		<input id = "input-titre-{{ idpagehtml }}" style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page" value = "{{ NewPage }}" placeholder = "{{ NewPage }}">
 	{% endif %}
 </label>
 
@@ -33,7 +33,7 @@
 		<span id = "lib-btn-pages">choisissez un fichier...</span>
 	</button>
 	<img class = "img-delete-img" src = "{{ asset("images/cloudsRewards/delete.png") }}">
-	<input style = "display:none;" id = "input-upload-img-page-standard" type = "file" name = "upload-img">
+	<input style = "display:none;" id = "input-upload-img-page-standard" type = "file" name = "img_page">
 	<div class = "info-container">
 		<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
 		<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
@@ -46,9 +46,9 @@
 <label class = "champForm">
 	<span class = "lib-form block editeur">texte</span>
 	{% if Page.ContenuPage is defined %}
-		<textarea id="login_portal_data_form_text" name="login_portal_data_form[text]" class="large-textarea">{{ Page.ContenuPage }}</textarea>
+		<textarea id="login_portal_data_form_text" name="contenu_page" class="large-textarea">{{ Page.ContenuPage }}</textarea>
 	{% else %}
-		<textarea id="login_portal_data_form_text" name="login_portal_data_form[text]" class="large-textarea"></textarea>
+		<textarea id="login_portal_data_form_text" name="contenu_page" class="large-textarea"></textarea>
 	{% endif %}
 </label>
 

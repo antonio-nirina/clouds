@@ -80,11 +80,15 @@
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
 													<span class = "lib-onglet-choix-page">{{ Pages.NomPage }}</span>
 													<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page" value = "{{ Pages.NomPage }}">
+													<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page" value = "0">
 												</li>
 											{% else %}
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
 													<span class = "lib-onglet-choix-page">{{ Pages.PageName }}</span>
 													<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page" value = "{{ Pages.PageName }}">
+													<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page" value = "0">
 												</li>
 											{% endif %}
 											{% set counter = counter + 1 %}
