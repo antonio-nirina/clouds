@@ -91,8 +91,9 @@
                         {% for role in roles_form.roles %}
                             {% set current = loop.index + 1 %}
                             <div class="row">
-                                <div class="rank">                                     
-                                    <input id="rank_{{ current }}" type="checkbox" >
+                                <div class="rank">           
+                                    <input id="rank_{{ current }}" type="hidden" value="checked">
+                                    <input id="rank_{{ current }}" type="checkbox" value="0">
                                     <label for="rank_{{ current }}">
                                         <span></span>
                                         <div>
@@ -113,17 +114,18 @@
                             </div>
                             
                         {% endfor %}
-                    {{ form_end(roles_form) }}
-
-                    <div class = "row full-width">
-                        <div class = "col-12 col-md-12">
-                            <div class="validation">
-                                <button class ="btn-valider valider">
-                                    valider
-                                </button>
+                        <div class = "row full-width">
+                            <div class = "col-12 col-md-12">
+                                <div class="validation">
+                                    <button class ="btn-valider valider">
+                                        valider
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {{ form_end(roles_form) }}
+
+                    
                     <div class="error-message-container"></div>
 
                 </section>
