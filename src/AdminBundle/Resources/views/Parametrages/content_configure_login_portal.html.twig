@@ -153,6 +153,7 @@
                                                 <button class="upload-img-button hidden-button">
                                                     <span class="blue-upload"></span><span class="img-name-container"></span>
                                                 </button>
+                                                <a href="#" class="delete-link delete-slide-image" style="display: none"></a>
                                                 <input type="hidden" name="initial_image" value="">
                                                 <input type="hidden" name="initial_image_name" value="">
                                                 {% endif %}
@@ -202,8 +203,8 @@
                                 <div class="col-lg-10 col-md-10 col-sm-12">
                                     {{ form_errors(slide.slide_order) }}
                                 </div>
-                            </div><input type="hidden" name="initial_image" value="">
-                                                    <input type="hidden" name="initial_image_name" value="">
+                                {{ form_widget(slide.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
+                            </div>
                         {% endfor %}
                     </div>
                     <div class="block-model-container">
@@ -222,6 +223,7 @@
                                             <button class="upload-img-button hidden-button">
                                                 <span class="blue-upload"></span><span class="img-name-container"></span>
                                             </button>
+                                            <a href="#" class="delete-link delete-slide-image" style="display: none"></a>
                                             <input type="hidden" name="initial_image" value="">
                                             <input type="hidden" name="initial_image_name" value="">
                                         </div>
@@ -258,6 +260,7 @@
                                 {{ form_widget(login_portal_data_form.login_portal_slides.vars.prototype.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
                                 </div>
                             </div>
+                            {{ form_widget(login_portal_data_form.login_portal_slides.vars.prototype.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
                         </div>
                         <div class="slide-unit-order-container block-model slide-unit-order-container-model" data-order="">
                             <div>

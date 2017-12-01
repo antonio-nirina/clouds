@@ -119,6 +119,7 @@
                                                     <button class="upload-img-button hidden-button">
                                                         <span class="blue-upload"></span><span class="img-name-container"></span>
                                                     </button>
+                                                    <a href="#" class="delete-link delete-slide-image" style="display: none;"></a>
                                                     <input type="hidden" name="initial_image" value="">
                                                     <input type="hidden" name="initial_image_name" value="">
                                                     {% endif %}
@@ -187,6 +188,7 @@
                                             {{ form_errors(slide.slide_order) }}
                                         </div>
                                     </div>
+                                    {{ form_widget(slide.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
                                 </div>
                             {% endfor %}
                         </div>
@@ -206,6 +208,7 @@
                                                 <button class="upload-img-button hidden-button">
                                                     <span class="blue-upload"></span><span class="img-name-container"></span>
                                                 </button>
+                                                <a href="#" class="delete-link delete-slide-image" style="display: none;"></a>
                                                 <input type="hidden" name="initial_image" value="">
                                                 <input type="hidden" name="initial_image_name" value="">
                                             </div>
@@ -261,6 +264,7 @@
                                         {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
                                     </div>
                                 </div>
+                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
                             </div>
                             <div class="slide-unit-order-container block-model slide-unit-order-container-model" data-order="">
                                 <div>
