@@ -13,6 +13,7 @@ use AdminBundle\Entity\RegistrationFormData;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Entity\SiteFormSetting;
 use AdminBundle\Entity\SitePagesStandardDefault;
+use AdminBundle\Entity\SitePagesStandardSetting;
 
 use AdminBundle\Form\FormStructureDeclarationType;
 use AdminBundle\Form\FormStructureType;
@@ -1449,6 +1450,29 @@ class ParametragesController extends Controller
 			return new Response('');
 		}
 	}
+	
+	/**
+     * @Route("/contenus/pages-standard/supprimer-img",name="admin_pages_standard_supprimer_img")
+     */
+    public function supprimerImgPageStandardAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$datas = array();
+			$datas['page'] = $request->get('id_page');
+			$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($datas['page']);
+			$sitePagesStandardSetting->setPath(NULL);
+			$em->flush();
+			return new Response('ok');
+		}else{
+			return new Response('');
+		}
+	}
 
     /**
      * @Route("/contenus/pages-standard",name="admin_pages_standard")
@@ -1463,6 +1487,61 @@ class ParametragesController extends Controller
         }
 		
 		$em = $this->getDoctrine()->getManager();
+		
+		//Validation
+		if ($request->isMethod('POST')) {
+			
+			$NomPages = $request->get('nom_page');
+			$TitrePages = $request->get('titre_page');
+			$MenuPages = $request->get('menu_page');
+			$ImgPages = $request->files->get('img_page');
+			$ContenuPages = $request->get('contenu_page');
+			$StatusPages = $request->get('status_page');
+			$Id = $request->get('id_page');
+			
+			for($i=0; $i < count($NomPages); $i++){
+				
+				$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
+				if(is_null($sitePagesStandardSetting)){
+					$sitePagesStandardSetting = new SitePagesStandardSetting();
+					$sitePagesStandardSetting->setNomPage($NomPages[$i]);
+					$sitePagesStandardSetting->setTitrePage($TitrePages[$i]);
+					$sitePagesStandardSetting->setMenuPage($MenuPages[$i]);
+					if(isset($ImgPages[$i])){
+						$sitePagesStandardSetting->setImgPage($ImgPages[$i]);
+					}
+					$sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
+					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
+					$sitePagesStandardSetting->setProgram($program);
+					
+					$sitePagesStandardSetting->upload($program);
+					
+					
+					$em->persist($sitePagesStandardSetting);
+				}else{
+					$sitePagesStandardSetting->setNomPage($NomPages[$i]);
+					$sitePagesStandardSetting->setTitrePage($TitrePages[$i]);
+					$sitePagesStandardSetting->setMenuPage($MenuPages[$i]);
+					if(isset($ImgPages[$i])){
+						$sitePagesStandardSetting->setImgPage($ImgPages[$i]);
+					}
+					$sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
+					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
+					$sitePagesStandardSetting->setProgram($program);
+					
+					$sitePagesStandardSetting->upload($program);
+					
+					
+					$em->persist($sitePagesStandardSetting);
+				}
+				$em->flush();
+			}
+			
+			return $this->redirectToRoute('admin_pages_standard');
+		}
+		
+		
+		
 		$AllPages = array();
 		$AllPagesSetting = array();
 		$AllPagesDefault = array();
@@ -1480,7 +1559,6 @@ class ParametragesController extends Controller
 		}else{
 			$AllPages = $AllPagesDefault;
 		}
-		
 		
 		
         return $this->render('AdminBundle:Parametrages:pages_standard.html.twig', array(

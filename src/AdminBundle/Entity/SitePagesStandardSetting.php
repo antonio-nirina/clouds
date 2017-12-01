@@ -4,6 +4,7 @@ namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\SitePagesStandardSettingRepository")
@@ -36,11 +37,6 @@ class SitePagesStandardSetting
 	/**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $img_page;
-	
-	/**
-     * @ORM\Column(type="string", nullable=true)
-     */
     private $contenu_page;
 	
 	/**
@@ -52,6 +48,16 @@ class SitePagesStandardSetting
      * @ORM\Column(type="boolean")
      */
     private $status_page;
+	
+	/**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $path;
+	
+	/**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $img_page;
 
 
     /**
@@ -185,30 +191,6 @@ class SitePagesStandardSetting
     }
 
     /**
-     * Set imgPage
-     *
-     * @param string $imgPage
-     *
-     * @return SitePagesStandardSetting
-     */
-    public function setImgPage($imgPage)
-    {
-        $this->img_page = $imgPage;
-
-        return $this;
-    }
-
-    /**
-     * Get imgPage
-     *
-     * @return string
-     */
-    public function getImgPage()
-    {
-        return $this->img_page;
-    }
-
-    /**
      * Set contenuPage
      *
      * @param string $contenuPage
@@ -230,5 +212,100 @@ class SitePagesStandardSetting
     public function getContenuPage()
     {
         return $this->contenu_page;
+    }
+	
+	/**
+     * Sets img_page.
+     *
+     * @param UploadedFile $img_page
+     */
+    public function setImgPage(UploadedFile $img_page = null)
+    {
+        $this->img_page = $img_page;
+    }
+
+    /**
+     * Get img_page.
+     *
+     * @return UploadedFile
+     */
+    public function getImgPage()
+    {
+        return $this->img_page;
+    }
+	
+	
+	public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'pages_standards';
+    }
+	
+	public function upload(\AdminBundle\Entity\Program $program = null)
+	{
+		// the file property can be empty if the field is not required
+		if (null === $this->getImgPage()) {
+			return;
+		}
+
+		// use the original file name here but you should
+		// sanitize it at least to avoid any security issues
+
+		// move takes the target directory and then the
+		// target filename to move to
+		$this->getImgPage()->move(
+			$this->getUploadRootDir().'/'.$program->getId(),
+			$this->getImgPage()->getClientOriginalName()
+		);
+
+		// set the path property to the filename where you've saved the file
+		$this->path = $this->getImgPage()->getClientOriginalName();
+
+		// clean up the file property as you won't need it anymore
+		$this->img_page = null;
+	}
+	
+	/**
+     * Set Path
+     *
+     * @param string $path
+     *
+     * @return SitePagesStandardSetting
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+	
+	/**
+     * Get path.
+     *
+     * @return path
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

@@ -21,18 +21,42 @@ $(document).ready(function(){
 		ArrayId = Id.split('-');
 		var IdLi = ArrayId[3];
 		
-
-		var UrlAffichePagesStandard = $('input#url_ajax_affiche_page').val();
+		$('div.content-page-body').each(function(j){
+			$(this).hide();
+		});
 		
+		$('div#id-content-dynamic-pages').show();
+		$('div#id-content-page-body-'+IdLi+'').show();
+		
+		var UrlCustomCkeditor = $('input#url_customs_ckeditor').val();
+		CKEDITOR.replace( 'login_portal_data_form_text-'+IdLi+'', {
+			language: 'fr',
+			uiColor: '#9AB8F3',
+			height: 150,
+			width: 600,
+			customConfig: UrlCustomCkeditor,
+		});
+		
+
+		//var UrlAffichePagesStandard = $('input#url_ajax_affiche_page').val();
+		
+		/*
 		var CloneChargement = $('p.chargementAjax').clone();
 		$('div#id-content-dynamic-pages').html(CloneChargement);
 		$('div#id-content-dynamic-pages p.chargementAjax').show();
+		*/
 		
+		/*
 		var NewPageName = '';
 		if($(this).hasClass('new_page')){
 			NewPageName = $(this).find('span.lib-onglet-choix-page').html();
 		}
 		
+		var NomPageActif = $(this).find('span.lib-onglet-choix-page').html();
+		$('input#id-nom-page-input').val(NomPageActif);
+		*/
+		
+		/*
 		$.ajax({
             type: 'POST',
             url: UrlAffichePagesStandard,
@@ -42,7 +66,7 @@ $(document).ready(function(){
                 $('div#id-content-dynamic-pages').html(html);
             }
         });
-
+		*/
 	});
 	
 	$(document).on('click', 'span[data-role="checked-unchecked"]', function(){
@@ -92,9 +116,58 @@ $(document).ready(function(){
 		HtmlNewPage += '<span id = "onglet-page-LastIdLi" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>';
 		HtmlNewPage += '<input id = "id-nom-page-input-'+LastIdLi+'" type = "hidden" name = "nom_page[]" value = "Page '+LastNewPage+'">';
 		HtmlNewPage += '<input id = "id-status-page-input-'+LastIdLi+'" type = "hidden" name = "status_page[]" value = "0">';
+		HtmlNewPage += '<input id = "id-id-page-input-'+LastIdLi+'" type = "hidden" name = "id_page[]" value = "'+LastIdLi+'">';
 		HtmlNewPage += '</li>';
 		
 		$(HtmlNewPage).insertAfter('ul.list-choix-page li:eq('+LastLiPos+')');
+		
+		var HtmlNewPageContent = '';
+		HtmlNewPageContent += '<div id = "id-content-page-body-'+LastIdLi+'" class = "content-page-body" style = "display:none;">';
+		
+		HtmlNewPageContent += '<label class = "champForm">';
+		HtmlNewPageContent += '<span class = "lib-form">nom du menu</span>';
+		HtmlNewPageContent += '<input id = "input-menu-'+LastIdLi+'" class = "input-form-text renomer-page" type = "text" name = "menu_page[]" value = "Page '+LastNewPage+'" placeholder = "Page '+LastNewPage+'" style = "padding-left:10px!important;">';
+		HtmlNewPageContent += '</label>';
+		
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		
+		
+		HtmlNewPageContent += '<label class = "champForm">';
+		HtmlNewPageContent += '<span class = "lib-form">titre</span>';
+		HtmlNewPageContent += '<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "Page '+LastNewPage+'" placeholder = "Page '+LastNewPage+'">';
+		HtmlNewPageContent += '</label>';
+		
+		
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		
+		
+		HtmlNewPageContent += '<label class = "champForm">';
+		HtmlNewPageContent += '<span class = "lib-form block">ajouter logo ou image</span>';
+		HtmlNewPageContent += '<button id = "btn-upload-img-page-standard-'+LastIdLi+'" class="btn-valider btn-upload choose-upload-img-button" type = "button">';
+		HtmlNewPageContent += '<span id = "id-lib-upload-'+LastIdLi+'" class="upload"></span> ';
+		HtmlNewPageContent += '<span id = "lib-btn-pages-'+LastIdLi+'">choisissez un fichier...</span>';
+		HtmlNewPageContent += '</button>';
+		HtmlNewPageContent += '<input style = "display:none;" id = "input-upload-img-page-standard-'+LastIdLi+'" type = "file" name = "img_page[]" class = "input-upload-img-page-standard">';
+		HtmlNewPageContent += '<div class = "info-container">';
+		HtmlNewPageContent += '<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>';
+		HtmlNewPageContent += '<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>';
+		HtmlNewPageContent += '</div>';
+		HtmlNewPageContent += '</label>';
+		
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		
+		
+		HtmlNewPageContent += '<label class = "champForm">';
+		HtmlNewPageContent += '<span class = "lib-form block editeur">texte</span>';
+		HtmlNewPageContent += '<textarea id="login_portal_data_form_text-'+LastIdLi+'" name="contenu_page[]" class="large-textarea"></textarea>';
+		HtmlNewPageContent += '</label>';
+		
+		HtmlNewPageContent += '</div>';
+		
+		
+		$(HtmlNewPageContent).insertAfter('div#id-content-page-body-'+ArrayIdLastLi[3]+'');
 	});
 	
 	//Saisie sur le nom du menu
@@ -106,20 +179,31 @@ $(document).ready(function(){
 		var NomMenuPage = $(this).val();
 		
 		$('li#li-onglet-page-'+Id+'').find('span.lib-onglet-choix-page').html(NomMenuPage);
+		$('li#li-onglet-page-'+Id+'').find('input#id-nom-page-input-'+Id+'').val(NomMenuPage);
 	});
 	
 	//Simuler btn upload file
-	$(document).on('click', '#btn-upload-img-page-standard', function(){
-		$('#input-upload-img-page-standard').click();
+	$(document).on('click', '.choose-upload-img-button', function(){
+		var Id = $(this).attr('id');
+		var ArrayId = new Array;
+		ArrayId = Id.split('-');
+		var IdBtn = ArrayId[5];
+		
+		$('#input-upload-img-page-standard-'+IdBtn+'').click();
 		return;
 	});
 	
-	$(document).on('change', '#input-upload-img-page-standard', function(){
-		$('#btn-upload-img-page-standard').removeClass('btn-valider');
-		$('#btn-upload-img-page-standard').addClass('btn-valider-etat');
-		$('#id-lib-upload').removeClass('upload');
-		$('#id-lib-upload').addClass('uploaded');
-		$('.img-delete-img').show();
+	$(document).on('change', '.input-upload-img-page-standard', function(){
+		var Id = $(this).attr('id');
+		var ArrayId = new Array;
+		ArrayId = Id.split('-');
+		var IdBtn = ArrayId[5];
+		
+		$('#btn-upload-img-page-standard-'+IdBtn+'').removeClass('btn-valider');
+		$('#btn-upload-img-page-standard-'+IdBtn+'').addClass('btn-valider-etat');
+		$('#id-lib-upload-'+IdBtn+'').removeClass('upload');
+		$('#id-lib-upload-'+IdBtn+'').addClass('uploaded');
+		//$('#img-delete-img-'+IdBtn+'').show();
 		
 		var FilePath = $(this).val();
 		var ArrayFilePath = new Array;
@@ -127,9 +211,36 @@ $(document).ready(function(){
 		
 		var ArrayFilePathLenght = ArrayFilePath.length;
 		var FileName = ArrayFilePath[ArrayFilePathLenght-1];
-		$('#lib-btn-pages').html(FileName);
-		$('#lib-btn-pages').removeAttr('style');
-		$('#lib-btn-pages').attr('style', 'color:var(--couleur_1)!important;');
+		$('#lib-btn-pages-'+IdBtn+'').html(FileName);
+		$('#lib-btn-pages-'+IdBtn+'').removeAttr('style');
+		$('#lib-btn-pages-'+IdBtn+'').attr('style', 'color:var(--couleur_1)!important;');
+	});
+	
+	$(document).on('click', '.img-delete-img', function(){
+		var Id = $(this).attr('id');
+		var ArrayId = new Array;
+		ArrayId = Id.split('-');
+		var IdImg = ArrayId[3];
+		
+		
+		//Supprimer l'image 
+		var UrlSupprimeImg = $('input#url_ajax_supprimer_img').val();
+		$.ajax({
+            type: 'POST',
+            url: UrlSupprimeImg,
+			data:'id_page='+IdImg+'',
+            success: function(retour){
+				if(retour == 'ok'){
+					$('#btn-upload-img-page-standard-'+IdImg+'').removeClass('btn-valider-etat');
+					$('#btn-upload-img-page-standard-'+IdImg+'').addClass('btn-valider');
+					$('#id-lib-upload-'+IdImg+'').removeClass('uploaded');
+					$('#id-lib-upload-'+IdImg+'').addClass('upload');
+					$('#lib-btn-pages-'+IdImg+'').html('choisissez un fichier...');
+					$('#img-delete-img-'+IdImg+'').hide();
+				}
+            }
+        });
+		return false;
 	});
 	
 	//Cliqur sur la premiere onglet
