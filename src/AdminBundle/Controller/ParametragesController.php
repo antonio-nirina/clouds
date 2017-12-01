@@ -168,14 +168,8 @@ class ParametragesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        /*$programs = $em->getRepository(Program::class)->findAll();
-        if (empty($programs) || is_null($programs[0])) {
-            return $this->redirectToRoute("fos_user_security_logout");
-        }
-        $program = $programs[0];*/
-
         $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {//redirection si program n'existe pas
+        if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
@@ -244,6 +238,18 @@ class ParametragesController extends Controller
                         $registration_form_data->setHeaderImage($current_header_image);
                     }
 
+                    if (!empty($header_data_form->get('delete_image_command')->getData())
+                    && "true" == $header_data_form->get('delete_image_command')->getData()
+                    ) {
+                        $filesystem = $this->get('filesystem');
+                        $image_path = $this->getParameter('registration_header_image_upload_dir')
+                            .'/'
+                            .$registration_form_data->getHeaderImage();
+                        if ($filesystem->exists($image_path)) {
+                            $filesystem->remove($image_path);
+                        }
+                        $registration_form_data->setHeaderImage(null);
+                    }
                     $em->flush();
 
                     return $this->redirectToRoute("admin_parametrages_inscriptions");
@@ -314,12 +320,6 @@ class ParametragesController extends Controller
 
         $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
 
-        /*$programs = $em->getRepository(Program::class)->findAll();
-        if (empty($programs) || is_null($programs[0])) {
-            return new Response('');
-        }
-        $program = $programs[0];*/
-
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
 //            return $this->redirectToRoute('fos_user_security_logout');
@@ -384,12 +384,6 @@ class ParametragesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
-
-        /*$programs = $em->getRepository(Program::class)->findAll();
-        if (empty($programs) || is_null($programs[0])) {
-            return new Response('');
-        }
-        $program = $programs[0];*/
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
@@ -468,11 +462,6 @@ class ParametragesController extends Controller
     public function importRegistrationDataAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        /*$programs = $em->getRepository(Program::class)->findAll();
-        if (empty($programs) || is_null($programs[0])) {
-            return $this->redirectToRoute("fos_user_security_logout");
-        }
-        $program = $programs[0];*/
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
@@ -514,11 +503,6 @@ class ParametragesController extends Controller
     public function downloadRegistrationModelAction()
     {
         $em = $this->getDoctrine()->getManager();
-        /*$programs = $em->getRepository(Program::class)->findAll();
-        if (empty($programs) || is_null($programs[0])) {
-            return $this->redirectToRoute("fos_user_security_logout");
-        }
-        $program = $programs[0];*/
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
@@ -1002,11 +986,12 @@ class ParametragesController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $em = $this->getDoctrine()->getManager();
         $login_portal_data = $program->getLoginPortalData();
         if (is_null($login_portal_data)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
+
+        $em = $this->getDoctrine()->getManager();
 
         $original_slides = new ArrayCollection();
         foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
@@ -1028,16 +1013,20 @@ class ParametragesController extends Controller
 
         if ($login_portal_data_form->isSubmitted() && $login_portal_data_form->isValid()) {
             foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
+                // adding slide if new
                 if (is_null($slide->getId())) {
                     $slide->setLoginPortalData($login_portal_data);
                     $em->persist($slide);
                 }
 
+                // setting image for existent slide
                 if (is_null($slide->getImage())) {
+                    // set previous image
                     if (array_key_exists($slide->getId(), $original_slides_image)) {
                         $slide->setImage($original_slides_image[$slide->getId()]);
                     }
                 } else {
+                    // upload new image
                     $image = $slide->getImage();
                     $image->move(
                         $this->getParameter('content_login_portal_slide_image_upload_dir'),
@@ -1047,6 +1036,27 @@ class ParametragesController extends Controller
                 }
             }
 
+            // checking for "delete image" commands
+            foreach ($login_portal_data_form->get('login_portal_slides') as $login_portal_slide) {
+                $delete_image_command = $login_portal_slide->get('delete_image_command')->getData();
+                if (!empty($delete_image_command) && 'true' == $delete_image_command) {
+                    $slide = $login_portal_slide->getNormData();
+                    $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+                        ->retrieveNumberOfOtherSlideUsingImage($login_portal_data, $slide);
+                    if (0 == $number_other_slide_using_image) {
+                        $filesystem = $this->get('filesystem');
+                        $image_path = $this->getParameter('content_login_portal_slide_image_upload_dir')
+                            .'/'
+                            .$slide->getImage();
+                        if ($filesystem->exists($image_path)) {
+                            $filesystem->remove($image_path);
+                        }
+                    }
+                    $slide->setImage(null);
+                }
+            }
+
+            // deleting slides
             foreach ($original_slides as $original_slide) {
                 if (false === $login_portal_data->getLoginPortalSlides()->contains($original_slide)) {
                     $original_slide->setLoginPortalData(null);
@@ -1228,16 +1238,20 @@ class ParametragesController extends Controller
                 $home_page_slide_data_form->handleRequest($request);
                 if ($home_page_slide_data_form->isSubmitted() && $home_page_slide_data_form->isValid()) {
                     foreach ($home_page_data->getHomePageSlides() as $slide) {
+                        // adding slide if new
                         if (is_null($slide->getId())) {
                             $slide->setHomePageData($home_page_data);
                             $em->persist($slide);
                         }
 
+                        // setting image for existent slide
                         if (is_null($slide->getImage())) {
+                            // set previous image
                             if (array_key_exists($slide->getId(), $original_slides_image)) {
                                 $slide->setImage($original_slides_image[$slide->getId()]);
                             }
                         } else {
+                            // upload new image
                             $image = $slide->getImage();
                             $image->move(
                                 $this->getParameter('content_home_page_slide_image_upload_dir'),
@@ -1247,6 +1261,27 @@ class ParametragesController extends Controller
                         }
                     }
 
+                    // checking for "delete image" commands
+                    foreach ($home_page_slide_data_form->get('home_page_slides') as $home_page_slide) {
+                        $delete_image_command = $home_page_slide->get('delete_image_command')->getData();
+                        if (!empty($delete_image_command) && 'true' == $delete_image_command) {
+                            $slide = $home_page_slide->getNormData();
+                            $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+                                ->retrieveNumberOfOtherSlideUsingImage($home_page_data, $slide);
+                            if (0 == $number_other_slide_using_image) {
+                                $filesystem = $this->get('filesystem');
+                                $image_path = $this->getParameter('content_home_page_slide_image_upload_dir')
+                                    .'/'
+                                    .$slide->getImage();
+                                if ($filesystem->exists($image_path)) {
+                                    $filesystem->remove($image_path);
+                                }
+                            }
+                            $slide->setImage(null);
+                        }
+                    }
+
+                    // deleting slides
                     foreach ($original_slides as $original_slide) {
                         if (false === $home_page_data->getHomePageSlides()->contains($original_slide)) {
                             $original_slide->setHomePageData(null);

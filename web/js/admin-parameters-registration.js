@@ -381,6 +381,7 @@ $(document).ready(function(){
                 $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
                 $(this).parents('.fieldset').find('.header-image-preview-img').attr('src', '');
                 $(this).parents('.fieldset').find('.header-preview-container').addClass('no-image');
+                $(this).parent().find('.delete-link').hide();
             } else {
                 $(this).parent().find('.img-name-container').text(initial_image_name);
                 $(this).parents('.fieldset').find('.header-image-preview-img').attr('src', initial_image);
@@ -393,7 +394,9 @@ $(document).ready(function(){
             $('.upload-img-button').removeClass('hidden-button');
             $('.btn-upload.choose-upload-img-button').addClass('hidden-button');
             $('.header-preview-container').removeClass('no-image');
+            $(this).parent().find('.delete-link').show();
         }
+        $(this).parents('form').find('.delete-command-input').val(false);
     });
 
     // preview du message
@@ -513,6 +516,9 @@ $(document).ready(function(){
      * Suppression image header uploadé
      * *********************************************************************************************
      */
+    /*
+     * AJAX METHOD
+     *
     $('.delete-form-header-image').on('click', function(e){
         e.preventDefault();
         var delete_header_image_url = $(this).parent().find('input[name=delete_header_image_url]').val();
@@ -537,6 +543,23 @@ $(document).ready(function(){
                 }
             }
         });
+    });*/
+
+    $(document).on('click', '.delete-form-header-image', function(e){
+        e.preventDefault();
+        $(this).parents('form').find('.delete-command-input').val(true);
+        var current_delete_link = $(this);
+
+        var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+        wrapper.trigger('reset');
+        current_delete_link.parent().find('input[type=file]').unwrap();
+
+        current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+        current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
+        current_delete_link.parents('.fieldset').find('.row-header-preview-container .header-image-preview-img')
+            .attr('src', '');
+        current_delete_link.parents('.fieldset').find('.header-preview-container').addClass('no-image');
+        current_delete_link.hide();
     });
 
     /**
