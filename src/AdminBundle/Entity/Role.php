@@ -27,14 +27,19 @@ class Role
     private $program;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $rank;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $network;
+
+    /**
+     * @ORM\Column(name="gain", type="float", nullable=true)
+     */
+    private $gain;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="role")
@@ -186,5 +191,29 @@ class Role
     public function getNetwork()
     {
         return $this->network;
+    }
+
+    /**
+     * Set gain
+     *
+     * @param float $gain
+     *
+     * @return Role
+     */
+    public function setGain($gain)
+    {
+        $this->gain = $gain;
+
+        return $this;
+    }
+
+    /**
+     * Get gain
+     *
+     * @return float
+     */
+    public function getGain()
+    {
+        return $this->gain;
     }
 }

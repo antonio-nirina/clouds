@@ -2613,7 +2613,7 @@ li.options{
 	.nav-item-niv-2{
 		float:left;
 		display:block;
-		margin-left:40px;
+		/*margin-left:40px;*/
 	}
 
 	.form-search{
@@ -3011,7 +3011,7 @@ li.options{
 	.nav-item-niv-2{
 		float:left;
 		display:block;
-		margin-left:40px;
+		/*margin-left:40px;*/
 	}
 
 	.form-search{
@@ -3442,4 +3442,10 @@ button.btn-valider-etat .uploaded{
 }
 .navbar-nav.content-menu-niv-3.between {
 	justify-content: space-between;
+}
+.navbar-nav.content-menu-niv-2 {
+    max-width: 1024px;
+    width: 100%;
+    display: flex !important;
+    justify-content: space-evenly;
 }

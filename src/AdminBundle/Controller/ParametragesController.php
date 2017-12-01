@@ -7,15 +7,19 @@ use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
+use AdminBundle\Entity\HomePageSlide;
 use AdminBundle\Entity\LoginPortalSlide;
 use AdminBundle\Entity\Program;
 use AdminBundle\Entity\RegistrationFormData;
 use AdminBundle\Entity\SiteFormFieldSetting;
 use AdminBundle\Entity\SiteFormSetting;
 use AdminBundle\Entity\SitePagesStandardDefault;
-
 use AdminBundle\Form\FormStructureDeclarationType;
 use AdminBundle\Form\FormStructureType;
+use AdminBundle\Form\HomePageEditorialType;
+use AdminBundle\Form\HomePageSlideDataType;
+use AdminBundle\Form\LoginPortalDataType;
+use AdminBundle\Form\ProgramRankType;
 use AdminBundle\Form\RegistrationFormHeaderDataType;
 use AdminBundle\Form\RegistrationFormIntroDataType;
 use AdminBundle\Form\RegistrationImportType;
@@ -34,10 +38,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use AdminBundle\Form\LoginPortalDataType;
-use AdminBundle\Form\HomePageSlideDataType;
-use AdminBundle\Entity\HomePageSlide;
-use AdminBundle\Form\HomePageEditorialType;
 
 /**
  * @Route("/admin/parametrages")
@@ -1422,6 +1422,27 @@ class ParametragesController extends Controller
             "site_table_network" => $site_table_network_form->createView(),
         ));
     }
+
+    /**
+     * @Route("/points/rang", name="admin_point_rang")
+     */
+    public function rankPointAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $this->container->get('admin.role_rank')->setAllRoleRank($program);
+        $roles_form = $this->createForm(ProgramRankType::class, $program);
+
+        return $this->render('AdminBundle:Parametrages:rank_point.html.twig', array(
+                'roles_form' => $roles_form->createView()
+            ));
+    }
+
 	
 	/**
      * @Route(

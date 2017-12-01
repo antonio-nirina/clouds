@@ -30,5 +30,9 @@ services:
     admin.body_background:
         class: AppBundle\Service\FileHandler\FileUploader
         arguments: ['%background_path%']
+
+    admin.role_rank:
+        class: AdminBundle\Manager\ProgramRolesManager
+        arguments: ['@doctrine.orm.entity_manager']
     
 

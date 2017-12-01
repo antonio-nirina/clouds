@@ -6,7 +6,7 @@
     margin-right: 0;
     margin-bottom: 50px;
     text-align: left;
-    padding-left: 15px ;
+    padding-left: 15px !important;
     padding-right: 33px;
     float: none;
     min-height: 80px;
@@ -768,6 +768,64 @@ input[type="checkbox"].mode:checked + label > span {
     display: flex;
     align-items: flex-end;
 }
+.img-point-rang {
+    background: url('../images/cloudsRewards/points-rang-img.png') -10px -25px no-repeat;    
+}
+.color2 {
+    color: var(--couleur_2);
+}
+.left {
+    text-align: left;
+}
+.rank div span, form[name="program_rank"] .row > span, .denomination input[type=text], .recompense input[type=text] {
+    font-size: 15px !important;
+    font-family: var(--police) !important;
+    color: var(--couleur_4) !important;    
+}
+.rank {
+    padding: 0 15px 0 0;
+    min-width: 115px;
+    display: flex;
+}
+.rank div {
+    padding-left: 50px; 
+}
+form[name="program_rank"] .row, .row.rank_header {
+    padding: 0 15px 15px;
+    align-items: center;
+}
+.row.rank_header span {
+    width: 30px;
+}
+form[name="program_rank"] .row > span {
+    padding: 0 10px;
+}
+.denomination , .recompense , .denomination span {
+    font-size: 14px !important;
+    color: #808080 !important;
+    font-family: var(--police) !important;
+    text-align: left;
+}
+.denomination {
+    width: 50%;    
+}
+.recompense {
+    max-width: 120px;
+}
+.denomination input[type=text] {
+    width: 100%;
+    border: 1px solid;
+    border-radius: 7px;
+    padding: 5px 5px 5px 10px;
+}
+.recompense input[type=text] {
+    width: 100%;
+    text-align: right;
+    border: 1px solid;
+    border-radius: 7px;
+    padding: 5px 5px 5px 10px;
+}
+
 @media only screen and (min-width: 1200px) {
     .button-row.btn-content-retour-valider {
         width: 75% !important;
@@ -782,6 +840,9 @@ input[type="checkbox"].mode:checked + label > span {
     #site_design_setting_logo_name {
         min-width: 80%;
     }
+    .denomination {
+        width: 43% !important;    
+    }
 } 
 @media only screen and (min-width: 768px) {
     .validation-droite {
@@ -794,12 +855,21 @@ input[type="checkbox"].mode:checked + label > span {
         padding-right: 8% ;
         display: flex;
         justify-content: flex-end;
-    }    
+    }      
 }
 @media only screen and (max-width: 767px) {        
     .row.table-network {
         justify-content: center;
-    }    
+    } 
+    .denomination {
+        width: 85%;    
+    }      
+    .recompense + span {
+        align-self: flex-end;
+    }
+    .content-bloc-droite {
+        padding-right: 15px !important;
+    }
 }
 @media only screen and (min-width: 576px) {
     .table-network .circle {
@@ -810,6 +880,9 @@ input[type="checkbox"].mode:checked + label > span {
     }
 }
 @media only screen and (max-width: 575px) {
+    .denomination {
+        width: 100%;    
+    }
     .validation-droite button {
         margin-top : 20px !important;
     } 
@@ -843,5 +916,8 @@ input[type="checkbox"].mode:checked + label > span {
     }
     .police-text {
         max-width: 198px !important;
+    }
+    .btn-content-retour-valider {
+        width: 100% !important;
     }
 }

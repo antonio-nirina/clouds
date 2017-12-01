@@ -132,23 +132,23 @@
                                 importer le fichier complété
                             </button>               
                             {{ form_start(form_upload,{"attr": {"novalidate": "novalidate"}}) }}  
-                                {{ form_widget(form_upload,{"attr": {"style": "display:none"}}) }}
-                                {{ form_errors(form_upload.uploaded_file) }}
+                                {{ form_widget(form_upload,{"attr": {"style": "display:none"}}) }}   
                             {{ form_end(form_upload) }}
                         </div>
                     {# </div>                         #}
                 </div>
                 <input type='hidden' name="url" value="{{ path("admin_resultats_declaration_import") }}">
-
-                {% if error_list is defined and error_list is not empty %}
-                    <div class="error-message-container">
-                        <ul>
+                
+                <div class="error-message-container">
+                    {{ form_errors(form_upload.uploaded_file) }}
+                    {% if error_list is defined and error_list is not empty %}
+                        <ul>                        
                         {% for error in error_list %}
                             <li>{{ error }}</li>
                         {% endfor %}
                         </ul>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
 
                 {% for message in app.flashes('success_message') %}
                     <div class="message-container">

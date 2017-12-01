@@ -325,7 +325,7 @@ ul.menu-content li a:hover{
 
 div.bg-slide{
 	background: url('../images/cloudsRewards/bg-slide.png');
-	background-repeat:no-repeat !important;
+	background-repeat:no-repeat;
 	background-position: 0px -123px;
 	margin-bottom:15px;
 }

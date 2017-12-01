@@ -1,0 +1,147 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-resultat-form.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+    {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':4})) }}
+    {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_table_network") }}">rang</a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">produits</a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">périodes </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_point_rang") }}">rang </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">performances </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+        
+
+        <div class = "row">   
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <section class="fieldset active">
+                    <div class = "row full-width no-contents">
+                        <div class = "col-md-8 col-lg-9 col-sm-12 content-bloc-droite">
+                            <h3 class = "hidden-sm-down">
+                                Cette rubrique vous permet de définir les règles d'attribution des points, en fonction du rang commercial de vos participants
+                            </h3>
+                            <h5 class = "hidden-md-up">
+                                Cette rubrique vous permet de définir les règles d'attribution des points, en fonction du rang commercial de vos participants
+                            </h5>
+                        </div>
+                        <div class = "col-md-2 col-lg-1 hidden-sm-down">
+                        </div>
+                        <div class = "col-md-2 col-lg-2 hidden-sm-down">
+                            <div class = " content-bloc-gauche img-point-rang rounded-circle"></div> 
+                        </div>
+                    </div>
+                    <p class="bld color2 left">Choisissez vos rangs, nommez-les et attribuez leur un pourcentage :</p>
+                    <div class="row rank_header">
+                        <div class="rank">
+                        </div>
+                        <div class="denomination hidden-sm-down">
+                            dénomination
+                        </div>
+                        <span class="hidden-sm-down"></span>
+                        <div class="recompense hidden-sm-down">
+                            récompenses
+                        </div>
+                    </div>
+
+                    {{ form_start(roles_form) }}
+                        {% for role in roles_form.roles %}
+                            {% set current = loop.index + 1 %}
+                            <div class="row">
+                                <div class="rank">                                     
+                                    <input id="rank_{{ current }}" type="checkbox" >
+                                    <label for="rank_{{ current }}">
+                                        <span></span>
+                                        <div>
+                                            <span>rang {{ current }}</span>
+                                        </div>
+                                    </label>                            
+                                </div>
+                                <div class="denomination">
+                                    <span class="label-text hidden-md-up">dénomination</span>
+                                    {{ form_widget(role.name) }}
+                                </div>
+                                <span class="hidden-sm-down">=</span>
+                                <div class="recompense">
+                                    <span class="label-text hidden-md-up">récompense</span>
+                                    {{ form_widget(role.gain) }}                                 
+                                </div>
+                                <span>%</span>
+                            </div>
+                            
+                        {% endfor %}
+                    {{ form_end(roles_form) }}
+
+                    <div class = "row full-width">
+                        <div class = "col-12 col-md-12">
+                            <div class="validation">
+                                <button class ="btn-valider valider">
+                                    valider
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="error-message-container"></div>
+
+                </section>
+            </div>
+        </div>
+        
+        <input type="hidden" name="redirect" value="{{ path("admin_table_network") }}">
+        <div class = "row separator"></div>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script> {# utile pour soumettre le forme par ajax #}
+            <script src="{{ asset('js/admin-import.js') }}"></script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

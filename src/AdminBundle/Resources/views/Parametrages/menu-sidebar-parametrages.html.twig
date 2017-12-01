@@ -33,7 +33,7 @@
 			<span class = "border-left-hover-active">&nbsp;</span>
 		</a>
 		
-		<a id = "points" href="#" class="list-group-item d-inline-block collapsed {{ (active == 4)?'active':'' }}" data-parent="#sidebar">
+		<a id = "points" href="{{ path("admin_point_rang") }}" class="list-group-item d-inline-block collapsed {{ (active == 4)?'active':'' }}" data-parent="#sidebar">
 			{% if level >= 4 %}
 				<img class='image-checked' src='{{ asset("images//cloudsRewards/checkon.png")}}'>
 			{% else %}				
