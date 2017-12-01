@@ -3431,11 +3431,34 @@ button.btn-valider-etat .uploaded{
 	display:none;
 }
 
-.cke_button_icon.cke_button__justifyblock_icon{
-	background: url('../../../images/cloudsRewards/custom-justify-text.png') no-repeat !important;
-	background: url('../images/cloudsRewards/custom-justify-text.png') no-repeat !important; /*for online server*/
-	background-size: 20px 16px !important;
+.cke_button_icon.cke_button__justifyleft_icon{
+	background: url('../../../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important;
+	background: url('../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important; /*for online server*/
+	background-size: 274px 15px !important;
+	background-position: -159px 1px !important;
 }
+
+.cke_button_icon.cke_button__justifycenter_icon{
+	background: url('../../../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important;
+	background: url('../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important; /*for online server*/
+	background-size: 274px 15px !important;
+	background-position: -192px 1px !important;
+}
+
+.cke_button_icon.cke_button__justifyright_icon{
+	background: url('../../../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important;
+	background: url('../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important; /*for online server*/
+	background-size: 274px 15px !important;
+	background-position: -226px 1px !important;
+}
+
+.cke_button_icon.cke_button__justifyblock_icon{
+	background: url('../../../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important;
+	background: url('../images/cloudsRewards/custom-wysiwyg-icons.png') no-repeat !important; /*for online server*/
+	background-size: 274px 15px !important;
+	background-position: -259px 1px !important;
+}
+
 .navbar-nav.content-menu-niv-3 {
 	display: flex !important;
 	justify-content: space-evenly;
