@@ -4,7 +4,7 @@
     {% embed 'AdminBundle::header.html.twig' %}
         {% block stylesheets %}
             {{ parent() }}
-			<link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -15,53 +15,53 @@
 {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
 
 <main class="col-md-9  offset-md-1 float-left main">
-				
-	<div class = "row">
-		<div class = "col-12 col-md-12 sous-menu-main">
-			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
-				<ul class="content-menu-niv-3 hidden-lg-up">
-					<li class="nav-item-niv-3 form-inscription">
-						<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">formulaire d'inscription </a>
-						<span class = "bulle-aide"></span>
-					</li>
-				</ul>
-				<div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
-					<ul class="navbar-nav content-menu-niv-3">
-						<li class="nav-item-niv-3 form-inscription hidden-md-down">
-							<a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">formulaire d'inscription </a>
-                            <span class = "bulle-aide"></span>
-						</li>
 
-						<li class="nav-item-niv-3 form-imports">
-							<a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions_imports") }}">import de fichiers et flux </a>
+    <div class = "row">
+        <div class = "col-12 col-md-12 sous-menu-main">
+            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                <ul class="content-menu-niv-3 hidden-lg-up">
+                    <li class="nav-item-niv-3 form-inscription">
+                        <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">formulaire d'inscription </a>
+                        <span class = "bulle-aide"></span>
+                    </li>
+                </ul>
+                <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                    <ul class="navbar-nav content-menu-niv-3">
+                        <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">formulaire d'inscription </a>
                             <span class = "bulle-aide"></span>
-						</li>
-					</ul>
-				</div>
-				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<a class="navbar-brand abs" href="#"></a>
-			</nav>
-		</div>
-	</div>
-	
-	<div class = "row">
-		<div class = "col-12 col-md-12 form-content-inscription">
+                        </li>
+
+                        <li class="nav-item-niv-3 form-imports">
+                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions_imports") }}">import de fichiers et flux </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                </div>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand abs" href="#"></a>
+            </nav>
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-12 col-md-12 form-content-inscription">
             <section class="fieldset active">
-				<div class="row smaller-block-title-container">
-					<div class="col-lg-10">
-						<h3 class="hidden-sm-down block-title">Header du formulaire</h3>
-						<h5 class="hidden-md-up block-title">Header du formulaire</h5>
-					</div>
-					<div class="col-lg-2">
-						<div class="hidden-sm-down corner-circle-img img-param-registration-form-header rounded-circle"></div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-					{% if header_data_form is defined %}
-						{{ form_start(header_data_form, {"attr": {"novalidate": "novalidate"}}) }}
+                <div class="row smaller-block-title-container">
+                    <div class="col-lg-10">
+                        <h3 class="hidden-sm-down block-title">Header du formulaire</h3>
+                        <h5 class="hidden-md-up block-title">Header du formulaire</h5>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="hidden-sm-down corner-circle-img img-param-registration-form-header rounded-circle"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                    {% if header_data_form is defined %}
+                        {{ form_start(header_data_form, {"attr": {"novalidate": "novalidate"}}) }}
                         <div class="row form-element-container">
                             <div class="col-lg-1">
                                 {{ form_label(header_data_form.header_image, 'image') }}
@@ -71,26 +71,27 @@
                                     <div class="col-lg-12">
                                 {{ form_widget(header_data_form.header_image, {"attr": {"class": "header-image-input hidden-input-file"}}) }}
                                         {% if current_header_image is defined and current_header_image is not empty %}
-										<button class="btn-valider btn-upload choose-upload-img-button hidden-button">
-											<span class="upload"></span> Choisissez un fichier...
-										</button>
-										<button class="upload-img-button">
-											<span class="blue-upload"></span><span class="img-name-container">{{ current_header_image }}</span>
-										</button>
-										<a href="#" class="delete-link delete-form-header-image"></a>
-										<input type="hidden" name="initial_image" value="{{ asset(registration_header_image_location~current_header_image) }}">
-										<input type="hidden" name="initial_image_name" value="{{ current_header_image }}">
-										{% else %}
-										<button class="btn-valider btn-upload choose-upload-img-button">
-											<span class="upload"></span> Choisissez un fichier...
-										</button>
-										<button class="upload-img-button hidden-button">
-											<span class="blue-upload"></span><span class="img-name-container"></span>
-										</button>
-										<input type="hidden" name="initial_image" value="">
-										<input type="hidden" name="initial_image_name" value="">
-										{% endif %}
-										<input type="hidden" name="delete_header_image_url" value="{{ path('admin_parameters_registration_delete_header_image') }}">
+                                        <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+                                            <span class="upload"></span> Choisissez un fichier...
+                                        </button>
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container">{{ current_header_image }}</span>
+                                        </button>
+                                        <a href="#" class="delete-link delete-form-header-image"></a>
+                                        <input type="hidden" name="initial_image" value="{{ asset(registration_header_image_location~current_header_image) }}">
+                                        <input type="hidden" name="initial_image_name" value="{{ current_header_image }}">
+                                        {% else %}
+                                        <button class="btn-valider btn-upload choose-upload-img-button">
+                                            <span class="upload"></span> Choisissez un fichier...
+                                        </button>
+                                        <button class="upload-img-button hidden-button">
+                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                        </button>
+                                        <a href="#" class="delete-link delete-form-header-image" style="display: none"></a>
+                                        <input type="hidden" name="initial_image" value="">
+                                        <input type="hidden" name="initial_image_name" value="">
+                                        {% endif %}
+                                        <input type="hidden" name="delete_header_image_url" value="{{ path('admin_parameters_registration_delete_header_image') }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -136,98 +137,99 @@
                                 <img class="header-image-preview-img" src="{{ "" == header_image_src ? "" : asset(header_image_src) }}">
                             </div>
                         </div>
+                        {{ form_widget(header_data_form.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
                         <div class="row submit-button-container">
                             <div class="col-lg-12">
-								<button class ="btn-valider valider">
-									valider
-								</button>
+                                <button class ="btn-valider valider">
+                                    valider
+                                </button>
                             </div>
                         </div>
-						{{ form_end(header_data_form) }}
-					{% endif %}
-					</div>
-				</div>
+                        {{ form_end(header_data_form) }}
+                    {% endif %}
+                    </div>
+                </div>
             </section>
 
-			<section class="fieldset">
-				<div class="row">
-					<div class="col-lg-10">
-						<h3 class="hidden-sm-down block-title">Texte d'introduction au formulaire</h3>
-						<h5 class="hidden-md-up block-title">Texte d'introduction au formulaire</h5>
-					</div>
-					<div class="col-lg-2">
-						<div class="hidden-sm-down corner-circle-img img-param-registration-form-intro rounded-circle"></div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
+            <section class="fieldset">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h3 class="hidden-sm-down block-title">Texte d'introduction au formulaire</h3>
+                        <h5 class="hidden-md-up block-title">Texte d'introduction au formulaire</h5>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="hidden-sm-down corner-circle-img img-param-registration-form-intro rounded-circle"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
                         {{ form_start(intro_data_form, {"attr": {"novalidate": "novalidate"}}) }}
-						<div class="row form-element-container">
-							<div class="col-lg-1">
+                        <div class="row form-element-container">
+                            <div class="col-lg-1">
                                 {{ form_label(intro_data_form.introduction_text_title, 'titre') }}
-							</div>
-							<div class="col-lg-11">
+                            </div>
+                            <div class="col-lg-11">
                                 <div class="row">
-									<div class="col-lg-12">
+                                    <div class="col-lg-12">
                                         {{ form_widget(intro_data_form.introduction_text_title, {"attr": {"class": "large-input-text"}}) }}
-									</div>
-								</div>
-								<div class="row error-message-container">
-									<div class="col-lg-12">
+                                    </div>
+                                </div>
+                                <div class="row error-message-container">
+                                    <div class="col-lg-12">
                                         {{ form_errors(intro_data_form.introduction_text_title) }}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-12">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
                                 {{ form_label(intro_data_form.introduction_text_content, 'texte') }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-12">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
                                 {{ form_widget(intro_data_form.introduction_text_content, {"attr": {"class": "large-textarea"}}) }}
-							</div>
-						</div>
-						<div class="row error-message-container">
-							<div class="col-lg-12">
+                            </div>
+                        </div>
+                        <div class="row error-message-container">
+                            <div class="col-lg-12">
                                 {{ form_errors(intro_data_form.introduction_text_content) }}
-							</div>
-						</div>
-						<div class="row submit-button-container">
-							<div class="col-lg-12">
-								<button class ="btn-valider valider">
-									valider
-								</button>
-							</div>
-						</div>
+                            </div>
+                        </div>
+                        <div class="row submit-button-container">
+                            <div class="col-lg-12">
+                                <button class ="btn-valider valider">
+                                    valider
+                                </button>
+                            </div>
+                        </div>
                         {{ form_end(intro_data_form) }}
-					</div>
-				</div>
-			</section>
-			<section id = "create-form-inscription" class = "fieldset">
-				<div class="row">
-					<div class="col-lg-10">
-						<h3 class="hidden-sm-down block-title">Créer le formulaire d'inscription à votre programme de récompense</h3>
-						<h5 class="hidden-md-up block-title">Créer le formulaire d'inscription à votre programme de récompense</h5>
-					</div>
-					<div class="col-lg-2">
-						<div class="hidden-sm-down corner-circle-img img-form-inscription rounded-circle"></div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 block-table-container">
-						<table class="reorder-table block-table">
-							<thead>
-							<tr>
-								<th class="text-and-checkbox-container"><p style = "margin:0;padding:0;" class = "hidden-md-down"><span style = "display:inline-block" class = "hidden-lg-down">champs à </span> publier</p><input id="checkbox-publish-all" class="checkbox-publish-all styled-checkbox" type="checkbox"><label for="checkbox-publish-all"></label></th>
-								<th class="text-and-checkbox-container"><p style = "margin:0;padding:0;" class = "hidden-md-down"><span style = "display:inline-block" class = "hidden-lg-down">rendre </span> obligatoire</p><input id="checkbox-mandatory-all" class="checkbox-mandatory-all styled-checkbox" type="checkbox"><label for="checkbox-mandatory-all"></label></th>
-								<th><span class = "hidden-md-down">liste des champs</span></th>
-								<th>éditer</th>
-								<th>ordre</th>
-							</tr>
-							</thead>
-							<tbody>
+                    </div>
+                </div>
+            </section>
+            <section id = "create-form-inscription" class = "fieldset">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h3 class="hidden-sm-down block-title">Créer le formulaire d'inscription à votre programme de récompense</h3>
+                        <h5 class="hidden-md-up block-title">Créer le formulaire d'inscription à votre programme de récompense</h5>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="hidden-sm-down corner-circle-img img-form-inscription rounded-circle"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 block-table-container">
+                        <table class="reorder-table block-table">
+                            <thead>
+                            <tr>
+                                <th class="text-and-checkbox-container"><p style = "margin:0;padding:0;" class = "hidden-md-down"><span style = "display:inline-block" class = "hidden-lg-down">champs à </span> publier</p><input id="checkbox-publish-all" class="checkbox-publish-all styled-checkbox" type="checkbox"><label for="checkbox-publish-all"></label></th>
+                                <th class="text-and-checkbox-container"><p style = "margin:0;padding:0;" class = "hidden-md-down"><span style = "display:inline-block" class = "hidden-lg-down">rendre </span> obligatoire</p><input id="checkbox-mandatory-all" class="checkbox-mandatory-all styled-checkbox" type="checkbox"><label for="checkbox-mandatory-all"></label></th>
+                                <th><span class = "hidden-md-down">liste des champs</span></th>
+                                <th>éditer</th>
+                                <th>ordre</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
                                 {% for site_form_field_setting in site_form_field_settings %}
                                     {{ render(controller(
@@ -236,14 +238,14 @@
                                     )) }}
                                 {% endfor %}
                             {% endif %}
-							</tbody>
-						</table>
-					</div>
-				</div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-				{% set add_field_link_container_state = '' %}
+                {% set add_field_link_container_state = '' %}
                 {% if custom_field_allowed is defined and custom_field_allowed <= 0 %}
-					{% set add_field_link_container_state = 'style="display:none"' %}
+                    {% set add_field_link_container_state = 'style="display:none"' %}
                 {% endif %}
                 <div class="row add-field-link-container" {{ add_field_link_container_state | raw }}>
                     <div class="col-lg-12">
@@ -252,17 +254,17 @@
                 </div>
 
 
-				<div class="row submit-button-container">
-					<div class="col-lg-12">
+                <div class="row submit-button-container">
+                    <div class="col-lg-12">
                         {{ form_start(form_structure_form) }}
                         {{ form_widget(form_structure_form) }}
-						{#<input type="submit" value="valider" id="form-structure-submit" class="btn-valider">#}
-						<button id="form-structure-submit" class ="btn-valider valider">
-							valider
-						</button>
+                        {#<input type="submit" value="valider" id="form-structure-submit" class="btn-valider">#}
+                        <button id="form-structure-submit" class ="btn-valider valider">
+                            valider
+                        </button>
                         {{ form_end(form_structure_form) }}
-					</div>
-				</div>
+                    </div>
+                </div>
 
                 <!-- Modal button -->
                 <button type="button" id="btn-modal" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"> modal</button>
@@ -271,7 +273,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-								<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
                             </div>
                             <div class="content">
                             </div>
@@ -284,19 +286,19 @@
                 <input type="hidden" name="admin-edit-registration-form-field" value="{{ path('admin_edit_registration_form_field') }}">
 
 
-				{#<div class = "content-bloc-droite">
-					<h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
-					<h5 class = "hidden-md-up">Créer le formulaire d'inscription à votre programme de récompense</h5>
-					#}{#<div class = "row">
-						<table class="reorder-table">
-							<thead>
-								<tr>
-									<th>champs à publier <input class="checkbox-publish-all" type="checkbox"></th>
-									<th>rendre obligatoire <input class="checkbox-mandatory-all" type="checkbox"></th>
-									<th>liste des champs</th>
-								</tr>
-							</thead>
-							<tbody>
+                {#<div class = "content-bloc-droite">
+                    <h3 class = "hidden-sm-down">Créer le formulaire d'inscription à votre programme de récompense</h3>
+                    <h5 class = "hidden-md-up">Créer le formulaire d'inscription à votre programme de récompense</h5>
+                    #}{#<div class = "row">
+                        <table class="reorder-table">
+                            <thead>
+                                <tr>
+                                    <th>champs à publier <input class="checkbox-publish-all" type="checkbox"></th>
+                                    <th>rendre obligatoire <input class="checkbox-mandatory-all" type="checkbox"></th>
+                                    <th>liste des champs</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             {% if site_form_field_settings is defined and site_form_field_settings is not empty %}
                                 {% for site_form_field_setting in site_form_field_settings %}
                                     {{ render(controller(
@@ -305,193 +307,193 @@
                                     )) }}
                                 {% endfor %}
                             {% endif %}
-							</tbody>
-						</table>
-					</div>#}{#
+                            </tbody>
+                        </table>
+                    </div>#}{#
 
-					#}{#<div class="add-field-form-block">
-						{% if custom_field_allowed is defined %}
-							{% if custom_field_allowed > 0 %}
-						<div>ajouter des champs personnalisés ({{ custom_field_allowed }} maximum)</div>
-						<input type="hidden" name="custom-field-allowed" value="{{ custom_field_allowed }}">
-							{% endif %}
-						{% endif %}
+                    #}{#<div class="add-field-form-block">
+                        {% if custom_field_allowed is defined %}
+                            {% if custom_field_allowed > 0 %}
+                        <div>ajouter des champs personnalisés ({{ custom_field_allowed }} maximum)</div>
+                        <input type="hidden" name="custom-field-allowed" value="{{ custom_field_allowed }}">
+                            {% endif %}
+                        {% endif %}
 
-						<div class="add-field-form template" style="display:none">
-							<div>
-								<label>intitulé du champ</label>
-								<input class="input-field-label" type="text">
-							</div>
-							<div>
-								<label>rendre obligatoire</label>
-								<input class="checkbox-mandatory" type="checkbox">
-							</div>
-							<div class="select-field-type-container">
-								<label>type de champ</label>
-								<select class="select-field-type">
+                        <div class="add-field-form template" style="display:none">
+                            <div>
+                                <label>intitulé du champ</label>
+                                <input class="input-field-label" type="text">
+                            </div>
+                            <div>
+                                <label>rendre obligatoire</label>
+                                <input class="checkbox-mandatory" type="checkbox">
+                            </div>
+                            <div class="select-field-type-container">
+                                <label>type de champ</label>
+                                <select class="select-field-type">
                                     {% if field_type_list is defined and field_type_list is not empty %}
                                         {% for key, field_type in field_type_list %}
-											<option value="{{ key }}">{{ field_type }}</option>
+                                            <option value="{{ key }}">{{ field_type }}</option>
                                         {% endfor %}
                                     {% endif %}
-								</select>
-								<div class="select-field-option-container" style="display:none">
-									<span>Options</span>
-									<div class="add-option-field template" style="display:none">
-										<input class="input-option" type="text">
-										<a class="remove-option-field-link" href="#">Supprimer</a>
-									</div>
-									<div class="option-container"></div>
-									<a class="add-option-link" href="#">ajouter option</a>
-								</div>
-							</div>
-							<a class="remove-field-form-link" href="#">Supprimer nouveau champ</a>
-						</div>
-						<div class="add-field-form-container"></div>
+                                </select>
+                                <div class="select-field-option-container" style="display:none">
+                                    <span>Options</span>
+                                    <div class="add-option-field template" style="display:none">
+                                        <input class="input-option" type="text">
+                                        <a class="remove-option-field-link" href="#">Supprimer</a>
+                                    </div>
+                                    <div class="option-container"></div>
+                                    <a class="add-option-link" href="#">ajouter option</a>
+                                </div>
+                            </div>
+                            <a class="remove-field-form-link" href="#">Supprimer nouveau champ</a>
+                        </div>
+                        <div class="add-field-form-container"></div>
 
-						{% if custom_field_allowed is defined and custom_field_allowed > 0 %}
-						<div>
-							<a class="add-field-link" href="#">ajouter un champ</a>
-						</div>
-						{% endif %}
-					</div>#}{#
+                        {% if custom_field_allowed is defined and custom_field_allowed > 0 %}
+                        <div>
+                            <a class="add-field-link" href="#">ajouter un champ</a>
+                        </div>
+                        {% endif %}
+                    </div>#}{#
 
-					#}{#<div>
-						{{ form_start(form_structure_form) }}
-						{{ form_widget(form_structure_form) }}
-						<input type="submit" value="Valider" id="form-structure-submit">
-						{{ form_end(form_structure_form) }}
-					</div>#}{#
-
-
-					#}{#<div class = "row">
-						<div class = "col-12 col-md-12 col-lg-8 form-input-part-1">
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Société *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form societe"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Adresse postale *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form postale"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Code postale *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form code"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Ville *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form ville"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form tel"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Réseau</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form reseau"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"></dt>
-								<dd class = "col-12 col-md-7">
-									<button id = "btn-valider-challenge" class = "btn-valider">
-										Valider
-									</button>
-								</dd>
-							</dl>
-							
-						</div>
-					</div>
-					
-					<div class = "row">
-						<div class = "col-12 col-md-12 col-lg-8 form-input-part-2">
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Civilité *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form-radio civilite-m">
-										<span class = "input-radio"></span>
-										<span class = "input-libelle-radio">Mme</span>
-									</div>
-									<div class = "champs-form-radio civilite-f">
-										<span class = "input-radio"></span>
-										<span class = "input-libelle-radio">M</span>
-									</div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Prénom *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form prenom"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Nom *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form nom"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Fonction *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form fonction"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Email professionnel *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form email"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
-								<dd class = "col-12 col-md-7">
-									<div class = "champs-form tel"></div>
-								</dd>
-							</dl>
-							
-							<dl class="dl-horizontal row">
-								<dt class = "col-12 col-md-5"></dt>
-								<dd class = "col-12 col-md-7">
-									<button id = "btn-valider-challenge" class = "btn-valider">
-										Valider
-									</button>
-								</dd>
-							</dl>
-							
-						</div>
-					</div>#}{#
+                    #}{#<div>
+                        {{ form_start(form_structure_form) }}
+                        {{ form_widget(form_structure_form) }}
+                        <input type="submit" value="Valider" id="form-structure-submit">
+                        {{ form_end(form_structure_form) }}
+                    </div>#}{#
 
 
+                    #}{#<div class = "row">
+                        <div class = "col-12 col-md-12 col-lg-8 form-input-part-1">
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Société *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form societe"></div>
+                                </dd>
+                            </dl>
 
-					
-					#}{#<div class = "row">
-					</div>#}{#
-				</div>
-				<div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
-				</div>
-				<div class="content-block-main">
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Adresse postale *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form postale"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Code postale *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form code"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Ville *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form ville"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form tel"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Réseau</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form reseau"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <button id = "btn-valider-challenge" class = "btn-valider">
+                                        Valider
+                                    </button>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div>
+
+                    <div class = "row">
+                        <div class = "col-12 col-md-12 col-lg-8 form-input-part-2">
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Civilité *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form-radio civilite-m">
+                                        <span class = "input-radio"></span>
+                                        <span class = "input-libelle-radio">Mme</span>
+                                    </div>
+                                    <div class = "champs-form-radio civilite-f">
+                                        <span class = "input-radio"></span>
+                                        <span class = "input-libelle-radio">M</span>
+                                    </div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Prénom *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form prenom"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Nom *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form nom"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Fonction *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form fonction"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Email professionnel *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form email"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"><label>Numéro de téléphone *</label></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <div class = "champs-form tel"></div>
+                                </dd>
+                            </dl>
+
+                            <dl class="dl-horizontal row">
+                                <dt class = "col-12 col-md-5"></dt>
+                                <dd class = "col-12 col-md-7">
+                                    <button id = "btn-valider-challenge" class = "btn-valider">
+                                        Valider
+                                    </button>
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div>#}{#
+
+
+
+
+                    #}{#<div class = "row">
+                    </div>#}{#
+                </div>
+                <div class = "content-bloc-gauche img-form-inscription hidden-sm-down rounded-circle">
+                </div>
+                <div class="content-block-main">
                     <div class = "row">
                         <table class="reorder-table">
                             <thead>
@@ -513,12 +515,12 @@
                             </tbody>
                         </table>
                     </div>
-				</div>#}
-			</section>
-		</div>
-	</div>
-	
-	<div class = "row separator"></div>
+                </div>#}
+            </section>
+        </div>
+    </div>
+
+    <div class = "row separator"></div>
 </main>
 
 {% endblock %}
@@ -527,10 +529,10 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
-			<script src="{{ asset('js/admin-parameters-registration.js') }}"></script>
-			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-			<script>
-				$(document).ready(function(){
+            <script src="{{ asset('js/admin-parameters-registration.js') }}"></script>
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+            <script>
+                $(document).ready(function(){
                     CKEDITOR.replace( 'introduction_data_introduction_text_content', {
                         language: 'fr',
                         uiColor: '#9AB8F3',
@@ -543,9 +545,9 @@
                         $('.cke_wysiwyg_frame').contents().find('body').css(
                             'background-color', '#F5F5F5'
                         )
-					});
-				});
-			</script>
+                    });
+                });
+            </script>
         {% endblock %}
     {% endembed %}
 {% endblock %}

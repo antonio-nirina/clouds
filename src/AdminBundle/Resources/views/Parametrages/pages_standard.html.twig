@@ -15,7 +15,8 @@
     {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
 
     <main class="col-md-9  offset-md-1 float-left main">
-		<input id = "url_ajax_affiche_page" type = "hidden" value = "{{ path("admin_pages_standard_affiche") }}" name = "url_ajax_affiche_page">
+		<input id = "url_ajax_supprimer_img" type = "hidden" value = "{{ path("admin_pages_standard_supprimer_img") }}" name = "url_ajax_supprimer_img">
+		<input id = "url_customs_ckeditor" type = "hidden" value = "{{ asset('ckeditor/custom/config-general.js') }}" name = "url_customs_ckeditor">
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
@@ -69,7 +70,7 @@
                         </div>
                     </div>
 					
-					<form id = "IDFormPageStandard" name = "FormPageStandard" method = "POST" action = "">
+					<form id = "IDFormPageStandard" name = "FormPageStandard" method = "POST" action = "{{ path("admin_pages_standard") }}" enctype = "multipart/form-data">
 						<div class="row">
 							<div class = "col-12">
 								<div class = "content-pages-chooses">
@@ -79,16 +80,40 @@
 											{% if Pages.NomPage is defined %}
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
 													<span class = "lib-onglet-choix-page">{{ Pages.NomPage }}</span>
-													<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
-													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page" value = "{{ Pages.NomPage }}">
-													<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page" value = "0">
+													{% if Pages.StatusPage == 1 %}
+														<span id = "onglet-page-{{ Pages.Id }}" class = "checkon-onglet-choix-page" data-role = "checked-unchecked"></span>
+													{% elseif Pages.StatusPage == 0 %}
+														<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+													{% else %}
+														<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+													{% endif %}
+													
+													
+													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page[]" value = "{{ Pages.NomPage }}">
+													{% if Pages.StatusPage is defined %}
+														<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page[]" value = "{{ Pages.StatusPage }}">
+													{% else %}
+														<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page[]" value = "0">
+													{% endif %}
+													<input id = "id-id-page-input-{{ Pages.Id }}" type = "hidden" name = "id_page[]" value = "{{ Pages.Id }}">
 												</li>
 											{% else %}
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
 													<span class = "lib-onglet-choix-page">{{ Pages.PageName }}</span>
-													<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
-													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page" value = "{{ Pages.PageName }}">
-													<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page" value = "0">
+													{% if Pages.StatusPage == 1 %}
+														<span id = "onglet-page-{{ Pages.Id }}" class = "checkon-onglet-choix-page" data-role = "checked-unchecked"></span>
+													{% elseif Pages.StatusPage == 0 %}
+														<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+													{% else %}
+														<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
+													{% endif %}
+													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page[]" value = "{{ Pages.PageName }}">
+													{% if Pages.StatusPage is defined %}
+														<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page[]" value = "{{ Pages.StatusPage }}">
+													{% else %}
+														<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page[]" value = "0">
+													{% endif %}
+													<input id = "id-id-page-input-{{ Pages.Id }}" type = "hidden" name = "id_page[]" value = "{{ Pages.Id }}">
 												</li>
 											{% endif %}
 											{% set counter = counter + 1 %}
@@ -101,7 +126,107 @@
 								</div>
 								
 								<div class = "content-page-content">
-									<div id = "id-content-dynamic-pages" class = "content-dynamic-pages"></div>
+									<div id = "id-content-dynamic-pages" class = "content-dynamic-pages">
+										{% for Pages in AllPages %}
+											<div id = "id-content-page-body-{{ Pages.Id }}" class = "content-page-body" style = "display:none;">
+											{% if Pages.NomPage is defined %}
+												<label class = "champForm">
+													<span class = "lib-form">nom du menu</span>
+													<input class = "input-form-text" type = "text" name = "menu_page[]" value = "{{ Pages.MenuPage }}" placeholder = "" style = "padding-left:10px!important;">
+												</label>
+												
+												<div class = "clearBoth"></div>
+
+
+												<label class = "champForm">
+													<span class = "lib-form">titre</span>
+													<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "{{ Pages.TitrePage }}" placeholder = "">
+												</label>
+												
+												<div class = "clearBoth"></div>
+												<div class = "clearBoth"></div>
+
+												<label class = "champForm">
+													<span class = "lib-form block">ajouter logo ou image</span>
+													{% if Pages.Path is defined and Pages.Path is not null %}
+														<button id = "btn-upload-img-page-standard-{{ Pages.Id }}" class="btn-valider-etat btn-upload choose-upload-img-button" type = "button">
+															<span id = "id-lib-upload-{{ Pages.Id }}" class="uploaded"></span> 
+															<span id = "lib-btn-pages-{{ Pages.Id }}">{{ Pages.Path }}</span>
+														</button>
+														<img id = "img-delete-img-{{ Pages.Id }}" class = "img-delete-img" src = "{{ asset("images/cloudsRewards/delete.png") }}">
+													{% else %}
+														<button id = "btn-upload-img-page-standard-{{ Pages.Id }}" class="btn-valider btn-upload choose-upload-img-button" type = "button">
+															<span id = "id-lib-upload-{{ Pages.Id }}" class="upload"></span> 
+															<span id = "lib-btn-pages-{{ Pages.Id }}">choisissez un fichier...</span>
+														</button>
+													{% endif %}
+													
+													<input style = "display:none;" id = "input-upload-img-page-standard-{{ Pages.Id }}" type = "file" name = "img_page[]" class = "input-upload-img-page-standard">
+													<div class = "info-container">
+														<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+														<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+													</div>
+												</label>
+												
+												<div class = "clearBoth"></div>
+												<div class = "clearBoth"></div>
+
+												<label class = "champForm">
+													<span class = "lib-form block editeur">texte</span>
+													{% if Pages.ContenuPage is defined %}
+														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+													{% else %}
+														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+													{% endif %}
+
+												</label>
+											{% else %}
+												<label class = "champForm">
+													<span class = "lib-form">nom du menu</span>
+													<input class = "input-form-text" type = "text" name = "menu_page[]" value = "{{ Pages.PageName }}" placeholder = "{{ Pages.PageName }}" style = "padding-left:10px!important;">
+												</label>
+												
+												<div class = "clearBoth"></div>
+
+
+												<label class = "champForm">
+													<span class = "lib-form">titre</span>
+													<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "{{ Pages.PageName }}" placeholder = "{{ Pages.PageName }}">
+												</label>
+												
+												<div class = "clearBoth"></div>
+												<div class = "clearBoth"></div>
+
+												<label class = "champForm">
+													<span class = "lib-form block">ajouter logo ou image</span>
+													<button id = "btn-upload-img-page-standard-{{ Pages.Id }}" class="btn-valider btn-upload choose-upload-img-button" type = "button">
+														<span id = "id-lib-upload-{{ Pages.Id }}" class="upload"></span> 
+														<span id = "lib-btn-pages-{{ Pages.Id }}">choisissez un fichier...</span>
+													</button>
+													
+													<input style = "display:none;" id = "input-upload-img-page-standard-{{ Pages.Id }}" type = "file" name = "img_page[]" class = "input-upload-img-page-standard">
+													<div class = "info-container">
+														<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+														<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+													</div>
+												</label>
+												
+												<div class = "clearBoth"></div>
+												<div class = "clearBoth"></div>
+
+												<label class = "champForm">
+													<span class = "lib-form block editeur">texte</span>
+													{% if Pages.ContenuPage is defined %}
+														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+													{% else %}
+														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+													{% endif %}
+												</label>
+											{% endif %}
+											</div>
+											
+										{% endfor %}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -135,17 +260,6 @@
             {{ parent() }}
             <script src="{{ asset('js/admin-pages-standard.js') }}"></script>
 			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-			<script>
-                $(document).ready(function(){
-                    CKEDITOR.replace( 'login_portal_data_form_text', {
-                        language: 'fr',
-                        uiColor: '#9AB8F3',
-                        height: 150,
-                        width: 600,
-                        customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
-                    });
-                });
-            </script>
         {% endblock %}
     {% endembed %}
 {% endblock %}
