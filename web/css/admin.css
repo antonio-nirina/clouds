@@ -3458,7 +3458,7 @@ button.btn-valider-etat .uploaded{
 	background-position: -259px 1px !important;
 }
 
-.navbar-nav.content-menu-niv-3 {
+.navbar-nav.content-menu-niv-3:not(.single) {
 	display: flex !important;
 	justify-content: space-evenly;
 }

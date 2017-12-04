@@ -825,6 +825,9 @@ form[name="program_rank"] .row > span {
     border-radius: 7px;
     padding: 5px 5px 5px 10px;
 }
+.rank_header .recompense, .rank_header .denomination {
+    padding-left: 15px;
+}
 
 @media only screen and (min-width: 1200px) {
     .button-row.btn-content-retour-valider {

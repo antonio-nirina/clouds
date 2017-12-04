@@ -89,12 +89,12 @@
 
                     {{ form_start(roles_form) }}
                         {% for role in roles_form.roles %}
-                            {% set current = loop.index + 1 %}
+                            {% set current = role.vars.value.rank %}
+                            {% set current1 = role.vars.id %}
                             <div class="row">
                                 <div class="rank">           
-                                    <input id="rank_{{ current }}" type="hidden" value="checked">
-                                    <input id="rank_{{ current }}" type="checkbox" value="0">
-                                    <label for="rank_{{ current }}">
+                                    {{ form_widget(role.active) }}
+                                    <label for="{{current1}}_active">
                                         <span></span>
                                         <div>
                                             <span>rang {{ current }}</span>
@@ -110,7 +110,7 @@
                                     <span class="label-text hidden-md-up">récompense</span>
                                     {{ form_widget(role.gain) }}                                 
                                 </div>
-                                <span>%</span>
+                                <span>%</span>                                
                             </div>
                             
                         {% endfor %}
@@ -126,7 +126,11 @@
                     {{ form_end(roles_form) }}
 
                     
-                    <div class="error-message-container"></div>
+                    <div class="error-message-container">
+                        {% for role in roles_form.roles %}
+                            {{ form_errors(role.gain) }}
+                        {% endfor %}
+                    </div>
 
                 </section>
             </div>

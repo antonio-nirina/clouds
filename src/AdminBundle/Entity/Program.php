@@ -105,7 +105,7 @@ class Program
     private $program_users;
 
     /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\Role", mappedBy="program")
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\Role", mappedBy="program", cascade={"persist"})
      */
     private $roles;
 
@@ -133,8 +133,8 @@ class Program
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SiteTableNetworkSetting", mappedBy="program")
      */
     private $site_table_network_setting;
-	
-	/**
+    
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SitePagesStandardSetting", mappedBy="program")
      */
     private $site_page_standard;
@@ -701,8 +701,8 @@ class Program
     {
         return $this->site_design_setting;
     }
-	
-	/**
+    
+    /**
      * Add sitePagesStandardSetting
      *
      * @param \AdminBundle\Entity\SitePagesStandardSetting $sitePagesStandardSetting

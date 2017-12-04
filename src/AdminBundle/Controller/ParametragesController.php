@@ -1462,7 +1462,7 @@ class ParametragesController extends Controller
     /**
      * @Route("/points/rang", name="admin_point_rang")
      */
-    public function rankPointAction()
+    public function rankPointAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
@@ -1471,8 +1471,14 @@ class ParametragesController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $this->container->get('admin.role_rank')->setAllRoleRank($program);
+        $program = $this->container->get('admin.role_rank')->setAllRoleRank($program);
         $roles_form = $this->createForm(ProgramRankType::class, $program);
+        $roles_form->handleRequest($request);
+
+        if ($roles_form->isSubmitted() && $roles_form->isValid()) {
+            $program = $this->container->get('admin.role_rank')->saveAllRoleRank($program);
+            $this->redirectToRoute('admin_point_rang');
+        }
 
         return $this->render('AdminBundle:Parametrages:rank_point.html.twig', array(
                 'roles_form' => $roles_form->createView()
