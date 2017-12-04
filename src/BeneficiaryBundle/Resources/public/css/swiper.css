@@ -45,6 +45,8 @@
   transition-property: transform, -webkit-transform;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
+  max-height:325px;
+  object-fit:contain;
 }
 .swiper-container-android .swiper-slide,
 .swiper-wrapper {

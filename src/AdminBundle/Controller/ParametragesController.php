@@ -1566,42 +1566,24 @@ class ParametragesController extends Controller
 				$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
 				if(is_null($sitePagesStandardSetting)){
 					$sitePagesStandardSetting = new SitePagesStandardSetting();
-					$sitePagesStandardSetting->setNomPage($NomPages[$i]);
-					$sitePagesStandardSetting->setTitrePage($TitrePages[$i]);
-					$sitePagesStandardSetting->setMenuPage($MenuPages[$i]);
-					if(isset($ImgPages[$i])){
-						$sitePagesStandardSetting->setImgPage($ImgPages[$i]);
-					}
-					$sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
-					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
-					$sitePagesStandardSetting->setProgram($program);
-					
-					$sitePagesStandardSetting->upload($program);
-					
-					
-					$em->persist($sitePagesStandardSetting);
-				}else{
-					$sitePagesStandardSetting->setNomPage($NomPages[$i]);
-					$sitePagesStandardSetting->setTitrePage($TitrePages[$i]);
-					$sitePagesStandardSetting->setMenuPage($MenuPages[$i]);
-					if(isset($ImgPages[$i])){
-						$sitePagesStandardSetting->setImgPage($ImgPages[$i]);
-					}
-					$sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
-					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
-					$sitePagesStandardSetting->setProgram($program);
-					
-					$sitePagesStandardSetting->upload($program);
-					
-					
-					$em->persist($sitePagesStandardSetting);
 				}
+				
+				$sitePagesStandardSetting->setNomPage($NomPages[$i]);
+				$sitePagesStandardSetting->setTitrePage($TitrePages[$i]);
+				$sitePagesStandardSetting->setMenuPage($MenuPages[$i]);
+				if(isset($ImgPages[$i])){
+					$sitePagesStandardSetting->setImgPage($ImgPages[$i]);
+				}
+				$sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
+				$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
+				$sitePagesStandardSetting->setProgram($program);
+				$sitePagesStandardSetting->upload($program);
+				$em->persist($sitePagesStandardSetting);
 				$em->flush();
 			}
 			
 			return $this->redirectToRoute('admin_pages_standard');
 		}
-		
 		
 		
 		$AllPages = array();

@@ -32,9 +32,12 @@
                                 {% endfor %}
                             {% endif %}
                         </div>
-                        <!-- Add Arrows -->
+						
+						<div class="swiper-pagination"></div>
+						<!--
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
+						-->
                     </div>
 
                     <div class="swiper-container hidden-md-down">
@@ -52,11 +55,11 @@
                                 {% endfor %}
                             {% endif %}
                         </div>
-                        <!-- Add Arrows -->
+                        <div class="swiper-pagination"></div>
+						<!--
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
-
-
+						-->
                     </div>
                     <div class = "clearBoth"></div>
                 </div>
@@ -410,12 +413,23 @@
             <script src="{{ asset('bundles/beneficiary/js/swiper.min.js') }}"></script>
             <script src="{{ asset('bundles/beneficiary/js/acceuil.js') }}"></script>
             <script>
-                var swiper = new Swiper('.swiper-container', {
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                });
+				var swiper = new Swiper('.swiper-container', {
+				  spaceBetween: 30,
+				  centeredSlides: true,
+				  loop: true,
+				  autoplay: {
+					delay: 2500,
+					disableOnInteraction: false,
+				  },
+				  pagination: {
+					el: '.swiper-pagination',
+					clickable: true,
+				  },
+				  navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				  },
+				});
             </script>
         {% endblock %}
     {% endembed %}

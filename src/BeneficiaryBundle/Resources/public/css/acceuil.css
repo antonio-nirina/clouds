@@ -1127,15 +1127,18 @@ ul.rs-sociaux-footer li.rs-autre{
 
 .slide-message{
 	position: absolute;
-	top: 45%;
+	top: 30%;
 	left: 50%;
-	transform: translate(-50%, -50%);
 	font-size: 30px;
 	letter-spacing: 3px;
+	width: 70%;
+	text-align: center;
+	margin-left: -35%;
 }
 
 .swiper-slide{
     color: #FFFFFF;
+	position:relative;
 }
 
 .swiper-slide.no-image{
@@ -1156,6 +1159,14 @@ div.no-slide-image{
 	
 	div.bg-slide {
 		background:none;
+	}
+	
+	.swiper-wrapper{
+		height:150px!important;
+	}
+	
+	.slide-message{
+		font-size:20px!important;
 	}
 	
 	div#collapsingNavbarNiv1{
@@ -1306,6 +1317,14 @@ div.no-slide-image{
 		padding-right:15px!important;
 	}
 	
+	.swiper-wrapper{
+		height:230px!important;
+	}
+	
+	.slide-message{
+		font-size:20px!important;
+	}
+	
 	div.bg-slide {
 		background:none;
 	}
@@ -1448,6 +1467,8 @@ div.no-slide-image{
 	div.bg-slide {
 		background:none;
 	}
+	
+	
 	
 	div#collapsingNavbarNiv1{
 		width: 100%;
@@ -1618,6 +1639,10 @@ div.no-slide-image{
 		margin-top:17px;
 	}
 	
+	.swiper-slide{
+		height:325px!important;
+	}
+	
 	div.content-body{
 		padding-left:15px!important;
 		padding-right:15px!important;
@@ -1784,6 +1809,10 @@ div.no-slide-image{
 @media (min-width: 1200px) {
 	ul.menu-content{
 		width:78%;
+	}
+	
+	.swiper-slide{
+		height:325px!important;
 	}
 }
 /*ajustement*/
