@@ -540,7 +540,18 @@
     .champs-form-radio .input-radio{
         margin: 0;
     }
+    div > .champs-form-radio:nth-child(2) .input-radio {
+        margin-left: 10px;
+    }
 
+}
+@media (max-width: 350px){
+    div > .champs-form-radio:nth-child(2) {
+        min-width: 55%;
+    }
+    div > .champs-form-radio:nth-child(2) .input-radio {
+        margin-left: 0;
+    }
 }
 
 .btn-valider-suivante, .btn-valider-contacter {
@@ -704,3 +715,15 @@ span.blue-upload{
 .slide-image-preview-container.no-image .slide-message-preview{
     color: var(--couleur_4) !important;
 }
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .message-input {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .message-input > .large-input-text {
+        width: 98%;
+    }
+}
+
+
+

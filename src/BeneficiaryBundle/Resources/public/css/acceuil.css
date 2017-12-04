@@ -1866,3 +1866,14 @@ a:active,a:link,a:focus{color:#505050;outline-style:none;}
 .logo-cloud-rewards{background-repeat:no-repeat!important;}
 .nom-logo{background:none!important;display:var(--nom_logo_display);font-family:var(--police_bold);font-size:1.5em;}
 .nom-logo:before{content:var(--nom_logo_content);}
+@media (min-width: 992px){
+	.navbar-nav.menu-content {
+	    display: flex;
+	    width: 100%;
+	    max-width: 1024px;
+	    justify-content: space-evenly;
+	}
+	ul.menu-content li {
+	    margin-left: 0 !important;
+	}
+}
