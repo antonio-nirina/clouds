@@ -957,7 +957,7 @@ div.content-sep-date-ligne{
 	z-index: -5;
 	border:0;
 	border-left:1.5px;
-	border-color: var(--couleur_1);
+	border-color:var(--couleur_1);
 	border-style:solid;
 }
 
@@ -1468,7 +1468,10 @@ div.no-slide-image{
 		background:none;
 	}
 	
-	
+	.swiper-slide,
+	.swiper-wrapper{
+		height:325px!important;
+	}
 	
 	div#collapsingNavbarNiv1{
 		width: 100%;
