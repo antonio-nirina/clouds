@@ -3275,6 +3275,7 @@ button.btn-valider:hover {
 	font-family: fontawesome;
 	position: relative;
 	top: 3px;
+	padding: 0 2px 0 2px;
 }
 .moveup-field-row-link {
 	height: 12px;
