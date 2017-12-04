@@ -933,6 +933,7 @@ li.options{
 	
 	
 	.btn-connexion{
+		/*
 		height:26px;
 		padding:0;
 		margin:0;
@@ -944,6 +945,21 @@ li.options{
 		font-size: 13px;
 		color: rgb(255,255,255);
 		font-family: var(--police);
+		*/
+		
+		
+		height: 31px;
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: 0;
+		width: 102px;
+		background: url('../images/cloudsRewards/btn-connexion.svg') top left no-repeat;
+		margin-left: 3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: var(--police);
+		background-position: -7px -30px;
 	}
 	
 	.input-identifiant{
@@ -1443,6 +1459,7 @@ li.options{
 	
 	
 	.btn-connexion{
+		/*
 		height:26px;
 		padding:0;
 		margin:0;
@@ -1454,6 +1471,21 @@ li.options{
 		font-size: 13px;
 		color: rgb(255,255,255);
 		font-family: var(--police);
+		*/
+		
+		
+		height: 31px;
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: 0;
+		width: 102px;
+		background: url('../images/cloudsRewards/btn-connexion.svg') top left no-repeat;
+		margin-left: 3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: var(--police);
+		background-position: -7px -30px;
 	}
 	
 	.input-identifiant{
@@ -1937,6 +1969,7 @@ li.options{
 	
 	
 	.btn-connexion{
+		/*
 		height:26px;
 		padding:0;
 		margin:0;
@@ -1948,6 +1981,21 @@ li.options{
 		font-size: 13px;
 		color: rgb(255,255,255);
 		font-family: var(--police);
+		*/
+		
+		
+		height: 31px;
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: 0;
+		width: 102px;
+		background: url('../images/cloudsRewards/btn-connexion.svg') top left no-repeat;
+		margin-left: 3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: var(--police);
+		background-position: -7px -30px;
 	}
 	
 	.input-identifiant{
@@ -2434,6 +2482,7 @@ li.options{
 	
 	
 	.btn-connexion{
+		/*
 		height:26px;
 		padding:0;
 		margin:0;
@@ -2445,6 +2494,21 @@ li.options{
 		font-size: 13px;
 		color: rgb(255,255,255);
 		font-family: var(--police);
+		*/
+		
+		
+		height: 31px;
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: 0;
+		width: 102px;
+		background: url('../images/cloudsRewards/btn-connexion.svg') top left no-repeat;
+		margin-left: 3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: var(--police);
+		background-position: -7px -30px;
 	}
 	
 	.input-identifiant{
@@ -2872,6 +2936,7 @@ li.options{
 	
 	
 	.btn-connexion{
+		/*
 		height:26px;
 		padding:0;
 		margin:0;
@@ -2883,7 +2948,39 @@ li.options{
 		font-size: 13px;
 		color: rgb(255,255,255);
 		font-family: var(--police);
+		*/
+		
+		
+		height: 31px;
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: 0;
+		width: 102px;
+		background: url('../images/cloudsRewards/btn-connexion.svg') top left no-repeat;
+		margin-left: 3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: var(--police);
+		background-position: -7px -30px;
 	}
+	
+	/*
+	.btn-connexion:hover{
+		background: url('../images/cloudsRewards/btn-connexion-hover.svg') top left no-repeat;
+		height: 31px;
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: 0;
+		width: 102px;
+		margin-left: 3px;
+		font-size: 13px;
+		color: rgb(255,255,255);
+		font-family: var(--police);
+		background-position: -7px -6px;
+	}
+	*/
 	
 	.input-identifiant{
 		height:26px;

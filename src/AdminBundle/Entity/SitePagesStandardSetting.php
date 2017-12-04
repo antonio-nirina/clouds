@@ -249,39 +249,30 @@ class SitePagesStandardSetting
 
     protected function getUploadRootDir()
     {
-        // the absolute directory path where uploaded
-        // documents should be saved
         return __DIR__.'/../../../web/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
     {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
         return 'pages_standards';
     }
 	
 	public function upload(\AdminBundle\Entity\Program $program = null)
 	{
-		// the file property can be empty if the field is not required
 		if (null === $this->getImgPage()) {
 			return;
 		}
 
-		// use the original file name here but you should
-		// sanitize it at least to avoid any security issues
 
-		// move takes the target directory and then the
-		// target filename to move to
 		$this->getImgPage()->move(
 			$this->getUploadRootDir().'/'.$program->getId(),
 			$this->getImgPage()->getClientOriginalName()
 		);
 
-		// set the path property to the filename where you've saved the file
+		
 		$this->path = $this->getImgPage()->getClientOriginalName();
 
-		// clean up the file property as you won't need it anymore
+		
 		$this->img_page = null;
 	}
 	
