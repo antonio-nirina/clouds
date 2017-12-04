@@ -24,13 +24,13 @@
     width: 240px;
 }
 .content-bloc-gauche {
-    width: 140px;
-    height: 140px;
+    width: 137px;
+    height: 137px;
     background-repeat: no-repeat;
     border-radius: 100%;
     position: absolute;
     right: 24px;
-    border: 3px solid #BEBEBE;
+    border: 2px solid #BEBEBE;
     box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
 }
 .content-bloc-gauche img {
