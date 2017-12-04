@@ -66,10 +66,10 @@ section.active{
 }
 
 .corner-circle-img {
-    width: 140px;
-    height: 140px;
+    width: 137px;
+    height: 137px;
     background-repeat: no-repeat;
-    border: 3px solid #BEBEBE;
+    border: 2px solid #BEBEBE;
     float: right;
     box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
 }

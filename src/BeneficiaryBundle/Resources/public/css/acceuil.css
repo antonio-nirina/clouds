@@ -957,7 +957,7 @@ div.content-sep-date-ligne{
 	z-index: -5;
 	border:0;
 	border-left:1.5px;
-	border-color:#1458da;
+	border-color: var(--couleur_1);
 	border-style:solid;
 }
 
