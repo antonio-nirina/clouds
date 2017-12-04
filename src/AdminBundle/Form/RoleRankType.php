@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Type;
 
 class RoleRankType extends AbstractType
 {
@@ -17,10 +19,21 @@ class RoleRankType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('rank', HiddenType::class, array())
+        $builder->add('active', CheckboxType::class, array())
+                ->add('rank', HiddenType::class, array())
                 ->add('name', TextType::class, array())
                 ->add('gain', TextType::class, array(
                     'constraints' => array(
+                        new Range(array(
+                                "min" => 0,
+                                "max" => 100,
+                                "minMessage" => "Pour les récompenses, entrer une valeur entre 0 à 100%",
+                                "maxMessage" => "Pour les récompenses, entrer une valeur entre 0 à 100%"
+                                )),
+                        new Type(array(
+                                'type' => "numeric",
+                                "message" => "Entrer des valeurs numériques pour les récompenses",
+                            )),
                     )
                 ))
         ;

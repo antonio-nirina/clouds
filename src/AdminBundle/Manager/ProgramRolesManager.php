@@ -19,11 +19,11 @@ class ProgramRolesManager
     {
         $roles = $program->getRoles();
 
-        if (count($roles) >0) { //vider
-            foreach ($roles as $role) {
-                $roles->removeElement($role);
-            }
-        }
+        // if (count($roles) >0) { //vider
+        //     foreach ($roles as $role) {
+        //         $program->getRoles()->removeElement($role);
+        //     }
+        // }
 
         for ($i=2; $i<=6; $i++) {
             $role = $this->em->getRepository("AdminBundle:Role")->findBy(
@@ -34,15 +34,33 @@ class ProgramRolesManager
             );
 
             if ($role) {
-                $roles->add($role);
+                $program->getRoles()->add($role[0]);
             } else {
                 $role = new Role();
                 $role->setRank($i);
                 $role->setProgram($program);
-                $roles->add($role);
+                $program->getRoles()->add($role);
             }
         }
 
+        return $program;
+    }
+
+    public function saveAllRoleRank(Program $program)
+    {
+        $roles = $program->getRoles();
+        
+        foreach ($roles as $role) {
+            if (empty($role->getName())) {
+                if ($role->getId()) {
+                    $this->em->remove($role);
+                } else {
+                    $program->getRoles()->removeElement($role);
+                }
+            }
+        }
+
+        $this->em->flush();
         return $program;
     }
 }

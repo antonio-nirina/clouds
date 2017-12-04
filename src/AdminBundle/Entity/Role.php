@@ -2,6 +2,7 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -18,6 +19,8 @@ class Role
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @assert\NotBlank(
+     * message="Veuillez entrez une dénomination pour un rang actif.")
      */
     private $name;
 
@@ -32,12 +35,18 @@ class Role
     private $rank;
 
     /**
+     * @ORM\Column(name="active", type="boolean", nullable=false)
+     */
+    private $active;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $network;
 
     /**
      * @ORM\Column(name="gain", type="float", nullable=true)
+     *
      */
     private $gain;
 
@@ -45,6 +54,7 @@ class Role
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="role")
      */
     private $program_users;
+
     /**
      * Constructor
      */
@@ -215,5 +225,29 @@ class Role
     public function getGain()
     {
         return $this->gain;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Role
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }
