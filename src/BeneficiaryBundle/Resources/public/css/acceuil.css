@@ -1468,7 +1468,10 @@ div.no-slide-image{
 		background:none;
 	}
 	
-	
+	.swiper-slide,
+	.swiper-wrapper{
+		height:325px!important;
+	}
 	
 	div#collapsingNavbarNiv1{
 		width: 100%;
