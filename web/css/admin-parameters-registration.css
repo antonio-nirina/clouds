@@ -328,14 +328,13 @@
 .add-field-link{
     font-size: 14px;
     color: #245EDC!important;
-    display: flex;
+    display: inline-flex;
     align-items: center;
 }
 
 .add-field-link:hover{
     font-size: 14px;
-    color: #245EDC!important;
-    display: flex;
+    display: inline-flex;
     align-items: center;
 }
 
@@ -627,8 +626,13 @@ span.blue-upload{
     position: relative;
     display: inline-block;
 }
+
 .fieldset-nav-tabs .add-option-tab.add{
     color: #245EDC !important;
+}
+
+.add:hover *{
+    color: var(--couleur_1);
 }
 
 .nav-tabs-container{

@@ -3172,6 +3172,10 @@ button.btn-valider:hover {
     color: var(--couleur_1) !important;
 }
 
+.add:hover{
+	color: var(--couleur_1) !important;
+}
+
 .add, .add:visited, .add:active {
     text-decoration:none !important;
 }
