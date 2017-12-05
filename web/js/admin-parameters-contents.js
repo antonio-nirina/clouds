@@ -402,4 +402,43 @@ $(document).ready(function(){
      * Suppression image header uploadé
      * *********************************************************************************************
      */
+	$(document).on('click', 'span#nom-domaine-choix-ok' ,function(){
+		if($('ul.list-choix-nom-domaine').is(':visible')){
+			$('ul.list-choix-nom-domaine').hide();
+			$('span#nom-domaine-choix-ok').removeClass('select-liste-nom-domaine-select');
+			$('span#nom-domaine-choix-ok').addClass('select-liste-nom-domaine');
+			$('img.img-select-bas').show();
+		}else{
+			$('ul.list-choix-nom-domaine').show();
+			$('span#nom-domaine-choix-ok').addClass('select-liste-nom-domaine-select');
+			$('span#nom-domaine-choix-ok').removeClass('select-liste-nom-domaine');
+			$('img.img-select-bas').hide();
+		}
+	});
+	
+	$(document).on('click', 'ul.list-choix-nom-domaine li', function(){
+		var IdLigne = $(this).attr('id');
+		var ArrayIdLigne = new Array;
+		ArrayIdLigne = IdLigne.split('-');
+		var Id = ArrayIdLigne[3];
+		
+		var Valeur = $('li#nom-domaine-choix-'+Id+'').html();
+		$('span#nom-domaine-choix-ok a').html('');
+		$('span#nom-domaine-choix-ok a').html(Valeur);
+		AfficheUrlRecompense();
+	});
 });
+
+$(document).ready(function(){
+	AfficheUrlRecompense();
+	$(document).on('keyup', 'input#login_portal_data_form_http', function(){
+		AfficheUrlRecompense();
+	});
+});
+
+function AfficheUrlRecompense(){
+	var NomSousDomaine = $('input#login_portal_data_form_http').val();
+	var NomDomaine = $('span#nom-domaine-choix-ok a').html();
+	var UrlRecompense = 'http://'+NomSousDomaine+NomDomaine+'';
+	$('span#adresse-site-recompense').html(UrlRecompense);
+}
