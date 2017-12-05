@@ -3384,11 +3384,21 @@ th {
     text-overflow: ellipsis;
     overflow: hidden;
     line-height: 0;
+
+
 }
 
 span.blue-upload {
-    background: url('../images/cloudsRewards/upload-blue.png') center center no-repeat;
     padding: 20px;
+	-webkit-mask-image: url('../images/cloudsRewards/upload-icon.svg');
+	mask-image: url('../images/cloudsRewards/upload-icon.svg');
+	mask-repeat: no-repeat;
+	mask-position: center;
+
+	background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+	background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+	background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+	background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
 }
 
 .upload-img-button {
