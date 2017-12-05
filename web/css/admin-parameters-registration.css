@@ -369,7 +369,7 @@
     display: none;
 }
 
-.upload-img-button{
+/*.upload-img-button{
     border: solid 3px #457FE3;
     color: #457FE3;
     background-color: inherit;
@@ -379,13 +379,13 @@
     min-width: 50px;
     cursor:pointer;
 
-    /*min-height: 35px;
-    max-height: 35px;*/
+    !*min-height: 35px;
+    max-height: 35px;*!
 
     max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
-}
+}*/
 
 .choose-upload-img-button{
     margin-top : 0;
@@ -572,10 +572,10 @@
     display: none;
 }
 
-span.blue-upload{
+/*span.blue-upload{
     background: url('../images/cloudsRewards/upload-blue.png') center center no-repeat;
     padding: 20px;
-}
+}*/
 
 .delete-link{
     background:url('../images/cloudsRewards/delete.png') no-repeat;
