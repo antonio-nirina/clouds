@@ -64,8 +64,12 @@ $(document).ready(function(){
         $('#site_design_setting_colors_couleur_6').val('#ebeeef');
         $(this).parents('form').submit();
     });
-    $('.upload-img-button').on('click', function(e) {
+    /*$('.upload-img-button').on('click', function(e) {
         e.preventDefault();        
+        $(this).next('.btn-valider.btn-upload').click();
+    });*/
+    $('.upload-img-button-container').on('click', function(e) {
+        e.preventDefault();
         $(this).next('.btn-valider.btn-upload').click();
     });
 
@@ -75,6 +79,7 @@ $(document).ready(function(){
         $el.unwrap();
         $(this).next('input[type=hidden]').val('');
         $(this).parent().find('.upload-img-button').addClass('hidden-button');
+        $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
         $(this).addClass('hidden-button');
         $(this).parent().find('.btn-valider.btn-upload').removeClass('hidden-button');
     });
@@ -85,10 +90,12 @@ $(document).ready(function(){
             $(this).parent().find('.upload-img-button').css('background-position', '15px');
             $(this).parent().find('.upload-img-button').find('.img-name-container').html(image_file_name);
             $(this).parent().find('.upload-img-button').removeClass('hidden-button');
+            $(this).parent().find('.upload-img-button-container').removeClass('hidden-button');
             $(this).parent().find('.delete-upload').removeClass('hidden-button');
             $(this).prev('.btn-valider.btn-upload').addClass('hidden-button'); 
         } else {
             $(this).parent().find('.upload-img-button').addClass('hidden-button');
+            $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
             $(this).parent().find('.delete-upload').addClass('hidden-button');
             $(this).prev('.btn-valider.btn-upload').removeClass('hidden-button');
         }

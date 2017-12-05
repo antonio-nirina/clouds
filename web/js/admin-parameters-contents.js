@@ -229,7 +229,12 @@ $(document).ready(function(){
         $(this).parent().find('.slide-image-input').trigger('click');
     });
 
-    $(document).on('click', '.upload-img-button', function(e){
+    /*$(document).on('click', '.upload-img-button', function(e){
+        e.preventDefault();
+        $(this).parent().find('.slide-image-input').trigger('click');
+    });*/
+
+    $(document).on('click', '.upload-img-button-container', function(e){
         e.preventDefault();
         $(this).parent().find('.slide-image-input').trigger('click');
     });
@@ -265,6 +270,7 @@ $(document).ready(function(){
             var initial_image_name = $(this).parent().find('input[name=initial_image_name]').val();
             if('' == initial_image_name.trim()){
                 $(this).parent().find('.upload-img-button').addClass('hidden-button');
+                $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
                 $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
                 $(this).parents('.tab-pane').find('.slide-image-preview-container').addClass('no-image');
                 $(this).parents('.tab-pane').find('.slide-image-preview-container .slide-image-preview').attr('src', '');
@@ -278,6 +284,7 @@ $(document).ready(function(){
             $(this).parent().find('.upload-img-button').css('background-position', '15px');
             $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
             $(this).parent().find('.upload-img-button').removeClass('hidden-button');
+            $(this).parent().find('.upload-img-button-container').removeClass('hidden-button');
             $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
             $(this).parents('.tab-pane').find('.slide-image-preview-container').removeClass('no-image');
             $(this).parent().find('.delete-link').show();
@@ -388,6 +395,7 @@ $(document).ready(function(){
         current_delete_link.parent().find('input[type=file]').unwrap();
 
         current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+        current_delete_link.parent().find('.upload-img-button-container').addClass('hidden-button');
         current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
         current_delete_link.parents('.tab-pane').find('.slide-image-preview-container .slide-image-preview')
             .attr('src', '');
