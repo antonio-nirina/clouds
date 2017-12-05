@@ -355,7 +355,11 @@ $(document).ready(function(){
         $('.header-image-input').trigger('click');
     });
 
-    $('.upload-img-button').on('click', function(e){
+    /*$('.upload-img-button').on('click', function(e){
+        e.preventDefault();
+        $('.header-image-input').trigger('click');
+    });*/
+    $('.upload-img-button-container').on('click', function(e){
         e.preventDefault();
         $('.header-image-input').trigger('click');
     });
@@ -378,6 +382,7 @@ $(document).ready(function(){
             var initial_image_name = $(this).parent().find('input[name=initial_image_name]').val();
             if('' == initial_image_name.trim()){
                 $(this).parent().find('.upload-img-button').addClass('hidden-button');
+                $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
                 $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
                 $(this).parents('.fieldset').find('.header-image-preview-img').attr('src', '');
                 $(this).parents('.fieldset').find('.header-preview-container').addClass('no-image');
@@ -392,6 +397,7 @@ $(document).ready(function(){
             $('.upload-img-button').css('background-position', '15px');
             $('.upload-img-button').find('.img-name-container').text(image_file_name);
             $('.upload-img-button').removeClass('hidden-button');
+            $('.upload-img-button-container').removeClass('hidden-button');
             $('.btn-upload.choose-upload-img-button').addClass('hidden-button');
             $('.header-preview-container').removeClass('no-image');
             $(this).parent().find('.delete-link').show();
@@ -555,6 +561,7 @@ $(document).ready(function(){
         current_delete_link.parent().find('input[type=file]').unwrap();
 
         current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+        current_delete_link.parent().find('.upload-img-button-container').addClass('hidden-button');
         current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
         current_delete_link.parents('.fieldset').find('.row-header-preview-container .header-image-preview-img')
             .attr('src', '');
@@ -569,5 +576,6 @@ $(document).ready(function(){
      * Suppression image header uploadé
      * *********************************************************************************************
      */
+	 
 
 });

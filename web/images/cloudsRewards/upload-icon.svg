@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 19" width="16" height="19">
+	<defs>
+		<image width="16" height="19" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAATCAMAAACuuX39AAAAAXNSR0IB2cksfwAAAE5QTFRFAAAA////////////////////////////////////////////////////////////////////////////////////////////////////kJcbLQAAABp0Uk5TAAOXBqb/CrMPwBXLHNYk32iAuHA4P5AHEDBAedhMAAAAZ0lEQVR4nJ3N2xZAIBCF4SFD0sFUTu//osiEC9347v691hRAUtV1BS+iQWzE022Hh67NLXtMenm1GpAN6mxt8GY0gHX44iyMRD6nJxrPo5CHwL/8GCKxCAXTzKbSG8vKFh7UxtTXyQ7DqgeRhbIwHwAAAABJRU5ErkJggg=="/>
+	</defs>
+	<use id="Objet dynamique vectoriel" href="#img1" x="0" y="0" />
+</svg>

@@ -671,7 +671,10 @@ input[type=text] {
 .comfortaa {
     font-family: 'Comfortaa-Regular';
 }
-.upload-img-button {
+/*.upload-img-button {
+    margin-top: 20px;
+}*/
+.upload-img-button-container {
     margin-top: 20px;
 }
 .table-circle {

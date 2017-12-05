@@ -74,9 +74,11 @@
                                         <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
                                             <span class="upload"></span> Choisissez un fichier...
                                         </button>
-                                        <button class="upload-img-button">
-                                            <span class="blue-upload"></span><span class="img-name-container">{{ current_header_image }}</span>
-                                        </button>
+                                        <div class="upload-img-button-container">
+                                            <button class="upload-img-button">
+                                                <span class="blue-upload"></span><span class="img-name-container">{{ current_header_image }}</span>
+                                            </button>
+                                        </div>
                                         <a href="#" class="delete-link delete-form-header-image"></a>
                                         <input type="hidden" name="initial_image" value="{{ asset(registration_header_image_location~current_header_image) }}">
                                         <input type="hidden" name="initial_image_name" value="{{ current_header_image }}">
@@ -84,9 +86,11 @@
                                         <button class="btn-valider btn-upload choose-upload-img-button">
                                             <span class="upload"></span> Choisissez un fichier...
                                         </button>
-                                        <button class="upload-img-button hidden-button">
-                                            <span class="blue-upload"></span><span class="img-name-container"></span>
-                                        </button>
+                                        <div class="upload-img-button-container hidden-button">
+                                            <button class="upload-img-button hidden-button">
+                                                <span class="blue-upload"></span><span class="img-name-container"></span>
+                                            </button>
+                                        </div>
                                         <a href="#" class="delete-link delete-form-header-image" style="display: none"></a>
                                         <input type="hidden" name="initial_image" value="">
                                         <input type="hidden" name="initial_image_name" value="">
