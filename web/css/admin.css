@@ -3161,8 +3161,8 @@ button.btn-valider:hover {
 }
 
 .add:before {
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #2969D7), color-stop(1, #568CE7));
-    background-image: gradient(linear, left top, right top, color-stop(0, #2969D7), color-stop(1, #568CE7));
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, var(--couleur_1)), color-stop(1, var(--couleur_1_bis)));
+    /*background-image: gradient(linear, left top, right top, color-stop(0, var(--couleur_1)), color-stop(1, var(--couleur_1_bis)));*/
     color:transparent;
     -webkit-background-clip: text;
     background-clip: text;
