@@ -3370,9 +3370,11 @@ th {
 }
 /*bouton upload avec fichier*/
 .upload-img-button {
-    border: solid 3px #457FE3;
+    /*border: solid 3px #457FE3;*/
+	border: none;
     color: #457FE3;
-    background-color: inherit;
+    /*background-color: inherit;*/
+	background-color: #FFFFFF;
     border-radius: 50px;
     font-size: 14px;
     padding: 7px 15px 7px 5px;
@@ -3384,21 +3386,60 @@ th {
     text-overflow: ellipsis;
     overflow: hidden;
     line-height: 0;
-
-
+	outline: 0;
 }
 
-span.blue-upload {
-    padding: 20px;
-	-webkit-mask-image: url('../images/cloudsRewards/upload-icon.svg');
-	mask-image: url('../images/cloudsRewards/upload-icon.svg');
-	mask-repeat: no-repeat;
-	mask-position: center;
+.upload-img-button:focus{
+	outline: 0;
+}
 
+
+.upload-img-button-container{
+    display: inline-block;
+	padding: 3px;
+	border-radius: 50px;
+    background: var(--couleur_1);
 	background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
 	background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
 	background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
 	background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+	max-width: 100%;
+}
+
+.upload-img-button-container:hover{
+	background: var(--couleur_1);
+	cursor: pointer;
+}
+
+span.blue-upload {
+	height: 19px;
+	width: 35px;
+	display: inline-flex;
+    /*padding: 20px;*/
+
+	mask-image: url('../images/cloudsRewards/upload-icon.svg');
+	-webkit-mask-image: url('../images/cloudsRewards/upload-icon.svg');
+
+	mask-position: center;
+	-webkit-mask-position: center;
+
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+
+	background: var(--couleur_1);
+	background: -webkit-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+	background: -o-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+	background: -moz-linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+	background: linear-gradient(to right, var(--couleur_1), var(--couleur_1_bis) );
+}
+
+span.img-name-container{
+	position: relative;
+	top: -3px;
+}
+
+.upload-img-button-container:hover span.blue-upload{
+	background: var(--couleur_1);
 }
 
 .upload-img-button {

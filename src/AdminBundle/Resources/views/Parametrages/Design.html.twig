@@ -57,10 +57,12 @@
                         <div class = "col-12 col-md-10 logo-row">
                             <div class="upload-bloc">
                                 <label for="societe-logo"><span class='bld'>logo de la société</span></label>
-                                <button class="upload-img-button{{ (logo)?"":" hidden-button"}}" >
-                                    <span class="blue-upload"></span>
-                                    <span class="img-name-container">{{ (logo)?logo:"" }}</span>
-                                </button>
+                                <div class="upload-img-button-container{{ (logo)?"":" hidden-button"}}">
+                                    <button class="upload-img-button{{ (logo)?"":" hidden-button"}}" >
+                                        <span class="blue-upload"></span>
+                                        <span class="img-name-container">{{ (logo)?logo:"" }}</span>
+                                    </button>
+                                </div>
                                 <button class="btn-valider btn-upload{{ (logo)?" hidden-button":""}}">
                                     <span class="upload"></span>                          
                                     choisissez un fichier...
@@ -163,10 +165,12 @@
                         <div class = "col-12 col-md-10 background-row">
                             <div class="upload-bloc">
                                 <label class="image-fond"><span class='bld'>image de fond</span></label>
-                                <button class="upload-img-button{{ (background)?"":" hidden-button"}}" >
-                                    <span class="blue-upload"></span>
-                                    <span class="img-name-container">{{ (background)?background:"" }}</span>
-                                </button>
+                                <div class="upload-img-button-container{{ (background)?"":" hidden-button"}}">
+                                    <button class="upload-img-button{{ (background)?"":" hidden-button"}}" >
+                                        <span class="blue-upload"></span>
+                                        <span class="img-name-container">{{ (background)?background:"" }}</span>
+                                    </button>
+                                </div>
                                 <button class="btn-valider btn-upload{{ (background)?" hidden-button":""}}">
                                     <span class="upload"></span>                        
                                     choisissez un fichier...
