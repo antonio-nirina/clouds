@@ -1485,6 +1485,14 @@ class ParametragesController extends Controller
             ));
     }
 
+    /**
+     * @Route("/points/periode", name="admin_point_periode")
+     */
+    public function periodPointAction(Request $request)
+    {
+        return $this->render('AdminBundle:Parametrages:period_point.html.twig', array());
+    }
+
 	
 	/**
      * @Route(

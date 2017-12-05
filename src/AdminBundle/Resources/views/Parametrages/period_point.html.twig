@@ -1,0 +1,234 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-resultat-form.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+
+    {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':4})) }}
+    {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_table_network") }}">périodes</a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">produits</a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_point_periode") }}">périodes </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_rang") }}">rang </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="#">performances </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+        
+
+        <div class = "row">   
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <section class="fieldset active">
+                    <div class = "row full-width no-contents">
+                        <div class = "col-md-8 col-lg-9 col-sm-12 content-bloc-droite">
+                            <h3 class = "hidden-sm-down">
+                                Cette rubrique vous permet de définir les règles d'attribution et d'utilisation des points, en fonction de la saisonnalité de vos produits ou de votre activité.
+                            </h3>
+                            <h5 class = "hidden-md-up">
+                                Cette rubrique vous permet de définir les règles d'attribution et d'utilisation des points, en fonction de la saisonnalité de vos produits ou de votre activité.
+                            </h5>
+                        </div>
+                        <div class = "col-md-2 col-lg-1 hidden-sm-down">
+                        </div>
+                        <div class = "col-md-2 col-lg-2 hidden-sm-down">
+                            <div class = " content-bloc-gauche img-point-periode rounded-circle"></div> 
+                        </div>
+                    </div>
+                    <p>
+                        <span class="bld color2">Burn : </span>
+                        <span class="bld2 color4"> votre date de déclenchement de l'utilisation des points est le </span>
+                        <span>
+                            <input class="burn-day" type="text" name="" placeholder="JJ">
+                            <input class="burn-month" type="text" name="" placeholder="MM">
+                            <input class="burn-year" type="text" name="" placeholder="AAAA">
+                        </span>
+                        <div class = "row full-width">
+                            <div class = "col-12 col-md-12">
+                                <div class="validation">
+                                    <button class ="btn-valider valider">
+                                        valider
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                    <p>
+                        <span class="bld color2">Earn : </span>
+                        <span class="bld2 color4"> selon votre saisonnalité, remplissez vos facteurs modérateurs ou multiplicateurs </span>  
+                    </p>                    
+                    <div class = "row full-width">
+                        <div class="alert-parent">
+                            <div class= "col-12 col-md-12 navbar">
+                                <ul class="nav navbar-nav" id="product-tabs">
+                                    {# {% for field in fields %}
+                                        {% if field[0].level > 1 %} #}
+                                            <a data-toggle="tab"  href="#tab-form-1{# {{ field[0].level }} #}">
+                                                produit 1
+                                                <span class="delete-form-level"></span>
+                                            </a>
+                                        {# {% else %} #}
+                                            {# <a data-toggle="tab"  href="#tab-form-{{ field[0].level }}">
+                                                CA ou produit {{ field[0].level }}
+                                                <span class="delete-form-level"></span>
+                                            </a> #}{# 
+                                        {% endif %}
+                                    {% endfor %} #}
+                                    <a href="#" class ="add add-product btn-next-product">
+                                        ajouter un produit
+                                    </a>                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class = "row full-width tab-content">                      
+                        <div class = "col-12 col-md-12 tab-pane period" id="tab-form-1">
+                            <div class="column">                                
+                                <div class="head">MOIS</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">JANVIER</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">FEVRIER</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">MARS</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">AVRIL</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">MAI</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">JUIN</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">JUILLET</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">AOUT</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">SEPTEMBRE</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">OCTOBRE</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">NOVEMBRE</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                            <div class="column">                                
+                                <div class="head">DECEMBRE</div>
+                                <div class="percent">
+                                    <input type="text" value="" placeholder="%">
+                                </div>
+                            </div>
+                        </div>                              
+                    </div>
+                    <div class = "row full-width">
+                        <div class = "col-12 col-md-12">
+                            <div class="validation">
+                                <button class ="btn-valider valider">
+                                    valider
+                                </button>
+                            </div>
+                        </div>
+                    </div>                     
+
+                    <div class="error-message-container">
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <div class = "row separator"></div>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            </script> {# utile pour soumettre le forme par ajax #}
+            <script src="{{ asset('js/admin-import.js') }}"></script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

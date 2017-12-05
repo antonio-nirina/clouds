@@ -771,12 +771,70 @@ input[type="checkbox"].mode:checked + label > span {
 .img-point-rang {
     background: url('../images/cloudsRewards/points-rang-img.png') -10px -25px no-repeat;    
 }
+.img-point-periode {
+    background: url('../images/cloudsRewards/saison.png') center center no-repeat;
+}
+.bld2 {
+    font-family: var(--police_bold);
+    font-size: 15px;
+}
+.color4 {
+    color: var(--couleur_4);
+}
 .color2 {
     color: var(--couleur_2);
 }
 .left {
     text-align: left;
 }
+.burn-day, .burn-month, .burn-year {
+    max-width: 38px;
+    padding: 8px 5px;
+    border: 1px solid;
+    border-radius: 7px;
+    border-color: var(--couleur_4);
+    margin-left: 5px;
+    pointer-events: none;
+}
+.burn-year {
+    max-width: 55px;
+}
+.burn-day::-moz-placeholder, .burn-month::-moz-placeholder, .burn-year::-moz-placeholder {
+    color: var(--couleur_4) !important;
+    font-size: 15px;
+}
+.tab-pane.period {
+    display: flex;
+    justify-content: stretch;
+}
+.column {
+    /*width: -moz-min-content;
+    width: min-content;
+    display: inline-flex;
+    flex-flow: column wrap;*/
+    border-collapse: collapse;
+}
+.column > div {
+    border: 1px solid #808080;
+    width: 100%;
+    padding: 15px 8px;
+}
+.column .percent, .column .percent input {
+    background-color: #ebedef; 
+}
+.column .head {
+    background-color: var(--couleur_2);
+    color: white;
+    font-family: var(--police_bold);
+    font-size: 11px;
+}
+.column input[type=text] {
+    border: none;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+}
+
 .rank div span, form[name="program_rank"] .row > span, .denomination input[type=text], .recompense input[type=text] {
     font-size: 15px !important;
     font-family: var(--police) !important;
@@ -832,6 +890,11 @@ form[name="program_rank"] .row > span {
 @media only screen and (min-width: 1200px) {
     .button-row.btn-content-retour-valider {
         width: 75% !important;
+    }
+}
+@media only screen and (max-width: 1199px) {
+    .tab-pane.period {
+        flex-flow: row wrap;
     }
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
