@@ -74,6 +74,7 @@ $(document).ready(function(){
     {
         var new_tab_content_id = $('.tab-content').find('.tab-pane').length + 1;
         var tab_content_model = $('.block-model-container').find('.block-model.tab-content-model').clone();
+
         tab_content_model.removeClass('block-model');
         tab_content_model.removeClass('tab-content-model');
         tab_content_model.attr('id', 'tab-form-'+new_tab_content_id);
@@ -92,6 +93,29 @@ $(document).ready(function(){
         if($('input[name=video_slide_type]').val() == slide_type){
             tab_content_model.find('.image-slide-block').remove();
             tab_content_model.find('.video-slide-block').removeClass('image-slide-block');
+        }
+
+        if(null != slide_type){
+            var image_block = tab_content_model.find('.image-block');
+            var image_label_block = image_block.find('.image-label-block');
+            var image_element_block = image_block.find('.image-element-block');
+            if($('input[name=image_slide_type]').val() == slide_type){
+                image_label_block.addClass('col-lg-1');
+                image_label_block.addClass('col-md-1');
+                image_element_block.addClass('col-lg-11');
+                image_element_block.addClass('col-md-11');
+            }
+            if($('input[name=video_slide_type]').val() == slide_type){
+                image_label_block.addClass('col-lg-3');
+                image_label_block.addClass('col-md-3');
+                image_element_block.addClass('col-lg-9');
+                image_element_block.addClass('col-md-9');
+                image_label_block.find('label').text('image de prévisualisation')
+            }
+            image_block.removeClass('image-block');
+            image_label_block.removeClass('image-label-block');
+            image_element_block.removeClass('image-element-block');
+
         }
 
         return tab_content_model;
