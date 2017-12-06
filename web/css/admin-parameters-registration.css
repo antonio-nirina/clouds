@@ -712,6 +712,27 @@
 .slide-image-preview-container.no-image .slide-message-preview{
     color: var(--couleur_4) !important;
 }
+
+.add-slide-video-link-text{
+    max-width: 70px;
+    line-height: 13px;
+}
+
+.radio-order-form-element{
+    width: 30px;
+}
+
+.info-block-after{
+    padding-bottom: 0 !important;
+}
+
+a.blue-anchor{
+    text-decoration: underline !important;
+    color: #7682da;
+    text-decoration-color: #7682da !important;
+    font-size: 15px;
+}
+
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .message-input {
         display: flex;

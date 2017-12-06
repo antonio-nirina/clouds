@@ -39,6 +39,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use AdminBundle\Component\Slide\SlideType;
 
 /**
  * @Route("/admin/parametrages")
@@ -1312,13 +1313,14 @@ class ParametragesController extends Controller
             'home_page_slide_data_form' => $home_page_slide_data_form->createView(),
             'home_page_editorial_data_form' => $home_page_editorial_data_form->createView(),
             'original_slides_image' => $original_slides_image,
+            'slide_type' => new SlideType(),
         ));
     }
 
     /**
-     * @Route("/contenus/page-accueil/ajout-slide", name="admin_content_configure_home_page_add_slide")
+     * @Route("/contenus/page-accueil/ajout-slide/{slide_type}", name="admin_content_configure_home_page_add_slide")
      */
-    public function addHomePageSlideAction()
+    public function addHomePageSlideAction($slide_type)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
@@ -1330,6 +1332,14 @@ class ParametragesController extends Controller
             return new Response('');
         }
 
+        $valid_slide_type = array(
+            SlideType::IMAGE,
+            SlideType::VIDEO,
+        );
+        if (!in_array($slide_type, $valid_slide_type)) {
+            return new Response('');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $max_slide_order = 0;
         if (!$home_page_data->getHomePageSlides()->isEmpty()) {
@@ -1338,7 +1348,8 @@ class ParametragesController extends Controller
         }
         $new_slide = new HomePageSlide();
         $new_slide->setSlideOrder($max_slide_order + 1)
-            ->setHomePageData($home_page_data);
+            ->setHomePageData($home_page_data)
+            ->setSlideType($slide_type);
         $home_page_data->addHomePageSlide($new_slide);
 
         $em->persist($new_slide);

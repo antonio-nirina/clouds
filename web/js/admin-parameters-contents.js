@@ -6,19 +6,31 @@ $(document).ready(function(){
      * Ajout de slide
      * *********************************************************************************************
      */
-    var add_slide_url = $('input[name=add_slide_url]').val();
     $('.add-slide-link').on('click', function(e){
         e.preventDefault();
+        var add_slide_url = $('input[name=add_slide_url]').val();
+        if(add_slide_url.match(/__slide_type__/)){
+            add_slide_url = add_slide_url.replace(/__slide_type__/, $(this).attr('data-slide-type'));
+        }
+
+        var slide_type = null;
+        var current_add_slide_link = $(this);
+        if("undefined" != typeof current_add_slide_link.attr('data-slide-type')){
+            slide_type = current_add_slide_link.attr('data-slide-type');
+        }
         $.ajax({
             type: 'GET',
             url: add_slide_url,
             success: function(html){
                 if(html.match(/\d+/))
                 {
-                    var new_tab_content = addNewTabContent();
-                    var new_tab_nav = addNewTabNav(new_tab_content.attr('id'));
+                    var new_tab_content = addNewTabContent(slide_type);
+                    var new_tab_nav = addNewTabNav(new_tab_content.attr('id'), slide_type);
                     new_tab_nav.find('.delete-tab').attr('data-slide-id', html);
                     new_tab_nav.trigger('click');
+                    if(null != slide_type){
+                        new_tab_content.find('.slide-type-input').val(slide_type);
+                    }
 
                     renameExistentTab();
 
@@ -29,23 +41,36 @@ $(document).ready(function(){
         });
     });
 
-    function addNewTabNav(target_id)
+    function addNewTabNav(target_id, slide_type=null)
     {
         var tab_nav_model = $('.nav-tabs-container').find('.block-model.tab-model').clone();
         tab_nav_model.removeClass('block-model');
         tab_nav_model.removeClass('tab-model');
         tab_nav_model.attr('href', '#'+target_id);
-        var last_nav_tab = $('.nav-tabs-container').find('ul').find('.nav-tab').last();
+
+        if(null == slide_type){
+            $('.nav-tabs-container').find('ul').find('.tab.add-option-tab').before(tab_nav_model);
+        } else {
+            if($('input[name=image_slide_type]').val() == slide_type){
+                $('.nav-tabs-container').find('ul').find('.tab.add-image-slide-link').before(tab_nav_model);
+            } else if($('input[name=video_slide_type]').val() == slide_type) {
+                tab_nav_model.addClass('video-slide-nav-tab');
+                $('.nav-tabs-container').find('ul').find('.tab.add-video-slide-link').before(tab_nav_model);
+            }
+        }
+        tab_nav_model.show();
+
+        /*var last_nav_tab = $('.nav-tabs-container').find('ul').find('.nav-tab').last();
         if(last_nav_tab.length > 0){
             last_nav_tab.after(tab_nav_model);
         } else {
             $('.nav-tabs-container').find('ul').find('.tab.add-option-tab').before(tab_nav_model);
         }
-        tab_nav_model.show();
+        tab_nav_model.show();*/
         return tab_nav_model;
     }
 
-    function addNewTabContent()
+    function addNewTabContent(slide_type=null)
     {
         var new_tab_content_id = $('.tab-content').find('.tab-pane').length + 1;
         var tab_content_model = $('.block-model-container').find('.block-model.tab-content-model').clone();
@@ -58,19 +83,35 @@ $(document).ready(function(){
         var tab_content_container = $('.tab-content');
         tab_content_model = $($.parseHTML(html_tab_content_model));
         tab_content_container.append(tab_content_model);
-        // tab_content_model.show();
+
+        if(null == slide_type || $('input[name=image_slide_type]').val() == slide_type){
+            tab_content_model.find('.video-slide-block').remove();
+            tab_content_model.find('.image-slide-block').removeClass('image-slide-block');
+        }
+
+        if($('input[name=video_slide_type]').val() == slide_type){
+            tab_content_model.find('.image-slide-block').remove();
+            tab_content_model.find('.video-slide-block').removeClass('image-slide-block');
+        }
+
         return tab_content_model;
     }
 
     function renameExistentTab()
     {
-        var tab_list = $('.nav-tabs-container').find('.nav-tab');
+        var tab_list = $('.nav-tabs-container').find('.nav-tab').not('.video-slide-nav-tab');
         var index = 1;
         tab_list.each(function(){
             $(this).find('.tab-name-container').text('slide '+index);
             index++;
         });
 
+        var video_slide_tab_list = $('.nav-tabs-container').find('.video-slide-nav-tab');
+        var index = 1;
+        video_slide_tab_list.each(function(){
+            $(this).find('.tab-name-container').text('slide vidéo '+index);
+            index++;
+        });
     }
 
     /**
@@ -103,8 +144,12 @@ $(document).ready(function(){
 
                     if (current_delete_link.parents('.nav-tab').prev('.nav-tab').length > 0) {
                         current_delete_link.parents('.nav-tab').prev('.nav-tab').trigger('click');
-                    } else {
+                    } else if (current_delete_link.parents('.nav-tab').next('.nav-tab').length > 0){
                         current_delete_link.parents('.nav-tab').next('.nav-tab').trigger('click');
+                    } else {
+                        if(current_delete_link.parents('.nav-tabs').find('.nav-tab').not(current_delete_link.parents('.nav-tab')).length > 0){
+                            current_delete_link.parents('.nav-tabs').find('.nav-tab').not(current_delete_link.parents('.nav-tab')).first().trigger('click');
+                        }
                     }
                     $(tab_content_id).remove();
                     current_delete_link.parents('.nav-tab').remove();
@@ -134,6 +179,7 @@ $(document).ready(function(){
     */
     $('.btn-valider.submit-form').on('click', function(e){
         $('.tab-content-model').remove(); // to avoid the model to be considered as new slide form
+        $('.block-model-container').remove(); // to avoid the model to be considered as new slide form
     });
 
     /**

@@ -27,6 +27,17 @@ class HomePageSlide
     private $message;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
+     */
+    private $video_url;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $slide_type;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\HomePageData", inversedBy="home_page_slides")
      */
     private $home_page_data;
@@ -135,5 +146,53 @@ class HomePageSlide
     public function getHomePageData()
     {
         return $this->home_page_data;
+    }
+
+    /**
+     * Set videoUrl
+     *
+     * @param string $videoUrl
+     *
+     * @return HomePageSlide
+     */
+    public function setVideoUrl($videoUrl)
+    {
+        $this->video_url = $videoUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get videoUrl
+     *
+     * @return string
+     */
+    public function getVideoUrl()
+    {
+        return $this->video_url;
+    }
+
+    /**
+     * Set slideType
+     *
+     * @param string $slideType
+     *
+     * @return HomePageSlide
+     */
+    public function setSlideType($slideType)
+    {
+        $this->slide_type = $slideType;
+
+        return $this;
+    }
+
+    /**
+     * Get slideType
+     *
+     * @return string
+     */
+    public function getSlideType()
+    {
+        return $this->slide_type;
     }
 }

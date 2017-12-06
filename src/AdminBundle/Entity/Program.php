@@ -735,4 +735,38 @@ class Program
     {
         return $this->site_page_standard;
     }
+
+    /**
+     * Add sitePageStandard
+     *
+     * @param \AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard
+     *
+     * @return Program
+     */
+    public function addSitePageStandard(\AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard)
+    {
+        $this->site_page_standard[] = $sitePageStandard;
+
+        return $this;
+    }
+
+    /**
+     * Remove sitePageStandard
+     *
+     * @param \AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard
+     */
+    public function removeSitePageStandard(\AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard)
+    {
+        $this->site_page_standard->removeElement($sitePageStandard);
+    }
+
+    /**
+     * Get sitePageStandard
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSitePageStandard()
+    {
+        return $this->site_page_standard;
+    }
 }
