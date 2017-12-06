@@ -84,7 +84,7 @@ $(document).ready(function(){
         e.preventDefault();
         $('.percent input').each(function(){
             if ($(this).val()) {
-                $(this).val($(this).val().replace("%","").trim());
+                $(this).val(($(this).val().replace(" ","").replace("%","").trim()) / 1);
             } else {
                 $(this).val('');
             }
@@ -96,18 +96,18 @@ $(document).ready(function(){
         if ($(this).val()) {
             $(this).css('background','white');
             $(this).parent().css('background','white');
-            $(this).val($(this).val()+" %");
+            $(this).val($(this).val().replace(" ","").replace("%","").trim()+" %");
         } else {
             $(this).css('background','#ebedef');
             $(this).parent().css('background','#ebedef');
             $(this).val('');
         }
     });
-    $('.percent input').on('keyup', function() {
+    $(document).on('keyup', '.percent input', function() {
         if ($(this).val() || ($(this).val().trim() != "%")) {
             $(this).css('background','white');
             $(this).parent().css('background','white');
-            $(this).val($(this).val().replace("%","").trim()+" %");
+            $(this).val($(this).val().replace(" ","").replace("%","").trim()+" %");
         } 
 
         if ($(this).val().trim() == "%") {

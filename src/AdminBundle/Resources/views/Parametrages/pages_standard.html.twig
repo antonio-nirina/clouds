@@ -16,7 +16,7 @@
 
     <main class="col-md-9  offset-md-1 float-left main">
 		<input id = "url_ajax_supprimer_img" type = "hidden" value = "{{ path("admin_pages_standard_supprimer_img") }}" name = "url_ajax_supprimer_img">
-		<input id = "url_customs_ckeditor" type = "hidden" value = "{{ asset('ckeditor/custom/config-general.js') }}" name = "url_customs_ckeditor">
+		<input id = "url_customs_ckeditor" type = "hidden" value = "{{ asset('ckeditor-uploader/custom/config-general.js') }}" name = "url_customs_ckeditor">
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
@@ -90,7 +90,7 @@
 													
 													
 													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page[]" value = "{{ Pages.NomPage }}">
-													{% if Pages.StatusPage is defined %}
+													{% if Pages.StatusPage is defined and Pages.StatusPage is not empty %}
 														<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page[]" value = "{{ Pages.StatusPage }}">
 													{% else %}
 														<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page[]" value = "0">
@@ -126,14 +126,17 @@
 												</label>
 												
 												<div class = "clearBoth"></div>
-
+												<div class = "clearBoth"></div>
+												
+												<div class = "titre-section-page-standard"><span>Bannière de haut de page</span></div>
+												
+												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
 													<span class = "lib-form">titre</span>
 													<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "{{ Pages.TitrePage }}" placeholder = "">
 												</label>
 												
-												<div class = "clearBoth"></div>
 												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
@@ -153,16 +156,28 @@
 													
 													<input style = "display:none;" id = "input-upload-img-page-standard-{{ Pages.Id }}" type = "file" name = "img_page[]" class = "input-upload-img-page-standard">
 													<div class = "info-container">
+														<p>taille optimale de l'image : <span class="bigger">L 1024 X H 243px</span></p>
 														<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
 														<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
 													</div>
 												</label>
 												
 												<div class = "clearBoth"></div>
+												
+												<label class = "champForm">
+													<span class = "lib-form block">prévisualisation</span>
+													<span id = "img-preview-{{ Pages.Id }}" class = "previsualisation-im-page-standard block"></span>
+												</label>
+												
+												<div class = "clearBoth"></div>
+												<div class = "clearBoth"></div>
+												
+												<div class = "titre-section-page-standard"><span>Contenu de la page</span></div>
+												
 												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
-													<span class = "lib-form block editeur">texte</span>
+													<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
 													{% if Pages.ContenuPage is defined %}
 														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
 													{% else %}
@@ -177,14 +192,17 @@
 												</label>
 												
 												<div class = "clearBoth"></div>
-
+												<div class = "clearBoth"></div>
+												
+												<div class = "titre-section-page-standard"><span>Bannière de haut de page</span></div>
+												
+												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
 													<span class = "lib-form">titre</span>
 													<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "{{ Pages.PageName }}" placeholder = "{{ Pages.PageName }}">
 												</label>
 												
-												<div class = "clearBoth"></div>
 												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
@@ -196,16 +214,28 @@
 													
 													<input style = "display:none;" id = "input-upload-img-page-standard-{{ Pages.Id }}" type = "file" name = "img_page[]" class = "input-upload-img-page-standard">
 													<div class = "info-container">
+														<p>taille optimale de l'image : <span class="bigger">L 1024 X H 243px</span></p>
 														<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
 														<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
 													</div>
 												</label>
 												
 												<div class = "clearBoth"></div>
+												
+												<label class = "champForm">
+													<span class = "lib-form block">prévisualisation</span>
+													<span id = "img-preview-{{ Pages.Id }}" class = "previsualisation-im-page-standard block"></span>
+												</label>
+												
+												<div class = "clearBoth"></div>
+												<div class = "clearBoth"></div>
+												
+												<div class = "titre-section-page-standard"><span>Contenu de la page</span></div>
+												
 												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
-													<span class = "lib-form block editeur">texte</span>
+													<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
 													{% if Pages.ContenuPage is defined %}
 														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
 													{% else %}
@@ -249,7 +279,7 @@
         {% block javascripts %}
             {{ parent() }}
             <script src="{{ asset('js/admin-pages-standard.js') }}"></script>
-			<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+			<script src="{{ asset('ckeditor-uploader/ckeditor.js') }}"></script>
         {% endblock %}
     {% endembed %}
 {% endblock %}

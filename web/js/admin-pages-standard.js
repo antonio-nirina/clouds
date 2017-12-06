@@ -37,36 +37,6 @@ $(document).ready(function(){
 			customConfig: UrlCustomCkeditor,
 		});
 		
-
-		//var UrlAffichePagesStandard = $('input#url_ajax_affiche_page').val();
-		
-		/*
-		var CloneChargement = $('p.chargementAjax').clone();
-		$('div#id-content-dynamic-pages').html(CloneChargement);
-		$('div#id-content-dynamic-pages p.chargementAjax').show();
-		*/
-		
-		/*
-		var NewPageName = '';
-		if($(this).hasClass('new_page')){
-			NewPageName = $(this).find('span.lib-onglet-choix-page').html();
-		}
-		
-		var NomPageActif = $(this).find('span.lib-onglet-choix-page').html();
-		$('input#id-nom-page-input').val(NomPageActif);
-		*/
-		
-		/*
-		$.ajax({
-            type: 'POST',
-            url: UrlAffichePagesStandard,
-			data:'id_page='+IdLi+'&new_page='+NewPageName+'',
-            success: function(html){
-                $('div#id-content-dynamic-pages').html('');
-                $('div#id-content-dynamic-pages').html(html);
-            }
-        });
-		*/
 	});
 	
 	$(document).on('click', 'span[data-role="checked-unchecked"]', function(){
@@ -130,7 +100,12 @@ $(document).ready(function(){
 		HtmlNewPageContent += '</label>';
 		
 		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
 		
+		
+		HtmlNewPageContent += '<div class = "titre-section-page-standard"><span>Bannière de haut de page</span></div>';
+		
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
 		
 		HtmlNewPageContent += '<label class = "champForm">';
 		HtmlNewPageContent += '<span class = "lib-form">titre</span>';
@@ -138,7 +113,6 @@ $(document).ready(function(){
 		HtmlNewPageContent += '</label>';
 		
 		
-		HtmlNewPageContent += '<div class = "clearBoth"></div>';
 		HtmlNewPageContent += '<div class = "clearBoth"></div>';
 		
 		
@@ -156,11 +130,22 @@ $(document).ready(function(){
 		HtmlNewPageContent += '</label>';
 		
 		HtmlNewPageContent += '<div class = "clearBoth"></div>';
-		HtmlNewPageContent += '<div class = "clearBoth"></div>';
 		
 		
 		HtmlNewPageContent += '<label class = "champForm">';
-		HtmlNewPageContent += '<span class = "lib-form block editeur">texte</span>';
+		HtmlNewPageContent += '<span class = "lib-form block">prévisualisation</span>';
+		HtmlNewPageContent += '<span id = "img-preview-'+LastIdLi+'" class = "previsualisation-im-page-standard block"></span>';
+		HtmlNewPageContent += '</label>';
+		
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		
+		HtmlNewPageContent += '<div class = "titre-section-page-standard"><span>Contenu de la page</span></div>';
+		
+		HtmlNewPageContent += '<div class = "clearBoth"></div>';
+		
+		HtmlNewPageContent += '<label class = "champForm">';
+		HtmlNewPageContent += '<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>';
 		HtmlNewPageContent += '<textarea id="login_portal_data_form_text-'+LastIdLi+'" name="contenu_page[]" class="large-textarea"></textarea>';
 		HtmlNewPageContent += '</label>';
 		
@@ -214,6 +199,9 @@ $(document).ready(function(){
 		$('#lib-btn-pages-'+IdBtn+'').html(FileName);
 		$('#lib-btn-pages-'+IdBtn+'').removeAttr('style');
 		$('#lib-btn-pages-'+IdBtn+'').attr('style', 'color:var(--couleur_1)!important;');
+		
+		//Afficher la prévisualisation
+		readURL(this, IdBtn);
 	});
 	
 	$(document).on('click', '.img-delete-img', function(){
@@ -246,3 +234,15 @@ $(document).ready(function(){
 	//Cliqur sur la premiere onglet
 	$('ul.list-choix-page li[data-role="onglet"]:first-child').trigger('click');
 });
+
+function readURL(input, idLine) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var Img = '';
+			Img += '<img src = "'+e.target.result+'" alt = "Chargement ..." style = "width: inherit;max-height: inherit;object-fit: contain;">';
+			$('span#img-preview-'+idLine+'').html(Img);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}

@@ -47,7 +47,7 @@ class SitePagesStandardSetting
 	/**
      * @ORM\Column(type="boolean")
      */
-    private $status_page;
+    private $status_page = false;
 	
 	/**
      * @ORM\Column(type="string", length=255, nullable=true)
