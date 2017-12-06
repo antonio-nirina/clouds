@@ -19,6 +19,8 @@ class HomePageDataFixtures extends Fixture
         $this->getReference('home-page-slide-2')->setHomePageData($home_page_data);
         $home_page_data->addHomePageSlide($this->getReference('home-page-slide-3'));
         $this->getReference('home-page-slide-3')->setHomePageData($home_page_data);
+        $home_page_data->addHomePageSlide($this->getReference('home-page-slide-4'));
+        $this->getReference('home-page-slide-4')->setHomePageData($home_page_data);
 
         $home_page_data->setEditorial($this->getReference('editorial'));
         $this->getReference('editorial')->setHomePageData($home_page_data);

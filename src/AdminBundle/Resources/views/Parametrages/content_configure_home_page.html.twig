@@ -73,32 +73,85 @@
                         <div class="row nav-tabs-container">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <ul class="nav nav-tabs fieldset-nav-tabs">
+                                    {% set tab_index = 1 %}
+                                    {% set tab_index_values = {} %}
+                                    {% set image_slide_nav_index = 1 %}
                                     {% for slide in home_page_slide_data_form.home_page_slides %}
-                                        <a class="tab nav-tab {{ 1 == loop.index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ loop.index }}">
-                                            <span class="tab-name-container">slide {{ loop.index }}</span>
+                                        {% if slide.vars.value.slideType == constant('IMAGE', slide_type)  %}
+                                        <a class="tab nav-tab {{ 1 == tab_index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ tab_index }}">
+                                            <span class="tab-name-container">slide {{ image_slide_nav_index }}</span>
                                             <span class="delete-tab" data-slide-id="{{ slide.vars.value.getId }}"></span>
                                         </a>
+                                        {% set tab_index_values = tab_index_values | merge({('id-'~slide.vars.value.getId): tab_index}) %}
+                                        {% set image_slide_nav_index = image_slide_nav_index + 1 %}
+                                        {% set tab_index = tab_index + 1 %}
+                                        {% endif %}
                                     {% endfor %}
-                                    <a href="#" class="tab add-option-tab add add-slide-link">
+                                    <a href="#" class="tab add-option-tab add add-slide-link add-image-slide-link" data-slide-type="{{ constant('IMAGE', slide_type) }}">
                                         <span>ajouter un slide</span>
+                                    </a>
+                                    {% set video_slide_nav_index = 1 %}
+                                    {% for slide in home_page_slide_data_form.home_page_slides %}
+                                        {% if slide.vars.value.slideType == constant('VIDEO', slide_type)  %}
+                                            <a class="tab nav-tab video-slide-nav-tab {{ 1 == tab_index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ tab_index }}">
+                                                <span class="tab-name-container">slide vidéo {{ video_slide_nav_index }}</span>
+                                                <span class="delete-tab" data-slide-id="{{ slide.vars.value.getId }}"></span>
+                                            </a>
+                                        {% set tab_index_values = tab_index_values | merge({('id-'~slide.vars.value.getId): tab_index}) %}
+                                        {% set video_slide_nav_index = video_slide_nav_index + 1 %}
+                                        {% set tab_index = tab_index + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="#" class="tab add-option-tab add add-slide-link add-video-slide-link" data-slide-type="{{ constant('VIDEO', slide_type) }}">
+                                        <span class="add-slide-video-link-text">ajouter un slide vidéo</span>
                                     </a>
                                 </ul>
                                 <a class="tab nav-tab tab-model block-model" data-toggle="tab" href="">
                                     <span class="tab-name-container"></span>
                                     <span class="delete-tab"></span>
                                 </a>
-                                <input type="hidden" name="add_slide_url" value="{{ path('admin_content_configure_home_page_add_slide') }}">
+                                <input type="hidden" name="add_slide_url" value="{{ path('admin_content_configure_home_page_add_slide', {"slide_type": "__slide_type__"}) }}">
                                 <input type="hidden" name="delete_slide_url" value="{{ path('admin_content_configure_home_page_delete_slide', {"id": "__id__"}) }}">
+                                <input type="hidden" name="image_slide_type" value="{{ constant('IMAGE', slide_type) }}">
+                                <input type="hidden" name="video_slide_type" value="{{ constant('VIDEO', slide_type) }}">
                             </div>
                         </div>
                         <div class="row tab-content">
                             {% for slide in home_page_slide_data_form.home_page_slides %}
-                                <div class="col-lg-12 col-md-12 col-sm-12 tab-pane {{ 1 == loop.index ? 'in active' : '' }}" id="tab-form-{{ loop.index }}" data-tab-index="{{ loop.index }}">
+                                <div class="col-lg-12 col-md-12 col-sm-12 tab-pane {{ 1 == tab_index_values['id-'~slide.vars.value.getId] ? 'in active' : '' }}" id="tab-form-{{ tab_index_values['id-'~slide.vars.value.getId] }}" data-tab-index="{{ tab_index_values['id-'~slide.vars.value.getId] }}">
+                                    {% if slide.vars.value.slideType == constant('VIDEO', slide_type) %}
                                     <div class="row form-element-container">
-                                        <div class="col-lg-1 col-md-1 col-sm-12">
-                                            <label>{{ form_label(slide.image, 'image') }}</label>
+                                        <div class="col-lg-2 col-md-2 col-sm-12">
+                                            {{ form_label(slide.video_url, 'url de la vidéo') }}
                                         </div>
-                                        <div class="col-lg-11 col-md-11 col-sm-12">
+                                        <div class="col-lg-10 col-md-10 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    {{ form_widget(slide.video_url, {"attr": {"class": "large-input-text"}}) }}
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                    <p>url youtube, vimeo, depuis votre serveur, etc.</p>
+                                                    <p>si toutefois votre vidéo n'est pas hébergée veuillez <a class="blue-anchor" href="#">nous contacter</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="row form-element-container info-block-after">
+                                        {% set label_grid_class = 'col-lg-1 col-md-1 col-sm-12' %}
+                                        {% set label_value = 'image' %}
+                                        {% set element_grid_class = 'col-lg-11 col-md-11 col-sm-12' %}
+                                        {% if slide.vars.value.slideType == constant('VIDEO', slide_type) %}
+                                            {% set label_value = 'image de prévisualisation' %}
+                                            {% set label_grid_class = 'col-lg-3 col-md-3 col-sm-12' %}
+                                            {% set element_grid_class = 'col-lg-9 col-md-9 col-sm-12' %}
+                                        {% endif %}
+                                        <div class="{{ label_grid_class }}">
+                                            {{ form_label(slide.image, label_value) }}
+                                        </div>
+
+                                        <div class="{{ element_grid_class }}">
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                                      {{ form_widget(slide.image, {"attr":{"class": "hidden-input-file slide-image-input"}}) }}
@@ -130,16 +183,35 @@
                                                     <input type="hidden" name="delete_slide_image_url" value="{{ path("admin_content_configure_home_page_delete_slide_image", {"slide_id": slide.vars.value.getId}) }}">
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            {#<div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 info-container">
-                                                    <p>taille optimale de l'image : <span class="bigger">1024x477 px</span></p>
+                                                    <p>taille optimale de l'image : <span class="bigger">L 1024 x H 477 px</span></p>
                                                     <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
                                                     <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
                                                 </div>
-                                            </div>
-                                            <div class="row error-message-container">
+                                            </div>#}
+                                            {#<div class="row error-message-container">
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                                     {{ form_errors(slide.image) }}
+                                                </div>
+                                            </div>#}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-1 col-md-1 col-sm-12"></div>
+                                        <div class="col-lg-11 col-md-11 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                    <p>taille optimale de l'image : <span class="bigger">L 1024 x H 477 px</span></p>
+                                                    <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                                    <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="row error-message-container">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            {{ form_errors(slide.image) }}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,7 +270,23 @@
                         </div>
                         <div class="block-model-container">
                             <div class="col-lg-12 col-md-12 col-sm-12 tab-pane block-model tab-content-model">
-                                <div class="row form-element-container">
+                                <div class="row form-element-container video-slide-block">
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.video_url, 'url de la vidéo') }}
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.video_url, {"attr": {"class": "large-input-text"}}) }}
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                <p>url youtube, vimeo, depuis votre serveur, etc.</p>
+                                                <p>si toutefois votre vidéo n'est pas hébergée veuillez <a class="blue-anchor" href="#">nous contacter</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-element-container info-block-after image-slide-block">
                                     <div class="col-lg-1 col-md-1 col-sm-12">
                                         {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.image, 'image') }}
                                     </div>
@@ -219,16 +307,46 @@
                                                 <input type="hidden" name="initial_image_name" value="">
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row form-element-container info-block-after video-slide-block">
+                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.image, 'image de prévisualisation') }}
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.image, {"attr":{"class": "hidden-input-file slide-image-input"}}) }}
+                                                <button class="btn-valider btn-upload choose-upload-img-button">
+                                                    <span class="upload"></span> Choisissez un fichier...
+                                                </button>
+                                                <div class="upload-img-button-container hidden-button">
+                                                    <button class="upload-img-button hidden-button">
+                                                        <span class="blue-upload"></span><span class="img-name-container"></span>
+                                                    </button>
+                                                </div>
+                                                <a href="#" class="delete-link delete-slide-image" style="display: none;"></a>
+                                                <input type="hidden" name="initial_image" value="">
+                                                <input type="hidden" name="initial_image_name" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-1 col-sm-12"></div>
+                                    <div class="col-lg-11 col-md-11 col-sm-12">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 info-container">
-                                                <p>taille optimale de l'image : <span class="bigger">1024x477 px</span></p>
+                                                <p>taille optimale de l'image : <span class="bigger">L 1024 x H 477 px</span></p>
                                                 <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
                                                 <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
                                             </div>
-                                        </div>
-                                        <div class="row error-message-container">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                {{ form_errors(home_page_slide_data_form.home_page_slides.vars.prototype.image) }}
+                                                <div class="row error-message-container">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        {{ form_errors(home_page_slide_data_form.home_page_slides.vars.prototype.image) }}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -271,6 +389,7 @@
                                     </div>
                                 </div>
                                 {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
+                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.slide_type, {"attr": {"class": "slide-type-input"}}) }}
                             </div>
                             <div class="slide-unit-order-container block-model slide-unit-order-container-model" data-order="">
                                 <div>
