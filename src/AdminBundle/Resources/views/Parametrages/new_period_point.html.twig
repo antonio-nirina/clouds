@@ -1,0 +1,25 @@
+{% for pps in period_point.period_point_setting %}
+    {% if loop.last %}
+        {% set current = pps.vars.value.productGroup %}
+        <a data-toggle="tab"  href="#tab-form-{{ current }}">
+            produit {{ current }}
+            <span class="delete-form-level"></span>
+        </a>
+        <div class = "col-12 col-md-12 tab-pane period" id="tab-form-{{current}}">
+            <div class="column">                                
+                <div class="head">MOIS</div>
+                <div class="percent">
+                    <input type="text" value="" placeholder="%">
+                </div>
+            </div>
+            {% for gain in pps.gain %}
+                <div class="column">                                
+                    <div class="head">{{ form_label(gain) }}</div>
+                    <div class="percent">
+                        {{ form_widget(gain, {'attr': {"placeholder" : "%"}}) }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endfor %} 

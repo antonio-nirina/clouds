@@ -40,6 +40,82 @@ $(document).ready(function(){
         submit_table_network();
         $(this).parent().css('display','none');
     });
+    //periode points
+    $('#product-tabs a:first').tab('show');
+    //ajout 
+    $('.btn-next-product.period').on('click',function(e){
+        e.preventDefault();
+        var admin_new_point_period = $('input[name=admin_new_period]').val();
+        var nb = $(this).parent().find('a').length;
+        if (nb < 6) {
+            $.ajax({
+                type: 'POST',
+                url: admin_new_point_period,
+                success : function(html) {
+                    $('.new-add').html(html);                        
+                    $('.new-add').find('.tab-pane').detach().appendTo('.tab-content');
+                    $('.new-add').find('a[data-toggle=tab]').detach().insertBefore($('.btn-next-product')).tab('show');
+                }
+            });
+        } else {
+            alert('nombre de produits maximum déjà atteint');
+        }        
+    });
+    //suppression
+    $('#product-tabs').on('click', '.delete-form-level', function(e){
+        e.preventDefault();
+        var a = $(this).parent(),
+            next = a.parent().find('a[data-toggle=tab]');
+        var href = a.attr('href');
+        var product_group = href.replace('#tab-form-',"");
+        var route = $('input[name=admin_delete_period]').val();
+        $.ajax({
+            type: "POST",
+            url: route.replace("PLACEHOLDER",product_group),
+            success: function(html){
+                a.remove();
+                $(href).remove();
+                next.click();
+            }
+        })
+    });
+
+    $('form[name=program_period_point] .btn-valider').on('click', function(e) {
+        e.preventDefault();
+        $('.percent input').each(function(){
+            if ($(this).val()) {
+                $(this).val($(this).val().replace("%","").trim());
+            } else {
+                $(this).val('');
+            }
+        });
+        $('form[name=program_period_point]').submit();
+    });
+
+    $('.percent input').each(function(){
+        if ($(this).val()) {
+            $(this).css('background','white');
+            $(this).parent().css('background','white');
+            $(this).val($(this).val()+" %");
+        } else {
+            $(this).css('background','#ebedef');
+            $(this).parent().css('background','#ebedef');
+            $(this).val('');
+        }
+    });
+    $('.percent input').on('keyup', function() {
+        if ($(this).val() || ($(this).val().trim() != "%")) {
+            $(this).css('background','white');
+            $(this).parent().css('background','white');
+            $(this).val($(this).val().replace("%","").trim()+" %");
+        } 
+
+        if ($(this).val().trim() == "%") {
+            $(this).css('background','#ebedef');
+            $(this).parent().css('background','#ebedef');
+            $(this).val('');
+        }
+    });
 
     //declartion import
     $('.btn-valider.btn-download').on('click',  function(){

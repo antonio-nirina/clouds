@@ -34,5 +34,9 @@ services:
     admin.role_rank:
         class: AdminBundle\Manager\ProgramRolesManager
         arguments: ['@doctrine.orm.entity_manager']
+
+    admin.period_point:
+        class: AdminBundle\Manager\PeriodPointManager
+        arguments: ['@doctrine.orm.entity_manager']
     
 

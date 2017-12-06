@@ -806,7 +806,7 @@ input[type="checkbox"].mode:checked + label > span {
     color: var(--couleur_4) !important;
     font-size: 15px;
 }
-.tab-pane.period {
+.tab-pane.period.active {
     display: flex;
     justify-content: stretch;
 }
@@ -815,12 +815,12 @@ input[type="checkbox"].mode:checked + label > span {
     width: min-content;
     display: inline-flex;
     flex-flow: column wrap;*/
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
 }
 .column > div {
-    border: 1px solid #808080;
     width: 100%;
     padding: 15px 8px;
+    box-shadow: 1px 0 0 0 #808080, 0 1px 0 0 #808080, 1px 1px 0 0 #808080, 1px 0 0 0 #808080 inset, 0 1px 0 0 #808080 inset;
 }
 .column .percent, .column .percent input {
     background-color: #ebedef; 
@@ -830,12 +830,24 @@ input[type="checkbox"].mode:checked + label > span {
     color: white;
     font-family: var(--police_bold);
     font-size: 11px;
+    text-transform: uppercase;
+}
+.column .head label {
+    margin-bottom: 0 !important;
+}
+.column:first-of-type input[type=text] {
+    pointer-events: none;
 }
 .column input[type=text] {
     border: none;
     text-align: center;
     width: 100%;
-    font-size: 14px;
+    font-size: 12px;
+    color: var(--couleur_4);
+    font-family: var(--police_bold);
+}
+form[name=program_period_point] .alert-parent {
+    margin-top: 0 !important;
 }
 
 .rank div span, form[name="program_rank"] .row > span, .denomination input[type=text], .recompense input[type=text] {

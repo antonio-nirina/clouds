@@ -20,6 +20,7 @@ use AdminBundle\Form\FormStructureType;
 use AdminBundle\Form\HomePageEditorialType;
 use AdminBundle\Form\HomePageSlideDataType;
 use AdminBundle\Form\LoginPortalDataType;
+use AdminBundle\Form\ProgramPeriodPointType;
 use AdminBundle\Form\ProgramRankType;
 use AdminBundle\Form\RegistrationFormHeaderDataType;
 use AdminBundle\Form\RegistrationFormIntroDataType;
@@ -1490,7 +1491,63 @@ class ParametragesController extends Controller
      */
     public function periodPointAction(Request $request)
     {
-        return $this->render('AdminBundle:Parametrages:period_point.html.twig', array());
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $program = $this->container->get('admin.period_point')->setAllPeriodPoint($program);
+        $period_point_form = $this->createForm(ProgramPeriodPointType::class, $program);
+        $period_point_form->handleRequest($request);
+
+        if ($period_point_form->isSubmitted() && $period_point_form->isValid()) {
+            $em->flush();
+            $this->redirectToRoute('admin_point_periode');
+        }
+
+        return $this->render('AdminBundle:Parametrages:period_point.html.twig', array(
+            "period_point" => $period_point_form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/points/periode/new", name="admin_new_point_period")
+     * @Method("POST")
+     */
+    public function newPeriodPointAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $program = $this->container->get('admin.period_point')->newPeriodPointProduct($program);
+        $period_point_form = $this->createForm(ProgramPeriodPointType::class, $program);
+
+        return $this->render('AdminBundle:Parametrages:new_period_point.html.twig', array(
+            "period_point" => $period_point_form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/points/periode/delete/{product_group}", name="admin_delete_point_period")
+     * @Method("POST")
+     */
+    public function deletePeriodPointAction($product_group)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $this->container->get('admin.period_point')->deletePeriodPointProduct($program, $product_group);
+        return new Response('done');
     }
 
 	

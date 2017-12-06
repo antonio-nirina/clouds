@@ -24,6 +24,11 @@ class Sales
     private $product_name;
 
     /**
+     * @ORM\Column(name="product_group", type="integer", nullable=true)
+     */
+    private $product_group;
+
+    /**
      * @ORM\Column(name="ca", type="float")
      */
     private $ca;
@@ -283,5 +288,29 @@ class Sales
     public function getProgramUser()
     {
         return $this->program_user;
+    }
+
+    /**
+     * Set productGroup
+     *
+     * @param integer $productGroup
+     *
+     * @return Sales
+     */
+    public function setProductGroup($productGroup)
+    {
+        $this->product_group = $productGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get productGroup
+     *
+     * @return integer
+     */
+    public function getProductGroup()
+    {
+        return $this->product_group;
     }
 }

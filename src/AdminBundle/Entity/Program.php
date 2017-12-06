@@ -110,6 +110,11 @@ class Program
     private $roles;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\PeriodPointSetting", mappedBy="program", cascade={"persist"})
+     */
+    private $period_point_setting;
+
+    /**
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\RegistrationFormData", inversedBy="program")
      */
     private $registration_form_data;
@@ -732,6 +737,74 @@ class Program
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getSitePagesStandardSetting()
+    {
+        return $this->site_page_standard;
+    }
+
+    /**
+     * Add periodPointSetting
+     *
+     * @param \AdminBundle\Entity\PeriodPointSetting $periodPointSetting
+     *
+     * @return Program
+     */
+    public function addPeriodPointSetting(\AdminBundle\Entity\PeriodPointSetting $periodPointSetting)
+    {
+        $this->period_point_setting[] = $periodPointSetting;
+
+        return $this;
+    }
+
+    /**
+     * Remove periodPointSetting
+     *
+     * @param \AdminBundle\Entity\PeriodPointSetting $periodPointSetting
+     */
+    public function removePeriodPointSetting(\AdminBundle\Entity\PeriodPointSetting $periodPointSetting)
+    {
+        $this->period_point_setting->removeElement($periodPointSetting);
+    }
+
+    /**
+     * Get periodPointSetting
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeriodPointSetting()
+    {
+        return $this->period_point_setting;
+    }
+
+    /**
+     * Add sitePageStandard
+     *
+     * @param \AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard
+     *
+     * @return Program
+     */
+    public function addSitePageStandard(\AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard)
+    {
+        $this->site_page_standard[] = $sitePageStandard;
+
+        return $this;
+    }
+
+    /**
+     * Remove sitePageStandard
+     *
+     * @param \AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard
+     */
+    public function removeSitePageStandard(\AdminBundle\Entity\SitePagesStandardSetting $sitePageStandard)
+    {
+        $this->site_page_standard->removeElement($sitePageStandard);
+    }
+
+    /**
+     * Get sitePageStandard
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSitePageStandard()
     {
         return $this->site_page_standard;
     }
