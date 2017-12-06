@@ -640,13 +640,6 @@ li.options{
 		margin:0!important;
 	}
 	
-	/*
-	input[type="text"]{
-		padding-left:0!important;
-		text-align: center;
-	}
-	*/
-	
 	td.row > label + div{
 		margin-left:O!important;
 	}
@@ -659,8 +652,6 @@ li.options{
 	.add.add-field-link-declaration{
 		padding:0!important;
 	}
-	
-	
 	
 	.row td.row{
 		margin:7px!important;

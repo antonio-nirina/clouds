@@ -1582,8 +1582,12 @@ class ParametragesController extends Controller
 				if(isset($ImgPages[$i])){
 					$sitePagesStandardSetting->setImgPage($ImgPages[$i]);
 				}
+				
 				$sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
-				$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
+				if(!empty($StatusPages[$i])){
+					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
+				}
+				
 				$sitePagesStandardSetting->setProgram($program);
 				$sitePagesStandardSetting->upload($program);
 				$em->persist($sitePagesStandardSetting);
