@@ -280,6 +280,7 @@
 }
 
 .large-input-text.quite-large-input-text{
+    width: 80%;
     width: calc(100% - 35px) !important;
 }
 
@@ -745,6 +746,22 @@ a.blue-anchor{
     .message-input > .large-input-text {
         width: 98%;
     }
+
+    .large-input-text.with-margin-left{
+        margin-left: 21px;
+        width: 80%;
+        width: calc(100% - 21px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.with-margin-left{
+        width: 80%
+        width: calc(100% - 56px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.no-margin-left{
+        width: 80%;
+        width: calc(100% - 35px) !important;
+    }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
@@ -962,6 +979,22 @@ a.blue-anchor{
 		right: 1px;
 		top:7px;
 	}
+
+    .large-input-text{
+        width: 90%;
+        width: calc(100% - 21px) !important;
+        display: inline-block !important;
+    }
+
+    .large-input-text.quite-large-input-text{
+        width: 80%;
+        width: calc(100% - 56px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.no-margin-left{
+        width: 80%;
+        width: calc(100% - 35px) !important;
+    }
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -1147,4 +1180,8 @@ a.blue-anchor{
     top: 3px;
     margin-left: 10px;
     float: right;
+}
+
+.large-input-text.no-margin-left{
+    margin-left: 0 !important;
 }
