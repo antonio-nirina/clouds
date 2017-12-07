@@ -266,6 +266,25 @@
                                             {{ form_errors(slide.slide_order) }}
                                         </div>
                                     </div>
+                                    {% set image_target_url_block_style = 'style=display:none' %}
+                                    {% if slide.vars.value.slideType == constant('IMAGE', slide_type) %}
+                                        {% set image_target_url_block_style = '' %}
+                                    {% endif %}
+                                    <div class="row" {{ image_target_url_block_style }}>
+                                        <div class="col-lg-2 col-md-2 col-sm-12">
+                                            {{ form_label(slide.image_target_url, "url de l'image") }}
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    {{ form_widget(slide.image_target_url, {"attr": {"class": "large-input-text"}}) }}
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                    <p>l'url s'ouvrira dans un nouvel onglet</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {{ form_widget(slide.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
                                     {{ form_widget(slide.slide_type, {"attr": {"class": "slide-type-input"}}) }}
                                 </div>
@@ -412,6 +431,21 @@
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12">
                                         {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
+                                    </div>
+                                </div>
+                                <div class="row image-slide-block">
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.image_target_url, "url de l'image") }}
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.image_target_url, {"attr": {"class": "large-input-text"}}) }}
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                <p>l'url s'ouvrira dans un nouvel onglet</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}

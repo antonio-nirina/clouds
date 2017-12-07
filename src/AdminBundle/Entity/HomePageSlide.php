@@ -34,8 +34,15 @@ class HomePageSlide
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\Length(max=20)
      */
     private $slide_type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
+     */
+    private $image_target_url;
 
     /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\HomePageData", inversedBy="home_page_slides")
@@ -194,5 +201,29 @@ class HomePageSlide
     public function getSlideType()
     {
         return $this->slide_type;
+    }
+
+    /**
+     * Set imageTargetUrl
+     *
+     * @param string $imageTargetUrl
+     *
+     * @return HomePageSlide
+     */
+    public function setImageTargetUrl($imageTargetUrl)
+    {
+        $this->image_target_url = $imageTargetUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get imageTargetUrl
+     *
+     * @return string
+     */
+    public function getImageTargetUrl()
+    {
+        return $this->image_target_url;
     }
 }

@@ -1222,6 +1222,10 @@ li.options{
 	button.btn-valider{
 		margin-top: 88px;
 	}
+
+	.choose-upload-img-button{
+		margin-top: 0 !important;
+	}
 	
 	#product-tabs{
 		padding-left:0!important;
@@ -1787,6 +1791,10 @@ li.options{
 	
 	button.btn-valider{
 		margin-top: 88px;
+	}
+
+	.choose-upload-img-button{
+		margin-top: 0 !important;
 	}
 	
 	.modal-content .content label > div.titre-label{
