@@ -84,8 +84,12 @@ class ParametragesController extends Controller
         $name = false;
 
         if ($file = $site_design->getLogoPath()) {
-            $logo_path = $this->container->getParameter('logo_path').'/'.$program->getId().'/'.$site_design->getLogoPath();
-        } else if ($site_design->getLogoName()) {
+            if (is_file($file)) {
+                $logo_path = $file->getPathname();
+            } else {
+                $logo_path = $this->container->getParameter('logo_path').'/'.$program->getId().'/'.$file;
+            }
+        } elseif ($site_design->getLogoName()) {
             $name = true;
         }
         return $this->render('logo.html.twig', array(
@@ -104,8 +108,8 @@ class ParametragesController extends Controller
         $name = false;
 
         if ($file = $site_design->getLogoPath()) {
-            $logo_path = $this->container->getParameter('logo_path').'/'.$program->getId().'/'.$site_design->getLogoPath();
-        } else if ($site_design->getLogoName()) {
+            $logo_path = $this->container->getParameter('logo_path').'/'.$program->getId().'/'.$file;
+        } elseif ($site_design->getLogoName()) {
             $name = true;
         }
         return $this->render('logo_login.html.twig', array(
