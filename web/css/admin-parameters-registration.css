@@ -279,6 +279,10 @@
 	text-align:left!important;
 }
 
+.large-input-text.quite-large-input-text{
+    width: calc(100% - 35px) !important;
+}
+
 .cke{
     width: 100% !important;
     border-radius: 0 0 5px 5px;
@@ -1132,4 +1136,15 @@ a.blue-anchor{
 .img-content-login-url {
     background: url('../images/cloudsRewards/url-http-site-challenge.png') no-repeat;
     background-position: -14px -9px;
+}
+
+.delete-input {
+    width: 25px;
+    height: 25px;
+    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-left: 10px;
+    float: right;
 }

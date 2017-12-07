@@ -225,7 +225,14 @@
                                         <div class="col-lg-11 col-md-11 col-sm-12">
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    {{ form_widget(slide.message, {"attr": {"class": "large-input-text slide-message-input"}}) }}
+                                                    {% set input_size_class = '' %}
+                                                    {% set delete_input_visibility = 'style=display:none' %}
+                                                    {% if slide.vars.value.message | trim is not empty %}
+                                                        {% set input_size_class = 'quite-large-input-text' %}
+                                                        {% set delete_input_visibility = '' %}
+                                                    {% endif %}
+                                                    {{ form_widget(slide.message, {"attr": {"class": "removable-content-input large-input-text slide-message-input "~input_size_class}}) }}
+                                                    <span class="delete-input" {{ delete_input_visibility }}></span>
                                                 </div>
                                             </div>
                                             <div class="row error-message-container">
@@ -277,7 +284,14 @@
                                         <div class="col-lg-10 col-md-10 col-sm-12">
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    {{ form_widget(slide.image_target_url, {"attr": {"class": "large-input-text"}}) }}
+                                                    {% set input_size_class = '' %}
+                                                    {% set delete_input_visibility = 'style=display:none' %}
+                                                    {% if slide.vars.value.imageTargetUrl | trim is not empty %}
+                                                        {% set input_size_class = 'quite-large-input-text' %}
+                                                        {% set delete_input_visibility = '' %}
+                                                    {% endif %}
+                                                    {{ form_widget(slide.image_target_url, {"attr": {"class": "removable-content-input large-input-text "~input_size_class}}) }}
+                                                    <span class="delete-input" {{ delete_input_visibility }}></span>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 info-container">
                                                     <p>l'url s'ouvrira dans un nouvel onglet</p>
@@ -403,7 +417,8 @@
                                     <div class="col-lg-11 col-md-11 col-sm-12">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.message, {"attr": {"class": "large-input-text slide-message-input"}}) }}
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.message, {"attr": {"class": "removable-content-input large-input-text slide-message-input "}}) }}
+                                                <span class="delete-input" style="display: none;"></span>
                                             </div>
                                         </div>
                                         <div class="row error-message-container">
@@ -440,7 +455,8 @@
                                     <div class="col-lg-10 col-md-10 col-sm-12">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.image_target_url, {"attr": {"class": "large-input-text"}}) }}
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.image_target_url, {"attr": {"class": "removable-content-input large-input-text "}}) }}
+                                                <span class="delete-input" style="display: none;"></span>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12 info-container">
                                                 <p>l'url s'ouvrira dans un nouvel onglet</p>
