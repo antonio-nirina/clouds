@@ -231,9 +231,56 @@ $(document).ready(function(){
 		return false;
 	});
 	
+	$(document).on('click', 'span#fermerPopUp', function(){
+		$('#conteneur-popup').hide();
+		$('#body-popup').hide();
+	});
+	
+	//Simuler click bouton upload editor
+	$(document).on('click', 'button#btn-upload-img-ckeditor', function(){
+		$('input#input-upload-img-ckeditor').click();
+	});
+	
+	//upload file ckeditor
+	$(document).on('change', 'input#input-upload-img-ckeditor', function(){
+		$('form#UploadImgEditor').submit();
+	});
+	
+	$(document).on('submit', 'form#UploadImgEditor', function(event) {
+		event.preventDefault();
+		var form = $('form#UploadImgEditor').get(0);
+		var formData = new FormData(form);
+		var UrlUploadImgEditor = $('input#url_upload_img_editor').val();
+		$.ajax({
+			url: UrlUploadImgEditor, 
+			data: formData,                         
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			success: function(response){
+				//On liste les images dans la galérie
+				ListeImgGalerie(response);
+			}
+		});
+		return false;
+	});
+	
+	
 	//Cliqur sur la premiere onglet
 	$('ul.list-choix-page li[data-role="onglet"]:first-child').trigger('click');
 });
+
+function ListeImgGalerie(programme_id){
+	var UrlListeImg = $('input#url_list_img_editor').val();
+	$.ajax({
+		url: UrlListeImg, 
+		data: 'programme_id='+programme_id+'',                         
+		type: 'POST',
+		success: function(response){
+			alert(response);
+		}
+	});
+}
 
 function readURL(input, idLine) {
 	if (input.files && input.files[0]) {

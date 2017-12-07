@@ -41,6 +41,7 @@ use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use AdminBundle\Component\Slide\SlideType;
+use Symfony\Component\Finder\Finder;
 
 /**
  * @Route("/admin/parametrages")
@@ -1610,6 +1611,84 @@ class ParametragesController extends Controller
 		}else{
 			return new Response('');
 		}
+	}
+	
+	/**
+     * @Route("/contenus/pages-standard/add-img-editor",name="admin_pages_standard_add_img_editor")
+     */
+	public function LoadPopUpInsertImageCkeditorAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$response = $this->forward('AdminBundle:PartialPage:affichePopUpImgEditor',array('datas' => array()));
+			return new Response($response->getContent());
+		}else{
+			return new Response('');
+		}
+	}
+	
+	/**
+     * @Route("/contenus/pages-standard/add-img-editor-upload",name="admin_pages_standard_add_img_editor_upload")
+     */
+	public function UploadImageCkeditorAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$sitePagesStandardSetting = new SitePagesStandardSetting();
+			$Img = $request->files->get('images-ckeditor');
+			$sitePagesStandardSetting->setImgPage($Img);
+			$sitePagesStandardSetting->upload($program);
+			$ImgPath = $sitePagesStandardSetting->getPath();
+		}
+		
+		return new Response($program->getId());
+	}
+	
+	/**
+     * @Route("/contenus/pages-standard/list-img-editor",name="admin_pages_standard_list_img_editor")
+     */
+	public function ListImageCkeditorAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$sitePagesStandardSetting = new SitePagesStandardSetting();
+			$RootDir = $sitePagesStandardSetting->getUploadRootDir();
+			$RootProgramm = $RootDir.'/'.$program->getId();
+			//On lit tous les fichiers images
+			$finder = new Finder();
+ 
+			$files = $finder
+				->files()
+				->in($RootProgramm)
+				->sortByChangedTime()
+				->getIterator();
+			
+			$ListeFile = array();
+			foreach (new LimitIterator($files, 0, 5) as $file) {
+				$ListeFile[] = $file;
+			}
+			
+			echo '<pre>';
+			print_r($ListeFile);
+			echo '</pre>';
+		}
+		
+		return new Response('');
 	}
 
     /**
