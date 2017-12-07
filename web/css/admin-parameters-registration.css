@@ -986,6 +986,12 @@ a.blue-anchor{
         display: inline-block !important;
     }
 
+    .large-input-text.no-margin-left{
+        width: 90%;
+        width: 100% !important;
+        display: inline-block !important;
+    }
+
     .large-input-text.quite-large-input-text{
         width: 80%;
         width: calc(100% - 56px) !important;
@@ -1067,6 +1073,16 @@ a.blue-anchor{
 		right: 1px;
 		top:7px;
 	}
+
+    .large-input-text.quite-large-input-text.with-margin-left {
+        width: 80%;
+        width: calc(100% - 56px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.no-margin-left {
+        width: 80%;
+        width: calc(100% - 35px) !important;
+    }
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
