@@ -402,12 +402,12 @@ section.inactive{
 	font-size: 17px;
 	/*color: rgb(80,80,80);*/
 	color: var(--couleur_4);	
-	font-family: var(--police_bold);
+	font-family: var(--police_light);
 }
 
 .menu-page-active{
 	color: var(--couleur_2)!important;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	text-decoration: none;
 	line-height: 43px;
 	display: inline-block;
@@ -3178,8 +3178,8 @@ button.btn-valider:hover {
 }
 .menu-page-active:hover, .menu-page:hover {
     color: var(--couleur_2);
-	font-family: var(--police_bold);
-	font-size: 17px;
+	/*font-family: var(--police_bold);*/
+	/*font-size: 17px;*/
 }
 /* btn aide*/
 .bulle-aide {

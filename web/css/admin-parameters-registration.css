@@ -53,9 +53,9 @@
 .fieldset.active{
     margin-top:10px;
     position:relative;
-    box-shadow: 1.5px 1.5px 2px #AAAAAA;
+    box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
     background-color: #FFFFFF;
-    border-top: solid 2px var(--couleur_2);
+    /*border-top: solid 2px var(--couleur_2);*/
 }
 
 .fieldset .custom-field-allowed-container{
