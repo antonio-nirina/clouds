@@ -480,6 +480,45 @@ $(document).ready(function(){
      * Suppression image header uploadé
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Inscriptions - Page d'accueil
+     * suppression donnée de champ
+     * *********************************************************************************************
+     */
+    $(document).on('input', '.removable-content-input', function(e){
+        e.preventDefault();
+        if('' != $(this).val().trim()){
+            $(this).next('.delete-input').show();
+            $(this).addClass('quite-large-input-text');
+        } else {
+            $(this).next('.delete-input').hide();
+            $(this).removeClass('quite-large-input-text');
+        }
+    });
+
+    $(document).on('click', '.delete-input', function(e){
+        e.preventDefault();
+        $(this).prev('input[type=text]').val('');
+        $(this).prev('input[type=text]').removeClass('quite-large-input-text');
+        $(this).hide();
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Inscriptions - Page d'accueil
+     * suppression donnée de champ
+     * *********************************************************************************************
+     */
+
+
+
+
+
+
+
+
 	$(document).on('click', 'span#nom-domaine-choix-ok' ,function(){
 		if($('ul.list-choix-nom-domaine').is(':visible')){
 			$('ul.list-choix-nom-domaine').hide();

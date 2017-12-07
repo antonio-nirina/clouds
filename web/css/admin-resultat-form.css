@@ -405,11 +405,11 @@ a:not(.active) .delete-form-level {
     margin-right: 10px;
 }
 .fieldset.active {
-    box-shadow: 2px 2px 3px #aaa;
+    box-shadow: 2px 2px 3px #aaa, 0 -2px 0 var(--couleur_2);
 }
 section.active {
     background-color: white;
-    border-top: 3px solid var(--couleur_2);
+    /*border-top: 3px solid var(--couleur_2);*/
 }
 @media only screen and (min-width:980px) {
     .row.principal {

@@ -46,3 +46,8 @@ services:
             # - '%fos_user.resetting.token_ttl%'
         tags:
             - {name: kernel.event_subscriber}
+
+    AppBundle\EventListener\HttpHeaderCustomizer:
+        class: 'AppBundle\EventListener\HttpHeaderCustomizer'
+        tags:
+            - { name: kernel.event_listener, event: kernel.response}
