@@ -7,7 +7,6 @@ use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
-use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Entity\HomePageSlide;
 use AdminBundle\Entity\LoginPortalSlide;
 use AdminBundle\Entity\Program;
@@ -44,6 +43,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use AdminBundle\Component\Slide\SlideType;
+use Symfony\Component\Finder\Finder;
 
 /**
  * @Route("/admin/parametrages")
@@ -1665,6 +1666,82 @@ class ParametragesController extends Controller
 		}else{
 			return new Response('');
 		}
+	}
+	
+	/**
+     * @Route("/contenus/pages-standard/add-img-editor",name="admin_pages_standard_add_img_editor")
+     */
+	public function LoadPopUpInsertImageCkeditorAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$response = $this->forward('AdminBundle:PartialPage:affichePopUpImgEditor',array('datas' => array(), 'programm' => $program));
+			return new Response($response->getContent());
+		}else{
+			return new Response('');
+		}
+	}
+	
+	/**
+     * @Route("/contenus/pages-standard/add-img-editor-upload",name="admin_pages_standard_add_img_editor_upload")
+     */
+	public function UploadImageCkeditorAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$sitePagesStandardSetting = new SitePagesStandardSetting();
+			$Img = $request->files->get('images-ckeditor');
+			$sitePagesStandardSetting->setImgPage($Img);
+			$sitePagesStandardSetting->upload($program);
+			$ImgPath = $sitePagesStandardSetting->getPath();
+		}
+		
+		return new Response($program->getId());
+	}
+	
+	/**
+     * @Route("/contenus/pages-standard/list-img-editor",name="admin_pages_standard_list_img_editor")
+     */
+	public function ListImageCkeditorAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$sitePagesStandardSetting = new SitePagesStandardSetting();
+			$RootDir = $sitePagesStandardSetting->getUploadRootDir();
+			$RootProgramm = $RootDir.'/'.$program->getId();
+			//On lit tous les fichiers images
+			$finder = new Finder();
+ 
+			$files = $finder->files()->in($RootProgramm)->sortByChangedTime()->getIterator();
+			
+			$ListeFile = array();
+			foreach ($files as $file) {
+				$ListeFile[] = array(
+					'url' => '/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
+					'nom' => $file->getRelativePathname()
+				);
+			}
+			
+			$response = $this->forward('AdminBundle:PartialPage:afficheListImgEditor',array('datas' => $ListeFile));
+			return new Response($response->getContent());
+		}
+		
+		return new Response('');
 	}
 
     /**

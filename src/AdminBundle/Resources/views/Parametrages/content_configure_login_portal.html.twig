@@ -138,7 +138,14 @@
                                 <div class="col-lg-11 col-md-11 col-sm-12">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            {{ form_widget(login_portal_data_form.title, {"attr": {"class": "large-input-text"}}) }}
+                                            {% set input_size_class = '' %}
+                                            {% set delete_input_visibility = 'style=display:none' %}
+                                            {% if login_portal_data_form.vars.value.title | trim is not empty %}
+                                                {% set input_size_class = 'quite-large-input-text' %}
+                                                {% set delete_input_visibility = '' %}
+                                            {% endif %}
+                                            {{ form_widget(login_portal_data_form.title, {"attr": {"class": "removable-content-input large-input-text "~input_size_class}}) }}
+                                            <span class="delete-input" {{ delete_input_visibility }}></span>
                                         </div>
                                     </div>
                                     <div class="row error-message-container">

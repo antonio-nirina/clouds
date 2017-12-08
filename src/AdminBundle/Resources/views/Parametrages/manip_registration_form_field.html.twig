@@ -8,8 +8,13 @@
     <div class="col-lg-3">
         <label class="form-label">intitulé du champ</label>
     </div>
-    <div class="col-lg-9">
-        <input class="input-text" name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
+    <div class="col-lg-9 vertical-align-element-container">
+        {% set delete_input_visibility = 'style=display:none' %}
+        {% if label is defined and label | trim is not empty %}
+            {% set delete_input_visibility = '' %}
+        {% endif %}
+        <input class="input-text removable-content-input fixed-size" name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
+        <span class="delete-input" {{ delete_input_visibility }}></span>
     </div>
 </div>
 

@@ -29,7 +29,7 @@ $(document).ready(function(){
 		$('div#id-content-page-body-'+IdLi+'').show();
 		
 		var UrlCustomCkeditor = $('input#url_customs_ckeditor').val();
-		CKEDITOR.replace( 'login_portal_data_form_text-'+IdLi+'', {
+		CKEDITOR.replace( 'login_portal_data_form_text_'+IdLi+'', {
 			language: 'fr',
 			uiColor: '#9AB8F3',
 			height: 150,
@@ -146,7 +146,7 @@ $(document).ready(function(){
 		
 		HtmlNewPageContent += '<label class = "champForm">';
 		HtmlNewPageContent += '<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>';
-		HtmlNewPageContent += '<textarea id="login_portal_data_form_text-'+LastIdLi+'" name="contenu_page[]" class="large-textarea"></textarea>';
+		HtmlNewPageContent += '<textarea id="login_portal_data_form_text_'+LastIdLi+'" name="contenu_page[]" class="large-textarea"></textarea>';
 		HtmlNewPageContent += '</label>';
 		
 		HtmlNewPageContent += '</div>';
@@ -231,9 +231,105 @@ $(document).ready(function(){
 		return false;
 	});
 	
+	$(document).on('click', 'span#fermerPopUp', function(){
+		$('#conteneur-popup').hide();
+		$('#body-popup').hide();
+	});
+	
+	//Simuler click bouton upload editor
+	$(document).on('click', 'button#btn-upload-img-ckeditor', function(){
+		$('input#input-upload-img-ckeditor').click();
+	});
+	
+	//upload file ckeditor
+	$(document).on('change', 'input#input-upload-img-ckeditor', function(){
+		$('form#UploadImgEditor').submit();
+	});
+	
+	$(document).on('submit', 'form#UploadImgEditor', function(event) {
+		event.preventDefault();
+		var form = $('form#UploadImgEditor').get(0);
+		var formData = new FormData(form);
+		var UrlUploadImgEditor = $('input#url_upload_img_editor').val();
+		
+		var Chargements = $('p.chargementAjax').clone();
+		$('div.conteneur-liste-galery').html(Chargements);
+		$('div.conteneur-liste-galery').find('p.chargementAjax').show();
+		$('div.conteneur-liste-galery').find('p.chargementAjax img').css('top', '23px');
+		
+		setTimeout(function(){
+			$.ajax({
+				url: UrlUploadImgEditor, 
+				data: formData,                         
+				type: 'POST',
+				processData: false,
+				contentType: false,
+				success: function(response){
+					//On liste les images dans la galérie
+					ListeImgGalerie(response);
+				}
+			});
+		},500);
+	
+		return false;
+	});
+	
+	$(document).on('click', 'span.select-img-editor', function(){
+		var Id = $(this).attr('id');
+		$('span.select-img-editor').each(function(i){
+			if($(this).hasClass('checkon-onglet-choix-page')){
+				$(this).removeClass('checkon-onglet-choix-page');
+				$(this).addClass('check-onglet-choix-page');
+			}
+		});
+		
+		$(this).addClass('checkon-onglet-choix-page');
+		$('input#img-a-inserer').val(Id);
+	});
+	
+	$(document).on('click', 'button#btn-inserer-img-editor-ok', function(){
+		var Img = $('input#img-a-inserer').val();
+		if($.trim(Img) != ""){
+			var IdCk = $('li.page-list-active').attr('id');
+			var ArrayIdCk = new Array;
+			ArrayIdCk = IdCk.split('-');
+			var Id = ArrayIdCk[3];
+			
+			var img_html = "<img src='"+Img+"'/>'";
+			var editorName = 'login_portal_data_form_text_'+Id+'';
+			var editor = CKEDITOR.instances[editorName];
+			editor.insertHtml(img_html);
+			$('span#fermerPopUp').click();
+		}
+	});
+	
+	
 	//Cliqur sur la premiere onglet
 	$('ul.list-choix-page li[data-role="onglet"]:first-child').trigger('click');
 });
+
+function ListeImgGalerie(programme_id){
+	$('div.conteneur-liste-galery').html('');
+	
+	var Chargements = $('p.chargementAjax').clone();
+	$('div.conteneur-liste-galery').html(Chargements);
+	$('div.conteneur-liste-galery').find('p.chargementAjax').show();
+	$('div.conteneur-liste-galery').find('p.chargementAjax img').css('top', '23px');
+	
+	var UrlListeImg = $('input#url_list_img_editor').val();
+	setTimeout(function(){
+		$.ajax({
+			url: UrlListeImg, 
+			data: 'programme_id='+programme_id+'',                         
+			type: 'POST',
+			success: function(response){
+				$('div.conteneur-liste-galery').html('');
+				$('div.conteneur-liste-galery').html(response);
+			}
+		});
+	},500);
+	
+}
 
 function readURL(input, idLine) {
 	if (input.files && input.files[0]) {

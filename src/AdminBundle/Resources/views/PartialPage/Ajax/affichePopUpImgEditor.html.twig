@@ -1,0 +1,45 @@
+<h3 class = "titrePopUp">Choisissez votre image<span id = "fermerPopUp">X</span></h3>
+<div class = "conteneur-form-insert-img-ckeditor">
+	
+	<form name = "InsertImgEditor" method = "POST" action = "">
+		<div class="titre-section-page-standard"><span>Séléctionner une image</span></div>
+		<div class = "separator"></div>
+		<div class = "conteneur-liste-galery">
+			
+		</div>
+	</form>
+	
+	<div class = "separator"></div>
+	<div class = "separator"></div>
+	
+	<form id = "UploadImgEditor" name = "UploadImgEditor" method = "POST" action = "" enctype = "multipart/form-data">
+		<div class="titre-section-page-standard"><span>Uploader une image</span></div>
+		<div class = "separator"></div>
+		<div class = "float-left">
+			<span class="lib-form block">ajouter une image</span>
+			<button id="btn-upload-img-ckeditor" class="btn-valider btn-upload choose-upload-img-button" type="button">
+				<span id="id-lib-upload-1" class="upload"></span> 
+				<span id="lib-btn-pages-1">choisissez un fichier...</span>
+			</button>
+		</div>
+		
+		<div class = "float-right">
+			<span class="lib-form block">&nbsp;</span>
+			<button id = "btn-inserer-img-editor-ok" class="btn-valider valider submit-form block-center" type = "button">
+				valider
+			</button>
+		</div>
+		
+		<div style = "clear:both;"></div>
+
+		<input style="display:none;" id="input-upload-img-ckeditor" name="images-ckeditor" class="input-upload-img-page-standard" type="file">
+	</form>
+</div>
+
+{% block javascripts %}
+	<script type = "text/javascript">
+	$(document).ready(function(){
+		ListeImgGalerie('{{ programm.Id }}');
+	});
+	</script>
+{% endblock %}

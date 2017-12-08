@@ -1134,6 +1134,7 @@ ul.rs-sociaux-footer li.rs-autre{
 	width: 70%;
 	text-align: center;
 	margin-left: -35%;
+	z-index:3000;
 }
 
 .swiper-slide{
@@ -1879,4 +1880,45 @@ a:active,a:link,a:focus{color:#505050;outline-style:none;}
 	ul.menu-content li {
 	    margin-left: 0 !important;
 	}
+}
+
+#video-slide-play-btn{
+	position: absolute;
+	z-index: 10000;
+	top: 50%;
+	width: 48px;
+	height: 47px;
+	margin-top: -15px;
+	left: 50%;
+	margin-left: -24px;
+	cursor: pointer;
+	display: inline-flex;
+    /*padding: 20px;*/
+
+	mask-image: url('../images/cloudsRewards/play-video.svg');
+	-webkit-mask-image: url('../images/cloudsRewards/play-video.svg');
+
+	mask-position: center;
+	-webkit-mask-position: center;
+
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+
+	background: white;
+}
+
+#video-slide-play-btn:hover{
+	transform:scale(1.1);
+}
+
+#bg-video-slide-play-btn{
+	background:#001d36;
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	z-index:2000;
+	display:inline-block;
+	opacity:0.5;
 }

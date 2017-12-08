@@ -1,0 +1,11 @@
+<ul class = "col-12 row liste-img-galery">
+	<input id = "img-a-inserer" type = "hidden" name = "img-a-inserer" value = "">
+	{% for Img in images %}
+		<li class = "col-2">
+			<img src = "{{ asset(Img.url) }}" class = "img-list">
+			<div class = "title-liste-img-galery">
+				<span id = "{{ Img.url }}" class = "check-onglet-choix-page select-img-editor"></span>
+			</div>
+		</li>
+	{% endfor %}
+</ul>

@@ -16,6 +16,9 @@
 
     <main class="col-md-9  offset-md-1 float-left main">
 		<input id = "url_ajax_supprimer_img" type = "hidden" value = "{{ path("admin_pages_standard_supprimer_img") }}" name = "url_ajax_supprimer_img">
+		<input id = "url_popup_insert_img_editor" type = "hidden" value = "{{ path("admin_pages_standard_add_img_editor") }}" name = "url_popup_insert_img_editor">
+		<input id = "url_upload_img_editor" type = "hidden" value = "{{ path("admin_pages_standard_add_img_editor_upload") }}" name = "url_upload_img_editor">
+		<input id = "url_list_img_editor" type = "hidden" value = "{{ path("admin_pages_standard_list_img_editor") }}" name = "url_list_img_editor">
 		<input id = "url_customs_ckeditor" type = "hidden" value = "{{ asset('ckeditor-uploader/custom/config-general.js') }}" name = "url_customs_ckeditor">
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
@@ -179,9 +182,9 @@
 												<label class = "champForm">
 													<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
 													{% if Pages.ContenuPage is defined %}
-														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
 													{% else %}
-														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
 													{% endif %}
 
 												</label>
@@ -237,9 +240,9 @@
 												<label class = "champForm">
 													<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
 													{% if Pages.ContenuPage is defined %}
-														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
 													{% else %}
-														<textarea id="login_portal_data_form_text-{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
 													{% endif %}
 												</label>
 											{% endif %}

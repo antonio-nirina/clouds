@@ -247,7 +247,7 @@ class SitePagesStandardSetting
             : $this->getUploadDir().'/'.$this->path;
     }
 
-    protected function getUploadRootDir()
+    public function getUploadRootDir()
     {
         return __DIR__.'/../../../web/'.$this->getUploadDir();
     }
@@ -285,7 +285,12 @@ class SitePagesStandardSetting
      */
     public function setPath($path)
     {
-        $this->path = $path;
+		$InfosPath = pathinfo($path);
+		$extension = $InfosPath['extension'];
+		$filename = $InfosPath['filename'];
+		$Path = $this->removeAccents($filename).'.'.$extension;
+		
+        $this->path = $Path;
 
         return $this;
     }
@@ -299,4 +304,10 @@ class SitePagesStandardSetting
     {
         return $this->path;
     }
+	
+	public function removeAccents($string)
+	{
+		$text = str_replace(' ','',$string);
+		return strtr($text,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+	}
 }

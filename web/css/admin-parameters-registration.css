@@ -279,6 +279,11 @@
 	text-align:left!important;
 }
 
+.large-input-text.quite-large-input-text{
+    width: 80%;
+    width: calc(100% - 35px) !important;
+}
+
 .cke{
     width: 100% !important;
     border-radius: 0 0 5px 5px;
@@ -741,6 +746,22 @@ a.blue-anchor{
     .message-input > .large-input-text {
         width: 98%;
     }
+
+    .large-input-text.with-margin-left{
+        margin-left: 21px;
+        width: 80%;
+        width: calc(100% - 21px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.with-margin-left{
+        width: 80%
+        width: calc(100% - 56px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.no-margin-left{
+        width: 80%;
+        width: calc(100% - 35px) !important;
+    }
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
@@ -958,6 +979,28 @@ a.blue-anchor{
 		right: 1px;
 		top:7px;
 	}
+
+    .large-input-text{
+        width: 90%;
+        width: calc(100% - 21px) !important;
+        display: inline-block !important;
+    }
+
+    .large-input-text.no-margin-left{
+        width: 90%;
+        width: 100% !important;
+        display: inline-block !important;
+    }
+
+    .large-input-text.quite-large-input-text{
+        width: 80%;
+        width: calc(100% - 56px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.no-margin-left{
+        width: 80%;
+        width: calc(100% - 35px) !important;
+    }
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -1030,6 +1073,16 @@ a.blue-anchor{
 		right: 1px;
 		top:7px;
 	}
+
+    .large-input-text.quite-large-input-text.with-margin-left {
+        width: 80%;
+        width: calc(100% - 56px) !important;
+    }
+
+    .large-input-text.quite-large-input-text.no-margin-left {
+        width: 80%;
+        width: calc(100% - 35px) !important;
+    }
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
@@ -1132,4 +1185,19 @@ a.blue-anchor{
 .img-content-login-url {
     background: url('../images/cloudsRewards/url-http-site-challenge.png') no-repeat;
     background-position: -14px -9px;
+}
+
+.delete-input {
+    width: 25px;
+    height: 25px;
+    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-left: 10px;
+    float: right;
+}
+
+.large-input-text.no-margin-left{
+    margin-left: 0 !important;
 }
