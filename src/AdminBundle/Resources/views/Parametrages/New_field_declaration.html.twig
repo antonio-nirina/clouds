@@ -1,9 +1,14 @@
 <input type="hidden" name="field_id" value="{{ (field_id is defined)?field_id:"" }}">
 <div><h4>personnaliser le champ</h4></div>
 <div class="row intitule">
-    <label>
+    <label class="vertical-align-element-container">
         <div class="titre-label">intitulé du champ</div>
-        <input name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
+        {% set delete_input_visibility = 'style=display:none' %}
+        {% if label is defined and label | trim is not empty %}
+            {% set delete_input_visibility = '' %}
+        {% endif %}
+        <input class="removable-content-input fixed-size" name="intitule" type="text" value ="{{ (label is defined)?label:"" }}" placeholder="par exemple : nom de l'agence, région, etc.">
+        <span class="delete-input" {{ delete_input_visibility }}></span>
     </label>    
 </div>
 <div class="row line" >

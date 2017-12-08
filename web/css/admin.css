@@ -3521,3 +3521,20 @@ button.btn-valider-etat .uploaded{
     display: flex !important;
     justify-content: space-evenly;
 }
+
+.vertical-align-element-container{
+	display: flex !important;
+	align-items: center;
+}
+
+.vertical-align-element-container .delete-input{
+	position: static;
+}
+
+.vertical-align-element-container .delete-input{
+	margin-left: 10px !important;
+}
+
+.vertical-align-element-container label{
+	margin-bottom: 0 !important;
+}

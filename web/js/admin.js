@@ -371,4 +371,48 @@ $(document).ready(function(){
 		$('div#sidebar a#contenus span.text-menu').css('color', 'var(--couleur_2)');
 		$('div#sidebar a#contenus span.numero-menu').css({'color':'var(--couleur_2)', 'border':'1px solid var(--couleur_2)'});
 	}
+
+    /**
+     * *********************************************************************************************
+     * Bouton/Lien suppression contenu de champ de texte
+     * *********************************************************************************************
+     */
+    $(document).on('input', '.removable-content-input', function(e){
+        e.preventDefault();
+        if($(this).hasClass('fixed-size')){
+            if('' != $(this).val().trim()){
+                $(this).next('.delete-input').show();
+                $(this).next('.delete-input').css({
+					'float': 'none',
+					'position': 'static'
+				});
+			} else {
+                $(this).next('.delete-input').hide();
+			}
+		} else {
+            if('' != $(this).val().trim()){
+                $(this).next('.delete-input').show();
+                $(this).addClass('quite-large-input-text');
+            } else {
+                $(this).next('.delete-input').hide();
+                $(this).removeClass('quite-large-input-text');
+            }
+		}
+    });
+
+    $(document).on('click', '.delete-input', function(e){
+        e.preventDefault();
+        $(this).prev('input[type=text]').val('');
+        $(this).prev('input[type=text]').removeClass('quite-large-input-text');
+        if($(this).parents('.delete-input-common-container').find('.message-preview').length > 0){
+            $(this).parents('.delete-input-common-container').find('.message-preview').text('');
+		}
+        $(this).hide();
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+	 * Bouton/Lien suppression contenu de champ de texte
+     * *********************************************************************************************
+     */
 });

@@ -118,7 +118,7 @@
                         </div>
                         <div class="row tab-content">
                             {% for slide in home_page_slide_data_form.home_page_slides %}
-                                <div class="col-lg-12 col-md-12 col-sm-12 tab-pane {{ 1 == tab_index_values['id-'~slide.vars.value.getId] ? 'in active' : '' }}" id="tab-form-{{ tab_index_values['id-'~slide.vars.value.getId] }}" data-tab-index="{{ tab_index_values['id-'~slide.vars.value.getId] }}">
+                                <div class="delete-input-common-container col-lg-12 col-md-12 col-sm-12 tab-pane {{ 1 == tab_index_values['id-'~slide.vars.value.getId] ? 'in active' : '' }}" id="tab-form-{{ tab_index_values['id-'~slide.vars.value.getId] }}" data-tab-index="{{ tab_index_values['id-'~slide.vars.value.getId] }}">
                                     {% set video_url_block_style = 'style=display:none' %}
                                     {% if slide.vars.value.slideType == constant('VIDEO', slide_type) %}
                                         {% set video_url_block_style = '' %}
@@ -130,7 +130,14 @@
                                         <div class="col-lg-10 col-md-10 col-sm-12">
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    {{ form_widget(slide.video_url, {"attr": {"class": "large-input-text"}}) }}
+                                                    {% set input_size_class = '' %}
+                                                    {% set delete_input_visibility = 'style=display:none' %}
+                                                    {% if slide.vars.value.videoUrl | trim is not empty %}
+                                                        {% set input_size_class = 'quite-large-input-text' %}
+                                                        {% set delete_input_visibility = '' %}
+                                                    {% endif %}
+                                                    {{ form_widget(slide.video_url, {"attr": {"class": "large-input-text removable-content-input "~input_size_class}}) }}
+                                                    <span class="delete-input" {{ delete_input_visibility }}></span>
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 info-container">
                                                     <p>url youtube, vimeo, depuis votre serveur, etc.</p>
@@ -258,7 +265,7 @@
                                         {% endif %}
                                         <div class="col-lg-12 col-md-12 col-sm-12 slide-image-preview-container {{ '' == slide_image ? 'no-image' : '' }}">
                                             <div class="no-image-block"></div>
-                                            <span class="slide-message-preview">{{ slide.vars.value.message }}</span>
+                                            <span class="slide-message-preview message-preview">{{ slide.vars.value.message }}</span>
                                             <img class="image-preview slide-image-preview" src="{{ '' != slide_image ? asset(content_home_page_slide_image_location~slide_image) : '' }}">
                                         </div>
                                     </div>
@@ -305,7 +312,7 @@
                             {% endfor %}
                         </div>
                         <div class="block-model-container">
-                            <div class="col-lg-12 col-md-12 col-sm-12 tab-pane block-model tab-content-model">
+                            <div class="delete-input-common-container col-lg-12 col-md-12 col-sm-12 tab-pane block-model tab-content-model">
                                 <div class="row form-element-container video-slide-block">
                                     <div class="col-lg-2 col-md-2 col-sm-12">
                                         {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.video_url, 'url de la vidéo') }}
@@ -313,7 +320,8 @@
                                     <div class="col-lg-10 col-md-10 col-sm-12">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.video_url, {"attr": {"class": "large-input-text"}}) }}
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.video_url, {"attr": {"class": "large-input-text removable-content-input"}}) }}
+                                                <span class="delete-input" style="display: none;"></span>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12 info-container">
                                                 <p>url youtube, vimeo, depuis votre serveur, etc.</p>
@@ -436,7 +444,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 slide-image-preview-container no-image">
                                         <div class="no-image-block"></div>
-                                        <span class="slide-message-preview"></span>
+                                        <span class="slide-message-preview message-preview"></span>
                                         <img class="image-preview slide-image-preview" src="">
                                     </div>
                                 </div>

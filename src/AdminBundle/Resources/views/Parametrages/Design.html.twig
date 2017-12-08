@@ -50,9 +50,14 @@
                 </div>
                 {{ form_start(site_design_form_logo) }}
                     <div class = "row full-width second-logo">                    
-                        <div class = "col-12 col-md-10 logo-row">
+                        <div class = "col-12 col-md-10 logo-row vertical-align-element-container">
                             <label for="site_design_setting_logo_name"><span class='bld'>nom de la société *</span></label>
-                            {{ form_widget(site_design_form_logo.logo_name) }}                            
+                            {% set delete_input_visibility = 'style=display:none' %}
+                            {% if site_design_form_logo.vars.value.logoName | trim is not empty %}
+                                {% set delete_input_visibility = '' %}
+                            {% endif %}
+                            {{ form_widget(site_design_form_logo.logo_name, {"attr": {"class": "removable-content-input fixed-size"}}) }}
+                            <span class="delete-input" {{ delete_input_visibility }}></span>
                         </div>
                         <div class = "col-12 col-md-10 logo-row">
                             <div class="upload-bloc">

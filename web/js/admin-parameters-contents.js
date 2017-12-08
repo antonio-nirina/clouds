@@ -487,7 +487,7 @@ $(document).ready(function(){
      * suppression donnée de champ
      * *********************************************************************************************
      */
-    $(document).on('input', '.removable-content-input', function(e){
+    /*$(document).on('input', '.removable-content-input', function(e){
         e.preventDefault();
         if('' != $(this).val().trim()){
             $(this).next('.delete-input').show();
@@ -504,7 +504,7 @@ $(document).ready(function(){
         $(this).prev('input[type=text]').removeClass('quite-large-input-text');
         $(this).parents('.tab-pane').find('.slide-message-preview').text('');
         $(this).hide();
-    });
+    });*/
     /**
      * *********************************************************************************************
      * FIN
