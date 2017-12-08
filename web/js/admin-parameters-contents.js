@@ -502,6 +502,7 @@ $(document).ready(function(){
         e.preventDefault();
         $(this).prev('input[type=text]').val('');
         $(this).prev('input[type=text]').removeClass('quite-large-input-text');
+        $(this).parents('.tab-pane').find('.slide-message-preview').text('');
         $(this).hide();
     });
     /**
@@ -511,11 +512,6 @@ $(document).ready(function(){
      * suppression donnée de champ
      * *********************************************************************************************
      */
-
-
-
-
-
 
 
 
