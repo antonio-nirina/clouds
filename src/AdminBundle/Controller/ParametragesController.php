@@ -1676,20 +1676,15 @@ class ParametragesController extends Controller
 			//On lit tous les fichiers images
 			$finder = new Finder();
  
-			$files = $finder
-				->files()
-				->in($RootProgramm)
-				->sortByChangedTime()
-				->getIterator();
+			$files = $finder->files()->in($RootProgramm)->sortByChangedTime()->getIterator();
 			
 			$ListeFile = array();
-			foreach (new LimitIterator($files, 0, 5) as $file) {
-				$ListeFile[] = $file;
+			foreach ($files as $file) {
+				$ListeFile[] = 'pages_standard/'.$program->getId().'/'.$file->getRelativePathname();
 			}
 			
-			echo '<pre>';
-			print_r($ListeFile);
-			echo '</pre>';
+			$response = $this->forward('AdminBundle:PartialPage:afficheListImgEditor',array('datas' => $ListeFile));
+			return new Response($response->getContent());
 		}
 		
 		return new Response('');

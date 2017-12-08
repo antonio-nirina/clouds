@@ -277,7 +277,7 @@ function ListeImgGalerie(programme_id){
 		data: 'programme_id='+programme_id+'',                         
 		type: 'POST',
 		success: function(response){
-			alert(response);
+			$('div.conteneur-liste-galery').html(response);
 		}
 	});
 }
