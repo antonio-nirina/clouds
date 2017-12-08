@@ -117,6 +117,17 @@ $(document).ready(function(){
         }
     });
 
+    $('.rank.performances input').on('change', function() {
+        var checked = $(this).is(':checked');
+        $(this).parents('form').find('div.performance').each(function () {
+            if (checked) {
+                $(this).find('input[type=hidden]').val('on');
+            } else {
+                $(this).find('input[type=hidden]').val('off');
+            }
+        });
+    });
+
     //declartion import
     $('.btn-valider.btn-download').on('click',  function(){
         $('form[name=result_setting]').submit();

@@ -7,6 +7,7 @@ use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Component\SiteForm\SiteFormType;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
+use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Entity\HomePageSlide;
 use AdminBundle\Entity\LoginPortalSlide;
 use AdminBundle\Entity\Program;
@@ -20,7 +21,10 @@ use AdminBundle\Form\FormStructureType;
 use AdminBundle\Form\HomePageEditorialType;
 use AdminBundle\Form\HomePageSlideDataType;
 use AdminBundle\Form\LoginPortalDataType;
+use AdminBundle\Form\PointAttributionSettingPerformance1Type;
+use AdminBundle\Form\PointAttributionSettingPerformance2Type;
 use AdminBundle\Form\ProgramPeriodPointType;
+use AdminBundle\Form\ProgramPointAttributionType;
 use AdminBundle\Form\ProgramRankType;
 use AdminBundle\Form\RegistrationFormHeaderDataType;
 use AdminBundle\Form\RegistrationFormIntroDataType;
@@ -40,7 +44,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use AdminBundle\Component\Slide\SlideType;
 
 /**
  * @Route("/admin/parametrages")
@@ -1563,6 +1566,54 @@ class ParametragesController extends Controller
 
         $this->container->get('admin.period_point')->deletePeriodPointProduct($program, $product_group);
         return new Response('done');
+    }
+
+    /**
+     * @Route("/points/performances", name="admin_point_performance")
+     */
+    public function perfomancePointAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+
+        if (empty($program)) {//redirection si program n'existe pas
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $program = $this->container->get('admin.point_attribution')->setPerformance1($program);
+        $performance_form1 = $this->createForm(
+            ProgramPointAttributionType::class,
+            $program,
+            array(
+                'entry_type_class' => PointAttributionSettingPerformance1Type::class
+            )
+        );
+        if ($request->get("ca-points")) {
+            $performance_form1->handleRequest($request);
+            if ($performance_form1->isSubmitted() && $performance_form1->isValid()) {
+                $em->flush();
+            }
+        }
+
+        $program = $this->container->get('admin.point_attribution')->setPerformance2($program);
+        $performance_form2 = $this->createForm(
+            ProgramPointAttributionType::class,
+            $program,
+            array(
+                'entry_type_class' => PointAttributionSettingPerformance2Type::class
+            )
+        );
+        if ($request->get("classment-points")) {
+            $performance_form2->handleRequest($request);
+            if ($performance_form2->isSubmitted() && $performance_form2->isValid()) {
+                $em->flush();
+            }
+        }
+
+        return $this->render('AdminBundle:Parametrages:performance_point.html.twig', array(
+            'performance_form1' => $performance_form1->createView(),
+            'performance_form2' => $performance_form2->createView(),
+        ));
     }
 
 	

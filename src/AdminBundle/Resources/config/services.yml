@@ -38,5 +38,9 @@ services:
     admin.period_point:
         class: AdminBundle\Manager\PeriodPointManager
         arguments: ['@doctrine.orm.entity_manager']
+
+    admin.point_attribution:
+        class: AdminBundle\Manager\PointAttributionManager
+        arguments: ['@doctrine.orm.entity_manager']
     
 

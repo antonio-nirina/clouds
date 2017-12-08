@@ -28,12 +28,9 @@ class RoleRankType extends AbstractType
                                 "min" => 0,
                                 "max" => 100,
                                 "minMessage" => "Pour les récompenses, entrer une valeur entre 0 à 100%",
-                                "maxMessage" => "Pour les récompenses, entrer une valeur entre 0 à 100%"
+                                "maxMessage" => "Pour les récompenses, entrer une valeur entre 0 à 100%",
+                                "invalidMessage" => "Entrer des valeurs numériques pour les récompenses"
                                 )),
-                        new Type(array(
-                                'type' => "numeric",
-                                "message" => "Entrer des valeurs numériques pour les récompenses",
-                            )),
                     )
                 ))
         ;

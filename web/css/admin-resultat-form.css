@@ -777,6 +777,9 @@ input[type="checkbox"].mode:checked + label > span {
 .img-point-periode {
     background: url('../images/cloudsRewards/saison.png') center center no-repeat;
 }
+.img-point-performances {
+    background: url('../images/cloudsRewards/img-performance.png') -28px -12px no-repeat;
+}
 .bld2 {
     font-family: var(--police_bold);
     font-size: 15px;
@@ -816,6 +819,9 @@ input[type="checkbox"].mode:checked + label > span {
     display: inline-flex;
     flex-flow: column wrap;*/
     /*border-collapse: collapse;*/
+}
+input:focus, button:focus {
+    outline: none !important;
 }
 .column > div {
     width: 100%;
@@ -896,20 +902,65 @@ form[name="program_rank"] .row > span {
     text-align: right;
     border: 1px solid;
     border-radius: 7px;
-    padding: 5px 5px 5px 10px;
+    padding: 5px 10px 5px 10px;
 }
 .rank_header .recompense, .rank_header .denomination {
     padding-left: 15px;
 }
-
+.performances div span{
+    font-size: 15px;
+    color: #404040 !important;
+    font-family: var(--police);
+}
+.performance {
+    margin-top: 15px;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 15px;
+    color: #404040 !important;
+    font-family: var(--police);
+    display: flex;
+    flex-flow: row wrap;
+}
+.performance span {
+    display: flex;
+    align-items: center;
+}
+.performance > span:first-of-type {
+    margin-right: -8px;
+}
+.performance span, .performance span input {
+    margin-left: 15px;    
+}
+.performance span input {
+    max-width: 150px;
+}
+.performance input[type=text] {
+    border: 1px solid;
+    border-radius: 7px;
+    padding: 5px 20px 5px 10px;
+    text-align: right;
+    margin-top: 5px;
+}
+.performance span label {    
+    margin-bottom: 0;
+    min-width: 15px;
+    margin: 0 10px;
+}
 @media only screen and (min-width: 1200px) {
     .button-row.btn-content-retour-valider {
         width: 75% !important;
+    }
+    .performance > span:nth-child(2) label {
+        margin-left: 0;
     }
 }
 @media only screen and (max-width: 1199px) {
     .tab-pane.period {
         flex-flow: row wrap;
+    }
+    .performance > span:first-of-type {
+        width: 100%;
     }
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -1000,5 +1051,14 @@ form[name="program_rank"] .row > span {
     }
     .btn-content-retour-valider {
         width: 100% !important;
+    }
+    .performance, .performance > span {
+        padding-left: 0;
+    }
+    .performance > span {
+        margin-left: 0;
+    }
+    .performance span label {
+        margin: 0 5px;
     }
 }

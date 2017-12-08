@@ -145,6 +145,12 @@ class Program
     private $site_page_standard;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\PointAttributionSetting", mappedBy="program")
+     */
+    private $point_attribution_setting;
+    
+
+    /**
      * @ORM\PrePersist
      */
     public function initProgram()
@@ -807,5 +813,40 @@ class Program
     public function getSitePageStandard()
     {
         return $this->site_page_standard;
+    }
+    
+
+    /**
+     * Add pointAttributionSetting
+     *
+     * @param \AdminBundle\Entity\PointAttributionSetting $pointAttributionSetting
+     *
+     * @return Program
+     */
+    public function addPointAttributionSetting(\AdminBundle\Entity\PointAttributionSetting $pointAttributionSetting)
+    {
+        $this->point_attribution_setting[] = $pointAttributionSetting;
+
+        return $this;
+    }
+
+    /**
+     * Remove pointAttributionSetting
+     *
+     * @param \AdminBundle\Entity\PointAttributionSetting $pointAttributionSetting
+     */
+    public function removePointAttributionSetting(\AdminBundle\Entity\PointAttributionSetting $pointAttributionSetting)
+    {
+        $this->point_attribution_setting->removeElement($pointAttributionSetting);
+    }
+
+    /**
+     * Get pointAttributionSetting
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPointAttributionSetting()
+    {
+        return $this->point_attribution_setting;
     }
 }

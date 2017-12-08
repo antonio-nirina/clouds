@@ -2372,7 +2372,8 @@ li.options{
 	}
 	
 	.add.btn-next-product{
-		width:162px!important;
+		width: auto !important;
+		/*width:162px!important;*/
 	}
 	
 	.sortable-table input[type="checkbox"] + label > span, .modal .modal-content input[type="radio"] + label > span{
@@ -2792,7 +2793,8 @@ li.options{
 	}
 	
 	.add.btn-next-product{
-		width:162px!important;
+		width: auto!important;
+		/*width:162px!important;*/
 	}
 	
 	.btn-etape-suivante, .btn-etape-contacter{

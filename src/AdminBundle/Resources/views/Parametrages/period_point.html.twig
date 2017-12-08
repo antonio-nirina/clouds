@@ -42,7 +42,7 @@
                             </li>
 
                             <li class="nav-item-niv-3 form-imports">
-                                <a class="nav-link-niv-3 menu-page" href="#">performances </a>
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_performance") }}">performances </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                         </ul>
@@ -139,6 +139,7 @@
                                 </div>
                             {% endfor %}                
                         </div>
+                        <div class="error-message-container"></div>
                         <div class = "row full-width">
                             <div class = "col-12 col-md-12">
                                 <div class="validation">
@@ -152,12 +153,16 @@
                     {{ form_end(period_point) }}                    
 
                     <div class="error-message-container">
+                        {% set errorArray = [] %}
                         {% for pps in period_point.period_point_setting %}
                             {% for gain in pps.gain %} 
-                                {% if form_errors(gain) %}                               
-                                    {{ form_errors(gain) }}
+                                {% if (form_errors(gain) and (form_errors(gain) not in errorArray)) %}
+                                    {% set errorArray = errorArray|merge([form_errors(gain)]) %}
                                 {% endif %}
                             {% endfor %}
+                        {% endfor %}
+                        {% for error in errorArray %}
+                            {{ error|raw }}
                         {% endfor %}
                     </div>
                 </section>

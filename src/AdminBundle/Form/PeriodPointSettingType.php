@@ -23,10 +23,11 @@ class PeriodPointSettingType extends AbstractType
                             'required' => false,
                             'constraints' => array(
                                 new Range(array(
-                                "min" => 0,
-                                "max" => 1000,
-                                "maxMessage" => "Vous avez entré une valeur trop élevé",
-                                "minMessage" => ""
+                                    "min" => 0,
+                                    "max" => 1000,
+                                    "maxMessage" => "Vous avez entré une valeur trop élevé",
+                                    "minMessage" => "N'accepte pas les valeurs négatives",
+                                    'invalidMessage' => "Entrer des valeurs numériques à la place des NaN"
                                 )),
                             )
                         ),
