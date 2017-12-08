@@ -638,6 +638,13 @@ th label {
 #site_design_setting_logo_name {
     min-width: 75%;
 }
+
+#site_design_setting_logo_name + .delete-input{
+    margin-left: 4px !important;
+    position: relative;
+    top: 5px;
+}
+
 /*
 input[type=text] {
     padding-left: 15px;
@@ -971,7 +978,7 @@ form[name="program_rank"] .row > span {
         width: 88% !important;
     }
     #site_design_setting_logo_name {
-        width: 90% !important;
+        width: 80% !important;
     }     
     .table-network input[type=text] {
         width: 100%;
@@ -1002,3 +1009,10 @@ form[name="program_rank"] .row > span {
         width: 100% !important;
     }
 }
+
+@media only screen and (min-width: 1200px) and (max-width: 1320px) {
+    #site_design_setting_logo_name {
+        min-width: 70%;
+    }
+}
+
