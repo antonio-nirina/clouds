@@ -142,11 +142,14 @@ class PartialPageController extends Controller
 		));
 	}
 	
-	public function affichePopUpImgEditorAction(array $datas){
+	public function affichePopUpImgEditorAction(array $datas, $programm){
 		//On recupere les infos de la page parametrés
 		$em = $this->getDoctrine()->getManager();
 		
-		return $this->render('AdminBundle:PartialPage/Ajax:affichePopUpImgEditor.html.twig');
+		return $this->render('AdminBundle:PartialPage/Ajax:affichePopUpImgEditor.html.twig', array(
+			'datas' => $datas,
+			'programm' => $programm
+		));
 	}
 	
 	public function afficheListImgEditorAction(array $datas){

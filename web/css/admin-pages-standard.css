@@ -434,7 +434,7 @@ p.chargementAjax img{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: black;
+	background: #AAAAAA;
 	z-index: 100;
 	opacity: 0.5;
 	display:none;
@@ -451,27 +451,35 @@ p.chargementAjax img{
 	margin-top: -100px;
 	z-index: 2000;
 	display:none;
-	border: 2px solid #9AB8F3;
+	/*border: 2px solid #9AB8F3;*/
 	border-radius: 5px;
+	box-shadow: 1.5px 1.5px 2px #AAAAAA;
 }
 
 #body-popup h3.titrePopUp{
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	background: #9AB8F3;
+	/*background: #9AB8F3;*/
 	color: white;
 	font-size: 20px;
 	font-family: var(--police_bold);
 	padding: 10px;
 	position:relative;
+	color: #AAAAAA;
 }
 
 #body-popup h3.titrePopUp span#fermerPopUp{
-	position:absolute;
-	right:5px;
-	color:red;
-	cursor:pointer;
+	position: absolute;
+	right: 5px;
+	color: white;
+	cursor: pointer;
+	background: #AAAAAA;
+	font-size: 14px;
+	padding: 6px;
+	border-radius: 16px;
+	width: 26px;
+	text-align: center;
 }
 
 .conteneur-form-insert-img-ckeditor{
@@ -483,8 +491,9 @@ p.chargementAjax img{
 }
 
 .conteneur-liste-galery{
-	height: 180px;
+	height: 202px;
 	border: 1px dashed #505050;
+	overflow:auto;
 }
 
 #btn-inserer-img-editor-ok{
@@ -493,4 +502,36 @@ p.chargementAjax img{
 
 .cke_button__insertimagecloudrewards_icon{
 	background: url('../ckeditor-uploader/plugins/insertimagecloudrewards/icons/insertimagecloudrewards.png') no-repeat 0 -816px !important;
+}
+
+ul.liste-img-galery{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+ul.liste-img-galery li{
+	margin-top:27px;
+}
+
+ul.liste-img-galery li img{
+	
+}
+
+.img-list{
+	width:100%;
+	height:100%;
+	object-fit: cover;
+}
+
+.select-img-editor{
+	left:4px!important;
+	top:1px!important;
+}
+
+.title-liste-img-galery{
+	position:relative;
+	width:100%;
+	background:#505050;
+	height:20px;
 }

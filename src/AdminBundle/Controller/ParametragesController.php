@@ -1629,7 +1629,7 @@ class ParametragesController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		
 		if ($request->isMethod('POST')) {
-			$response = $this->forward('AdminBundle:PartialPage:affichePopUpImgEditor',array('datas' => array()));
+			$response = $this->forward('AdminBundle:PartialPage:affichePopUpImgEditor',array('datas' => array(), 'programm' => $program));
 			return new Response($response->getContent());
 		}else{
 			return new Response('');
@@ -1680,7 +1680,10 @@ class ParametragesController extends Controller
 			
 			$ListeFile = array();
 			foreach ($files as $file) {
-				$ListeFile[] = 'pages_standard/'.$program->getId().'/'.$file->getRelativePathname();
+				$ListeFile[] = array(
+					'url' => '/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
+					'nom' => $file->getRelativePathname()
+				);
 			}
 			
 			$response = $this->forward('AdminBundle:PartialPage:afficheListImgEditor',array('datas' => $ListeFile));
