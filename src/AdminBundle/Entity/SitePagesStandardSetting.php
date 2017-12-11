@@ -249,7 +249,7 @@ class SitePagesStandardSetting
 
     public function getUploadRootDir()
     {
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../web/content/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -285,12 +285,14 @@ class SitePagesStandardSetting
      */
     public function setPath($path)
     {
+		/*
 		$InfosPath = pathinfo($path);
 		$extension = $InfosPath['extension'];
 		$filename = $InfosPath['filename'];
 		$Path = $this->removeAccents($filename).'.'.$extension;
+		*/
 		
-        $this->path = $Path;
+        $this->path = $path;
 
         return $this;
     }

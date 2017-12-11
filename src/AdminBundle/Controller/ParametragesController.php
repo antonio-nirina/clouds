@@ -1774,7 +1774,7 @@ class ParametragesController extends Controller
 			$ListeFile = array();
 			foreach ($files as $file) {
 				$ListeFile[] = array(
-					'url' => '/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
+					'url' => '/content/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
 					'nom' => $file->getRelativePathname()
 				);
 			}
