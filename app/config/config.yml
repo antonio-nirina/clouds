@@ -120,3 +120,8 @@ liip_imagine:
             filters:
                 relative_resize:
                     widen: 750
+
+        1920_width_filter:
+            filters:
+                upscale:                    
+                    min: [1920, 346]

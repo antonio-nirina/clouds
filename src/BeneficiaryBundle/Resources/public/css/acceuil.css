@@ -1922,3 +1922,9 @@ a:active,a:link,a:focus{color:#505050;outline-style:none;}
 	display:inline-block;
 	opacity:0.5;
 }
+.bg-slide > .row {
+	background: -webkit-linear-gradient(to bottom, transparent 30%, var(--couleur_6) 100%);
+	background: -o-linear-gradient(to bottom, transparent 30%, var(--couleur_6) 100%);
+	background: -moz-linear-gradient(to bottom, transparent 30%, var(--couleur_6) 100%);
+	background: linear-gradient(to bottom, transparent 30%, var(--couleur_6) 100%);
+}
