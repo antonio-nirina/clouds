@@ -1201,3 +1201,70 @@ a.blue-anchor{
 .large-input-text.no-margin-left{
     margin-left: 0 !important;
 }
+
+
+/**
+ * spécifique aux pages points
+ */
+.img-point-product{
+    background:url('../images/cloudsRewards/point-product.png');
+    background-position: -78px -13px;
+}
+
+.nav-tabs-container.top-container{
+    margin-top: 0 !important;
+}
+
+.color2 {
+    color: var(--couleur_2);
+}
+.bld {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.input-text.short{
+    width: 150px !important;
+    margin: 8px 0;
+}
+
+.symbol{
+    margin-left: 10px;
+}
+
+.vertical-align-element-container div{
+    display: flex;
+    align-items: center;
+}
+
+.option-label{
+    margin-bottom: 20px;
+}
+
+.next-option-container{
+    margin-top: 30px;
+}
+
+.slice-value-container{
+    padding: 0 15px;
+}
+
+.slice-value-container div{
+    display: inline-flex;
+    align-items: center;
+}
+
+.slice-value-container .label{
+    width: 25px;
+    margin: 0 5px 0 5px;
+}
+
+.slice-value-container .slice-label-container{
+    width: auto;
+}
+
+@media only screen and (max-width: 1100px){
+    .slice-value-container .slice-label-container{
+        width: 100%
+    }
+}

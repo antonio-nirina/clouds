@@ -1659,6 +1659,19 @@ class ParametragesController extends Controller
         ));
     }
 
+    /**
+     * @Route("/points/produits", name="admin_point_product")
+     */
+    public function productPointAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Parametrages:product_point.html.twig');
+    }
+
 	
 	/**
      * @Route(

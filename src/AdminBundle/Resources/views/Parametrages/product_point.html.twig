@@ -1,0 +1,213 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':4})) }}
+    {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_point_product") }}">produits</a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_point_product") }}">produits</a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_periode") }}">périodes </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_rang") }}">rang </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+
+                            <li class="nav-item-niv-3 form-imports">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_performance") }}">performances </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <section class="fieldset active">
+                    <div class="row">
+                        <div class="col-12 col-md-9">
+                            <h3 class="hidden-sm-down block-title">Cette rubrique vous permet de définir les règles d'attribution des points en fonction du CA généré par vos participants</h3>
+                            <h5 class="hidden-md-up block-title">Cette rubrique vous permet de définir les règles d'attribution des points en fonction du CA généré par vos participants</h5>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="hidden-sm-down corner-circle-img img-point-product rounded-circle"></div>
+                        </div>
+                    </div>
+                    <div class="row nav-tabs-container top-container">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs fieldset-nav-tabs">
+                                <a class="tab nav-tab active" data-toggle="tab" href="#tab-form-1">
+                                    <span class="tab-name-container">CA ou produit 1</span>
+                                    <span class="delete-tab"></span>
+                                </a>
+                                <a class="tab nav-tab" data-toggle="tab" href="#tab-form-1">
+                                    <span class="tab-name-container">produit 2</span>
+                                    <span class="delete-tab"></span>
+                                </a>
+                                <a href="#" class="tab add-option-tab add">
+                                    <span>ajouter un produit</span>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row tab-content">
+                        <div class="col-12 tab-pane active" id="tab-form-1">
+                            <p class="bld color2">Choisissez votre option :</p>
+                            <div class="row">
+                                <div class="col-1">
+                                    <input type="checkbox" name="assignment-option" class="styled-checkbox bigger" id="turnover-proportional-option">
+                                    <label for="turnover-proportional-option"></label>
+                                </div>
+                                <div class="col-11">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label for="turnover-proportional-option" class="option-label">attribution des points proportionnelle au CA</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-md-4">
+                                                    <label>pourcentage de récompense</label>
+                                                </div>
+                                                <div class="col-12 col-md-8 vertical-align-element-container">
+                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-md-4">
+                                                    <label>seuil minimum de CA récompensé</label>
+                                                </div>
+                                                <div class="col-12 col-md-8 vertical-align-element-container">
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-md-4">
+                                                    <label>seuil maximum de CA récompensé</label>
+                                                </div>
+                                                <div class="col-12 col-md-8 vertical-align-element-container">
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row next-option-container">
+                                <div class="col-1">
+                                    <input type="checkbox" name="assignment-option" class="styled-checkbox bigger" id="slice-turnover-proportional-option">
+                                    <label for="slice-turnover-proportional-option"></label>
+                                </div>
+                                <div class="col-11">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label for="slice-turnover-proportional-option" class="option-label">attribution des points par tranches de CA</label>
+                                                </div>
+                                            </div>
+                                            <div class="row slice-value-container">
+                                                <div class="slice-label-container">
+                                                    <span>tranche A</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">de</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">à</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">=</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="row slice-value-container">
+                                                <div class="slice-label-container">
+                                                    <span>tranche B</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">de</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">à</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">=</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="row slice-value-container">
+                                                <div class="slice-label-container">
+                                                    <span>tranche C</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">de</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">à</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    <label class="label">=</label>
+                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row submit-button-container">
+                        <div class="col-lg-12">
+                            <button class ="btn-valider valider submit-form">
+                                valider
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class = "row separator"></div>
+    </main>
+{% endblock %}
