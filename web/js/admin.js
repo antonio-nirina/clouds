@@ -389,13 +389,19 @@ $(document).ready(function(){
 			} else {
                 $(this).next('.delete-input').hide();
 			}
-		} else {
+		} else if ($(this).hasClass('large-input-text')) {
             if('' != $(this).val().trim()){
                 $(this).next('.delete-input').show();
                 $(this).addClass('quite-large-input-text');
             } else {
                 $(this).next('.delete-input').hide();
                 $(this).removeClass('quite-large-input-text');
+            }
+		} else {
+            if('' != $(this).val().trim()){
+                $(this).next('.delete-input').show();
+            } else {
+                $(this).next('.delete-input').hide();
             }
 		}
     });
