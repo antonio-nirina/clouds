@@ -24,4 +24,28 @@ class TestController extends Controller
 
         return new Response('<html><body>Finished!!</body></html>');
     }
+
+    /**
+     * @Route("/test/upper-rank")
+     */
+    public function testUpperRankAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $program = $this->container->get('admin.program')->getCurrent();
+        dump($program);
+        $result = $em->getRepository('AdminBundle:Role')
+            ->findHigherRank($program, 3);
+        $result1 = $em->getRepository('AdminBundle:Role')
+            ->findByProgram($program);
+        $container = $this->container->get("AdminBundle\Service\PointAttribution\SalesPointAttribution");
+        $date = new \DateTime();
+        $data = \DateTime::createFromFormat('m', 1);
+        dump(date_format($data, 'F'));
+        dump(date_format($date, 'l jS F'));
+        dump($container);
+        dump($result);
+        dump($result1);
+
+        return new Response('<html><body>Finished!!</body></html>');
+    }
 }

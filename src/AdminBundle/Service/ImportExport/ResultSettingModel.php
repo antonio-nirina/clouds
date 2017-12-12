@@ -37,7 +37,7 @@ class ResultSettingModel
     const RANK_SPECIAL_FIELD_INDEX_LIST = array(
         "Fonction",
         "Rang",
-        "Réseau"
+        // "Réseau"
     );
 
     private $user_header_list;
@@ -88,7 +88,7 @@ class ResultSettingModel
             $this->createRankInfoBlock();
         }
         if ($by_product) {
-            $this->createProductInfoBlock(3);
+            $this->createProductInfoBlock(5);
         } else {
             $this->createProductInfoBlock();
         }
@@ -142,7 +142,7 @@ class ResultSettingModel
 
         $this->createSimpleInfoElement("Fonction");
         $this->createSimpleInfoElement("Rang");
-        $this->createSimpleInfoElement("Réseau");
+        // $this->createSimpleInfoElement("Réseau");
 
         if (!in_array($this->current_row, $this->header_row_index_list)) {
             array_push($this->header_row_index_list, $this->current_row); // to save user data headers row index
@@ -164,7 +164,7 @@ class ResultSettingModel
 
         for ($i = 1; $i <= $nb; $i++) {
             $this->createSimpleInfoElement("Produit $i");
-            $this->createSimpleInfoElement("Précédent $i");
+            // $this->createSimpleInfoElement("Précédent $i");
 
             if ($nb > 1) {
                 $this->createSimpleInfoElement("Dénomination $i");

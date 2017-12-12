@@ -10,8 +10,14 @@
     {% endembed %}
 {% endblock %}
 
-{% block slide %}
-    <div class="container bg-slide" style={{ (background_link)?"background:url(#{asset(background_link|imagine_filter('1920_width_filter'))});background-size:cover":"" }}>
+{% block slide %}    
+    <div class="container bg-slide" style={{ (background_link)?"background:none":"" }}>
+        {% if background_link %}
+            <div class="background">
+                <img src="{{ asset(background_link|imagine_filter('1920_width_filter')) }}">
+                <div></div>
+            </div>
+        {% endif %}
         <div class="row">
             <div class="col-12 content-body">
                 <div class = "slide-lefter">&nbsp;</div>

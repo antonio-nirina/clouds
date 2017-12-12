@@ -150,11 +150,13 @@
                     {% endif %}
                 </div>
 
+
                 {% for message in app.flashes('success_message') %}
                     <div class="message-container">
                         {{ message }}
                     </div>
                 {% endfor %}
+                <div class="error-message-container"></div>
             </section>
         </div>
     </div>

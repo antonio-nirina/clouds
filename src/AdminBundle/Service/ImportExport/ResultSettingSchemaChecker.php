@@ -5,8 +5,8 @@ use AdminBundle\Service\FileHandler\CSVHandler;
 use AdminBundle\Service\ImportExport\SchemaChecker;
 use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class ResultSettingSchemaChecker extends ResultSettingValidator
 {
@@ -23,11 +23,11 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
 
     public function __construct(
         CSVHandler $csv_handler,
-        Container $container,
         EntityManager $em,
+        Container $container,
         ValidatorInterface $validator
     ) {
-        parent::__construct($csv_handler, $em, $validator);
+        parent::__construct($csv_handler, $em, $container, $validator);
         $this->container = $container;
     }
 
