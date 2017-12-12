@@ -5,6 +5,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AdminBundle\Entity\PointAttributionSetting;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ProductPointTurnoverSliceUnitType extends AbstractType
 {
@@ -12,11 +15,7 @@ class ProductPointTurnoverSliceUnitType extends AbstractType
     {
         $builder->add('min_value', TextType::class)
             ->add('max_value', TextType::class)
-            ->add('gain', TextType::class)
-            ->add('status', ChoiceType::class, array(
-                'multiple' => true,
-                'expanded' => true,
-            ));
+            ->add('gain', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

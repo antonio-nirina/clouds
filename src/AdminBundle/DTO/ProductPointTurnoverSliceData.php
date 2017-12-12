@@ -14,6 +14,11 @@ class ProductPointTurnoverSliceData
         $this->product_point_attribution_settings = new ArrayCollection();
     }
 
+    public function getProductPointAttributionSettings()
+    {
+        return $this->product_point_attribution_settings;
+    }
+
     public function addProductPointAttributionSettings(PointAttributionSetting $setting)
     {
         $this->product_point_attribution_settings[] = $setting;

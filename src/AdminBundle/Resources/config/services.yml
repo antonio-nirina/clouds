@@ -42,5 +42,9 @@ services:
     admin.point_attribution:
         class: AdminBundle\Manager\PointAttributionManager
         arguments: ['@doctrine.orm.entity_manager']
+
+    AdminBundle\Manager\ProductPointAttributionManager:
+        class: AdminBundle\Manager\ProductPointAttributionManager
+        autowire: true
     
 

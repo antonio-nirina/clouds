@@ -513,6 +513,27 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Points - Produits
+     * checkbox option
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.point-attribution-option', function(e){
+        $(this).parents('.tab-pane').find('.point-attribution-option').not($(this)).prop('checked', false);
+        if(!$(this).is(':checked')){
+            $(this).prop('checked', true);
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIn
+     * Paramétrages - Points - Produits
+     * checkbox option
+     * *********************************************************************************************
+     */
+
 
 
 	$(document).on('click', 'span#nom-domaine-choix-ok' ,function(){

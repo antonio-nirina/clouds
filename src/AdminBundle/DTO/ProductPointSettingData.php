@@ -13,6 +13,11 @@ class ProductPointSettingData
         $this->product_point_setting_list = new ArrayCollection();
     }
 
+    public function getProductPointSettingList()
+    {
+        return $this->product_point_setting_list;
+    }
+
     public function addProductPointSettingList(ProductPointSettingUnitData $unit)
     {
         $this->product_point_setting_list[] = $unit;

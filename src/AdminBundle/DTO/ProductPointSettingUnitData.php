@@ -8,7 +8,13 @@ class ProductPointSettingUnitData
 {
     private $product_point_turnover_proportional;
     private $product_point_turnover_slice;
+    private $product_group;
+    private $new_status;
 
+    public function __construct()
+    {
+        $this->new_status = true;
+    }
 
     public function setProductPointTurnoverProportional(PointAttributionSetting $point_attribution_setting)
     {
@@ -33,4 +39,28 @@ class ProductPointSettingUnitData
     {
         return $this->product_point_turnover_slice;
     }
+    public function getProductGroup()
+    {
+        return $this->product_group;
+    }
+
+    public function setProductGroup($product_group)
+    {
+        $this->product_group = $product_group;
+
+        return $this;
+    }
+
+    public function getNewStatus()
+    {
+        return $this->new_status;
+    }
+
+    public function setNewStatus($status)
+    {
+        $this->new_status = $status;
+
+        return $this;
+    }
+
 }
