@@ -32,7 +32,7 @@
                                     {% if slide.image is not null and slide.image is not empty %}
 										{% if slide.SlideType == 'video-slide' %}
 											<img id = "video-slide" src="{{ asset(content_home_page_slide_image_location~slide.image) | imagine_filter('750_width_filter')}}" alt="" width = "100%" class = "logo-img" />
-											<span id = "video-slide-play-btn"></span>
+											<span id = "video-slide-play-btn" class = "video-slide-play-btn" data-url = "{{ slide.Id }}"></span>
 											<span id = "bg-video-slide-play-btn"></span>
 										{% else %}
 											<img src="{{ asset(content_home_page_slide_image_location~slide.image) | imagine_filter('750_width_filter')}}" alt="" width = "100%" class = "logo-img" />
@@ -57,7 +57,7 @@
                                     {% if slide.image is not null and slide.image is not empty %}
 										{% if slide.SlideType == 'video-slide' %}
 											<img id = "video-slide" src="{{ asset(content_home_page_slide_image_location~slide.image) }}" alt="" width = "100%"  class = "logo-img" />
-											<span id = "video-slide-play-btn"></span>
+											<span id = "video-slide-play-btn" class = "video-slide-play-btn" data-url = "{{ slide.Id }}"></span>
 											<span id = "bg-video-slide-play-btn"></span>
 										{% else %}
 											<img src="{{ asset(content_home_page_slide_image_location~slide.image) }}" alt="" width = "100%"  class = "logo-img" />
@@ -413,6 +413,10 @@
         <!-- FIN CENTER -->
 
     </div>
+	
+	<p class = "chargementAjax">
+		<img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+	</p>
 {% endblock %}
 
 {% block footer %}
@@ -423,6 +427,7 @@
             <script src="{{ asset('bundles/beneficiary/js/swiper.min.js') }}"></script>
             <script src="{{ asset('bundles/beneficiary/js/acceuil.js') }}"></script>
             <script>
+				var UrlAfficheVideo = "{{ path("beneficiary_home_video_lecture") }}";
 				var swiper = new Swiper('.swiper-container', {
 				  spaceBetween: 30,
 				  centeredSlides: true,

@@ -1,0 +1,36 @@
+<h3 class = "titrePopUp"><span id = "fermerPopUp">X</span></h3>
+<div class = "conteneur-lecteur-video">
+	{% if IsSiteYoutube %}
+	<!-- DEBUT YOUTUBE -->
+	<div class = "video-youtube">
+		<object type="application/x-shockwave-flash" width="95%" height="95%" data="http://www.youtube.com/v/{{ videos }}&amp;hl=fr">
+			<param name="movie" value="http://www.youtube.com/v/{{ videos }}&amp;hl=fr" />
+			<param name="wmode" value="transparent" />
+		</object>
+		
+		<!--[if lte IE 6 ]>
+			<embed src="http://www.youtube.com/v/{{ videos }}&amp;hl=fr" type="application/x-shockwave-flash" wmode="transparent" width="95%" height="95%"></embed>
+		<![endif]-->
+	</div>
+	<!-- FIN YOUTUBE -->
+	{% endif %}
+	
+	{% if IsSiteDaily %}
+	<!-- DEBUT DAILYMOTION -->
+	
+	<div class = "dailymotion">
+		<iframe frameborder="0" width="95%" height="95%" src="//www.dailymotion.com/embed/video/{{ videos }}" allowfullscreen></iframe>
+		<object type="application/x-shockwave-flash" width="95%" height="95%" data="http://www.dailymotion.com/swf/{{ videos }}&amp;v3=1&amp;related=1">
+			<param name="movie" value="http://www.dailymotion.com/swf/{{ videos }}&amp;v3=1&amp;related=1" />
+			<param name="allowFullScreen" value="true" />
+			<param name="allowScriptAccess" value="always" />
+			<param name="wmode" value="transparent" />
+		</object>
+		<!--[if lte IE 6 ]>
+			<embed src="http://www.dailymotion.com/swf/{{ videos }}&amp;v3=1&amp;related=1" type="application/x-shockwave-flash" width="95%" height="95%" allowFullScreen="true" allowScriptAccess="always"></embed>
+		<![endif]-->
+	</div>
+	<!-- FIN DAILYMOTION -->
+	{% endif %}
+	
+</div>

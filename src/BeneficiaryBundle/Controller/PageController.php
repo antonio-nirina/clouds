@@ -4,6 +4,8 @@ namespace BeneficiaryBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use AdminBundle\Entity\HomePageSlide;
 
 class PageController extends Controller
 {
@@ -50,4 +52,24 @@ class PageController extends Controller
             'background_link' => $background_link
         ));
     }
+	
+	/**
+     * @Route("/beneficiary-home/video/lecture", name="beneficiary_home_video_lecture")
+     */
+    public function LectureVideoAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$IdVideo = $request->get('video_id');
+			$VideoSlide = $em->getRepository("AdminBundle:HomePageSlide")->find($IdVideo);
+			$response = $this->forward('BeneficiaryBundle:PartialPage:afficheLecteurVideo',array('videos' => $VideoSlide, 'programm' => $program));
+			return new Response($response->getContent());
+		}else{
+			return new Response('');
+		}
+	}
 }

@@ -193,4 +193,37 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+	//Lecture video
+	$(document).on('click', 'span.video-slide-play-btn', function(){
+		var IdVideo = $(this).attr('data-url');
+		
+		//Ouvre le popUp
+		$('#conteneur-popup').show();
+		$('#body-popup').removeAttr('style');
+		$('#body-popup').show();
+		$('#body-popup').html('');
+		
+		var Chargements = $('p.chargementAjax').clone();
+		$('#body-popup').html(Chargements);
+		$('#body-popup').find('p.chargementAjax').show();
+		
+		setTimeout(function(){
+			$.ajax({
+				type: 'POST',
+				url: UrlAfficheVideo,
+				data:'video_id='+IdVideo+'',
+				success: function(retour){
+					$('div#body-popup').html(retour);
+				}
+			});
+		}, 500);
+	});
+	
+	//fermer popUp 
+	$(document).on('click', 'span#fermerPopUp', function(){
+		$('#conteneur-popup').hide();
+		$('#body-popup').hide();
+		$('#body-popup').html('');
+	});
 });

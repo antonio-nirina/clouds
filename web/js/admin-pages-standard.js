@@ -225,6 +225,7 @@ $(document).ready(function(){
 					$('#id-lib-upload-'+IdImg+'').addClass('upload');
 					$('#lib-btn-pages-'+IdImg+'').html('choisissez un fichier...');
 					$('#img-delete-img-'+IdImg+'').hide();
+					$('span#img-preview-'+IdImg+' img').remove();
 				}
             }
         });
