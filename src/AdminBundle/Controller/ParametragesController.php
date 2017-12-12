@@ -45,6 +45,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use AdminBundle\Component\Slide\SlideType;
 use Symfony\Component\Finder\Finder;
+use AdminBundle\Form\ProductPointType;
 
 /**
  * @Route("/admin/parametrages")
@@ -1662,14 +1663,51 @@ class ParametragesController extends Controller
     /**
      * @Route("/points/produits", name="admin_point_product")
      */
-    public function productPointAction()
+    public function productPointAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        return $this->render('AdminBundle:Parametrages:product_point.html.twig');
+        $product_point_attrib_manager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
+        $product_point_setting_data = $product_point_attrib_manager->createProductPointSettingData($program);
+
+        $form_factory = $this->get("form.factory");
+        $product_point_attribution_form = $form_factory->createNamed(
+            'product_point_attribution_form',
+            ProductPointType::class,
+            $product_point_setting_data
+        );
+
+        $original_product_setting_datas = new ArrayCollection();
+        foreach ($product_point_setting_data->getProductPointSettingList() as $setting_data) {
+            $original_product_setting_datas->add($setting_data);
+        }
+
+        $product_point_attribution_form->handleRequest($request);
+
+        $product_point_errors = array();
+        if ($product_point_attribution_form->isSubmitted() && $product_point_attribution_form->isValid()) {
+            $product_point_option_checker = $this->get('AdminBundle\Service\ProductPoint\ProductPointOptionChecker');
+            $errors = $product_point_option_checker->check($product_point_setting_data);
+            if (empty($errors)) {
+                $product_point_attrib_manager->saveProductPointSettingData(
+                    $product_point_setting_data,
+                    $program
+                );
+
+                return $this->redirectToRoute('admin_point_product');
+
+            } else {
+                $product_point_errors = $errors;
+            }
+        }
+
+        return $this->render('AdminBundle:Parametrages:product_point.html.twig', array(
+            'product_point_attribution_form' => $product_point_attribution_form->createView(),
+            'product_point_errors' => $product_point_errors,
+        ));
     }
 
 	

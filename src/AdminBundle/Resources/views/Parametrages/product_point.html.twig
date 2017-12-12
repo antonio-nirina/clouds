@@ -66,17 +66,23 @@
                             <div class="hidden-sm-down corner-circle-img img-point-product rounded-circle"></div>
                         </div>
                     </div>
+
+
+                    {% if product_point_attribution_form is defined %}
+                        {{ form_start(product_point_attribution_form, {"attr": {"novalidate": "novalidate"}}) }}
                     <div class="row nav-tabs-container top-container">
                         <div class="col-12">
                             <ul class="nav nav-tabs fieldset-nav-tabs">
-                                <a class="tab nav-tab active" data-toggle="tab" href="#tab-form-1">
-                                    <span class="tab-name-container">CA ou produit 1</span>
+                                {% for product_point_setting in product_point_attribution_form.product_point_setting_list %}
+                                <a class="tab nav-tab {{ 1 == loop.index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ loop.index }}">
+                                    {% set tab_name_label_prefix = 'produit ' %}
+                                    {% if product_point_setting.vars.value.productGroup == 1 %}
+                                        {% set tab_name_label_prefix = 'CA ou produit ' %}
+                                    {% endif  %}
+                                    <span class="tab-name-container">{{ tab_name_label_prefix~product_point_setting.vars.value.productGroup }}</span>
                                     <span class="delete-tab"></span>
                                 </a>
-                                <a class="tab nav-tab" data-toggle="tab" href="#tab-form-1">
-                                    <span class="tab-name-container">produit 2</span>
-                                    <span class="delete-tab"></span>
-                                </a>
+                                {% endfor %}
                                 <a href="#" class="tab add-option-tab add">
                                     <span>ajouter un produit</span>
                                 </a>
@@ -84,43 +90,59 @@
                         </div>
                     </div>
                     <div class="row tab-content">
-                        <div class="col-12 tab-pane active" id="tab-form-1">
+                        {% for product_point_setting in product_point_attribution_form.product_point_setting_list %}
+                        <div class="col-12 tab-pane {{ 1 == loop.index ? 'active' : '' }}" id="tab-form-{{ loop.index }}">
+                            {% set key = 'product-'~product_point_setting.vars.value.productGroup %}
+                            {% if (product_point_errors is defined) and (product_point_errors is not empty) and (key in product_point_errors|keys) %}
+                            <div class="error-message-container">
+                                {{ product_point_errors[key] }}
+                            </div>
+                            {% endif %}
                             <p class="bld color2">Choisissez votre option :</p>
                             <div class="row">
                                 <div class="col-1">
-                                    <input type="checkbox" name="assignment-option" class="styled-checkbox bigger" id="turnover-proportional-option">
-                                    <label for="turnover-proportional-option"></label>
+                                    {#<input type="checkbox" name="assignment-option" class="styled-checkbox bigger" id="turnover-proportional-option">#}
+                                    {{ form_widget(product_point_setting.product_point_turnover_proportional.status, {'attr': {'class': 'styled-checkbox bigger point-attribution-option'}}) }}
+                                    {#<label for="turnover-proportional-option"></label>#}
+                                    <label for="{{ product_point_setting.product_point_turnover_proportional.status.vars.id }}"></label>
                                 </div>
                                 <div class="col-11">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <label for="turnover-proportional-option" class="option-label">attribution des points proportionnelle au CA</label>
+                                                    {#<label for="turnover-proportional-option" class="option-label">attribution des points proportionnelle au CA</label>#}
+                                                    {{ form_label(product_point_setting.product_point_turnover_proportional.status, 'attribution des points proportionnelle au CA', {"label_attr": {"class": "option-label"}}) }}
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 col-md-4">
-                                                    <label>pourcentage de récompense</label>
+                                                    {#<label>pourcentage de récompense</label>#}
+                                                    {{ form_label(product_point_setting.product_point_turnover_proportional.gain, 'pourcentage de récompense') }}
                                                 </div>
                                                 <div class="col-12 col-md-8 vertical-align-element-container">
-                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
+                                                    {#<input type="text" class="input-text short"><span class="symbol">%</span>#}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_proportional.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 col-md-4">
-                                                    <label>seuil minimum de CA récompensé</label>
+                                                    {#<label>seuil minimum de CA récompensé</label>#}
+                                                    {{ form_label(product_point_setting.product_point_turnover_proportional.min_value, 'seuil minimum de CA récompensé') }}
                                                 </div>
                                                 <div class="col-12 col-md-8 vertical-align-element-container">
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                    {#<input type="text" class="input-text short"><span class="symbol">€</span>#}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_proportional.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 col-md-4">
-                                                    <label>seuil maximum de CA récompensé</label>
+                                                    {#<label>seuil maximum de CA récompensé</label>#}
+                                                    {{ form_label(product_point_setting.product_point_turnover_proportional.max_value, 'seuil maximum de CA récompensé') }}
                                                 </div>
                                                 <div class="col-12 col-md-8 vertical-align-element-container">
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
+                                                    {#<input type="text" class="input-text short"><span class="symbol">€</span>#}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_proportional.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,73 +151,50 @@
                             </div>
                             <div class="row next-option-container">
                                 <div class="col-1">
-                                    <input type="checkbox" name="assignment-option" class="styled-checkbox bigger" id="slice-turnover-proportional-option">
-                                    <label for="slice-turnover-proportional-option"></label>
+                                    {#<input type="checkbox" name="assignment-option" class="styled-checkbox bigger" id="slice-turnover-proportional-option">#}
+                                    {{ form_widget(product_point_setting.product_point_turnover_slice.status, {"attr": {"class": "styled-checkbox bigger point-attribution-option"}}) }}
+                                    <label for="{{ product_point_setting.product_point_turnover_slice.status.vars.id }}"></label>
                                 </div>
                                 <div class="col-11">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <label for="slice-turnover-proportional-option" class="option-label">attribution des points par tranches de CA</label>
+                                                    {#<label for="slice-turnover-proportional-option" class="option-label">attribution des points par tranches de CA</label>#}
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.status, 'attribution des points par tranches de CA', {"label_attr": {"class": "option-label"}} ) }}
                                                 </div>
                                             </div>
-                                            <div class="row slice-value-container">
-                                                <div class="slice-label-container">
-                                                    <span>tranche A</span>
+                                            {% for slice_setting in product_point_setting.product_point_turnover_slice.product_point_attribution_settings %}
+                                                <div class="row slice-value-container">
+                                                    <div class="slice-label-container">
+                                                        <span>{{ slice_setting.vars.value.name }}</span>
+                                                    </div>
+                                                    <div>
+                                                        {#<label class="label">de</label>#}
+                                                        {{ form_label(slice_setting.min_value, 'de', {"label_attr": {"class": "label"}}) }}
+                                                        {#<input type="text" class="input-text short"><span class="symbol">€</span>#}
+                                                        {{ form_widget(slice_setting.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {#<label class="label">à</label>#}
+                                                        {{ form_label(slice_setting.max_value, 'à', {"label_attr": {"class": "label"}}) }}
+                                                        {#<input type="text" class="input-text short"><span class="symbol">€</span>#}
+                                                        {{ form_widget(slice_setting.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {#<label class="label">=</label>#}
+                                                        {{ form_label(slice_setting.gain, '=', {"label_attr": {"class": "label"}}) }}
+                                                        {#<input type="text" class="input-text short"><span class="symbol">%</span>#}
+                                                        {{ form_widget(slice_setting.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <label class="label">de</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">à</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">=</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
-                                                </div>
-                                            </div>
-                                            <div class="row slice-value-container">
-                                                <div class="slice-label-container">
-                                                    <span>tranche B</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">de</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">à</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">=</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
-                                                </div>
-                                            </div>
-                                            <div class="row slice-value-container">
-                                                <div class="slice-label-container">
-                                                    <span>tranche C</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">de</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">à</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">€</span>
-                                                </div>
-                                                <div>
-                                                    <label class="label">=</label>
-                                                    <input type="text" class="input-text short"><span class="symbol">%</span>
-                                                </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                     <div class="row submit-button-container">
                         <div class="col-lg-12">
@@ -204,10 +203,21 @@
                             </button>
                         </div>
                     </div>
+                        {{ form_end(product_point_attribution_form) }}
+                    {% endif %}
                 </section>
             </div>
         </div>
 
         <div class = "row separator"></div>
     </main>
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
