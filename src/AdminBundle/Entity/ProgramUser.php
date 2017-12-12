@@ -42,6 +42,11 @@ class ProgramUser
     private $program_user_company;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\UserPoint", mappedBy="program_user")
+     */
+    private $user_point;
+
+    /**
      * Get id
      *
      * @return integer
@@ -169,5 +174,46 @@ class ProgramUser
     public function getProgramUserCompany()
     {
         return $this->program_user_company;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user_point = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add userPoint
+     *
+     * @param \AdminBundle\Entity\UserPoint $userPoint
+     *
+     * @return ProgramUser
+     */
+    public function addUserPoint(\AdminBundle\Entity\UserPoint $userPoint)
+    {
+        $this->user_point[] = $userPoint;
+
+        return $this;
+    }
+
+    /**
+     * Remove userPoint
+     *
+     * @param \AdminBundle\Entity\UserPoint $userPoint
+     */
+    public function removeUserPoint(\AdminBundle\Entity\UserPoint $userPoint)
+    {
+        $this->user_point->removeElement($userPoint);
+    }
+
+    /**
+     * Get userPoint
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserPoint()
+    {
+        return $this->user_point;
     }
 }

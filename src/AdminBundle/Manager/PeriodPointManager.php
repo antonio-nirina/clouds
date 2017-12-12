@@ -53,20 +53,11 @@ class PeriodPointManager
             $max = 1;
         }
 
-        $gain = array(
-            'janvier' => '',
-            'fevrier' => '',
-            'mars' => '',
-            'avril' => '',
-            'mai' => '',
-            'juin' => '',
-            'juillet' => '',
-            'aout' => '',
-            'septembre' => '',
-            'octobre' => '',
-            'novembre' => '',
-            'decembre' => '',
-        );
+        $gain = array();
+        for ($i=1; $i<=12; $i++) {
+            $opt = date_format(\DateTime::createFromFormat('m', $i), 'F');
+            $gain[$opt] = '';
+        }
 
         $period_point_setting = new PeriodPointSetting();
         $period_point_setting->setProductGroup($max)

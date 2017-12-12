@@ -65,6 +65,27 @@ class Sales
     private $program_user;
 
     /**
+     * @ORM\Column(name="period_attributed", type="boolean", nullable=true)
+     */
+    private $period_attributed;
+
+    /**
+     * @ORM\Column(name="rank_attributed", type="boolean", nullable=true)
+     */
+    private $rank_attributed;
+
+    /**
+     * @ORM\Column(name="performance_attributed", type="boolean", nullable=true)
+     */
+    private $performance_attributed;
+
+    /**
+     * @ORM\Column(name="product_attributed", type="boolean", nullable=true)
+     */
+    private $product_attributed;
+
+
+    /**
      * Get id
      *
      * @return integer
@@ -312,5 +333,102 @@ class Sales
     public function getProductGroup()
     {
         return $this->product_group;
+    }
+
+    
+    /**
+     * Set rankAttributed
+     *
+     * @param boolean $rankAttributed
+     *
+     * @return Sales
+     */
+    public function setRankAttributed($rankAttributed)
+    {
+        $this->rank_attributed = $rankAttributed;
+
+        return $this;
+    }
+
+    /**
+     * Get rankAttributed
+     *
+     * @return boolean
+     */
+    public function getRankAttributed()
+    {
+        return $this->rank_attributed;
+    }
+
+    /**
+     * Set performanceAttributed
+     *
+     * @param boolean $performanceAttributed
+     *
+     * @return Sales
+     */
+    public function setPerformanceAttributed($performanceAttributed)
+    {
+        $this->performance_attributed = $performanceAttributed;
+
+        return $this;
+    }
+
+    /**
+     * Get performanceAttributed
+     *
+     * @return boolean
+     */
+    public function getPerformanceAttributed()
+    {
+        return $this->performance_attributed;
+    }
+
+    /**
+     * Set productAttributed
+     *
+     * @param boolean $productAttributed
+     *
+     * @return Sales
+     */
+    public function setProductAttributed($productAttributed)
+    {
+        $this->product_attributed = $productAttributed;
+
+        return $this;
+    }
+
+    /**
+     * Get productAttributed
+     *
+     * @return boolean
+     */
+    public function getProductAttributed()
+    {
+        return $this->product_attributed;
+    }
+
+    /**
+     * Set periodAttributed
+     *
+     * @param boolean $periodAttributed
+     *
+     * @return Sales
+     */
+    public function setPeriodAttributed($periodAttributed)
+    {
+        $this->period_attributed = $periodAttributed;
+
+        return $this;
+    }
+
+    /**
+     * Get periodAttributed
+     *
+     * @return boolean
+     */
+    public function getPeriodAttributed()
+    {
+        return $this->period_attributed;
     }
 }

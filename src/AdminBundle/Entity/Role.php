@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\RoleRepository")
  * @ORM\Table(name="role")
  */
 class Role
@@ -38,11 +38,6 @@ class Role
      * @ORM\Column(name="active", type="boolean", nullable=false)
      */
     private $active;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $network;
 
     /**
      * @ORM\Column(name="gain", type="float", nullable=true)
@@ -177,30 +172,6 @@ class Role
     public function getProgramUsers()
     {
         return $this->program_users;
-    }
-
-    /**
-     * Set network
-     *
-     * @param string $network
-     *
-     * @return Role
-     */
-    public function setNetwork($network)
-    {
-        $this->network = $network;
-
-        return $this;
-    }
-
-    /**
-     * Get network
-     *
-     * @return string
-     */
-    public function getNetwork()
-    {
-        return $this->network;
     }
 
     /**
