@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\DataFixtures\ORM\RegistrationFormDataFixtures;
 use AppBundle\DataFixtures\ORM\LoginPortalDataFixtures;
 use AppBundle\DataFixtures\ORM\HomePageDataFixtures;
+use AppBundle\DataFixtures\ORM\PointAttributionTypeFixtures;
 
 class ProgramFixtures extends Fixture
 {
@@ -31,6 +32,15 @@ class ProgramFixtures extends Fixture
         $this->getReference('regist-form-data')->setProgram($program);
         $this->getReference('login-portal-data')->setProgram($program);
 
+        $program->addPointAttributionSetting($this->getReference('product-point-attrib-setting-1'));
+        $this->getReference('product-point-attrib-setting-1')->setProgram($program);
+        $program->addPointAttributionSetting($this->getReference('product-point-attrib-setting-2-1'));
+        $this->getReference('product-point-attrib-setting-2-1')->setProgram($program);
+        $program->addPointAttributionSetting($this->getReference('product-point-attrib-setting-2-2'));
+        $this->getReference('product-point-attrib-setting-2-2')->setProgram($program);
+        $program->addPointAttributionSetting($this->getReference('product-point-attrib-setting-2-3'));
+        $this->getReference('product-point-attrib-setting-2-3')->setProgram($program);
+
         $manager->persist($program);
         $manager->flush();
         
@@ -45,6 +55,7 @@ class ProgramFixtures extends Fixture
             RegistrationFormDataFixtures::class,
             LoginPortalDataFixtures::class,
             HomePageDataFixtures::class,
+            PointAttributionTypeFixtures::class
         );
     }
 }
