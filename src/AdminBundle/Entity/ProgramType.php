@@ -5,7 +5,7 @@ namespace AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\ProgramTypeRepository")
  * @ORM\Table(name="program_type")
  */
 class ProgramType

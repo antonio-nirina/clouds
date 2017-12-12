@@ -29,7 +29,8 @@
             <!-- FIN BODY -->
 
             <!-- FOOTER -->
-            {{ include("BeneficiaryBundle::page_footer.html.twig") }}
+            {#{ include("BeneficiaryBundle::page_footer.html.twig") }#}
+			{{ render(controller("BeneficiaryBundle:Page:PageFooter")) }}
             <!-- FIN FOOTER -->
 
         </div>

@@ -125,3 +125,9 @@ liip_imagine:
             filters:
                 upscale:                    
                     min: [1920, 346]
+
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true

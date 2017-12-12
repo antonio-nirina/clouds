@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\ProgramRepository")
  * @ORM\Table(name="program")
  * @ORM\HasLifecycleCallbacks()
  */

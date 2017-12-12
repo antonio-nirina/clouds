@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\ResultSettingRepository")
  * @ORM\Table(name="result_settings")
  */
 class ResultSetting

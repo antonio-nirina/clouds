@@ -41,8 +41,7 @@ class PageController extends Controller
         }
                 
         $em = $this->getDoctrine()->getManager();
-        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')
-            ->findByHomePageDataOrdered($home_page_data);
+        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')->findByHomePageDataOrdered($home_page_data);
 
         return $this->render('BeneficiaryBundle:Page:home.html.twig', array(
             'editorial' => $editorial,
@@ -71,5 +70,105 @@ class PageController extends Controller
 		}else{
 			return new Response('');
 		}
+	}
+	
+	
+	public function PageFooterAction() {
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		$em = $this->getDoctrine()->getManager();
+		$PageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
+		//$PageStandard = $PageStandard[0];
+		$ListePages = array();
+		foreach($PageStandard as $Pages){
+			if($Pages->getStatusPage() == '1'){
+				$ListePages[] = $Pages;
+			}
+		}
+		
+		
+		return $this->render('BeneficiaryBundle::page_footer.html.twig', array(
+			'ListePages' => $ListePages
+		));
+    }
+	
+
+	/**
+     * @Route(
+     *     "/beneficiary-home/pages/{id}",
+     *     name="beneficiary_home_pages_standard"),
+     *     requirements={"id": "\d+"}
+     */
+    public function AffichePagesStandardAction($id){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$table_network = $program->getSiteTableNetworkSetting();
+        $has_network = false;
+        if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
+            $has_network = true;
+        }
+		
+		$background_link = '';
+        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $background_link = $this->container->getParameter('background_path').'/'.$program->getId().'/'.$background;
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		$Pages = $em->getRepository('AdminBundle:SitePagesStandardSetting')->find($id);
+		
+		if(is_null($Pages)){
+			return $this->redirectToRoute('beneficiary_home');
+		}
+		
+		return $this->render('BeneficiaryBundle:Page:AffichePagesStandard.html.twig', array(
+            'has_network' => $has_network,
+            'table_network' => $table_network,
+            'background_link' => $background_link,
+			'Pages' => $Pages
+        ));
+	}
+	
+	/**
+     * @Route(
+     *     "/pages/{slug}",
+     *     name="beneficiary_home_pages_standard_slug")
+     */
+    public function AffichePagesStandardSlugAction($slug){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$table_network = $program->getSiteTableNetworkSetting();
+        $has_network = false;
+        if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
+            $has_network = true;
+        }
+		
+		$background_link = '';
+        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $background_link = $this->container->getParameter('background_path').'/'.$program->getId().'/'.$background;
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		$Pages = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findOneBy(array(
+           'slug' => $slug
+        ));
+		
+		if(is_null($Pages)){
+			return $this->redirectToRoute('beneficiary_home');
+		}
+		
+		return $this->render('BeneficiaryBundle:Page:AffichePagesStandard.html.twig', array(
+            'has_network' => $has_network,
+            'table_network' => $table_network,
+            'background_link' => $background_link,
+			'Pages' => $Pages
+        ));
 	}
 }

@@ -1787,7 +1787,7 @@ class ParametragesController extends Controller
 			$ListeFile = array();
 			foreach ($files as $file) {
 				$ListeFile[] = array(
-					'url' => '/content/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
+					'url' => '/web/content/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
 					'nom' => $file->getRelativePathname()
 				);
 			}
@@ -1870,7 +1870,6 @@ class ParametragesController extends Controller
 		}else{
 			$AllPages = $AllPagesDefault;
 		}
-		
 		
         return $this->render('AdminBundle:Parametrages:pages_standard.html.twig', array(
 			'AllPages' => $AllPages

@@ -5,6 +5,7 @@ namespace AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\SitePagesStandardSettingRepository")
@@ -35,7 +36,7 @@ class SitePagesStandardSetting
     private $menu_page;
 	
 	/**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contenu_page;
 	
@@ -58,6 +59,12 @@ class SitePagesStandardSetting
      * @Assert\File(maxSize="6000000")
      */
     private $img_page;
+	
+	/**
+     * @Gedmo\Slug(fields={"titre_page"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
 
 
     /**
@@ -312,4 +319,28 @@ class SitePagesStandardSetting
 		$text = str_replace(' ','',$string);
 		return strtr($text,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
 	}
+	
+	/**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return SitePagesStandardSetting
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return SitePagesStandardSetting
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }

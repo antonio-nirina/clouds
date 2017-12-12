@@ -1040,6 +1040,7 @@ ul.page-standards-footer{
 
 ul.page-standards-footer li{
 	display:inline-block;
+	margin-left: 13px;
 }
 
 ul.page-standards-footer li.page-reglement{
@@ -2393,4 +2394,22 @@ a:active,a:link,a:focus{color:#505050;outline-style:none;}
 	background: -o-linear-gradient(to bottom, transparent 30%, var(--couleur_6) 100%);
 	background: -moz-linear-gradient(to bottom, transparent 30%, var(--couleur_6) 100%);
 	background: linear-gradient(to bottom, transparent 30%, var(--couleur_6) 100%);
+}
+
+
+.img-entete-page-standard{
+	width:100%;
+	max-height:325px;
+}
+
+.src-entete-page-standard{
+	object-fit: cover;
+	display: block;
+	max-height: 325px;
+	width:100%;
+}
+
+.contenent-pages-stdr img{
+	max-width:100%;
+	height:auto;
 }

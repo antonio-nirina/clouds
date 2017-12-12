@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\SiteTableNetworkSettingRepository")
  * @ORM\Table(name="site_table_network_setting")
  */
 class SiteTableNetworkSetting

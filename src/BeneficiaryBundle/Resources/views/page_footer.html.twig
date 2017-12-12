@@ -8,9 +8,9 @@
 
                 <div class = "content-center-footer">
                     <ul class = "page-standards-footer">
-                        <li class = "page-mention-legale "><a class = "light" href = "">mentions légales</a></li>
-                        <li class = "page-reglement"><a class = "light" href = "">réglement</a></li>
-                        <li class = "page-contact"><a class = "light" href = "">contact</a></li>
+					{% for Pages in ListePages %}
+						<li class = "{{ Pages.TitrePage }}"><a class = "light" href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': Pages.Slug}) }}" target = "_blank">{{ Pages.TitrePage }}</a></li>
+					{% endfor %}
                     </ul>
 
                     <ul class = "rs-sociaux-footer">

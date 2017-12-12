@@ -171,7 +171,7 @@
 													<span class = "lib-form block">prévisualisation</span>
 													<span id = "img-preview-{{ Pages.Id }}" class = "previsualisation-im-page-standard block">
 														{% if Pages.Path is defined and Pages.Path is not null %}
-															<img src = "/content/pages_standards/{{ Pages.getProgram.Id }}{{asset(Pages.Path)}}" style = "width: inherit;max-height: inherit;object-fit: contain;" alt = "Chargement ...">
+															<img src = "{{asset('/web/content/pages_standards/'~Pages.getProgram.Id~'/'~Pages.Path)}}" style = "width: inherit;max-height: inherit;object-fit: contain;" alt = "Chargement ...">
 														{% endif %}
 													</span>
 												</label>
