@@ -80,18 +80,25 @@
                                         {% set tab_name_label_prefix = 'CA ou produit ' %}
                                     {% endif  %}
                                     <span class="tab-name-container">{{ tab_name_label_prefix~product_point_setting.vars.value.productGroup }}</span>
-                                    <span class="delete-tab"></span>
+                                    <span class="delete-tab" data-product-group="{{ product_point_setting.vars.value.productGroup }}"></span>
                                 </a>
                                 {% endfor %}
-                                <a href="#" class="tab add-option-tab add">
+                                <a href="#" class="tab add-option-tab add add-product-link">
                                     <span>ajouter un produit</span>
                                 </a>
                             </ul>
+                            <a class="tab nav-tab tab-model block-model" data-toggle="tab" href="">
+                                <span class="tab-name-container"></span>
+                                <span class="delete-tab" data-product-group=""></span>
+                            </a>
+                            <input type="hidden" name="delete_product_url" value="{{ path('admin_point_product_delete_product', {"product_group": "___pg___"}) }}">
                         </div>
                     </div>
                     <div class="row tab-content">
                         {% for product_point_setting in product_point_attribution_form.product_point_setting_list %}
                         <div class="col-12 tab-pane {{ 1 == loop.index ? 'active' : '' }}" id="tab-form-{{ loop.index }}">
+                            {{ form_widget(product_point_setting.product_group, {"attr": {"class": "product-group-input"}}) }}
+
                             {% set key = 'product-'~product_point_setting.vars.value.productGroup %}
                             {% if (product_point_errors is defined) and (product_point_errors is not empty) and (key in product_point_errors|keys) %}
                             <div class="error-message-container">
@@ -164,31 +171,57 @@
                                                     {{ form_label(product_point_setting.product_point_turnover_slice.status, 'attribution des points par tranches de CA', {"label_attr": {"class": "option-label"}} ) }}
                                                 </div>
                                             </div>
-                                            {% for slice_setting in product_point_setting.product_point_turnover_slice.product_point_attribution_settings %}
-                                                <div class="row slice-value-container">
-                                                    <div class="slice-label-container">
-                                                        <span>{{ slice_setting.vars.value.name }}</span>
-                                                    </div>
-                                                    <div>
-                                                        {#<label class="label">de</label>#}
-                                                        {{ form_label(slice_setting.min_value, 'de', {"label_attr": {"class": "label"}}) }}
-                                                        {#<input type="text" class="input-text short"><span class="symbol">€</span>#}
-                                                        {{ form_widget(slice_setting.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
-                                                    </div>
-                                                    <div>
-                                                        {#<label class="label">à</label>#}
-                                                        {{ form_label(slice_setting.max_value, 'à', {"label_attr": {"class": "label"}}) }}
-                                                        {#<input type="text" class="input-text short"><span class="symbol">€</span>#}
-                                                        {{ form_widget(slice_setting.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
-                                                    </div>
-                                                    <div>
-                                                        {#<label class="label">=</label>#}
-                                                        {{ form_label(slice_setting.gain, '=', {"label_attr": {"class": "label"}}) }}
-                                                        {#<input type="text" class="input-text short"><span class="symbol">%</span>#}
-                                                        {{ form_widget(slice_setting.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
-                                                    </div>
+                                            <div class="row slice-value-container">
+                                                <div class="slice-label-container">
+                                                    <span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.vars.value.name }}</span>
                                                 </div>
-                                            {% endfor %}
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.min_value, 'de', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.max_value, 'à', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.gain, '=', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="row slice-value-container">
+                                                <div class="slice-label-container">
+                                                    <span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.vars.value.name }}</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.min_value, 'de', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.max_value, 'à', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.gain, '=', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                                </div>
+                                            </div>
+                                            <div class="row slice-value-container">
+                                                <div class="slice-label-container">
+                                                    <span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.vars.value.name }}</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.min_value, 'de', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.max_value, 'à', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                </div>
+                                                <div>
+                                                    {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.gain, '=', {"label_attr": {"class": "label"}}) }}
+                                                    {{ form_widget(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -196,7 +229,119 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="row submit-button-container">
+                    <input type="hidden" name="add_product_url" value="{{ path('admin_point_product_add_product') }}">
+                    <div class="block-model-container">
+                            <div class="col-12 tab-pane block-model tab-content-model">
+                                {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_group, {"attr": {"class": "product-group-input"}}) }}
+                                <p class="bld color2">Choisissez votre option :</p>
+                                <div class="row">
+                                    <div class="col-1">
+                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.status, {'attr': {'class': 'styled-checkbox bigger point-attribution-option'}}) }}
+                                        <label for="{{ product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.status.vars.id }}"></label>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.status, 'attribution des points proportionnelle au CA', {"label_attr": {"class": "option-label"}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                                {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.gain, 'pourcentage de récompense') }}
+                                            </div>
+                                            <div class="col-12 col-md-8 vertical-align-element-container">
+                                                {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                                {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.min_value, 'seuil minimum de CA récompensé') }}
+                                            </div>
+                                            <div class="col-12 col-md-8 vertical-align-element-container">
+                                                {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-4">
+                                                {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.max_value, 'seuil maximum de CA récompensé') }}
+                                            </div>
+                                            <div class="col-12 col-md-8 vertical-align-element-container">
+                                                {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_proportional.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row next-option-container">
+                                    <div class="col-1">
+                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.status, {"attr": {"class": "styled-checkbox bigger point-attribution-option"}}) }}
+                                        <label for="{{ product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.status.vars.id }}"></label>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="row">
+                                            <div class="col-12 slice-value-list-container">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.status, 'attribution des points par tranches de CA', {"label_attr": {"class": "option-label"}} ) }}
+                                                    </div>
+                                                </div>
+                                                <div class="row slice-value-container">
+                                                    <div class="slice-label-container">
+                                                        <span>tranche A</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_a.min_value, 'de', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_a.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_a.max_value, 'à', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_a.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_a.gain, '=', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_a.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row slice-value-container">
+                                                    <div class="slice-label-container">
+                                                        <span>tranche B</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_b.min_value, 'de', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_b.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_b.max_value, 'à', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_b.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_b.gain, '=', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_b.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row slice-value-container">
+                                                    <div class="slice-label-container">
+                                                        <span>tranche C</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_c.min_value, 'de', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_c.min_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_c.max_value, 'à', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_c.max_value, {"attr": {"class": "input-text short"}}) }}<span class="symbol">€</span>
+                                                    </div>
+                                                    <div>
+                                                        {{ form_label(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_c.gain, '=', {"label_attr": {"class": "label"}}) }}
+                                                        {{ form_widget(product_point_attribution_form.product_point_setting_list.vars.prototype.product_point_turnover_slice.product_point_turnover_slice_c.gain, {"attr": {"class": "input-text short"}}) }}<span class="symbol">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row submit-button-container">
                         <div class="col-lg-12">
                             <button class ="btn-valider valider submit-form">
                                 valider
@@ -217,7 +362,7 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
-            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>
+            <script src="{{ asset('js/admin-point.js') }}"></script>
         {% endblock %}
     {% endembed %}
 {% endblock %}

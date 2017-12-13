@@ -6,30 +6,10 @@ use AdminBundle\Entity\PointAttributionSetting;
 
 class ProductPointTurnoverSliceData
 {
-    private $product_point_attribution_settings;
     private $status;
-
-    public function __construct()
-    {
-        $this->product_point_attribution_settings = new ArrayCollection();
-    }
-
-    public function getProductPointAttributionSettings()
-    {
-        return $this->product_point_attribution_settings;
-    }
-
-    public function addProductPointAttributionSettings(PointAttributionSetting $setting)
-    {
-        $this->product_point_attribution_settings[] = $setting;
-
-        return $this;
-    }
-
-    public function removeProductPointAttributionSettings(PointAttributionSetting $setting)
-    {
-        $this->product_point_attribution_settings->removeElement($setting);
-    }
+    private $product_point_turnover_slice_a;
+    private $product_point_turnover_slice_b;
+    private $product_point_turnover_slice_c;
 
     public function setStatus($status)
     {
@@ -41,5 +21,41 @@ class ProductPointTurnoverSliceData
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function setProductPointTurnoverSliceA(PointAttributionSetting $setting)
+    {
+        $this->product_point_turnover_slice_a = $setting;
+
+        return $this;
+    }
+
+    public function getProductPointTurnoverSliceA()
+    {
+        return  $this->product_point_turnover_slice_a;
+    }
+
+    public function setProductPointTurnoverSliceB(PointAttributionSetting $setting)
+    {
+        $this->product_point_turnover_slice_b = $setting;
+
+        return $this;
+    }
+
+    public function getProductPointTurnoverSliceB()
+    {
+        return  $this->product_point_turnover_slice_b;
+    }
+
+    public function setProductPointTurnoverSliceC(PointAttributionSetting $setting)
+    {
+        $this->product_point_turnover_slice_c = $setting;
+
+        return $this;
+    }
+
+    public function getProductPointTurnoverSliceC()
+    {
+        return  $this->product_point_turnover_slice_c;
     }
 }
