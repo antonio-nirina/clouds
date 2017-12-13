@@ -264,30 +264,6 @@ class Sales
     }
 
     /**
-     * Set program
-     *
-     * @param \AdminBundle\Entity\Program $program
-     *
-     * @return Sales
-     */
-    public function setProgram(\AdminBundle\Entity\Program $program = null)
-    {
-        $this->program = $program;
-
-        return $this;
-    }
-
-    /**
-     * Get program
-     *
-     * @return \AdminBundle\Entity\Program
-     */
-    public function getProgram()
-    {
-        return $this->program;
-    }
-
-    /**
      * Set programUser
      *
      * @param \AdminBundle\Entity\ProgramUser $programUser

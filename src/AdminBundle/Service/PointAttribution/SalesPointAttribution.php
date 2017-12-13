@@ -29,7 +29,6 @@ class SalesPointAttribution
                 $user_point->setProgramUser($program_user)
                             ->setDate(new \DateTime())
                             ->setAmount(($ca * $gain) / 100)
-                            // ->setPoint("")
                             ->setMotif("rang")
                             ->setReference("sales_".$sales->getId());
                 $this->em->persist($user_point);
@@ -52,7 +51,6 @@ class SalesPointAttribution
                             $user_point->setProgramUser($user)
                                 ->setDate(new \DateTime())
                                 ->setAmount(($ca * $gain) / 100)
-                                // ->setPoint("")
                                 ->setMotif("rang")
                                 ->setReference("sales_".$sales->getId());
                             $this->em->persist($user_point);
@@ -82,7 +80,7 @@ class SalesPointAttribution
                         'product_group' => $product_group
                     )
             );
-            if (!$period_point_setting && $product_group != 1) {
+            if (empty($period_point_setting) && $product_group != 1) {
                 $period_point_setting = $this->em->getRepository("AdminBundle:PeriodPointSetting")
                 ->findBy(
                     array(
@@ -96,12 +94,12 @@ class SalesPointAttribution
 
             if ($gain) {
                 $current_point = $user_point->getPoints();
-                $user_point ->setPoint(($current_point * $gain) /100);
+                $user_point ->setPoints(($current_point * $gain) /100)
+                            ->setMotif('produit, période');
+                $sales->setPeriodAttributed(true);
+                $this->em->flush();
             }
         }
-
-        $sales->setPeriodAttributed(true);
-        $this->em->flush();
 
         return $sales;
     }
@@ -114,12 +112,83 @@ class SalesPointAttribution
 
     public function attributedByProduct(Sales $sales)
     {
-        if (!$sales->getPeriodAttributed()) {
+        if (!$sales->getProductAttributed()) {
             $product_group = $sales->getProductGroup();
             $product_group = ($product_group)?$product_group:1;
+            $program_user = $sales->getProgramUser();
+            $program = $program_user->getProgram();
+            $ca = $sales->getCa();
+
+            $option_type_1 = $this->em->getRepository('AdminBundle:PointAttributionType')->findBy(
+                array("point_type_name" => 'product-turnover-proportional')
+            );
+            $option_type_2 = $this->em->getRepository('AdminBundle:PointAttributionType')->findBy(
+                array("point_type_name" => 'product-turnover-slice')
+            );
+
+            $product_point_setting1 = $this->getPointSetting($option_type_1, $product_group, $program);
+            if (empty($product_point_setting1)) {//ca general sinon
+                $product_group = 1;
+                $product_point_setting1 = $this->getPointSetting($option_type_1, $product_group, $program);
+            }
+
+            if ($product_point_setting1[0]->getStatus() == "on") {
+                $min = $product_point_setting1[0]->getMinValue();
+                $max = $product_point_setting1[0]->getMaxValue();
+                $gain = $product_point_setting1[0]->getGain();
+                if ($min && $max && $gain && $ca >= $min && $ca <= $max) {
+                    $user_point = new UserPoint();
+                    $user_point->setProgramUser($program_user)
+                        ->setDate(new \DateTime())
+                        ->setPoints(($ca * $gain) /100)
+                        ->setMotif("produit")
+                        ->setReference("sales_".$sales->getId());
+                    $this->em->persist($user_point);
+                    $this->attributedByPeriod($sales, $user_point);
+                    $sales->setProductAttributed(true);
+                    $this->em->flush();
+                }
+            } else {
+                $product_point_setting2 = $this->getPointSetting(
+                    $option_type_2,
+                    $product_group,
+                    $program
+                );
+
+                foreach ($product_point_setting2 as $point_setting) {
+                    $min = $point_setting->getMinValue();
+                    $max = $point_setting->getMaxValue();
+                    $gain = $point_setting->getGain();
+                    if ($min && $max && $gain && $ca >= $min && $ca <= $max) {
+                        $user_point = new UserPoint();
+                        $user_point->setProgramUser($program_user)
+                            ->setDate(new \DateTime())
+                            ->setPoints(($ca * $gain) /100)
+                            ->setMotif("produit")
+                            ->setReference("sales_".$sales->getId());
+                        $this->em->persist($user_point);
+                        $this->attributedByPeriod($sales, $user_point);
+                        $sales->setProductAttributed(true);
+                        $this->em->flush();
+                        break;
+                    }
+                }
+            }
         }
         
-        $sales->setProductAttributed(true);
         return $sales;
+    }
+
+    public function getPointSetting($type, $product_group, $program)
+    {
+        return $this->em
+                    ->getRepository('AdminBundle:PointAttributionSetting')
+                    ->findBy(
+                        array(
+                            "type" => $type,
+                            "product_group" => $product_group,
+                            "program" => $program,
+                        )
+                    );
     }
 }

@@ -289,12 +289,10 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 $this->manager->flush();
 
                 /* définition des points pour mise à jour des points */
+                $sales_point_attribution->attributedByProduct($sales); //by product and by period
                 if (array_key_exists("Fonction", $current_row)) {//by rank
                     $sales_point_attribution->attributedByRank($sales);
                 }
-                // if (array_key_exists("Période de", $current_row)) {//monthly
-                //     $sales_point_attribution->attributedByPeriod($sales);
-                // }
             }
         }
     }
