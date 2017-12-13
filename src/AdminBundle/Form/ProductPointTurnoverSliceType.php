@@ -16,11 +16,11 @@ class ProductPointTurnoverSliceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('product_point_attribution_settings', CollectionType::class, array(
-            'entry_type' => ProductPointTurnoverSliceUnitType::class,
-            'entry_options' => array('label' => false),
-        ))
-            ->add('status', CheckboxType::class);
+        $builder
+            ->add('status', CheckboxType::class)
+            ->add('product_point_turnover_slice_a', ProductPointTurnoverSliceUnitType::class)
+            ->add('product_point_turnover_slice_b', ProductPointTurnoverSliceUnitType::class)
+            ->add('product_point_turnover_slice_c', ProductPointTurnoverSliceUnitType::class);
 
         $builder->get('status')->addModelTransformer(new CallBackTransformer(
             function ($status) {

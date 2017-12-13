@@ -1697,6 +1697,14 @@ class ParametragesController extends Controller
                     $program
                 );
 
+                $product_point_attrib_manager->deleteUselessProductPointSettingData(
+                    $product_point_setting_data,
+                    $original_product_setting_datas,
+                    $program
+                );
+
+                $product_point_attrib_manager->flush();
+
                 return $this->redirectToRoute('admin_point_product');
 
             } else {
@@ -1708,6 +1716,44 @@ class ParametragesController extends Controller
             'product_point_attribution_form' => $product_point_attribution_form->createView(),
             'product_point_errors' => $product_point_errors,
         ));
+    }
+
+    /**
+     * @Route("/points/produits/ajout-produit", name="admin_point_product_add_product")
+     */
+    public function addProductPointAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+        $product_point_attrib_manager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
+        $created_product_group = $product_point_attrib_manager->newProductGroupPointAttribution($program);
+        if (-1 == $created_product_group) {
+            return new Response('');
+        }
+
+        return new Response('<html><body>'.$created_product_group.'</body></html>');
+    }
+
+    /**
+     * @Route(
+     *      "/points/produits/suppression-produit/{product_group}",
+     *      name="admin_point_product_delete_product"),
+     *      requirements={"product_group": "\d+"}
+     */
+    public function deleteProductPoinAction($product_group)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $product_point_attrib_manager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
+        $product_point_attrib_manager->deleteProductGroupPointAttribution($product_group, $program);
+        $product_point_attrib_manager->redefineProductGroup($product_group, $program);
+
+        return new Response('<html><body>OK</body></html>');
     }
 
 	
