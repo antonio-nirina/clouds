@@ -9,6 +9,8 @@ $(document).ready(function(){
 				$(this).find('span.checkon-onglet-choix-page').css('opacity', '0.5');
 			}
 		});
+		
+		$('input#onglet-selectionner-page').val($.trim($(this).find('span.lib-onglet-choix-page').html()));
 
 		$(this).removeClass('pages-list');
 		$(this).addClass('page-list-active');
@@ -96,7 +98,8 @@ $(document).ready(function(){
 		
 		HtmlNewPageContent += '<label class = "champForm">';
 		HtmlNewPageContent += '<span class = "lib-form">nom du menu</span>';
-		HtmlNewPageContent += '<input id = "input-menu-'+LastIdLi+'" class = "input-form-text renomer-page" type = "text" name = "menu_page[]" value = "Page '+LastNewPage+'" placeholder = "Page '+LastNewPage+'" style = "padding-left:10px!important;">';
+		HtmlNewPageContent += '<input id = "input-menu-'+LastIdLi+'" class = "input-form-text renomer-page" type = "text" name = "menu_page[]" value = "Page '+LastNewPage+'" style = "padding-left:10px!important;">';
+		HtmlNewPageContent += '<span class="delete-input"></span>';
 		HtmlNewPageContent += '</label>';
 		
 		HtmlNewPageContent += '<div class = "clearBoth"></div>';
@@ -109,14 +112,15 @@ $(document).ready(function(){
 		
 		HtmlNewPageContent += '<label class = "champForm">';
 		HtmlNewPageContent += '<span class = "lib-form">titre</span>';
-		HtmlNewPageContent += '<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "Page '+LastNewPage+'" placeholder = "Page '+LastNewPage+'">';
+		HtmlNewPageContent += '<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "Page '+LastNewPage+'">';
+		HtmlNewPageContent += '<span class="delete-input"></span>';
 		HtmlNewPageContent += '</label>';
 		
 		
 		HtmlNewPageContent += '<div class = "clearBoth"></div>';
 		
 		
-		HtmlNewPageContent += '<label class = "champForm">';
+		HtmlNewPageContent += '<div class = "champForm">';
 		HtmlNewPageContent += '<span class = "lib-form block">ajouter logo ou image</span>';
 		HtmlNewPageContent += '<button id = "btn-upload-img-page-standard-'+LastIdLi+'" class="btn-valider btn-upload choose-upload-img-button" type = "button">';
 		HtmlNewPageContent += '<span id = "id-lib-upload-'+LastIdLi+'" class="upload"></span> ';
@@ -127,7 +131,7 @@ $(document).ready(function(){
 		HtmlNewPageContent += '<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>';
 		HtmlNewPageContent += '<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>';
 		HtmlNewPageContent += '</div>';
-		HtmlNewPageContent += '</label>';
+		HtmlNewPageContent += '</div>';
 		
 		HtmlNewPageContent += '<div class = "clearBoth"></div>';
 		
@@ -306,7 +310,18 @@ $(document).ready(function(){
 	
 	
 	//Cliqur sur la premiere onglet
-	$('ul.list-choix-page li[data-role="onglet"]:first-child').trigger('click');
+	var OngletActif = $('input#onglet-selectionner-page').val();
+	if($.trim(OngletActif) != ""){
+		$('ul.list-choix-page li[data-role="onglet"]').each(function(i){
+			var PageName = $(this).find('span.lib-onglet-choix-page').html();
+			if($.trim(PageName) == $.trim(OngletActif)){
+				var Id = $(this).attr('id');
+				$('ul.list-choix-page li#'+Id+'').trigger('click');
+			}
+		});
+	}else{
+		$('ul.list-choix-page li[data-role="onglet"]:first-child').trigger('click');
+	}
 });
 
 function ListeImgGalerie(programme_id){

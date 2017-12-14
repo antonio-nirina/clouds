@@ -3540,3 +3540,30 @@ button.btn-valider-etat .uploaded{
 .vertical-align-element-container label{
 	margin-bottom: 0 !important;
 }
+
+.cke_button__insertionlienscloudrewards_icon {
+    background: url('../ckeditor-uploader/plugins/insertionlienscloudrewards/icons/insertionlienscloudrewards.png') no-repeat 0 -1128px !important;
+}
+
+.select-form{
+	background: none;
+	border: 1px solid #505050;
+	border-radius: 5px;
+	padding:2px;
+}
+
+.input-form-text-pop{
+	float: right;
+	width: 77%;
+	border-radius: 5px;
+	background: none;
+	border: 0;
+	border: 1px solid #505050;
+	padding-left: 10px !important;
+	text-align: left !important;
+	margin-right: 33px;
+}
+
+.formAjoutLienPopUp{
+	margin-top:16px;
+}

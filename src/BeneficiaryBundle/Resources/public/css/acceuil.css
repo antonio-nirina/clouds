@@ -2440,3 +2440,7 @@ a:active,a:link,a:focus{color:#505050;outline-style:none;}
 		display: none;
 	}
 }
+
+.white{
+	color:#FFFFFF;
+}

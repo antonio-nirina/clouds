@@ -151,7 +151,7 @@ section.active{
 
 .lib-onglet-choix-page{
 	display: inline-block;
-	width: 90px;
+	width: 95px;
 	cursor:default;
 	line-height: 16px;
 }
@@ -183,6 +183,7 @@ section.active{
 
 label.champForm{
 	display:block;
+	position:relative;
 }
 
 span.lib-form{
@@ -192,17 +193,6 @@ span.lib-form{
 
 span.block{
 	display:block;
-}
-
-.input-form-text{
-	float: right;
-	width: 87%;
-	border-radius: 5px;
-	background: none;
-	border: 0;
-	border: 1px solid #505050;
-	padding-left:10px!important;
-	text-align:left!important;
 }
 
 .clearBoth{
@@ -316,6 +306,30 @@ p.chargementAjax img{
 	.lib-ajout-page{
 		width:50%;
 	}
+	
+	.input-form-text{
+		float: right;
+		width: 90%;
+		border-radius: 5px;
+		background: none;
+		border: 0;
+		border: 1px solid #505050;
+		padding-left:10px!important;
+		text-align:left!important;
+		margin-right:33px;
+	}
+	
+	.delete-input {
+		width: 25px;
+		height: 25px;
+		background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+		display: inline-block;
+		position: absolute;
+		margin-left: 10px;
+		right: 0;
+		cursor:pointer;
+		top:24px;
+	}
 }
 
 /* Small devices (landscape phones, 576px and up)*/
@@ -351,6 +365,30 @@ p.chargementAjax img{
 		width: 50%;
 		position: absolute;
 		top: 10px;
+	}
+	
+	.input-form-text{
+		float: right;
+		width: 94%;
+		border-radius: 5px;
+		background: none;
+		border: 0;
+		border: 1px solid #505050;
+		padding-left:10px!important;
+		text-align:left!important;
+		margin-right:33px;
+	}
+	
+	.delete-input {
+		width: 25px;
+		height: 25px;
+		background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+		display: inline-block;
+		position: absolute;
+		margin-left: 10px;
+		right: 0;
+		cursor:pointer;
+		top:24px;
 	}
 }
 
@@ -392,6 +430,30 @@ p.chargementAjax img{
 	.fieldset h3, h4, h5{
 		width:90%;
 	}
+	
+	.input-form-text{
+		float: right;
+		width: 93%;
+		border-radius: 5px;
+		background: none;
+		border: 0;
+		border: 1px solid #505050;
+		padding-left:10px!important;
+		text-align:left!important;
+		margin-right:33px;
+	}
+	
+	.delete-input {
+		width: 25px;
+		height: 25px;
+		background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+		display: inline-block;
+		position: absolute;
+		margin-left: 10px;
+		right: 0;
+		cursor:pointer;
+		top:24px;
+	}
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -407,6 +469,29 @@ p.chargementAjax img{
 	.list-choix-page li.pages-list-ajout{
 		margin-top:5px;
 	}
+	
+	.input-form-text{
+		float: right;
+		width: 81%;
+		border-radius: 5px;
+		background: none;
+		border: 0;
+		border: 1px solid #505050;
+		padding-left:10px!important;
+		text-align:left!important;
+		margin-right:33px;
+	}
+	
+	.delete-input {
+		width: 25px;
+		height: 25px;
+		background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+		display: inline-block;
+		position: absolute;
+		margin-left: 10px;
+		right: 0;
+		cursor:pointer;
+	}
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
@@ -421,6 +506,29 @@ p.chargementAjax img{
 	
 	.list-choix-page li.pages-list-ajout{
 		margin-top:5px;
+	}
+	
+	.input-form-text{
+		float: right;
+		width: 85%;
+		border-radius: 5px;
+		background: none;
+		border: 0;
+		border: 1px solid #505050;
+		padding-left:10px!important;
+		text-align:left!important;
+		margin-right:33px;
+	}
+	
+	.delete-input {
+		width: 25px;
+		height: 25px;
+		background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+		display: inline-block;
+		position: absolute;
+		margin-left: 10px;
+		right: 0;
+		cursor:pointer;
 	}
 }
 

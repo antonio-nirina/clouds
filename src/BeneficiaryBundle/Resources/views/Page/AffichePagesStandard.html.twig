@@ -18,7 +18,10 @@
                 <div class = "slide-righter">&nbsp;</div>
                 <div class = "slide">
                     <div class = "img-entete-page-standard">
-						<img class = "src-entete-page-standard" src = "{{asset('/web/content/pages_standards/'~Pages.getProgram.Id~'/'~Pages.Path)}}" alt = "entete">
+						{% if Pages.Path != '' %}
+							<img class = "src-entete-page-standard" src = "{{asset('/web/content/pages_standards/'~Pages.getProgram.Id~'/'~Pages.Path)}}" alt = "entete">
+							<span class="slide-message white">{{ Pages.TitrePage }}</span>
+						{% endif %}
 					</div>
                 </div>
             </div>

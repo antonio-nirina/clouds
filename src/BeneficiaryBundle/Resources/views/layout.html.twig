@@ -13,7 +13,8 @@
             <!-- FIN HEADER -->
 
             <!-- MENU TOP -->
-            {{ include("BeneficiaryBundle::menu_top_niv_2.html.twig") }}
+            {#{ include("BeneficiaryBundle::menu_top_niv_2.html.twig") }#}
+			{{ render(controller("BeneficiaryBundle:Page:PageStandardTop" )) }}
             <!-- FIN MENU TOP -->
 
             <!-- SLIDE -->
@@ -30,7 +31,7 @@
 
             <!-- FOOTER -->
             {#{ include("BeneficiaryBundle::page_footer.html.twig") }#}
-			{{ render(controller("BeneficiaryBundle:Page:PageFooter")) }}
+			{{ render(controller("BeneficiaryBundle:Page:PageStandardFooter" )) }}
             <!-- FIN FOOTER -->
 
         </div>
