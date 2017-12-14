@@ -38,4 +38,22 @@ class ProgramUserRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findArrangedUsersByRole($role, $month, $year)
+    {
+        $qb = $this->createQueryBuilder('pu');
+        $qb->addSelect('cl_pr')
+            ->join('pu.classment_progression', 'cl_pr')
+            ->where($qb->expr()->eq('pu.role', ':role'))
+            ->andWhere($qb->expr()->eq('cl_pr.month', ':month'))
+            ->andWhere($qb->expr()->eq('cl_pr.year', ':year'))
+            ->andWhere($qb->expr()->isNotNull('cl_pr.current_ca'))
+            ->orderBy('cl_pr.current_ca', 'DESC')
+            ->setParameters(array(
+                                "role" => $role,
+                                "month" => $month,
+                                "year" => $year
+                                 ));
+        return $qb->getQuery()->getResult();
+    }
 }

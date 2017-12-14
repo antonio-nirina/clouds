@@ -10,7 +10,7 @@ class RoleRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('role');
         $qb ->where($qb->expr()->eq('role.program', ':program'))
-            ->andWhere($qb->expr()->lt('role.rank', ':rank'))
+            ->andWhere($qb->expr()->gt('role.rank', ':rank'))
             ->andWhere($qb->expr()->eq('role.active', ':active'))
             ->setParameters(array(
                 'program' => $program,

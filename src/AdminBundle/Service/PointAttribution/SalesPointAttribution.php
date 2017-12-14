@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Service\PointAttribution;
 
+use AdminBundle\Entity\ProgramUserClassmentProgression;
 use AdminBundle\Entity\Sales;
 use AdminBundle\Entity\UserPoint;
 use Doctrine\ORM\EntityManager;
@@ -28,7 +29,7 @@ class SalesPointAttribution
                 $user_point = new UserPoint();
                 $user_point->setProgramUser($program_user)
                             ->setDate(new \DateTime())
-                            ->setAmount(($ca * $gain) / 100)
+                            ->setPoints(($ca * $gain) / 100)
                             ->setMotif("rang")
                             ->setReference("sales_".$sales->getId());
                 $this->em->persist($user_point);
@@ -50,7 +51,7 @@ class SalesPointAttribution
                             $user_point = new UserPoint();
                             $user_point->setProgramUser($user)
                                 ->setDate(new \DateTime())
-                                ->setAmount(($ca * $gain) / 100)
+                                ->setPoints(($ca * $gain) / 100)
                                 ->setMotif("rang")
                                 ->setReference("sales_".$sales->getId());
                             $this->em->persist($user_point);
@@ -104,11 +105,115 @@ class SalesPointAttribution
         return $sales;
     }
 
-    public function attributedByPerformance(Sales $sales)
+    public function updateUserClassmentPerformance(Sales $sales)
     {
-        $sales->setPerformanceAttributed(true);
+        if (!$sales->getPerformanceAttributed()) {
+            $program_user = $sales->getProgramUser();
+            $date = $sales->getDate();
+            $date_from = $sales->getDateFrom();
+            $date_to = $sales->getDateTo();
+
+            if ($date) {
+                $month = date_format($date, "m");
+                $year = date_format($date, "Y");
+            } elseif ($date_from) {
+                $month = date_format($date_from, "m");
+                $year = date_format($date_from, "Y");
+            } else {
+                $month = date_format($date_to, "m");
+                $year = date_format($date_to, "Y");
+            }
+
+            $classment_progression = $this->getClassmentProgression($program_user, $month, $year);
+
+            if (empty($classment_progression)) {
+                $classment_progression = $this->setNewClassmentProgression($program_user, $month, $year);
+            } else {
+                $classment_progression = $classment_progression[0];
+            }
+
+            $ca = $sales->getCa();
+            $current_ca = ($classment_progression->getCurrentCa())?$classment_progression->getCurrentCa(): 0;
+            $new_ca = $current_ca + $ca;
+            $classment_progression->setCurrentCa($new_ca);
+            if ($previous_ca = $classment_progression->getPreviousCa()) {
+                $progression = ($new_ca/($previous_ca/100))-100;//methode de calcul venant du cube
+                if ($progression >0) {
+                    $classment_progression->setProgression($progression);
+                }
+            }
+
+            $sales->setPerformanceAttributed(true);
+            $this->em->flush();
+
+            $this->adjustClassment($program_user->getRole(), $month, $year); //à faire systemtiquement ou par mois ?
+        }
+
         return $sales;
     }
+
+    public function adjustClassment($role, $month, $year)// classement par rôle
+    {
+        $user_arranged = $this->em->getRepository("AdminBundle:ProgramUser")
+                                    ->findArrangedUsersByRole($role, $month, $year);
+        foreach ($user_arranged as $k => $user) {
+            $classment_progression = $user->getClassmentProgression();
+            $classment_progression[0]->setClassment($k+1);
+        }
+
+        $this->em->flush();
+        return;
+    }
+
+    public function getClassmentProgression($program_user, $month, $year)
+    {
+        return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")->findBy(
+            array(
+                    'program_user' => $program_user,
+                    'month' => $month,
+                    'year' => $year
+            )
+        );
+    }
+
+    public function getPreviousClassmentProgression($program_user, $month, $year)
+    {
+        $previous_date = \DateTime::createFromFormat('m-Y', ($month-1).'-'.$year);
+        $previous_month = date_format($previous_date, "m");
+        $previous_year = date_format($previous_date, 'Y');
+
+        return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")->findBy(
+            array(
+                    'program_user' => $program_user,
+                    'month' => $previous_month,
+                    'year' => $previous_year
+            )
+        );
+    }
+
+    public function setNewClassmentProgression($program_user, $month, $year)//to launch by cron every month
+    {
+        $previous_classment_progression = $this->getPreviousClassmentProgression($program_user, $month, $year);
+        $classment_progression = new ProgramUserClassmentProgression();
+        $classment_progression  ->setMonth($month)
+                                ->setYear($year)
+                                ->setProgramUser($program_user);
+        
+        if ($previous_classment_progression) {
+            $previous_cl_pr = $previous_classment_progression[0];
+            $classment_progression  ->setClassment($previous_cl_pr->getClassment())
+                                    ->setPreviousCa($previous_cl_pr->getCurrentCa());
+        }
+        $this->em->persist($classment_progression);
+        $this->em->flush();
+
+        return $classment_progression;
+    }
+
+    // public function attributedByPerformance($program, $month)
+    // {
+    //     return $sales;
+    // }
 
     public function attributedByProduct(Sales $sales)
     {
