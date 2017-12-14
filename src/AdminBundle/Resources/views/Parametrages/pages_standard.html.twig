@@ -74,6 +74,7 @@
                     </div>
 					
 					<form id = "IDFormPageStandard" name = "FormPageStandard" method = "POST" action = "{{ path("admin_pages_standard") }}" enctype = "multipart/form-data">
+						<input id = "onglet-selectionner-page" type = "hidden" name = "onglet-selectionner-page" value = "{{ Onglets }}">
 						<div class="row">
 							<div class = "col-12">
 								<div class = "content-pages-chooses">
@@ -82,7 +83,13 @@
 										{% for Pages in AllPages %}
 											{% if Pages.NomPage is defined %}
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
-													<span class = "lib-onglet-choix-page">{{ Pages.NomPage }}</span>
+													<span class = "lib-onglet-choix-page">
+														{% if Pages.NomPage == 'mentions légales' or Pages.NomPage == 'règlement' %}
+															{{ Pages.NomPage~' (footer)' }}
+														{% else %}
+															{{ Pages.NomPage }}
+														{% endif %}
+													</span>
 													{% if Pages.StatusPage == 1 %}
 														<span id = "onglet-page-{{ Pages.Id }}" class = "checkon-onglet-choix-page" data-role = "checked-unchecked"></span>
 													{% elseif Pages.StatusPage == 0 %}
@@ -102,7 +109,13 @@
 												</li>
 											{% else %}
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
-													<span class = "lib-onglet-choix-page">{{ Pages.PageName }}</span>
+													<span class = "lib-onglet-choix-page">
+														{% if Pages.PageName == 'mentions légales' or Pages.PageName == 'règlement' %}
+															{{ Pages.PageName~' (footer)' }}
+														{% else %}
+															{{ Pages.PageName }}
+														{% endif %}
+													</span>
 													<span id = "onglet-page-{{ Pages.Id }}" class = "check-onglet-choix-page" data-role = "checked-unchecked"></span>
 													<input id = "id-nom-page-input-{{ Pages.Id }}" type = "hidden" name = "nom_page[]" value = "{{ Pages.PageName }}">
 													<input id = "id-status-page-input-{{ Pages.Id }}" type = "hidden" name = "status_page[]" value = "0">
@@ -126,6 +139,7 @@
 												<label class = "champForm">
 													<span class = "lib-form">nom du menu</span>
 													<input class = "input-form-text" type = "text" name = "menu_page[]" value = "{{ Pages.MenuPage }}" placeholder = "" style = "padding-left:10px!important;">
+													<span class="delete-input"></span>
 												</label>
 												
 												<div class = "clearBoth"></div>
@@ -138,11 +152,12 @@
 												<label class = "champForm">
 													<span class = "lib-form">titre</span>
 													<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "{{ Pages.TitrePage }}" placeholder = "">
+													<span class="delete-input"></span>
 												</label>
 												
 												<div class = "clearBoth"></div>
 
-												<label class = "champForm">
+												<div class = "champForm">
 													<span class = "lib-form block">ajouter logo ou image</span>
 													{% if Pages.Path is defined and Pages.Path is not null %}
 														<button id = "btn-upload-img-page-standard-{{ Pages.Id }}" class="btn-valider-etat btn-upload choose-upload-img-button" type = "button">
@@ -163,7 +178,7 @@
 														<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
 														<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
 													</div>
-												</label>
+												</div>
 												
 												<div class = "clearBoth"></div>
 												
@@ -196,6 +211,7 @@
 												<label class = "champForm">
 													<span class = "lib-form">nom du menu</span>
 													<input class = "input-form-text" type = "text" name = "menu_page[]" value = "{{ Pages.PageName }}" placeholder = "{{ Pages.PageName }}" style = "padding-left:10px!important;">
+													<span class="delete-input"></span>
 												</label>
 												
 												<div class = "clearBoth"></div>
@@ -208,11 +224,12 @@
 												<label class = "champForm">
 													<span class = "lib-form">titre</span>
 													<input style = "padding-left:10px!important;" class = "input-form-text" type = "text" name = "titre_page[]" value = "{{ Pages.PageName }}" placeholder = "{{ Pages.PageName }}">
+													<span class="delete-input"></span>
 												</label>
 												
 												<div class = "clearBoth"></div>
 
-												<label class = "champForm">
+												<div class = "champForm">
 													<span class = "lib-form block">ajouter logo ou image</span>
 													<button id = "btn-upload-img-page-standard-{{ Pages.Id }}" class="btn-valider btn-upload choose-upload-img-button" type = "button">
 														<span id = "id-lib-upload-{{ Pages.Id }}" class="upload"></span> 
@@ -225,7 +242,7 @@
 														<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
 														<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
 													</div>
-												</label>
+												</div>
 												
 												<div class = "clearBoth"></div>
 												

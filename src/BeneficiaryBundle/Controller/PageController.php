@@ -73,23 +73,50 @@ class PageController extends Controller
 	}
 	
 	
-	public function PageFooterAction() {
+	public function PageStandardFooterAction() {
 		$program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
+		
 		$em = $this->getDoctrine()->getManager();
 		$PageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
-		//$PageStandard = $PageStandard[0];
+		
 		$ListePages = array();
 		foreach($PageStandard as $Pages){
 			if($Pages->getStatusPage() == '1'){
-				$ListePages[] = $Pages;
+				if($Pages->getNomPage() == 'mentions légales' || $Pages->getNomPage() == 'règlement'){
+					$ListePages[] = $Pages;
+				}
 			}
 		}
 		
 		
 		return $this->render('BeneficiaryBundle::page_footer.html.twig', array(
+			'ListePages' => $ListePages
+		));
+    }
+	
+	public function PageStandardTopAction() {
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		$PageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
+		
+		$ListePages = array();
+		foreach($PageStandard as $Pages){
+			if($Pages->getStatusPage() == '1'){
+				if($Pages->getNomPage() != 'mentions légales' && $Pages->getNomPage() != 'règlement'){
+					$ListePages[] = $Pages;
+				}
+			}
+		}
+		
+		
+		return $this->render('BeneficiaryBundle::menu_top_niv_2.html.twig', array(
 			'ListePages' => $ListePages
 		));
     }

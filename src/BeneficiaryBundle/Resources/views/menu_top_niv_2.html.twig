@@ -10,11 +10,14 @@
                 </div>
                 <div class="navbar-collapse collapse" id="collapsingNavbarNiv2">
                     <ul class = "navbar-nav menu-content">
-                        <li><a href = "" class = "menu-lib active light">accueil</a></li>
+						<li><a href = "" class = "menu-lib active light">accueil</a></li>
                         <li><a href = "" class = "menu-lib light">déclarer mes ventes</a></li>
-                        <li><a href = "" class = "menu-lib light">découvrez le programme</a></li>
+						
+						{% for Pages in ListePages %}
+							<li class = "{{ Pages.TitrePage }}"><a target = "_blank" href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': Pages.Slug}) }}" class = "menu-lib light">{{ Pages.TitrePage }}</a></li>
+						{% endfor %}
+						
                         <li><a href = "" class = "menu-lib light">classement</a></li>
-                        <li><a href = "" class = "menu-lib light">cadeaux</a></li>
                         <li><a href = "" class = "menu-lib light">mes points</a></li>
                     </ul>
                     <div class = "clearBoth"></div>

@@ -1898,6 +1898,7 @@ class ParametragesController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		
 		//Validation
+		$Onglets = "";
 		if ($request->isMethod('POST')) {
 			
 			$NomPages = $request->get('nom_page');
@@ -1907,6 +1908,7 @@ class ParametragesController extends Controller
 			$ContenuPages = $request->get('contenu_page');
 			$StatusPages = $request->get('status_page');
 			$Id = $request->get('id_page');
+			$Onglets = $request->get('onglet-selectionner-page');
 			
 			for($i=0; $i < count($NomPages); $i++){
 				
@@ -1933,7 +1935,7 @@ class ParametragesController extends Controller
 				$em->flush();
 			}
 			
-			return $this->redirectToRoute('admin_pages_standard');
+			//return $this->redirectToRoute('admin_pages_standard');
 		}
 		
 		
@@ -1956,7 +1958,8 @@ class ParametragesController extends Controller
 		}
 		
         return $this->render('AdminBundle:Parametrages:pages_standard.html.twig', array(
-			'AllPages' => $AllPages
+			'AllPages' => $AllPages,
+			'Onglets' => $Onglets
 		));
     }
 }
