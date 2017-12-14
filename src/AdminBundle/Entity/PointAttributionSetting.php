@@ -35,16 +35,19 @@ class PointAttributionSetting
 
     /**
      * @ORM\Column(name="min_value", type="string", nullable=true)
+     * @Assert\Type(type="numeric", groups={"product_point"})
      */
     private $min_value;
 
     /**
      * @ORM\Column(name="max_value", type="string", nullable=true)
+     * @Assert\Type(type="numeric", groups={"product_point"})
      */
     private $max_value;
 
     /**
      * @ORM\Column(name="gain", type="string", nullable=true)
+     * @Assert\Type(type="numeric", groups={"product_point"})
      */
     private $gain;
 

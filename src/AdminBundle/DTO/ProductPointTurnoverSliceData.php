@@ -3,12 +3,25 @@ namespace AdminBundle\DTO;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use AdminBundle\Entity\PointAttributionSetting;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductPointTurnoverSliceData
 {
     private $status;
+
+    /**
+     * @Assert\Valid()
+     */
     private $product_point_turnover_slice_a;
+
+    /**
+     * @Assert\Valid()
+     */
     private $product_point_turnover_slice_b;
+
+    /**
+     * @Assert\Valid()
+     */
     private $product_point_turnover_slice_c;
 
     public function setStatus($status)

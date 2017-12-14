@@ -3,9 +3,13 @@ namespace AdminBundle\DTO;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use AdminBundle\DTO\ProductPointSettingUnitData;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductPointSettingData
 {
+    /**
+     * @Assert\Valid()
+     */
     private $product_point_setting_list;
 
     public function __construct()

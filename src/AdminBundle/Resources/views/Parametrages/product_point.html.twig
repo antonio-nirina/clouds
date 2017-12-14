@@ -70,6 +70,11 @@
 
                     {% if product_point_attribution_form is defined %}
                         {{ form_start(product_point_attribution_form, {"attr": {"novalidate": "novalidate"}}) }}
+                            {% if product_point_attribution_form.vars.errors.form.getErrors(true) is not empty %}
+                    <div class="error-message-container">
+                        <span>Entrez des valeurs numériques dans les champs</span>
+                    </div>
+                            {% endif %}
                     <div class="row nav-tabs-container top-container">
                         <div class="col-12">
                             <ul class="nav nav-tabs fieldset-nav-tabs">
@@ -173,7 +178,8 @@
                                             </div>
                                             <div class="row slice-value-container">
                                                 <div class="slice-label-container">
-                                                    <span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.vars.value.name }}</span>
+                                                    {#<span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.vars.value.name }}</span>#}
+                                                    <span>tranche A</span>
                                                 </div>
                                                 <div>
                                                     {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_a.min_value, 'de', {"label_attr": {"class": "label"}}) }}
@@ -190,7 +196,8 @@
                                             </div>
                                             <div class="row slice-value-container">
                                                 <div class="slice-label-container">
-                                                    <span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.vars.value.name }}</span>
+                                                    {#<span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.vars.value.name }}</span>#}
+                                                    <span>tranche B</span>
                                                 </div>
                                                 <div>
                                                     {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_b.min_value, 'de', {"label_attr": {"class": "label"}}) }}
@@ -207,7 +214,8 @@
                                             </div>
                                             <div class="row slice-value-container">
                                                 <div class="slice-label-container">
-                                                    <span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.vars.value.name }}</span>
+                                                    {#<span>{{ product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.vars.value.name }}</span>#}
+                                                    <span>tranche C</span>
                                                 </div>
                                                 <div>
                                                     {{ form_label(product_point_setting.product_point_turnover_slice.product_point_turnover_slice_c.min_value, 'de', {"label_attr": {"class": "label"}}) }}

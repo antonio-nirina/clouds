@@ -1677,7 +1677,8 @@ class ParametragesController extends Controller
         $product_point_attribution_form = $form_factory->createNamed(
             'product_point_attribution_form',
             ProductPointType::class,
-            $product_point_setting_data
+            $product_point_setting_data,
+            array('validation_groups' => array('product_point'))
         );
 
         $original_product_setting_datas = new ArrayCollection();
