@@ -3,11 +3,20 @@ namespace AdminBundle\DTO;
 
 use AdminBundle\DTO\ProductPointTurnoverSliceData;
 use AdminBundle\Entity\PointAttributionSetting;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductPointSettingUnitData
 {
+    /**
+     * @Assert\Valid()
+     */
     private $product_point_turnover_proportional;
+
+    /**
+     * @Assert\Valid()
+     */
     private $product_point_turnover_slice;
+
     private $product_group;
     private $new_status;
 
