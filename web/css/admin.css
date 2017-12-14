@@ -3540,3 +3540,60 @@ button.btn-valider-etat .uploaded{
 .vertical-align-element-container label{
 	margin-bottom: 0 !important;
 }
+
+/*
+ * Message d'aide
+ */
+.page-help-dialog-trigger{
+	display: none;
+}
+
+.page-help-dialog .modal-body{
+	background-color: #f6f6f6;
+}
+
+.page-help-dialog .modal-body-container{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-flow: row wrap;
+	padding-bottom: 35px;
+}
+
+.page-help-dialog .question-mark{
+	width: 100px;
+	height: 100px;
+	background:url('../images/cloudsRewards/question-mark.png');
+	background-position: -400px -12px;
+}
+
+.page-help-dialog .text-container{
+	text-align: justify;
+	padding: 0 80px;
+	color: var(--couleur_4);
+	font-family: var(--police_light);
+}
+
+.page-help-dialog .text-container h3,h5{
+	font-size: 25px;
+}
+
+.page-help-dialog .text-container p{
+	margin-top: 20px;
+}
+
+.page-help-dialog .btn-valider.return{
+	margin-top: 0 !important;
+}
+
+@media (max-width: 575px) {
+	.page-help-dialog .text-container{
+		padding: 0 25px;
+	}
+}
+
+@media (min-width: 575px) and (max-width: 991px) {
+	.page-help-dialog .text-container{
+		padding: 0 50px;
+	}
+}

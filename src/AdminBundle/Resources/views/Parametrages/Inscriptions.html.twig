@@ -22,19 +22,19 @@
                 <ul class="content-menu-niv-3 hidden-lg-up">
                     <li class="nav-item-niv-3 form-inscription">
                         <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">formulaire d'inscription </a>
-                        <span class = "bulle-aide"></span>
+                        <span class = "bulle-aide" data-trigger-id="trigger-registration"></span>
                     </li>
                 </ul>
                 <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
                     <ul class="navbar-nav content-menu-niv-3">
                         <li class="nav-item-niv-3 form-inscription hidden-md-down">
                             <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_parametrages_inscriptions") }}">formulaire d'inscription </a>
-                            <span class = "bulle-aide"></span>
+                            <span class = "bulle-aide" data-trigger-id="trigger-registration"></span>
                         </li>
 
                         <li class="nav-item-niv-3 form-imports">
                             <a class="nav-link-niv-3 menu-page" href="{{ path("admin_parametrages_inscriptions_imports") }}">import de fichiers et flux </a>
-                            <span class = "bulle-aide"></span>
+                            <span class = "bulle-aide" data-trigger-id="trigger-import"></span>
                         </li>
                     </ul>
                 </div>
@@ -42,6 +42,61 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand abs" href="#"></a>
+
+                <!-- dialog - bulles d'aide -->
+                <button id="trigger-registration" type="button" class="btn btn-primary page-help-dialog-trigger" data-toggle="modal" data-target="#page-help-dialog-registration"></button>
+                <div id="page-help-dialog-registration" class="modal fade page-help-dialog" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="modal-body-container">
+                                    <div class="question-mark"></div>
+                                    <div class="text-container">
+                                        <h3 class="hidden-sm-down">Cette rubrique vous permet de créer le formulaire d'inscription à votre programme de récompense.</h3>
+                                        <h5 class="hidden-md-up">Cette rubrique vous permet de créer le formulaire d'inscription à votre programme de récompense.</h5>
+                                        <p>
+                                            A la suite de votre campagne de communication, pour faire connaître votre programme de récompense, ce formulaire sera proposé à vos participants lors de leur première connexion à votre plateforme.
+                                            Après inscription, vous aurez soit le choix de valider par défaut toutes les inscriptions à votre programme, soit de les valider individuellement, dans votre rubrique « validations ».
+                                            Cette fonctionnalité peut être complémentaire à un import de fichier de participants préinscrits ou la mise en place d'un flux d'information avec votre CRM.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <button class ="btn-valider return" data-dismiss="modal">
+                                            retour
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="trigger-import" type="button" class="btn btn-primary page-help-dialog-trigger" data-toggle="modal" data-target="#page-help-dialog-import"></button>
+                <div id="page-help-dialog-import" class="modal fade page-help-dialog" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="modal-body-container">
+                                    <div class="question-mark"></div>
+                                    <div class="text-container">
+                                        <h3 class="hidden-sm-down">Cette rubrique vous permet d'importer directement le fichier de vos participants sous format CSV dans votre plateforme de récompense.</h3>
+                                        <h5 class="hidden-md-up">Cette rubrique vous permet d'importer directement le fichier de vos participants sous format CSV dans votre plateforme de récompense.</h5>
+                                        <p>
+                                            A la suite de votre campagne de communication, il leur sera demandé de personnaliser leur mot de passe à leur 1<sup>ère</sup>connexion.
+                                            Cette fonctionnalité peut être complémentaire à un formulaire d'inscription destiné à de nouveaux participants ou la mise en place d'un flux d'information avec votre CRM.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <button class ="btn-valider return" data-dismiss="modal">
+                                            retour
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN dialog - bulle d'aide -->
             </nav>
         </div>
     </div>
