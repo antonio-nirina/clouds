@@ -3624,3 +3624,7 @@ button.btn-valider-etat .uploaded{
 		padding: 0 50px;
 	}
 }
+
+img[src='']{
+	display: none;
+}
