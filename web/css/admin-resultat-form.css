@@ -1048,6 +1048,10 @@ form[name="program_rank"] .row > span {
     .form-link > * {
         margin-top: 10px;
     }
+
+    .upload-img-button-container .upload-img-button{
+        width: 100% !important;
+    }
 }
 @media only screen and (max-width: 416px) {
     .police-opt {

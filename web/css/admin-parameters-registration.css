@@ -1270,3 +1270,7 @@ a.blue-anchor{
         width: 100%
     }
 }
+
+.btn-valider.choose-upload-img-button{
+    margin-top: 0 !important;
+}
