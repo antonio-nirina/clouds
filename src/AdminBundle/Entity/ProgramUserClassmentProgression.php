@@ -41,7 +41,7 @@ class ProgramUserClassmentProgression
     private $classment;
 
     /**
-     * @ORM\Column(name="progression", type="string", length=255, nullable=true)
+     * @ORM\Column(name="progression", type="float", length=255, nullable=true)
      */
     private $progression;
 

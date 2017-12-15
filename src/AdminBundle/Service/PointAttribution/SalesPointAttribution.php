@@ -191,7 +191,7 @@ class SalesPointAttribution
         );
     }
 
-    public function setNewClassmentProgression($program_user, $month, $year)//to launch by cron every month
+    public function setNewClassmentProgression($program_user, $month, $year)//to launch by cron every month or manually?
     {
         $previous_classment_progression = $this->getPreviousClassmentProgression($program_user, $month, $year);
         $classment_progression = new ProgramUserClassmentProgression();
@@ -210,10 +210,70 @@ class SalesPointAttribution
         return $classment_progression;
     }
 
-    // public function attributedByPerformance($program, $month)
-    // {
-    //     return $sales;
-    // }
+    public function attributedByPerformance($program, $month, $year)//to launch by cron every month or manually?
+    {
+        $performance_type_1 = $this->em->getRepository('AdminBundle:PointAttributionType')->findBy(
+            array("point_type_name" => 'performance_1')
+        );
+        $performance_type_2 = $this->em->getRepository('AdminBundle:PointAttributionType')->findBy(
+            array("point_type_name" => 'performance_2')
+        );
+
+        $performance_point_setting1 = $this->getPerformancePointSetting($performance_type_1, $program);
+        $date = date_format(\DateTime::createFromFormat("m-Y", $month."-".$year), "F Y");
+
+        if ($performance_point_setting1[0]->getStatus() == "on") {//par progression
+            foreach ($performance_point_setting1 as $point_setting) {
+                $min = $point_setting->getMinValue();
+                $max = $point_setting->getMaxValue();
+                $gain = $point_setting->getGain();
+
+                if (isset($min) && isset($max) && isset($gain)) {
+                    $program_users = $this->em->getRepository('AdminBundle:ProgramUser')
+                    ->findProgressionByProgramByMaxMinValue($program, $max, $min, $month, $year);
+                    
+                    if ($program_users) {
+                        foreach ($program_users as $program_user) {
+                            $user_point = new UserPoint();
+                            $user_point->setProgramUser($program_user)
+                                ->setDate(new \DateTime())
+                                ->setAmount($gain)
+                                ->setMotif("progression ".$date);
+                            $this->em->persist($user_point);
+                        }
+                        
+                        $this->em->flush();
+                    }
+                }
+            }
+        }
+
+        $performance_point_setting2 = $this->getPerformancePointSetting($performance_type_2, $program);
+        if ($performance_point_setting2[0]->getStatus() == "on") {//par classement
+            foreach ($performance_point_setting2 as $point_setting) {
+                $min = $point_setting->getMinValue();
+                $max = $point_setting->getMaxValue();
+                $gain = $point_setting->getGain();
+                if (isset($min) && isset($max) && isset($gain)) {
+                    $program_users = $this->em->getRepository('AdminBundle:ProgramUser')
+                    ->findClassmentByProgramByMaxMinValue($program, $max, $min, $month, $year);
+
+                    if ($program_users) {
+                        foreach ($program_users as $program_user) {
+                            $user_point = new UserPoint();
+                            $user_point->setProgramUser($program_user)
+                                ->setDate(new \DateTime())
+                                ->setAmount($gain)
+                                ->setMotif("classement ".$date);
+                            $this->em->persist($user_point);
+                        }
+                        
+                        $this->em->flush();
+                    }
+                }
+            }
+        }
+    }
 
     public function attributedByProduct(Sales $sales)
     {
@@ -241,7 +301,7 @@ class SalesPointAttribution
                 $min = $product_point_setting1[0]->getMinValue();
                 $max = $product_point_setting1[0]->getMaxValue();
                 $gain = $product_point_setting1[0]->getGain();
-                if ($min && $max && $gain && $ca >= $min && $ca <= $max) {
+                if (isset($min) && isset($max) && isset($gain) && $ca >= $min && $ca <= $max) {
                     $user_point = new UserPoint();
                     $user_point->setProgramUser($program_user)
                         ->setDate(new \DateTime())
@@ -264,7 +324,7 @@ class SalesPointAttribution
                     $min = $point_setting->getMinValue();
                     $max = $point_setting->getMaxValue();
                     $gain = $point_setting->getGain();
-                    if ($min && $max && $gain && $ca >= $min && $ca <= $max) {
+                    if (isset($min) && isset($max) && isset($gain) && $ca >= $min && $ca <= $max) {
                         $user_point = new UserPoint();
                         $user_point->setProgramUser($program_user)
                             ->setDate(new \DateTime())
@@ -282,6 +342,18 @@ class SalesPointAttribution
         }
         
         return $sales;
+    }
+
+    public function getPerformancePointSetting($type, $program)
+    {
+        return $this->em
+                    ->getRepository('AdminBundle:PointAttributionSetting')
+                    ->findBy(
+                        array(
+                            "type" => $type,
+                            "program" => $program,
+                        )
+                    );
     }
 
     public function getPointSetting($type, $product_group, $program)
