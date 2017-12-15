@@ -21,29 +21,29 @@
                     <ul class="content-menu-niv-3 hidden-lg-up">
                         <li class="nav-item-niv-3 form-inscription">
                             <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_point_rang") }}">rang</a>
-                            <span class = "bulle-aide"></span>
+                            <span class = "bulle-aide" data-trigger-id="trigger-rank"></span>
                         </li>
                     </ul>
                     <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
                         <ul class="navbar-nav content-menu-niv-3">
                             <li class="nav-item-niv-3 form-inscription">
                                 <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_product") }}">produits</a>
-                                <span class = "bulle-aide"></span>
+                                <span class = "bulle-aide" data-trigger-id="trigger-product"></span>
                             </li>
 
                             <li class="nav-item-niv-3 form-imports">
                                 <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_periode") }}">périodes </a>
-                                <span class = "bulle-aide"></span>
+                                <span class = "bulle-aide" data-trigger-id="trigger-period"></span>
                             </li>
 
                             <li class="nav-item-niv-3 form-imports hidden-md-down">
                                 <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_point_rang") }}">rang </a>
-                                <span class = "bulle-aide"></span>
+                                <span class = "bulle-aide" data-trigger-id="trigger-rank"></span>
                             </li>
 
                             <li class="nav-item-niv-3 form-imports">
                                 <a class="nav-link-niv-3 menu-page" href="{{ path("admin_point_performance") }}">performances </a>
-                                <span class = "bulle-aide"></span>
+                                <span class = "bulle-aide" data-trigger-id="trigger-performance"></span>
                             </li>
                         </ul>
                     </div>
@@ -51,6 +51,122 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="navbar-brand abs" href="#"></a>
+
+                    <!-- dialog - bulles d'aide -->
+                    <button id="trigger-product" type="button" class="btn btn-primary page-help-dialog-trigger" data-toggle="modal" data-target="#page-help-dialog-product"></button>
+                    <div id="page-help-dialog-product" class="modal fade page-help-dialog" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="question-mark"></div>
+                                        <div class="text-container">
+                                            <h3 class="hidden-sm-down">Cette rubrique vous permet de définir les règles d’attribution des points par comparaison aux performances antérieures du participant, ou par comparaison aux performances des autres participants.</h3>
+                                            <h5 class="hidden-md-up">Cette rubrique vous permet de définir les règles d’attribution des points par comparaison aux performances antérieures du participant, ou par comparaison aux performances des autres participants.</h5>
+                                            <p>
+                                                La rubrique « performances » vous sert à récompenser, ou accorder des bonus, pour les efforts réalisés par vos participants.
+                                                Vous pouvez ainsi récompenser la croissance des résultats de chaque participant, d’un mois à l’autre, et/ou son classement par rapport aux autres participants du même rang.
+                                                Ces récompenses sont des valeurs fixes, contrairement aux autres critères de récompenses qui sont des pourcentages, et ne sont pas modérées suivant la saisonnalité.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider return" data-dismiss="modal">
+                                                retour
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="trigger-period" type="button" class="btn btn-primary page-help-dialog-trigger" data-toggle="modal" data-target="#page-help-dialog-period"></button>
+                    <div id="page-help-dialog-period" class="modal fade page-help-dialog" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="question-mark"></div>
+                                        <div class="text-container">
+                                            <h3 class="hidden-sm-down">Cette rubrique vous permet de définir les règles d’attribution et d’utilisation des points, en fonction de la saisonnalité de vos produits ou de votre activité.</h3>
+                                            <h5 class="hidden-md-up">Cette rubrique vous permet de définir les règles d’attribution et d’utilisation des points, en fonction de la saisonnalité de vos produits ou de votre activité.</h5>
+                                            <p>
+                                                EARN : Vous avez la possibilité d’appliquer un facteur modérateur ou multiplicateur pour attribuer vos points en fonction des mois et de vos produits.
+                                                Attention, attribuer 100%  revient à attribuer les même nombre que vous avez défini dans la rubrique « produits ».
+                                                Attribuer 105% par exemple, revient donc à augmenter de 5% le nombre de points accordés sur le mois désigné.
+                                                Un champs non rempli prend par défaut le pourcentage que vous avez attribué dans la rubrique « produits ».
+                                                <br><br>
+                                                BURN : Pour créer un effet « épargne », vous avez également la possibilité de paramétrer le moment où vos participants pourront dépenser leurs points.
+                                                Attention toutefois à ne pas repousser trop loin ce moment, pour ne pas que la frustration remplace la motivation.
+                                                Un champs non rempli signifie que vos participants pourront à tout moment consommer leurs points.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider return" data-dismiss="modal">
+                                                retour
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="trigger-rank" type="button" class="btn btn-primary page-help-dialog-trigger" data-toggle="modal" data-target="#page-help-dialog-rank"></button>
+                    <div id="page-help-dialog-rank" class="modal fade page-help-dialog" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="question-mark"></div>
+                                        <div class="text-container">
+                                            <h3 class="hidden-sm-down">Cette rubrique vous permet de définir les règles d’attribution des points, en fonction du rang commercial de vos participants.</h3>
+                                            <h5 class="hidden-md-up">Cette rubrique vous permet de définir les règles d’attribution des points, en fonction du rang commercial de vos participants.</h5>
+                                            <p>
+                                                Votre chaîne commerciale fait peut-être intervenir un management commercial à plusieurs niveaux ?
+                                                Vous avez ainsi la possibilité de récompenser, sur 5 niveaux, les managers de différents niveaux en fonction des résultats consolidés réalisés par les équipes qu’ils managent ou les forces de vente qu’ils adressent.
+                                                Par exemple, un directeur d’agence (rang 2) pourra être récompensé pour les résultats de ses agents commerciaux (rang 1), ou un commercial B2B pour les résultats des distributeurs qu’il adresse. Le rang 1 représente le rang qui vous avez déjà défini dans la rubrique « produits ».
+                                                Le rang supérieur a le résultat consolidé du rang inférieur.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider return" data-dismiss="modal">
+                                                retour
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="trigger-performance" type="button" class="btn btn-primary page-help-dialog-trigger" data-toggle="modal" data-target="#page-help-dialog-performance"></button>
+                    <div id="page-help-dialog-performance" class="modal fade page-help-dialog" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="question-mark"></div>
+                                        <div class="text-container">
+                                            <h3 class="hidden-sm-down">Cette rubrique vous permet de définir les règles d’attribution des points par comparaison aux performances antérieures du participant, ou par comparaison aux performances des autres participants.</h3>
+                                            <h5 class="hidden-md-up">Cette rubrique vous permet de définir les règles d’attribution des points par comparaison aux performances antérieures du participant, ou par comparaison aux performances des autres participants.</h5>
+                                            <p>
+                                                La rubrique « performances » vous sert à récompenser, ou accorder des bonus, pour les efforts réalisés par vos participants.
+                                                Vous pouvez ainsi récompenser la croissance des résultats de chaque participant, d’un mois à l’autre, et/ou son classement par rapport aux autres participants du même rang.
+                                                Ces récompenses sont des valeurs fixes, contrairement aux autres critères de récompenses qui sont des pourcentages, et ne sont pas modérées suivant la saisonnalité.
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider return" data-dismiss="modal">
+                                                retour
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN dialog - bulle d'aide -->
                 </nav>
             </div>
         </div>
