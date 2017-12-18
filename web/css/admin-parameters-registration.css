@@ -284,8 +284,7 @@
     width: calc(100% - 35px) !important;
 }
 
-.cke{
-    width: 100% !important;
+/*.cke{
     border-radius: 0 0 5px 5px;
     border: solid 1px #636363 !important;
 }
@@ -296,7 +295,16 @@
 
 .cke_reset{
     border-radius: 0 0 5px 5px;
+    width: 100% !important;
 }
+
+.cke_panel{
+    border-radius: 0 !important;
+}
+
+.cke_bottom{
+    display: none !important;
+}*/
 
 .header-preview-container{
     text-align: center;
