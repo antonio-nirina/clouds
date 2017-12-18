@@ -568,13 +568,11 @@ p.chargementAjax img{
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	/*background: #9AB8F3;*/
-	color: white;
 	font-size: 20px;
-	font-family: var(--police_bold);
+	font-family: var(--police_light);
+	color: var(--couleur_2);
 	padding: 10px;
 	position:relative;
-	color: #AAAAAA;
 }
 
 #body-popup h3.titrePopUp span#fermerPopUp{
@@ -588,6 +586,10 @@ p.chargementAjax img{
 	border-radius: 16px;
 	width: 26px;
 	text-align: center;
+}
+
+.color-blue{
+	color: var(--couleur_2);
 }
 
 .conteneur-form-insert-img-ckeditor{
@@ -633,8 +635,9 @@ ul.liste-img-galery li img{
 }
 
 .select-img-editor{
-	left:4px!important;
-	top:1px!important;
+	left: 50%!important;
+	top: 1px !important;
+	margin-left: -10px!important;
 }
 
 .title-liste-img-galery{
@@ -642,4 +645,8 @@ ul.liste-img-galery li img{
 	width:100%;
 	background:#505050;
 	height:20px;
+}
+
+#btn-suppr-page-standard{
+	display:none;
 }

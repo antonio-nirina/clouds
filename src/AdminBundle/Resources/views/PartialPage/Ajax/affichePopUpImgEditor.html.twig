@@ -1,8 +1,8 @@
-<h3 class = "titrePopUp"><span id = "fermerPopUp">X</span></h3>
+<h3 class = "titrePopUp">insérer une image<span id = "fermerPopUp">X</span></h3>
 <div class = "conteneur-form-insert-img-ckeditor">
 	
 	<form name = "InsertImgEditor" method = "POST" action = "">
-		<div class="titre-section-page-standard"><span>Séléctionner une image</span></div>
+		<div class="titre-section-page-standard"><span style = "color:#505050;font-family: var(--police_bold);font-size:14px;">séléctionner une image déjà uploadée</span></div>
 		<div class = "separator"></div>
 		<div class = "conteneur-liste-galery">
 			
@@ -13,11 +13,9 @@
 	<div class = "separator"></div>
 	
 	<form id = "UploadImgEditor" name = "UploadImgEditor" method = "POST" action = "" enctype = "multipart/form-data">
-		<div class="titre-section-page-standard"><span>Uploader une image</span></div>
-		<div class = "separator"></div>
-		<div class = "float-left">
-			<span class="lib-form block">ajouter une image</span>
-			<button id="btn-upload-img-ckeditor" class="btn-valider btn-upload choose-upload-img-button" type="button">
+		<div>
+			<span class="lib-form" style = "font-family: var(--police_bold);">insérer une nouvelle image</span>
+			<button id="btn-upload-img-ckeditor" class="btn-valider btn-upload choose-upload-img-button" type="button" style = "margin-left:20px;">
 				<span id="id-lib-upload-1" class="upload"></span> 
 				<span id="lib-btn-pages-1">choisissez un fichier...</span>
 			</button>
