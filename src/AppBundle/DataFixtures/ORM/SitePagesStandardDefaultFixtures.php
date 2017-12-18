@@ -14,6 +14,7 @@ class SitePagesStandardDefaultFixtures extends Fixture
 		$ListPageParDefaut[] = 'découvrez le programme';
 		$ListPageParDefaut[] = 'actualité des partenaires';
 		$ListPageParDefaut[] = 'cadeaux';
+		$ListPageParDefaut[] = 'contact';
 		$ListPageParDefaut[] = 'mentions légales';
 		$ListPageParDefaut[] = 'règlement';
 	

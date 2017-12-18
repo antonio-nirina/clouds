@@ -10,7 +10,26 @@ $(document).ready(function(){
 			}
 		});
 		
-		$('input#onglet-selectionner-page').val($.trim($(this).find('span.lib-onglet-choix-page').html()));
+		var OngletActif = $.trim($(this).find('span.lib-onglet-choix-page').html());
+		$('input#onglet-selectionner-page').val(OngletActif);
+		
+		//Liste des pages par defaut
+		var ListePageDefaut = [ 
+			'présentation de la société',
+			'découvrez le programme',
+			'actualité des partenaires',
+			'cadeaux',
+			'contact',
+			'mentions légales <span style="font-size:12px;">(footer)</span>',
+			'règlement <span style="font-size:12px;">(footer)</span>'
+		];
+		
+		//Afficher bouton supprimer
+		if(ListePageDefaut.indexOf(OngletActif) < 0){
+			$('button#btn-suppr-page-standard').show();
+		}else{
+			$('button#btn-suppr-page-standard').hide();
+		}
 
 		$(this).removeClass('pages-list');
 		$(this).addClass('page-list-active');
@@ -306,6 +325,56 @@ $(document).ready(function(){
 			editor.insertHtml(img_html);
 			$('span#fermerPopUp').click();
 		}
+	});
+	
+	$(document).on('click', 'button#btn-suppr-page-standard', function(){
+		$('ul.list-choix-page li').each(function(i){
+			if($(this).hasClass('page-list-active')){
+				var IdLiActive = $(this).attr('id');
+				var ArrayIdLiActive = new Array;
+				ArrayIdLiActive = IdLiActive.split('-');
+				var ID = ArrayIdLiActive[3];
+				
+				//On supprime la page
+				$('#conteneur-popup').show();
+				$('#body-popup').show();
+				
+				var Html = '';
+				Html += '<div class = "InfosSuppressionPage" style = "padding:20px;">';
+				Html += '<h3 class = "titrePopUp">supprimer la page<span id = "fermerPopUp">X</span></h3>';
+				Html += '<p style = "margin: 0;padding: 0;margin-left: 11px;margin-top:20px;">cette page sera supprimée des onglets et du menu, vous pourrez la recréer en cliquant sur "ajouter une page".</p>';
+				Html += '<input id = "id-id-page" type = "hidden" name = "id-page" value = "'+ID+'">';
+				Html += '<p style = "text-align:center;margin-top:20px;"><button id = "btn-supprimer-page-confirmation" class="btn-valider valider submit-form">';
+				Html += 'valider';
+				Html += '</button></p>';
+				Html += '</div>';
+				$('#body-popup').html(Html);
+			}
+		});
+	});
+	
+	$(document).on('click', 'button#btn-supprimer-page-confirmation', function(){
+		var IdPage = $('input#id-id-page').val();
+		var Chargements = $('p.chargementAjax').clone();
+		$('div.InfosSuppressionPage').html(Chargements);
+		$('div.InfosSuppressionPage').find('p.chargementAjax').show();
+		$('div.InfosSuppressionPage').find('p.chargementAjax img').css('top', '17px');
+		
+		var UrlSupprPage = $('input#url_suppr_page').val();
+		setTimeout(function(){
+			$.ajax({
+				url: UrlSupprPage, 
+				data: 'idpage='+IdPage+'',                         
+				type: 'POST',
+				success: function(response){
+					$('li#li-onglet-page-'+IdPage+'').remove();
+					$('div#id-content-page-body-'+IdPage+'').remove();
+					$('#conteneur-popup').hide();
+					$('#body-popup').hide();
+					$('ul.list-choix-page li[data-role="onglet"]:first-child').trigger('click');
+				}
+			});
+		},500);
 	});
 	
 	

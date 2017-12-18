@@ -1828,6 +1828,30 @@ class ParametragesController extends Controller
 	}
 	
 	/**
+     * @Route("/contenus/pages-standard/delete-page-standard",name="admin_pages_standard_delete_page")
+     */
+	public function DeletePageStandardAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$idpage = $request->get('idpage');
+			$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($idpage);
+			if(!is_null($sitePagesStandardSetting)){
+				$em->remove($sitePagesStandardSetting);
+				$em->flush();
+			}
+			return new Response('ok');
+		}else{
+			return new Response('');
+		}
+	}
+	
+	/**
      * @Route("/contenus/pages-standard/add-img-editor-upload",name="admin_pages_standard_add_img_editor_upload")
      */
 	public function UploadImageCkeditorAction(Request $request){

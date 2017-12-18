@@ -3628,3 +3628,29 @@ button.btn-valider-etat .uploaded{
 img[src='']{
 	display: none;
 }
+
+.large-textarea + div.cke{
+	width: 100% !important;
+	border-radius: 0 0 5px 5px;
+	border: solid 1px #636363 !important;
+}
+
+.large-textarea + div.cke.cke_reset{
+	border-radius: 0 0 5px 5px;
+}
+
+.large-textarea + div.cke .cke_top{
+	border-bottom: solid 1px #636363 !important;
+}
+
+.large-textarea + div.cke .cke_bottom{
+	display: none;
+}
+
+.large-textarea + div.cke .cke_inner{
+	border-radius: 0 0 5px 5px;
+}
+
+.large-textarea + div.cke .cke_contents{
+	border-radius: 0 0 5px 5px;
+}

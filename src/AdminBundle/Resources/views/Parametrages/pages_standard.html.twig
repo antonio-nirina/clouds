@@ -19,6 +19,7 @@
 		<input id = "url_popup_insert_img_editor" type = "hidden" value = "{{ path("admin_pages_standard_add_img_editor") }}" name = "url_popup_insert_img_editor">
 		<input id = "url_upload_img_editor" type = "hidden" value = "{{ path("admin_pages_standard_add_img_editor_upload") }}" name = "url_upload_img_editor">
 		<input id = "url_list_img_editor" type = "hidden" value = "{{ path("admin_pages_standard_list_img_editor") }}" name = "url_list_img_editor">
+		<input id = "url_suppr_page" type = "hidden" value = "{{ path("admin_pages_standard_delete_page") }}" name = "url_suppr_page">
 		<input id = "url_customs_ckeditor" type = "hidden" value = "{{ asset('ckeditor-uploader/custom/config-general.js') }}" name = "url_customs_ckeditor">
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
@@ -85,7 +86,7 @@
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
 													<span class = "lib-onglet-choix-page">
 														{% if Pages.NomPage == 'mentions légales' or Pages.NomPage == 'règlement' %}
-															{{ Pages.NomPage~' (footer)' }}
+															{{ Pages.NomPage }} <span style = "font-size:12px;">(footer)</span>
 														{% else %}
 															{{ Pages.NomPage }}
 														{% endif %}
@@ -111,7 +112,7 @@
 												<li id = "li-onglet-page-{{ Pages.Id }}" data-role = "onglet" class = "pages-list">
 													<span class = "lib-onglet-choix-page">
 														{% if Pages.PageName == 'mentions légales' or Pages.PageName == 'règlement' %}
-															{{ Pages.PageName~' (footer)' }}
+															{{ Pages.PageName }} <span style = "font-size:12px;">(footer)</span>
 														{% else %}
 															{{ Pages.PageName }}
 														{% endif %}
@@ -277,11 +278,15 @@
 						
 						<div class = "row">
 							<div class = "col-12">
-								<label class = "champForm">
-									<button class="btn-valider valider submit-form block-center">
+								<div class = "champForm" style = "text-align:center;">
+									<button class="btn-valider valider submit-form">
 										valider
 									</button>
-								</label>
+									<span style = "display:inline-block; width:20px;"></span>
+									<button id = "btn-suppr-page-standard" class="btn-valider valider submit-form" type = "button">
+										supprimer la page
+									</button>
+								</div>
 							</div>
 						</div>
 					</form>
