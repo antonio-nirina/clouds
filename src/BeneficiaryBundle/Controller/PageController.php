@@ -85,7 +85,7 @@ class PageController extends Controller
 		$ListePages = array();
 		foreach($PageStandard as $Pages){
 			if($Pages->getStatusPage() == '1'){
-				if($Pages->getNomPage() == 'mentions légales' || $Pages->getNomPage() == 'règlement' || || $Pages->getNomPage() == 'contact'){
+				if($Pages->getNomPage() == 'mentions légales' || $Pages->getNomPage() == 'règlement' || $Pages->getNomPage() == 'contact'){
 					$ListePages[] = $Pages;
 				}
 			}
