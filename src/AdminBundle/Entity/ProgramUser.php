@@ -47,6 +47,11 @@ class ProgramUser
     private $user_point;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProgramUserClassmentProgression", mappedBy="program_user")
+     */
+    private $classment_progression;
+
+    /**
      * Get id
      *
      * @return integer
@@ -215,5 +220,39 @@ class ProgramUser
     public function getUserPoint()
     {
         return $this->user_point;
+    }
+
+    /**
+     * Add classmentProgression
+     *
+     * @param \AdminBundle\Entity\ProgramUserClassmentProgression $classmentProgression
+     *
+     * @return ProgramUser
+     */
+    public function addClassmentProgression(\AdminBundle\Entity\ProgramUserClassmentProgression $classmentProgression)
+    {
+        $this->classment_progression[] = $classmentProgression;
+
+        return $this;
+    }
+
+    /**
+     * Remove classmentProgression
+     *
+     * @param \AdminBundle\Entity\ProgramUserClassmentProgression $classmentProgression
+     */
+    public function removeClassmentProgression(\AdminBundle\Entity\ProgramUserClassmentProgression $classmentProgression)
+    {
+        $this->classment_progression->removeElement($classmentProgression);
+    }
+
+    /**
+     * Get classmentProgression
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClassmentProgression()
+    {
+        return $this->classment_progression;
     }
 }

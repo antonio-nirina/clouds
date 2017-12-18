@@ -35,7 +35,7 @@ class Role
     private $rank;
 
     /**
-     * @ORM\Column(name="active", type="boolean", nullable=false)
+     * @ORM\Column(name="active", type="boolean", nullable=true)
      */
     private $active;
 

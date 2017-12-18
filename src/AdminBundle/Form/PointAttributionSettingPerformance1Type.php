@@ -25,10 +25,10 @@ class PointAttributionSettingPerformance1Type extends AbstractType
                             new Range(
                                 array(
                                     "min" => 0,
-                                    "max" => 100,
+                                    // "max" => 100,
                                     "invalidMessage" => "Entrez des valeurs numériques dans les champs",
-                                    "minMessage" => "Entrez des valeurs entre 0 à 100",
-                                    "maxMessage" => "Entrez des valeurs entre 0 à 100"
+                                    "minMessage" => "Entrez des valeurs positives",
+                                    // "maxMessage" => "Entrez des valeurs entre 0 à 100"
                                 )
                             )
                         )
@@ -40,10 +40,10 @@ class PointAttributionSettingPerformance1Type extends AbstractType
                             new Range(
                                 array(
                                     "min" => 0,
-                                    "max" => 100,
+                                    // "max" => 100,
                                     "invalidMessage" => "Entrez des valeurs numériques dans les champs",
-                                    "minMessage" => "Entrez des valeurs entre 0 à 100",
-                                    "maxMessage" => "Entrez des valeurs entre 0 à 100"
+                                    "minMessage" => "Entrez des valeurs positives",
+                                    // "maxMessage" => "Entrez des valeurs entre 0 à 100"
                                 )
                             )
                         )

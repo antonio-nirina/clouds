@@ -251,7 +251,9 @@ class ResultSettingValidator extends CSVFileContentBrowser
             } else {
                 $role = new Role();
                 $role->setName($current_row['Fonction']);
-                $role->setRank($current_row['Rang']);
+                if ($current_row['Rang']) {
+                    $role->setRank($current_row['Rang']);
+                }
                 // $role->setNetwork($current_row['Réseau']);
                 $role->setProgram($program);
                 $this->manager->persist($role);
@@ -290,6 +292,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
 
                 /* définition des points pour mise à jour des points */
                 $sales_point_attribution->attributedByProduct($sales); //by product and by period
+                $sales_point_attribution->updateUserClassmentPerformance($sales); //update performance
                 if (array_key_exists("Fonction", $current_row)) {//by rank
                     $sales_point_attribution->attributedByRank($sales);
                 }
