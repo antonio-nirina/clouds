@@ -24,21 +24,12 @@ class SalesPointAttribution
             $rank = $role->getRank();
             $ca = $sales->getCa();
 
-            $gain = $role->getGain();
-            if ($gain) {//for current user
-                $user_point = new UserPoint();
-                $user_point->setProgramUser($program_user)
-                            ->setDate(new \DateTime())
-                            ->setPoints(($ca * $gain) / 100)
-                            ->setMotif("rang")
-                            ->setReference("sales_".$sales->getId());
-                $this->em->persist($user_point);
-            }
-
+            /*Seulement pour les rangs supérieurs*/
             $higher_role = $this->em->getRepository('AdminBundle:Role')->findHigherRank(
                 $program_user->getProgram(),
                 $rank
             );
+            $attributed = false;
             if ($higher_role) {
                 foreach ($higher_role as $hr) {
                     if ($gain = $hr->getGain()) {
@@ -48,6 +39,7 @@ class SalesPointAttribution
                             )
                         );
                         foreach ($higher_users as $user) {//for superior users
+                            $attributed = true;
                             $user_point = new UserPoint();
                             $user_point->setProgramUser($user)
                                 ->setDate(new \DateTime())
@@ -59,8 +51,8 @@ class SalesPointAttribution
                     }
                 }
             }
-            
-            $sales->setRankAttributed(true);
+
+            $sales->setRankAttributed($attributed);
             $this->em->flush();
         }
 
@@ -113,23 +105,13 @@ class SalesPointAttribution
             $date_from = $sales->getDateFrom();
             $date_to = $sales->getDateTo();
 
-            if ($date) {
-                $month = date_format($date, "m");
-                $year = date_format($date, "Y");
-            } elseif ($date_from) {
-                $month = date_format($date_from, "m");
-                $year = date_format($date_from, "Y");
-            } else {
-                $month = date_format($date_to, "m");
-                $year = date_format($date_to, "Y");
-            }
+            $date = ($date)?$date:$date_from;
+            $classment_progression = $this->getCurrentClassmentProgression($program_user, $date);
 
-            $classment_progression = $this->getClassmentProgression($program_user, $month, $year);
-
-            if (empty($classment_progression)) {
-                $classment_progression = $this->setNewClassmentProgression($program_user, $month, $year);
-            } else {
-                $classment_progression = $classment_progression[0];
+            if (empty($classment_progression)) {//initialisation pour tous program_user
+                $first_day = $date->modify('first day of this month');
+                $this->setNewClassmentProgression($program_user->getProgram(), $first_day);
+                $classment_progression = $this->getCurrentClassmentProgression($program_user, $date);
             }
 
             $ca = $sales->getCa();
@@ -146,16 +128,17 @@ class SalesPointAttribution
             $sales->setPerformanceAttributed(true);
             $this->em->flush();
 
-            $this->adjustClassment($program_user->getRole(), $month, $year); //à faire systemtiquement ou par mois ?
+            //à faire systemtiquement ou par mois ?
+            $this->adjustCurrentClassment($program_user->getRole(), $classment_progression->getStartDate());
         }
 
         return $sales;
     }
 
-    public function adjustClassment($role, $month, $year)// classement par rôle
+    public function adjustCurrentClassment($role, $start_date)// classement par rôle
     {
         $user_arranged = $this->em->getRepository("AdminBundle:ProgramUser")
-                                    ->findArrangedUsersByRole($role, $month, $year);
+                                    ->findArrangedUsersByRole($role, $start_date);
         foreach ($user_arranged as $k => $user) {
             $classment_progression = $user->getClassmentProgression();
             $classment_progression[0]->setClassment($k+1);
@@ -165,53 +148,60 @@ class SalesPointAttribution
         return;
     }
 
-    public function getClassmentProgression($program_user, $month, $year)
+    public function getCurrentClassmentProgression($program_user, $date = false)
     {
-        return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")->findBy(
-            array(
-                    'program_user' => $program_user,
-                    'month' => $month,
-                    'year' => $year
-            )
-        );
+        return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")
+                        ->findCurrentClassmentProgression($program_user, $date);
     }
 
-    public function getPreviousClassmentProgression($program_user, $month, $year)
+    public function getPreviousClassmentProgression($program_user, $start)
     {
-        $previous_date = \DateTime::createFromFormat('m-Y', ($month-1).'-'.$year);
-        $previous_month = date_format($previous_date, "m");
-        $previous_year = date_format($previous_date, 'Y');
-
-        return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")->findBy(
-            array(
-                    'program_user' => $program_user,
-                    'month' => $previous_month,
-                    'year' => $previous_year
-            )
-        );
+        return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")
+                        ->findPreviousClassmentProgression($program_user, $start);
     }
 
-    public function setNewClassmentProgression($program_user, $month, $year)//to launch by cron every month or manually?
+    public function setNewClassmentProgression($program, $start = false, $end = false)
     {
-        $previous_classment_progression = $this->getPreviousClassmentProgression($program_user, $month, $year);
-        $classment_progression = new ProgramUserClassmentProgression();
-        $classment_progression  ->setMonth($month)
-                                ->setYear($year)
-                                ->setProgramUser($program_user);
-        
-        if ($previous_classment_progression) {
-            $previous_cl_pr = $previous_classment_progression[0];
-            $classment_progression  ->setClassment($previous_cl_pr->getClassment())
-                                    ->setPreviousCa($previous_cl_pr->getCurrentCa());
+        //to launch by cron every month or manually?
+        if ($start === false) {
+            $date = new \DateTime();
+            $start = $date->modify('first day of this month');
         }
-        $this->em->persist($classment_progression);
+
+        $users = $this->em->getRepository("AdminBundle:ProgramUser")->findBy(
+            array("program" => $program)
+        );
+
+        foreach ($users as $program_user) {
+            $previous_classment_progression = $this->getPreviousClassmentProgression($program_user, $start);
+            $classment_progression = new ProgramUserClassmentProgression();
+            $classment_progression  ->setStartDate($start)
+                                    ->setProgramUser($program_user);
+
+            if ($end) {
+                $classment_progression->setEndDate($end);
+            }
+            
+            if ($previous_classment_progression) {
+                $classment_progression  ->setClassment($previous_classment_progression->getClassment())
+                                        ->setPreviousCa($previous_classment_progression->getCurrentCa());
+            }
+            $this->em->persist($classment_progression);
+        }
         $this->em->flush();
 
         return $classment_progression;
     }
 
-    public function attributedByPerformance($program, $month, $year)//to launch by cron every month or manually?
+    public function attributedByPerformance($program, $month = false, $year = false)
     {
+        //to launch by cron every month or manually?
+        if (($month === false) || ($year === false)) {
+            $date = new \DateTime();
+            $month = ($month !== false)?$month:date_format($previous_date, "m");
+            $year = ($year !== false)?$year:date_format($previous_date, 'Y');
+        }
+
         $performance_type_1 = $this->em->getRepository('AdminBundle:PointAttributionType')->findBy(
             array("point_type_name" => 'performance_1')
         );

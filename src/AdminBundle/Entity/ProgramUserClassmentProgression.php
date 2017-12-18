@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\ProgramUserClassmentProgressionRepository")
  * @ORM\Table(name="program_user_classment_progression")
  */
 class ProgramUserClassmentProgression
@@ -20,14 +20,14 @@ class ProgramUserClassmentProgression
     private $id;
 
     /**
-     * @ORM\Column(name="month", type="integer")
+     * @ORM\Column(name="start_date", type="datetime", nullable=false)
      */
-    private $month;
+    private $start_date;
 
     /**
-     * @ORM\Column(name="year", type="integer")
+     * @ORM\Column(name="end_date", type="datetime", nullable=true)
      */
-    private $year;
+    private $end_date;
 
     /**
      * @Gedmo\Timestampable(on="update")
@@ -56,6 +56,16 @@ class ProgramUserClassmentProgression
     private $current_ca;
 
     /**
+     * @ORM\Column(name="earn_points", type="float", nullable=true)
+     */
+    private $earn_points;
+
+    /**
+     * @ORM\Column(name="previous_points", type="float", nullable=true)
+     */
+    private $previous_points;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ProgramUser", inversedBy="classment_progression")
      */
     private $program_user;
@@ -68,30 +78,6 @@ class ProgramUserClassmentProgression
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set month
-     *
-     * @param \DateTime $month
-     *
-     * @return ProgramUserClassmentProgression
-     */
-    public function setMonth($month)
-    {
-        $this->month = $month;
-
-        return $this;
-    }
-
-    /**
-     * Get month
-     *
-     * @return \DateTime
-     */
-    public function getMonth()
-    {
-        return $this->month;
     }
 
     /**
@@ -239,26 +225,98 @@ class ProgramUserClassmentProgression
     }
 
     /**
-     * Set year
+     * Set earnPoints
      *
-     * @param integer $year
+     * @param float $earnPoints
      *
      * @return ProgramUserClassmentProgression
      */
-    public function setYear($year)
+    public function setEarnPoints($earnPoints)
     {
-        $this->year = $year;
+        $this->earn_points = $earnPoints;
 
         return $this;
     }
 
     /**
-     * Get year
+     * Get earnPoints
      *
-     * @return integer
+     * @return float
      */
-    public function getYear()
+    public function getEarnPoints()
     {
-        return $this->year;
+        return $this->earn_points;
+    }
+
+    /**
+     * Set startDate
+     *
+     * @param \DateTime $startDate
+     *
+     * @return ProgramUserClassmentProgression
+     */
+    public function setStartDate($startDate)
+    {
+        $this->start_date = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * Get startDate
+     *
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->start_date;
+    }
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     *
+     * @return ProgramUserClassmentProgression
+     */
+    public function setEndDate($endDate)
+    {
+        $this->end_date = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->end_date;
+    }
+
+    /**
+     * Set previousPoints
+     *
+     * @param float $previousPoints
+     *
+     * @return ProgramUserClassmentProgression
+     */
+    public function setPreviousPoints($previousPoints)
+    {
+        $this->previous_points = $previousPoints;
+
+        return $this;
+    }
+
+    /**
+     * Get previousPoints
+     *
+     * @return float
+     */
+    public function getPreviousPoints()
+    {
+        return $this->previous_points;
     }
 }
