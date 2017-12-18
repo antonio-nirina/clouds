@@ -285,7 +285,6 @@
 }
 
 .cke{
-    width: 100% !important;
     border-radius: 0 0 5px 5px;
     border: solid 1px #636363 !important;
 }
@@ -296,6 +295,15 @@
 
 .cke_reset{
     border-radius: 0 0 5px 5px;
+    width: 100% !important;
+}
+
+.cke_panel{
+    border-radius: 0 !important;
+}
+
+.cke_bottom{
+    display: none !important;
 }
 
 .header-preview-container{
