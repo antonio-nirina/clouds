@@ -224,7 +224,7 @@ span.block{
     border-radius: 5px;
 }
 
-.cke_reset {
+/*.cke_reset {
     border-radius: 0 0 5px 5px;
 }
 
@@ -232,7 +232,7 @@ span.block{
     width: 100% !important;
     border-radius: 0 0 5px 5px;
     border: solid 1px #636363 !important;
-}
+}*/
 
 span.editeur{
 	margin-bottom:15px;
