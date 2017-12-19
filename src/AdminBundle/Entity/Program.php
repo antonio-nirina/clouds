@@ -149,6 +149,10 @@ class Program
      */
     private $point_attribution_setting;
     
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\HomePagePost", mappedBy="program")
+     */
+    private $home_page_post;
 
     /**
      * @ORM\PrePersist

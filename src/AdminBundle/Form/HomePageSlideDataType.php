@@ -8,7 +8,6 @@ use AdminBundle\Form\HomePageSlideType;
 use AdminBundle\Entity\HomePageData;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class HomePageSlideDataType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

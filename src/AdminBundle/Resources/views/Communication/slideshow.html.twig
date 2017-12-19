@@ -1,0 +1,441 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':4})) }}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_content_configure_login_portal") }}">page d'accueil </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3 single">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_slideshow") }}">slideshow </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset slideshow active">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <h3 class="hidden-sm-down block-title">Création / édition du slideshow</h3>
+                            <h5 class="hidden-md-up block-title">Création / édition du slideshow</h5>
+                            <p>celui-ci apparaîtra dans le fil d'actualité sur la homepage à date de création</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="hidden-sm-down corner-circle-img img-content-home-page-slide rounded-circle"></div>
+                        </div>
+                    </div>
+                    {% if home_page_slide_data_form is defined %}
+                        {{ form_start(home_page_slide_data_form, {"attr": {"novalidate": "novalidate"}}) }}
+                        <div class="row nav-tabs-container top-container">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <ul class="nav nav-tabs fieldset-nav-tabs">
+                                    {% set tab_index = 1 %}
+                                    {% set tab_index_values = {} %}
+                                    {% set image_slide_nav_index = 1 %}
+                                    {% for slide in home_page_slide_data_form.home_page_slides %}
+                                        {% if slide.vars.value.slideType == constant('IMAGE', slide_type)  %}
+                                        <a class="tab nav-tab {{ 1 == tab_index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ tab_index }}">
+                                            <span class="tab-name-container">slide {{ image_slide_nav_index }}</span>
+                                            <span class="delete-tab" data-slide-id="{{ slide.vars.value.getId }}"></span>
+                                        </a>
+                                        {% set tab_index_values = tab_index_values | merge({('id-'~slide.vars.value.getId): tab_index}) %}
+                                        {% set image_slide_nav_index = image_slide_nav_index + 1 %}
+                                        {% set tab_index = tab_index + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="#" class="tab add-option-tab add add-slide-link add-image-slide-link" data-slide-type="{{ constant('IMAGE', slide_type) }}">
+                                        <span>ajouter un slide</span>
+                                    </a>
+                                    {% set video_slide_nav_index = 1 %}
+                                    {% for slide in home_page_slide_data_form.home_page_slides %}
+                                        {% if slide.vars.value.slideType == constant('VIDEO', slide_type)  %}
+                                            <a class="tab nav-tab video-slide-nav-tab {{ 1 == tab_index ? 'active' : '' }}" data-toggle="tab" href="#tab-form-{{ tab_index }}">
+                                                <span class="tab-name-container">slide vidéo {{ video_slide_nav_index }}</span>
+                                                <span class="delete-tab" data-slide-id="{{ slide.vars.value.getId }}"></span>
+                                            </a>
+                                        {% set tab_index_values = tab_index_values | merge({('id-'~slide.vars.value.getId): tab_index}) %}
+                                        {% set video_slide_nav_index = video_slide_nav_index + 1 %}
+                                        {% set tab_index = tab_index + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="#" class="tab add-option-tab add add-slide-link add-video-slide-link" data-slide-type="{{ constant('VIDEO', slide_type) }}">
+                                        <span class="add-slide-video-link-text">ajouter un slide vidéo</span>
+                                    </a>
+                                </ul>
+                                <a class="tab nav-tab tab-model block-model" data-toggle="tab" href="">
+                                    <span class="tab-name-container"></span>
+                                    <span class="delete-tab"></span>
+                                </a>
+                                <input type="hidden" name="add_slide_url" value="{{ path('admin_content_configure_home_page_add_slide', {"slide_type": "__slide_type__"}) }}">
+                                <input type="hidden" name="delete_slide_url" value="{{ path('admin_content_configure_home_page_delete_slide', {"id": "__id__"}) }}">
+                                <input type="hidden" name="image_slide_type" value="{{ constant('IMAGE', slide_type) }}">
+                                <input type="hidden" name="video_slide_type" value="{{ constant('VIDEO', slide_type) }}">
+                            </div>
+                        </div>
+                        <div class="row tab-content">
+                            {% for slide in home_page_slide_data_form.home_page_slides %}
+                                <div class="delete-input-common-container col-lg-12 col-md-12 col-sm-12 tab-pane {{ 1 == tab_index_values['id-'~slide.vars.value.getId] ? 'in active' : '' }}" id="tab-form-{{ tab_index_values['id-'~slide.vars.value.getId] }}" data-tab-index="{{ tab_index_values['id-'~slide.vars.value.getId] }}">
+                                    {% set video_url_block_style = 'style=display:none' %}
+                                    {% if slide.vars.value.slideType == constant('VIDEO', slide_type) %}
+                                        {% set video_url_block_style = '' %}
+                                    {% endif %}
+                                    <div class="row form-element-container" {{ video_url_block_style }}>
+                                        <div class="col-lg-2 col-md-2 col-sm-12">
+                                            {{ form_label(slide.video_url, 'url de la vidéo') }}
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    {% set input_size_class = '' %}
+                                                    {% set delete_input_visibility = 'style=display:none' %}
+                                                    {% if slide.vars.value.videoUrl | trim is not empty %}
+                                                        {% set input_size_class = 'quite-large-input-text' %}
+                                                        {% set delete_input_visibility = '' %}
+                                                    {% endif %}
+                                                    {{ form_widget(slide.video_url, {"attr": {"class": "large-input-text removable-content-input "~input_size_class}}) }}
+                                                    <span class="delete-input" {{ delete_input_visibility }}></span>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                    <p>url youtube, vimeo, depuis votre serveur, etc.</p>
+                                                    <p>si toutefois votre vidéo n'est pas hébergée veuillez <a class="blue-anchor" href="#">nous contacter</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-element-container info-block-after">
+                                        {% set label_grid_class = 'col-lg-1 col-md-1 col-sm-12' %}
+                                        {% set label_value = 'image' %}
+                                        {% set element_grid_class = 'col-lg-11 col-md-11 col-sm-12' %}
+                                        {% if slide.vars.value.slideType == constant('VIDEO', slide_type) %}
+                                            {% set label_value = 'image de prévisualisation' %}
+                                            {% set label_grid_class = 'col-lg-3 col-md-3 col-sm-12' %}
+                                            {% set element_grid_class = 'col-lg-9 col-md-9 col-sm-12' %}
+                                        {% endif %}
+                                        <div class="{{ label_grid_class }}">
+                                            {{ form_label(slide.image, label_value) }}
+                                        </div>
+
+                                        <div class="{{ element_grid_class }}">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                     {{ form_widget(slide.image, {"attr":{"class": "hidden-input-file slide-image-input"}}) }}
+                                                    {% if slide.vars.value.getId in original_slides_image|keys and original_slides_image[slide.vars.value.getId] is not empty and original_slides_image[slide.vars.value.getId] is not null %}
+                                                    <button class="btn-valider btn-upload choose-upload-img-button  hidden-button">
+                                                        <span class="upload"></span> Choisissez un fichier...
+                                                    </button>
+                                                    <div class="upload-img-button-container">
+                                                        <button class="upload-img-button">
+                                                            <span class="blue-upload"></span><span class="img-name-container">{{ original_slides_image[slide.vars.value.getId] }}</span>
+                                                        </button>
+                                                    </div>
+                                                    <a href="#" class="delete-link delete-slide-image"></a>
+                                                    <input type="hidden" name="initial_image" value="{{ asset(content_home_page_slide_image_location~original_slides_image[slide.vars.value.getId]) }}">
+                                                    <input type="hidden" name="initial_image_name" value="{{ original_slides_image[slide.vars.value.getId] }}">
+                                                    {% else %}
+                                                    <button class="btn-valider btn-upload choose-upload-img-button">
+                                                        <span class="upload"></span> Choisissez un fichier...
+                                                    </button>
+                                                    <div class="upload-img-button-container hidden-button">
+                                                        <button class="upload-img-button hidden-button">
+                                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                                        </button>
+                                                    </div>
+                                                    <a href="#" class="delete-link delete-slide-image" style="display: none;"></a>
+                                                    <input type="hidden" name="initial_image" value="">
+                                                    <input type="hidden" name="initial_image_name" value="">
+                                                    {% endif %}
+                                                    <input type="hidden" name="delete_slide_image_url" value="{{ path("admin_content_configure_home_page_delete_slide_image", {"slide_id": slide.vars.value.getId}) }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-1 col-md-1 col-sm-12"></div>
+                                        <div class="col-lg-11 col-md-11 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                    <p>largeur optimale de l'image : <span class="bigger">1024 px</span></p>
+                                                    <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                                    <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="row error-message-container">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            {{ form_errors(slide.image) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-element-container">
+                                        <div class="col-lg-1 col-md-1 col-sm-12">
+                                            {{ form_label(slide.message, 'message') }}
+                                        </div>
+                                        <div class="col-lg-11 col-md-11 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    {% set input_size_class = '' %}
+                                                    {% set delete_input_visibility = 'style=display:none' %}
+                                                    {% if slide.vars.value.message | trim is not empty %}
+                                                        {% set input_size_class = 'quite-large-input-text' %}
+                                                        {% set delete_input_visibility = '' %}
+                                                    {% endif %}
+                                                    {{ form_widget(slide.message, {"attr": {"class": "with-margin-left removable-content-input large-input-text slide-message-input "~input_size_class}}) }}
+                                                    <span class="delete-input" {{ delete_input_visibility }}></span>
+                                                </div>
+                                            </div>
+                                            <div class="row error-message-container">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    {{ form_errors(slide.message) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <label>prévisualisation</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        {% set slide_image = '' %}
+                                        {% if original_slides_image is defined %}
+                                            {% if slide.vars.value.getId in original_slides_image | keys %}
+                                                {% if original_slides_image[slide.vars.value.getId] is not null and original_slides_image[slide.vars.value.getId] is not empty %}
+                                                    {% set slide_image = original_slides_image[slide.vars.value.getId] %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        <div class="col-lg-12 col-md-12 col-sm-12 slide-image-preview-container {{ '' == slide_image ? 'no-image' : '' }}">
+                                            <div class="all-width no-image-block"></div>
+                                            <span class="all-width slide-message-preview message-preview">{{ slide.vars.value.message }}</span>
+                                            <img class="all-width image-preview slide-image-preview" src="{{ '' != slide_image ? asset(content_home_page_slide_image_location~slide_image) : '' }}">
+                                        </div>
+                                    </div>
+                                    <div class="row form-element-container">
+                                        <div class="col-lg-2 col-md-12 col-sm-12 slide-unit-order-label-container">
+                                            {{ form_label(slide.slide_order, "ordre d'apparition") }}
+                                        </div>
+                                        <div class="col-lg-10 col-md-12 col-sm-12 slide-orders">
+                                            {{ form_widget(slide.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
+                                        </div>
+                                        <div class="col-lg-10 col-md-12 col-sm-12 error-message-container">
+                                            {{ form_errors(slide.slide_order) }}
+                                        </div>
+                                    </div>
+                                    {% set image_target_url_block_style = 'style=display:none' %}
+                                    {% if slide.vars.value.slideType == constant('IMAGE', slide_type) %}
+                                        {% set image_target_url_block_style = '' %}
+                                    {% endif %}
+                                    <div class="row" {{ image_target_url_block_style }}>
+                                        <div class="col-lg-2 col-md-2 col-sm-12">
+                                            {{ form_label(slide.image_target_url, "url de l'image") }}
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    {% set input_size_class = '' %}
+                                                    {% set delete_input_visibility = 'style=display:none' %}
+                                                    {% if slide.vars.value.imageTargetUrl | trim is not empty %}
+                                                        {% set input_size_class = 'quite-large-input-text' %}
+                                                        {% set delete_input_visibility = '' %}
+                                                    {% endif %}
+                                                    {{ form_widget(slide.image_target_url, {"attr": {"class": "no-margin-left removable-content-input large-input-text "~input_size_class}}) }}
+                                                    <span class="delete-input" {{ delete_input_visibility }}></span>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                    <p>l'url s'ouvrira dans un nouvel onglet</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{ form_widget(slide.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
+                                    {{ form_widget(slide.slide_type, {"attr": {"class": "slide-type-input"}}) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="block-model-container">
+                            <div class="delete-input-common-container col-lg-12 col-md-12 col-sm-12 tab-pane block-model tab-content-model">
+                                <div class="row form-element-container video-slide-block">
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.video_url, 'url de la vidéo') }}
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.video_url, {"attr": {"class": "large-input-text removable-content-input"}}) }}
+                                                <span class="delete-input" style="display: none;"></span>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                <p>url youtube, vimeo, depuis votre serveur, etc.</p>
+                                                <p>si toutefois votre vidéo n'est pas hébergée veuillez <a class="blue-anchor" href="#">nous contacter</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-element-container info-block-after image-block">
+                                    <div class="image-label-block col-sm-12">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.image, 'image') }}
+                                    </div>
+                                    <div class="image-element-block col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.image, {"attr":{"class": "hidden-input-file slide-image-input"}}) }}
+                                                <button class="btn-valider btn-upload choose-upload-img-button">
+                                                    <span class="upload"></span> Choisissez un fichier...
+                                                </button>
+                                                <div class="upload-img-button-container hidden-button">
+                                                    <button class="upload-img-button hidden-button">
+                                                        <span class="blue-upload"></span><span class="img-name-container"></span>
+                                                    </button>
+                                                </div>
+                                                <a href="#" class="delete-link delete-slide-image" style="display: none;"></a>
+                                                <input type="hidden" name="initial_image" value="">
+                                                <input type="hidden" name="initial_image_name" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-1 col-sm-12"></div>
+                                    <div class="col-lg-11 col-md-11 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                <p>largeur optimale de l'image : <span class="bigger">1024 px</span></p>
+                                                <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                                <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="row error-message-container">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        {{ form_errors(home_page_slide_data_form.home_page_slides.vars.prototype.image) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-element-container">
+                                    <div class="col-lg-1 col-md-1 col-sm-12">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.message, 'message') }}
+                                    </div>
+                                    <div class="col-lg-11 col-md-11 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.message, {"attr": {"class": "with-margin-left removable-content-input large-input-text slide-message-input "}}) }}
+                                                <span class="delete-input" style="display: none;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row error-message-container">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_errors(home_page_slide_data_form.home_page_slides.vars.prototype.message) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <label>prévisualisation</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 slide-image-preview-container no-image">
+                                        <div class="all-width no-image-block"></div>
+                                        <span class="all-width slide-message-preview message-preview"></span>
+                                        <img class="all-width image-preview slide-image-preview" src="">
+                                    </div>
+                                </div>
+                                <div class="row form-element-container">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 slide-unit-order-label-container">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.slide_order, "ordre d'apparition") }}
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12">
+                                        {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.slide_order, {"attr":{"class": "radio-order-form-element"}}) }}
+                                    </div>
+                                </div>
+                                <div class="row image-slide-block">
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                        {{ form_label(home_page_slide_data_form.home_page_slides.vars.prototype.image_target_url, "url de l'image") }}
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.image_target_url, {"attr": {"class": "no-margin-left removable-content-input large-input-text "}}) }}
+                                                <span class="delete-input" style="display: none;"></span>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 info-container">
+                                                <p>l'url s'ouvrira dans un nouvel onglet</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.delete_image_command, {"attr": {"class": "delete-command-input"}}) }}
+                                {{ form_widget(home_page_slide_data_form.home_page_slides.vars.prototype.slide_type, {"attr": {"class": "slide-type-input"}}) }}
+                            </div>
+                            <div class="slide-unit-order-container block-model slide-unit-order-container-model" data-order="">
+                                <div>
+                                    <label for="" class="slide-unit-order-label-container">1</label>
+                                </div>
+                                <div>
+                                    <input class="styled-checkbox bigger" value="" type="radio" id="">
+                                    <label for=""></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row submit-button-container">
+                            <div class="col-lg-12">
+                                <button class ="btn-valider valider submit-form">
+                                    valider
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(home_page_slide_data_form) }}
+                    {% endif %}
+                </section>
+                <section class="fieldset">                    
+                </section>
+            </div>
+        </div>
+
+        <div class = "row separator"></div>
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>         
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

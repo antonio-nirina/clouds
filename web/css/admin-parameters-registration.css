@@ -1282,3 +1282,12 @@ a.blue-anchor{
 .btn-valider.choose-upload-img-button{
     margin-top: 0 !important;
 }
+.all-width {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 350px;
+}
+.fieldset.slideshow {
+    font-family: var(--police);
+    font-size: 15px;
+}
