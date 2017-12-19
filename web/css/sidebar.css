@@ -85,7 +85,7 @@
     #sidebar::-webkit-scrollbar{ width: 0px; }
     
     #sidebar, #sidebar .list-group {
-        min-width: 35px;
+        min-width: 38px;
         overflow: visible;
     }
     /* overlay sub levels on small screens */

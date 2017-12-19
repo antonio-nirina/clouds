@@ -1,5 +1,239 @@
 {% extends "AdminBundle::layout.html.twig" %}
 
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
 {% block main %}
     {{ render(controller('AdminBundle:Communication:sidebar',{'active':3})) }}
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <div class="navbar" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3 single">
+                            <li class="nav-item-niv-3 single form-inscription">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_editorial") }}">édito </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset active">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-9 col-sm-12">
+                            <h3 class="hidden-sm-down block-title">Création / éditoin d'édito</h3>
+                            <h5 class="hidden-md-up block-title">Création / éditoin d'édito</h5>
+                            <p>celui-ci apparaîtra dans le d'actualité sur la homepage à date de création</p>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-12">
+                            <div class="hidden-sm-down corner-circle-img img-edito rounded-circle"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <div class="row form-element-container">
+                                <div class="col-12 col-sm-12 col-md-1">
+                                    <label for="title">titre</label>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-11">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12">
+                                            <input id="title" type="text" class="large-input-text removable-content-input">
+                                            <span class="delete-input" style="display: none"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <label for="text">texte</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <textarea id="text-add" class="large-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="row submit-button-container">
+                        <div class="col-lg-12">
+                            <button class ="btn-valider valider submit-form">
+                                valider
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                <section class="fieldset post-element">
+                    <div class="row">
+                        <div class="col-12 col-sm-9 col-md-9">
+                            <h3 class="hidden-sm-down block-title">édito de décembre</h3>
+                            <h5 class="hidden-md-up block-title">édito de décembre</h5>
+                            <p class="date-info">créé le 12 décembre 2017</p>
+                        </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="option-container">
+                                <a href="#" class="edit-post"></a>
+                                <a href="#" class="delete-post"></a>
+                                <a href="#" class="close-edit-post-form"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row edit-form-container">
+                        <div class="col-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    <div class="row form-element-container">
+                                        <div class="col-12 col-sm-12 col-md-1">
+                                            <label for="title">titre</label>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-11">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12">
+                                                    <input id="title" type="text" class="removable-content-input quite-large-input-text large-input-text" value="édito de décembre">
+                                                    <span class="delete-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    <label for="text">texte</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    <textarea id="text-edit-1" class="large-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="row submit-button-container">
+                                <div class="col-lg-12">
+                                    <button class ="btn-valider valider submit-form">
+                                        valider
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="fieldset post-element">
+                    <div class="row">
+                        <div class="col-12 col-sm-9 col-md-9">
+                            <h3 class="hidden-sm-down block-title">Bienvenu aux nouveaux participants !</h3>
+                            <h5 class="hidden-md-up block-title">Bienvenu aux nouveaux participants !</h5>
+                            <p class="date-info">créé le 08 novembre 2017</p>
+                        </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="option-container">
+                                <a href="#" class="edit-post"></a>
+                                <a href="#" class="delete-post"></a>
+                                <a href="#" class="close-edit-post-form"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row edit-form-container">
+                        <div class="col-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    <div class="row form-element-container">
+                                        <div class="col-12 col-sm-12 col-md-1">
+                                            <label for="title">titre</label>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-11">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12">
+                                                    <input id="title" type="text" class="removable-content-input large-input-text quite-large-input-text" value="Bienvenu aux nouveaux participants !">
+                                                    <span class="delete-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    <label for="text">texte</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    <textarea id="text-edit-2" class="large-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="row submit-button-container">
+                                <div class="col-lg-12">
+                                    <button class ="btn-valider valider submit-form">
+                                        valider
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- dialog - confirmation suppression édito -->
+                <button id="trigger-delete-confirm" type="button" class="btn btn-primary confirm-delete-dialog-trigger" data-toggle="modal" data-target="#confirm-delete-dialog"></button>
+                <div id="confirm-delete-dialog" class="modal fade confirm-delete-dialog" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-body-container">
+                                    <div class="text-container">
+                                        <span class="confirm-dialog-title">Suppression</span>
+                                        <p class="message">Êtes-vous sûr de vouloir supprimer définitivement cet édito?</p>
+                                    </div>
+                                    <div>
+                                        <button class ="btn-valider confirm-delete">
+                                            valider
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN - dialog - confirmation suppression édito -->
+        </div>
+        <div class = "row separator"></div>
+    </main>
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('js/admin-communication.js') }}"></script>
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+            <script>
+                $(document).ready(function(){
+                    var text_area_list = $('textarea.large-textarea');
+                    text_area_list.each(function(){
+                        CKEDITOR.replace( $(this).attr('id'), {
+                            language: 'fr',
+                            uiColor: '#9AB8F3',
+                            height: 150,
+                            width: 600,
+                            customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
+                        });
+                    });
+                });
+            </script>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
