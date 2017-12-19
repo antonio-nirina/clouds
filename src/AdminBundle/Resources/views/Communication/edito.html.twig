@@ -1,1 +1,5 @@
 {% extends "AdminBundle::layout.html.twig" %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':3})) }}
+{% endblock %}

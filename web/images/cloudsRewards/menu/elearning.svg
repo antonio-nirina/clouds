@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 25" width="20" height="25">
+	<defs>
+		<image width="20" height="25" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAZCAMAAAAGyf7hAAAAAXNSR0IB2cksfwAAAUdQTFRFAAAAPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/CVgNhgAAAG10Uk5TAFC27v/237qISAcGqvCUI6n6ighkglp507QM5/Q1AmvxMGUZCaAUnyC1jhIE9XzzjQE76eaFdeoolpHU5ei3IXO5s3QDZv3DKZpW99kFQdt/Z66hm1fhLa/XjJDvEEzs3ZkfPw4PNnjtcKe/R9sLd+MAAAEsSURBVHicVdBXQ8IwFAXgg15BrKiIyihiUaiCo1ZxoCIqpVYRceDAvff/fzZp2qLnobn9mqQ3AVh8HZ1EXf5Ad7AHTqRe8hLq6xc4QH8THowwG+Ll8Eg05nIcSMhEydEUMKYIU9LAOC8mMlkVk87MKSDAhhwi+emZWQfnAI1vPg/oC4vtPe2xsBRdXlkt0pqfvawDG+JzsrQJqYwtVm4DOwIrKYP3XA2ZtMs6ERiTYO3tM45TLQG1ZuOBzk4WruOwQVQFjrhpdeDYzAEnfBVgnHJtngH80GWTZNYo9ArXc/6fi2KT6FLcU5Jhy8pe4dq+nDby5G74M2jb7b8LDYmJdx7cF4geBD661njSrecX214VF9/g5d01uW3qh4ua4WEm7fvMf323Sgr9OPQLYYQjp72OoioAAAAASUVORK5CYII="/>
+	</defs>
+	<use id="elearning" href="#img1" x="0" y="0" />
+</svg>
