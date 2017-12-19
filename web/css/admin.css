@@ -951,7 +951,7 @@ li.options{
 
 	.img-resultats-desactive{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_5);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -961,7 +961,7 @@ li.options{
 
 	.img-resultats-active{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_2);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -1509,7 +1509,7 @@ li.options{
 
 	.img-resultats-desactive{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_4);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -1519,7 +1519,7 @@ li.options{
 
 	.img-resultats-active{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_2);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -2113,7 +2113,7 @@ li.options{
 
 	.img-resultats-desactive{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_4);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -2122,7 +2122,7 @@ li.options{
 
 	.img-resultats-active{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_2);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -2527,7 +2527,7 @@ li.options{
 
 	.img-resultats-desactive{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_4);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -2536,7 +2536,7 @@ li.options{
 
 	.img-resultats-active{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_2);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -2926,7 +2926,7 @@ li.options{
 
 	.img-resultats-desactive{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_5);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
@@ -2935,7 +2935,7 @@ li.options{
 
 	.img-resultats-active{
 		background-repeat:no-repeat;
-		width:18px;
+		width:20px;
 		height:20px;
 		background-color: var(--couleur_2);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/resultats.svg');
