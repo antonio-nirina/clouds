@@ -55,7 +55,7 @@ class ProgramUserRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findProgressionByProgramByMaxMinValue($program, $max, $min, $month, $year)
+    public function findProgressionByProgramByMaxMinValue($program, $max, $min, $date)
     {
         $qb = $this->createQueryBuilder('pu');
         $qb->addSelect('cl_pr')
@@ -63,19 +63,25 @@ class ProgramUserRepository extends EntityRepository
             ->where($qb->expr()->eq('pu.program', ':program'))
             ->andWhere($qb->expr()->lte('cl_pr.progression', ':max'))
             ->andWhere($qb->expr()->gte('cl_pr.progression', ':min'))
-            ->andWhere($qb->expr()->eq('cl_pr.month', ':month'))
-            ->andWhere($qb->expr()->eq('cl_pr.year', ':year'))
-            ->setParameters(array(
-                                "program" => $program,
-                                "max" => $max,
-                                "min" => $min,
-                                "month" => $month,
-                                "year" => $year
-                                 ));
+            ->andWhere($qb->expr()->lte('cl_pr.start_date', ':date'))
+            ->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->andX(
+                        $qb->expr()->isNotNull('cl_pr.end_date'),
+                        $qb->expr()->gte('cl_pr.end_date', ':date')
+                    ),
+                    $qb->expr()->isNull('cl_pr.end_date')
+                )
+            )
+            ->setParameter("program", $program)
+            ->setParameter("max", $max)
+            ->setParameter("min", $min)
+            ->setParameter("date", $date);
+
         return $qb->getQuery()->getResult();
     }
 
-    public function findClassmentByProgramByMaxMinValue($program, $max, $min, $month, $year)
+    public function findClassmentByProgramByMaxMinValue($program, $max, $min, $date)
     {
         $qb = $this->createQueryBuilder('pu');
         $qb->addSelect('cl_pr')
@@ -83,15 +89,21 @@ class ProgramUserRepository extends EntityRepository
             ->where($qb->expr()->eq('pu.program', ':program'))
             ->andWhere($qb->expr()->lte('cl_pr.classment', ':max'))
             ->andWhere($qb->expr()->gte('cl_pr.classment', ':min'))
-            ->andWhere($qb->expr()->eq('cl_pr.month', ':month'))
-            ->andWhere($qb->expr()->eq('cl_pr.year', ':year'))
-            ->setParameters(array(
-                                "program" => $program,
-                                "max" => $max,
-                                "min" => $min,
-                                "month" => $month,
-                                "year" => $year
-                                 ));
+            ->andWhere($qb->expr()->lte('cl_pr.start_date', ':date'))
+            ->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->andX(
+                        $qb->expr()->isNotNull('cl_pr.end_date'),
+                        $qb->expr()->gte('cl_pr.end_date', ':date')
+                    ),
+                    $qb->expr()->isNull('cl_pr.end_date')
+                )
+            )
+            ->setParameter("program", $program)
+            ->setParameter("max", $max)
+            ->setParameter("min", $min)
+            ->setParameter("date", $date);
+
         return $qb->getQuery()->getResult();
     }
 }

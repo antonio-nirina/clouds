@@ -10,10 +10,13 @@ use Doctrine\ORM\EntityManager;
 class SalesPointAttribution
 {
     private $em;
+    private $ratio;
+    const RATIO_POINT_EURO = 0.04;
 
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
+        $this->ratio = self::RATIO_POINT_EURO;
     }
 
     public function attributedByRank(Sales $sales)
@@ -43,7 +46,7 @@ class SalesPointAttribution
                             $user_point = new UserPoint();
                             $user_point->setProgramUser($user)
                                 ->setDate(new \DateTime())
-                                ->setPoints(($ca * $gain) / 100)
+                                ->setPoints((($ca * $gain) / 100) / $this->ratio)
                                 ->setMotif("rang")
                                 ->setReference("sales_".$sales->getId());
                             $this->em->persist($user_point);
@@ -87,7 +90,7 @@ class SalesPointAttribution
 
             if ($gain) {
                 $current_point = $user_point->getPoints();
-                $user_point ->setPoints(($current_point * $gain) /100)
+                $user_point ->setPoints(($current_point * $gain) /100)//multiplicateur
                             ->setMotif('produit, période');
                 $sales->setPeriodAttributed(true);
                 $this->em->flush();
@@ -183,8 +186,7 @@ class SalesPointAttribution
             }
             
             if ($previous_classment_progression) {
-                $classment_progression  ->setClassment($previous_classment_progression->getClassment())
-                                        ->setPreviousCa($previous_classment_progression->getCurrentCa());
+                $classment_progression->setPreviousCa($previous_classment_progression->getCurrentCa());
             }
             $this->em->persist($classment_progression);
         }
@@ -193,15 +195,33 @@ class SalesPointAttribution
         return $classment_progression;
     }
 
-    public function attributedByPerformance($program, $month = false, $year = false)
+    public function closeClassmentProgression($program, $performance = false)
     {
-        //to launch by cron every month or manually?
-        if (($month === false) || ($year === false)) {
-            $date = new \DateTime();
-            $month = ($month !== false)?$month:date_format($previous_date, "m");
-            $year = ($year !== false)?$year:date_format($previous_date, 'Y');
+        $date = new \DateTime();
+        $users = $this->em->getRepository("AdminBundle:ProgramUser")->findBy(
+            array("program" => $program)
+        );
+
+        foreach ($users as $program_user) {
+            $classment_progression = $this->getCurrentClassmentProgression($program_user, $date);
+            $classment_progression->setEndDate($date);
+            if ($performance) {
+                $classment_progression->setIsPrevious(true);
+            }
+        }
+        $this->em->flush();
+
+        if ($performance) {
+            $this->attributedByPerformance($program);
         }
 
+        $this->setNewClassmentProgression($program, $date);
+    }
+
+    public function attributedByPerformance($program)
+    {
+        //to launch by cron every month or manually?
+        $date = new \DateTime();
         $performance_type_1 = $this->em->getRepository('AdminBundle:PointAttributionType')->findBy(
             array("point_type_name" => 'performance_1')
         );
@@ -210,7 +230,7 @@ class SalesPointAttribution
         );
 
         $performance_point_setting1 = $this->getPerformancePointSetting($performance_type_1, $program);
-        $date = date_format(\DateTime::createFromFormat("m-Y", $month."-".$year), "F Y");
+        // $date = date_format(\DateTime::createFromFormat("m-Y", $month."-".$year), "F Y");
 
         if ($performance_point_setting1[0]->getStatus() == "on") {//par progression
             foreach ($performance_point_setting1 as $point_setting) {
@@ -220,15 +240,15 @@ class SalesPointAttribution
 
                 if (isset($min) && isset($max) && isset($gain)) {
                     $program_users = $this->em->getRepository('AdminBundle:ProgramUser')
-                    ->findProgressionByProgramByMaxMinValue($program, $max, $min, $month, $year);
+                    ->findProgressionByProgramByMaxMinValue($program, $max, $min, $date);
                     
                     if ($program_users) {
                         foreach ($program_users as $program_user) {
                             $user_point = new UserPoint();
                             $user_point->setProgramUser($program_user)
                                 ->setDate(new \DateTime())
-                                ->setAmount($gain)
-                                ->setMotif("progression ".$date);
+                                ->setPoints($gain / $this->ratio)
+                                ->setMotif("progression ".date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
                         
@@ -246,15 +266,15 @@ class SalesPointAttribution
                 $gain = $point_setting->getGain();
                 if (isset($min) && isset($max) && isset($gain)) {
                     $program_users = $this->em->getRepository('AdminBundle:ProgramUser')
-                    ->findClassmentByProgramByMaxMinValue($program, $max, $min, $month, $year);
+                    ->findClassmentByProgramByMaxMinValue($program, $max, $min, $date);
 
                     if ($program_users) {
                         foreach ($program_users as $program_user) {
                             $user_point = new UserPoint();
                             $user_point->setProgramUser($program_user)
                                 ->setDate(new \DateTime())
-                                ->setAmount($gain)
-                                ->setMotif("classement ".$date);
+                                ->setPoints($gain / $this->ratio)
+                                ->setMotif("classement ".date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
                         
@@ -295,7 +315,7 @@ class SalesPointAttribution
                     $user_point = new UserPoint();
                     $user_point->setProgramUser($program_user)
                         ->setDate(new \DateTime())
-                        ->setPoints(($ca * $gain) /100)
+                        ->setPoints((($ca * $gain) /100) / $this->ratio)
                         ->setMotif("produit")
                         ->setReference("sales_".$sales->getId());
                     $this->em->persist($user_point);
@@ -318,7 +338,7 @@ class SalesPointAttribution
                         $user_point = new UserPoint();
                         $user_point->setProgramUser($program_user)
                             ->setDate(new \DateTime())
-                            ->setPoints(($ca * $gain) /100)
+                            ->setPoints((($ca * $gain) /100) / $this->ratio)
                             ->setMotif("produit")
                             ->setReference("sales_".$sales->getId());
                         $this->em->persist($user_point);
