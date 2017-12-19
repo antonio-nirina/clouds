@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 21" width="20" height="21">
+	<defs>
+		<image width="20" height="21" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAMAAABxCz6aAAAAAXNSR0IB2cksfwAAANVQTFRFAAAAPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/hj58HAAAAEd0Uk5TAAOA7P+G/cilqeTx4hsFl/4dJzoCBvDlb9ZWFfmzAZ74X7ThqBwm4OufCdJclfbHITfnlpgHHz7tMCAYQGPuF+bEJA/BkkHb+LdQAAAAq0lEQVR4nGXQxxKCQBBF0Yc0JsSMOWAOKCaCOev/f5IUQ1k1zN1091nMYiDFZOKSYxIUtsYTyVQ6ZAVqMDMagGyOoQo284ViqQy9wq4QqUpUA+o8+jXQbEWx3UGXImho6FEU+8BAwOFoTALSZCrirDM3BVwAyz9a4bJab7bhamFHQjvotsGTYev+5ziuF1z7w9HPdcA6BS+dwXXx7erxdrsTPZ68vd7m58vJD39tEJt3UxkMAAAAAElFTkSuQmCC"/>
+	</defs>
+	<use id="sondage" href="#img1" x="0" y="0" />
+</svg>

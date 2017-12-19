@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" width="20" height="18">
+	<defs>
+		<image width="20" height="18" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAMAAABsDg4iAAAAAXNSR0IB2cksfwAAAEhQTFRFAAAAPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/qfQeqwAAABh0Uk5TAK//9fDVA9LA3RkQFRQ+gOCIfvjijJCgdbPqBAAAAFhJREFUeJzVkEkSgCAQA4eACIwi7v//qTJVliAvsE9JH3IIKTQoArSp0AChs1Rh+1s6+uB+JH3gzMA8SggeZNpDDMVJSFJnyfEdynC5vaRV5LYX8njmTqkXGIwD3pp2CekAAAAASUVORK5CYII="/>
+	</defs>
+	<use id="slideshow" href="#img1" x="0" y="0" />
+</svg>
