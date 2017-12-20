@@ -21,6 +21,11 @@
 						{% if Pages.Path != '' %}
 							<img class = "src-entete-page-standard" src = "{{asset('/web/content/pages_standards/'~Pages.getProgram.Id~'/'~Pages.Path)}}" alt = "entete">
 							<span class="slide-message white">{{ Pages.TitrePage }}</span>
+						{% else %}
+							{% if Pages.NomPage == 'contact' %}
+								<img class = "src-entete-page-standard" src = "{{asset('images/cloudsRewards/contact-default.png')}}" alt = "entete">
+								<span class="slide-message white">{{ Pages.TitrePage }}</span>
+							{% endif %}
 						{% endif %}
 					</div>
                 </div>
@@ -78,21 +83,7 @@
             <!--FIN CLASSEMENT -->
 
             <!--MON CONTACT -->
-            <div class = "content-contact">
-                <p class = "block-active-hover" id = "block-active-hover-contact"></p>
-                <p class = "ligne-1-block">
-                    <span class = "titre-block light">contact</span>
-                    <span class = "titre-block-img-contact"></span>
-                </p>
-
-                <p class = "mon-compte-nom light">
-                    <span>vous souhaitez nous contacter, n'hésitez pas!</span>
-                </p>
-
-                <p class = "mon-compte-btn light">
-                    <span>nous contacter</span>
-                </p>
-            </div>
+			{{ render(controller("BeneficiaryBundle:Page:PageStandardContact" )) }}
             <!--FIN CONTACT -->
         </div>
         <!-- FIN LEFTER -->
@@ -228,6 +219,38 @@
                 <p class = "descr-block-centre">
 					{{ Pages.ContenuPage | raw }}
                 </p>
+				
+				{% if Pages.NomPage == 'contact' %}
+					<p class = "descr-block-centre">
+						<form id = "FormContactSend" name = "FormContact" method = "POST" action = "">
+							{% for ChampForms in Options %}
+								{% if ChampForms.publier == '1' %}
+									<label class="champForm">
+										<span class="lib-form">
+											{{ ChampForms.label }} 
+											{% if ChampForms.obligatoire == '1' %}
+											 *
+											{% endif %}
+										</span>
+										{% if ChampForms.type == 'input-text' %}
+											<input class="input-form-text" name="{{ ChampForms.label }}" value="" type="text">
+										{% endif %}
+										
+										{% if ChampForms.type == 'input-textarea' %}
+											<textarea class = "input-form-text" name = "{{ ChampForms.label }}"></textarea>
+										{% endif %}
+									</label>
+								{% endif %}
+							{% endfor %}
+
+							<p style = "clear:both;"></p>
+							<p class="mon-compte-btn light">
+								<span>valider</span>
+							</p>
+						</form>
+					</p>
+					<p style = "clear:both;"></p>
+				{% endif %}
             </div>
         
         </div>

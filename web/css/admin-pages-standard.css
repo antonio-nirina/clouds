@@ -330,6 +330,26 @@ p.chargementAjax img{
 		cursor:pointer;
 		top:24px;
 	}
+	
+	.content-label {
+		display: inline-block;
+		text-align: center;
+		width: 100%;
+	}
+	
+	.content-champ-form {
+		text-align: right;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-right: 10px;
+		padding-left: 10px;
+	}
+	
+	.content-input{
+		display: inline-block;
+		width: 100%;
+		vertical-align: top;
+	}
 }
 
 /* Small devices (landscape phones, 576px and up)*/
@@ -389,6 +409,26 @@ p.chargementAjax img{
 		right: 0;
 		cursor:pointer;
 		top:24px;
+	}
+	
+	.content-label {
+		display: inline-block;
+		text-align: center;
+		width: 100%;
+	}
+	
+	.content-champ-form {
+		text-align: right;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-right: 10px;
+		padding-left: 10px;
+	}
+	
+	.content-input{
+		display: inline-block;
+		width: 100%;
+		vertical-align: top;
 	}
 }
 
@@ -454,6 +494,26 @@ p.chargementAjax img{
 		cursor:pointer;
 		top:24px;
 	}
+	
+	.content-label {
+		display: inline-block;
+		text-align: center;
+		width: 100%;
+	}
+	
+	.content-champ-form {
+		text-align: right;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-right: 10px;
+		padding-left: 10px;
+	}
+	
+	.content-input{
+		display: inline-block;
+		width: 100%;
+		vertical-align: top;
+	}
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -492,6 +552,27 @@ p.chargementAjax img{
 		right: 0;
 		cursor:pointer;
 	}
+	
+	.content-label{
+		display: inline-block;
+		margin-right: 10px;
+		min-width: 83px;
+		text-align: left;
+		width: auto;
+	}
+	
+	.content-champ-form {
+		text-align: right;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-right: 10px;
+	}
+	
+	.content-input{
+		display: inline-block;
+		width: 70%;
+		vertical-align: top;
+	}
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
@@ -529,6 +610,27 @@ p.chargementAjax img{
 		margin-left: 10px;
 		right: 0;
 		cursor:pointer;
+	}
+	
+	.content-label{
+		display: inline-block;
+		margin-right: 10px;
+		min-width: 83px;
+		text-align: left;
+		width: auto;
+	}
+	
+	.content-champ-form {
+		text-align: right;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-right: 10px;
+	}
+	
+	.content-input{
+		display: inline-block;
+		width: 70%;
+		vertical-align: top;
 	}
 }
 
@@ -649,4 +751,135 @@ ul.liste-img-galery li img{
 
 #btn-suppr-page-standard{
 	display:none;
+}
+
+
+
+/*--*/
+.block-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: 1px solid #CBCBCB;
+    color: var(--couleur_4);
+}
+
+.block-table th.text-and-checkbox-container {
+    padding-top: 10px;
+}
+
+.block-table th {
+    text-align: center;
+    font-size: 14px;
+    color: rgb(64,64,64);
+    font-family: "Lato-Regular";
+}
+
+.block-table th, .block-table td {
+    border: 1px solid #CBCBCB;
+}
+
+.block-table th, th span {
+    font-family: var(--police);
+    font-weight: normal;
+}
+
+.styled-checkbox + label {
+    background: url('../images/cloudsRewards/checkoff.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+}
+
+.styled-checkbox:checked + label {
+    background: url('../images/cloudsRewards/checkon.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+}
+
+.block-table tr td.field-parameter-state-container {
+    text-align: center;
+    vertical-align: middle;
+    width: 143px;
+}
+
+.block-table .field-parameter-state-container, .field-edit-option-container, .field-reorder-option-container {
+    background-color: #F9F9F9;
+}
+
+.styled-checkbox:checked + label {
+    cursor: pointer;
+}
+
+.block-table tr td.field-parameter-state-container {
+    text-align: center;
+}
+
+.block-table .field-edit-option-container {
+    text-align: center;
+    width: 8%;
+}
+
+.edit-field-row-link {
+    height: 20px;
+    width: auto;
+    display: block;
+    background: url('../images/cloudsRewards/edit.png') no-repeat;
+    background-position: center;
+}
+
+.block-table .field-reorder-option-container {
+    text-align: center;
+    width: 5%;
+}
+
+.block-table .reorder-up-field-row-link {
+    display: block;
+}
+
+.reorder-up-field-row-link {
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../images/cloudsRewards/arrow-up-overlay.png') no-repeat;
+    background-position: center;
+}
+
+.block-table .reorder-down-field-row-link {
+    display: block;
+}
+
+.reorder-down-field-row-link {
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../images/cloudsRewards/arrow-down-overlay.png') no-repeat;
+    background-position: center;
+}
+
+.styled-checkbox {
+    display: none;
+}
+
+.add-field-link-container {
+    width: 100%;
+    border: 1px solid #CBCBCB;
+    margin: 15px 0 0 0;
+    padding: 10px 0 10px 0;
+}
+
+.add-field-link {
+    font-size: 14px;
+    color: #245EDC !important;
+    display: inline-flex;
+    align-items: center;
+}
+
+.fieldset .custom-field-allowed-container {
+    margin-right: 2px;
 }

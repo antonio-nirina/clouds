@@ -2444,3 +2444,39 @@ a:active,a:link,a:focus{color:#505050;outline-style:none;}
 .white{
 	color:#FFFFFF;
 }
+
+
+label.champForm {
+    position: relative;
+	margin-bottom: .5rem;
+	display: block;
+	margin-bottom:20px;
+	margin-top:20px;
+}
+
+span.lib-form {
+    font-size: 14px;
+    font-family: var(--police);
+}
+
+.input-form-text {
+    float: right;
+    width: 75%;
+    border-radius: 5px;
+    background: none;
+    border: 0;
+    border: 1px solid #505050;
+    padding-left: 10px !important;
+    text-align: left !important;
+    margin-right: 33px;
+	padding-left: 10px !important;
+}
+
+form#FormContactSend{
+	margin:20px auto;
+	width:80%;
+}
+
+textarea{
+	margin-bottom:10px;
+}

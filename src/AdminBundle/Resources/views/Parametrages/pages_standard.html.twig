@@ -21,6 +21,7 @@
 		<input id = "url_list_img_editor" type = "hidden" value = "{{ path("admin_pages_standard_list_img_editor") }}" name = "url_list_img_editor">
 		<input id = "url_suppr_page" type = "hidden" value = "{{ path("admin_pages_standard_delete_page") }}" name = "url_suppr_page">
 		<input id = "url_customs_ckeditor" type = "hidden" value = "{{ asset('ckeditor-uploader/custom/config-general.js') }}" name = "url_customs_ckeditor">
+		<input id = "url_customs_ckeditor_simple" type = "hidden" value = "{{ asset('ckeditor-uploader/custom/config-general-simple.js') }}" name = "url_customs_ckeditor_simple">
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
@@ -143,10 +144,12 @@
 													<span class="delete-input"></span>
 												</label>
 												
-												<div class = "clearBoth"></div>
-												<div class = "clearBoth"></div>
 												
-												<div class = "titre-section-page-standard"><span>Bannière de haut de page</span></div>
+												{% if Pages.NomPage != 'contact' %}
+													<div class = "clearBoth"></div>
+													<div class = "clearBoth"></div>
+													<div class = "titre-section-page-standard"><span>Bannière de haut de page</span></div>
+												{% endif %}
 												
 												<div class = "clearBoth"></div>
 
@@ -159,7 +162,12 @@
 												<div class = "clearBoth"></div>
 
 												<div class = "champForm">
-													<span class = "lib-form block">ajouter logo ou image</span>
+													{% if Pages.NomPage != 'contact' %}
+														<span class = "lib-form block">ajouter logo ou image</span>
+													{% else %}
+														<span class = "lib-form block">ajouter une image</span>
+													{% endif %}
+													
 													{% if Pages.Path is defined and Pages.Path is not null %}
 														<button id = "btn-upload-img-page-standard-{{ Pages.Id }}" class="btn-valider-etat btn-upload choose-upload-img-button" type = "button">
 															<span id = "id-lib-upload-{{ Pages.Id }}" class="uploaded"></span> 
@@ -192,22 +200,129 @@
 													</span>
 												</label>
 												
-												<div class = "clearBoth"></div>
-												<div class = "clearBoth"></div>
 												
-												<div class = "titre-section-page-standard"><span>Contenu de la page</span></div>
+												{% if Pages.NomPage != 'contact' %}
+													<div class = "clearBoth"></div>
+													<div class = "clearBoth"></div>
+													<div class = "titre-section-page-standard"><span>Contenu de la page</span></div>
+												{% endif %}
 												
 												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
-													<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
-													{% if Pages.ContenuPage is defined %}
-														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+													{% if Pages.NomPage != 'contact' %}
+														<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
 													{% else %}
-														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+														<span class = "lib-form block">texte</span>
+													{% endif %}
+													
+													{% if Pages.ContenuPage is defined %}
+														{% if Pages.NomPage == 'contact' %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea contact-textarea">{{ Pages.ContenuPage }}</textarea>
+														{% else %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+														{% endif %}
+													{% else %}
+														{% if Pages.NomPage == 'contact' %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea contact-textarea"></textarea>
+														{% else %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+														{% endif %}
 													{% endif %}
 
 												</label>
+												
+												{% if Pages.NomPage == 'contact' %}
+													<div class="block-table-container">
+														<div class = "clearBoth"></div>
+														<span class = "lib-form block">champs à renseigner</span>
+														<table class="reorder-table block-table">
+															<thead>
+																<tr>
+																	<th class="text-and-checkbox-container">
+																		<p style="margin:0;padding:0;" class="hidden-md-down">
+																			<span style="display:inline-block" class="hidden-lg-down">champs à </span> publier
+																		</p>
+																		<input id="checkbox-publish-all" class="checkbox-publish-all styled-checkbox" type="checkbox">
+																		<label for="checkbox-publish-all"></label>
+																	</th>
+																	<th class="text-and-checkbox-container">
+																		<p style="margin:0;padding:0;" class="hidden-md-down">
+																			<span style="display:inline-block" class="hidden-lg-down">rendre </span> obligatoire
+																		</p>
+																		<input id="checkbox-mandatory-all" class="checkbox-mandatory-all styled-checkbox" type="checkbox">
+																		<label for="checkbox-mandatory-all"></label>
+																	</th>
+																	<th>
+																		<span class="hidden-md-down">liste des champs</span>
+																	</th>
+																	<th>éditer</th>
+																	<th>ordre</th>
+																</tr>
+															</thead>
+															<tbody>
+															
+															{% for FormChamps in Pages.Options %}
+																{% set counter = random() %}
+																<tr class="form-field-row" data-field-id="{{ counter }}">
+																	<td class="field-parameter-state-container">
+																		{% if FormChamps.publier == '1' %}
+																			<input id="cl1-row{{ counter }}" class="form-field-published styled-checkbox" checked="checked" type="checkbox" name = "publier[{{ FormChamps.label }}]">
+																		{% else %}
+																			<input id="cl1-row{{ counter }}" class="form-field-published styled-checkbox" type="checkbox" name = "publier[{{ FormChamps.label }}]">
+																		{% endif %}
+																		<label for="cl1-row{{ counter }}"><span></span></label> 
+																		<input id="cl0-row{{ counter }}" class = "order-input" name = "ordre[]" type = "hidden" value = "{{ FormChamps.ordre }}">
+																	</td>
+																	
+																	<td class="field-parameter-state-container">
+																		{% if FormChamps.obligatoire == '1'%}
+																			<input id="cl2-row{{ counter }}" class="form-field-mandatory styled-checkbox" checked="checked" type="checkbox" name = "obligatoire[{{ FormChamps.label }}]">
+																		{% else %}
+																			<input id="cl2-row{{ counter }}" class="form-field-mandatory styled-checkbox" type="checkbox" name = "obligatoire[{{ FormChamps.label }}]">
+																		{% endif %}
+																		<label for="cl2-row{{ counter }}"><span></span></label>      
+																	</td>
+																	
+																	<td class="field-container">
+																		<div class="content-champ-form">
+																			<div class="content-label">
+																				<label>
+																					{{ FormChamps.label }}
+																					{% if FormChamps.obligatoire == '1'%}
+																						 *
+																					{% endif %}
+																					<input id="cl3-row{{ counter }}" class = "label-input" name = "label[]" type = "hidden" value = "{{ FormChamps.label }}">
+																				</label>
+																			</div>
+																			<div class="content-input">
+																				<div class="champs-form">
+																					<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
+																				</div>
+																			</div>
+																		</div>
+																	</td>
+																	
+																	<td class="field-edit-option-container"><a href="#" class="edit-field-row-link"></a></td>
+																	
+																	<td class="field-reorder-option-container">
+																		<a href="#" class="reorder-up-field-row-link"></a>
+																		<a href="#" class="reorder-down-field-row-link"></a>
+																	</td>
+																</tr>
+															{% endfor %}
+															
+															
+																
+															</tbody>
+														</table>
+													</div>
+													<div class="row add-field-link-container">
+														<div class="col-lg-12">
+															<a class="add-field-link add" href="#">ajouter un champ (<span class="custom-field-allowed-container">5</span> maximum)</a>
+														</div>
+													</div>
+												{% endif %}
 											{% else %}
 												<label class = "champForm">
 													<span class = "lib-form">nom du menu</span>
@@ -215,10 +330,11 @@
 													<span class="delete-input"></span>
 												</label>
 												
-												<div class = "clearBoth"></div>
-												<div class = "clearBoth"></div>
-												
-												<div class = "titre-section-page-standard"><span>Bannière de haut de page</span></div>
+												{% if Pages.PageName != 'contact' %}
+													<div class = "clearBoth"></div>
+													<div class = "clearBoth"></div>
+													<div class = "titre-section-page-standard"><span>Bannière de haut de page</span></div>
+												{% endif %}
 												
 												<div class = "clearBoth"></div>
 
@@ -231,7 +347,12 @@
 												<div class = "clearBoth"></div>
 
 												<div class = "champForm">
-													<span class = "lib-form block">ajouter logo ou image</span>
+													{% if Pages.PageName != 'contact' %}
+														<span class = "lib-form block">ajouter logo ou image</span>
+													{% else %}
+														<span class = "lib-form block">ajouter une image</span>
+													{% endif %}
+													
 													<button id = "btn-upload-img-page-standard-{{ Pages.Id }}" class="btn-valider btn-upload choose-upload-img-button" type = "button">
 														<span id = "id-lib-upload-{{ Pages.Id }}" class="upload"></span> 
 														<span id = "lib-btn-pages-{{ Pages.Id }}">choisissez un fichier...</span>
@@ -252,21 +373,127 @@
 													<span id = "img-preview-{{ Pages.Id }}" class = "previsualisation-im-page-standard block"></span>
 												</label>
 												
-												<div class = "clearBoth"></div>
-												<div class = "clearBoth"></div>
-												
-												<div class = "titre-section-page-standard"><span>Contenu de la page</span></div>
+												{% if Pages.PageName != 'contact' %}
+													<div class = "clearBoth"></div>
+													<div class = "clearBoth"></div>
+													<div class = "titre-section-page-standard"><span>Contenu de la page</span></div>
+												{% endif %}
 												
 												<div class = "clearBoth"></div>
 
 												<label class = "champForm">
-													<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
-													{% if Pages.ContenuPage is defined %}
-														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+													{% if Pages.PageName != 'contact' %}
+														<span class = "lib-form block editeur">vos textes, images, etc que vous voulez voir apparaitre dans la page</span>
 													{% else %}
-														<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+														<span class = "lib-form block editeur">texte</span>
+													{% endif %}
+													
+													{% if Pages.ContenuPage is defined %}
+														{% if Pages.PageName == 'contact' %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea contact-textarea">{{ Pages.ContenuPage }}</textarea>
+														{% else %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea">{{ Pages.ContenuPage }}</textarea>
+														{% endif %}
+													{% else %}
+														{% if Pages.PageName == 'contact' %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea contact-textarea"></textarea>
+														{% else %}
+															<textarea id="login_portal_data_form_text_{{ Pages.Id }}" name="contenu_page[]" class="large-textarea"></textarea>
+														{% endif %}
 													{% endif %}
 												</label>
+												{% if Pages.PageName == 'contact' %}
+													
+													<div class="block-table-container">
+														<div class = "clearBoth"></div>
+														<span class = "lib-form block">champs à renseigner</span>
+														<table class="reorder-table block-table">
+															<thead>
+																<tr>
+																	<th class="text-and-checkbox-container">
+																		<p style="margin:0;padding:0;" class="hidden-md-down">
+																			<span style="display:inline-block" class="hidden-lg-down">champs à </span> publier
+																		</p>
+																		<input id="checkbox-publish-all" class="checkbox-publish-all styled-checkbox" type="checkbox">
+																		<label for="checkbox-publish-all"></label>
+																	</th>
+																	<th class="text-and-checkbox-container">
+																		<p style="margin:0;padding:0;" class="hidden-md-down">
+																			<span style="display:inline-block" class="hidden-lg-down">rendre </span> obligatoire
+																		</p>
+																		<input id="checkbox-mandatory-all" class="checkbox-mandatory-all styled-checkbox" type="checkbox">
+																		<label for="checkbox-mandatory-all"></label>
+																	</th>
+																	<th>
+																		<span class="hidden-md-down">liste des champs</span>
+																	</th>
+																	<th>éditer</th>
+																	<th>ordre</th>
+																</tr>
+															</thead>
+															<tbody>
+															{% for FormChamps in Pages.Options %}
+																{% set counter = random() %}
+																<tr class="form-field-row" data-field-id="{{ counter }}">
+																	
+																	<td class="field-parameter-state-container">
+																		{% if FormChamps.publier == '1' %}
+																			<input id="cl1-row{{ counter }}" class="form-field-published styled-checkbox" checked="checked" type="checkbox" name = "publier[{{ FormChamps.label }}]">
+																		{% else %}
+																			<input id="cl1-row{{ counter }}" class="form-field-published styled-checkbox" type="checkbox" name = "publier[{{ FormChamps.label }}]">
+																		{% endif %}
+																		<label for="cl1-row{{ counter }}"><span></span></label> 
+																		<input id="cl0-row{{ counter }}" class = "order-input" name = "ordre[]" type = "hidden" value = "{{ FormChamps.ordre }}">
+																	</td>
+																	
+																	<td class="field-parameter-state-container">
+																		{% if FormChamps.obligatoire == '1'%}
+																			<input id="cl2-row{{ counter }}" class="form-field-mandatory styled-checkbox" checked="checked" type="checkbox" name = "obligatoire[{{ FormChamps.label }}]">
+																		{% else %}
+																			<input id="cl2-row{{ counter }}" class="form-field-mandatory styled-checkbox" type="checkbox" name = "obligatoire[{{ FormChamps.label }}]">
+																		{% endif %}
+																		<label for="cl2-row{{ counter }}"><span></span></label>      
+																	</td>
+																	
+																	<td class="field-container">
+																		<div class="content-champ-form">
+																			<div class="content-label">
+																				<label>
+																					{{ FormChamps.label }}
+																					{% if FormChamps.obligatoire == '1'%}
+																						 *
+																					{% endif %}
+																					<input id="cl3-row{{ counter }}" class = "label-input" name = "label[]" type = "hidden" value = "{{ FormChamps.label }}">
+																				</label>
+																			</div>
+																			<div class="content-input">
+																				<div class="champs-form">
+																					<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
+																				</div>
+																			</div>
+																		</div>
+																	</td>
+																	
+																	<td class="field-edit-option-container"><a href="#" class="edit-field-row-link"></a></td>
+																	
+																	<td class="field-reorder-option-container">
+																		<a href="#" class="reorder-up-field-row-link"></a>
+																		<a href="#" class="reorder-down-field-row-link"></a>
+																	</td>
+																</tr>
+															{% endfor %}
+															
+															
+																
+															</tbody>
+														</table>
+													</div>
+													<div class="row add-field-link-container">
+														<div class="col-lg-12">
+															<a class="add-field-link add" href="#">ajouter un champ (<span class="custom-field-allowed-container">5</span> maximum)</a>
+														</div>
+													</div>
+												{% endif %}
 											{% endif %}
 											</div>
 											
