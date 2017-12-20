@@ -81,11 +81,11 @@ $(document).ready(function(){
                     if(-1 != html.indexOf('OK')) {
                         var to_delete_form_el = $('.fieldset[data-edito-post-id='+edito_post_id+']').parent('form');
                         to_delete_form_el.remove();
+                        $('#confirm-delete-dialog').modal('hide');
                     }
                 }
             });
         }
-        $('#confirm-delete-dialog').modal('hide');
     });
     /**
      * *********************************************************************************************
