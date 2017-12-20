@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
+	<defs>
+		<image width="20" height="20" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAAXNSR0IB2cksfwAAAPZQTFRFAAAAPz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/5dZGcAAAAFJ0Uk5TALv/+Dx+DImAOyXwcLLSCjNQHFmWLzT+osAQX422820ZoEAOEvlWv2xpy7SpPWAaxkkTgiLpXpJiePpu9kLTfOMRKZjHpRuDvDCEtbhHb2WQOCm0v84AAADPSURBVHicdZHZUsJAEEWbixIkyCJiEpAdAdl32RdFIgEk/P/PMJkEaqiC89R1qqe76w65IOB+IA6ueHSk20NnJHjpyWdJ+eLIz+RzIMhlKMx5ochr9E2ByqXmzIvF3xNJVqQsGbU70xlnm2pJX5aRo/yHfVaBPy9adYk+gXIFqNrba3VGg5pAqw10xJO6QK//BQxEOcRoPGFzpqKcYb5gTl4K8hs/K0D5XZMg9T8VSGycQGSSNE0ztjp2e+P/Ig+maQ722yMP5GZ090O+9R0n6HcTV5iGVCIAAAAASUVORK5CYII="/>
+	</defs>
+	<use id="edito" href="#img1" x="0" y="0" />
+</svg>

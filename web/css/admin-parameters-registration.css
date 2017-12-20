@@ -1282,3 +1282,163 @@ a.blue-anchor{
 .btn-valider.choose-upload-img-button{
     margin-top: 0 !important;
 }
+.all-width {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 350px;
+}
+.fieldset.slideshow {
+    font-family: var(--police);
+    font-size: 15px;
+}
+/**
+ * Communication - Edito
+ */
+.img-edito{
+    background:url('../images/cloudsRewards/hand-writing.png') no-repeat;
+    background-size: 380px;
+    background-position: -166px -48px;
+}
+
+.date-info{
+    margin: 0 !important;
+}
+
+.fieldset.post-element{
+    padding: 24px 24px 24px 24px;
+}
+
+.fieldset.post-element h3,h5{
+    margin-bottom: 0;
+}
+
+.fieldset.post-element .option-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    opacity: 0.5;
+}
+
+.fieldset.post-element.active .option-container{
+    opacity: 1;
+}
+
+.option-container .edit-post{
+    background:url('../images/cloudsRewards/edit.png') no-repeat;
+    height: 21px;
+    width: 25px;
+    display: inline-block;
+    margin: 0 30px 0 0;
+}
+
+.option-container .delete-post{
+    background:url('../images/cloudsRewards/delete.png') no-repeat;
+    height: 21px;
+    width: 16px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    position: relative;
+    top: -1px;
+}
+
+.option-container .close-edit-post-form{
+    background:url('../images/cloudsRewards/fleche-select-bas.png') no-repeat;
+    background-size: 25px 25px;
+    height: 25px;
+    width: 25px;
+    display: none;
+    margin-right: 10px;
+}
+
+.option-container.edit-mode{
+    align-items: flex-start !important;
+}
+
+.option-container.edit-mode .edit-post{
+    display: none;
+}
+
+.option-container.edit-mode .delete-post{
+    display: none;
+}
+
+.option-container.edit-mode .close-edit-post-form{
+    display: inline-block;
+}
+
+.row.edit-form-container{
+    display: none;
+}
+
+@media only screen and (max-width: 576px){
+    .fieldset.post-element .date-info{
+        text-align: center;
+    }
+
+    .fieldset.post-element .option-container{
+        justify-content: space-evenly;
+        padding: 15px 0;
+    }
+
+    .option-container .edit-post{
+        margin: 0;
+    }
+
+    .option-container .delete-post{
+        margin: 0;
+    }
+}
+
+/**
+ * dialog confirmation suppresion
+ */
+.confirm-delete-dialog-trigger{
+    display: none;
+}
+
+.confirm-delete-dialog .confirm-dialog-title{
+    color: var(--couleur_2);
+    font-size: 25px
+}
+
+.confirm-delete-dialog .message{
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+}
+
+.confirm-delete-dialog .text-container{
+    padding: 0 80px;
+    width: 100%;
+}
+
+.confirm-delete-dialog .modal-body-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.confirm-delete-dialog .modal-body{
+    padding-top: 0 !important;
+}
+
+.confirm-delete-dialog .modal-body-container{
+    padding-bottom: 40px !important;
+}
+
+.btn-valider.confirm-delete{
+    margin-top: 0 !important;
+}
+
+@media (max-width: 575px) {
+    .confirm-delete-dialog .text-container{
+        padding: 0 25px;
+    }
+}
+
+@media (min-width: 575px) and (max-width: 991px) {
+    .confirm-delete-dialog .text-container{
+        padding: 0 50px;
+    }
+}

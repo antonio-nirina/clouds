@@ -66,12 +66,11 @@ class ResultSettingHandler
             return $this->error_list;
         } else {
             $error_list = $this->schema_checker->import($this->model, $data_import_file);
-            if (!empty($error_list) && $monthly) {//attribution des points perform
+            if (empty($error_list)) {//attribution des points perform
                 $sales_point_attribution = $this->container
                                                 ->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
-                $program_manager = $this->container->get('admin.program');
-                $program = $program_manager->getCurrent();
-                $sales_point_attribution->attributedByPerformance($program);
+                $program = $this->container->get('admin.program')->getCurrent();
+                $sales_point_attribution->closeClassmentProgression($program, $monthly);
             }
         }
 

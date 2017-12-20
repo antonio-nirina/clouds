@@ -11,18 +11,10 @@ class ProgramUserClassmentProgressionRepository extends EntityRepository
         $qb = $this->createQueryBuilder('cl_pr');
         $qb->addSelect('pu')
             ->join('cl_pr.program_user', 'pu')
-            ->where($qb->expr()->eq('cl_pr.program_user', ':program_user'));
+            ->where($qb->expr()->eq('cl_pr.program_user', ':program_user'))
+            ->andWhere($qb->expr()->isNull('cl_pr.end_date'));
         if ($date) {
-            $qb->andWhere($qb->expr()->lte('cl_pr.start_date', ':date'))
-                ->andWhere(
-                    $qb->expr()->orX(
-                        $qb->expr()->andX(
-                            $qb->expr()->isNotNull('cl_pr.end_date'),
-                            $qb->expr()->gte('cl_pr.end_date', ':date')
-                        ),
-                        $qb->expr()->isNull('cl_pr.end_date')
-                    )
-                );
+            $qb->andWhere($qb->expr()->lte('cl_pr.start_date', ':date'));
             $qb->setParameter("date", $date);
         }
 
@@ -30,7 +22,8 @@ class ProgramUserClassmentProgressionRepository extends EntityRepository
         $qb->setParameter("program_user", $program_user)
             ->setMaxResults(1);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $result = $qb->getQuery()->getOneOrNullResult();
+        return $result;
     }
 
     public function findPreviousClassmentProgression($program_user, $start)
@@ -40,10 +33,12 @@ class ProgramUserClassmentProgressionRepository extends EntityRepository
             ->join('cl_pr.program_user', 'pu')
             ->where($qb->expr()->eq('cl_pr.program_user', ':program_user'))
             ->andWhere($qb->expr()->lt('cl_pr.start_date', ':start'))
+            ->andWhere($qb->expr()->eq('cl_pr.is_previous', ':previous'))
             ->orderBy('cl_pr.start_date', 'DESC')
             ->setParameters(array(
                 "program_user" => $program_user,
-                "start" => $start
+                "start" => $start,
+                "previous" => true
             ))
             ->setMaxResults(1);
 

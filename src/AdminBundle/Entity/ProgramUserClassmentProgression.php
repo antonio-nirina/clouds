@@ -66,6 +66,11 @@ class ProgramUserClassmentProgression
     private $previous_points;
 
     /**
+     * @ORM\Column(name="is_previous", type="boolean", nullable=true)
+     */
+    private $is_previous;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ProgramUser", inversedBy="classment_progression")
      */
     private $program_user;
@@ -318,5 +323,29 @@ class ProgramUserClassmentProgression
     public function getPreviousPoints()
     {
         return $this->previous_points;
+    }
+
+    /**
+     * Set isPrevious
+     *
+     * @param boolean $isPrevious
+     *
+     * @return ProgramUserClassmentProgression
+     */
+    public function setIsPrevious($isPrevious)
+    {
+        $this->is_previous = $isPrevious;
+
+        return $this;
+    }
+
+    /**
+     * Get isPrevious
+     *
+     * @return boolean
+     */
+    public function getIsPrevious()
+    {
+        return $this->is_previous;
     }
 }

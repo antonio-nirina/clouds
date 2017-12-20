@@ -46,12 +46,17 @@ use Symfony\Component\Serializer\Serializer;
 use AdminBundle\Component\Slide\SlideType;
 use Symfony\Component\Finder\Finder;
 use AdminBundle\Form\ProductPointType;
+use AdminBundle\Controller\AdminController;
 
 /**
  * @Route("/admin/parametrages")
  */
-class ParametragesController extends Controller
+class ParametragesController extends AdminController
 {
+    public function __construct()
+    {
+        $this->active_menu_index = 6;
+    }
 
     public function sidebarAction($active)
     {
