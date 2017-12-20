@@ -82,7 +82,7 @@
                 {% if edit_edito_form_list is defined and edit_edito_form_list is not empty %}
                     {% for edit_edito_form in edit_edito_form_list %}
                         {{ form_start(edit_edito_form, {"attr": {"novalidate": "novalidate"}}) }}
-                <section class="fieldset post-element delete-input-common-container">
+                <section class="fieldset post-element delete-input-common-container" data-edito-post-id="{{  edit_edito_form.vars.value.getId }}">
                     <div class="row">
                         <div class="col-12 col-sm-9 col-md-9">
                             <h3 class="hidden-sm-down block-title">{{ edit_edito_form.vars.value.title }}</h3>
@@ -93,7 +93,7 @@
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="option-container">
                                 <a href="#" class="edit-post"></a>
-                                <a href="#" class="delete-post"></a>
+                                <a href="#" class="delete-post" data-edito-post-id="{{ edit_edito_form.vars.value.getId }}" data-toggle="modal" data-target="#confirm-delete-dialog"></a>
                                 <a href="#" class="close-edit-post-form"></a>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                 {% endif  %}
 
                 <!-- dialog - confirmation suppression édito -->
-                <button id="trigger-delete-confirm" type="button" class="btn btn-primary confirm-delete-dialog-trigger" data-toggle="modal" data-target="#confirm-delete-dialog"></button>
+                {#<button id="trigger-delete-confirm" type="button" class="btn btn-primary confirm-delete-dialog-trigger" data-toggle="modal" data-target="#confirm-delete-dialog"></button>#}
                 <div id="confirm-delete-dialog" class="modal fade confirm-delete-dialog" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -168,11 +168,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="edito_post_id" value="">
                         </div>
                     </div>
                 </div>
+                <!-- FIN - dialog - confirmation suppression édito -->
+
+                <input type="hidden" name="delete_edito_url" value="{{ path('admin_communication_editorial_delete', {"id": "___id___"}) }}">
             </div>
-            <!-- FIN - dialog - confirmation suppression édito -->
         </div>
         <div class = "row separator"></div>
     </main>

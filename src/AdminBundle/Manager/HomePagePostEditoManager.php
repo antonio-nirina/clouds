@@ -27,6 +27,26 @@ class HomePagePostEditoManager
         }
     }
 
+    public function deleteEditoById(Program $program, $home_page_post_id, $flush = true)
+    {
+        $to_delete_edito_post = $this->em->getRepository('AdminBundle\Entity\HomePagePost')
+            ->findOneBy(array(
+                'id' => $home_page_post_id,
+                'program' => $program,
+                'post_type' => PostType::EDITO
+            ));
+
+        if (!is_null($to_delete_edito_post)) {
+            $to_delete_edito_post->setProgram(null);
+            $program->removeHomePagePost($to_delete_edito_post);
+            $this->em->remove($to_delete_edito_post);
+        }
+
+        if (true == $flush) {
+            $this->flush();
+        }
+    }
+
     public function flush()
     {
         $this->em->flush();

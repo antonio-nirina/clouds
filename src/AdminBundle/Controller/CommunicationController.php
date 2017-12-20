@@ -79,6 +79,25 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * @Route(
+     *     "/edito/suppression/{id}",
+     *     name="admin_communication_editorial_delete"),
+     *     requirements={"id": "\d+"}
+     */
+    public function deleteEditorialAction($id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $edito_manager = $this->get('AdminBundle\Manager\HomePagePostEditoManager');
+        $edito_manager->deleteEditoById($program, (int)$id);
+
+        return new Response('<html><body>OK</body></html>');
+    }
+
+    /**
      * @Route("/slideshow", name="admin_communication_slideshow")
      */
     public function slideshowAction(Request $request)
