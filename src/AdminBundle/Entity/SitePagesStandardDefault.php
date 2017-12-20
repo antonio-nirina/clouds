@@ -22,6 +22,11 @@ class SitePagesStandardDefault
      * @ORM\Column(name="page_name", type="string", nullable=true)
      */
     private $page_name;
+	
+	/**
+     * @ORM\Column(type="array")
+     */
+    private $options;
 
     /**
      * Get id
@@ -31,6 +36,30 @@ class SitePagesStandardDefault
     public function getId()
     {
         return $this->id;
+    }
+	
+	/**
+     * Set options
+     *
+     * @param boolean $options
+     *
+     * @return SitePagesStandardDefault
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+	
+	/**
+     * Get options
+     *
+     * @return string
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**

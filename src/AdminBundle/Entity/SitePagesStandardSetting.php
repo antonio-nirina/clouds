@@ -65,6 +65,11 @@ class SitePagesStandardSetting
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;
+	
+	/**
+     * @ORM\Column(type="array")
+     */
+    private $options;
 
 
     /**
@@ -75,6 +80,30 @@ class SitePagesStandardSetting
     public function getId()
     {
         return $this->id;
+    }
+	
+	/**
+     * Set options
+     *
+     * @param boolean $options
+     *
+     * @return SitePagesStandardSetting
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+	
+	/**
+     * Get options
+     *
+     * @return string
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**

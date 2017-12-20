@@ -1,0 +1,17 @@
+{% if est_page_contact is sameas(true) %}
+<div class = "content-contact">
+	<p class = "block-active-hover" id = "block-active-hover-contact"></p>
+	<p class = "ligne-1-block">
+		<span class = "titre-block light">contact</span>
+		<span class = "titre-block-img-contact"></span>
+	</p>
+
+	<p class = "mon-compte-nom light">
+		<span>vous souhaitez nous contacter, n'hésitez pas!</span>
+	</p>
+
+	<p class = "mon-compte-btn light">
+		<a target = "_blank" href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': ListePages.Slug}) }}"><span>nous contacter</span></a>
+	</p>
+</div>
+{% endif %}

@@ -9,6 +9,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AdminBundle\Entity\HomePagePost;
+use AdminBundle\Form\HomePagePostType;
+use AdminBundle\Component\Post\PostType;
 
 /**
  * @Route("/admin/communication")
@@ -26,14 +29,73 @@ class CommunicationController extends AdminController
     /**
      * @Route("/edito", name="admin_communication_editorial")
      */
-    public function editorialAction()
+    public function editorialAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        return $this->render('AdminBundle:Communication:edito.html.twig');
+        $new_edito_post = new HomePagePost();
+        $form_factory = $this->get('form.factory');
+        $add_edito_form = $form_factory->createNamed(
+            'add_edito_form',
+            HomePagePostType::class,
+            $new_edito_post
+        );
+
+        $em = $this->getDoctrine()->getManager();
+        $edito_list = $em->getRepository('AdminBundle\Entity\HomePagePost')
+            ->findByProgramAndPostTypeOrdered($program, PostType::EDITO);
+
+        $edito_form_list_generator = $this->get('AdminBundle\Service\FormList\EditoFormListGenerator');
+        $edit_edito_form_list = $edito_form_list_generator->generateFormList($edito_list, HomePagePostType::class);
+        $edit_edito_form_view_list = $edito_form_list_generator->generateFormViewList($edit_edito_form_list);
+
+        if ("POST" === $request->getMethod()) {
+            $edito_manager = $this->get('AdminBundle\Manager\HomePagePostEditoManager');
+            if ($request->request->has('add_edito_form')) {
+                $add_edito_form->handleRequest($request);
+                if ($add_edito_form->isSubmitted() && $add_edito_form->isValid()) {
+                    $edito_manager->createEdito($program, $new_edito_post);
+                    return $this->redirectToRoute('admin_communication_editorial');
+                }
+            }
+
+            foreach ($edit_edito_form_list as $edit_edito_form) {
+                if ($request->request->has($edit_edito_form->getName())) {
+                    $edit_edito_form->handleRequest($request);
+                    if ($edit_edito_form->isSubmitted() && $edit_edito_form->isValid()) {
+                        $em->flush();
+                        return $this->redirectToRoute('admin_communication_editorial');
+                    }
+                }
+            }
+        }
+
+        return $this->render('AdminBundle:Communication:edito.html.twig', array(
+            'add_edito_form' => $add_edito_form->createView(),
+            'edit_edito_form_list' => $edit_edito_form_view_list
+        ));
+    }
+
+    /**
+     * @Route(
+     *     "/edito/suppression/{id}",
+     *     name="admin_communication_editorial_delete"),
+     *     requirements={"id": "\d+"}
+     */
+    public function deleteEditorialAction($id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+
+        $edito_manager = $this->get('AdminBundle\Manager\HomePagePostEditoManager');
+        $edito_manager->deleteEditoById($program, (int)$id);
+
+        return new Response('<html><body>OK</body></html>');
     }
 
     /**

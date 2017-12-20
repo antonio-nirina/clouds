@@ -1877,6 +1877,7 @@ class ParametragesController extends AdminController
 			$Id = $request->get('id_page');
 			$Onglets = $request->get('onglet-selectionner-page');
 			
+			
 			for($i=0; $i < count($NomPages); $i++){
 				
 				$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
@@ -1896,6 +1897,28 @@ class ParametragesController extends AdminController
 					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
 				}
 				
+				$ListeChampsInfos = array();
+				if($NomPages[$i] == 'contact'){
+					$TypeChamps = $request->get('type_champ');
+					$Publier = $request->get('publier');
+					$Obligatoire = $request->get('obligatoire');
+					$Label = $request->get('label');
+					$Ordre = $request->get('ordre');
+					if(count($TypeChamps) > 0){
+						$cpt = 0;
+						foreach($TypeChamps as $Type){
+							$ListeChampsInfos[] = array(
+								'type' => $Type,
+								'publier' => (isset($Publier[$Label[$cpt]]) && !empty($Publier[$Label[$cpt]])) ? 1 : 0,
+								'obligatoire' => (isset($Obligatoire[$Label[$cpt]]) && !empty($Obligatoire[$Label[$cpt]])) ? 1 : 0,
+								'label' => $Label[$cpt],
+								'ordre' => $Ordre[$cpt]
+							);
+							$cpt++;
+						}
+					}
+				}
+				$sitePagesStandardSetting->setOptions($ListeChampsInfos);
 				$sitePagesStandardSetting->setProgram($program);
 				$sitePagesStandardSetting->upload($program);
 				$em->persist($sitePagesStandardSetting);

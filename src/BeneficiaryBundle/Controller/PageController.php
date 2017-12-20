@@ -121,6 +121,31 @@ class PageController extends Controller
 		));
     }
 	
+	public function PageStandardContactAction(){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		$PageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
+		
+		$ListePages = array();
+		$est_page_contact = false;
+		foreach($PageStandard as $Pages){
+			if($Pages->getStatusPage() == '1' && $Pages->getNomPage() == 'contact'){
+				$ListePages = $Pages;
+				$est_page_contact = true;
+			}
+		}
+		
+		
+		return $this->render('BeneficiaryBundle::block-contact.html.twig', array(
+			'ListePages' => $ListePages,
+			'est_page_contact' => $est_page_contact
+		));
+	}
+	
 
 	/**
      * @Route(
@@ -191,11 +216,26 @@ class PageController extends Controller
 			return $this->redirectToRoute('beneficiary_home');
 		}
 		
+		if($Pages->getStatusPage() != '1'){
+			return $this->redirectToRoute('beneficiary_home');
+		}
+		
+		$Options = array();
+		$Options = $Pages->getOptions();
+		
+		// Obtient une liste de colonnes
+		foreach ($Options as $key => $row) {
+			$ordre[$key]  = $row['ordre'];
+		}
+		array_multisort($ordre, SORT_ASC, $Options);
+		
+		
 		return $this->render('BeneficiaryBundle:Page:AffichePagesStandard.html.twig', array(
             'has_network' => $has_network,
             'table_network' => $table_network,
             'background_link' => $background_link,
-			'Pages' => $Pages
+			'Pages' => $Pages,
+			'Options' => $Options
         ));
 	}
 }
