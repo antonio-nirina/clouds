@@ -43,6 +43,10 @@ services:
         class: AdminBundle\Manager\PointAttributionManager
         arguments: ['@doctrine.orm.entity_manager']
 
+    admin.slideshow:
+        class: AdminBundle\Manager\SlideshowManager
+        autowire: true
+
     AdminBundle\Manager\ProductPointAttributionManager:
         class: AdminBundle\Manager\ProductPointAttributionManager
         autowire: true

@@ -1287,6 +1287,9 @@ a.blue-anchor{
     max-width: 100% !important;
     max-height: 350px;
 }
+.fieldset h3 > span, .fieldset h5 > span {
+    text-transform: capitalize;
+}
 .fieldset.slideshow {
     font-family: var(--police);
     font-size: 15px;

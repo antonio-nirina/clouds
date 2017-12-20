@@ -44,9 +44,8 @@
                 <section class="fieldset slideshow active">
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-12">
-                            <h3 class="hidden-sm-down block-title">Création / édition du slideshow</h3>
-                            <h5 class="hidden-md-up block-title">Création / édition du slideshow</h5>
-                            <p>celui-ci apparaîtra dans le fil d'actualité sur la homepage à date de création</p>
+                            <h3 class="hidden-sm-down block-title"><span>édition</span> du slideshow</h3>
+                            <h5 class="hidden-md-up block-title"><span>édition</span> du slideshow</h5>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-12">
                             <div class="hidden-sm-down corner-circle-img img-content-home-page-slide rounded-circle"></div>
@@ -183,7 +182,7 @@
                                         <div class="col-lg-11 col-md-11 col-sm-12">
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 info-container">
-                                                    <p>largeur optimale de l'image : <span class="bigger">1024 px</span></p>
+                                                    <p>taille optimale de l'image : <span class="bigger">L 1024 x H 477 px</span></p>
                                                     <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
                                                     <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
                                                 </div>
@@ -236,9 +235,9 @@
                                             {% endif %}
                                         {% endif %}
                                         <div class="col-lg-12 col-md-12 col-sm-12 slide-image-preview-container {{ '' == slide_image ? 'no-image' : '' }}">
-                                            <div class="all-width no-image-block"></div>
-                                            <span class="all-width slide-message-preview message-preview">{{ slide.vars.value.message }}</span>
-                                            <img class="all-width image-preview slide-image-preview" src="{{ '' != slide_image ? asset(content_home_page_slide_image_location~slide_image) : '' }}">
+                                            <div class="no-image-block"></div>
+                                            <span class="slide-message-preview message-preview">{{ slide.vars.value.message }}</span>
+                                            <img class="image-preview slide-image-preview" src="{{ '' != slide_image ? asset(content_home_page_slide_image_location~slide_image) : '' }}">
                                         </div>
                                     </div>
                                     <div class="row form-element-container">
@@ -330,7 +329,7 @@
                                     <div class="col-lg-11 col-md-11 col-sm-12">
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 info-container">
-                                                <p>largeur optimale de l'image : <span class="bigger">1024 px</span></p>
+                                                <p>taille optimale de l'image : <span class="bigger">L 1024 x H 477 px</span></p>
                                                 <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
                                                 <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
                                             </div>
@@ -369,9 +368,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 slide-image-preview-container no-image">
-                                        <div class="all-width no-image-block"></div>
-                                        <span class="all-width slide-message-preview message-preview"></span>
-                                        <img class="all-width image-preview slide-image-preview" src="">
+                                        <div class="no-image-block"></div>
+                                        <span class="slide-message-preview message-preview"></span>
+                                        <img class="image-preview slide-image-preview" src="">
                                     </div>
                                 </div>
                                 <div class="row form-element-container">
@@ -420,8 +419,6 @@
                         </div>
                         {{ form_end(home_page_slide_data_form) }}
                     {% endif %}
-                </section>
-                <section class="fieldset">                    
                 </section>
             </div>
         </div>
