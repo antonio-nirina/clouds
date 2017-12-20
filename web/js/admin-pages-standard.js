@@ -49,7 +49,13 @@ $(document).ready(function(){
 		$('div#id-content-dynamic-pages').show();
 		$('div#id-content-page-body-'+IdLi+'').show();
 		
-		var UrlCustomCkeditor = $('input#url_customs_ckeditor').val();
+		
+		if($('textarea#login_portal_data_form_text_'+IdLi+'').hasClass('contact-textarea')){
+			var UrlCustomCkeditor = $('input#url_customs_ckeditor_simple').val();
+		}else{
+			var UrlCustomCkeditor = $('input#url_customs_ckeditor').val();
+		}
+		
 		CKEDITOR.replace( 'login_portal_data_form_text_'+IdLi+'', {
 			language: 'fr',
 			uiColor: '#9AB8F3',
@@ -376,6 +382,34 @@ $(document).ready(function(){
 			});
 		},500);
 	});
+	
+
+    // reord - monter
+    $(document).on('click', '.reorder-up-field-row-link', function(e){
+        e.preventDefault();
+        var upper_row = $(this).parents('.form-field-row').prev('.form-field-row');
+
+        if(upper_row.length > 0)
+        {
+            upper_row.before($(this).parents('.form-field-row'));
+			$('input.order-input').each(function(i){
+				$(this).val(i+1);
+			});
+        }
+    });
+
+    // reord - descendre
+    $(document).on('click', '.reorder-down-field-row-link', function(e){
+        e.preventDefault();
+        var lower_row = $(this).parents('.form-field-row').next('.form-field-row');
+        if(lower_row.length > 0)
+        {
+            lower_row.after($(this).parents('.form-field-row'));
+			$('input.order-input').each(function(i){
+				$(this).val(i+1);
+			});
+        }
+    });
 	
 	
 	//Cliqur sur la premiere onglet
