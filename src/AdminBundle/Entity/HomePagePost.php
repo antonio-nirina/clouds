@@ -20,7 +20,7 @@ class HomePagePost
     private $id;
 
     /**
-     * @ORM\Column(type="text", nullable=false)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $title;
 
@@ -51,6 +51,12 @@ class HomePagePost
      * @Assert\Valid()
      */
     private $home_page_post_slides;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Length(max=50)
+     */
+    private $post_type;
     
     /**
      * Constructor
@@ -222,5 +228,29 @@ class HomePagePost
     public function getHomePagePostSlides()
     {
         return $this->home_page_post_slides;
+    }
+
+    /**
+     * Set postType
+     *
+     * @param string $postType
+     *
+     * @return HomePagePost
+     */
+    public function setPostType($postType)
+    {
+        $this->post_type = $postType;
+
+        return $this;
+    }
+
+    /**
+     * Get postType
+     *
+     * @return string
+     */
+    public function getPostType()
+    {
+        return $this->post_type;
     }
 }

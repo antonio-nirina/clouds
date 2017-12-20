@@ -853,4 +853,38 @@ class Program
     {
         return $this->point_attribution_setting;
     }
+
+    /**
+     * Add homePagePost
+     *
+     * @param \AdminBundle\Entity\HomePagePost $homePagePost
+     *
+     * @return Program
+     */
+    public function addHomePagePost(\AdminBundle\Entity\HomePagePost $homePagePost)
+    {
+        $this->home_page_post[] = $homePagePost;
+
+        return $this;
+    }
+
+    /**
+     * Remove homePagePost
+     *
+     * @param \AdminBundle\Entity\HomePagePost $homePagePost
+     */
+    public function removeHomePagePost(\AdminBundle\Entity\HomePagePost $homePagePost)
+    {
+        $this->home_page_post->removeElement($homePagePost);
+    }
+
+    /**
+     * Get homePagePost
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHomePagePost()
+    {
+        return $this->home_page_post;
+    }
 }

@@ -46,5 +46,9 @@ services:
     AdminBundle\Manager\ProductPointAttributionManager:
         class: AdminBundle\Manager\ProductPointAttributionManager
         autowire: true
+
+    AdminBundle\Manager\HomePagePostEditoManager:
+        class: AdminBundle\Manager\HomePagePostEditoManager
+        autowire: true
     
 
