@@ -216,6 +216,10 @@ class PageController extends Controller
 			return $this->redirectToRoute('beneficiary_home');
 		}
 		
+		if($Pages->getStatusPage() != '1'){
+			return $this->redirectToRoute('beneficiary_home');
+		}
+		
 		$Options = array();
 		$Options = $Pages->getOptions();
 		

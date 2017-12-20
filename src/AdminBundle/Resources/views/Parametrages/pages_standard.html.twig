@@ -435,7 +435,7 @@
 															{% for FormChamps in Pages.Options %}
 																{% set counter = random() %}
 																<tr class="form-field-row" data-field-id="{{ counter }}">
-																	<input id="cl0-row{{ counter }}" class = "order-input" name = "ordre[]" type = "hidden" value = "{{ FormChamps.ordre }}">
+																	
 																	<td class="field-parameter-state-container">
 																		{% if FormChamps.publier == '1' %}
 																			<input id="cl1-row{{ counter }}" class="form-field-published styled-checkbox" checked="checked" type="checkbox" name = "publier[{{ FormChamps.label }}]">
@@ -443,6 +443,7 @@
 																			<input id="cl1-row{{ counter }}" class="form-field-published styled-checkbox" type="checkbox" name = "publier[{{ FormChamps.label }}]">
 																		{% endif %}
 																		<label for="cl1-row{{ counter }}"><span></span></label> 
+																		<input id="cl0-row{{ counter }}" class = "order-input" name = "ordre[]" type = "hidden" value = "{{ FormChamps.ordre }}">
 																	</td>
 																	
 																	<td class="field-parameter-state-container">
@@ -479,7 +480,7 @@
 																		<a href="#" class="reorder-up-field-row-link"></a>
 																		<a href="#" class="reorder-down-field-row-link"></a>
 																	</td>
-																<tr>
+																</tr>
 															{% endfor %}
 															
 															
