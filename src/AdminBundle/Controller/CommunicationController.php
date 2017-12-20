@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Component\Post\PostType;
 
