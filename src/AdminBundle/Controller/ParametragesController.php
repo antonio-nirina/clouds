@@ -1246,15 +1246,9 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $original_slides = new ArrayCollection();
-        foreach ($home_page_data->getHomePageSlides() as $slide) {
-            $original_slides->add($slide);
-        }
-
-        $original_slides_image = array();
-        foreach ($original_slides as $slide) {
-            $original_slides_image[$slide->getId()] = $slide->getImage();
-        }
+        $slideshow_manager = $this->container->get('admin.slideshow');
+        $original_slides = $slideshow_manager->getOriginalSlides($home_page_data);
+        $original_slides_image = $slideshow_manager->getOriginalSlidesImage($original_slides);
 
         $form_factory = $this->get('form.factory');
         $home_page_slide_data_form = $form_factory->createNamed(
@@ -1274,78 +1268,21 @@ class ParametragesController extends AdminController
                 $home_page_slide_data_form->handleRequest($request);
                 if ($home_page_slide_data_form->isSubmitted() && $home_page_slide_data_form->isValid()) {
                     // checking for "delete image" commands
-                    $deleted_image_slide_id_list = array();
-                    foreach ($home_page_slide_data_form->get('home_page_slides') as $home_page_slide) {
-                        $delete_image_command = $home_page_slide->get('delete_image_command')->getData();
-                        if (!empty($delete_image_command) && 'true' == $delete_image_command) {
-                            $slide = $home_page_slide->getNormData();
-                            $slide->setImage($original_slides_image[$slide->getId()]);
-                            $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\HomePageSlide')
-                                ->retrieveNumberOfOtherSlideUsingImage($home_page_data, $slide);
-                            if (0 == $number_other_slide_using_image) {
-                                $filesystem = $this->get('filesystem');
-                                $image_path = $this->getParameter('content_home_page_slide_image_upload_dir')
-                                    .'/'
-                                    .$slide->getImage();
-                                if ($filesystem->exists($image_path)) {
-                                    $filesystem->remove($image_path);
-                                }
-                            }
-                            $slide->setImage(null);
-                            array_push($deleted_image_slide_id_list, $slide->getId());
-                        }
-                    }
-
-
+                    $deleted_image_slide_id_list = $slideshow_manager->checkDeletedImages(
+                        $home_page_slide_data_form,
+                        $home_page_data,
+                        $original_slides_image
+                    );
                     // editing existant slide
-                    foreach ($home_page_data->getHomePageSlides() as $slide) {
-                        if (!is_null($slide->getId())) {
-                            // setting image for existent slide
-                            if (is_null($slide->getImage())) {
-                                if (!in_array($slide->getId(), $deleted_image_slide_id_list)) {
-                                    // set previous image
-                                    if (array_key_exists($slide->getId(), $original_slides_image)) {
-                                        $slide->setImage($original_slides_image[$slide->getId()]);
-                                    }
-                                }
-
-                            } else {
-                                // upload new image
-                                $image = $slide->getImage();
-                                $image->move(
-                                    $this->getParameter('content_home_page_slide_image_upload_dir'),
-                                    $image->getClientOriginalName()
-                                );
-                                $slide->setImage($image->getClientOriginalName());
-                            }
-                        }
-                    }
-
+                    $home_page_data = $slideshow_manager->editHomePageSlides(
+                        $home_page_data,
+                        $deleted_image_slide_id_list,
+                        $original_slides_image
+                    );
                     // deleting slides
-                    foreach ($original_slides as $original_slide) {
-                        if (false === $home_page_data->getHomePageSlides()->contains($original_slide)) {
-                            $original_slide->setHomePageData(null);
-                            $home_page_data->removeHomePageSlide($original_slide);
-                            $em->remove($original_slide);
-                        }
-                    }
-
+                    $home_page_data = $slideshow_manager->deleteHomePageSlides($home_page_data, $original_slides);
                     // adding new slide
-                    foreach ($home_page_data->getHomePageSlides() as $slide) {
-                        if (is_null($slide->getId())) {
-                            $slide->setHomePageData($home_page_data);
-                            if (!is_null($slide->getImage())) {
-                                $image = $slide->getImage();
-                                $image->move(
-                                    $this->getParameter('content_home_page_slide_image_upload_dir'),
-                                    $image->getClientOriginalName()
-                                );
-                                $slide->setImage($image->getClientOriginalName());
-                            }
-                            $em->persist($slide);
-                        }
-                    }
-
+                    $home_page_data = $slideshow_manager->addNewHomePageSlides($home_page_data);
                     $em->flush();
 
                     return $this->redirectToRoute('admin_content_configure_home_page');
