@@ -8,6 +8,7 @@ use AppBundle\DataFixtures\ORM\RegistrationFormDataFixtures;
 use AppBundle\DataFixtures\ORM\LoginPortalDataFixtures;
 use AppBundle\DataFixtures\ORM\HomePageDataFixtures;
 use AppBundle\DataFixtures\ORM\PointAttributionTypeFixtures;
+use AppBundle\DataFixtures\ORM\HomePagePostFixtures;
 
 class ProgramFixtures extends Fixture
 {
@@ -41,6 +42,9 @@ class ProgramFixtures extends Fixture
         $program->addPointAttributionSetting($this->getReference('product-point-attrib-setting-2-3'));
         $this->getReference('product-point-attrib-setting-2-3')->setProgram($program);
 
+        $program->addHomePagePost($this->getReference('parameter-edito'));
+        $this->getReference('parameter-edito')->setProgram($program);
+
         $manager->persist($program);
         $manager->flush();
         
@@ -55,7 +59,8 @@ class ProgramFixtures extends Fixture
             RegistrationFormDataFixtures::class,
             LoginPortalDataFixtures::class,
             HomePageDataFixtures::class,
-            PointAttributionTypeFixtures::class
+            PointAttributionTypeFixtures::class,
+            HomePagePostFixtures::class,
         );
     }
 }

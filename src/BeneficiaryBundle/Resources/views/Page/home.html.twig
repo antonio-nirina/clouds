@@ -257,7 +257,55 @@
             <div class = "content-sep-date-ligne"></div>
             <!-- FIN SEP DATE LIGNE -->
 
+            {% if home_page_post_list is defined and home_page_post_list is not empty %}
+                {% set current_block_group_date = null %}
+                {% for home_page_post in home_page_post_list %}
+                    {% if 1 != loop.index and current_block_group_date is not null and home_page_post.createdAt|date('dmY') != current_block_group_date|date('dmY') %}
+            <!-- SEP DATE -->
+            <div class = "content-sep-date">
+                <div class = "content-sep-date-positionnement">
+                    <span class = "light">{{ home_page_post.createdAt | localizeddate('none', 'none', locale, null, "d/ MM")}}</span>
+                </div>
+            </div>
+            <!-- FIN SEP DATE -->
+                    {% else %}
+                        {% if 1 != loop.index %}
+            <!-- SEP DATE -->
+            <div class = "content-sep-date-vide"></div>
+            <!-- FIN SEP DATE -->
+                        {% endif %}
+                    {% endif %}
 
+                    {% if home_page_post.postType == constant('EDITO', home_page_post_type_class) or home_page_post.postType == constant('PARAMETER_EDITO', home_page_post_type_class) %}
+            <!-- EDITO -->
+            <div class = "content-edito">
+                <p class = "block-active-hover" {#id = "block-active-hover-edito"#}></p>
+                <p class = "titre-block-centre">
+                    <span class = "lib-titre-block-centre light">{{ home_page_post.title }}</span>
+                    <span class = "lib-date-block-centre regular">{{ home_page_post.createdAt | localizeddate('none', 'none', locale, null, "d MMMM - H'h'mm") }}</span>
+                    <span class = "lib-date-block-centre-large bold">{#Loren ipsum dolor sit amet, consectetur adipiscing elit#}</span>
+                </p>
+
+                <p class = "img-titre-block-centre hidden-xs-down">
+                    <img src = "{{ asset('bundles/beneficiary/images/cloudsRewards/edito.png') }}" width = "107" height = "107" class = "img-fluid">
+                </p>
+
+                <div class = "descr-block-centre">
+                {{ home_page_post.content | raw }}
+                </div>
+
+                <p class = "btn-jaime-block-center light">
+                    <span class = "lib-btn-jaime regular">J'aime 73</span>
+                </p>
+            </div>
+            <!-- FIN EDITO -->
+                    {% endif %}
+
+                    {% set current_block_group_date = home_page_post.createdAt %}
+                {% endfor %}
+            {% endif %}
+
+            {#
             <!-- EDITO -->
             <div class = "content-edito">
                 <p class = "block-active-hover" id = "block-active-hover-edito"></p>
@@ -394,7 +442,7 @@
                     <span class = "lib-btn-jaime regular">J'aime 38</span>
                 </p>
             </div>
-            <!-- FIN NOUVEAUX CHALLENGE -->
+            <!-- FIN NOUVEAUX CHALLENGE -->#}
         </div>
         <!-- FIN CENTER -->
 

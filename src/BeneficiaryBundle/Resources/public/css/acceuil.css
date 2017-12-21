@@ -881,6 +881,20 @@ p.descr-block-centre{
 	clear:both;
 }
 
+div.descr-block-centre{
+	clear:both;
+}
+
+div.descr-block-centre p{
+	display:block;
+	text-align:justify;
+	color: var(--couleur_4);
+	font-size:14px;
+	line-height: 15px;
+	font-family: var(--police);
+}
+
+
 p.descr-block-centre span.descr-1{
 	display:block;
 	text-align:justify;

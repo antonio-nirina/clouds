@@ -97,6 +97,20 @@ $(document).ready(function(){
 			$(this).css('box-shadow', 'none');
 		}
 	});
+
+    $("div.content-edito").on({
+        mouseenter: function () {
+            $(this).find('p.block-active-hover').show();
+            $(this).css('background', 'white');
+            $(this).css('box-shadow', '1px 1px 2px grey');
+        },
+        mouseleave: function () {
+            $(this).find('p.block-active-hover').hide();
+            //$(this).css('background', '#f5f5f5');
+            $(this).css('background', 'white');
+            $(this).css('box-shadow', 'none');
+        }
+    });
 	
 	//Block date challenge
 	$("div.content-date-challenge").on({
