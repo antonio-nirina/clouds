@@ -265,6 +265,7 @@
 															{% for FormChamps in Pages.Options %}
 																{% set counter = random() %}
 																<tr class="form-field-row" data-field-id="{{ counter }}">
+																	
 																	<td class="field-parameter-state-container">
 																		{% if FormChamps.publier == '1' %}
 																			<input id="cl1-row{{ counter }}" class="form-field-published styled-checkbox" checked="checked" type="checkbox" name = "publier[{{ FormChamps.label }}]">
@@ -288,22 +289,43 @@
 																		<div class="content-champ-form">
 																			<div class="content-label">
 																				<label>
-																					{{ FormChamps.label }}
+																					<span id = "span-label-{{ counter }}">{{ FormChamps.label }}</span>
 																					{% if FormChamps.obligatoire == '1'%}
 																						 *
 																					{% endif %}
 																					<input id="cl3-row{{ counter }}" class = "label-input" name = "label[]" type = "hidden" value = "{{ FormChamps.label }}">
 																				</label>
 																			</div>
-																			<div class="content-input">
-																				<div class="champs-form">
+																			<div id = "content-input-{{ counter }}" class="content-input">
+																				{% if FormChamps.type == 'input-radio' %}
+																					<div class="champs-form-radio">
+																						<span class="input-radio"></span>
+																						<span class="input-libelle-radio">oui</span>
+																					</div>
+																					
+																					<div class="champs-form-radio">
+																						<span class="input-radio"></span>
+																						<span class="input-libelle-radio">non</span>
+																					</div>
 																					<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
-																				</div>
+																				{% endif %}
+																				
+																				{% if FormChamps.type == 'input-text' %}
+																					<div class="champs-form">
+																						<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
+																					</div>
+																				{% endif %}
+																				
+																				{% if FormChamps.type == 'input-textarea' %}
+																					<div class="champs-form">
+																						<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
+																					</div>
+																				{% endif %}
 																			</div>
 																		</div>
 																	</td>
 																	
-																	<td class="field-edit-option-container"><a href="#" class="edit-field-row-link"></a></td>
+																	<td class="field-edit-option-container"><a id = "edit-field-row-link-{{ counter }}" href="#" class="edit-field-row-link"></a></td>
 																	
 																	<td class="field-reorder-option-container">
 																		<a href="#" class="reorder-up-field-row-link"></a>
@@ -459,22 +481,43 @@
 																		<div class="content-champ-form">
 																			<div class="content-label">
 																				<label>
-																					{{ FormChamps.label }}
+																					<span id = "span-label-{{ counter }}">{{ FormChamps.label }}</span>
 																					{% if FormChamps.obligatoire == '1'%}
 																						 *
 																					{% endif %}
 																					<input id="cl3-row{{ counter }}" class = "label-input" name = "label[]" type = "hidden" value = "{{ FormChamps.label }}">
 																				</label>
 																			</div>
-																			<div class="content-input">
-																				<div class="champs-form">
+																			<div id = "content-input-{{ counter }}" class="content-input">
+																				{% if FormChamps.type == 'input-radio' %}
+																					<div class="champs-form-radio">
+																						<span class="input-radio"></span>
+																						<span class="input-libelle-radio">oui</span>
+																					</div>
+																					
+																					<div class="champs-form-radio">
+																						<span class="input-radio"></span>
+																						<span class="input-libelle-radio">non</span>
+																					</div>
 																					<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
-																				</div>
+																				{% endif %}
+																				
+																				{% if FormChamps.type == 'input-text' %}
+																					<div class="champs-form">
+																						<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
+																					</div>
+																				{% endif %}
+																				
+																				{% if FormChamps.type == 'input-textarea' %}
+																					<div class="champs-form">
+																						<input id="cl4-row{{ counter }}" class = "type-input" name = "type_champ[]" type = "hidden" value = "{{ FormChamps.type }}">
+																					</div>
+																				{% endif %}
 																			</div>
 																		</div>
 																	</td>
 																	
-																	<td class="field-edit-option-container"><a href="#" class="edit-field-row-link"></a></td>
+																	<td class="field-edit-option-container"><a id = "edit-field-row-link-{{ counter }}" href="#" class="edit-field-row-link"></a></td>
 																	
 																	<td class="field-reorder-option-container">
 																		<a href="#" class="reorder-up-field-row-link"></a>

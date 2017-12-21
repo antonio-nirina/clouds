@@ -883,3 +883,53 @@ ul.liste-img-galery li img{
 .fieldset .custom-field-allowed-container {
     margin-right: 2px;
 }
+
+.champs-form-radio .input-radio {
+    width: 25px;
+    height: 25px;
+    border: 1px solid grey;
+    float: left;
+    margin-left: 10px;
+    border-radius: 14px;
+}
+
+.input-libelle-radio {
+    margin-left: 10px;
+}
+
+.input-text {
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    width: 90%;
+}
+
+.styled-radio:checked + label {
+    background: url('../images/cloudsRewards/checkon.png') no-repeat;
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+}
+
+.styled-radio + label {
+    background: url('../images/cloudsRewards/checkoff.png') no-repeat;
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+	vertical-align:top;
+}
+
+#alpha-radio,
+#choice-radio{
+	display:none;
+}
+
+.form-row{
+	margin-top:20px;
+	margin-bottom:20px;
+}

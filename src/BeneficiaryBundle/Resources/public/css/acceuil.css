@@ -2480,3 +2480,20 @@ form#FormContactSend{
 textarea{
 	margin-bottom:10px;
 }
+
+.champs-form-radio {
+    float: left;
+}
+
+.champs-form-radio .input-radio {
+    width: 25px;
+    height: 25px;
+    border: 1px solid grey;
+    float: left;
+    margin-left: 10px;
+    border-radius: 14px;
+}
+
+.input-libelle-radio {
+    margin-left: 10px;
+}

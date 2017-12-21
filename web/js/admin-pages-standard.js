@@ -55,6 +55,7 @@ $(document).ready(function(){
 		}else{
 			var UrlCustomCkeditor = $('input#url_customs_ckeditor').val();
 		}
+		var UrlCustomCkeditor = $('input#url_customs_ckeditor').val();
 		
 		CKEDITOR.replace( 'login_portal_data_form_text_'+IdLi+'', {
 			language: 'fr',
@@ -411,6 +412,138 @@ $(document).ready(function(){
         }
     });
 	
+	//Modification champ form contact 
+	$(document).on('click', 'a.edit-field-row-link', function(){
+		var ID = $(this).attr('id');
+		var ArrayID = new Array;
+		ArrayID = ID.split('-');
+		var IdElmt = ArrayID[4];
+		
+		AjoutModifChampFormContact(IdElmt);
+		
+		return false;
+	});
+	
+	$(document).on('click', 'button#btn-modif-champ-form-contact', function(){
+		var IdChamp = $('input#Id-champs-form-contact').val();
+		
+		
+		var Libelle = $('input#libelle_label').val();
+		var ChoixType = "";
+		$('input.type_de_champ').each(function(e){
+			if($(this).prop('checked')){
+				ChoixType = $(this).val();
+			}
+		});
+		
+		if($.trim(Libelle) != ""){
+			
+			if(IdChamp > 0){
+				$('span#span-label-'+IdChamp+'').html(Libelle);
+
+				if(ChoixType == 'text'){
+					$('div#content-input-'+IdChamp+'').html("");
+					var DivHtml = '';
+					DivHtml += '<div class="champs-form">';
+					DivHtml += '<input id="cl4-row'+IdChamp+'" class="type-input" name="type_champ[]" value="input-text" type="hidden">';
+					DivHtml += '</div>';
+					$('div#content-input-'+IdChamp+'').html(DivHtml);
+					
+				}else if(ChoixType == 'choice-radio'){
+					$('div#content-input-'+IdChamp+'').html("");
+					var DivHtml = '';
+					DivHtml += '<div class="champs-form-radio">';
+					DivHtml += '<span class="input-radio"></span>';
+					DivHtml += '<span class="input-libelle-radio">oui</span>';
+					DivHtml += '</div>';
+					
+					DivHtml += '<div class="champs-form-radio">';
+					DivHtml += '<span class="input-radio"></span>';
+					DivHtml += '<span class="input-libelle-radio">non</span>';
+					DivHtml += '</div>';
+					DivHtml += '<input id="cl4-row'+IdChamp+'" class = "type-input" name = "type_champ[]" type = "hidden" value = "input-radio">';
+					$('div#content-input-'+IdChamp+'').html(DivHtml);
+				}
+			}else{
+				var IDAl = aleatoire(54646468);
+				var OrderEnCours = $('tr.form-field-row').length;
+				var Ordre = parseInt(OrderEnCours) + 1;
+				
+				var DivHtml = '';
+				DivHtml += '<tr class="form-field-row" data-field-id="'+IDAl+'">';
+
+				DivHtml += '<td class="field-parameter-state-container">';
+				DivHtml += '<input id="cl1-row'+IDAl+'" class="form-field-published styled-checkbox" name="publier[message]" type="checkbox">';
+				DivHtml += '<label for="cl1-row'+IDAl+'"><span></span></label>';
+				DivHtml += '<input id="cl0-row'+IDAl+'" class="order-input" name="ordre[]" value="'+Ordre+'" type="hidden">';
+				DivHtml += '</td>';
+
+				DivHtml += '<td class="field-parameter-state-container">';
+				DivHtml += '<input id="cl2-row'+IDAl+'" class="form-field-mandatory styled-checkbox" name="obligatoire[message]" type="checkbox">';
+				DivHtml += '<label for="cl2-row'+IDAl+'"><span></span></label>';    
+				DivHtml += '</td>';
+
+				DivHtml += '<td class="field-container">';
+				DivHtml += '<div class="content-champ-form">';
+				DivHtml += '<div class="content-label">';
+				DivHtml += '<label>';
+				DivHtml += '<span id="span-label-'+IDAl+'">'+Libelle+'</span>';
+				DivHtml += '<input id="cl3-row'+IDAl+'" class="label-input" name="label[]" value="'+Libelle+'" type="hidden">';
+				DivHtml += '</label>';
+				DivHtml += '</div>';
+				
+				DivHtml += '<div id="content-input-'+IDAl+'" class="content-input">';
+
+				if(ChoixType == 'text'){
+					DivHtml += '<div class="champs-form">';
+					DivHtml += '<input id="cl4-row'+IDAl+'" class="type-input" name="type_champ[]" value="input-textarea" type="hidden">';
+					DivHtml += '</div>';
+				}else if(ChoixType == 'choice-radio'){
+					DivHtml += '<div class="champs-form-radio">';
+					DivHtml += '<span class="input-radio"></span>';
+					DivHtml += '<span class="input-libelle-radio">oui</span>';
+					DivHtml += '</div>';
+					
+					DivHtml += '<div class="champs-form-radio">';
+					DivHtml += '<span class="input-radio"></span>';
+					DivHtml += '<span class="input-libelle-radio">non</span>';
+					DivHtml += '</div>';
+					DivHtml += '<input id="cl4-row'+IDAl+'" class = "type-input" name = "type_champ[]" type = "hidden" value = "input-radio">';
+				}
+				
+				
+				DivHtml += '</div>';
+				
+				DivHtml += '</div>';
+				
+				DivHtml += '</td>';
+
+				DivHtml += '<td class="field-edit-option-container"><a id="edit-field-row-link-'+IDAl+'" href="#" class="edit-field-row-link"></a></td>';
+
+				DivHtml += '<td class="field-reorder-option-container">';
+				DivHtml += '<a href="#" class="reorder-up-field-row-link"></a>';
+				DivHtml += '<a href="#" class="reorder-down-field-row-link"></a>';
+				DivHtml += '</td>';
+				DivHtml += '</tr>';
+				
+				
+				var LastChild = $('tr.form-field-row').last();
+				DivHtml.insertAfter('table.block-table tbody:last-child');
+			}
+			
+			
+			$('#conteneur-popup').hide();
+			$('#body-popup').hide();
+			$('#body-popup').html('');
+		}
+	});
+	
+	//Ajout champ
+	$(document).on('click', 'a.add-field-link', function(){
+		AjoutModifChampFormContact(0);
+		return false;
+	});
+	
 	
 	//Cliqur sur la premiere onglet
 	var OngletActif = $('input#onglet-selectionner-page').val();
@@ -460,4 +593,108 @@ function readURL(input, idLine) {
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
+}
+
+function AjoutModifChampFormContact(IdChamp){
+	$('#conteneur-popup').show();
+	$('#body-popup').show();
+	
+	var IdElmt = IdChamp;
+	
+	var Label = "";
+	if(IdElmt > 0){
+		Label = $('span#span-label-'+IdElmt+'').html();
+	}
+	
+	var TypeChamp = "";
+	if(IdElmt > 0){
+		TypeChamp = $('input#cl4-row'+IdElmt+'').val();
+	}
+	
+	var Html = '';
+	Html += '<div class = "ModifChampForm" style = "padding:20px;">';
+	Html += '<h3 class = "titrePopUp" style = "font-size:25px;">personnaliser le champ<span id = "fermerPopUp">X</span></h3>';
+	
+	Html += '<form style="width: 90%;margin: 43px auto;">';
+	Html += '<input id = "Id-champs-form-contact" type = "hidden" name = "Id-champs-form-contact" value = "'+IdElmt+'">';
+	Html += '<div class="row form-row">';
+	Html += '<div class="col-lg-3">';
+	Html += '<label class="form-label">intitulé du champ</label>';
+	Html += '</div>';
+	Html += '<div class="col-lg-9 vertical-align-element-container">';
+	Html += '<input id = "libelle_label" class="input-text removable-content-input fixed-size" name="intitule" placeholder="par exemple : nom de l\'agence, région, etc." type="text" value = "'+Label+'">';
+	Html += '<span class="delete-input"></span>';
+	Html += '</div>';
+	Html += '</div>';
+	
+
+	Html += '<div class="row form-row">';
+	Html += '<div class="col-lg-3">';
+	Html += '<label class="form-label" for="alpha-radio">type alphanumérique</label>';
+	Html += '</div>';
+	Html += '<div class="col-lg-9">';
+	
+	if(TypeChamp == 'input-text' || TypeChamp == 'input-textarea'){
+		Html += '<input class="styled-radio type_de_champ" id="alpha-radio" name="type_field" value="text" type="radio" checked = "checked">';
+	}else{
+		Html += '<input class="styled-radio type_de_champ" id="alpha-radio" name="type_field" value="text" type="radio">';
+	}
+	
+	Html += '<label for="alpha-radio"></label>';
+	Html += '<label for="alpha-radio" class="narrow-block-label">';
+	Html += '<div class="champs-form" style = "height:30px;width:200px;margin-left: 11px !important;"></div>';
+	Html += '</label>';
+	Html += '</div>';
+	Html += '</div>';
+
+
+	Html += '<div class="row form-row choice-radio-row">';
+	Html += '<div class="col-lg-3">';
+	Html += '<label class="form-label" for="choice-radio">type case à cocher</label>';
+	Html += '</div>';
+	Html += '<div class="col-lg-9">';
+	
+	if(TypeChamp == 'input-radio'){
+		Html += '<input class="styled-radio type_de_champ" id="choice-radio" name="type_field" value="choice-radio" type="radio" checked = "checked">';
+	}else{
+		Html += '<input class="styled-radio type_de_champ" id="choice-radio" name="type_field" value="choice-radio" type="radio">';
+	}
+	
+	Html += '<label for="choice-radio"></label>';
+	Html += '<label for="choice-radio" class="block-label">';
+	Html += '<div class="champs-form-radio">';
+	Html += '<span class="input-radio"></span>';
+	Html += '<span class="input-libelle-radio">oui</span>';
+	Html += '</div>';
+	Html += '<div class="champs-form-radio">';
+	Html += '<span class="input-radio"></span>';
+	Html += '<span class="input-libelle-radio">non</span>';
+	Html += '</div>';
+	Html += '</label>';
+	Html += '</div>';
+	Html += '</div>';
+	
+
+	
+	Html += '<p style = "text-align:center;margin-top:20px;clear:both;"><button id = "btn-modif-champ-form-contact" class="btn-valider valider submit-form" type = "button">';
+	
+	if(IdElmt > 0){
+		Html += 'sauvegarder';
+	}else{
+		Html += 'ajouter';
+	}
+	
+	Html += '</button></p>';
+	Html += '</form>';
+	Html += '</div>';
+	
+	$('#body-popup').html('');
+	$('#body-popup').html(Html);
+	$('#body-popup').css('height','auto');
+	$('#body-popup').css('width','60%!important');
+}
+
+function aleatoire(i) {
+	if (!i) { i = 100 ; }
+	return Math.round(Math.random()*i);
 }
