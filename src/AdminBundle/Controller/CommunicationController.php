@@ -156,4 +156,12 @@ class CommunicationController extends AdminController
             'slide_type' => new SlideType(),
         ));
     }
+
+    /**
+     * @Route("/emailing/campagne", name="admin_communication_emailing_compaign")
+     */
+    public function emailingCampaignAction()
+    {
+        return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array());
+    }
 }
