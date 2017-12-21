@@ -916,6 +916,8 @@ li.options{
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		margin-top: 20px;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-programme-active{
@@ -927,6 +929,8 @@ li.options{
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		border-left: 3px solid var(--couleur_2);
 		margin-top: 20px;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-inscriptions-desactive{
@@ -1480,6 +1484,8 @@ li.options{
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		margin-top: 20px;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-programme-active{
@@ -1491,6 +1497,8 @@ li.options{
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		border-left: 3px solid var(--couleur_2);
 		margin-top: 20px;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-inscriptions-desactive{
@@ -2093,6 +2101,8 @@ li.options{
 		background-color: var(--couleur_5);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-programme-active{
@@ -2103,6 +2113,8 @@ li.options{
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		border-left: 3px solid var(--couleur_2);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-inscriptions-desactive{
@@ -2511,6 +2523,8 @@ li.options{
 		background-color: var(--couleur_5);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-programme-active{
@@ -2521,6 +2535,8 @@ li.options{
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		border-left: 3px solid var(--couleur_2);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-inscriptions-desactive{
@@ -2914,6 +2930,8 @@ li.options{
 		background-color: var(--couleur_5);
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-programme-active{
@@ -2924,6 +2942,8 @@ li.options{
 		-webkit-mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		mask-image: url('../images/cloudsRewards/menu/programme.svg');
 		border-left: 3px solid var(--couleur_2);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
 	}
 	
 	.img-inscriptions-desactive{
