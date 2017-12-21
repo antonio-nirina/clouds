@@ -538,6 +538,17 @@ $(document).ready(function(){
 		$('span#nom-domaine-choix-ok a').html(Valeur);
 		AfficheUrlRecompense();
 	});
+
+    $(document).on('click','.dropdown .delete-input', function(){
+        $(this).off('click');
+        $(this).parent().find('button').html($(this).parent().find('button').attr('data-default'));
+        $(this).css({'visibility':'hidden','display':'inline-block'});
+    });
+    $(document).on('click','.filter .dropdown-item', function(e){
+        e.preventDefault();
+        $(this).parents('.dropdown').find('button').html($(this).html());
+        $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
+    });
 });
 
 $(document).ready(function(){
