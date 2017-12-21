@@ -1,6 +1,7 @@
 <?php
 namespace BeneficiaryBundle\Controller;
 
+use AdminBundle\Component\Post\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,14 +42,20 @@ class PageController extends Controller
         }
                 
         $em = $this->getDoctrine()->getManager();
-        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')->findByHomePageDataOrdered($home_page_data);
+        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+            ->findByHomePageDataOrdered($home_page_data);
+
+        $home_page_post_list = $em->getRepository('AdminBundle\Entity\HomePagePost')
+            ->findBy(array('program' => $program), array('created_at' => 'DESC'));
 
         return $this->render('BeneficiaryBundle:Page:home.html.twig', array(
             'editorial' => $editorial,
             'has_network' => $has_network,
             'table_network' => $table_network,
             'slide_list' => $ordered_slide_list,
-            'background_link' => $background_link
+            'background_link' => $background_link,
+            'home_page_post_list' => $home_page_post_list,
+            'home_page_post_type_class' => new PostType(),
         ));
     }
 	
