@@ -1516,3 +1516,9 @@ section .row.filter .add {
     color: var(--couleur_1) !important;
     font-size: 14px;
 }
+.add.add-folder-link {
+    line-height: 28px;
+}
+.add.add-folder-link::before {
+    position: relative;
+}
