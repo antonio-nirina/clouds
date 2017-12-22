@@ -3,7 +3,6 @@
 
 namespace AdminBundle\Controller;
 
-use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Component\SiteForm\SiteFormType;
@@ -918,7 +917,8 @@ class ParametragesController extends AdminController
                 }
                 
                 if ($site_design_form_logo->isSubmitted() && $site_design_form_logo->isValid()) {
-                    if (array_key_exists('logo_path', $request->files->get('site_design_setting'))) {
+                    if (array_key_exists('logo_path', $request->files->get('site_design_setting'))
+                        && !is_null($site_design->getLogoPath())) {
                         $logo = $this->container->get('admin.logo')->upload(
                             $site_design->getLogoPath(),
                             $program->getId()
@@ -945,7 +945,9 @@ class ParametragesController extends AdminController
                 }
 
                 if ($site_design_form_colors->isSubmitted() && $site_design_form_colors->isValid()) {
-                    if (array_key_exists('body_background', $request->files->get('site_design_setting'))) {
+
+                    if (array_key_exists('body_background', $request->files->get('site_design_setting'))
+                        && !is_null($site_design->getBodyBackground())) {
                         $background = $this->container->get('admin.body_background')->upload(
                             $site_design->getBodyBackground(),
                             $program->getId()
@@ -1242,17 +1244,8 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        /*$editorial = $home_page_data->getEditorial();
+        $editorial = $home_page_data->getEditorial();
         if (is_null($editorial)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }*/
-        $em = $this->getDoctrine()->getManager();
-        $parameter_edito = $em->getRepository('AdminBundle\Entity\HomePagePost')
-            ->findOneBy(array(
-                'program' => $program,
-                'post_type' => PostType::PARAMETER_EDITO,
-            ));
-        if (is_null($parameter_edito)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
@@ -1269,9 +1262,10 @@ class ParametragesController extends AdminController
         $home_page_editorial_data_form = $form_factory->createNamed(
             'home_page_editorial_data_form',
             HomePageEditorialType::class,
-            $parameter_edito
+            $editorial
         );
 
+        $em = $this->getDoctrine()->getManager();
         if ("POST" === $request->getMethod()) {
             if ($request->request->has('home_page_slide_data_form')) {
                 $home_page_slide_data_form->handleRequest($request);
@@ -1292,6 +1286,7 @@ class ParametragesController extends AdminController
                     $home_page_data = $slideshow_manager->deleteHomePageSlides($home_page_data, $original_slides);
                     // adding new slide
                     $home_page_data = $slideshow_manager->addNewHomePageSlides($home_page_data);
+
                     $em->flush();
 
                     return $this->redirectToRoute('admin_content_configure_home_page');
@@ -1301,10 +1296,10 @@ class ParametragesController extends AdminController
             if ($request->request->has('home_page_editorial_data_form')) {
                 $home_page_editorial_data_form->handleRequest($request);
                 if ($home_page_editorial_data_form->isSubmitted() && $home_page_editorial_data_form->isValid()) {
-                    /*$editorial->setLastEdit(new \DateTime(
+                    $editorial->setLastEdit(new \DateTime(
                         'now',
                         new \DateTimeZone($this->getParameter('app_time_zone'))
-                    ));*/
+                    ));
                     $em->flush();
                     return $this->redirectToRoute('admin_content_configure_home_page');
                 }
@@ -1886,7 +1881,6 @@ class ParametragesController extends AdminController
 			$Id = $request->get('id_page');
 			$Onglets = $request->get('onglet-selectionner-page');
 			
-			
 			for($i=0; $i < count($NomPages); $i++){
 				
 				$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
@@ -1906,28 +1900,6 @@ class ParametragesController extends AdminController
 					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
 				}
 				
-				$ListeChampsInfos = array();
-				if($NomPages[$i] == 'contact'){
-					$TypeChamps = $request->get('type_champ');
-					$Publier = $request->get('publier');
-					$Obligatoire = $request->get('obligatoire');
-					$Label = $request->get('label');
-					$Ordre = $request->get('ordre');
-					if(count($TypeChamps) > 0){
-						$cpt = 0;
-						foreach($TypeChamps as $Type){
-							$ListeChampsInfos[] = array(
-								'type' => $Type,
-								'publier' => (isset($Publier[$Label[$cpt]]) && !empty($Publier[$Label[$cpt]])) ? 1 : 0,
-								'obligatoire' => (isset($Obligatoire[$Label[$cpt]]) && !empty($Obligatoire[$Label[$cpt]])) ? 1 : 0,
-								'label' => $Label[$cpt],
-								'ordre' => $Ordre[$cpt]
-							);
-							$cpt++;
-						}
-					}
-				}
-				$sitePagesStandardSetting->setOptions($ListeChampsInfos);
 				$sitePagesStandardSetting->setProgram($program);
 				$sitePagesStandardSetting->upload($program);
 				$em->persist($sitePagesStandardSetting);
