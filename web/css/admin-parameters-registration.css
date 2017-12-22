@@ -1447,7 +1447,11 @@ a.blue-anchor{
 }
 section .row.filter {
     padding-top:  10px;
-    margin: 0;
+    margin: 0 0 40px;
+    background-color: #F9F9F9;
+}
+section .row.list row {
+    background-color: #F9F9F9;
 }
 section .row.filter div.create {
     min-width: 30%;
@@ -1462,7 +1466,7 @@ section .row.filter div.next-create {
 section .row.filter div.create button {
     margin-top: 0;
 }
-section .row.filter .dropdown-toggle {
+section /*.row.filter*/ .dropdown-toggle {
     border: 1px solid #404040;
     border-radius: 5px;
     cursor: pointer;
@@ -1470,31 +1474,32 @@ section .row.filter .dropdown-toggle {
     min-width: 10rem;
     text-align: left;
 }
-section .row.filter .show .dropdown-toggle {
+section /*.row.filter*/ .show .dropdown-toggle {
     visibility: hidden;
     box-shadow: none;
 }
-section .row.filter .dropdown-menu {
+section /*.row.filter*/ .dropdown-menu {
     border: 0;
     margin: 0;
     padding: 0;
     top: 0;
 }
-section .row.filter .dropdown-menu, section .row.filter .dropdown-menu > a, section .row.filter .dropdown-toggle {
+section /*.row.filter*/ .dropdown-menu, section /*.row.filter*/ .dropdown-menu > a, section /*.row.filter*/ .dropdown-toggle {
     font-size: 12px;
     font-family: var(--police);
     color: #404040;
     background-color: #e5e5e5;
     height: 35px;
 }
-section .row.filter .dropdown-menu > a:hover {
-    background-color: white;
-}
-section .row.filter .dropdown-menu > a{
+section /*.row.filter*/ .dropdown-menu > a{
     box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
     padding: 8px 16px;
 }
-section .row.filter .dropdown-toggle::after {
+section /*.row.filter*/ .dropdown-menu > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+section /*.row.filter*/ .dropdown-toggle::after {
     display: inline-block;
     width: 0;
     height: 0;
@@ -1509,7 +1514,7 @@ section .row.filter .dropdown-toggle::after {
     top: 0;
     color: #404040;
 }
-section .row.filter .dropdown .delete-input {
+section /*.row.filter*/ .dropdown .delete-input {
     visibility: hidden;
 }
 section .row.filter .add {
@@ -1522,3 +1527,56 @@ section .row.filter .add {
 .add.add-folder-link::before {
     position: relative;
 }
+section .row.list .row {
+    width: 100%;
+    margin: 0 15px;
+    padding: 20px 0 40px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+section .row.list .campagne-name {
+    min-width: 40%;
+    display: flex;
+    align-items: center;
+}
+section .row.list .campagne-name label {
+    width: 100%;
+}
+section .row.list .campagne-name label > div {
+    padding-left: 50px;
+}
+section .row.list .campagne-name-name, section .row.list .metric-value {
+    font-size: 17px;
+    line-height: 19px;
+    font-family: var(--police_bold);
+    font-weight: bold;
+    color: var(--couleur_2);
+}
+section .row.list .campagne-name-name {
+    margin-top: -6px;
+}
+section .row.list .metric-value, section .row.list .metric-desc {
+    display: block;
+}
+section .row.list .campagne-metric {
+    display: flex;
+}
+section .row.list .campagne-metric > div {
+    width: 100px;
+}
+section .row.list .campagne-name-date {
+    font-size: 12px;
+    line-height: 18px;
+    color: #38CC00;
+    font-weight: bold;
+}
+section .row.list .metric-desc {
+    font-size: 12px;
+    line-height: 18px;
+    color: #404040;
+}
+section .row.list .campagne-action {
+    display: flex;
+    justify-content: flex-end;
+    width: calc(60% - 300px);
+}
+

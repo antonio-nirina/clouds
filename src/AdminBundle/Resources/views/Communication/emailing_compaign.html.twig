@@ -26,23 +26,23 @@
                     <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
                         <ul class="navbar-nav content-menu-niv-3">
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_slideshow") }}">campagne </a>
+                                <a class="nav-link-niv-3 menu-page-active" href="#">campagne </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_slideshow") }}">templates </a>
+                                <a class="nav-link-niv-3 menu-page" href="#">templates </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_slideshow") }}">liste de diffusion </a>
+                                <a class="nav-link-niv-3 menu-page" href="#">liste de diffusion </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_slideshow") }}">rapports </a>
+                                <a class="nav-link-niv-3 menu-page" href="#">rapports </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_slideshow") }}">sur-mesures </a>
+                                <a class="nav-link-niv-3 menu-page" href="#">sur-mesures </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                         </ul>
@@ -79,14 +79,14 @@
                             </div>
                             
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuDossier" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
                                     FILTRES
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDossier">
-                                    <a class="dropdown-item" href="javascript:void()">ATN</a>
-                                    <a class="dropdown-item" href="javascript:void()">L'ADRESSE</a>
-                                    <a class="dropdown-item" href="javascript:void()">RICOH</a>
-                                    <a class="dropdown-item" href="javascript:void()">WORKIT</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                    <a class="dropdown-item" href="#">ATN</a>
+                                    <a class="dropdown-item" href="#">L'ADRESSE</a>
+                                    <a class="dropdown-item" href="#">RICOH</a>
+                                    <a class="dropdown-item" href="#">WORKIT</a>
                                 </div>
                                 <span class="delete-input"></span>
                             </div>
@@ -99,7 +99,117 @@
                         </div>
                     </div> 
                     <div class="row list">
-                        
+                        <div class="row">
+                            <div class="campagne-name">
+                                <input type="checkbox" class="styled-checkbox bigger" id="campagne_0">
+                                <label for="campagne_0">
+                                    <span></span>
+                                    <div class="campagne-name-name">Relance ATN Challenge</div>
+                                    <div class="campagne-name-date">Envoyé - le 02 mai 2017 à 15:06</div>
+                                </label>                           
+                            </div>
+                            <div class="campagne-metric">
+                                <div class="metric-1">
+                                    <span class="metric-value">233</span>
+                                    <span class="metric-desc">inscrits</span>
+                                </div>
+                                <div class="metric-2">
+                                    <span class="metric-value">4.3%</span>
+                                    <span class="metric-desc">ouvertures</span>
+                                </div>
+                                <div class="metric-3">
+                                    <span class="metric-value">0.5%</span>
+                                    <span class="metric-desc">clics</span>
+                                </div>
+                            </div>
+                            <div class="campagne-action">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                        <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
+                                        <a class="dropdown-item" href="#">VOIR EMAIL</a>
+                                        <a class="dropdown-item" href="#">RENOMMER</a>
+                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div> 
+                        <div class="row">
+                            <div class="campagne-name">
+                                <input type="checkbox" class="styled-checkbox bigger" id="campagne_1">
+                                <label for="campagne_1">
+                                    <span></span>
+                                    <div class="campagne-name-name">ATN Challenge</div>
+                                    <div class="campagne-name-date">Envoyé - le 17 avril 2017 à 13:06</div>
+                                </label>                           
+                            </div>
+                            <div class="campagne-metric">
+                                <div class="metric-1">
+                                    <span class="metric-value">2033</span>
+                                    <span class="metric-desc">inscrits</span>
+                                </div>
+                                <div class="metric-2">
+                                    <span class="metric-value">18%</span>
+                                    <span class="metric-desc">ouvertures</span>
+                                </div>
+                                <div class="metric-3">
+                                    <span class="metric-value">0.8%</span>
+                                    <span class="metric-desc">clics</span>
+                                </div>
+                            </div>
+                            <div class="campagne-action">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                        <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
+                                        <a class="dropdown-item" href="#">VOIR EMAIL</a>
+                                        <a class="dropdown-item" href="#">RENOMMER</a>
+                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div> 
+                        <div class="row">
+                            <div class="campagne-name">
+                                <input type="checkbox" class="styled-checkbox bigger" id="campagne_0">
+                                <label for="campagne_0">
+                                    <span></span>
+                                    <div class="campagne-name-name">ATN Challenge Actualité</div>
+                                    <div class="campagne-name-date">Envoyé - le 05 mars 2017 à 08:00</div>
+                                </label>                           
+                            </div>
+                            <div class="campagne-metric">
+                                <div class="metric-1">
+                                    <span class="metric-value">1200</span>
+                                    <span class="metric-desc">inscrits</span>
+                                </div>
+                                <div class="metric-2">
+                                    <span class="metric-value">27.7%</span>
+                                    <span class="metric-desc">ouvertures</span>
+                                </div>
+                                <div class="metric-3">
+                                    <span class="metric-value"1%</span>
+                                    <span class="metric-desc">clics</span>
+                                </div>
+                            </div>
+                            <div class="campagne-action">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                        <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
+                                        <a class="dropdown-item" href="#">VOIR EMAIL</a>
+                                        <a class="dropdown-item" href="#">RENOMMER</a>
+                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>                        
                     </div>                   
                 </section>
             </div>
