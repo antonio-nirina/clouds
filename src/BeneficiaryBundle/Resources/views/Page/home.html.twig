@@ -264,7 +264,7 @@
             <!-- SEP DATE -->
             <div class = "content-sep-date">
                 <div class = "content-sep-date-positionnement">
-                    <span class = "light">{{ home_page_post.createdAt | localizeddate('none', 'none', locale, null, "d/ MM")}}</span>
+                    <span class = "light">{{ home_page_post.createdAt | localizeddate('none', 'none', locale, null, "dd/ MM")}}</span>
                 </div>
             </div>
             <!-- FIN SEP DATE -->
@@ -276,14 +276,14 @@
                         {% endif %}
                     {% endif %}
 
-                    {% if home_page_post.postType == constant('EDITO', home_page_post_type_class) %}
+                    {% if home_page_post.postType == constant('EDITO', home_page_post_type_class) or home_page_post.postType == constant('PARAMETER_EDITO', home_page_post_type_class) %}
             <!-- EDITO -->
             <div class = "content-edito">
                 <p class = "block-active-hover" {#id = "block-active-hover-edito"#}></p>
                 <p class = "titre-block-centre">
                     <span class = "lib-titre-block-centre light">{{ home_page_post.title }}</span>
                     <span class = "lib-date-block-centre regular">{{ home_page_post.createdAt | localizeddate('none', 'none', locale, null, "d MMMM - H'h'mm") }}</span>
-                    {#<span class = "lib-date-block-centre-large bold">Loren ipsum dolor sit amet, consectetur adipiscing elit</span>#}
+                    <span class = "lib-date-block-centre-large bold">{#Loren ipsum dolor sit amet, consectetur adipiscing elit#}</span>
                 </p>
 
                 <p class = "img-titre-block-centre hidden-xs-down">
