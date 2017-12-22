@@ -890,7 +890,7 @@ div.descr-block-centre p{
 	text-align:justify;
 	color: var(--couleur_4);
 	font-size:14px;
-	line-height: 15px;
+	line-height: 1.8em;
 	font-family: var(--police);
 }
 
