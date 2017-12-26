@@ -155,6 +155,25 @@
     cursor:pointer;
 }
 
+.styled-radio.bigger:checked + label{
+    background: url('../images/cloudsRewards/check-on.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
+}
+
+.styled-radio.bigger + label{
+    background: url('../images/cloudsRewards/check-off.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
+}
+
+
 
 /*.block-table th{*/
     /*background-color: #E3E6F8 !important;*/
@@ -1443,5 +1462,294 @@ a.blue-anchor{
 @media (min-width: 575px) and (max-width: 991px) {
     .confirm-delete-dialog .text-container{
         padding: 0 50px;
+    }
+}
+
+/**
+ * dialog - éléments communs
+ */
+.app-dialog .modal-body-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.app-dialog .dialog-title{
+    color: var(--couleur_2);
+    font-size: 25px;
+}
+
+.app-dialog .content-container {
+    padding: 0 80px;
+    width: 100%;
+}
+
+.app-dialog .content-container.large {
+    padding: 0 20px;
+    width: 100%;
+}
+
+.app-dialog .modal-body-container{
+    padding-bottom: 35px;
+}
+
+@media (max-width: 575px) {
+    .app-dialog .content-container{
+        padding: 0 25px;
+    }
+}
+
+@media (min-width: 575px) and (max-width: 991px) {
+    .app-dialog .content-container{
+        padding: 0 50px;
+    }
+}
+
+@media (max-width: 991px){
+    .app-dialog .btn-valider{
+        margin-top: 0 !important;
+    }
+}
+
+/**
+ * Communication - Emailing - Templates
+ */
+/**
+ * dialog - choix modèle à personnaliser
+ */
+.template-choice-list-container{
+    margin-top: 50px;
+}
+
+.template-choice-list-container .template-choice{
+    border: 1px solid #9a9a9a;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 180px;
+    min-width: 180px;
+    height: 190px;
+    background-color: #f4f4f4;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+}
+
+.template-choice-list-container .template-choice-container{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.template-choice-list-container .template-choice-name{
+    width: 100%;
+    text-align: center;
+}
+
+.template-choice-list-container .checkbox-choice-container{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 9px;
+    right: 10px;
+}
+
+.template-choice-list-container .checkbox-choice-container label{
+    position: relative;
+    top: -6px;
+}
+
+@media (max-width: 991px){
+    .template-choice-list-container{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .template-choice-list-container .template-choice-container{
+        margin-bottom: 20px;
+    }
+}
+
+.bordered-styled-choice-el{
+    border: 1px solid #9a9a9a;
+    border-radius: 50%;
+}
+
+.modal .previous {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    float: left;
+    background: url(../images/cloudsRewards/fleche_retour.png) center center no-repeat;
+}
+
+/**
+ * dialog - création template
+ */
+#create-template-dialog .minicolors{
+    display: inline-block;
+}
+
+.option-title{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.template-preview-block{
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+.template-preview-container{
+    border: 1px solid #9a9a9a;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 260px;
+    height: 320px;
+    background-color: #f5f5f5;
+    margin: auto;
+}
+
+.magnify-template-preview{
+    display: block;
+    width: 25px;
+    height: 25px;
+    background: url(../images/cloudsRewards/magnifier.png) center center no-repeat;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.color-value{
+    margin-bottom: 15px;
+}
+
+.color-option-container{
+    margin-bottom: 15px;
+}
+
+.template-config-block{
+    margin-bottom: 30px;
+}
+
+.footer-text-block .footer-text-option-container input{
+    border: 1px solid #636363;
+    width: 245px;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    background-color: inherit;
+    text-align:left;
+}
+
+.footer-text-block .footer-text-option-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.footer-text-block .footer-text-option-container .styled-checkbox + label{
+    margin: 0 10px 0 0;
+}
+
+.option-title-block{
+    color: var(--couleur_2);
+    font-family: var(--police_bold);
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #4f4f4f;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.logo-alignment-option-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.logo-alignment-option{
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-alignment-option .text-label{
+    margin-left: 10px;
+}
+
+.logo-alignment-option .styled-radio.bigger + label{
+    margin-top: 0 !important;
+}
+
+.action-button-block .row{
+    margin-bottom: 15px;
+}
+
+.action-button-option-input{
+    border: 1px solid #636363;
+    width: 400px;
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    background-color: inherit;
+}
+
+.action-button-preview{
+    width: fit-content;
+    width: -moz-fit-content;
+    border-radius: 25px;
+    padding: 7px 35px 7px 35px;
+    background-color: #ff0000;
+    color: #ffffff;
+    font-family: var(--police) !important;
+
+    white-space: nowrap;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.action-button-color-option{
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.action-button-color-option span.option-title{
+    margin-bottom: 15px;
+}
+
+.action-button-color-option:first-child{
+    margin-right: 80px;
+}
+
+@media (min-width: 992px){
+    .modal-dialog.larger{
+        max-width: 95%;
+    }
+
+    .left-col{
+        border-right: 1px solid #e5e5e5;
+    }
+}
+
+@media (max-width: 991px){
+    .template-preview-block{
+        width: 100%;
+    }
+
+    .logo-alignment-option-container{
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 575px){
+    .footer-text-block .footer-text-option-container input{
+        max-width: 80%;
     }
 }

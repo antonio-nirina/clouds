@@ -3811,3 +3811,27 @@ img[src='']{
 		top :0 !important;
 	}
 }
+
+/**
+ * Color picker
+ */
+.minicolors-theme-bootstrap .minicolors-input {
+	margin-left: 60px !important;
+	border: 1px solid;
+	padding: 7px !important;
+	border-radius: 8px;
+}
+.minicolors-theme-bootstrap .minicolors-swatch {
+	width: 45px !important;
+	height: 45px !important;
+	border-radius: 100% !important;
+	border: 1px solid;
+	margin-top: -7px;
+	cursor: pointer;
+}
+.minicolors-position-bottom .minicolors-panel {
+	top: 48px !important;
+}
+.minicolors-sprite {
+	background-image: url('../minicolors/images/jquery.minicolors.png') !important;
+}
