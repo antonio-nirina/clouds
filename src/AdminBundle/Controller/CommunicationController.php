@@ -164,4 +164,17 @@ class CommunicationController extends AdminController
     {
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array());
     }
+
+    /**
+     * @Route("/emailing/templates", name="admin_communication_emailing_templates")
+     */
+    public function emailingTemplatesAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array());
+    }
 }

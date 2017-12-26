@@ -1,0 +1,321 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':1})) }}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_emailing_templates") }}">templates </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_compaign") }}">campagne </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_emailing_templates") }}">templates </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">liste de diffusion </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">rapports </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">sur-mesures </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset active">
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <!-- dialog - selection modèle -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#choose-model-dialog"></button>
+                            <div id="choose-model-dialog" class="app-dialog modal fade" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-body-container">
+                                                <div class="content-container">
+                                                    <span class="dialog-title">sélectionner un modèle à personnaliser</span>
+                                                    <div class="container-fluid template-choice-list-container">
+                                                        <div class="row">
+                                                            <div class="col-12 col-lg-6 template-choice-container">
+                                                                <div class="template-choice">
+                                                                    <img src="{{ asset("images/cloudsRewards/template_text_image.png") }}">
+                                                                    <div class="checkbox-choice-container">
+                                                                        <input id="text-image-option-radio" type="radio" class="styled-radio bigger" name="template_choice_option">
+                                                                        <label for="text-image-option-radio" class="bordered-styled-choice-el"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="template-choice-name">Texte et image</span>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6 template-choice-container">
+                                                                <div class="template-choice">
+                                                                    <img src="{{ asset("images/cloudsRewards/template_text_simple.png") }}">
+                                                                    <div class="checkbox-choice-container">
+                                                                        <input id="simple-text-option-radio" type="radio" class="styled-radio bigger" name="template_choice_option">
+                                                                        <label for="simple-text-option-radio" class="bordered-styled-choice-el"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="template-choice-name">Texte simple</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button class ="btn-valider continue">
+                                                        continuer
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - dialog - selection modèle -->
+
+                            <!-- dialog - création template  -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-template-dialog"></button>
+                            <div id="create-template-dialog" class="app-dialog modal fade" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg larger" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="previous"></a>
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-body-container">
+                                                <div class="content-container large">
+                                                    <span class="dialog-title">créer votre template d'e-mail</span>
+                                                    <div class="row">
+                                                        <div class="col-12 col-lg-4 left-col">
+                                                            <div class="template-preview-block template-config-block">
+                                                                <span class="option-title">prévisualisation</span>
+                                                                <div class="template-preview-container hidden-xs-down"></div>
+                                                                <a href="#" class="magnify-template-preview"></a>
+                                                            </div>
+                                                            <div class="template-config-block">
+                                                                <div class="color-option-container">
+                                                                    <span class="option-title">Couleur de l'e-mail</span>
+                                                                    <input id="email-color" type="text" class="color-value">
+                                                                </div>
+                                                                <div class="color-option-container">
+                                                                    <span class="option-title">Couleur de l'arrière plan</span>
+                                                                    <input id="background-color" type="text" class="color-value">
+                                                                </div>
+                                                            </div>
+                                                            <div class="template-config-block footer-text-block">
+                                                                <span class="option-title">Texte présent dans le footer</span>
+                                                                <div class="footer-text-option-container">
+                                                                    <input id="text_1" type="checkbox" class="styled-checkbox bigger">
+                                                                    <label for="text_1"></label>
+                                                                    <input type="text" value="liste de diffusion">
+                                                                </div>
+                                                                <div class="footer-text-option-container">
+                                                                    <input id="text_2" type="checkbox" class="styled-checkbox bigger">
+                                                                    <label for="text_2"></label>
+                                                                    <input type="text" value="copyright / société">
+                                                                </div>
+                                                                <div class="footer-text-option-container">
+                                                                    <input id="text_3" type="checkbox" class="styled-checkbox bigger">
+                                                                    <label for="text_3"></label>
+                                                                    <input type="text" value="désabonnement">
+                                                                </div>
+                                                                <div class="footer-text-option-container">
+                                                                    <input id="text_4" type="checkbox" class="styled-checkbox bigger">
+                                                                    <label for="text_4"></label>
+                                                                    <input type="text" value="e-mail de contact">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-lg-8">
+                                                            <div class="template-config-block">
+                                                                <span class="option-title-block">logo</span>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-lg-2">
+                                                                        <label>image</label>
+                                                                    </div>
+                                                                    <div class="col-12 col-lg-10">
+                                                                        <button class="btn-valider btn-upload choose-upload-img-button">
+                                                                            <span class="upload"></span>
+                                                                            choisissez un fichier...
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-12 logo-alignment-option-container">
+                                                                        <div class="logo-alignment-option">
+                                                                            <input checked id="logo-alignment-center-choice" type="radio" name="logo_alignment" class="styled-radio bigger">
+                                                                            <label for="logo-alignment-center-choice"></label>
+                                                                            <label for="logo-alignment-center-choice" class="text-label">centré</label>
+                                                                        </div>
+                                                                        <div class="logo-alignment-option">
+                                                                            <input id="logo-alignment-left-choice" type="radio" name="logo_alignment" class="styled-radio bigger">
+                                                                            <label for="logo-alignment-left-choice"></label>
+                                                                            <label for="logo-alignment-left-choice" class="text-label">ferré à gauche</label>
+                                                                        </div>
+                                                                        <div class="logo-alignment-option">
+                                                                            <input id="logo-alignment-right-choice" type="radio" name="logo_alignment" class="styled-radio bigger">
+                                                                            <label for="logo-alignment-right-choice"></label>
+                                                                            <label for="logo-alignment-right-choice" class="text-label">ferré à droite</label>
+                                                                        </div>
+                                                                        <div class="logo-alignment-option">
+                                                                            <input id="logo-alignment-expanded-choice" type="radio" name="logo_alignment" class="styled-radio bigger">
+                                                                            <label for="logo-alignment-expanded-choice"></label>
+                                                                            <label for="logo-alignment-expanded-choice" class="text-label">étendue</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="template-config-block">
+                                                                <span class="option-title-block">image</span>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-lg-2">
+                                                                        <label>image</label>
+                                                                    </div>
+                                                                    <div class="col-12 col-lg-10">
+                                                                        <button class="btn-valider btn-upload choose-upload-img-button">
+                                                                            <span class="upload"></span>
+                                                                            choisissez un fichier...
+                                                                        </button>
+                                                                        <div class="info-container">
+                                                                            <p>largeur optimale de l'image : 600px</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="template-config-block">
+                                                                <span class="option-title-block">texte</span>
+                                                                <div>
+                                                                    <textarea class="large-textarea" id="template-text"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="template-config-block action-button-block">
+                                                                <span class="option-title-block">bouton d'action</span>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-lg-3">
+                                                                        <label>texte du bouton</label>
+                                                                    </div>
+                                                                    <div class="col-12 col-lg-9 vertical-align-element-container">
+                                                                        <input type="text" class="action-button-option-input removable-content-input" value="mon bouton d'action">
+                                                                        <span class="delete-input"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-lg-3">
+                                                                        <label>url / mailto</label>
+                                                                    </div>
+                                                                    <div class="col-12 col-lg-9 vertical-align-element-container">
+                                                                        <input type="text" class="action-button-option-input removable-content-input" value="inscription@gmail.com">
+                                                                        <span class="delete-input"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-lg-3">
+                                                                        <label>aspect</label>
+                                                                    </div>
+                                                                    <div class="col-12 col-lg-9">
+                                                                        <div class="action-button-preview">
+                                                                            mon bouton d'action
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-lg-9 offset-lg-3">
+                                                                        <div class="action-button-color-option">
+                                                                            <span class="option-title">Couleur du bouton</span>
+                                                                            <input id="action-button-background-color" type="text" class="color-value" data-defaultValue="#ff0000">
+                                                                        </div>
+                                                                        <div class="action-button-color-option">
+                                                                            <span class="option-title">Couleur du texte de bouton</span>
+                                                                            <input id="action-button-text-color" type="text" class="color-value" data-defaultValue="#ffffff">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="add-other-content-container">
+                                                                    <a class="add" href="#"><span>ajouter une image</span></a>
+                                                                    <a class="add" href="#"><span>ajouter un texte</span></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    <div>
+                                                    <button class ="btn-valider continue">
+                                                        enregistrer
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - dialog - création template -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class = "row separator"></div>
+    </main>
+{% endblock %}
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>
+            <script src="{{ asset("js/admin-communication.js") }}"></script>
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+            <script>
+                $(document).ready(function(){
+                    var text_area_list = $('textarea.large-textarea');
+                    text_area_list.each(function(){
+                        CKEDITOR.replace( $(this).attr('id'), {
+                            language: 'fr',
+                            uiColor: '#9AB8F3',
+                            height: 150,
+                            width: 600,
+                            customConfig: "{{ asset('ckeditor/custom/config-light.js') }}",
+                        });
+                    });
+                });
+            </script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
