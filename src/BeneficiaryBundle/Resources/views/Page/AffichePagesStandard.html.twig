@@ -239,7 +239,24 @@
 										{% if ChampForms.type == 'input-textarea' %}
 											<textarea class = "input-form-text" name = "{{ ChampForms.label }}"></textarea>
 										{% endif %}
+										
+										{% if ChampForms.type == 'input-radio' %}
+											<div class = "input-form-radio">
+												<div class = "champ-radio">
+													<input id = "{{ ChampForms.label }}-radio-1" class="form-field-mandatory styled-checkbox" name="{{ ChampForms.label }}" type="radio" style = "display:none;">
+													<label for = "{{ ChampForms.label }}-radio-1"><span></span></label> 
+													<span>Oui</span>
+												</div>
+												
+												<div class = "champ-radio">
+													<input id = "{{ ChampForms.label }}-radio-2" class="form-field-mandatory styled-checkbox" name="{{ ChampForms.label }}" type="radio" style = "display:none;">
+													<label for = "{{ ChampForms.label }}-radio-2"><span></span></label> 
+													<span>Non</span>
+												</div>
+											</div>
+										{% endif %}
 									</label>
+									<div style = "clear:both;"></div>
 								{% endif %}
 							{% endfor %}
 

@@ -496,7 +496,7 @@ $(document).ready(function(){
 
 				if(ChoixType == 'text'){
 					DivHtml += '<div class="champs-form">';
-					DivHtml += '<input id="cl4-row'+IDAl+'" class="type-input" name="type_champ[]" value="input-textarea" type="hidden">';
+					DivHtml += '<input id="cl4-row'+IDAl+'" class="type-input" name="type_champ[]" value="input-text" type="hidden">';
 					DivHtml += '</div>';
 				}else if(ChoixType == 'choice-radio'){
 					DivHtml += '<div class="champs-form-radio">';
@@ -527,8 +527,12 @@ $(document).ready(function(){
 				DivHtml += '</tr>';
 				
 				
-				var LastChild = $('tr.form-field-row').last();
-				DivHtml.insertAfter('table.block-table tbody:last-child');
+				var DernierTr = parseInt($('table#ListeChampFormContact tbody tr').length) - 1;
+				var TrId = $('table#ListeChampFormContact tbody tr').eq(DernierTr).attr('data-field-id');
+				
+				if(DernierTr <= 9){
+					$('tr[data-field-id="'+TrId+'"]').after(DivHtml);
+				}
 			}
 			
 			

@@ -2514,3 +2514,40 @@ textarea{
 .input-libelle-radio {
     margin-left: 10px;
 }
+
+.styled-checkbox + label {
+    background: url('../images/cloudsRewards/checkoff.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+	vertical-align: middle;
+}
+
+.styled-checkbox:checked + label {
+    cursor: pointer;
+}
+.styled-checkbox:checked + label {
+    background: url('../images/cloudsRewards/checkon.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+	vertical-align: middle;
+}
+
+.input-form-radio {
+    float: right;
+    width: 81%;
+    border-radius: 5px;
+    background: none;
+    border: 0;
+	text-align:left;
+}
+
+.champ-radio{
+	display: inline-block;
+	margin-right: 20px;
+}

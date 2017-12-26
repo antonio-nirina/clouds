@@ -1881,6 +1881,14 @@ class ParametragesController extends AdminController
 			$Id = $request->get('id_page');
 			$Onglets = $request->get('onglet-selectionner-page');
 			
+			$publier = $request->get('publier');
+			$ordre = $request->get('ordre');
+			$obligatoire = $request->get('obligatoire');
+			$label = $request->get('label');
+			$type_champ = $request->get('type_champ');
+			
+			
+			
 			for($i=0; $i < count($NomPages); $i++){
 				
 				$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
@@ -1901,6 +1909,23 @@ class ParametragesController extends AdminController
 				}
 				
 				$sitePagesStandardSetting->setProgram($program);
+				
+				$Options['options'] = array();
+				if($NomPages[$i] == 'contact'){
+					$cpt = 0;
+					foreach($label as $LibelleChamp){
+						$Options['options'][] = array(
+							'type' => $type_champ[$cpt],
+							'publier' => (isset($publier[$LibelleChamp]) && !empty($publier[$LibelleChamp])) ? 1 : 0,
+							'obligatoire' => (isset($obligatoire[$LibelleChamp]) && !empty($obligatoire[$LibelleChamp])) ? 1 : 0,
+							'label' => $LibelleChamp,
+							'ordre' => $ordre[$cpt]
+						);
+						$cpt++;
+					}
+				}
+				$sitePagesStandardSetting->setOptions($Options['options']);
+				
 				$sitePagesStandardSetting->upload($program);
 				$em->persist($sitePagesStandardSetting);
 				$em->flush();

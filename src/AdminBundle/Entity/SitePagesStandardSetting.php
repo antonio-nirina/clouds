@@ -61,7 +61,7 @@ class SitePagesStandardSetting
     private $img_page;
 	
 	/**
-     * @Gedmo\Slug(fields={"titre_page"})
+     * @Gedmo\Slug(fields={"menu_page"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;

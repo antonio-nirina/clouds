@@ -231,10 +231,12 @@ class PageController extends Controller
 		$Options = $Pages->getOptions();
 		
 		// Obtient une liste de colonnes
-		foreach ($Options as $key => $row) {
-			$ordre[$key]  = $row['ordre'];
+		if(count($Options) > 0){
+			foreach ($Options as $key => $row) {
+				$ordre[$key]  = $row['ordre'];
+			}
+			array_multisort($ordre, SORT_ASC, $Options);
 		}
-		array_multisort($ordre, SORT_ASC, $Options);
 		
 		
 		return $this->render('BeneficiaryBundle:Page:AffichePagesStandard.html.twig', array(
