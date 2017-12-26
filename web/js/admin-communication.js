@@ -141,4 +141,30 @@ $(document).ready(function(){
      * Color picker
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Création template
+     * *********************************************************************************************
+     */
+
+    /*$('.continue').on('click', function(e){
+        $('#choose-model-dialog').modal('hide');
+        console.log('here');
+        // $('#create-template-dialog').modal('show');
+        $('#create-template-button').trigger('click');
+        console.log('and here');
+    });*/
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Création template
+     * *********************************************************************************************
+     */
+
+
+
 });

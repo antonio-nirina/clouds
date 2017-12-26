@@ -60,6 +60,101 @@
                 <section class="fieldset active">
                     <div class="row">
                         <div class="col-12 col-sm-12">
+                            <div class="row filter">
+                                <div class="create">
+                                    <button class="btn-valider">
+                                        créer un template
+                                    </button>
+                                </div>
+                                <div class="next-create">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuDossier" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="DOSSIERS">
+                                            DOSSIERS
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuDossier">
+                                            <a class="dropdown-item" href="#">ATN</a>
+                                            <a class="dropdown-item" href="#">L'ADRESSE</a>
+                                            <a class="dropdown-item" href="#">RICOH</a>
+                                            <a class="dropdown-item" href="#">WORKIT</a>
+                                        </div>
+                                        <span class="delete-input"></span>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                            FILTRES
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                            <a class="dropdown-item" href="#">ATN</a>
+                                            <a class="dropdown-item" href="#">L'ADRESSE</a>
+                                            <a class="dropdown-item" href="#">RICOH</a>
+                                            <a class="dropdown-item" href="#">WORKIT</a>
+                                        </div>
+                                        <span class="delete-input"></span>
+                                    </div>
+
+                                    <div>
+                                        <a href="#" class="add add-folder-link">
+                                            créer un dossier
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row list template-list">
+                                <div class="row">
+                                    <div class="col-12 col-lg-9 template-characteristic">
+                                        <div>
+                                            <input id="template-element-1-check" class="styled-checkbox bigger" type="checkbox">
+                                            <label for="template-element-1-check"></label>
+                                        </div>
+                                        <img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">
+                                        <div class="template-info">
+                                            <span class="template-name">Campagne TEST 2</span>
+                                            <span class="template-edit-info">Modifiée le 02 mai 2017 à 15:06 par administrateur</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-3 template-action-container">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                                ACTIONS
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                                <a class="dropdown-item" href="#">ÉDITER</a>
+                                                <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
+                                                <a class="dropdown-item" href="#">PRÉVISUALISER</a>
+                                                <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-lg-9 template-characteristic">
+                                        <div>
+                                            <input id="template-element-2-check" class="styled-checkbox bigger" type="checkbox">
+                                            <label for="template-element-2-check"></label>
+                                        </div>
+                                        <img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">
+                                        <div class="template-info">
+                                            <span class="template-name">Campagne TEST 1</span>
+                                            <span class="template-edit-info">Modifiée le 30 janvier 2017 à 09:00 par administrateur</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-3 template-action-container">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                                ACTIONS
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                                <a class="dropdown-item" href="#">ÉDITER</a>
+                                                <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
+                                                <a class="dropdown-item" href="#">PRÉVISUALISER</a>
+                                                <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- dialog - selection modèle -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#choose-model-dialog"></button>
                             <div id="choose-model-dialog" class="app-dialog modal fade" tabindex="-1" role="dialog">
@@ -110,7 +205,7 @@
                             <!-- FIN - dialog - selection modèle -->
 
                             <!-- dialog - création template  -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-template-dialog"></button>
+                            <button id="create-template-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-template-dialog"></button>
                             <div id="create-template-dialog" class="app-dialog modal fade" tabindex="-1" role="dialog">
                                 <div class="modal-dialog modal-lg larger" role="document">
                                     <div class="modal-content">

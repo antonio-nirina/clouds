@@ -1970,3 +1970,51 @@ section .row.ending {
         max-width: 80%;
     }
 }
+
+/**
+ * liste template
+ */
+.template-characteristic{
+    display: flex;
+}
+
+.template-characteristic .template-img{
+    width: 80px;
+    height: 100px;
+    margin: 0 20px;
+}
+
+.template-characteristic .template-name{
+    font-family: var(--police_bold);
+    color: var(--couleur_2);
+    display: block;
+}
+
+.template-characteristic .template-edit-info{
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+}
+
+.row.list.template-list .row{
+    padding-bottom: 10px;
+    padding-top: 25px;
+}
+
+.template-action-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 991px){
+    .template-action-container{
+        justify-content: center;
+        padding-top: 25px;
+    }
+}
+
+@media (max-width: 575px){
+    .template-info{
+        margin-left: 15px;
+    }
+}
