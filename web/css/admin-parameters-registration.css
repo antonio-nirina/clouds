@@ -1454,10 +1454,10 @@ section .row.list row {
     background-color: #F9F9F9;
 }
 section .row.filter div.create {
-    min-width: 30%;
+    width: 35%;
 }
 section .row.filter div.next-create {
-    min-width: 70%;
+    width: 65%;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -1516,6 +1516,10 @@ section /*.row.filter*/ .dropdown-toggle::after {
 }
 section /*.row.filter*/ .dropdown .delete-input {
     visibility: hidden;
+    -webkit-mask: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    mask: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    background: none;
+    background-color: #e5e5e5;
 }
 section .row.filter .add {
     color: var(--couleur_1) !important;
@@ -1539,7 +1543,9 @@ section .row.list .campagne-name {
     align-items: center;
 }
 section .row.list .campagne-name label {
-    width: 100%;
+    width: 100% !important;
+    height: auto !important;
+    padding-right: 20px;
 }
 section .row.list .campagne-name label > div {
     padding-left: 50px;
@@ -1569,14 +1575,72 @@ section .row.list .campagne-name-date {
     color: #38CC00;
     font-weight: bold;
 }
+section .row.list .campagne-name-date.wait {
+    color: #404040;
+}
 section .row.list .metric-desc {
     font-size: 12px;
     line-height: 18px;
     color: #404040;
+    font-weight: bold;
 }
 section .row.list .campagne-action {
     display: flex;
     justify-content: flex-end;
     width: calc(60% - 300px);
+}
+section .row.ending {
+    height: 120px;
+}
+
+@media only screen and (max-width: 1199px){
+    section .row.list .campagne-action {
+        justify-content: center;
+        width: 100%;
+        padding-top: 35px;
+    }
+    section .row.filter div.create {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    section .row.filter div.next-create {
+        width: 100%;
+    }
+    section .row.filter div.next-create > div {
+        margin-bottom: 20px;
+    }
+    section .row.list .campagne-name label > div {
+        width: 100%;
+    }
+    section .row.list .campagne-name {
+        width: 60%;
+    }
+    section .row.list .campagne-metric {
+        width: 40%;
+    }
+    section .row.list .campagne-metric {
+        justify-content: space-between;
+    }
+    section .row.list .campagne-metric > div {
+        width: auto;
+        padding: 0 10px;
+    }
+}
+@media only screen and (max-width: 575px){
+    section .row.list .campagne-name, section .row.list .campagne-metric {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    section .row.list .campagne-metric {
+        padding-left: 40px;
+    }
+    section .row.ending {
+        height: 20px;
+    }
+}
+@media only screen and (max-width: 379px){
+    section .row.list .campagne-metric {
+        padding-left: 0;
+    }
 }
 
