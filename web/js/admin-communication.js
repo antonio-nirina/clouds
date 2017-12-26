@@ -124,6 +124,16 @@ $(document).ready(function(){
             });
         });
     }
+
+    $('#action-button-background-color').on('change', function(e){
+        e.preventDefault();
+        $('.action-button-preview').css("background-color", $(this).val());
+    });
+
+    $('#action-button-text-color').on('change', function(e){
+        e.preventDefault();
+        $('.action-button-preview').css("color", $(this).val());
+    });
     /**
      * *********************************************************************************************
      * FIN
