@@ -1446,8 +1446,8 @@ a.blue-anchor{
     }
 }
 section .row.filter {
-    padding-top:  10px;
-    margin: 0 0 40px;
+    margin: -20px -23px 0px;
+    padding: 23px;
     background-color: #F9F9F9;
 }
 section .row.list row {
@@ -1593,7 +1593,43 @@ section .row.ending {
     height: 120px;
 }
 
+#dropdownMenuDossier >span {
+    position: absolute;
+    right: 35px;
+}
+#dropdownMenuDossier + .dropdown-menu > a > span {
+    display: none;
+}
+.row.btn-new-campaign-folder {
+    padding: 15px;
+}
+.row.btn-new-campaign-folder > label{
+    color: #404040;
+    font-family: var(--police);
+    font-size: 14px;
+    line-height: 28px;
+    padding-right: 65px;
+}
+.row.btn-new-campaign-folder > input[type=text] {
+    border : 1px solid;
+    border-radius: 7px;
+    padding: 5px 15px;
+    min-width: 60%;
+}
+.row.centered {
+    justify-content: center;
+}
+.add-campaign-folder-error {
+    height: 45px;
+    color: red;
+}
+#btn-modal-new-folder {
+    display: none;
+}
 @media only screen and (max-width: 1199px){
+    .fieldset.slideshow .top-container ul.fieldset-nav-tabs{
+        margin-top: 20px;
+    }
     section .row.list .campagne-action {
         justify-content: center;
         width: 100%;

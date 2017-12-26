@@ -70,10 +70,12 @@
                                     DOSSIERS
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuDossier">
-                                    <a class="dropdown-item" href="#">ATN</a>
-                                    <a class="dropdown-item" href="#">L'ADRESSE</a>
-                                    <a class="dropdown-item" href="#">RICOH</a>
-                                    <a class="dropdown-item" href="#">WORKIT</a>
+                                    {% for folder in folders %}
+                                        <a class="dropdown-item" href="#">
+                                            {{ folder["name"] }}
+                                            <span>{{ folder["count"] }}</span>
+                                        </a>
+                                    {% endfor %}
                                 </div>
                                 <span class="delete-input"></span>
                             </div>
@@ -83,10 +85,8 @@
                                     FILTRES
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
-                                    <a class="dropdown-item" href="#">ATN</a>
-                                    <a class="dropdown-item" href="#">L'ADRESSE</a>
-                                    <a class="dropdown-item" href="#">RICOH</a>
-                                    <a class="dropdown-item" href="#">WORKIT</a>
+                                    <a class="dropdown-item" href="#">Date de création</a>
+                                    <a class="dropdown-item" href="#">Dernière mise à jour</a>
                                 </div>
                                 <span class="delete-input"></span>
                             </div>
@@ -250,8 +250,35 @@
                     </div>                    
                     <div class="row ending">
                         
-                    </div>                  
+                    </div>  
+
+                    <button type="button" id="btn-modal-new-folder" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"></button>
+                    <!-- Modal -->
+                    <div id="new-folder-modal-campaign" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                            </div>
+                            <div class="content">
+                                <div><h4>créer un dossier</h4></div>
+                                <div class="row btn-new-campaign-folder">
+                                    <label for="campaign_new_folder">nom du dossier </label>
+                                    <input id="campaign_new_folder" name="campaign_new_folder" value="" type="text">
+                                </div>                                
+                                <div class="row centered">
+                                    <button class="btn-valider btn-new-campaign-folder">
+                                        valider
+                                    </button>
+                                </div>
+                                <div class="add-campaign-folder-error"></div>
+                            <div>
+                            
+                        </div>
+                      </div>
+                    </div>                
                 </section>
+                <input id="new_folder_link" type="hidden" value="{{ path("admin_communication_emailing_compaign_new_folder") }}">
             </div>
         </div>
 
