@@ -1,16 +1,19 @@
 <?php
 namespace AdminBundle\Controller;
 
+use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
 use AdminBundle\Entity\HomePagePost;
+use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
+use DrewM\MailChimp\MailChimp;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AdminBundle\Form\HomePagePostType;
-use AdminBundle\Component\Post\PostType;
 
 /**
  * @Route("/admin/communication")
@@ -162,6 +165,36 @@ class CommunicationController extends AdminController
      */
     public function emailingCampaignAction()
     {
-        return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array());
+        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        $campaign_folders = $campaign->getFolders();
+
+        return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
+            "folders" => $campaign_folders["folders"],
+        ));
+    }
+
+    /**
+     * @Route("/emailing/campagne/new/folder", name="admin_communication_emailing_compaign_new_folder")
+     * @Method("POST")
+     */
+    public function emailingCampaignNewFolderAction(Request $request)
+    {
+        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        $response = $campaign->createFolder($request->get('name'));
+
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/emailing/templates", name="admin_communication_emailing_templates")
+     */
+    public function emailingTemplatesAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array());
     }
 }
