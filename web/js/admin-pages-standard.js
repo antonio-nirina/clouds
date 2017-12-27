@@ -262,10 +262,7 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	$(document).on('click', 'span#fermerPopUp', function(){
-		$('#conteneur-popup').hide();
-		$('#body-popup').hide();
-	});
+	
 	
 	//Simuler click bouton upload editor
 	$(document).on('click', 'button#btn-upload-img-ckeditor', function(){

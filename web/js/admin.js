@@ -437,4 +437,9 @@ $(document).ready(function(){
 	 * Bullde d'aide
      * *********************************************************************************************
      */
+	 
+	 $(document).on('click', 'span#fermerPopUp', function(){
+		$('#conteneur-popup').hide();
+		$('#body-popup').hide();
+	});
 });
