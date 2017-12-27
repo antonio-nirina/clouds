@@ -65,7 +65,7 @@
                             </button>
                         </div>
                         <div class="next-create">
-                            <div class="dropdown">
+                            <div class="dropdown dossiers">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuDossier" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="DOSSIERS">
                                     DOSSIERS
                                 </button>
@@ -73,20 +73,27 @@
                                     {% for folder in folders %}
                                         <a class="dropdown-item" href="#">
                                             {{ folder["name"] }}
-                                            <span>{{ folder["count"] }}</span>
+                                            <span class="folder_count">{{ folder["count"] }}</span>
+                                            <span class="folder_id">{{ folder["id"] }} </span>
                                         </a>
                                     {% endfor %}
                                 </div>
                                 <span class="delete-input"></span>
                             </div>
                             
-                            <div class="dropdown">
+                            <div class="dropdown filtres">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
                                     FILTRES
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
-                                    <a class="dropdown-item" href="#">Date de création</a>
-                                    <a class="dropdown-item" href="#">Dernière mise à jour</a>
+                                    <a class="dropdown-item" href="#">
+                                        Date de création
+                                        <span>create_time</span>
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        Dernière mise à jour
+                                        <span>send_time</span>
+                                    </a>
                                 </div>
                                 <span class="delete-input"></span>
                             </div>
@@ -99,186 +106,116 @@
                         </div>
                     </div> 
                     <div class="row list">
-                        <div class="row">
-                            <div class="campagne-name">
-                                <input type="checkbox" class="styled-checkbox bigger" id="campagne_0">
-                                <label for="campagne_0">
-                                    <span></span>
-                                    <div class="campagne-name-name">Relance ATN Challenge</div>
-                                    <div class="campagne-name-date">Envoyé - le 02 mai 2017 à 15:06</div>
-                                </label>                           
-                            </div>
-                            <div class="campagne-metric">
-                                <div class="metric-1">
-                                    <span class="metric-value">233</span>
-                                    <span class="metric-desc">inscrits</span>
+                        {% for li in list %}
+                            <div class="row campaign-{{li["id"]}}">
+                                <div class="campagne-name">
+                                    <input type="checkbox" class="styled-checkbox bigger" id="{{li["id"]}}">
+                                    <label for="{{li["id"]}}">
+                                        <span></span>
+                                        <div class="campagne-name-name">
+                                            {{ li["settings"]["title"] }}
+                                        </div>
+                                        <div class="campagne-name-date">
+                                            {{ li["status"] }} - {{ li["create_time"] | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
+                                        </div>
+                                    </label>                           
                                 </div>
-                                <div class="metric-2">
-                                    <span class="metric-value">4.3%</span>
-                                    <span class="metric-desc">ouvertures</span>
-                                </div>
-                                <div class="metric-3">
-                                    <span class="metric-value">0.5%</span>
-                                    <span class="metric-desc">clics</span>
-                                </div>
-                            </div>
-                            <div class="campagne-action">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                                        <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
-                                        <a class="dropdown-item" href="#">VOIR EMAIL</a>
-                                        <a class="dropdown-item" href="#">RENOMMER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                <div class="campagne-metric">
+                                    <div class="metric-1">
+                                        <span class="metric-value">
+                                            {{ (li["recipients"]["recipient_count"] is defined)?li["recipients"]["recipient_count"]:0 }}
+                                        </span>
+                                        <span class="metric-desc">inscrits</span>
+                                    </div>
+                                    <div class="metric-2">
+                                        <span class="metric-value">
+                                            {{ (li["report_summary"]["open_rate"] is defined)?li["report_summary"]["open_rate"]:0 }} %
+                                        </span>
+                                        <span class="metric-desc">ouvertures</span>
+                                    </div>
+                                    <div class="metric-3">
+                                        <span class="metric-value">
+                                            {{ (li["report_summary"]["click_rate"] is defined)?li["report_summary"]["click_rate"]:0}} %
+                                        </span>
+                                        <span class="metric-desc">clics</span>
                                     </div>
                                 </div>
-                            </div>                            
-                        </div> 
-                        <div class="row">
-                            <div class="campagne-name">
-                                <input type="checkbox" class="styled-checkbox bigger" id="campagne_1">
-                                <label for="campagne_1">
-                                    <span></span>
-                                    <div class="campagne-name-name">ATN Challenge</div>
-                                    <div class="campagne-name-date">Envoyé - le 17 avril 2017 à 13:06</div>
-                                </label>                           
-                            </div>
-                            <div class="campagne-metric">
-                                <div class="metric-1">
-                                    <span class="metric-value">2033</span>
-                                    <span class="metric-desc">inscrits</span>
-                                </div>
-                                <div class="metric-2">
-                                    <span class="metric-value">18%</span>
-                                    <span class="metric-desc">ouvertures</span>
-                                </div>
-                                <div class="metric-3">
-                                    <span class="metric-value">0.8%</span>
-                                    <span class="metric-desc">clics</span>
-                                </div>
-                            </div>
-                            <div class="campagne-action">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                                        <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
-                                        <a class="dropdown-item" href="#">VOIR EMAIL</a>
-                                        <a class="dropdown-item" href="#">RENOMMER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                <div class="campagne-action">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                            ACTIONS
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                            <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
+                                            <a class="dropdown-item" href="#">VOIR EMAIL</a>
+                                            <a class="dropdown-item campaign-rename" href="#">RENOMMER</a>
+                                            <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>                                            
+                                            <input type="hidden" name="campaign-id" value="{{ li["id"] }}">                                           
+                                        </div>
                                     </div>
-                                </div>
-                            </div>                            
-                        </div> 
-                        <div class="row">
-                            <div class="campagne-name">
-                                <input type="checkbox" class="styled-checkbox bigger" id="campagne_2">
-                                <label for="campagne_2">
-                                    <span></span>
-                                    <div class="campagne-name-name">ATN Challenge Actualité</div>
-                                    <div class="campagne-name-date">Envoyé - le 05 mars 2017 à 08:00</div>
-                                </label>                           
+                                </div>                            
                             </div>
-                            <div class="campagne-metric">
-                                <div class="metric-1">
-                                    <span class="metric-value">1200</span>
-                                    <span class="metric-desc">inscrits</span>
-                                </div>
-                                <div class="metric-2">
-                                    <span class="metric-value">27.7%</span>
-                                    <span class="metric-desc">ouvertures</span>
-                                </div>
-                                <div class="metric-3">
-                                    <span class="metric-value">1%</span>
-                                    <span class="metric-desc">clics</span>
-                                </div>
-                            </div>
-                            <div class="campagne-action">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                                        <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
-                                        <a class="dropdown-item" href="#">VOIR EMAIL</a>
-                                        <a class="dropdown-item" href="#">RENOMMER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
-                                    </div>
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="row">
-                            <div class="campagne-name">
-                                <input type="checkbox" class="styled-checkbox bigger" id="campagne_3">
-                                <label for="campagne_3">
-                                    <span></span>
-                                    <div class="campagne-name-name">Dassault Systèmes</div>
-                                    <div class="campagne-name-date wait">En attente - modifié le 02 avril à 14:00</div>
-                                </label>                           
-                            </div>
-                            <div class="campagne-metric">
-                                <div class="metric-1">
-                                    <span class="metric-value">0</span>
-                                    <span class="metric-desc">inscrits</span>
-                                </div>
-                                <div class="metric-2">
-                                    <span class="metric-value">0</span>
-                                    <span class="metric-desc">ouvertures</span>
-                                </div>
-                                <div class="metric-3">
-                                    <span class="metric-value">0.7%</span>
-                                    <span class="metric-desc">clics</span>
-                                </div>
-                            </div>
-                            <div class="campagne-action">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                                        <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
-                                        <a class="dropdown-item" href="#">VOIR EMAIL</a>
-                                        <a class="dropdown-item" href="#">RENOMMER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
-                                    </div>
-                                </div>
-                            </div>                            
-                        </div>                       
+                        {% endfor %}                    
                     </div>                    
                     <div class="row ending">
                         
                     </div>  
-
-                    <button type="button" id="btn-modal-new-folder" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"></button>
+                    {# modal new folder #}
+                    <button type="button" id="btn-modal-new-folder" class="btn btn-primary" data-toggle="modal" data-target="#new-folder-modal-campaign"></button>
                     <!-- Modal -->
                     <div id="new-folder-modal-campaign" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                      <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
-                            </div>
-                            <div class="content">
-                                <div><h4>créer un dossier</h4></div>
-                                <div class="row btn-new-campaign-folder">
-                                    <label for="campaign_new_folder">nom du dossier </label>
-                                    <input id="campaign_new_folder" name="campaign_new_folder" value="" type="text">
-                                </div>                                
-                                <div class="row centered">
-                                    <button class="btn-valider btn-new-campaign-folder">
-                                        valider
-                                    </button>
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
                                 </div>
-                                <div class="add-campaign-folder-error"></div>
-                            <div>
-                            
+                                <div class="content">
+                                    <div><h4>créer un dossier</h4></div>
+                                    <div class="row btn-new-campaign-folder">
+                                        <label for="campaign_new_folder">nom du dossier </label>
+                                        <input id="campaign_new_folder" name="campaign_new_folder" value="" type="text">
+                                    </div>                                
+                                    <div class="row centered">
+                                        <button class="btn-valider btn-new-campaign-folder">
+                                            valider
+                                        </button>
+                                    </div>
+                                    <div class="add-campaign-folder-error"></div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>                
+                    </div>
+                    {# modal rename #}
+                    <button type="button" id="btn-modal-rename" class="btn btn-primary" data-toggle="modal" data-target="#rename-modal-campaign"></button>
+                    <!-- Modal -->
+                    <div id="rename-modal-campaign" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="content">
+                                    <div><h4>renommer la compaigne</h4></div>
+                                    <div class="row btn-new-campaign-folder">
+                                        <label for="campaign_new_name">nom de la compaigne </label>
+                                        <input id="campaign_new_name" name="campaign_new_name" value="" type="text">
+                                        <input name="campaign-id" type="hidden" value="">
+                                    </div>                                
+                                    <div class="row centered">
+                                        <button class="btn-valider btn-rename-campaign">
+                                            valider
+                                        </button>
+                                    </div>
+                                    <div class="add-campaign-folder-error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
                 </section>
                 <input id="new_folder_link" type="hidden" value="{{ path("admin_communication_emailing_compaign_new_folder") }}">
+                <input type="hidden" name="replicate" value="{{ path("admin_communication_emailing_compaign_replicate") }}">
+                <input type="hidden" name="rename" value="{{ path("admin_communication_emailing_compaign_rename") }}">
+                <input type="hidden" name="filtered" value="{{ path("admin_communication_emailing_compaign_filter") }}">
             </div>
         </div>
 
@@ -291,7 +228,8 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
-            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>         
+            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>
+            <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>                 
         {% endblock %}
     {% endembed %}
 {% endblock %}

@@ -165,11 +165,48 @@ class CommunicationController extends AdminController
      */
     public function emailingCampaignAction()
     {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
         $campaign_folders = $campaign->getFolders();
+        $campaign_list = $campaign->getAllCampaigns();
 
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
             "folders" => $campaign_folders["folders"],
+            "list" => $campaign_list["campaigns"],
+        ));
+    }
+
+    /**
+     * @Route("/emailing/campagne/filter", name="admin_communication_emailing_compaign_filter")
+     * @Method("POST")
+     */
+    public function emailingCampaignFilterAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $data = array();
+
+        if ($folder_id = $request->get('folder_id')) {
+            $data['folder_id'] = $folder_id;
+        }
+
+        if ($sort_field = $request->get('sort_field')) {
+            $data['sort_field'] = $sort_field;
+            $data['sort_dir'] = "DESC";
+        }
+
+        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        $campaign_list = $campaign->getAllCampaigns($data);
+
+        return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
+            "list" => ($campaign_list)?$campaign_list["campaigns"]:array(),
         ));
     }
 
@@ -179,8 +216,47 @@ class CommunicationController extends AdminController
      */
     public function emailingCampaignNewFolderAction(Request $request)
     {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
         $response = $campaign->createFolder($request->get('name'));
+
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/emailing/campagne/replicate", name="admin_communication_emailing_compaign_replicate")
+     * @Method("POST")
+     */
+    public function emailingCampaignReplicateAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        $response = $campaign->replicateCampaign($request->get('id'));
+
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/emailing/campagne/rename", name="admin_communication_emailing_compaign_rename")
+     *
+     */
+    public function emailingCampaignRenameAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        $response = $campaign->renameCampaign($request->get('id'), $request->get('name'));
 
         return new JsonResponse($response);
     }

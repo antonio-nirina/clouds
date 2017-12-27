@@ -537,40 +537,7 @@ $(document).ready(function(){
 		$('span#nom-domaine-choix-ok a').html('');
 		$('span#nom-domaine-choix-ok a').html(Valeur);
 		AfficheUrlRecompense();
-	});
-
-    $(document).on('click','.dropdown .delete-input', function(){
-        $(this).off('click');
-        $(this).parent().find('button').html($(this).parent().find('button').attr('data-default'));
-        $(this).css({'visibility':'hidden','display':'inline-block'});
-    });
-    $(document).on('click','.filter .dropdown-item', function(e){
-        e.preventDefault();
-        $(this).parents('.dropdown').find('button').html($(this).html());
-        $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
-    });
-    $('.add-folder-link').on('click', function(e) {
-        e.preventDefault();
-        $('#btn-modal-new-folder').click();
-    });
-    $('.btn-valider.btn-new-campaign-folder').on('click', function(e) {
-        e.preventDefault();
-        var url = $('#new_folder_link').val();
-        var data = {'name' :$('#campaign_new_folder').val()};
-        $.ajax({
-            type: "POST",
-            url : url,
-            data: data,
-            dataType: "json",
-            success: function(json){
-                if (json.error) {
-                    $('.add-campaign-folder-error').html(json.error);
-                } else if (json.response) {
-                    $("#new-folder-modal-campaign").modal('hide');
-                }
-            }
-        });
-    });
+	});        
 });
 
 $(document).ready(function(){

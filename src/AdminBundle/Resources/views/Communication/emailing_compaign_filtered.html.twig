@@ -1,0 +1,50 @@
+{% for li in list %}
+    <div class="row campaign-{{li["id"]}}">
+        <div class="campagne-name">
+            <input type="checkbox" class="styled-checkbox bigger" id="{{li["id"]}}">
+            <label for="{{li["id"]}}">
+                <span></span>
+                <div class="campagne-name-name">
+                    {{ li["settings"]["title"] }}
+                </div>
+                <div class="campagne-name-date">
+                    {{ li["status"] }} - {{ li["create_time"] | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
+                </div>
+            </label>                           
+        </div>
+        <div class="campagne-metric">
+            <div class="metric-1">
+                <span class="metric-value">
+                    {{ (li["recipients"]["recipient_count"] is defined)?li["recipients"]["recipient_count"]:0 }}
+                </span>
+                <span class="metric-desc">inscrits</span>
+            </div>
+            <div class="metric-2">
+                <span class="metric-value">
+                    {{ (li["report_summary"]["open_rate"] is defined)?li["report_summary"]["open_rate"]:0 }} %
+                </span>
+                <span class="metric-desc">ouvertures</span>
+            </div>
+            <div class="metric-3">
+                <span class="metric-value">
+                    {{ (li["report_summary"]["click_rate"] is defined)?li["report_summary"]["click_rate"]:0}} %
+                </span>
+                <span class="metric-desc">clics</span>
+            </div>
+        </div>
+        <div class="campagne-action">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                    ACTIONS
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                    <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
+                    <a class="dropdown-item" href="#">VOIR EMAIL</a>
+                    <a class="dropdown-item campaign-rename" href="#">RENOMMER</a>
+                    <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>                                            
+                    <input type="hidden" name="campaign-id" value="{{ li["id"] }}">                                           
+                </div>
+            </div>
+        </div>                            
+    </div>
+{% endfor %}

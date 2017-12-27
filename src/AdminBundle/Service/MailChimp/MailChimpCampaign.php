@@ -26,10 +26,24 @@ class MailChimpCampaign extends MailChimpHandler
         }
 
         if (!$exists) {
-            $this->mailchimp->post("/campaign-folders", ["name" => $name]);
-            return array('response'=> true);
+            return array('response'=> $this->mailchimp->post("/campaign-folders", ["name" => $name]));
         } else {
             return array('error'=> "Ce dossier existe déjà !");
         }
+    }
+
+    public function getAllCampaigns($data = array())
+    {
+        return $this->mailchimp->get("/campaigns", $data);
+    }
+
+    public function replicateCampaign($id)
+    {
+        return $this->mailchimp->post("/campaigns/{$id}/actions/replicate");
+    }
+
+    public function renameCampaign($id, $name)
+    {
+        return $this->mailchimp->patch("/campaigns/{$id}", ["settings" => ["title" => $name]]);
     }
 }

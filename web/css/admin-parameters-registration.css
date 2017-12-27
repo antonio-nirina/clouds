@@ -1611,13 +1611,13 @@ section .row.list .campagne-action {
 section .row.ending {
     height: 120px;
 }
-
-#dropdownMenuDossier >span {
+.filter .dropdown .dropdown-menu > a > span, .filter .dropdown button > span {
+    display: none;
+}
+.filter .dropdown button >span.folder_count {
     position: absolute;
     right: 35px;
-}
-#dropdownMenuDossier + .dropdown-menu > a > span {
-    display: none;
+    display: inline-block;
 }
 .row.btn-new-campaign-folder {
     padding: 15px;
@@ -1642,7 +1642,7 @@ section .row.ending {
     height: 45px;
     color: red;
 }
-#btn-modal-new-folder {
+#btn-modal-new-folder, #btn-modal-rename {
     display: none;
 }
 @media only screen and (max-width: 1199px){
