@@ -3,6 +3,7 @@
 
 namespace AdminBundle\Controller;
 
+use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Component\SiteForm\FieldTypeName;
 use AdminBundle\Component\SiteForm\SiteFormType;
@@ -1244,10 +1245,20 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $editorial = $home_page_data->getEditorial();
+        /*$editorial = $home_page_data->getEditorial();
         if (is_null($editorial)) {
             return $this->redirectToRoute('fos_user_security_logout');
+        }*/
+        $em = $this->getDoctrine()->getManager();
+        $parameter_edito = $em->getRepository('AdminBundle\Entity\HomePagePost')
+            ->findOneBy(array(
+                'program' => $program,
+                'post_type' => PostType::PARAMETER_EDITO,
+            ));
+        if (is_null($parameter_edito)) {
+            return $this->redirectToRoute('fos_user_security_logout');
         }
+
 
         $slideshow_manager = $this->container->get('admin.slideshow');
         $original_slides = $slideshow_manager->getOriginalSlides($home_page_data);
@@ -1262,10 +1273,9 @@ class ParametragesController extends AdminController
         $home_page_editorial_data_form = $form_factory->createNamed(
             'home_page_editorial_data_form',
             HomePageEditorialType::class,
-            $editorial
+            $parameter_edito
         );
 
-        $em = $this->getDoctrine()->getManager();
         if ("POST" === $request->getMethod()) {
             if ($request->request->has('home_page_slide_data_form')) {
                 $home_page_slide_data_form->handleRequest($request);
@@ -1296,10 +1306,10 @@ class ParametragesController extends AdminController
             if ($request->request->has('home_page_editorial_data_form')) {
                 $home_page_editorial_data_form->handleRequest($request);
                 if ($home_page_editorial_data_form->isSubmitted() && $home_page_editorial_data_form->isValid()) {
-                    $editorial->setLastEdit(new \DateTime(
+                    /*$editorial->setLastEdit(new \DateTime(
                         'now',
                         new \DateTimeZone($this->getParameter('app_time_zone'))
-                    ));
+                    ));*/
                     $em->flush();
                     return $this->redirectToRoute('admin_content_configure_home_page');
                 }
