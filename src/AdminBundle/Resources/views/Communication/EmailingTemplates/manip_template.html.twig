@@ -1,0 +1,252 @@
+{% if manip_template_form is defined %}
+    {{ form_start(manip_template_form, {"attr": {"novalidate": "novalidate"}}) }}
+    <div class="content-container large">
+        <span class="dialog-title">créer votre template d'e-mail</span>
+        <div class="row">
+            <div class="col-12 col-lg-4 left-col">
+                <div class="template-preview-block template-config-block">
+                    <span class="option-title">prévisualisation</span>
+                    <div class="template-preview-container hidden-xs-down"></div>
+                    <a href="#" class="magnify-template-preview"></a>
+                </div>
+                <div class="template-config-block">
+                    <div class="color-option-container">
+                        <span class="option-title">Couleur de l'e-mail</span>
+                        {#<input id="email-color" type="text" class="color-value">#}
+                        {{ form_widget(manip_template_form.email_color, {"attr":{"class": "color-value"}}) }}
+                    </div>
+                    <div class="color-option-container">
+                        <span class="option-title">Couleur de l'arrière plan</span>
+                        {#<input id="background-color" type="text" class="color-value">#}
+                        {{ form_widget(manip_template_form.background_color, {"attr":{"class": "color-value"}}) }}
+                    </div>
+                </div>
+                <div class="template-config-block footer-text-block">
+                    <span class="option-title">Texte présent dans le footer</span>
+                    <div class="footer-text-option-container">
+                        {#<input id="text_1" type="checkbox" class="styled-checkbox bigger">#}
+                        {{ form_widget(manip_template_form.footer_list_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
+                        <label for="{{ manip_template_form.footer_list_state.vars.id }}"></label>
+                        {{ form_label(manip_template_form.footer_list_state, "liste de diffusion", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    </div>
+                    <div class="footer-text-option-container">
+                        {#<input id="text_2" type="checkbox" class="styled-checkbox bigger">#}
+                        {{ form_widget(manip_template_form.footer_company_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
+                        <label for="{{ manip_template_form.footer_company_state.vars.id }}"></label>
+                        {{ form_label(manip_template_form.footer_company_state, "copyright / société", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    </div>
+                    <div class="footer-text-option-container">
+                        {#<input id="text_3" type="checkbox" class="styled-checkbox bigger">#}
+                        {{ form_widget(manip_template_form.footer_unsubscribing_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
+                        <label for="{{ manip_template_form.footer_unsubscribing_state.vars.id }}"></label>
+                        {{ form_label(manip_template_form.footer_unsubscribing_state, "désabonnement", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    </div>
+                    <div class="footer-text-option-container">
+                        {#<input id="text_4" type="checkbox" class="styled-checkbox bigger">#}
+                        {{ form_widget(manip_template_form.footer_contact_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
+                        <label for="{{ manip_template_form.footer_contact_state.vars.id }}"></label>
+                        {{ form_label(manip_template_form.footer_contact_state, "désabonnement", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-8">
+                {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
+                <div class="template-config-block">
+                    <span class="option-title-block">logo</span>
+                    <div class="row">
+                        <div class="col-12 col-lg-2">
+                            {#<label>image</label>#}
+                            {{ form_label(manip_template_form.logo, "image") }}
+                        </div>
+                        <div class="col-12 col-lg-10">
+                            {{ form_widget(manip_template_form.logo, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                            <button class="btn-valider btn-upload choose-upload-img-button">
+                                <span class="upload"></span>
+                                choisissez un fichier...
+                            </button>
+                            <div class="upload-img-button-container hidden-button">
+                                <button class="upload-img-button">
+                                    <span class="blue-upload"></span><span class="img-name-container"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 logo-alignment-option-container">
+                            <div class="logo-alignment-option">
+                                {#<input checked id="logo-alignment-center-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
+                                {{ form_widget(manip_template_form.logo_alignment[0], {"attr": {"class": "styled-radio bigger"}}) }}
+                                <label for="{{ manip_template_form.logo_alignment[0].vars.id }}"></label>
+                                {#<label for="logo-alignment-center-choice" class="text-label">centré</label>#}
+                                {{ form_label(manip_template_form.logo_alignment[0], "centré", {"label_attr":{"class": "text-label"}}) }}
+                            </div>
+                            <div class="logo-alignment-option">
+                                {#<input id="logo-alignment-left-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
+                                {{ form_widget(manip_template_form.logo_alignment[1], {"attr": {"class": "styled-radio bigger"}}) }}
+                                <label for="{{ manip_template_form.logo_alignment[1].vars.id }}"></label>
+                                {#<label for="logo-alignment-left-choice" class="text-label">ferré à gauche</label>#}
+                                {{ form_label(manip_template_form.logo_alignment[1], "férré à gauche", {"label_attr":{"class": "text-label"}}) }}
+                            </div>
+                            <div class="logo-alignment-option">
+                                {#<input id="logo-alignment-right-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
+                                {{ form_widget(manip_template_form.logo_alignment[2], {"attr": {"class": "styled-radio bigger"}}) }}
+                                <label for="{{ manip_template_form.logo_alignment[2].vars.id }}"></label>
+                                {#<label for="logo-alignment-right-choice" class="text-label">ferré à droite</label>#}
+                                {{ form_label(manip_template_form.logo_alignment[2], "férré à droite", {"label_attr":{"class": "text-label"}}) }}
+                            </div>
+                            <div class="logo-alignment-option">
+                                {#<input id="logo-alignment-expanded-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
+                                {{ form_widget(manip_template_form.logo_alignment[3], {"attr": {"class": "styled-radio bigger"}}) }}
+                                <label for="{{ manip_template_form.logo_alignment[3].vars.id }}"></label>
+                                {#<label for="logo-alignment-expanded-choice" class="text-label">étendue</label>#}
+                                {{ form_label(manip_template_form.logo_alignment[3], "étendue", {"label_attr":{"class": "text-label"}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
+                <div class="template-config-block">
+                    <span class="option-title-block">image</span>
+                    <div class="row">
+                        <div class="col-12 col-lg-2">
+                            {#<label>image</label>#}
+                            {{ form_label(manip_template_form.contents[0].image, "image") }}
+                        </div>
+                        <div class="col-12 col-lg-10">
+                            {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                            <buttons class="btn-valider btn-upload choose-upload-img-button">
+                                <span class="upload"></span>
+                                choisissez un fichier...
+                            </buttons>
+                            <div class="upload-img-button-container hidden-button">
+                                <button class="upload-img-button">
+                                    <span class="blue-upload"></span><span class="img-name-container"></span>
+                                </button>
+                            </div>
+                            <div class="info-container">
+                                <p>largeur optimale de l'image : 600px</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="template-config-block">
+                    <span class="option-title-block">texte</span>
+                    <div>
+                        {#<textarea class="large-textarea" id="template-text"></textarea>#}
+                        {{ form_widget(manip_template_form.contents[0].text_content, {"attr": {"class": "large-textarea"}}) }}
+                    </div>
+                </div>
+
+                <div class="template-config-block action-button-block">
+                    <span class="option-title-block">bouton d'action</span>
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            {#<label>texte du bouton</label>#}
+                            {{ form_label(manip_template_form.action_button_text) }}
+                        </div>
+                        <div class="col-12 col-lg-9 vertical-align-element-container">
+                            {#<input type="text" class="action-button-option-input removable-content-input" value="mon bouton d'action">#}
+                            {{ form_widget(manip_template_form.action_button_text, {"attr": {"class": "action-button-option-input removable-content-input action-button-text-input"}}) }}
+                            {% set delete_input_visibility = 'style=display:none' %}
+                            {% if manip_template_form.vars.value.actionButtonText | trim is not empty %}
+                                {% set delete_input_visibility = '' %}
+                            {% endif %}
+                            <span class="delete-input delete-action-button-text" {{ delete_input_visibility }}></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            {#<label>url / mailto</label>#}
+                            {{ form_label(manip_template_form.action_button_url) }}
+                        </div>
+                        <div class="col-12 col-lg-9 vertical-align-element-container">
+                            {#<input type="text" class="action-button-option-input removable-content-input" value="inscription@gmail.com">#}
+                            {{ form_widget(manip_template_form.action_button_url, {"attr": {"class": "action-button-option-input removable-content-input"}}) }}
+                            {% set delete_input_visibility = 'style=display:none' %}
+                            {% if manip_template_form.vars.value.actionButtonUrl | trim is not empty %}
+                                {% set delete_input_visibility = '' %}
+                            {% endif %}
+                            <span class="delete-input" {{ delete_input_visibility }}></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            <label>aspect</label>
+                        </div>
+                        <div class="col-12 col-lg-9">
+                            <div class="action-button-preview">
+                                {{ manip_template_form.vars.value.actionButtonText }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-9 offset-lg-3">
+                            <div class="action-button-color-option">
+                                <span class="option-title">Couleur du bouton</span>
+                                {#<input id="action-button-background-color" type="text" class="color-value" data-defaultValue="#ff0000">#}
+                                {{ form_widget(manip_template_form.action_button_background_color, {"attr": {"class": "color-value action-button-background-color"}}) }}
+                            </div>
+                            <div class="action-button-color-option">
+                                <span class="option-title">Couleur du texte de bouton</span>
+                                {#<input id="action-button-text-color" type="text" class="color-value" data-defaultValue="#ffffff">#}
+                                {{ form_widget(manip_template_form.action_button_text_color, {"attr": {"class": "color-value action-button-text-color"}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
+                    <div class="add-other-content-container">
+                        <a class="add" href="#"><span>ajouter une image</span></a>
+                        <a class="add" href="#"><span>ajouter un texte</span></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col template-name-container">
+                {#<label class="template-name-label">nommer votre template</label>#}
+                {{ form_label(manip_template_form.name, "nommmer votre template", {"label_attr":{"class": "template-name-label"}}) }}
+                {#<input type="text" class="template-name-input">#}
+                {{ form_widget(manip_template_form.name, {"attr": {"class": "template-name-input"}}) }}
+            </div>
+        </div>
+    </div>
+
+    {{ form_widget(manip_template_form.template_model, {"attr": {"class": "hidden-template-model"}}) }}
+
+    <div class="submit-button-container">
+        <button class ="btn-valider save">
+            enregistrer
+        </button>
+    </div>
+    <div class="block-model-container">
+        <div class="template-config-block template-content-image-model">
+            <span class="option-title-block">image</span>
+            <div class="row">
+                <div class="col-12 col-lg-2">
+                    <label>image</label>
+                </div>
+                <div class="col-12 col-lg-10">
+                    <button class="btn-valider btn-upload choose-upload-img-button">
+                        <span class="upload"></span>
+                        choisissez un fichier...
+                    </button>
+                    <div class="info-container">
+                        <p>largeur optimale de l'image : 600px</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="template-config-block template-content-text-model">
+            <span class="option-title-block">texte</span>
+            <div>
+                <textarea class="large-textarea" id="template-text"></textarea>
+            </div>
+        </div>
+    </div>
+    {{ form_end(manip_template_form) }}
+{% endif %}

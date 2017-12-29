@@ -18,11 +18,6 @@ class ComEmailTemplateContent
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program")
-     */
-    private $program;
-
-    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $text_content;
@@ -149,29 +144,5 @@ class ComEmailTemplateContent
     public function getTemplate()
     {
         return $this->template;
-    }
-
-    /**
-     * Set program
-     *
-     * @param \AdminBundle\Entity\Program $program
-     *
-     * @return ComEmailTemplateContent
-     */
-    public function setProgram(\AdminBundle\Entity\Program $program = null)
-    {
-        $this->program = $program;
-
-        return $this;
-    }
-
-    /**
-     * Get program
-     *
-     * @return \AdminBundle\Entity\Program
-     */
-    public function getProgram()
-    {
-        return $this->program;
     }
 }

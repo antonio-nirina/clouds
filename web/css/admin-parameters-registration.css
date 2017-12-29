@@ -1729,6 +1729,19 @@ section .row.ending {
     padding-bottom: 35px;
 }
 
+.app-dialog .error-message-container{
+    text-align: center;
+}
+
+.app-dialog .submit-button-container{
+    justify-content: center;
+}
+
+.app-dialog .modal-body-container form{
+    max-width: 100%;
+    width: 100%;
+}
+
 @media (max-width: 575px) {
     .app-dialog .content-container{
         padding: 0 25px;
@@ -1870,7 +1883,8 @@ section .row.ending {
     margin-bottom: 30px;
 }
 
-.footer-text-block .footer-text-option-container input{
+.footer-text-block .footer-text-option-container .footer-text-option-label{
+    color: #636363;
     border: 1px solid #636363;
     width: 245px;
     border-radius: 5px;
@@ -1946,6 +1960,8 @@ section .row.ending {
     max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
+
+    min-height: 38px;
 }
 
 .action-button-color-option{
@@ -1979,6 +1995,32 @@ section .row.ending {
     position: relative !important;
 }
 
+.template-name-container{
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.template-name-container .template-name-label{
+    margin-right: 40px;
+}
+
+.template-name-container .template-name-input{
+    border: 1px solid #636363;
+    width: 400px;
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    background-color: inherit;
+}
+
+.template-name-container .delete-input{
+    position: relative;
+    top: 6px;
+}
+
 @media (min-width: 992px){
     .modal-dialog.larger{
         max-width: 95%;
@@ -1999,10 +2041,13 @@ section .row.ending {
         flex-direction: column;
     }
 
+    .template-name-container{
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 575px){
-    .footer-text-block .footer-text-option-container input{
+    .footer-text-block .footer-text-option-container .footer-text-option-label{
         max-width: 80%;
     }
 }

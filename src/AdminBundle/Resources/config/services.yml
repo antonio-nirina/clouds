@@ -54,5 +54,8 @@ services:
     AdminBundle\Manager\HomePagePostEditoManager:
         class: AdminBundle\Manager\HomePagePostEditoManager
         autowire: true
-    
+
+    AdminBundle\Manager\ComEmailTemplateManager:
+        class: AdminBundle\Manager\ComEmailTemplateManager
+        autowire: true
 
