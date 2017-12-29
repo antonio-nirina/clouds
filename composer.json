@@ -24,6 +24,7 @@
         "drewm/mailchimp-api":"^2.4",
         "friendsofsymfony/user-bundle": "2.0.1",
         "incenteev/composer-parameter-handler": "^2.0",
+        "krlove/async-service-call-bundle": "1.0.5",
         "liuggio/excelbundle": "^2.1",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",

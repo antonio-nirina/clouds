@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "85965f7170c57536289401f825022966",
-    "content-hash": "6f5a3c2165a77077eab907b95912b639",
+    "hash": "816ea99a5916008b789eb7f151d17eed",
+    "content-hash": "cb3ea1a69e5ad04a17044bb769f1b4d2",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1403,6 +1403,54 @@
                 "sql"
             ],
             "time": "2014-01-12 16:20:24"
+        },
+        {
+            "name": "krlove/async-service-call-bundle",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/krlove/async-service-call-bundle.git",
+                "reference": "a83daccc129ffc0eb0f948b91560c1cb9e9d4d21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/krlove/async-service-call-bundle/zipball/a83daccc129ffc0eb0f948b91560c1cb9e9d4d21",
+                "reference": "a83daccc129ffc0eb0f948b91560c1cb9e9d4d21",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "symfony/console": "^2.7 || ^3.0",
+                "symfony/framework-bundle": "^2.7 || ^3.0",
+                "symfony/monolog-bundle": "^2.7 || ^3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Krlove\\AsyncServiceCallBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "krlove",
+                    "email": "mischenkoandrey@gmail.com"
+                }
+            ],
+            "description": "Symfony bundle for asynchronous service methods calls",
+            "keywords": [
+                "async",
+                "command",
+                "service",
+                "symfony"
+            ],
+            "time": "2017-12-10 15:40:59"
         },
         {
             "name": "liip/imagine-bundle",

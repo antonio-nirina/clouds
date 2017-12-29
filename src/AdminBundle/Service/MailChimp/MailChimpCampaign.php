@@ -2,10 +2,25 @@
 
 namespace AdminBundle\Service\MailChimp;
 
+use AdminBundle\Entity\EmailingCampaign;
 use AdminBundle\Service\MailChimp\MailChimpHandler;
+use Doctrine\ORM\EntityManager;
+use DrewM\MailChimp\Webhook;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class MailChimpCampaign extends MailChimpHandler
 {
+    private $em;
+
+    public function __construct(EntityManager $em)
+    {
+        parent::__construct();
+        $this->em = $em;
+    }
+
     public function getFolders()
     {
         return $this->mailchimp->get("/campaign-folders");
@@ -45,5 +60,55 @@ class MailChimpCampaign extends MailChimpHandler
     public function renameCampaign($id, $name)
     {
         return $this->mailchimp->patch("/campaigns/{$id}", ["settings" => ["title" => $name]]);
+    }
+
+    public function deleteCampaign($id)
+    {
+        $success = false;
+
+        while (!$success) {
+            $result = $this->mailchimp->delete("/campaigns/{$id}");
+            if ($this->mailchimp->success()) {
+                $success = true;
+            } else {
+                dump($this->mailchimp->getLastError());
+            }
+        }
+        
+        return $result;
+    }
+
+    public function refreshCampaign()
+    {
+        $serializer = $this->getSerializer();
+        $res = $this->getAllCampaigns();
+
+        // if ($res["total_items"] > 10) {
+        //     $res = $this->getAllCampaigns(["count" => $res["total_items"]]);
+        // }
+
+        foreach ($res["campaigns"] as $campaign) {
+            $new = $serializer->deserialize(json_encode($campaign), EmailingCampaign::class, 'json');
+            $exists = $this->em->getRepository("AdminBundle:EmailingCampaign")->findById($new->getId());
+
+            if ($exists) {
+                $this->em->remove($exists[0]);
+                $this->em->flush();
+            }
+
+            $this->em->persist($new);
+        }
+
+        $this->em->flush();
+
+        return $this->em->getRepository("AdminBundle:EmailingCampaign")->findAll();
+    }
+
+    public function getSerializer()
+    {
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+
+        return $serializer = new Serializer($normalizers, $encoders);
     }
 }

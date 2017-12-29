@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     function sendFilter() {
+        $('.row.list').html('');
         var folder_filter = $('.dropdown.dossiers').find('button').hasClass('active'),
             sort_filter = $('.dropdown.filtres').find('button').hasClass('active'),
             data = {};        
@@ -28,19 +29,14 @@ $(document).ready(function() {
         $(this).off('click');
         $(this).parent().find('button').html($(this).parent().find('button').removeClass('active').attr('data-default'));
         $(this).css({'visibility':'hidden','display':'inline-block'});
-        sendFilter();
+        setTimeout(sendFilter(), 0);
     });
 
     $(document).on('click','.filter .dropdown-item', function(e){//activer filtre
         e.preventDefault();
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
-        sendFilter();
-    });
-
-    $('.add-folder-link').on('click', function(e) {//ajout nouveau dossier
-        e.preventDefault();
-        $('#btn-modal-new-folder').click();
+        setTimeout(sendFilter(), 0);
     });
 
     $('.btn-valider.btn-new-campaign-folder').on('click', function(e) {//validation nouveau dossier
@@ -80,7 +76,7 @@ $(document).ready(function() {
                 console.log('success');
             }
         });
-        sendFilter();
+        setTimeout(sendFilter(), 250);
     });
 
     $(document).on('click', '.campaign-rename', function(e) {// renommer compaigne
@@ -106,12 +102,59 @@ $(document).ready(function() {
                 dataType: "json",
                 success: function(json) { 
                     if (json.id) {
-                        $('.campaign-'+id).find(".campagne-name-name").html(name);
-                        $("#rename-modal-campaign").modal('hide');
+                        $('.campaign-'+id).find(".campagne-name-name").html(name);                        
                     }                    
                 }
             });
+            setTimeout(sendFilter(), 250);
+            $(".modal").modal('hide');
         }        
     })
+
+    function getChecked() {
+        var checked = [];
+        $(".campagne-name .styled-checkbox").each(function() {
+            if ($(this).is(':checked')) {
+                checked.push($(this).attr('id'));
+            }
+        });
+        return checked;
+    }
+
+    $(document).on('change', ".campagne-name .styled-checkbox", function() {//selection des campagnes
+        checked = getChecked();        
+        text = (checked.length == 1)?checked.length+" campagne sélectionnée":((checked.length > 1)?checked.length+" campagnes sélectionnées":"");
+        $(".selected-count input").val(text);
+
+        if (checked.length > 0) {
+            $('.filter.selected-campaign').css('display',"flex");
+            $('.selected-count .delete-input').css('display','block');
+        } else {
+            $('.filter.selected-campaign').css('display',"none");
+        }
+    });
+
+    $('.btn-valider.btn-delete-campaign').on("click", function() { //suppression campagenes
+        checked = getChecked();
+        var data = {'ids' : checked.join(',')};
+        var url = $("input[name=delete-campaign-link]").val();
+        $.ajax({
+            type: "POST",
+            data: data,
+            url: url,
+            success: function() {
+            }
+        });
+        setTimeout(sendFilter(), 250);
+        $(".modal").modal('hide');
+    });
+
+    $('.selected-count .delete-input').on("click", function () {//désélection des campaignes
+        var checked = getChecked();
+        for (i in checked) {
+            $("#"+checked[i]).click();
+        }
+        $('.filter.selected-campaign').css('display',"none");
+    });
 
 });

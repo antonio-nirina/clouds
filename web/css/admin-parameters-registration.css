@@ -1466,7 +1466,7 @@ a.blue-anchor{
 }
 section .row.filter {
     margin: -20px -23px 0px;
-    padding: 23px;
+    padding: 25px 23px;
     background-color: #F9F9F9;
 }
 section .row.list row {
@@ -1629,10 +1629,13 @@ section .row.ending {
     line-height: 28px;
     padding-right: 65px;
 }
-.row.btn-new-campaign-folder > input[type=text] {
+.slideshow input[type=text] {
     border : 1px solid;
     border-radius: 7px;
-    padding: 5px 15px;
+    padding: 5px 10px;
+    color: var(--couleur_4);
+}
+.row.btn-new-campaign-folder > input[type=text] {    
     min-width: 60%;
 }
 .row.centered {
@@ -1645,6 +1648,54 @@ section .row.ending {
 #btn-modal-new-folder, #btn-modal-rename {
     display: none;
 }
+.campaign-delete > button {
+    margin: 0;
+}
+.campaign-delete-move {
+    align-items: center;
+    width: 42% !important;
+}
+.dropdown.move-to {
+    min-width: 215px
+}
+.dropdown.move-to button,  .dropdown.move-to .dropdown-menu{
+    width: 100%;
+}
+.add.dropdown-item {
+    display: table;
+    background: white;
+    text-align: center;
+}
+.selected-count {
+    display: inline-block;
+}
+.campaign-delete > button {
+    margin: 0;
+}
+.campaign-delete-move {
+    align-items: center;
+    width: 42% !important;
+}
+.dropdown.move-to {
+    min-width: 215px
+}
+.dropdown.move-to button,  .dropdown.move-to .dropdown-menu{
+    width: 100%;
+}
+.add.dropdown-item {
+    display: table;
+    background: white;
+    text-align: center;
+}
+.selected-count {
+    display: inline-block;
+    font-size: 14px;
+    font-family: var(--police);
+}
+.filter.selected-campaign {
+    display: none;
+}
+/*-------campagnes---*/
 @media only screen and (max-width: 1199px){
     .fieldset.slideshow .top-container ul.fieldset-nav-tabs{
         margin-top: 20px;

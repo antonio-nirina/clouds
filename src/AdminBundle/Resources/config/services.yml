@@ -54,5 +54,10 @@ services:
     AdminBundle\Manager\HomePagePostEditoManager:
         class: AdminBundle\Manager\HomePagePostEditoManager
         autowire: true
+
+    emailing_campaign:
+        class: AdminBundle\Service\MailChimp\MailChimpCampaign
+        autowire: true
+        public: true
     
 

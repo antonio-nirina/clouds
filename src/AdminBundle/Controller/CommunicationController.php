@@ -171,12 +171,15 @@ class CommunicationController extends AdminController
         }
 
         $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        $campaign_list = $campaign->refreshCampaign();
+        // dump($campaign_list); die;
+
         $campaign_folders = $campaign->getFolders();
-        $campaign_list = $campaign->getAllCampaigns();
+        // $campaign_list = $campaign->getAllCampaigns();
 
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
             "folders" => $campaign_folders["folders"],
-            "list" => $campaign_list["campaigns"],
+            "list" => $campaign_list,
         ));
     }
 
@@ -238,15 +241,18 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        $response = $campaign->replicateCampaign($request->get('id'));
+        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        // $response = $campaign->replicateCampaign($request->get('id'));
 
-        return new JsonResponse($response);
+        //asynchronous to API
+        $response = $this->get('krlove.async')->call('emailing_campaign', 'replicateCampaign', [$request->get('id')]);
+
+        return new JsonResponse(array());
     }
 
     /**
      * @Route("/emailing/campagne/rename", name="admin_communication_emailing_compaign_rename")
-     *
+     * @Method("POST")
      */
     public function emailingCampaignRenameAction(Request $request)
     {
@@ -255,10 +261,34 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        $response = $campaign->renameCampaign($request->get('id'), $request->get('name'));
+        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+        // $response = $campaign->renameCampaign($request->get('id'), $request->get('name'));
 
-        return new JsonResponse($response);
+        //asynchronous to API
+        $this->get('krlove.async')->call('emailing_campaign', 'renameCampaign', [$request->get('id'), $request->get('name')]);
+
+        return new JsonResponse();
+    }
+
+    /**
+     * @Route("/emailing/campagne/delete", name="admin_communication_emailing_compaign_delete")
+     * @Method("POST")
+     */
+    public function emailingCampaignDeleteAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $ids = explode(',', $request->get('ids'));
+        foreach ($ids as $id) {
+            // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
+            // $response = $campaign->deleteCampaign($id);
+            $this->get('krlove.async')->call('emailing_campaign', 'deleteCampaign', [(string) $id]);
+        }
+
+        return new JsonResponse();
     }
 
     /**
