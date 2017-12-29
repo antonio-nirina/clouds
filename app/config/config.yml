@@ -33,6 +33,10 @@ parameters:
     content_home_page_slide_image_upload_dir: '%kernel.project_dir%/web/content/home_page/slide'
     content_home_page_slide_image_location: 'content/home_page/slide/'
 
+    # Parameters - Communication - Emailing - Templates : logo file upload directory
+    emailing_template_logo_upload_dir: '%kernel.project_dir%/web/communication/emailing/template/logo'
+    emailing_template_logo_location: 'communication/emailing/template/logo/'
+
     # Application time zone
     app_time_zone: 'Europe/Paris'
 

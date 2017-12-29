@@ -19,10 +19,19 @@ class ComEmailTemplate
     private $id;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="text", nullable=true)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $template_model;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program")
+     */
+    private $program;
 
     /**
      * @ORM\Column(type="datetime")
@@ -69,6 +78,18 @@ class ComEmailTemplate
      * @Assert\Length(max=20)
      */
     private $action_button_text_color;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Length(max=20)
+     */
+    private $email_color;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Length(max=20)
+     */
+    private $background_color;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -457,5 +478,101 @@ class ComEmailTemplate
     public function getLastEditUser()
     {
         return $this->last_edit_user;
+    }
+
+    /**
+     * Set program
+     *
+     * @param \AdminBundle\Entity\Program $program
+     *
+     * @return ComEmailTemplate
+     */
+    public function setProgram(\AdminBundle\Entity\Program $program = null)
+    {
+        $this->program = $program;
+
+        return $this;
+    }
+
+    /**
+     * Get program
+     *
+     * @return \AdminBundle\Entity\Program
+     */
+    public function getProgram()
+    {
+        return $this->program;
+    }
+
+    /**
+     * Set emailColor
+     *
+     * @param string $emailColor
+     *
+     * @return ComEmailTemplate
+     */
+    public function setEmailColor($emailColor)
+    {
+        $this->email_color = $emailColor;
+
+        return $this;
+    }
+
+    /**
+     * Get emailColor
+     *
+     * @return string
+     */
+    public function getEmailColor()
+    {
+        return $this->email_color;
+    }
+
+    /**
+     * Set backgroundColor
+     *
+     * @param string $backgroundColor
+     *
+     * @return ComEmailTemplate
+     */
+    public function setBackgroundColor($backgroundColor)
+    {
+        $this->background_color = $backgroundColor;
+
+        return $this;
+    }
+
+    /**
+     * Get backgroundColor
+     *
+     * @return string
+     */
+    public function getBackgroundColor()
+    {
+        return $this->background_color;
+    }
+
+    /**
+     * Set templateModel
+     *
+     * @param string $templateModel
+     *
+     * @return ComEmailTemplate
+     */
+    public function setTemplateModel($templateModel)
+    {
+        $this->template_model = $templateModel;
+
+        return $this;
+    }
+
+    /**
+     * Get templateModel
+     *
+     * @return string
+     */
+    public function getTemplateModel()
+    {
+        return $this->template_model;
     }
 }

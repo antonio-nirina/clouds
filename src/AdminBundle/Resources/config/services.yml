@@ -59,5 +59,9 @@ services:
         class: AdminBundle\Service\MailChimp\MailChimpCampaign
         autowire: true
         public: true
-    
+
+
+    AdminBundle\Manager\ComEmailTemplateManager:
+        class: AdminBundle\Manager\ComEmailTemplateManager
+        autowire: true
 

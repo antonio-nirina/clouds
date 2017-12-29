@@ -1,9 +1,11 @@
 <?php
 namespace AdminBundle\Controller;
 
+use AdminBundle\Component\CommunicationEmail\TemplateLogoAlignment;
 use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
+use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
@@ -14,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AdminBundle\Component\CommunicationEmail\TemplateModel;
+use AdminBundle\Form\ComEmailTemplateType;
 
 /**
  * @Route("/admin/communication")
@@ -301,6 +305,83 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array());
+        return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array(
+            'template_model_class' => new TemplateModel(),
+        ));
+    }
+
+    /**
+     * @Route(
+     *     "/emailling/templates/ajout-template/{model}",
+     *     name="admin_communication_emailing_templates_add_template",
+     *     defaults={"model"=null}
+     * )
+     */
+    public function emailingTemplatesAddTemplateAction(Request $request, $model)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $valid_models = array(TemplateModel::TEXT_AND_IMAGE, TemplateModel::TEXT_ONLY);
+
+        $template_data_initializer = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateDataInitializer');
+        $com_email_template = $template_data_initializer->initForNewTemplate();
+        $com_email_template->setLogoAlignment(TemplateLogoAlignment::CENTER);
+        $form_factory = $this->get('form.factory');
+        if ($request->isMethod('GET')) {
+            if (!is_null($model) && in_array($model, $valid_models)) {
+                $com_email_template->setTemplateModel($model);
+            }
+        }
+        $add_template_form = $form_factory->createNamed(
+            'add_template_form',
+            ComEmailTemplateType::class,
+            $com_email_template
+        );
+
+        if ($request->isMethod('GET')) {
+            if (!is_null($model) && in_array($model, $valid_models)) {
+                $form_view =  $this->renderView(
+                    'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
+                    array(
+                        'manip_template_form' => $add_template_form->createView(),
+                        'current_template_model' => $model,
+                        'template_model_class' => new TemplateModel(),
+                    )
+                );
+                $data = $json_response_data_provider->success();
+                $data['content'] = $form_view;
+                return new JsonResponse($data, 200);
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+        }
+
+        if ($request->isMethod('POST')) {
+            if ($request->request->has("add_template_form")) {
+                $add_template_form->handleRequest($request);
+                if ($add_template_form->isSubmitted() && $add_template_form->isValid()) {
+                    $manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+                    $manager->createTemplate($program, $com_email_template);
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->formError();
+                    $form_view =  $this->renderView(
+                        'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
+                        array(
+                            'manip_template_form' => $add_template_form->createView(),
+                        )
+                    );
+                    $data['content'] = $form_view;
+                    return new JsonResponse($data, 200);
+                }
+            }
+        }
+
+        return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
 }

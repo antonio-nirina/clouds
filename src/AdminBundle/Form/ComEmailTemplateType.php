@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use AdminBundle\Component\CommunicationEmail\TemplateLogoAlignment;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AdminBundle\Entity\ComEmailTemplate;
@@ -21,10 +22,10 @@ class ComEmailTemplateType extends AbstractType
             ->add('logo', FileType::class)
             ->add('logo_alignment', ChoiceType::class, array(
                 'choices' => array(
-                    'centré' => TemplateLogoAlignment::CENTER,
-                    'ferré à gauche' => TemplateLogoAlignment::LEFT,
-                    'ferré à droite' => TemplateLogoAlignment::RIGHT,
-                    'étendue' => TemplateLogoAlignment::EXPANDED,
+                    'center' => TemplateLogoAlignment::CENTER,
+                    'left' => TemplateLogoAlignment::LEFT,
+                    'right' => TemplateLogoAlignment::RIGHT,
+                    'expanded' => TemplateLogoAlignment::EXPANDED,
                 ),
                 'expanded' => true,
                 'multiple' => false,
@@ -33,6 +34,8 @@ class ComEmailTemplateType extends AbstractType
             ->add('action_button_url', TextType::class)
             ->add('action_button_background_color', TextType::class)
             ->add('action_button_text_color', TextType::class)
+            ->add('email_color', TextType::class)
+            ->add('background_color', TextType::class)
             ->add('footer_list_state', CheckboxType::class)
             ->add('footer_company_state', CheckboxType::class)
             ->add('footer_unsubscribing_state', CheckboxType::class)
@@ -41,7 +44,8 @@ class ComEmailTemplateType extends AbstractType
                 'entry_type' => ComEmailTemplateContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
-            ));
+            ))
+            ->add('template_model', HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
