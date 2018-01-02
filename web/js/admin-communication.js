@@ -244,7 +244,7 @@ $(document).ready(function(){
                if(data['error']){
                    alert(data.error)
                } else {
-                   alert('OK OK OK!!!')
+                   $('#create-template-dialog').modal('hide');
                }
             }
         });

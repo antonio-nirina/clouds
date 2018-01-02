@@ -5,6 +5,8 @@ use AdminBundle\Entity\Program;
 use AdminBundle\Entity\ComEmailTemplate;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AdminBundle\Component\CommunicationEmail\TemplateModel;
+use AdminBundle\Component\CommunicationEmail\TemplateContentType;
 
 class ComEmailTemplateManager
 {
@@ -30,11 +32,19 @@ class ComEmailTemplateManager
         $template->setProgram($program);
 
         foreach ($template->getContents() as $content) {
-            $content->setTemplate($template);
-            $template->addContent($content);
-            $this->em->persist($content);
+            if (TemplateModel::TEXT_ONLY == $template->getTemplateModel()) {
+                if (TemplateContentType::TEXT == $content->getContentType()) {
+                    $content->setTemplate($template);
+                    $this->em->persist($content);
+                } else {
+                    $template->removeContent($content);
+                    $content->setTemplate(null);
+                }
+            } elseif (TemplateModel::TEXT_AND_IMAGE == $template->getTemplateModel()) {
+                $content->setTemplate($template);
+                $this->em->persist($content);
+            }
         }
-
         $this->em->persist($template);
 
         if (true == $flush) {
