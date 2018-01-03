@@ -41,7 +41,7 @@ class ComEmailTemplate
     private $last_edit;
 
     /**
-     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ProgramUser")
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
      */
     private $last_edit_user;
 
@@ -458,30 +458,6 @@ class ComEmailTemplate
     }
 
     /**
-     * Set lastEditUser
-     *
-     * @param \AdminBundle\Entity\ProgramUser $lastEditUser
-     *
-     * @return ComEmailTemplate
-     */
-    public function setLastEditUser(\AdminBundle\Entity\ProgramUser $lastEditUser = null)
-    {
-        $this->last_edit_user = $lastEditUser;
-
-        return $this;
-    }
-
-    /**
-     * Get lastEditUser
-     *
-     * @return \AdminBundle\Entity\ProgramUser
-     */
-    public function getLastEditUser()
-    {
-        return $this->last_edit_user;
-    }
-
-    /**
      * Set program
      *
      * @param \AdminBundle\Entity\Program $program
@@ -575,5 +551,29 @@ class ComEmailTemplate
     public function getTemplateModel()
     {
         return $this->template_model;
+    }
+
+    /**
+     * Set lastEditUser
+     *
+     * @param \UserBundle\Entity\User $lastEditUser
+     *
+     * @return ComEmailTemplate
+     */
+    public function setLastEditUser(\UserBundle\Entity\User $lastEditUser = null)
+    {
+        $this->last_edit_user = $lastEditUser;
+
+        return $this;
+    }
+
+    /**
+     * Get lastEditUser
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getLastEditUser()
+    {
+        return $this->last_edit_user;
     }
 }

@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AdminBundle\Component\CommunicationEmail\TemplateModel;
 use AdminBundle\Component\CommunicationEmail\TemplateContentType;
+use UserBundle\Entity\User as AppUser;
 
 class ComEmailTemplateManager
 {
@@ -19,7 +20,7 @@ class ComEmailTemplateManager
         $this->container = $container;
     }
 
-    public function createTemplate(Program $program, ComEmailTemplate $template, $flush = true)
+    public function createTemplate(Program $program, ComEmailTemplate $template, AppUser $app_user, $flush = true)
     {
         $logo_image = $template->getLogo();
         if (!is_null($logo_image)) {
@@ -30,6 +31,7 @@ class ComEmailTemplateManager
             $template->setLogo($logo_image->getClientOriginalName());
         }
         $template->setProgram($program);
+        $template->setLastEditUser($app_user);
 
         foreach ($template->getContents() as $content) {
             if (TemplateModel::TEXT_ONLY == $template->getTemplateModel()) {
