@@ -1,6 +1,7 @@
 <?php
 namespace AdminBundle\Controller;
 
+use AdminBundle\Component\CommunicationEmail\TemplateContentType;
 use AdminBundle\Component\CommunicationEmail\TemplateLogoAlignment;
 use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
@@ -318,7 +319,8 @@ class CommunicationController extends AdminController
 
         return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array(
             'template_model_class' => new TemplateModel(),
-            'template_list' => $template_list
+            'template_list' => $template_list,
+            'content_type_class' => new TemplateContentType(),
         ));
     }
 
