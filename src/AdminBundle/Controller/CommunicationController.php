@@ -305,8 +305,20 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $template_list = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findBy(
+                array(
+                    'program' => $program
+                ),
+                array(
+                    'last_edit' => 'DESC'
+                )
+            );
+
         return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array(
             'template_model_class' => new TemplateModel(),
+            'template_list' => $template_list
         ));
     }
 

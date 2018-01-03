@@ -258,7 +258,7 @@ $(document).ready(function(){
                    installColorPicker();
                    installWysiwyg();
                } else {
-                   $('#create-template-dialog').modal('hide');
+                   // $('#create-template-dialog').modal('hide');
                    window.location.replace($('input[name=template_list_url]').val());
                }
             }
