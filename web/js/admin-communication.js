@@ -203,7 +203,7 @@ $(document).ready(function(){
                 uiColor: '#9AB8F3',
                 height: 150,
                 width: 600,
-                customConfig: ckeditor_config_light_path,
+                customConfig: ckeditor_config_light_path
             });
         });
     }
@@ -248,6 +248,12 @@ $(document).ready(function(){
     $(document).on('click', '#create-template-dialog button.btn-valider.validate', function(e){
         var add_template_url = $('input[name=add_template_form_url]').val();
         e.preventDefault();
+        $('#create-template-dialog').find('.block-model-container').remove()
+
+        for (name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].updateElement();
+        }
+
         $('#create-template-dialog form').ajaxSubmit({
             type: 'POST',
             url: add_template_url,
@@ -387,6 +393,78 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Communication - Emailing - Templates
      * création template - lien "précédent"
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * ajout d'autres contenus
+     * *********************************************************************************************
+     */
+    function addContentTypeBlock(new_content_index, content_type)
+    {
+        var new_content_type = $('.block-model-container').find('.template-content-type-model').clone();
+        new_content_type.removeClass('template-content-type-model');
+        var html_new_content_type = new_content_type.wrap('<div class="model-wrapper"></div>').parent().html();
+        html_new_content_type = html_new_content_type.replace(/__name__/g, new_content_index);
+        new_content_type = $($.parseHTML(html_new_content_type));
+        var add_content_link_block = $(".add-other-content-container");
+        add_content_link_block.before(new_content_type);
+        new_content_type.show();
+        new_content_type.find('input[type=hidden]').val(content_type);
+    }
+
+    $(document).on('click', '.add-other-content-container .add-image-link', function(e){
+        e.preventDefault();
+        var available_content_num = $('.template-config-block-container')
+            .find('.template-config-block.template-content-block').length;
+        var new_content_index = available_content_num;
+        var new_image_content = $('.block-model-container').find('.template-content-image-model').clone();
+        new_image_content.removeClass('template-content-image-model');
+        var html_new_image_content = new_image_content.wrap('<div class="model-wrapper"></div>').parent().html();
+        html_new_image_content = html_new_image_content.replace(/__name__/g, new_content_index);
+        new_image_content = $($.parseHTML(html_new_image_content));
+
+        var add_content_link_block = $(".add-other-content-container");
+        add_content_link_block.before(new_image_content);
+        new_image_content.show();
+
+        addContentTypeBlock(new_content_index, $('input[name=template_content_type_image]').val());
+    });
+
+    $(document).on('click', '.add-other-content-container .add-text-link', function(e){
+        e.preventDefault();
+        var available_content_num = $('.template-config-block-container')
+            .find('.template-config-block.template-content-block').length;
+        var new_content_index = available_content_num;
+        var new_text_content = $('.block-model-container').find('.template-content-text-model').clone();
+        new_text_content.removeClass('template-content-text-model');
+        var html_new_text_content = new_text_content.wrap('<div class="model-wrapper"></div>').parent().html();
+        html_new_text_content = html_new_text_content.replace(/__name__/g, new_content_index);
+        new_text_content = $($.parseHTML(html_new_text_content));
+
+        var add_content_link_block = $(".add-other-content-container");
+        add_content_link_block.before(new_text_content);
+        new_text_content.find('textarea').addClass('large-textarea');
+        var ckeditor_config_light_path = $('input[name=ckeditor_config_light_path]').val();
+        CKEDITOR.replace(new_text_content.find('textarea').attr('id'), {
+            language: 'fr',
+            uiColor: '#9AB8F3',
+            height: 150,
+            width: 600,
+            customConfig: ckeditor_config_light_path
+        });
+        new_text_content.show();
+
+        addContentTypeBlock(new_content_index, $('input[name=template_content_type_text]').val());
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * ajout d'autres contenus
      * *********************************************************************************************
      */
 

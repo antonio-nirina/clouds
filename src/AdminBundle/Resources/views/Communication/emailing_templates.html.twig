@@ -131,61 +131,6 @@
                                 </div>
                                     {% endfor %}
                                 {% endif %}
-
-                                {#<div class="row">
-                                    <div class="col-12 col-lg-9 template-characteristic">
-                                        <div>
-                                            <input id="template-element-1-check" class="styled-checkbox bigger" type="checkbox">
-                                            <label for="template-element-1-check"></label>
-                                        </div>
-                                        <img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">
-                                        <div class="template-info">
-                                            <span class="template-name">Campagne TEST 2</span>
-                                            <span class="template-edit-info">Modifiée le 02 mai 2017 à 15:06 par administrateur</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-3 template-action-container">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                                ACTIONS
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                                                <a class="dropdown-item" href="#">ÉDITER</a>
-                                                <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
-                                                <a class="dropdown-item" href="#">PRÉVISUALISER</a>
-                                                <a class="dropdown-item" href="#">DUPLIQUER</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-lg-9 template-characteristic">
-                                        <div>
-                                            <input id="template-element-2-check" class="styled-checkbox bigger" type="checkbox">
-                                            <label for="template-element-2-check"></label>
-                                        </div>
-                                        <img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">
-                                        <div class="template-info">
-                                            <span class="template-name">Campagne TEST 1</span>
-                                            <span class="template-edit-info">Modifiée le 30 janvier 2017 à 09:00 par administrateur</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-12 col-lg-3 template-action-container">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                                ACTIONS
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                                                <a class="dropdown-item" href="#">ÉDITER</a>
-                                                <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
-                                                <a class="dropdown-item" href="#">PRÉVISUALISER</a>
-                                                <a class="dropdown-item" href="#">DUPLIQUER</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>#}
-
-
                             </div>
 
                             <!-- dialog - selection modèle -->
@@ -261,6 +206,8 @@
                             <input type="hidden" name="template_model_text_only" value="{{ constant('TEXT_ONLY', template_model_class) }}">
                             <input type="hidden" name="ckeditor_config_light_path" value="{{ asset('ckeditor/custom/config-light.js') }}">
                             <input type="hidden" name="template_list_url" value="{{ path("admin_communication_emailing_templates") }}">
+                            <input type="hidden" name="template_content_type_image" value="{{ constant('IMAGE', content_type_class) }}">
+                            <input type="hidden" name="template_content_type_text" value="{{ constant('TEXT', content_type_class) }}">
                         </div>
                     </div>
                 </section>

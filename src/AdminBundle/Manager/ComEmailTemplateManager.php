@@ -43,6 +43,16 @@ class ComEmailTemplateManager
                     $content->setTemplate(null);
                 }
             } elseif (TemplateModel::TEXT_AND_IMAGE == $template->getTemplateModel()) {
+                if (TemplateContentType::IMAGE == $content->getContentType()) {
+                    $image = $content->getImage();
+                    if (!is_null($image)) {
+                        $image->move(
+                            $this->container->getParameter('emailing_template_image_content_upload_dir'),
+                            $image->getClientOriginalName()
+                        );
+                        $content->setImage($image->getClientOriginalName());
+                    }
+                }
                 $content->setTemplate($template);
                 $this->em->persist($content);
             }

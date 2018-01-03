@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-8 right-col template-config-block-container">
                 {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
                 <div class="template-config-block">
                     <span class="option-title-block">logo</span>
@@ -108,7 +108,7 @@
                 {% endif %}
 
                 {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
-                <div class="template-config-block">
+                <div class="template-config-block template-content-block">
                     <span class="option-title-block">image</span>
                     <div class="row">
                         <div class="col-12 col-lg-2">
@@ -117,10 +117,10 @@
                         </div>
                         <div class="col-12 col-lg-10">
                             {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input"}}) }}
-                            <buttons class="btn-valider btn-upload choose-upload-img-button">
+                            <button class="btn-valider btn-upload choose-upload-img-button">
                                 <span class="upload"></span>
                                 choisissez un fichier...
-                            </buttons>
+                            </button>
                             <div class="upload-img-button-container hidden-button">
                                 <button class="upload-img-button">
                                     <span class="blue-upload"></span><span class="img-name-container"></span>
@@ -134,11 +134,11 @@
                 </div>
                 {% endif %}
 
-                <div class="template-config-block">
+                <div class="template-config-block template-content-block">
                     <span class="option-title-block">texte</span>
                     <div>
                         {#<textarea class="large-textarea" id="template-text"></textarea>#}
-                        {{ form_widget(manip_template_form.contents[0].text_content, {"attr": {"class": "large-textarea"}}) }}
+                        {{ form_widget(manip_template_form.contents[1].text_content, {"attr": {"class": "large-textarea"}}) }}
                     </div>
                 </div>
 
@@ -198,13 +198,14 @@
                             </div>
                         </div>
                     </div>
-                    {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
-                    <div class="add-other-content-container">
-                        <a class="add" href="#"><span>ajouter une image</span></a>
-                        <a class="add" href="#"><span>ajouter un texte</span></a>
-                    </div>
-                    {% endif %}
                 </div>
+
+                {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
+                <div class="add-other-content-container">
+                    <a class="add add-image-link" href="#"><span>ajouter une image</span></a>
+                    <a class="add add-text-link" href="#"><span>ajouter un texte</span></a>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="row template-name-container hidden">
@@ -249,28 +250,39 @@
         </button>
     </div>
     <div class="block-model-container">
-        <div class="template-config-block template-content-image-model">
+        <div class="template-config-block template-content-image-model template-content-block">
             <span class="option-title-block">image</span>
             <div class="row">
                 <div class="col-12 col-lg-2">
-                    <label>image</label>
+                    {#<label>image</label>#}
+                    {{ form_label(manip_template_form.contents.vars.prototype.image, "image") }}
                 </div>
                 <div class="col-12 col-lg-10">
+                    {{ form_widget(manip_template_form.contents.vars.prototype.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
                     <button class="btn-valider btn-upload choose-upload-img-button">
                         <span class="upload"></span>
                         choisissez un fichier...
                     </button>
+                    <div class="upload-img-button-container hidden-button">
+                        <button class="upload-img-button">
+                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                        </button>
+                    </div>
                     <div class="info-container">
                         <p>largeur optimale de l'image : 600px</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="template-config-block template-content-text-model">
+        <div class="template-config-block template-content-text-model template-content-block">
             <span class="option-title-block">texte</span>
             <div>
-                <textarea class="large-textarea" id="template-text"></textarea>
+                {#<textarea class="large-textarea" id="template-text"></textarea>#}
+                {{ form_widget(manip_template_form.contents.vars.prototype.text_content) }}
             </div>
+        </div>
+        <div class="template-config-block template-content-type-model">
+            {{ form_widget(manip_template_form.contents.vars.prototype.content_type) }}
         </div>
     </div>
     {{ form_end(manip_template_form) }}
