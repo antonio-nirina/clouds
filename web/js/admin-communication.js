@@ -369,6 +369,27 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * création template - lien "précédent"
+     * *********************************************************************************************
+     */
+    $('#create-template-dialog .previous').on('click', function(e){
+        e.preventDefault();
+        $('#create-template-dialog').modal('hide');
+        setTimeout(function(){
+            $('#choose-model-dialog').modal('show');
+        }, 0);
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * création template - lien "précédent"
+     * *********************************************************************************************
+     */
+
 
 
 });
