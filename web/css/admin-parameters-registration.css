@@ -1624,7 +1624,7 @@ section .row.ending {
     z-index: 1052 !important;
 }
 .modal-backdrop.show:nth-of-type(even) {/*second backdrop*/
-    z-index: 1051 !important;
+    /*z-index: 1051 !important;*/
 }
 .modal-dialog.big {
     max-width: 1024px;
