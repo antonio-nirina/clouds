@@ -20,6 +20,7 @@ class ComEmailTemplate
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $name;
 

@@ -374,6 +374,8 @@ class CommunicationController extends AdminController
                         'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
                         array(
                             'manip_template_form' => $add_template_form->createView(),
+                            'current_template_model' => $com_email_template->getTemplateModel(),
+                            'template_model_class' => new TemplateModel(),
                         )
                     );
                     $data['content'] = $form_view;

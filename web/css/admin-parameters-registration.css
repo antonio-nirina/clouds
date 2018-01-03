@@ -2046,15 +2046,13 @@ section .row.ending {
     position: relative !important;
 }
 
+
 .template-name-container{
     padding-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
 }
 
-.template-name-container .template-name-label{
-    margin-right: 40px;
+.template-name-container.hidden{
+    display: none;
 }
 
 .template-name-container .template-name-input{
@@ -2067,9 +2065,49 @@ section .row.ending {
     background-color: inherit;
 }
 
-.template-name-container .delete-input{
+.template-name-container span.delete-input{
+    float: none;
+    top: 7px;
+}
+
+.template-name-container .template-name-label-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.template-name-container .template-name-input-row-container{
+    width: 100%;
+    max-width: 100%;
+}
+
+.app-dialog .submit-button-container .btn-valider.modify{
+    margin-right: 40px;
+}
+
+.app-dialog .submit-button-container .btn-valider.validate{
+    margin-left: 40px;
+}
+
+.app-dialog .btn-valider.hidden{
+    display: none;
+}
+
+.options-container{
     position: relative;
-    top: 6px;
+}
+
+.options-wrapper{
+    display: none;
+}
+
+.options-wrapper.active{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    opacity: 0.5;
+    z-index: 3;
 }
 
 @media (min-width: 992px){
@@ -2092,14 +2130,41 @@ section .row.ending {
         flex-direction: column;
     }
 
-    .template-name-container{
-        flex-direction: column;
+    .template-name-container .template-name-label-container{
+        justify-content: flex-start;
     }
 }
 
 @media (max-width: 575px){
     .footer-text-block .footer-text-option-container .footer-text-option-label{
         max-width: 80%;
+    }
+
+    .app-dialog .submit-button-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .app-dialog .submit-button-container .btn-valider.modify{
+        margin-right: 0;
+        width: 120px;
+        margin-bottom: 40px;
+    }
+
+    .app-dialog .submit-button-container .btn-valider.validate{
+        margin-left: 0;
+        width: 120px;
+    }
+
+    .app-dialog .submit-button-container .btn-valider.save{
+        width: 120px;
+    }
+}
+
+@media (max-width: 320px){
+    .template-name-container .template-name-input{
+        max-width: 77%;
     }
 }
 

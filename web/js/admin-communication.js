@@ -193,8 +193,23 @@ $(document).ready(function(){
         }
     });
 
-    $('#create-template-dialog').on('shown.bs.modal', function(){
-        // installer color picker
+    function installWysiwyg()
+    {
+        var ckeditor_config_light_path = $('input[name=ckeditor_config_light_path]').val();
+        var text_area_list = $('textarea.large-textarea');
+        text_area_list.each(function(){
+            CKEDITOR.replace( $(this).attr('id'), {
+                language: 'fr',
+                uiColor: '#9AB8F3',
+                height: 150,
+                width: 600,
+                customConfig: ckeditor_config_light_path,
+            });
+        });
+    }
+
+    function installColorPicker()
+    {
         if ($('.color-value').length >0 ) {
             $('.color-value').each( function() {
                 $(this).minicolors({
@@ -215,26 +230,22 @@ $(document).ready(function(){
                 });
             });
         }
+    }
+
+
+    $('#create-template-dialog').on('shown.bs.modal', function(){
+        // installer color picker
+        installColorPicker();
 
         // installer wysiwyg
-        var ckeditor_config_light_path = $('input[name=ckeditor_config_light_path]').val();
-        var text_area_list = $('textarea.large-textarea');
-        text_area_list.each(function(){
-            CKEDITOR.replace( $(this).attr('id'), {
-                language: 'fr',
-                uiColor: '#9AB8F3',
-                height: 150,
-                width: 600,
-                customConfig: ckeditor_config_light_path,
-            });
-        });
+        installWysiwyg();
     });
 
     $('#create-template-dialog').on('hide.bs.modal', function(e){
         $('#choose-model-dialog').modal('hide');
     });
 
-    $(document).on('click', '#create-template-dialog button.save', function(e){
+    $(document).on('click', '#create-template-dialog button.btn-valider.validate', function(e){
         var add_template_url = $('input[name=add_template_form_url]').val();
         e.preventDefault();
         $('#create-template-dialog form').ajaxSubmit({
@@ -242,9 +253,13 @@ $(document).ready(function(){
             url: add_template_url,
             success: function(data){
                if(data['error']){
-                   alert(data.error)
+                   $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                   $('#create-template-dialog').find('.btn-valider.save').trigger('click');
+                   installColorPicker();
+                   installWysiwyg();
                } else {
                    $('#create-template-dialog').modal('hide');
+                   window.location.replace($('input[name=template_list_url]').val());
                }
             }
         });
@@ -300,7 +315,7 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Emailing - Templates
-     * aspect bouton
+     * aspect bouton d'action
      * *********************************************************************************************
      */
     $(document).on('input', '#create-template-dialog .action-button-text-input', function(e){
@@ -319,7 +334,38 @@ $(document).ready(function(){
      * *********************************************************************************************
      * FIN
      * Paramétrages - Communication - Emailing - Templates
-     * aspect bouton
+     * aspect bouton d'action
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * modal création template - enregistrement et validation
+     * *********************************************************************************************
+     */
+    $(document).on('click', '#create-template-dialog .btn-valider.save', function(e){
+        e.preventDefault();
+        $('.options-wrapper').addClass('active');
+        $('#create-template-dialog').find('.btn-valider.modify').removeClass('hidden');
+        $('#create-template-dialog').find('.btn-valider.validate').removeClass('hidden');
+        $('#create-template-dialog').find('.template-name-container').removeClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    $(document).on('click', '#create-template-dialog .btn-valider.modify', function(e){
+        e.preventDefault();
+        $('.options-wrapper').removeClass('active');
+        $('#create-template-dialog').find('.btn-valider.validate').addClass('hidden');
+        $('#create-template-dialog').find('.template-name-container').addClass('hidden');
+        $('#create-template-dialog').find('.btn-valider.save').removeClass('hidden');
+        $(this).addClass('hidden');
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * modal création template - enregistrement et validation
      * *********************************************************************************************
      */
 
