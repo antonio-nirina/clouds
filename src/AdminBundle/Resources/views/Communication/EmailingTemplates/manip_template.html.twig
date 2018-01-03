@@ -2,7 +2,8 @@
     {{ form_start(manip_template_form, {"attr": {"novalidate": "novalidate"}}) }}
     <div class="content-container large">
         <span class="dialog-title">créer votre template d'e-mail</span>
-        <div class="row">
+        <div class="row options-container">
+            <div class="options-wrapper"></div>
             <div class="col-12 col-lg-4 left-col">
                 <div class="template-preview-block template-config-block">
                     <span class="option-title">prévisualisation</span>
@@ -206,12 +207,30 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col template-name-container">
-                {#<label class="template-name-label">nommer votre template</label>#}
+        <div class="row template-name-container hidden">
+            <div class="col-12 col-lg-5 template-name-label-container">
                 {{ form_label(manip_template_form.name, "nommmer votre template", {"label_attr":{"class": "template-name-label"}}) }}
-                {#<input type="text" class="template-name-input">#}
-                {{ form_widget(manip_template_form.name, {"attr": {"class": "template-name-input"}}) }}
+            </div>
+            <div class="col-12 col-lg-7 vertical-align-element-container">
+                <div class="row template-name-input-row-container">
+                    <div class="col-12 col-sm-12">
+                        {{ form_widget(manip_template_form.name, {"attr": {"class": "template-name-input removable-content-input"}}) }}
+                        {% set delete_input_visibility = 'style=display:none' %}
+                        {% if manip_template_form.vars.value.name | trim is not empty %}
+                            {% set delete_input_visibility = '' %}
+                        {% endif %}
+                        <span class="delete-input" {{ delete_input_visibility }}></span>
+                    </div>
+                    <div class="col-12 col-sm-12 error-message-container">
+                        {{ form_errors(manip_template_form.name) }}
+                    </div>
+                </div>
+                {#{{ form_widget(manip_template_form.name, {"attr": {"class": "template-name-input removable-content-input"}}) }}
+                {% set delete_input_visibility = 'style=display:none' %}
+                {% if manip_template_form.vars.value.name | trim is not empty %}
+                    {% set delete_input_visibility = '' %}
+                {% endif %}
+                <span class="delete-input" {{ delete_input_visibility }}></span>#}
             </div>
         </div>
     </div>
@@ -219,8 +238,14 @@
     {{ form_widget(manip_template_form.template_model, {"attr": {"class": "hidden-template-model"}}) }}
 
     <div class="submit-button-container">
-        <button class ="btn-valider save">
+        <button class="btn-valider save">
             enregistrer
+        </button>
+        <button class="btn-valider modify hidden">
+            modifier
+        </button>
+        <button class="btn-valider validate hidden">
+            valider
         </button>
     </div>
     <div class="block-model-container">

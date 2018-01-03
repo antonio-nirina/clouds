@@ -305,8 +305,20 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $template_list = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findBy(
+                array(
+                    'program' => $program
+                ),
+                array(
+                    'last_edit' => 'DESC'
+                )
+            );
+
         return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array(
             'template_model_class' => new TemplateModel(),
+            'template_list' => $template_list
         ));
     }
 
@@ -319,8 +331,13 @@ class CommunicationController extends AdminController
      */
     public function emailingTemplatesAddTemplateAction(Request $request, $model)
     {
-        $program = $this->container->get('admin.program')->getCurrent();
+        $auth_checker = $this->get('security.authorization_checker');
         $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (false === $auth_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
@@ -364,8 +381,9 @@ class CommunicationController extends AdminController
             if ($request->request->has("add_template_form")) {
                 $add_template_form->handleRequest($request);
                 if ($add_template_form->isSubmitted() && $add_template_form->isValid()) {
+                    $app_user = $this->getUser();
                     $manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-                    $manager->createTemplate($program, $com_email_template);
+                    $manager->createTemplate($program, $com_email_template, $app_user);
                     $data = $json_response_data_provider->success();
                     return new JsonResponse($data, 200);
                 } else {
@@ -374,6 +392,8 @@ class CommunicationController extends AdminController
                         'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
                         array(
                             'manip_template_form' => $add_template_form->createView(),
+                            'current_template_model' => $com_email_template->getTemplateModel(),
+                            'template_model_class' => new TemplateModel(),
                         )
                     );
                     $data['content'] = $form_view;
