@@ -23,7 +23,15 @@ $(document).ready(function(){
         $('main').parents('.container-fluid').css('z-index',"unset");
     });
     $(document).on('hidden.bs.modal', function () {
-        $('main').parents('.container-fluid').css('z-index',"1");
+        var all_closed = true;
+        $('.modal').each(function() {//cas multiple ouverture
+            if ($(this).css('display') == 'block') {
+                all_closed = false;
+            }
+        });
+        if (all_closed) {
+            $('main').parents('.container-fluid').css('z-index',"1");
+        }
     });
 
 	//Gestions choix récompenses

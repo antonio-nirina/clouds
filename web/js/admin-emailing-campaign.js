@@ -157,4 +157,21 @@ $(document).ready(function() {
         $('.filter.selected-campaign').css('display',"none");
     });
 
+    $(document).on('mouseleave', '.dropdown-menu', function() {// sortir des dropdown
+        $(document).click();
+    });
+
+    $(document).on('keyup', '.form-line input', function() {
+        if ($(this).val()) {
+            $(this).next('span').css('display', 'inline-block');
+        } else {
+            $(this).next('span').css('display', 'none');            
+        }
+    })
+
+    $('#new-campaign-modal').on('shown.bs.modal', function() {//affichage de l'onglet courant
+        console.log('test');
+        $('#create-tabs a.activated:last').tab('show');        
+    });
+
 });

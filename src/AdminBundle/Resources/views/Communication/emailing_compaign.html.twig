@@ -60,7 +60,7 @@
                 <section class="fieldset slideshow active">
                     <div class="row filter">
                         <div class="create">
-                            <button class="btn-valider">
+                            <button class="btn-valider" data-toggle="modal" data-target="#new-campaign-modal">
                                 créer une campagne
                             </button>
                         </div>
@@ -218,7 +218,7 @@
                     </div>
                     {# modal rename #}
                     <button type="button" id="btn-modal-rename" class="btn btn-primary" data-toggle="modal" data-target="#rename-modal-campaign"></button>
-                    <!-- Modal -->
+                    <!-- Modal dupliquer-->
                     <div id="rename-modal-campaign" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -243,7 +243,7 @@
                         </div>
                     </div>
                     {#modal delete#}                    
-                    <!-- Modal -->
+                    <!-- Modal supprimer-->
                     <div id="delete-modal-campaign" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -264,7 +264,102 @@
                                 </div>
                             </div>
                         </div>
-                    </div>              
+                    </div>
+                    <!-- Modal créer nouveau-->                    
+                    <div id="new-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg big" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-target="#suspend-new-campaign-modal" data-toggle="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="content">
+                                    <div><h4>créer une campagne</h4></div>
+
+                                    <div class = "row">
+                                        <div class= "col-12 col-md-12 navbar">
+                                            <ul class="nav navbar-nav" id="create-tabs">
+                                                <a class="activated done" data-toggle="tab"  href="#tab-form-level-1">
+                                                    étape 1<br>
+                                                    <span class="tab-spec">nom et objet de la campagne</span>
+                                                    <span class="fullfilled"></span>
+                                                </a>
+                                                <a class="" data-toggle="tab"  href="#tab-form-level-2">
+                                                    étape 2<br>
+                                                    <span class="tab-spec">liste de diffusion</span>
+                                                    <span class="fullfilled"></span>
+                                                </a>
+                                                <a class="" data-toggle="tab"  href="#tab-form-level-3">
+                                                    étape 3<br>
+                                                    <span class="tab-spec">template</span>
+                                                    <span class="fullfilled"></span>
+                                                </a>
+                                                <a class="" data-toggle="tab"  href="#tab-form-level-4">
+                                                    étape 4<br>
+                                                    <span class="tab-spec">envoi de la campagne</span>
+                                                    <span class="fullfilled"></span>
+                                                </a>                                
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class = "row tab-content">                    
+                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-1">
+                                            <p class="form-line">
+                                                <label>renseignez le nom de la campagne</label>
+                                                <input type="text" value="">
+                                                <span class="delete-input"></span>
+                                            </p>
+                                            <p class="form-line">
+                                                <label>renseignez le nom de la campagne</label>
+                                                <input type="text" value="">
+                                                <span class="delete-input"></span>
+                                            </p>
+                                            <p>L'e-mail d'envoie de votre campagne sera : contact@monchallenge2017.sorewards.com</p>
+                                            <p>
+                                                Pour toute modification de cet e-mail veuillez <a href="#" class="nous-contactez">nous contacter</a>
+                                            </p>
+
+                                            <div class="row centered">
+                                                <button class="btn-valider btn-delete-campaign">
+                                                    continuer
+                                                </button>
+                                            </div>                                            
+                                        </div>
+                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-2">2
+                                        </div>
+                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-3">3
+                                        </div>
+                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-4">4
+                                        </div>
+                                    </div>                              
+                                    
+                                    <div class="add-campaign-folder-error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <!-- Modal suspendre création nouveau-->                    
+                    <div id="suspend-new-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="content">
+                                    <div><h4>Suspendre la création d'une campagne</h4></div>
+                                    <div class="row btn-new-campaign-folder">
+                                        <label>Vous allez suspendre le processus de création d'une campagne. <br> Celle-ci va s'enregistrer dans la liste de vos campagnes, vous pourrrez ainsi l'éditer ultérieurement</label>
+                                    </div>                                
+                                    <div class="row centered">
+                                        <button class="btn-valider btn-suspend-creation">
+                                            suspendre
+                                        </button>
+                                    </div>
+                                    <div class="add-campaign-folder-error"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>             
                 </section>
                 <input id="new_folder_link" type="hidden" value="{{ path("admin_communication_emailing_compaign_new_folder") }}">
                 <input type="hidden" name="replicate" value="{{ path("admin_communication_emailing_compaign_replicate") }}">

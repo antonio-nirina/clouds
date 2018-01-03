@@ -3403,7 +3403,7 @@ button.btn-valider:hover {
     font-size: 17px;
     position: relative;
     top: -5px;
-    font-weight: 900;
+    font-family: var(--police_bold);
 }
 .bulle-aide:hover {
 	background-color: var(--couleur_2); 

@@ -1614,6 +1614,21 @@ section .row.ending {
 .filter .dropdown .dropdown-menu > a > span, .filter .dropdown button > span {
     display: none;
 }
+.dropdown button:focus {
+    box-shadow: none !important;
+}
+.dropdown button:hover {
+    border-color: #404040;
+}
+#suspend-new-campaign-modal {/*second modal*/
+    z-index: 1052 !important;
+}
+.modal-backdrop.show:nth-of-type(even) {/*second backdrop*/
+    z-index: 1051 !important;
+}
+.modal-dialog.big {
+    max-width: 1024px;
+}
 .filter .dropdown button >span.folder_count {
     position: absolute;
     right: 35px;
@@ -1651,10 +1666,6 @@ section .row.ending {
 .campaign-delete > button {
     margin: 0;
 }
-.campaign-delete-move {
-    align-items: center;
-    width: 42% !important;
-}
 .dropdown.move-to {
     min-width: 215px
 }
@@ -1675,9 +1686,11 @@ section .row.ending {
 .campaign-delete-move {
     align-items: center;
     width: 42% !important;
+    min-width: 400px;
 }
 .dropdown.move-to {
-    min-width: 215px
+    min-width: 215px;
+    padding-right: 15px;
 }
 .dropdown.move-to button,  .dropdown.move-to .dropdown-menu{
     width: 100%;
@@ -1695,8 +1708,74 @@ section .row.ending {
 .filter.selected-campaign {
     display: none;
 }
+.modal .navbar ul > a {
+    padding: 2px 50px 0 10px;
+    min-width: 162px;
+    display: inline-block;
+    height: 34px;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    font-size: 13px;
+    line-height: 15px;
+    color: #cecece;
+    font-family: var(--police_light);
+    position: relative;
+    pointer-events: none;
+}
+.modal .navbar ul > a.activated {
+    color: var(--couleur_4);
+    background-color: #efefef;
+    pointer-events: initial;    
+}
+.modal .navbar ul > a .fullfilled {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    display: inherit;
+    position: absolute;
+    top: 9px;
+    right: 8px;
+}
+.modal .navbar ul > a.done .fullfilled {
+    background-color: #37cb00;
+    border: 1px solid #37cb00;
+}
+.modal .navbar ul > a.done .fullfilled:before {
+    content: "\f00c";
+    font-family: "fontAwesome";
+    color: #ffffff;
+    font-size: 14px;
+    -webkit-text-stroke: 2px #37cb00;
+}
+.modal .tab-pane {
+    padding-top : 50px;
+}
+.modal .tab-pane p > label {
+    min-width: 240px;
+}
+.modal .tab-pane p > input {
+    min-width: 50%;
+}
+.modal .tab-pane p.form-line {
+    display: flex;
+    margin-bottom: 40px;
+    align-items: center;
+    flex-flow: row wrap;
+}
+.modal .tab-pane p.form-line .delete-input {
+    top: 0;
+    display: none;
+}
+.modal .tab-pane p a.nous-contactez {
+    text-decoration: underline !important;
+    color: var(--couleur_2);
+}
 /*-------campagnes---*/
 @media only screen and (max-width: 1199px){
+    .modal-dialog.big {
+        max-width: 95%;
+    }
     .fieldset.slideshow .top-container ul.fieldset-nav-tabs{
         margin-top: 20px;
     }
@@ -1732,6 +1811,26 @@ section .row.ending {
         padding: 0 10px;
     }
 }
+@media only screen and (max-width: 991px){
+    .modal .navbar ul > a {
+        width: 100%;
+    }
+    .modal .row {
+        padding: 0 45px 0 15px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .modal .tab-pane p > input {
+        min-width: 90%;
+        margin-bottom: 10px;
+    }
+    .modal .tab-pane p.form-line .delete-input {
+        margin-bottom: 10px;
+    }
+    .modal .tab-pane p > label {
+        padding-bottom: 10px;        
+    }
+}
 @media only screen and (max-width: 575px){
     section .row.list .campagne-name, section .row.list .campagne-metric {
         width: 100%;
@@ -1742,6 +1841,12 @@ section .row.ending {
     }
     section .row.ending {
         height: 20px;
+    }
+    .campaign-delete-move {
+        min-width: 100%;
+    }
+    .selected-count input {
+        width: 83%;
     }
 }
 @media only screen and (max-width: 379px){
