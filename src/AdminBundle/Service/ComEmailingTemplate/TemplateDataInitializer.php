@@ -20,12 +20,14 @@ class TemplateDataInitializer
 
         $content_img = new ComEmailTemplateContent();
         $content_img->setContentType(TemplateContentType::IMAGE)
-            ->setTemplate($template);
+            ->setTemplate($template)
+            ->setContentOrder(1);
         $template->addContent($content_img);
 
         $content_text = new ComEmailTemplateContent();
         $content_text->setContentType(TemplateContentType::TEXT)
-            ->setTemplate($template);
+            ->setTemplate($template)
+            ->setContentOrder(2);
         $template->addContent($content_text);
 
         return $template;

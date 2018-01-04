@@ -369,6 +369,7 @@ class CommunicationController extends AdminController
                         'manip_template_form' => $add_template_form->createView(),
                         'current_template_model' => $model,
                         'template_model_class' => new TemplateModel(),
+                        'content_type_class' => new TemplateContentType(),
                     )
                 );
                 $data = $json_response_data_provider->success();
@@ -396,6 +397,7 @@ class CommunicationController extends AdminController
                             'manip_template_form' => $add_template_form->createView(),
                             'current_template_model' => $com_email_template->getTemplateModel(),
                             'template_model_class' => new TemplateModel(),
+                            'content_type_class' => new TemplateContentType(),
                         )
                     );
                     $data['content'] = $form_view;

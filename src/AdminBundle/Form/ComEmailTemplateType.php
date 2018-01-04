@@ -13,6 +13,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Form\ComEmailTemplateContentType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 
 class ComEmailTemplateType extends AbstractType
 {
@@ -53,5 +55,21 @@ class ComEmailTemplateType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => ComEmailTemplate::class,
         ));
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        usort(
+            $view['contents']->children,
+            function ($a, $b) {
+                $aOrder = $a->vars['data']->getContentOrder();
+                $bOrder = $b->vars['data']->getContentOrder();
+                if ($aOrder == $bOrder) {
+                    return 0;
+                }
+
+                return ($aOrder < $bOrder) ? -1 : 1;
+            }
+        );
     }
 }

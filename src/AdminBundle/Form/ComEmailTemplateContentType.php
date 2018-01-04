@@ -15,7 +15,8 @@ class ComEmailTemplateContentType extends AbstractType
     {
         $builder->add('text_content', TextareaType::class)
             ->add('image', FileType::class)
-            ->add('content_type', HiddenType::class);
+            ->add('content_type', HiddenType::class)
+            ->add('content_order', HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

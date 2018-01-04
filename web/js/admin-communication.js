@@ -402,17 +402,18 @@ $(document).ready(function(){
      * ajout d'autres contenus
      * *********************************************************************************************
      */
-    function addContentTypeBlock(new_content_index, content_type)
+    function addContentConfigBock(new_content_index, content_type)
     {
-        var new_content_type = $('.block-model-container').find('.template-content-type-model').clone();
-        new_content_type.removeClass('template-content-type-model');
+        var new_content_type = $('.block-model-container').find('.template-content-config-model').clone();
+        new_content_type.removeClass('template-content-config-model');
         var html_new_content_type = new_content_type.wrap('<div class="model-wrapper"></div>').parent().html();
         html_new_content_type = html_new_content_type.replace(/__name__/g, new_content_index);
         new_content_type = $($.parseHTML(html_new_content_type));
         var add_content_link_block = $(".add-other-content-container");
         add_content_link_block.before(new_content_type);
         new_content_type.show();
-        new_content_type.find('input[type=hidden]').val(content_type);
+        new_content_type.find('input.content-type').val(content_type);
+        new_content_type.find('input.content-order').val(new_content_index + 1); // 1-based index
     }
 
     $(document).on('click', '.add-other-content-container .add-image-link', function(e){
@@ -430,7 +431,7 @@ $(document).ready(function(){
         add_content_link_block.before(new_image_content);
         new_image_content.show();
 
-        addContentTypeBlock(new_content_index, $('input[name=template_content_type_image]').val());
+        addContentConfigBock(new_content_index, $('input[name=template_content_type_image]').val());
     });
 
     $(document).on('click', '.add-other-content-container .add-text-link', function(e){
@@ -457,7 +458,7 @@ $(document).ready(function(){
         });
         new_text_content.show();
 
-        addContentTypeBlock(new_content_index, $('input[name=template_content_type_text]').val());
+        addContentConfigBock(new_content_index, $('input[name=template_content_type_text]').val());
     });
 
     /**
