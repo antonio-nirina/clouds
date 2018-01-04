@@ -5,6 +5,7 @@
         {% block stylesheets %}
             {{ parent() }}
             <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            {# <link href="{{ asset("datetimepicker/vendor/assets/stylesheets/bootstrap-datetimepicker-standalone.css  ") }}" rel="stylesheet"> #}
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -65,7 +66,7 @@
                             </button>
                         </div>
                         <div class="next-create">
-                            <div class="dropdown dossiers">
+                            <div class="dropdown clearable dossiers">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuDossier" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="DOSSIERS">
                                     DOSSIERS
                                 </button>
@@ -81,7 +82,7 @@
                                 <span class="delete-input"></span>
                             </div>
                             
-                            <div class="dropdown filtres">
+                            <div class="dropdown clearable filtres">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
                                     FILTRES
                                 </button>
@@ -113,7 +114,7 @@
                             </div>
                         </div>
                         <div class="next-create campaign-delete-move">
-                            <div class="dropdown move-to">
+                            <div class="dropdown clearable move-to">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuDossier" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="DÉPLACER DANS DOSSIER">
                                     DÉPLACER DANS DOSSIER
                                 </button>
@@ -270,11 +271,11 @@
                         <div class="modal-dialog modal-lg big" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <a class="close-modal" data-target="#suspend-new-campaign-modal" data-toggle="modal" aria-label="Close"></a>
+                                    <a class="previous"></a>
+                                    <a class="close-modal" data-target="#abort-new-campaign-modal" data-toggle="modal" aria-label="Close"></a>
                                 </div>
                                 <div class="content">
                                     <div><h4>créer une campagne</h4></div>
-
                                     <div class = "row">
                                         <div class= "col-12 col-md-12 navbar">
                                             <ul class="nav navbar-nav" id="create-tabs">
@@ -283,17 +284,17 @@
                                                     <span class="tab-spec">nom et objet de la campagne</span>
                                                     <span class="fullfilled"></span>
                                                 </a>
-                                                <a class="" data-toggle="tab"  href="#tab-form-level-2">
+                                                <a class="activated" data-toggle="tab"  href="#tab-form-level-2">
                                                     étape 2<br>
                                                     <span class="tab-spec">liste de diffusion</span>
                                                     <span class="fullfilled"></span>
                                                 </a>
-                                                <a class="" data-toggle="tab"  href="#tab-form-level-3">
+                                                <a class="activated" data-toggle="tab"  href="#tab-form-level-3">
                                                     étape 3<br>
                                                     <span class="tab-spec">template</span>
                                                     <span class="fullfilled"></span>
                                                 </a>
-                                                <a class="" data-toggle="tab"  href="#tab-form-level-4">
+                                                <a class="activated" data-toggle="tab"  href="#tab-form-level-4">
                                                     étape 4<br>
                                                     <span class="tab-spec">envoi de la campagne</span>
                                                     <span class="fullfilled"></span>
@@ -320,16 +321,115 @@
                                             </p>
 
                                             <div class="row centered">
-                                                <button class="btn-valider btn-delete-campaign">
+                                                <button class="btn-valider btn-end-step-1">
                                                     continuer
                                                 </button>
                                             </div>                                            
                                         </div>
-                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-2">2
+                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-2">
+                                            <div class="modal-step-2">
+                                                <label>sélectionner une liste de diffusion</label>
+                                                <div class="list-choice">
+                                                    <div class="dropdown clearable">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuListe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="CHOISIR UNE LISTE">
+                                                            CHOISIR UNE LISTE
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuListe">
+                                                            <a class="dropdown-item" href="#">
+                                                                LISTE 1
+                                                            </a>
+                                                            <a class="dropdown-item" href="#">
+                                                                LISTE 2
+                                                            </a>
+                                                            <a class="dropdown-item" href="#">
+                                                                MA LISTE
+                                                            </a>
+                                                            <a class="dropdown-item" href="#">
+                                                                SHORT LIST
+                                                            </a>                
+                                                        </div>
+                                                        <span class="delete-input"></span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <a href="#" class="add free-add add-template">
+                                                        créer une nouvelle liste
+                                                    </a>
+                                                </div>
+                                            </div> 
+                                            <div class="row centered">
+                                                <button class="btn-valider btn-end-step-2">
+                                                    continuer
+                                                </button>
+                                            </div>                                            
                                         </div>
-                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-3">3
+                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-3">
+                                            <div class="modal-step-3">
+                                                <div>
+                                                    <p>sélectionner le template d'e-mail que vous souhaitez utiliser ou modifier</p>
+                                                </div>                                                
+                                                <div class="create-new-template">
+                                                    <a href="#" class="add free-add add-list">
+                                                        créer un template
+                                                    </a>
+                                                </div>
+                                                <div class="template-lists">
+                                                    <div class="template-choice-container">
+                                                        <div class="template-choice">
+                                                            <img src="{{ asset("images/cloudsRewards/template_text_image.png") }}">
+                                                            <div class="checkbox-choice-container">
+                                                                <input id="text-image-option-radio" class="styled-radio" name="template_choice_option" type="radio">
+                                                                <label for="text-image-option-radio" ></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                       
+                                                </div>
+                                            </div>
+                                            <div class="row centered">
+                                                <button class="btn-valider btn-end-step-3">
+                                                    continuer
+                                                </button>
+                                            </div> 
                                         </div>
-                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-4">4
+                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-4">
+                                            <div class="modal-step-4">
+                                                <div>
+                                                    <input checked="checked" type="radio" id="send-now" name="program-campaign" value="now">
+                                                    <label for="send-now">
+                                                        <span></span>
+                                                        envoyer la campagne maintenant
+                                                    </label>
+                                                </div>                                                
+                                                <div>
+                                                    <input type="radio" id="programed-later" name="program-campaign" value="">
+                                                    <label for="programed-later">
+                                                        <span></span>
+                                                        programmer l'envoi de la campagne
+                                                    </label>
+                                                    <div class="select-date">
+                                                        {# {{ dump(programmed) }} #}
+                                                        {{ form_start(programmed) }}
+                                                        <p>choisissez le jour</p>
+                                                        <div>             
+                                                            {{ form_widget(programmed.date_launch.date) }}
+                                                            <div id="datetimepicker"></div>
+                                                        </div>
+                                                        <p>et l'heure</p>
+                                                        <div>
+                                                            {{ form_widget(programmed.date_launch.time) }}       
+                                                        </div>
+                                                        {{ form_end(programmed) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row centered">
+                                                <button class="btn-valider btn-end-step-4">
+                                                    envoyer
+                                                </button>
+                                                <button class="btn-valider btn-program-step-4">
+                                                    programmer
+                                                </button>
+                                            </div> 
                                         </div>
                                     </div>                              
                                     
@@ -339,7 +439,7 @@
                         </div>
                     </div> 
                     <!-- Modal suspendre création nouveau-->                    
-                    <div id="suspend-new-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                    <div id="abort-new-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg " role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -351,7 +451,7 @@
                                         <label>Vous allez suspendre le processus de création d'une campagne. <br> Celle-ci va s'enregistrer dans la liste de vos campagnes, vous pourrrez ainsi l'éditer ultérieurement</label>
                                     </div>                                
                                     <div class="row centered">
-                                        <button class="btn-valider btn-suspend-creation">
+                                        <button class="btn-valider btn-abort-creation" data-dismiss="modal" data-toggle="modal" data-target="#new-campaign-modal">
                                             suspendre
                                         </button>
                                     </div>
@@ -377,9 +477,9 @@
 {% block footer %}
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
-            {{ parent() }}
+            {{ parent() }}            
             <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>
-            <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>                 
+            <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>             
         {% endblock %}
     {% endembed %}
 {% endblock %}

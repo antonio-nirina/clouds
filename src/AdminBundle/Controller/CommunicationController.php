@@ -3,11 +3,14 @@ namespace AdminBundle\Controller;
 
 use AdminBundle\Component\CommunicationEmail\TemplateContentType;
 use AdminBundle\Component\CommunicationEmail\TemplateLogoAlignment;
+use AdminBundle\Component\CommunicationEmail\TemplateModel;
 use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
 use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Entity\HomePagePost;
+use AdminBundle\Form\CampaignDateType;
+use AdminBundle\Form\ComEmailTemplateType;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,8 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AdminBundle\Component\CommunicationEmail\TemplateModel;
-use AdminBundle\Form\ComEmailTemplateType;
 
 /**
  * @Route("/admin/communication")
@@ -181,10 +182,12 @@ class CommunicationController extends AdminController
 
         $campaign_folders = $campaign->getFolders();
         // $campaign_list = $campaign->getAllCampaigns();
+        $form = $this->createForm(CampaignDateType::class);
 
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
             "folders" => $campaign_folders["folders"],
             "list" => $campaign_list,
+            "programmed" => $form->createView()
         ));
     }
 

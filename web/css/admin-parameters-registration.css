@@ -1493,7 +1493,7 @@ section /*.row.filter*/ .dropdown-toggle {
     min-width: 10rem;
     text-align: left;
 }
-section /*.row.filter*/ .show .dropdown-toggle {
+section /*.row.filter*/ .dropdown.show .dropdown-toggle {
     visibility: hidden;
     box-shadow: none;
 }
@@ -1540,14 +1540,14 @@ section /*.row.filter*/ .dropdown .delete-input {
     background: none;
     background-color: #e5e5e5;
 }
-section .row.filter .add {
+.add {
     color: var(--couleur_1) !important;
     font-size: 14px;
 }
-.add.add-folder-link {
+.add.add-folder-link, .add.free-add {
     line-height: 28px;
 }
-.add.add-folder-link::before {
+.add.add-folder-link::before, .add.free-add::before {
     position: relative;
 }
 section .row.list .row {
@@ -1620,11 +1620,14 @@ section .row.ending {
 .dropdown button:hover {
     border-color: #404040;
 }
-#suspend-new-campaign-modal {/*second modal*/
+#abort-new-campaign-modal {/*second modal*/
     z-index: 1052 !important;
 }
-.modal-backdrop.show:nth-of-type(even) {/*second backdrop*/
-    /*z-index: 1051 !important;*/
+.modal-backdrop.show~.modal-backdrop.show {/*second backdrop*/
+    z-index: 1051 !important;
+}
+.modal-backdrop.show:only-child {/*correction multiple backdrop */
+    z-index: 1040 !important;
 }
 .modal-dialog.big {
     max-width: 1024px;
@@ -1692,8 +1695,17 @@ section .row.ending {
     min-width: 215px;
     padding-right: 15px;
 }
-.dropdown.move-to button,  .dropdown.move-to .dropdown-menu{
+.dropdown button,  .dropdown .dropdown-menu{
     width: 100%;
+}
+.dropdown.clearable button,  .dropdown.clearable .dropdown-menu{
+    width: -webkit-calc(100% - 35px);
+    width: -o-calc(100% - 35px);
+    width: -moz-calc(100% - 35px);
+    width: calc(100% - 35px);
+}
+.dropdown.dossiers button, .dropdown.filtres button, .dropdown.dossiers .dropdown-menu, .dropdown.filtres .dropdown-menu {
+    width: auto;
 }
 .add.dropdown-item {
     display: table;
@@ -1771,6 +1783,82 @@ section .row.ending {
     text-decoration: underline !important;
     color: var(--couleur_2);
 }
+.modal .modal-step-2 {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    padding-bottom: 30px;
+}
+.modal .modal-step-2 label {
+    min-width: 240px;
+}
+.modal .modal-step-2 .dropdown {
+    width: 220px;
+}
+.modal .modal-step-2 .list-choice {
+    min-width: 275px;
+}
+.modal .modal-step-2 > * {
+    padding-bottom : 15px;
+}
+.free-add {
+    padding-left: 0;
+}
+.modal-step-3 .template-choice{
+    max-width: 276px;
+    height: 198px;
+    background-color: #f9f9f9;
+    position: relative;
+}
+.modal-step-3 .template-choice:hover {
+    background-color: #e9e9e9;    
+    border: 1px solid #000000;
+}
+.modal-step-3 .create-new-template {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 45px;
+}
+.modal-step-3 .template-choice img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.modal-step-3 .template-choice .checkbox-choice-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.modal-step-4 input[type="radio"] {
+    display: none;
+}
+.modal .modal-content .modal-step-4 input[type="radio"] + label > span {
+    display:inline-block;
+    width:45px;
+    height:20px;
+    margin:-2px 10px 0 0 !important;
+    vertical-align:middle;
+    cursor:pointer;
+    background: url('../images/cloudsRewards/on-off-off.png') no-repeat;
+}
+.modal .modal-content .modal-step-4 input[type="radio"]:checked + label > span {
+    background: url('../images/cloudsRewards/on-off.png') no-repeat;
+}
+.modal-step-4 {
+    display: flex; 
+    justify-content: space-evenly;  
+    margin-bottom: 35px; 
+    flex-flow: row wrap;
+}
+.btn-program-step-4, .select-date {
+    display: none;
+}
+.select-date {
+    margin-top: 25px;
+}
 /*-------campagnes---*/
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {
@@ -1818,6 +1906,9 @@ section .row.ending {
     .modal .row {
         padding: 0 45px 0 15px;
     }
+    .modal-step-3 .create-new-template {
+        padding-right: 0;
+    }
 }
 @media only screen and (max-width: 767px){
     .modal .tab-pane p > input {
@@ -1829,6 +1920,10 @@ section .row.ending {
     }
     .modal .tab-pane p > label {
         padding-bottom: 10px;        
+    }
+    .modal-step-4 > div {
+        width: 100%;
+        margin-bottom: 15px;
     }
 }
 @media only screen and (max-width: 575px){
@@ -1848,10 +1943,16 @@ section .row.ending {
     .selected-count input {
         width: 83%;
     }
+    .modal-step-3 .create-new-template {
+        justify-content: center;
+    }
 }
 @media only screen and (max-width: 379px){
     section .row.list .campagne-metric {
         padding-left: 0;
+    }
+    .modal-step-3 .template-choice {
+        width: 100%;
     }
 }
 

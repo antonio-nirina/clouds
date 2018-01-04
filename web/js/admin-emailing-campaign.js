@@ -32,7 +32,7 @@ $(document).ready(function() {
         setTimeout(sendFilter(), 0);
     });
 
-    $(document).on('click','.filter .dropdown-item', function(e){//activer filtre
+    $(document).on('click','.clearable .dropdown-item', function(e){//activer filtre
         e.preventDefault();
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
@@ -169,9 +169,39 @@ $(document).ready(function() {
         }
     })
 
+    function showPrevious() {
+        if ($('#create-tabs a:first-child').hasClass('active')) {
+            $('#new-campaign-modal .previous').css('display','none');
+        } else {
+            $('#new-campaign-modal .previous').css('display','initial');
+        }
+    }
+
     $('#new-campaign-modal').on('shown.bs.modal', function() {//affichage de l'onglet courant
-        console.log('test');
-        $('#create-tabs a.activated:last').tab('show');        
+        $('#create-tabs a.activated:last').tab('show');
+        showPrevious();
     });
+
+    $("#new-campaign-modal .previous").on('click', function() {//affichage de l'onglet precedent
+        $('#create-tabs a.activated.active').prev('a').click();
+        showPrevious();
+    });
+
+    $("input[name=program-campaign]").on("change", function() {
+        if ($(this).val() =="now") {
+            $(".btn-end-step-4").css("display", "initial");
+            $(".btn-program-step-4").css("display", "none");
+            $(".select-date").css("display", "none");
+        } else {
+            $(".btn-end-step-4").css("display", "none");
+            $(".btn-program-step-4").css("display", "initial");
+            $(".select-date").css("display", "block");
+        }
+    });
+
+    // $('#datetimepicker12').datetimepicker({
+    //     inline: true,
+    //     sideBySide: true
+    // });
 
 });
