@@ -1986,7 +1986,7 @@ section .row.ending {
     padding-bottom: 35px;
 }
 
-.app-dialog .error-message-container{
+.app-dialog .error-message-container.centered-message{
     text-align: center;
 }
 
@@ -2338,6 +2338,10 @@ section .row.ending {
 
     .template-name-container .template-name-label-container{
         justify-content: flex-start;
+    }
+
+    #create-template-dialog .row{
+        padding: 0 !important;
     }
 }
 

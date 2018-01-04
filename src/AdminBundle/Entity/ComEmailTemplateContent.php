@@ -25,6 +25,7 @@ class ComEmailTemplateContent
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Image(
+     *     maxSize = "8M",
      *     mimeTypes = {"image/jpeg", "image/png", "image/gif"}
      * )
      */
@@ -39,6 +40,11 @@ class ComEmailTemplateContent
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ComEmailTemplate", inversedBy="contents")
      */
     private $template;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $content_order;
 
     /**
      * Get id
@@ -144,5 +150,29 @@ class ComEmailTemplateContent
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * Set contentOrder
+     *
+     * @param integer $contentOrder
+     *
+     * @return ComEmailTemplateContent
+     */
+    public function setContentOrder($contentOrder)
+    {
+        $this->content_order = $contentOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get contentOrder
+     *
+     * @return integer
+     */
+    public function getContentOrder()
+    {
+        return $this->content_order;
     }
 }

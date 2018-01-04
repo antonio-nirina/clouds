@@ -372,6 +372,7 @@ class CommunicationController extends AdminController
                         'manip_template_form' => $add_template_form->createView(),
                         'current_template_model' => $model,
                         'template_model_class' => new TemplateModel(),
+                        'content_type_class' => new TemplateContentType(),
                     )
                 );
                 $data = $json_response_data_provider->success();
@@ -399,11 +400,109 @@ class CommunicationController extends AdminController
                             'manip_template_form' => $add_template_form->createView(),
                             'current_template_model' => $com_email_template->getTemplateModel(),
                             'template_model_class' => new TemplateModel(),
+                            'content_type_class' => new TemplateContentType(),
                         )
                     );
                     $data['content'] = $form_view;
                     return new JsonResponse($data, 200);
                 }
+            }
+        }
+
+        return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+    }
+
+    /**
+     * @Route(
+     *     "/emailling/templates/edition-template/{template_id}",
+     *     name="admin_communication_emailing_templates_edit_template",
+     *     requirements={"template_id": "\d+"}
+     * )
+     */
+    public function emailingTemplatesEditTemplateAction(Request $request, $template_id)
+    {
+        $auth_checker = $this->get('security.authorization_checker');
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (false === $auth_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $com_email_template = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findOneBy(
+                array(
+                    'program' => $program,
+                    'id' => $template_id
+                )
+            );
+        if (is_null($com_email_template)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_factory = $this->get('form.factory');
+        $edit_template_form = $form_factory->createNamed(
+            'edit_template_form',
+            ComEmailTemplateType::class,
+            $com_email_template
+        );
+
+        $original_logo_image = $com_email_template->getLogo();
+        $original_contents_image = array();
+        foreach ($com_email_template->getContents() as $content) {
+            $original_contents_image[$content->getId()] = $content->getImage();
+        }
+
+        if ($request->isMethod('GET')) {
+            $form_view = $this->renderView(
+                'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
+                array(
+                    'manip_template_form' => $edit_template_form->createView(),
+                    'current_template_model' => $com_email_template->getTemplateModel(),
+                    'template_model_class' => new TemplateModel(),
+                    'content_type_class' => new TemplateContentType(),
+                    'edit_mode' => true,
+                )
+            );
+            $data = $json_response_data_provider->success();
+            $data['content'] = $form_view;
+            return new JsonResponse($data, 200);
+        }
+
+        if ($request->isMethod('POST')) {
+            if ($request->request->has("edit_template_form")) {
+                $edit_template_form->handleRequest($request);
+                if ($edit_template_form->isSubmitted() && $edit_template_form->isValid()) {
+                    $app_user = $this->getUser();
+                    $manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+                    $manager->editTemplate(
+                        $com_email_template,
+                        $app_user,
+                        $original_logo_image,
+                        $original_contents_image
+                    );
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->formError();
+                    $form_view =  $this->renderView(
+                        'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
+                        array(
+                            'manip_template_form' => $edit_template_form->createView(),
+                            'current_template_model' => $com_email_template->getTemplateModel(),
+                            'template_model_class' => new TemplateModel(),
+                            'content_type_class' => new TemplateContentType(),
+                            'edit_mode' => true,
+                        )
+                    );
+                    $data['content'] = $form_view;
+                    return new JsonResponse($data, 200);
+                }
+
             }
         }
 
