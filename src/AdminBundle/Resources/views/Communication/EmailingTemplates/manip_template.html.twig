@@ -60,15 +60,22 @@
                             {{ form_label(manip_template_form.logo, "image") }}
                         </div>
                         <div class="col-12 col-lg-10">
-                            {{ form_widget(manip_template_form.logo, {"attr": {"class": "hidden-input-file image-input"}}) }}
-                            <button class="btn-valider btn-upload choose-upload-img-button">
-                                <span class="upload"></span>
-                                choisissez un fichier...
-                            </button>
-                            <div class="upload-img-button-container hidden-button">
-                                <button class="upload-img-button">
-                                    <span class="blue-upload"></span><span class="img-name-container"></span>
-                                </button>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    {{ form_widget(manip_template_form.logo, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    <button class="btn-valider btn-upload choose-upload-img-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container hidden-button">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 error-message-container">
+                                    {{ form_errors(manip_template_form.logo) }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,18 +123,25 @@
                             {{ form_label(manip_template_form.contents[0].image, "image") }}
                         </div>
                         <div class="col-12 col-lg-10">
-                            {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input"}}) }}
-                            <button class="btn-valider btn-upload choose-upload-img-button">
-                                <span class="upload"></span>
-                                choisissez un fichier...
-                            </button>
-                            <div class="upload-img-button-container hidden-button">
-                                <button class="upload-img-button">
-                                    <span class="blue-upload"></span><span class="img-name-container"></span>
-                                </button>
-                            </div>
-                            <div class="info-container">
-                                <p>largeur optimale de l'image : 600px</p>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    <button class="btn-valider btn-upload choose-upload-img-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container hidden-button">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                        </button>
+                                    </div>
+                                    <div class="info-container">
+                                        <p>largeur optimale de l'image : 600px</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 error-message-container">
+                                    {{ form_errors(manip_template_form.contents[0].image) }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -212,18 +226,25 @@
                             {{ form_label(content.image, "image") }}
                         </div>
                         <div class="col-12 col-lg-10">
-                            {{ form_widget(content.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
-                            <button class="btn-valider btn-upload choose-upload-img-button">
-                                <span class="upload"></span>
-                                choisissez un fichier...
-                            </button>
-                            <div class="upload-img-button-container hidden-button">
-                                <button class="upload-img-button">
-                                    <span class="blue-upload"></span><span class="img-name-container"></span>
-                                </button>
-                            </div>
-                            <div class="info-container">
-                                <p>largeur optimale de l'image : 600px</p>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    {{ form_widget(content.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    <button class="btn-valider btn-upload choose-upload-img-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container hidden-button">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                        </button>
+                                    </div>
+                                    <div class="info-container">
+                                        <p>largeur optimale de l'image : 600px</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 error-message-container">
+                                    {{ form_errors(content.image) }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -263,7 +284,7 @@
                         {% endif %}
                         <span class="delete-input" {{ delete_input_visibility }}></span>
                     </div>
-                    <div class="col-12 col-sm-12 error-message-container">
+                    <div class="col-12 col-sm-12 error-message-container template-name-error">
                         {{ form_errors(manip_template_form.name) }}
                     </div>
                 </div>
@@ -299,18 +320,25 @@
                     {{ form_label(manip_template_form.contents.vars.prototype.image, "image") }}
                 </div>
                 <div class="col-12 col-lg-10">
-                    {{ form_widget(manip_template_form.contents.vars.prototype.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
-                    <button class="btn-valider btn-upload choose-upload-img-button">
-                        <span class="upload"></span>
-                        choisissez un fichier...
-                    </button>
-                    <div class="upload-img-button-container hidden-button">
-                        <button class="upload-img-button">
-                            <span class="blue-upload"></span><span class="img-name-container"></span>
-                        </button>
-                    </div>
-                    <div class="info-container">
-                        <p>largeur optimale de l'image : 600px</p>
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            {{ form_widget(manip_template_form.contents.vars.prototype.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                            <button class="btn-valider btn-upload choose-upload-img-button">
+                                <span class="upload"></span>
+                                choisissez un fichier...
+                            </button>
+                            <div class="upload-img-button-container hidden-button">
+                                <button class="upload-img-button">
+                                    <span class="blue-upload"></span><span class="img-name-container"></span>
+                                </button>
+                            </div>
+                            <div class="info-container">
+                                <p>largeur optimale de l'image : 600px</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            {{ form_errors(manip_template_form.contents.vars.prototype.image) }}
+                        </div>
                     </div>
                 </div>
             </div>

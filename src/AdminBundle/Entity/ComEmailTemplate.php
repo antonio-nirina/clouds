@@ -48,6 +48,10 @@ class ComEmailTemplate
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
+     * @Assert\Image(
+     *     maxSize = "8M",
+     *     mimeTypes = {"image/jpeg", "image/png", "image/gif"}
+     * )
      */
     private $logo;
 

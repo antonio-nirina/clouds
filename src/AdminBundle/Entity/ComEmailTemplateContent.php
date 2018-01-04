@@ -25,6 +25,7 @@ class ComEmailTemplateContent
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Image(
+     *     maxSize = "8M",
      *     mimeTypes = {"image/jpeg", "image/png", "image/gif"}
      * )
      */

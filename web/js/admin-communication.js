@@ -159,6 +159,9 @@ $(document).ready(function(){
 
     $('.btn-valider.continue').on('click', function(e){
         e.preventDefault();
+
+        $('#create-template-dialog').find('.error-message-container.general-message').text('');
+
         var template_model = null;
         if($('input#text-image-option-radio').is(':checked')){
             template_model = $('input[name=template_model_text_and_image]').val();
@@ -178,7 +181,7 @@ $(document).ready(function(){
                 },
                 statusCode: {
                     404: function(data){
-                        $('#create-template-dialog').find('.error-message-container').text(data.responseJSON.message);
+                        $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
                         $('#create-template-dialog').find('.modal-body-container').html('');
                     }
                 }
@@ -267,6 +270,12 @@ $(document).ready(function(){
                    // $('#create-template-dialog').modal('hide');
                    window.location.replace($('input[name=template_list_url]').val());
                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                }
             }
         });
     });
