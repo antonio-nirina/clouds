@@ -64,6 +64,53 @@ class ComEmailTemplateManager
         }
     }
 
+    public function editTemplate(
+        ComEmailTemplate $template,
+        AppUser $app_user,
+        $original_logo_image,
+        $original_contents_image,
+        $flush = true
+    ) {
+        $logo_image = $template->getLogo();
+        if (!is_null($logo_image)) {
+            $logo_image->move(
+                $this->container->getParameter('emailing_template_logo_upload_dir'),
+                $logo_image->getClientOriginalName()
+            );
+            $template->setLogo($logo_image->getClientOriginalName());
+        } else {
+            $template->setLogo($original_logo_image);
+        }
+
+        $template->setLastEditUser($app_user);
+
+        foreach ($template->getContents() as $content) {
+            if (TemplateContentType::IMAGE == $content->getContentType()) {
+                $image = $content->getImage();
+                if (!is_null($image)) {
+                    $image->move(
+                        $this->container->getParameter('emailing_template_image_content_upload_dir'),
+                        $image->getClientOriginalName()
+                    );
+                    $content->setImage($image->getClientOriginalName());
+                } else {
+                    if (!is_null($content->getId()) && array_key_exists($content->getId(), $original_contents_image)) {
+                        $content->setImage($original_contents_image[$content->getId()]);
+                    }
+                }
+            }
+
+            if (is_null($content->getId())) {
+                $content->setTemplate($template);
+                $this->em->persist($content);
+            }
+        }
+
+        if (true == $flush) {
+            $this->flush();
+        }
+    }
+
     public function flush()
     {
         $this->em->flush();

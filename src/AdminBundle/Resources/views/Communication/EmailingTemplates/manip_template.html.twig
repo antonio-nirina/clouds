@@ -63,6 +63,17 @@
                             <div class="row">
                                 <div class="col-12 col-sm-12">
                                     {{ form_widget(manip_template_form.logo, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    {% if manip_template_form.vars.value.logo is not empty %}
+                                    <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container">{{ manip_template_form.vars.value.logo }}</span>
+                                        </button>
+                                    </div>
+                                    {% else %}
                                     <button class="btn-valider btn-upload choose-upload-img-button">
                                         <span class="upload"></span>
                                         choisissez un fichier...
@@ -72,6 +83,7 @@
                                             <span class="blue-upload"></span><span class="img-name-container"></span>
                                         </button>
                                     </div>
+                                    {% endif %}
                                 </div>
                                 <div class="col-12 col-sm-12 error-message-container">
                                     {{ form_errors(manip_template_form.logo) }}
@@ -126,6 +138,17 @@
                             <div class="row">
                                 <div class="col-12 col-sm-12">
                                     {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    {% if manip_template_form.contents[0].vars.value.image is not empty %}
+                                    <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container">{{ manip_template_form.contents[0].vars.value.image }}</span>
+                                        </button>
+                                    </div>
+                                    {% else %}
                                     <button class="btn-valider btn-upload choose-upload-img-button">
                                         <span class="upload"></span>
                                         choisissez un fichier...
@@ -135,6 +158,7 @@
                                             <span class="blue-upload"></span><span class="img-name-container"></span>
                                         </button>
                                     </div>
+                                    {% endif %}
                                     <div class="info-container">
                                         <p>largeur optimale de l'image : 600px</p>
                                     </div>
@@ -229,6 +253,17 @@
                             <div class="row">
                                 <div class="col-12 col-sm-12">
                                     {{ form_widget(content.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    {% if content.vars.value.image is not empty %}
+                                    <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container">{{ content.vars.value.image }}</span>
+                                        </button>
+                                    </div>
+                                    {% else %}
                                     <button class="btn-valider btn-upload choose-upload-img-button">
                                         <span class="upload"></span>
                                         choisissez un fichier...
@@ -238,6 +273,7 @@
                                             <span class="blue-upload"></span><span class="img-name-container"></span>
                                         </button>
                                     </div>
+                                    {% endif %}
                                     <div class="info-container">
                                         <p>largeur optimale de l'image : 600px</p>
                                     </div>
@@ -307,9 +343,15 @@
         <button class="btn-valider modify hidden">
             modifier
         </button>
-        <button class="btn-valider validate hidden">
+        {% if edit_mode is defined and true == edit_mode %}
+        <button class="btn-valider validate validate-edit hidden" data-target-url="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": manip_template_form.vars.value.getId}) }}">
             valider
         </button>
+        {% else %}
+        <button class="btn-valider validate validate-add hidden">
+            valider
+        </button>
+        {% endif %}
     </div>
     <div class="block-model-container">
         <div class="template-config-block template-content-image-model template-content-block">

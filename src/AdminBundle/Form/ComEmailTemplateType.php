@@ -21,7 +21,7 @@ class ComEmailTemplateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class)
-            ->add('logo', FileType::class)
+            ->add('logo', FileType::class, array('data_class' => null))
             ->add('logo_alignment', ChoiceType::class, array(
                 'choices' => array(
                     'center' => TemplateLogoAlignment::CENTER,

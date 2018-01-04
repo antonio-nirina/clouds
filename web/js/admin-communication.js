@@ -188,6 +188,7 @@ $(document).ready(function(){
             });
             $('#choose-model-dialog').modal('hide');
             setTimeout(function(){
+                $('#create-template-dialog').find('a.previous').show();
                 $('#create-template-dialog').modal({
                     show: true,
                 });
@@ -248,10 +249,10 @@ $(document).ready(function(){
         $('#choose-model-dialog').modal('hide');
     });
 
-    $(document).on('click', '#create-template-dialog button.btn-valider.validate', function(e){
+    $(document).on('click', '#create-template-dialog button.btn-valider.validate.validate-add', function(e){
         var add_template_url = $('input[name=add_template_form_url]').val();
         e.preventDefault();
-        $('#create-template-dialog').find('.block-model-container').remove()
+        $('#create-template-dialog').find('.block-model-container').remove();
 
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
@@ -479,5 +480,66 @@ $(document).ready(function(){
      */
 
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * édition template
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.edit-template', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: $(this).attr('data-target-url'),
+            success: function(data){
+                $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                $('#create-template-dialog').find('a.previous').hide();
+                $('#create-template-dialog').find('.error-message-container.general-message').text('');
+                $('#create-template-dialog').modal('show');
+            },
+            statusCode: {
+                404: function(data){
+                    $('')
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('#create-template-dialog').modal('show');
+                }
+            }
+        });
+    });
 
+    $(document).on('click', '#create-template-dialog button.btn-valider.validate.validate-edit', function(e){
+        e.preventDefault();
+        $('#create-template-dialog').find('.block-model-container').remove();
+        for (name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].updateElement();
+        }
+        $('#create-template-dialog form').ajaxSubmit({
+            type: 'POST',
+            url: $(this).attr('data-target-url'),
+            success: function(data){
+                if(data['error']){
+                    $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                    $('#create-template-dialog').find('.btn-valider.save').trigger('click');
+                    installColorPicker();
+                    installWysiwyg();
+                } else {
+                    window.location.replace($('input[name=template_list_url]').val());
+                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                }
+            }
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * édition template
+     * *********************************************************************************************
+     */
 });
