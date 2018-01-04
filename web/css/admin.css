@@ -3918,6 +3918,7 @@ img[src='']{
 .sidebar-menu-container .sidebar-menu{
 	display: flex !important;
 	justify-content: center;
+	padding: .75rem 0;
 }
 
 .sidebar-menu-container .sidebar-menu .img-menu{
@@ -3951,8 +3952,6 @@ img[src='']{
 	display: block !important;
 	white-space: normal !important;
 	line-height: 14px;
-
-	max-width: 65px;
 }
 
 .sidebar-menu-container .sidebar-menu:hover .text-menu, .sidebar-menu-container .sidebar-menu.active .text-menu{
