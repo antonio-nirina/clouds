@@ -18,7 +18,7 @@ class ComEmailTemplateContent
     private $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $text_content;
 
