@@ -69,6 +69,8 @@ class ComEmailTemplateManager
         AppUser $app_user,
         $original_logo_image,
         $original_contents_image,
+        $delete_logo_image_command,
+        $delete_contents_image_command,
         $flush = true
     ) {
         $logo_image = $template->getLogo();
@@ -79,10 +81,13 @@ class ComEmailTemplateManager
             );
             $template->setLogo($logo_image->getClientOriginalName());
         } else {
-            $template->setLogo($original_logo_image);
+            if ("true" != $delete_logo_image_command) {
+                $template->setLogo($original_logo_image);
+            }
         }
 
         $template->setLastEditUser($app_user);
+        $arr_delete_contents_image_command = explode(',', $delete_contents_image_command);
 
         foreach ($template->getContents() as $content) {
             if (TemplateContentType::IMAGE == $content->getContentType()) {
@@ -94,7 +99,10 @@ class ComEmailTemplateManager
                     );
                     $content->setImage($image->getClientOriginalName());
                 } else {
-                    if (!is_null($content->getId()) && array_key_exists($content->getId(), $original_contents_image)) {
+                    if (!is_null($content->getId())
+                        && array_key_exists($content->getId(), $original_contents_image)
+                        && !in_array($content->getId(), $arr_delete_contents_image_command)
+                    ) {
                         $content->setImage($original_contents_image[$content->getId()]);
                     }
                 }

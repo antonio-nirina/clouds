@@ -47,7 +47,9 @@ class ComEmailTemplateType extends AbstractType
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
             ))
-            ->add('template_model', HiddenType::class);
+            ->add('template_model', HiddenType::class)
+            ->add('delete_logo_image_command', HiddenType::class, array('mapped' => false))
+            ->add('delete_contents_image_command', HiddenType::class, array('mapped' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
