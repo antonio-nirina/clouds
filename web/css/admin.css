@@ -3579,15 +3579,16 @@ th {
     border-radius: 50px;
     font-size: 14px;
     padding: 7px 15px 7px 5px;
-    min-width: 50px;
+    /*min-width: 50px;*/
     cursor: pointer;
-    min-height: 35px;
-    max-height: 35px;
+    /*min-height: 35px;
+    max-height: 35px;*/
     max-width: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
     line-height: 0;
 	outline: 0;
+
+	display: flex;
+	align-items: center;
 }
 
 .upload-img-button:focus{
@@ -3615,6 +3616,7 @@ th {
 span.blue-upload {
 	height: 19px;
 	width: 35px;
+	min-width: 35px;
 	display: inline-flex;
     /*padding: 20px;*/
 
@@ -3635,8 +3637,13 @@ span.blue-upload {
 }
 
 span.img-name-container{
-	position: relative;
-	top: -3px;
+	white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    display: inline-block;
+    height: 20px;
+    text-overflow: ellipsis;
+    line-height: 20px;
 }
 
 .upload-img-button-container:hover span.blue-upload{
