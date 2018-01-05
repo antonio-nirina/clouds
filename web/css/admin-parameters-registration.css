@@ -2197,6 +2197,11 @@ section .row.ending {
     display: inline-block;
 }
 
+#create-template-dialog .delete-link.delete-image{
+    position: relative;
+    top: 1px;
+}
+
 .option-title{
     display: block;
     margin-bottom: 10px;

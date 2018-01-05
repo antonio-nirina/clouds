@@ -307,9 +307,14 @@ $(document).ready(function(){
 
     $(document).on('change', '.image-input', function(){
         if('' == $(this).val().trim()){
-            $(this).parent().find('.upload-img-button').addClass('hidden-button');
-            $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
-            $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
+            var initial_image_name = $(this).parent().find('input.initial-image').val();
+            if('' == initial_image_name.trim()){
+                $(this).parent().find('.upload-img-button').addClass('hidden-button');
+                $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
+                $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
+            } else {
+                $(this).parent().find('.img-name-container').text(initial_image_name);
+            }
         } else {
             $(this).parent().find('.upload-img-button').css('background-position', '15px');
             $(this).parent().find('.upload-img-button').removeClass('hidden-button');
@@ -317,6 +322,7 @@ $(document).ready(function(){
             $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
             var image_file_name = $(this).val().split('\\').pop();
             $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
+            $(this).parent().find('.delete-link.delete-image').show();
         }
     });
     /**
@@ -540,6 +546,57 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Communication - Emailing - Templates
      * édition template
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Suppression logo et image de contenu
+     * *********************************************************************************************
+     */
+    function resetUploadButton(current_delete_link)
+    {
+        var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+        wrapper.trigger('reset');
+        current_delete_link.parent().find('input[type=file]').unwrap();
+        current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+        current_delete_link.parent().find('.upload-img-button-container').addClass('hidden-button');
+        current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
+        current_delete_link.hide();
+    }
+
+    $(document).on('click', '.delete-logo-image', function(e){
+        e.preventDefault();
+        var current_delete_link = $(this);
+        resetUploadButton(current_delete_link);
+        $('#create-template-dialog').find('input.delete-logo-image-command-hidden').val(true);
+    });
+
+    $(document).on('click', '.delete-content-image', function(e){
+        e.preventDefault();
+        var current_delete_link = $(this);
+        resetUploadButton(current_delete_link);
+
+        var delete_contents_image_hidden = $('#create-template-dialog').find('input.delete-contents-image-command-hidden');
+        var current_delete_contents_image_command = delete_contents_image_hidden.val();
+        var content_id = $(this).attr('data-content-id');
+        if(('undefined' != typeof content_id) && ('' != content_id)){
+            if('' == current_delete_contents_image_command){
+                delete_contents_image_hidden.val(content_id);
+            } else {
+                var arr_current_delete_contents_image_command = current_delete_contents_image_command.split(',');
+                if(!arr_current_delete_contents_image_command.includes(content_id)){
+                    delete_contents_image_hidden.val(current_delete_contents_image_command+','+content_id);
+                }
+            }
+        }
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Suppression logo et image de contenu
      * *********************************************************************************************
      */
 });

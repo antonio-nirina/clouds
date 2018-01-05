@@ -73,6 +73,8 @@
                                             <span class="blue-upload"></span><span class="img-name-container">{{ manip_template_form.vars.value.logo }}</span>
                                         </button>
                                     </div>
+                                    <a href="#" class="delete-link delete-image delete-logo-image"></a>
+                                    <input type="hidden" class="initial-image" value="{{ manip_template_form.vars.value.logo }}">
                                     {% else %}
                                     <button class="btn-valider btn-upload choose-upload-img-button">
                                         <span class="upload"></span>
@@ -83,6 +85,8 @@
                                             <span class="blue-upload"></span><span class="img-name-container"></span>
                                         </button>
                                     </div>
+                                    <a href="#" class="delete-link delete-image delete-logo-image" style="display: none;"></a>
+                                    <input type="hidden" class="initial-image">
                                     {% endif %}
                                 </div>
                                 <div class="col-12 col-sm-12 error-message-container">
@@ -148,6 +152,8 @@
                                             <span class="blue-upload"></span><span class="img-name-container">{{ manip_template_form.contents[0].vars.value.image }}</span>
                                         </button>
                                     </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" data-content-id="{{ manip_template_form.contents[0].vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="{{ manip_template_form.contents[0].vars.value.image }}">
                                     {% else %}
                                     <button class="btn-valider btn-upload choose-upload-img-button">
                                         <span class="upload"></span>
@@ -158,6 +164,8 @@
                                             <span class="blue-upload"></span><span class="img-name-container"></span>
                                         </button>
                                     </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" style="display: none;" data-content-id="{{ manip_template_form.contents[0].vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="">
                                     {% endif %}
                                     <div class="info-container">
                                         <p>largeur optimale de l'image : 600px</p>
@@ -263,6 +271,8 @@
                                             <span class="blue-upload"></span><span class="img-name-container">{{ content.vars.value.image }}</span>
                                         </button>
                                     </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" data-content-id="{{ content.vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="{{ content.vars.value.image }}">
                                     {% else %}
                                     <button class="btn-valider btn-upload choose-upload-img-button">
                                         <span class="upload"></span>
@@ -273,6 +283,8 @@
                                             <span class="blue-upload"></span><span class="img-name-container"></span>
                                         </button>
                                     </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" style="display: none;" data-content-id="{{ content.vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="">
                                     {% endif %}
                                     <div class="info-container">
                                         <p>largeur optimale de l'image : 600px</p>
@@ -333,9 +345,11 @@
             </div>
         </div>
     </div>
-
-    {{ form_widget(manip_template_form.template_model, {"attr": {"class": "hidden-template-model"}}) }}
-
+    <div>
+        {{ form_widget(manip_template_form.template_model, {"attr": {"class": "hidden-template-model"}}) }}
+        {{ form_widget(manip_template_form.delete_logo_image_command, {"attr": {"class": "delete-logo-image-command-hidden"}}) }}
+        {{ form_widget(manip_template_form.delete_contents_image_command, {"attr": {"class": "delete-contents-image-command-hidden"}}) }}
+    </div>
     <div class="submit-button-container">
         <button class="btn-valider save">
             enregistrer
@@ -374,6 +388,7 @@
                                     <span class="blue-upload"></span><span class="img-name-container"></span>
                                 </button>
                             </div>
+                            <a href="#" class="delete-link delete-image delete-content-image" style="display:none"></a>
                             <div class="info-container">
                                 <p>largeur optimale de l'image : 600px</p>
                             </div>

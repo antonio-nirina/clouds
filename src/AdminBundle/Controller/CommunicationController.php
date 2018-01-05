@@ -483,7 +483,9 @@ class CommunicationController extends AdminController
                         $com_email_template,
                         $app_user,
                         $original_logo_image,
-                        $original_contents_image
+                        $original_contents_image,
+                        $edit_template_form->get('delete_logo_image_command')->getData(),
+                        $edit_template_form->get('delete_contents_image_command')->getData()
                     );
                     $data = $json_response_data_provider->success();
                     return new JsonResponse($data, 200);

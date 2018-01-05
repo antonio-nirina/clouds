@@ -4,6 +4,7 @@ CKEDITOR.plugins.add( 'insertionlienscloudrewards', {
         //Creating an Editor Command
 		editor.addCommand( 'openPopUpLink', {
 			exec: function( editor ) {
+				
 				/*
 				var now = new Date();
 				editor.insertHtml( 'The current date and time is: <em>' + now.toString() + '</em>' );
@@ -17,16 +18,16 @@ CKEDITOR.plugins.add( 'insertionlienscloudrewards', {
 
 				
 				var HTML = '';
-				HTML += '<h3 class="titrePopUp">créer un lien<span id="fermerPopUp">X</span></h3>';
+				HTML += '<h3 class="titrePopUp"><span id="fermerPopUp">X</span></h3>';
 				HTML += '<div class = "conteneur-form-insert-img-ckeditor">';
-				//HTML += '<div class="titre-section-page-standard"><span>créer un lien</span></div>';
+				HTML += '<div class="titre-section-page-standard"><span>créer un lien</span></div>';
 				HTML += '<form class = "formAjoutLienPopUp" name = "ajouterLien" method = "POST" action = "">';
 				
 				HTML += '<div class = "clearBoth"></div>';
 				
 				HTML += '<label class="champForm">';
 				HTML += '<span class = "lib-form">url</span>';
-				HTML += '<input class = "input-form-text" type = "text" name = "url" value = "http://" style = "padding-left:10px!important;width:80%;">';
+				HTML += '<input id = "url-val" class = "input-form-text" type = "text" name = "url" value = "" style = "padding-left:10px!important;width:80%;">';
 				HTML += '<span class="delete-input"></span>';
 				HTML += '<p style = "clear: both;width: 80%;float: right;margin-right: 33px;">le lien s\'ouvrira dans un nouvel onglet du navigateur</p>';
 				HTML += '</label>';
@@ -38,7 +39,7 @@ CKEDITOR.plugins.add( 'insertionlienscloudrewards', {
 				
 				HTML += '<label class="champForm">';
 				HTML += '<span class = "lib-form">mailto</span>';
-				HTML += '<input class = "input-form-text" type = "text" name = "mailto" style = "padding-left:10px!important;width:80%;" placeholder = "service_client@cloudrewards.com">';
+				HTML += '<input id = "mail-val" class = "input-form-text" type = "text" name = "mailto" style = "padding-left:10px!important;width:80%;" placeholder = "service_client@cloudrewards.com">';
 				HTML += '<span class="delete-input"></span>';
 				HTML += '</label>';
 				
@@ -48,7 +49,7 @@ CKEDITOR.plugins.add( 'insertionlienscloudrewards', {
 				
 				HTML += '<label class="champForm">';
 				HTML += '<span class = "lib-form">texte à afficher</span>';
-				HTML += '<input class = "input-form-text" type = "text" name = "texte_afficher" style = "padding-left:10px!important;width:80%;" placeholder = "service_client@cloudrewards.com">';
+				HTML += '<input id = "text-val" class = "input-form-text" type = "text" name = "texte_afficher" style = "padding-left:10px!important;width:80%;" placeholder = "service_client@cloudrewards.com">';
 				HTML += '<span class="delete-input"></span>';
 				HTML += '</label>';
 				
@@ -59,6 +60,15 @@ CKEDITOR.plugins.add( 'insertionlienscloudrewards', {
 				HTML += 'valider';
 				HTML += '</button>';
 				HTML += '</label>';
+				
+				HTML += '<div id = "msg-erreur">';
+				HTML += '<ul>';
+				HTML += '<li>Le champ "texte à afficher" est obligatoire</li>';
+				HTML += '<li>L\' une des 2 champs "url" et "mailto" doit être renseigner</li>';
+				HTML += '</ul>';
+				HTML += '</div>';
+				
+				HTML += '<input id = "id_editor_name" type = "hidden" name = "editor_name" value = "'+editor.name+'">';
 				
 				HTML += '</form>';
 				HTML += '</div>';
@@ -83,21 +93,48 @@ $(document).ready(function(){
 	});
 	
 	$(document).on('click', 'button#submit-form-ajout-url', function(){
-		var UrlVal = $('input#url-valeur-popup').val();
-		var UrlType = $('select#url-type-popup').val();
+		var urlval = $('input#url-val').val();
+		var mailval = $('input#mail-val').val();
+		var textval = $('input#text-val').val();
 		
-		if($.trim(UrlVal) != '' && $.trim(UrlType) != ''){
-			var UrlTxt = UrlType+''+UrlVal;
-			var IdCk = $('li.page-list-active').attr('id');
-			var ArrayIdCk = new Array;
-			ArrayIdCk = IdCk.split('-');
-			var Id = ArrayIdCk[3];
-			
-			var link_html = '<a href = "'+UrlTxt+'">'+UrlTxt+'</a>';
-			var editorName = 'login_portal_data_form_text_'+Id+'';
-			var editor = CKEDITOR.instances[editorName];
-			editor.insertHtml(link_html);
-			$('span#fermerPopUp').click();
+		var editorName = $('input#id_editor_name').val();
+		var editor = CKEDITOR.instances[editorName];
+		
+		if($.trim(textval) != ''){
+			if($.trim(urlval) != '' && $.trim(mailval) != ''){
+				$('div#msg-erreur ul').show();
+			}else if($.trim(urlval) != ''){
+				
+				var Href = '';
+				if(urlval.indexOf('http://') == '-1'){
+					Href += '<a target = "_blank" href = "http://'+urlval+'">'+textval+'</a>';
+				}else{
+					Href += '<a target = "_blank" href = "'+urlval+'">'+textval+'</a>';
+				}
+				
+				var Span = editor.document.createElement('span');
+				Span.setHtml(Href);
+				editor.insertElement(Span);
+				
+				$('span#fermerPopUp').click();
+			}else if($.trim(mailval) != ''){
+				var Href = '';
+				if(mailval.indexOf('mailto:') == '-1'){
+					Href += '<a href = "mailto:'+mailval+'">'+textval+'</a>';
+				}else{
+					Href += '<a href = "'+mailval+'">'+textval+'</a>';
+				}
+				
+				var Span = editor.document.createElement('span');
+				Span.setHtml(Href);
+				editor.insertElement(Span);
+				
+				$('span#fermerPopUp').click();
+			}else{
+				$('div#msg-erreur ul').show();
+			}
+		}else{
+			$('div#msg-erreur ul').show();
 		}
 	});
 });
