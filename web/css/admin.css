@@ -3613,6 +3613,12 @@ th {
 	cursor: pointer;
 }
 
+@media only screen and (max-width: 991px) {
+	.upload-img-button-container{
+		max-width: 85%;
+	}
+}
+
 span.blue-upload {
 	height: 19px;
 	width: 35px;
