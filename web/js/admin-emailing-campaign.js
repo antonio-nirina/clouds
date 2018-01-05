@@ -199,9 +199,10 @@ $(document).ready(function() {
         }
     });
 
-    // $('#datetimepicker12').datetimepicker({
-    //     inline: true,
-    //     sideBySide: true
-    // });
-
+    $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+    $('#calendar').datepicker({
+        minDate: new Date(),
+        altField: ".date_launch_campaign",
+        altFormat: "DD, d MM, yy"
+    });
 });

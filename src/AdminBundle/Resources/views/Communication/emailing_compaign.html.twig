@@ -5,7 +5,7 @@
         {% block stylesheets %}
             {{ parent() }}
             <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
-            {# <link href="{{ asset("datetimepicker/vendor/assets/stylesheets/bootstrap-datetimepicker-standalone.css  ") }}" rel="stylesheet"> #}
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -411,8 +411,8 @@
                                                         {{ form_start(programmed) }}
                                                         <p>choisissez le jour</p>
                                                         <div>             
-                                                            {{ form_widget(programmed.date_launch.date) }}
-                                                            <div id="datetimepicker"></div>
+                                                            {{ form_widget(programmed.date_launch.date, {"attr": {"class" : "date_launch_campaign", "style": "display:none;"}}) }}
+                                                            <div id="calendar"></div>
                                                         </div>
                                                         <p>et l'heure</p>
                                                         <div>
@@ -477,7 +477,9 @@
 {% block footer %}
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
-            {{ parent() }}            
+            {{ parent() }}        
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
             <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>
             <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>             
         {% endblock %}
