@@ -9,7 +9,7 @@
                 <div class = "content-center-footer">
                     <ul class = "page-standards-footer">
 					{% for Pages in ListePages %}
-						<li class = "{{ Pages.TitrePage }}"><a class = "light" href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': Pages.Slug}) }}" target = "_blank">{{ Pages.MenuPage }}</a></li>
+						<li class = "{{ Pages.TitrePage }}"><a class = "light" href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': Pages.Slug}) }}" >{{ Pages.MenuPage }}</a></li>
 					{% endfor %}
                     </ul>
 

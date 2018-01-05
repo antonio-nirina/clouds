@@ -4079,3 +4079,11 @@ span.block{
 .champForm .btn-valider{
 	padding: 5px 9px!important!important;
 }
+
+div#msg-erreur ul{
+	margin: 0;
+	padding: 0;
+	margin-left: 14px;
+	font-size:13px;
+	display:none;
+}
