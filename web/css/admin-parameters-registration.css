@@ -1859,7 +1859,7 @@ section .row.ending {
 .select-date {
     margin-top: 25px;
 }
-/*calendar*/
+/*---------calendar---------*/
 ..ui-widget-content {
     background-color: ;
 }
@@ -1932,11 +1932,20 @@ section .row.ending {
     border: 1px solid #000000;
     padding: 10px;
     margin-bottom: 25px;
+    border-radius: 0;
 }
 .ui-datepicker-prev.ui-corner-all, .ui-datepicker-next.ui-corner-all {
-    background: #ffffff;
-    border: 1px solid #000000;
-    position: relative;
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    border-radius: 0;
+    font-weight: inherit !important;
+    top: 5px !important;
+}
+.ui-datepicker-prev.ui-corner-all {
+    left: 2px !important;
+}
+.ui-datepicker-next.ui-corner-all {
+    right: 2px !important;
 }
 .ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
     background: none !important;
@@ -1956,9 +1965,61 @@ section .row.ending {
     transform: translateX(-50%) translateY(-50%);
     display: block;
     position: absolute;
-    -webkit-text-stroke: 2px #ffffff;
+    -webkit-text-stroke: 2px #ffffff !important;
+}
+/*---------time select --------*/
+.chosen-select + .chosen-container {
+    border: 1px solid #404040;
+    height: 35px;
+    border-radius: 5px;
+}
+.chosen-container, .chosen-container *{
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+}
+.chosen-container-single .chosen-single, .chosen-container-single .chosen-single span {    
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    line-height: 30px;
+    border: none !important;
+}
+.chosen-container-single .chosen-single span {
+    padding: 0 15px;
+}
+.chosen-container-single .chosen-single div {
+    display: none;
+}
+.chosen-container-single .chosen-drop {
+    margin-top: 2px;
+}
+.chosen-container .chosen-results {
+    margin: 0;
+}
+.chosen-container-single .chosen-single:after{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 32px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+.between-hour {
+    padding: 0 5px;
 }
 /*-------campagnes---*/
+#new-campaign-modal .hidden {
+    display: none !important;
+}
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {
         max-width: 95%;
@@ -2287,7 +2348,7 @@ section .row.ending {
 }
 
 .logo-alignment-option .text-label{
-    margin-left: 10px;
+    margin-left: 10px !important;
 }
 
 .logo-alignment-option .styled-radio.bigger + label{

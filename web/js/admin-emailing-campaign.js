@@ -205,4 +205,260 @@ $(document).ready(function() {
         altField: ".date_launch_campaign",
         altFormat: "DD, d MM, yy"
     });
+
+    $(".chosen-select").chosen({//hour selectable
+        disable_search: true,
+        width: "70px"
+    });
+
+    function installWysiwyg()
+    {
+        var ckeditor_config_light_path = $('input[name=ckeditor_config_light_path]').val();
+        var text_area_list = $('textarea.large-textarea');
+        text_area_list.each(function(){
+            CKEDITOR.replace( $(this).attr('id'), {
+                language: 'fr',
+                uiColor: '#9AB8F3',
+                height: 150,
+                width: 600,
+                customConfig: ckeditor_config_light_path
+            });
+        });
+    }
+
+    function installColorPicker()
+    {
+        if ($('.color-value').length >0 ) {
+            $('.color-value').each( function() {
+                $(this).minicolors({
+                    control: $(this).attr('data-control') || 'brightness',
+                    defaultValue: $(this).attr('data-defaultValue') || '',
+                    format: $(this).attr('data-format') || 'hex',
+                    keywords: $(this).attr('data-keywords') || '',
+                    inline: $(this).attr('data-inline') === 'true',
+                    letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                    opacity: $(this).attr('data-opacity'),
+                    position: $(this).attr('data-position') || 'bottom left',
+                    swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+                    change: function(value, opacity) {
+                        if( !value ) return;
+                        if( opacity ) value += ', ' + opacity;
+                    },
+                    theme: 'bootstrap'
+                });
+            });
+        }
+    }
+
+    $('.add.free-add.add-list').on('click', function(e){//création nouveau template
+        e.preventDefault();
+        var template_model = "text-and-image";
+
+        if(null !== template_model){
+            var add_template_url = $('input[name=add_template_form_url]').val();
+            add_template_url = add_template_url+'/'+template_model;
+            console.log(add_template_url);
+            $.ajax({
+                type: 'GET',
+                url: add_template_url,
+                success: function(data){
+                    $('#new-campaign-modal').find('.modal-step-3').html(data.content);
+                    var text = "Créer votre email, il sera sauvegardé dans l'onglet \"templates\", vous pourrez le réutiliser et/ou modifier ultérieurement.";
+                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').html(text).css({"margin-bottom": "28px", "display": "block"});
+                    $('#new-campaign-modal').find(".options-container .col-lg-4").css({"max-width": "300px"});
+                    $('#new-campaign-modal').find(".footer-text-option-label").css({"max-width": "80%"});
+                    $(".btn-valider.modify").addClass("hidden");
+                    $(".btn-valider.modify").addClass("hidden");
+                    $(".btn-valider.validate.validate-add").addClass("hidden");
+                    $(".btn-end-step-3").addClass("hidden");
+                    // installer color picker
+                    installColorPicker();
+                    // installer wysiwyg
+                    installWysiwyg();
+                },
+                statusCode: {
+                    404: function(data){
+                        $('#new-campaign-modal').find('.modal-step-3 > .error-message-container').text(data.responseJSON.message);                        
+                    }
+                }
+            });
+        }
+    });
+
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * modal création template - enregistrement et validation
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.model-step-3 .btn-valider.save', function(e){
+        e.preventDefault();
+        $('.options-wrapper').addClass('active');
+        $('.model-step-3').find('.btn-valider.modify').removeClass('hidden');
+        $('.model-step-3').find('.btn-valider.validate').removeClass('hidden');
+        $('.model-step-3').find('.template-name-container').removeClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    $(document).on('click', '.model-step-3 .btn-valider.modify', function(e){
+        e.preventDefault();
+        $('.options-wrapper').removeClass('active');
+        $('.model-step-3').find('.btn-valider.validate').addClass('hidden');
+        $('.model-step-3').find('.template-name-container').addClass('hidden');
+        $('.model-step-3').find('.btn-valider.save').removeClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+
+    //validation de template
+    $(document).on('click', '.modal-step-3 button.btn-valider.validate.validate-add', function(e){
+        var add_template_url = $('input[name=add_template_form_url]').val();
+        e.preventDefault();
+        $('.modal-step-3').find('.block-model-container').remove();
+
+        for (name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].updateElement();
+        }
+
+        $('.modal-step-3 form').ajaxSubmit({
+            type: 'POST',
+            url: add_template_url,
+            success: function(data){
+               if(data['error']){
+                    $('#new-campaign-modal').find('.modal-step-3').
+                   $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                   $('#create-template-dialog').find('.btn-valider.save').trigger('click');
+                   installColorPicker();
+                   installWysiwyg();
+               } else {
+                   // $('#create-template-dialog').modal('hide');
+                   window.location.replace($('input[name=template_list_url]').val());
+               }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                }
+            }
+        });
+    });
+
+    //upload images
+    $(document).on('click', '.btn-upload.choose-upload-img-button', function(e){
+        e.preventDefault();
+        $(this).parent().find('.image-input').trigger('click');
+    });
+
+    $(document).on('click', '.upload-img-button-container', function(e){
+        e.preventDefault();
+        $(this).parent().find('.image-input').trigger('click');
+    });
+
+    $(document).on('change', '.image-input', function(){
+        if('' == $(this).val().trim()){
+            var initial_image_name = $(this).parent().find('input.initial-image').val();
+            if('' == initial_image_name.trim()){
+                $(this).parent().find('.upload-img-button').addClass('hidden-button');
+                $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
+                $(this).parent().find('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
+            } else {
+                $(this).parent().find('.img-name-container').text(initial_image_name);
+            }
+        } else {
+            $(this).parent().find('.upload-img-button').css('background-position', '15px');
+            $(this).parent().find('.upload-img-button').removeClass('hidden-button');
+            $(this).parent().find('.upload-img-button-container').removeClass('hidden-button');
+            $(this).parent().find('.btn-upload.choose-upload-img-button').addClass('hidden-button');
+            var image_file_name = $(this).val().split('\\').pop();
+            $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
+            $(this).parent().find('.delete-link.delete-image').show();
+        }
+    });
+
+    //reset upload images
+    function resetUploadButton(current_delete_link)
+    {
+        var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+        wrapper.trigger('reset');
+        current_delete_link.parent().find('input[type=file]').unwrap();
+        current_delete_link.parent().find('.upload-img-button').addClass('hidden-button');
+        current_delete_link.parent().find('.upload-img-button-container').addClass('hidden-button');
+        current_delete_link.parent().find('.choose-upload-img-button').removeClass('hidden-button');
+        current_delete_link.hide();
+    }
+
+    $(document).on('click', '.delete-logo-image', function(e){
+        e.preventDefault();
+        var current_delete_link = $(this);
+        resetUploadButton(current_delete_link);
+        $('#create-template-dialog').find('input.delete-logo-image-command-hidden').val(true);
+    });
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * ajout d'autres contenus
+     * *********************************************************************************************
+     */
+    function addContentConfigBock(new_content_index, content_type)
+    {
+        var new_content_type = $('.block-model-container').find('.template-content-config-model').clone();
+        new_content_type.removeClass('template-content-config-model');
+        var html_new_content_type = new_content_type.wrap('<div class="model-wrapper"></div>').parent().html();
+        html_new_content_type = html_new_content_type.replace(/__name__/g, new_content_index);
+        new_content_type = $($.parseHTML(html_new_content_type));
+        var add_content_link_block = $(".add-other-content-container");
+        add_content_link_block.before(new_content_type);
+        new_content_type.show();
+        new_content_type.find('input.content-type').val(content_type);
+        new_content_type.find('input.content-order').val(new_content_index + 1); // 1-based index
+    }
+
+    $(document).on('click', '.add-other-content-container .add-image-link', function(e){
+        e.preventDefault();
+        var available_content_num = $('.template-config-block-container')
+            .find('.template-config-block.template-content-block').length;
+        var new_content_index = available_content_num;
+        var new_image_content = $('.block-model-container').find('.template-content-image-model').clone();
+        new_image_content.removeClass('template-content-image-model');
+        var html_new_image_content = new_image_content.wrap('<div class="model-wrapper"></div>').parent().html();
+        html_new_image_content = html_new_image_content.replace(/__name__/g, new_content_index);
+        new_image_content = $($.parseHTML(html_new_image_content));
+
+        var add_content_link_block = $(".add-other-content-container");
+        add_content_link_block.before(new_image_content);
+        new_image_content.show();
+
+        addContentConfigBock(new_content_index, $('input[name=template_content_type_image]').val());
+    });
+
+    $(document).on('click', '.add-other-content-container .add-text-link', function(e){
+        e.preventDefault();
+        var available_content_num = $('.template-config-block-container')
+            .find('.template-config-block.template-content-block').length;
+        var new_content_index = available_content_num;
+        var new_text_content = $('.block-model-container').find('.template-content-text-model').clone();
+        new_text_content.removeClass('template-content-text-model');
+        var html_new_text_content = new_text_content.wrap('<div class="model-wrapper"></div>').parent().html();
+        html_new_text_content = html_new_text_content.replace(/__name__/g, new_content_index);
+        new_text_content = $($.parseHTML(html_new_text_content));
+
+        var add_content_link_block = $(".add-other-content-container");
+        add_content_link_block.before(new_text_content);
+        new_text_content.find('textarea').addClass('large-textarea');
+        var ckeditor_config_light_path = $('input[name=ckeditor_config_light_path]').val();
+        CKEDITOR.replace(new_text_content.find('textarea').attr('id'), {
+            language: 'fr',
+            uiColor: '#9AB8F3',
+            height: 150,
+            width: 600,
+            customConfig: ckeditor_config_light_path
+        });
+        new_text_content.show();
+
+        addContentConfigBock(new_content_index, $('input[name=template_content_type_text]').val());
+    });
+    
 });

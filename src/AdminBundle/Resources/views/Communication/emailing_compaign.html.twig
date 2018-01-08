@@ -4,8 +4,10 @@
     {% embed 'AdminBundle::header.html.twig' %}
         {% block stylesheets %}
             {{ parent() }}
+            <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
             <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
             <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+            <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -384,6 +386,7 @@
                                                         </div>
                                                     </div>                                       
                                                 </div>
+                                                <div class="error-message-container"></div>
                                             </div>
                                             <div class="row centered">
                                                 <button class="btn-valider btn-end-step-3">
@@ -407,7 +410,7 @@
                                                         programmer l'envoi de la campagne
                                                     </label>
                                                     <div class="select-date">
-                                                        {# {{ dump(programmed) }} #}
+                                                        {# {{ dump(programmed.date_launch.time) }} #}
                                                         {{ form_start(programmed) }}
                                                         <p>choisissez le jour</p>
                                                         <div>             
@@ -416,7 +419,9 @@
                                                         </div>
                                                         <p>et l'heure</p>
                                                         <div>
-                                                            {{ form_widget(programmed.date_launch.time) }}       
+                                                            {{ form_widget(programmed.date_launch.time.hour, {"attr":  {"class" : "chosen-select"}}) }}
+                                                            <span class="between-hour">:</span>
+                                                            {{ form_widget(programmed.date_launch.time.minute, {"attr":  {"class" : "chosen-select"}}) }} 
                                                         </div>
                                                         {{ form_end(programmed) }}
                                                     </div>
@@ -466,6 +471,10 @@
                 <input type="hidden" name="rename" value="{{ path("admin_communication_emailing_compaign_rename") }}">
                 <input type="hidden" name="filtered" value="{{ path("admin_communication_emailing_compaign_filter") }}">
                 <input type="hidden" name="delete-campaign-link" value="{{ path("admin_communication_emailing_compaign_delete") }}">
+                <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
+                <input type="hidden" name="ckeditor_config_light_path" value="{{ asset('ckeditor/custom/config-light.js') }}">
+                <input type="hidden" name="template_content_type_image" value="{{ constant('IMAGE', content_type_class) }}">
+                <input type="hidden" name="template_content_type_text" value="{{ constant('TEXT', content_type_class) }}">
             </div>
         </div>
 
@@ -477,10 +486,13 @@
 {% block footer %}
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
-            {{ parent() }}        
+            {{ parent() }}
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
-            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>
+            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>            
+            <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
             <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>             
         {% endblock %}
     {% endembed %}

@@ -187,6 +187,7 @@ class CommunicationController extends AdminController
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
             "folders" => $campaign_folders["folders"],
             "list" => $campaign_list,
+            'content_type_class' => new TemplateContentType(),
             "programmed" => $form->createView()
         ));
     }

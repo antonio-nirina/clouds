@@ -20,11 +20,7 @@ class CampaignDateType extends AbstractType
             'time_widget' => "choice",
             'with_seconds' => false,
             'html5' => false,
-            'date_format'=>"dd/MM/yyyy hh:mm",
-            'attr'=>array(
-                'class'=>'datetimepickz form-control',
-                'data-format'=>"dd/MM/yyyy hh:mm"
-            )
+            'date_format'=>"dd/MM/yyyy hh:mm"
         ));
     }
 }
