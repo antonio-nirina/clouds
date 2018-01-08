@@ -342,6 +342,7 @@
         {% block javascripts %}
             {{ parent() }}
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+			<script src="{{ asset('ckeditor/plugins/insertionlienscloudrewards/plugin.js') }}?date=20180108"></script>
             <script src="{{ asset('js/admin-resultat-form.js') }}"></script>           
         {% endblock %}
     {% endembed %}

@@ -18,6 +18,7 @@ CKEDITOR.plugins.add( 'insertimagecloudrewards', {
 				var Chargements = $('p.chargementAjax').clone();
 				$('#body-popup').html(Chargements);
 				$('#body-popup').find('p.chargementAjax').show();
+				$('#body-popup').attr('style', 'display:block;height:200px;');
 				
 				var UrlPopImgEditor = $('input#url_popup_insert_img_editor').val();
 				setTimeout(function(){
