@@ -354,9 +354,6 @@
         <button class="btn-valider save">
             enregistrer
         </button>
-        <button class="btn-valider modify hidden">
-            modifier
-        </button>
         {% if edit_mode is defined and true == edit_mode %}
         <button class="btn-valider validate validate-edit hidden" data-target-url="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": manip_template_form.vars.value.getId}) }}">
             valider
@@ -366,6 +363,9 @@
             valider
         </button>
         {% endif %}
+        <button class="btn-valider modify hidden">
+            modifier
+        </button>
     </div>
     <div class="block-model-container">
         <div class="template-config-block template-content-image-model template-content-block">

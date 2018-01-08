@@ -2391,11 +2391,11 @@ section .row.ending {
 }
 
 .app-dialog .submit-button-container .btn-valider.modify{
-    margin-right: 40px;
+    margin-left: 40px;
 }
 
 .app-dialog .submit-button-container .btn-valider.validate{
-    margin-left: 40px;
+    margin-right: 40px;
 }
 
 .app-dialog .btn-valider.hidden{
@@ -2461,14 +2461,14 @@ section .row.ending {
     }
 
     .app-dialog .submit-button-container .btn-valider.modify{
-        margin-right: 0;
+        margin-left: 0;
         width: 120px;
-        margin-bottom: 40px;
     }
 
     .app-dialog .submit-button-container .btn-valider.validate{
-        margin-left: 0;
+        margin-right: 0;
         width: 120px;
+        margin-bottom: 40px;
     }
 
     .app-dialog .submit-button-container .btn-valider.save{
