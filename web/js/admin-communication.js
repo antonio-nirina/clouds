@@ -179,8 +179,6 @@ $(document).ready(function(){
                 url: add_template_url,
                 success: function(data){
                     $('#create-template-dialog').find('.modal-body-container').html(data.content);
-                    $('.chargementAjax').addClass('hidden');
-
                     $('#choose-model-dialog').modal('hide');
                     setTimeout(function(){
                         $('#create-template-dialog').find('a.previous').show();
@@ -188,13 +186,12 @@ $(document).ready(function(){
                             show: true,
                         });
                     }, 0);
+                    $('.chargementAjax').addClass('hidden');
                 },
                 statusCode: {
                     404: function(data){
                         $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
                         $('#create-template-dialog').find('.modal-body-container').html('');
-                        $('.chargementAjax').addClass('hidden');
-
                         $('#choose-model-dialog').modal('hide');
                         setTimeout(function(){
                             $('#create-template-dialog').find('a.previous').show();
@@ -202,6 +199,7 @@ $(document).ready(function(){
                                 show: true,
                             });
                         }, 0);
+                        $('.chargementAjax').addClass('hidden');
                     }
                 }
             });
