@@ -14,22 +14,27 @@
                     {% if constant('EXPANDED', template_logo_alignment_class) == com_email_template.logoAlignment %}
                         {% set logo_width = '560' %}
                     {% endif %}
+
+                    {% if com_email_template.logo is not empty %}
                 <tr>
                     <td {{ logo_alignment }} style="padding: 20px 20px 20px 20px;">
-                        <img src="{{ (com_email_template.logo is not empty) ? asset(emailing_template_logo_location~com_email_template.logo) : "" }}" width="{{ logo_width }}" alt="logo" />
+                        <img src="{{ asset(emailing_template_logo_location~com_email_template.logo) }}" width="{{ logo_width }}" alt="logo" />
                     </td>
                 </tr>
+                    {% endif %}
                 {% endif %}
                 <tr>
                     <td style="padding: 20px 20px 40px 20px;">
                         <table  style="border-collapse: collapse;">
                             {% if constant('TEXT_AND_IMAGE', template_model_class) == com_email_template.templateModel %}
                                 {% set first_content = com_email_template.contents[0] %}
+                                {% if first_content.image is not empty %}
                             <tr>
                                 <td align="center" style="padding: 20px 0 40px 0;">
-                                    <img src="{{ first_content.image is not empty ? asset(emailing_template_image_content_location~first_content.image) : "" }}" width="560" alt="image" />
+                                    <img src="{{ asset(emailing_template_image_content_location~first_content.image) }}" width="560" alt="image" />
                                 </td>
                             </tr>
+                                {% endif %}
                                 {% set second_content = com_email_template.contents[1] %}
                             <tr>
                                 <td>
@@ -62,10 +67,10 @@
                             {% if com_email_template.contents|length > 2 %}
                                 {% for content in com_email_template.contents %}
                                         {% if loop.index > 2 %}
-                                            {% if constant('IMAGE', content_type_class) == content.contentType %}
+                                            {% if constant('IMAGE', content_type_class) == content.contentType and content.image is not empty %}
                             <tr>
                                 <td align="center" style="padding: 20px 0 40px 0;">
-                                    <img src="{{ content.image is not empty ? asset(emailing_template_image_content_location~content.image) : "" }}" width="560" alt="image" />
+                                    <img src="{{ asset(emailing_template_image_content_location~content.image) }}" width="560" alt="image" />
                                 </td>
                             </tr>
                                             {% elseif constant('TEXT', content_type_class) == content.contentType%}
