@@ -2597,3 +2597,24 @@ section .row.ending {
 #preview-template-dialog img[src='']{
     display: initial;
 }
+
+/**
+ * Sablier aux chargements Ajax
+ */
+p.chargementAjax{
+    text-align: center;
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1050;
+}
+
+p.chargementAjax img{
+    width: 50%;
+}
+
+p.chargementAjax.hidden{
+    display: none;
+}
