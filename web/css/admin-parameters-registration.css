@@ -2511,11 +2511,11 @@ section .row.ending {
 }
 
 .app-dialog .submit-button-container .btn-valider.modify{
-    margin-right: 40px;
+    margin-left: 40px;
 }
 
 .app-dialog .submit-button-container .btn-valider.validate{
-    margin-left: 40px;
+    margin-right: 40px;
 }
 
 .app-dialog .btn-valider.hidden{
@@ -2587,12 +2587,12 @@ section .row.ending {
     .app-dialog .submit-button-container .btn-valider.modify, #new-campaign-modal .modal-step-3 .btn-valider.modify {
         margin-right: 0;
         width: 120px;
-        margin-bottom: 40px;
     }
-
+    
     .app-dialog .submit-button-container .btn-valider.validate, #new-campaign-modal .modal-step-3 .btn-valider.validate{
         margin-left: 0;
         width: 120px;
+        margin-bottom: 40px;
     }
     #new-campaign-modal .modal-step-3 .btn-valider.validate {
         margin-top: 0;
@@ -2654,4 +2654,32 @@ section .row.ending {
     .template-info{
         margin-left: 15px;
     }
+}
+
+/**
+ * Prévisualisation template
+ */
+#preview-template-dialog img[src='']{
+    display: initial;
+}
+
+/**
+ * Sablier aux chargements Ajax
+ */
+p.chargementAjax{
+    text-align: center;
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1050;
+}
+
+p.chargementAjax img{
+    width: 50%;
+}
+
+p.chargementAjax.hidden{
+    display: none;
 }

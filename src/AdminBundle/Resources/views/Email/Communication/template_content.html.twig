@@ -1,0 +1,111 @@
+<table  cellpadding="0" cellspacing="0" width="100%" style="background-color: {{ com_email_template.backgroundColor }};" bgcolor="{{ com_email_template.backgroundColor }}">
+    <tr>
+        <td style="padding: 20px 0 20px 0;">
+            <table align="center"  width="600px" cellpadding="0" cellspacing="0" style="border-collapse: collapse; background-color: {{ com_email_template.emailColor }}" bgcolor="{{ com_email_template.emailColor }}">
+                {% if constant('TEXT_AND_IMAGE', template_model_class) == com_email_template.templateModel %}
+                    {% set logo_alignment = 'align=center' %}
+                    {% if constant('RIGHT', template_logo_alignment_class) == com_email_template.logoAlignment %}
+                        {% set logo_alignment = 'align=right' %}
+                    {% elseif constant('LEFT', template_logo_alignment_class) == com_email_template.logoAlignment %}
+                        {% set logo_alignment = 'align=left' %}
+                    {% endif %}
+
+                    {% set logo_width = '150' %}
+                    {% if constant('EXPANDED', template_logo_alignment_class) == com_email_template.logoAlignment %}
+                        {% set logo_width = '560' %}
+                    {% endif %}
+
+                    {% if com_email_template.logo is not empty %}
+                <tr>
+                    <td {{ logo_alignment }} style="padding: 20px 20px 20px 20px;">
+                        <img src="{{ asset(emailing_template_logo_location~com_email_template.logo) }}" width="{{ logo_width }}" alt="logo" />
+                    </td>
+                </tr>
+                    {% endif %}
+                {% endif %}
+                <tr>
+                    <td style="padding: 20px 20px 40px 20px;">
+                        <table  style="border-collapse: collapse;">
+                            {% if constant('TEXT_AND_IMAGE', template_model_class) == com_email_template.templateModel %}
+                                {% set first_content = com_email_template.contents[0] %}
+                                {% if first_content.image is not empty %}
+                            <tr>
+                                <td align="center" style="padding: 20px 0 40px 0;">
+                                    <img src="{{ asset(emailing_template_image_content_location~first_content.image) }}" width="560" alt="image" />
+                                </td>
+                            </tr>
+                                {% endif %}
+                                {% set second_content = com_email_template.contents[1] %}
+                            <tr>
+                                <td>
+                                    {{ second_content.textContent | raw }}
+                                </td>
+                            </tr>
+                            {% elseif constant('TEXT_ONLY', template_model_class) == com_email_template.templateModel %}
+                            <tr>
+                                <td>
+                                    {{ com_email_template.contents[0].textContent | raw }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td align="center" style="padding: 20px 0 20px 0;">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="font-size: 0; line-height: 0;">&nbsp;</td>
+                                            <td width="250" align="center">
+                                                <a {{ com_email_template.actionButtonUrl is not empty ? "target=_blank" : ""}} href="{{ com_email_template.actionButtonUrl is not empty ? com_email_template.actionButtonUrl : '#' }}">
+                                                    <span style="max-width: 560px; border-radius: 50px; border: none;height: 35px; cursor: pointer; color: {{ com_email_template.actionButtonTextColor }}; background-color: {{ com_email_template.actionButtonBackgroundColor }}; display:inline-block; padding-right: 20px; padding-left:20px; line-height: 35px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ com_email_template.actionButtonText }}</span>
+                                                </a>
+                                            </td>
+                                            <td style="font-size: 0; line-height: 0;">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            {% if com_email_template.contents|length > 2 %}
+                                {% for content in com_email_template.contents %}
+                                        {% if loop.index > 2 %}
+                                            {% if constant('IMAGE', content_type_class) == content.contentType and content.image is not empty %}
+                            <tr>
+                                <td align="center" style="padding: 20px 0 40px 0;">
+                                    <img src="{{ asset(emailing_template_image_content_location~content.image) }}" width="560" alt="image" />
+                                </td>
+                            </tr>
+                                            {% elseif constant('TEXT', content_type_class) == content.contentType%}
+                            <tr>
+                                <td>
+                                    {{ content.textContent | raw }}
+                                </td>
+                            </tr>
+                                            {% endif %}
+                                        {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 20px 20px 20px 20px; line-height: 3px; font-size: 14px" align="center">
+                        {% if true == com_email_template.footerListState  %}
+                        <p>(liste de diffusion)</p>
+                        {% endif %}
+
+                        {% if true == com_email_template.footerCompanyState  %}
+                        <p>copyright / société</p>
+                        {% endif %}
+
+                        {% if true == com_email_template.footerUnsubscribingState %}
+                        <p><a href="#" style="text-decoration: none">désabonnement</a></p>
+                        {% endif %}
+
+                        {% if true == com_email_template.footerContactState %}
+                        <p><a href="#" style="text-decoration: none">contact@domain.tld</a></p>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

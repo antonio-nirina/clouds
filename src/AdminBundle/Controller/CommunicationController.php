@@ -525,4 +525,49 @@ class CommunicationController extends AdminController
 
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
+
+    /**
+     * @Route(
+     *     "/emailling/templates/previsulisation-template/{template_id}",
+     *     name="admin_communication_emailing_templates_preview_template",
+     *     requirements={"template_id": "\d+"}
+     * )
+     */
+    public function emailingTemplatesPreviewTemplateAction(Request $request, $template_id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $com_email_template = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findOneBy(
+                array(
+                    'program' => $program,
+                    'id' => $template_id
+                )
+            );
+        if (is_null($com_email_template)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        if ($request->isMethod('GET')) {
+            $view = $this->renderView(
+                'AdminBundle:Email/Communication:template_content.html.twig',
+                array(
+                    'com_email_template' => $com_email_template,
+                    'template_model_class' => new TemplateModel(),
+                    'template_logo_alignment_class' => new TemplateLogoAlignment(),
+                    'content_type_class' => new TemplateContentType(),
+                )
+            );
+            $data = $json_response_data_provider->success();
+            $data['content'] = $view;
+            return new JsonResponse($data, 200);
+        }
+
+        return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+    }
 }
