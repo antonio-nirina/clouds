@@ -182,12 +182,26 @@ class CommunicationController extends AdminController
 
         $campaign_folders = $campaign->getFolders();
         // $campaign_list = $campaign->getAllCampaigns();
-        $form = $this->createForm(CampaignDateType::class);
 
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
             "folders" => $campaign_folders["folders"],
             "list" => $campaign_list,
             'content_type_class' => new TemplateContentType(),
+        ));
+    }
+
+    /**
+     * @Route("/emailing/campagne/new", name="admin_communication_emailing_compaign_new")
+     */
+    public function emailingCampaignNewAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $form = $this->createForm(CampaignDateType::class);
+        return $this->render('AdminBundle:Communication:emailing_compaign_new.html.twig', array(
             "programmed" => $form->createView()
         ));
     }
@@ -390,8 +404,8 @@ class CommunicationController extends AdminController
                 if ($add_template_form->isSubmitted() && $add_template_form->isValid()) {
                     $app_user = $this->getUser();
                     $manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-                    $manager->createTemplate($program, $com_email_template, $app_user);
-                    $data = $json_response_data_provider->success();
+                    $template_id = $manager->createTemplate($program, $com_email_template, $app_user);
+                    $data = $json_response_data_provider->success($template_id);
                     return new JsonResponse($data, 200);
                 } else {
                     $data = $json_response_data_provider->formError();

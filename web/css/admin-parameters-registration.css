@@ -1485,8 +1485,8 @@ section .row.filter div.next-create {
 section .row.filter div.create button {
     margin-top: 0;
 }
-section /*.row.filter*/ .dropdown-toggle {
-    border: 1px solid #404040;
+section .dropdown-toggle, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
     border-radius: 5px;
     cursor: pointer;
     position: relative;
@@ -1526,12 +1526,13 @@ section /*.row.filter*/ .dropdown-toggle::after {
     vertical-align: middle;
     content: "\f107";
     font-family: "FontAwesome";
-    font-size: 25px;
+    font-size: 27px;
     border: none !important;
     position: absolute;
     right: 25px;
     top: 0;
     color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
 }
 section /*.row.filter*/ .dropdown .delete-input {
     visibility: hidden;
@@ -1618,7 +1619,7 @@ section .row.ending {
     box-shadow: none !important;
 }
 .dropdown button:hover {
-    border-color: #404040;
+    border-color: #e5e5e5;
 }
 #abort-new-campaign-modal {/*second modal*/
     z-index: 1052 !important;
@@ -1737,7 +1738,7 @@ section .row.ending {
 .modal .navbar ul > a.activated {
     color: var(--couleur_4);
     background-color: #efefef;
-    pointer-events: initial;    
+    /*pointer-events: initial;    */
 }
 .modal .navbar ul > a .fullfilled {
     width: 16px;
@@ -1969,9 +1970,10 @@ section .row.ending {
 }
 /*---------time select --------*/
 .chosen-select + .chosen-container {
-    border: 1px solid #404040;
+    border: 1px solid #e5e5e5;
     height: 35px;
     border-radius: 5px;
+    box-shadow: none !important;
 }
 .chosen-container, .chosen-container *{
     font-family: var(--police);
@@ -2005,7 +2007,7 @@ section .row.ending {
     vertical-align: middle;
     content: "\f107";
     font-family: "FontAwesome";
-    font-size: 32px;
+    font-size: 27px;
     border: none !important;
     position: absolute;
     right: 25px;
@@ -2019,6 +2021,53 @@ section .row.ending {
 /*-------campagnes---*/
 #new-campaign-modal .hidden {
     display: none !important;
+}
+#new-campaign-modal .modal-step-3 .btn-valider.modify {
+    margin-right: 40px;
+}
+#new-campaign-modal .modal-step-3 .btn-valider.validate {
+    margin-left: 40px;
+}
+#new-campaign-modal .modal-step-3 .dialog-title{
+    margin-bottom: 28px;
+    display: block;
+}
+#new-campaign-modal  .modal-step-3 .options-container .col-lg-4 {
+    max-width: 300px;
+}
+#new-campaign-modal  .modal-step-3 .footer-text-option-label {
+    max-width: 80%;
+}
+#done-campaign-modal .content, #done-campaign-modal .content h4 {
+    text-align: center !important;
+}
+#done-campaign-modal .content div p {
+    margin-bottom: 7px;
+}
+#done-campaign-modal .content span.date-envoi {
+    font-weight: bolder;
+}
+#done-campaign-modal .content > div {
+    margin-bottom: 50px;
+}
+.campaign-archive .btn-valider {
+    margin-top: 0;
+}
+.add.add-to-archive:before {
+    content: "\f07b";
+    font-size: 14px;
+    margin-right: 5px;
+    font-family: fontawesome;
+    position: relative;
+    top: 3px;
+    padding: 4px;
+    color: white;
+    background: var(--couleur_1);
+    border-radius: 50%;
+}
+.add.add-to-archive:hover:before {
+    background: var(--couleur_1);
+    color: white !important;
 }
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {
@@ -2066,6 +2115,12 @@ section .row.ending {
     .modal .row {
         padding: 0 45px 0 15px;
     }
+    #new-campaign-modal  .modal-step-3.second .row{
+        padding: 0 15px;
+    }
+    #new-campaign-modal  .modal-step-3.second .row .row{
+        padding: 0;
+    }
     .modal-step-3 .create-new-template {
         padding-right: 0;
     }
@@ -2105,6 +2160,9 @@ section .row.ending {
     }
     .modal-step-3 .create-new-template {
         justify-content: center;
+    }
+    #new-campaign-modal .modal-step-3 .options-container .col-lg-4 {
+        max-width: 120%;
     }
 }
 @media only screen and (max-width: 379px){
@@ -2444,6 +2502,7 @@ section .row.ending {
 .template-name-container .template-name-label-container{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .template-name-container .template-name-input-row-container{
@@ -2507,6 +2566,10 @@ section .row.ending {
 
     #create-template-dialog .row{
         padding: 0 !important;
+    }    
+    .modal-step-3.second label {
+        margin-top: .3em;
+        margin-bottom: .5rem;
     }
 }
 
@@ -2521,17 +2584,19 @@ section .row.ending {
         align-items: center;
     }
 
-    .app-dialog .submit-button-container .btn-valider.modify{
-        margin-left: 0;
+    .app-dialog .submit-button-container .btn-valider.modify, #new-campaign-modal .modal-step-3 .btn-valider.modify {
+        margin-right: 0;
         width: 120px;
     }
-
-    .app-dialog .submit-button-container .btn-valider.validate{
-        margin-right: 0;
+    
+    .app-dialog .submit-button-container .btn-valider.validate, #new-campaign-modal .modal-step-3 .btn-valider.validate{
+        margin-left: 0;
         width: 120px;
         margin-bottom: 40px;
     }
-
+    #new-campaign-modal .modal-step-3 .btn-valider.validate {
+        margin-top: 0;
+    }
     .app-dialog .submit-button-container .btn-valider.save{
         width: 120px;
     }

@@ -11,9 +11,13 @@ class StandardDataProvider
         return array('message' => self::PAGE_NOT_FOUND_MESSAGE, 'content' => '');
     }
 
-    public function success()
+    public function success($template_id = false)
     {
-        return array('message' => '', 'content' => '');
+        if ($template_id) {
+            return array('message' => '', 'content' => '', "id" => $template_id);
+        } else {
+            return array('message' => '', 'content' => '');
+        }
     }
 
     public function formError()
