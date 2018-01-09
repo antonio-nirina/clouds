@@ -173,17 +173,19 @@ $(document).ready(function(){
             var add_template_url = $('input[name=add_template_form_url]').val();
             add_template_url = add_template_url+'/'+template_model;
             $('.chargementAjax').removeClass('hidden');
-            $.ajaxSetup({async: false});
+            // $.ajaxSetup({async: false});
             $.ajax({
                 type: 'GET',
                 url: add_template_url,
                 success: function(data){
                     $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                    $('.chargementAjax').addClass('hidden');
                 },
                 statusCode: {
                     404: function(data){
                         $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
                         $('#create-template-dialog').find('.modal-body-container').html('');
+                        $('.chargementAjax').addClass('hidden');
                     }
                 }
             });
@@ -194,8 +196,7 @@ $(document).ready(function(){
                     show: true,
                 });
             }, 0);
-            $.ajaxSetup({async: true});
-            $('.chargementAjax').addClass('hidden');
+            // $.ajaxSetup({async: true});
         }
     });
 
