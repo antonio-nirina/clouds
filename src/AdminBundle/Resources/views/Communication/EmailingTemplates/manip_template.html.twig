@@ -46,7 +46,7 @@
                         {#<input id="text_4" type="checkbox" class="styled-checkbox bigger">#}
                         {{ form_widget(manip_template_form.footer_contact_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
                         <label for="{{ manip_template_form.footer_contact_state.vars.id }}"></label>
-                        {{ form_label(manip_template_form.footer_contact_state, "désabonnement", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                        {{ form_label(manip_template_form.footer_contact_state, "e-mail de contact", {"label_attr": {"class": "footer-text-option-label"}}) }}
                     </div>
                 </div>
             </div>
@@ -225,7 +225,7 @@
                             <label>aspect</label>
                         </div>
                         <div class="col-12 col-lg-9">
-                            <div class="action-button-preview">
+                            <div class="action-button-preview" style="background-color: {{ manip_template_form.vars.value.actionButtonBackgroundColor }}; color: {{ manip_template_form.vars.value.actionButtonTextColor }} ">
                                 {{ manip_template_form.vars.value.actionButtonText }}
                             </div>
                         </div>

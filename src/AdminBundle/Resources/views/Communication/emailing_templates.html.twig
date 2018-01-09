@@ -123,7 +123,7 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                                 <a class="dropdown-item edit-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": template.getId}) }}">ÉDITER</a>
                                                 <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
-                                                <a class="dropdown-item" href="#">PRÉVISUALISER</a>
+                                                <a class="dropdown-item preview-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_preview_template", {"template_id": template.getId}) }}">PRÉVISUALISER</a>
                                                 <a class="dropdown-item" href="#">DUPLIQUER</a>
                                             </div>
                                         </div>
@@ -200,6 +200,23 @@
                                 </div>
                             </div>
                             <!-- FIN - dialog - création template -->
+
+                            <!-- dialog - prévisulisation template-->
+                            <div id="preview-template-dialog" class="app-dialog modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="error-message-container centered-message general-message"></div>
+                                            <div class="modal-body-container">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - dialog - prévisulisation template-->
 
                             <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
                             <input type="hidden" name="template_model_text_and_image" value="{{ constant('TEXT_AND_IMAGE', template_model_class) }}">

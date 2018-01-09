@@ -599,4 +599,43 @@ $(document).ready(function(){
      * Suppression logo et image de contenu
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Prévisualisation template
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.preview-template', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: $(this).attr('data-target-url'),
+            success: function(data){
+                $('#preview-template-dialog').find('.modal-body-container').html(data.content);
+                $('#preview-template-dialog').find('.error-message-container.general-message').text('');
+                $('#preview-template-dialog').modal('show');
+            },
+            statusCode:{
+                404: function(data){
+                    $('#preview-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#preview-template-dialog').find('.modal-body-container').html('');
+                    $('#preview-template-dialog').modal('show');
+                },
+                500: function(){
+                    $('#preview-template-dialog').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#preview-template-dialog').find('.modal-body-container').html('');
+                    $('#preview-template-dialog').modal('show');
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Prévisualisation template
+     * *********************************************************************************************
+     */
 });
