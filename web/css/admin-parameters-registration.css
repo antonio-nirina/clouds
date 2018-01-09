@@ -2590,3 +2590,10 @@ section .row.ending {
         margin-left: 15px;
     }
 }
+
+/**
+ * Prévisualisation template
+ */
+#preview-template-dialog img[src='']{
+    display: initial;
+}
