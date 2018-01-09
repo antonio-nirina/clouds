@@ -79,6 +79,8 @@ twig:
         content_login_portal_slide_image_location: '%content_login_portal_slide_image_location%'
         content_home_page_slide_image_location: '%content_home_page_slide_image_location%'
         locale: '%locale%'
+        emailing_template_logo_location: '%emailing_template_logo_location%'
+        emailing_template_image_content_location: '%emailing_template_image_content_location%'
 
 
 # Doctrine Configuration
