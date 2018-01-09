@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     function sendFilter() {
         $('.row.list').html('');
         var folder_filter = $('.dropdown.dossiers').find('button').hasClass('active'),
@@ -23,6 +22,98 @@ $(document).ready(function() {
                 $('.row.list').html(html);
             }
         });             
+    }
+
+    function getChecked() {
+        var checked = [];
+        $(".campagne-name .styled-checkbox").each(function() {
+            if ($(this).is(':checked')) {
+                checked.push($(this).attr('id'));
+            }
+        });
+        return checked;
+    }
+
+    function showPrevious() {
+        if ($('#create-tabs a:first-child').hasClass('active')) {
+            $('#new-campaign-modal .previous').css('display','none');
+        } else {
+            $('#new-campaign-modal .previous').css('display','initial');
+        }
+    }
+
+    function initCalendar() {
+        $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+        $('#calendar').datepicker({
+            minDate: new Date(),
+            altField: ".date_launch_campaign",
+            altFormat: "d MM yy"
+        });
+    }
+    
+    function initSelectChosen() {
+        $(".chosen-select").chosen({//hour selectable
+            disable_search: true,
+            width: "70px"
+        });
+    }
+
+    function addDone() {
+        if (! $('#create-tabs a.activated.active').hasClass("done")) {
+            $('#create-tabs a.activated.active').addClass("done");
+        }
+    }
+
+    function removeDone() {
+        if ($('#create-tabs a.activated.active').hasClass("done")) {
+            $('#create-tabs a.activated.active').removeClass("done");
+        }
+    }
+
+    function isDone() {
+        if ($('#create-tabs a.activated.active').hasClass("step-1")) {
+            if ($(".campaign_name_input").val() && $(".campaign_object_input").val()) {
+                addDone();
+                return true;
+            } else {
+                removeDone();
+                alert("Veuillez completer les deux champs pour aller à l'étape suivante...");
+                return false;
+            }
+        }
+        if ($('#create-tabs a.activated.active').hasClass("step-2")) {
+            if($('#dropdownMenuListe').html().trim() == $('#dropdownMenuListe').attr("data-default")) {
+                removeDone();
+                alert("Veuillez sélectionner une liste ou créez-en une...");
+                return false;
+            } else {
+                addDone();
+                return true;
+            }
+        } 
+        if ($('#create-tabs a.activated.active').hasClass("step-3")) {
+            console.log($('input[name=template_choice_option]:checked').val());
+            if ($('input[name=template_choice_option]:checked').val() || "undefined" != typeof $('input[name=template_choice_option]:checked').val() ) {
+                addDone();
+                return true;
+            } else {
+                removeDone();
+                alert("Veuillez sélectionner un template ou créez-en un...");
+                return false;
+            }
+        }
+    }
+
+    function clickNext() {
+        var next = $('#create-tabs a.activated.active').next('a');
+        if (!next.hasClass("activated")) {
+            next.addClass("activated");
+        }     
+        if (next.hasClass("step-4")) {
+            next.addClass("done");
+        }       
+        next.click();
+        showPrevious();
     }
 
     $(document).on('click','.dropdown .delete-input', function(){//annuler filtre
@@ -111,16 +202,6 @@ $(document).ready(function() {
         }        
     })
 
-    function getChecked() {
-        var checked = [];
-        $(".campagne-name .styled-checkbox").each(function() {
-            if ($(this).is(':checked')) {
-                checked.push($(this).attr('id'));
-            }
-        });
-        return checked;
-    }
-
     $(document).on('change', ".campagne-name .styled-checkbox", function() {//selection des campagnes
         checked = getChecked();        
         text = (checked.length == 1)?checked.length+" campagne sélectionnée":((checked.length > 1)?checked.length+" campagnes sélectionnées":"");
@@ -169,25 +250,36 @@ $(document).ready(function() {
         }
     })
 
-    function showPrevious() {
-        if ($('#create-tabs a:first-child').hasClass('active')) {
-            $('#new-campaign-modal .previous').css('display','none');
+    $('#new-campaign-modal').on('shown.bs.modal', function() {//affichage de l'onglet création campaigne
+        var url = $("input[name=new_campaign_url").val();
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (html) {
+                $('#new-campaign-modal').find(".modal-content .content").html(html);
+                $('#create-tabs a.activated:last').tab('show');
+                showPrevious();
+                initCalendar();
+                initSelectChosen();
+            }
+        })               
+    });
+
+    $(document).on('click', "#new-campaign-modal .previous", function() {//affichage de l'onglet precedent
+        if ($(this).hasClass('keep') && $('#create-tabs a.activated.active').hasClass("step-3")) {
+            $(this).removeClass('keep');
+            $('#new-campaign-modal').find('.modal-step-3.first').css('display','block');
+            $('#new-campaign-modal').find('.modal-step-3.second').css('display','none');
         } else {
-            $('#new-campaign-modal .previous').css('display','initial');
+            if ($('#create-tabs a.activated.active').hasClass("done")) {
+                $('#create-tabs a.activated.active').removeClass("done");
+            }
+            $('#create-tabs a.activated.active').removeClass("activated").prev('a').click();
         }
-    }
-
-    $('#new-campaign-modal').on('shown.bs.modal', function() {//affichage de l'onglet courant
-        $('#create-tabs a.activated:last').tab('show');
         showPrevious();
     });
 
-    $("#new-campaign-modal .previous").on('click', function() {//affichage de l'onglet precedent
-        $('#create-tabs a.activated.active').prev('a').click();
-        showPrevious();
-    });
-
-    $("input[name=program-campaign]").on("change", function() {
+    $(document).on("change", "input[name=program-campaign]", function() {//boutton de programmation
         if ($(this).val() =="now") {
             $(".btn-end-step-4").css("display", "initial");
             $(".btn-program-step-4").css("display", "none");
@@ -199,17 +291,11 @@ $(document).ready(function() {
         }
     });
 
-    $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
-    $('#calendar').datepicker({
-        minDate: new Date(),
-        altField: ".date_launch_campaign",
-        altFormat: "DD, d MM, yy"
-    });
-
-    $(".chosen-select").chosen({//hour selectable
-        disable_search: true,
-        width: "70px"
-    });
+    $(document).on('click', '.btn-end-step', function() { // terminer une étape pour aller à l'autre
+        if (isDone()) {
+            clickNext();
+        }        
+    });     
 
     function installWysiwyg()
     {
@@ -250,41 +336,54 @@ $(document).ready(function() {
         }
     }
 
-    $('.add.free-add.add-list').on('click', function(e){//création nouveau template
+    $(document).on('click', '.add.free-add.add-list', function(e){//création nouveau template
         e.preventDefault();
         var template_model = "text-and-image";
+        // var template_model = "TEXT_AND_IMAGE";
 
         if(null !== template_model){
             var add_template_url = $('input[name=add_template_form_url]').val();
             add_template_url = add_template_url+'/'+template_model;
-            console.log(add_template_url);
+
             $.ajax({
                 type: 'GET',
                 url: add_template_url,
                 success: function(data){
-                    $('#new-campaign-modal').find('.modal-step-3').html(data.content);
+                    $('#new-campaign-modal').find('.modal-step-3.first').css('display','none');
+                    $('#new-campaign-modal').find('.modal-step-3.second').css('display','block').html(data.content);
+                    $('#new-campaign-modal .previous').addClass('keep');
                     var text = "Créer votre email, il sera sauvegardé dans l'onglet \"templates\", vous pourrez le réutiliser et/ou modifier ultérieurement.";
-                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').html(text).css({"margin-bottom": "28px", "display": "block"});
-                    $('#new-campaign-modal').find(".options-container .col-lg-4").css({"max-width": "300px"});
-                    $('#new-campaign-modal').find(".footer-text-option-label").css({"max-width": "80%"});
+                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').html(text);
                     $(".btn-valider.modify").addClass("hidden");
                     $(".btn-valider.modify").addClass("hidden");
                     $(".btn-valider.validate.validate-add").addClass("hidden");
                     $(".btn-end-step-3").addClass("hidden");
-                    // installer color picker
                     installColorPicker();
-                    // installer wysiwyg
                     installWysiwyg();
                 },
                 statusCode: {
                     404: function(data){
-                        $('#new-campaign-modal').find('.modal-step-3 > .error-message-container').text(data.responseJSON.message);                        
+                        $('#new-campaign-modal').find('.modal-step-3.first > .error-message-container').text(data.responseJSON.message);                        
                     }
                 }
             });
         }
     });
 
+    $(document).on("click", ".btn-end-step.btn-end-step-4", function() {//envoie campagne
+        $("#new-campaign-modal").modal("hide");
+        $("span.date-envoi").html($('.date_launch_campaign').val());
+        setTimeout(function(){
+            $("#done-campaign-modal").modal("show");
+        },0);
+    });   
+    $(document).on("click", ".btn-end-step.btn-program-step-4", function() {//envoie campagne programmée
+        $("#new-campaign-modal").modal("hide");
+        $("span.date-envoi").html($('.date_launch_campaign').val());        
+        setTimeout(function(){
+            $("#done-campaign-modal").modal("show");
+        },0);
+    });
 
     /**
      * *********************************************************************************************
@@ -292,21 +391,21 @@ $(document).ready(function() {
      * modal création template - enregistrement et validation
      * *********************************************************************************************
      */
-    $(document).on('click', '.model-step-3 .btn-valider.save', function(e){
+    $(document).on('click', '.modal-step-3 .btn-valider.save', function(e){
         e.preventDefault();
         $('.options-wrapper').addClass('active');
-        $('.model-step-3').find('.btn-valider.modify').removeClass('hidden');
-        $('.model-step-3').find('.btn-valider.validate').removeClass('hidden');
-        $('.model-step-3').find('.template-name-container').removeClass('hidden');
+        $('.modal-step-3').find('.btn-valider.modify').removeClass('hidden');
+        $('.modal-step-3').find('.btn-valider.validate').removeClass('hidden');
+        $('.modal-step-3').find('.template-name-container').removeClass('hidden');
         $(this).addClass('hidden');
     });
 
-    $(document).on('click', '.model-step-3 .btn-valider.modify', function(e){
+    $(document).on('click', '.modal-step-3 .btn-valider.modify', function(e){
         e.preventDefault();
         $('.options-wrapper').removeClass('active');
-        $('.model-step-3').find('.btn-valider.validate').addClass('hidden');
-        $('.model-step-3').find('.template-name-container').addClass('hidden');
-        $('.model-step-3').find('.btn-valider.save').removeClass('hidden');
+        $('.modal-step-3').find('.btn-valider.validate').addClass('hidden');
+        $('.modal-step-3').find('.template-name-container').addClass('hidden');
+        $('.modal-step-3').find('.btn-valider.save').removeClass('hidden');
         $(this).addClass('hidden');
     });
 
@@ -325,21 +424,21 @@ $(document).ready(function() {
             type: 'POST',
             url: add_template_url,
             success: function(data){
-               if(data['error']){
-                    $('#new-campaign-modal').find('.modal-step-3').
-                   $('#create-template-dialog').find('.modal-body-container').html(data.content);
-                   $('#create-template-dialog').find('.btn-valider.save').trigger('click');
+               if(data['error']){                    
+                   $('#new-campaign-modal').find('.modal-step-3.second').html(data.content);
+                   $('#new-campaign-modal').find('.modal-step-3.second').find('.btn-valider.save').trigger('click');
                    installColorPicker();
                    installWysiwyg();
                } else {
-                   // $('#create-template-dialog').modal('hide');
-                   window.location.replace($('input[name=template_list_url]').val());
+                    //set new template selected
+                    console.log(data);
+                    $('.step-3').addClass('done');
+                    clickNext();//next step
                }
             },
             statusCode: {
                 404: function(data){
-                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
-                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('#new-campaign-modal').find('.modal-step-3').find('.error-message-container.general-message').text('Erreur');                    
                 }
             }
         });

@@ -61,6 +61,7 @@ class ComEmailTemplateManager
 
         if (true == $flush) {
             $this->flush();
+            return $template->getId();
         }
     }
 

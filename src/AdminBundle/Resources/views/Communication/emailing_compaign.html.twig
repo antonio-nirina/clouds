@@ -67,34 +67,26 @@
                                 créer une campagne
                             </button>
                         </div>
-                        <div class="next-create">
-                            <div class="dropdown clearable dossiers">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuDossier" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="DOSSIERS">
-                                    DOSSIERS
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDossier">
-                                    {% for folder in folders %}
-                                        <a class="dropdown-item" href="#">
-                                            {{ folder["name"] }}
-                                            <span class="folder_count">{{ folder["count"] }}</span>
-                                            <span class="folder_id">{{ folder["id"] }} </span>
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                                <span class="delete-input"></span>
-                            </div>
-                            
+                        <div class="next-create">                            
                             <div class="dropdown clearable filtres">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
                                     FILTRES
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
                                     <a class="dropdown-item" href="#">
-                                        Date de création
+                                        RÉCENTS
                                         <span>create_time</span>
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        Dernière mise à jour
+                                        ENVOYÉS
+                                        <span>send_time</span>
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        EN COURS
+                                        <span>send_time</span>
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        EN ATTENTES
                                         <span>send_time</span>
                                     </a>
                                 </div>
@@ -102,8 +94,8 @@
                             </div>
 
                             <div>
-                                <a href="#" class="add add-folder-link" data-toggle="modal" data-target="#new-folder-modal-campaign">
-                                    créer un dossier
+                                <a href="#" class="add add-folder-link add-to-archive" data-toggle="modal" data-target="#new-folder-modal-campaign">
+                                    archivées
                                 </a>
                             </div>
                         </div>
@@ -115,23 +107,11 @@
                                 <span class="delete-input"></span>
                             </div>
                         </div>
-                        <div class="next-create campaign-delete-move">
-                            <div class="dropdown clearable move-to">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuDossier" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="DÉPLACER DANS DOSSIER">
-                                    DÉPLACER DANS DOSSIER
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuDossier">
-                                    {% for folder in folders %}
-                                        <a class="dropdown-item" href="#">
-                                            {{ folder["name"] }}
-                                            <span class="folder_count">{{ folder["count"] }}</span>
-                                            <span class="folder_id">{{ folder["id"] }} </span>
-                                        </a>
-                                    {% endfor %}
-                                    <a href="#" class="add dropdown-item add-folder-link" data-toggle="modal" data-target="#new-folder-modal-campaign">
-                                        créer un dossier
-                                    </a>
-                                </div>                                
+                        <div class="next-create campaign-delete-move">                            
+                            <div class="campaign-archive">
+                                <button class="btn-valider" class="btn btn-primary">
+                                    archiver
+                                </button> 
                             </div>
                             <div class="campaign-delete">
                                 <button class="btn-valider" class="btn btn-primary" data-toggle="modal" data-target="#delete-modal-campaign">
@@ -181,10 +161,10 @@
                                             ACTIONS
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                                            <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
-                                            <a class="dropdown-item" href="#">VOIR EMAIL</a>
-                                            <a class="dropdown-item campaign-rename" href="#">RENOMMER</a>
-                                            <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>                                            
+                                            <a class="dropdown-item" href="#">STATISTIQUES</a>
+                                            <a class="dropdown-item" href="#">APERÇU</a>
+                                            <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
+                                            <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>                                     
                                             <input type="hidden" name="campaign-id" value="{{ li.id }}">                                           
                                         </div>
                                     </div>
@@ -276,169 +256,29 @@
                                     <a class="previous"></a>
                                     <a class="close-modal" data-target="#abort-new-campaign-modal" data-toggle="modal" aria-label="Close"></a>
                                 </div>
-                                <div class="content">
-                                    <div><h4>créer une campagne</h4></div>
-                                    <div class = "row">
-                                        <div class= "col-12 col-md-12 navbar">
-                                            <ul class="nav navbar-nav" id="create-tabs">
-                                                <a class="activated done" data-toggle="tab"  href="#tab-form-level-1">
-                                                    étape 1<br>
-                                                    <span class="tab-spec">nom et objet de la campagne</span>
-                                                    <span class="fullfilled"></span>
-                                                </a>
-                                                <a class="activated" data-toggle="tab"  href="#tab-form-level-2">
-                                                    étape 2<br>
-                                                    <span class="tab-spec">liste de diffusion</span>
-                                                    <span class="fullfilled"></span>
-                                                </a>
-                                                <a class="activated" data-toggle="tab"  href="#tab-form-level-3">
-                                                    étape 3<br>
-                                                    <span class="tab-spec">template</span>
-                                                    <span class="fullfilled"></span>
-                                                </a>
-                                                <a class="activated" data-toggle="tab"  href="#tab-form-level-4">
-                                                    étape 4<br>
-                                                    <span class="tab-spec">envoi de la campagne</span>
-                                                    <span class="fullfilled"></span>
-                                                </a>                                
-                                            </ul>
-                                        </div>
+                                <div class="content">                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <!-- Modal création envoyé-->                    
+                    <div id="done-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg big" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="content"> 
+                                    <div><h4>c'est parti !</h4></div>
+                                    <div>
+                                        <p>
+                                            Votre campagne est programmée pour le <span class="date-envoi"></span>.
+                                        </p>
+                                        <p>
+                                            Vous pourrez la retrouver, la modifier ou l'éditer dans la liste des campagnes.
+                                        </p>
                                     </div>
-
-                                    <div class = "row tab-content">                    
-                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-1">
-                                            <p class="form-line">
-                                                <label>renseignez le nom de la campagne</label>
-                                                <input type="text" value="">
-                                                <span class="delete-input"></span>
-                                            </p>
-                                            <p class="form-line">
-                                                <label>renseignez le nom de la campagne</label>
-                                                <input type="text" value="">
-                                                <span class="delete-input"></span>
-                                            </p>
-                                            <p>L'e-mail d'envoie de votre campagne sera : contact@monchallenge2017.sorewards.com</p>
-                                            <p>
-                                                Pour toute modification de cet e-mail veuillez <a href="#" class="nous-contactez">nous contacter</a>
-                                            </p>
-
-                                            <div class="row centered">
-                                                <button class="btn-valider btn-end-step-1">
-                                                    continuer
-                                                </button>
-                                            </div>                                            
-                                        </div>
-                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-2">
-                                            <div class="modal-step-2">
-                                                <label>sélectionner une liste de diffusion</label>
-                                                <div class="list-choice">
-                                                    <div class="dropdown clearable">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuListe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="CHOISIR UNE LISTE">
-                                                            CHOISIR UNE LISTE
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuListe">
-                                                            <a class="dropdown-item" href="#">
-                                                                LISTE 1
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">
-                                                                LISTE 2
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">
-                                                                MA LISTE
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">
-                                                                SHORT LIST
-                                                            </a>                
-                                                        </div>
-                                                        <span class="delete-input"></span>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <a href="#" class="add free-add add-template">
-                                                        créer une nouvelle liste
-                                                    </a>
-                                                </div>
-                                            </div> 
-                                            <div class="row centered">
-                                                <button class="btn-valider btn-end-step-2">
-                                                    continuer
-                                                </button>
-                                            </div>                                            
-                                        </div>
-                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-3">
-                                            <div class="modal-step-3">
-                                                <div>
-                                                    <p>sélectionner le template d'e-mail que vous souhaitez utiliser ou modifier</p>
-                                                </div>                                                
-                                                <div class="create-new-template">
-                                                    <a href="#" class="add free-add add-list">
-                                                        créer un template
-                                                    </a>
-                                                </div>
-                                                <div class="template-lists">
-                                                    <div class="template-choice-container">
-                                                        <div class="template-choice">
-                                                            <img src="{{ asset("images/cloudsRewards/template_text_image.png") }}">
-                                                            <div class="checkbox-choice-container">
-                                                                <input id="text-image-option-radio" class="styled-radio" name="template_choice_option" type="radio">
-                                                                <label for="text-image-option-radio" ></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>                                       
-                                                </div>
-                                                <div class="error-message-container"></div>
-                                            </div>
-                                            <div class="row centered">
-                                                <button class="btn-valider btn-end-step-3">
-                                                    continuer
-                                                </button>
-                                            </div> 
-                                        </div>
-                                        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-4">
-                                            <div class="modal-step-4">
-                                                <div>
-                                                    <input checked="checked" type="radio" id="send-now" name="program-campaign" value="now">
-                                                    <label for="send-now">
-                                                        <span></span>
-                                                        envoyer la campagne maintenant
-                                                    </label>
-                                                </div>                                                
-                                                <div>
-                                                    <input type="radio" id="programed-later" name="program-campaign" value="">
-                                                    <label for="programed-later">
-                                                        <span></span>
-                                                        programmer l'envoi de la campagne
-                                                    </label>
-                                                    <div class="select-date">
-                                                        {# {{ dump(programmed.date_launch.time) }} #}
-                                                        {{ form_start(programmed) }}
-                                                        <p>choisissez le jour</p>
-                                                        <div>             
-                                                            {{ form_widget(programmed.date_launch.date, {"attr": {"class" : "date_launch_campaign", "style": "display:none;"}}) }}
-                                                            <div id="calendar"></div>
-                                                        </div>
-                                                        <p>et l'heure</p>
-                                                        <div>
-                                                            {{ form_widget(programmed.date_launch.time.hour, {"attr":  {"class" : "chosen-select"}}) }}
-                                                            <span class="between-hour">:</span>
-                                                            {{ form_widget(programmed.date_launch.time.minute, {"attr":  {"class" : "chosen-select"}}) }} 
-                                                        </div>
-                                                        {{ form_end(programmed) }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row centered">
-                                                <button class="btn-valider btn-end-step-4">
-                                                    envoyer
-                                                </button>
-                                                <button class="btn-valider btn-program-step-4">
-                                                    programmer
-                                                </button>
-                                            </div> 
-                                        </div>
-                                    </div>                              
-                                    
-                                    <div class="add-campaign-folder-error"></div>
+                                    <div></div>
                                 </div>
                             </div>
                         </div>
@@ -472,9 +312,11 @@
                 <input type="hidden" name="filtered" value="{{ path("admin_communication_emailing_compaign_filter") }}">
                 <input type="hidden" name="delete-campaign-link" value="{{ path("admin_communication_emailing_compaign_delete") }}">
                 <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
+                <input type="hidden" name="new_campaign_url" value="{{ path("admin_communication_emailing_compaign_new") }}">
                 <input type="hidden" name="ckeditor_config_light_path" value="{{ asset('ckeditor/custom/config-light.js') }}">
                 <input type="hidden" name="template_content_type_image" value="{{ constant('IMAGE', content_type_class) }}">
                 <input type="hidden" name="template_content_type_text" value="{{ constant('TEXT', content_type_class) }}">
+                
             </div>
         </div>
 
@@ -487,6 +329,7 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

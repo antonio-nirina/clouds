@@ -1,0 +1,164 @@
+<div><h4>créer une campagne</h4></div>
+<div class = "row">
+    <div class= "col-12 col-md-12 navbar">
+        <ul class="nav navbar-nav" id="create-tabs">
+            <a class="step-1 activated" data-toggle="tab"  href="#tab-form-level-1">
+                étape 1<br>
+                <span class="tab-spec">nom et objet de la campagne</span>
+                <span class="fullfilled"></span>
+            </a>
+            <a class="step-2" data-toggle="tab"  href="#tab-form-level-2">
+                étape 2<br>
+                <span class="tab-spec">liste de diffusion</span>
+                <span class="fullfilled"></span>
+            </a>
+            <a class="step-3" data-toggle="tab"  href="#tab-form-level-3">
+                étape 3<br>
+                <span class="tab-spec">template</span>
+                <span class="fullfilled"></span>
+            </a>
+            <a class="step-4" data-toggle="tab"  href="#tab-form-level-4">
+                étape 4<br>
+                <span class="tab-spec">envoi de la campagne</span>
+                <span class="fullfilled"></span>
+            </a>                                
+        </ul>
+    </div>
+</div>
+
+<div class = "row tab-content">                    
+    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-1">
+        <p class="form-line">
+            <label>renseignez le nom de la campagne</label>
+            <input type="text" value="" class="campaign_name_input">
+            <span class="delete-input"></span>
+        </p>
+        <p class="form-line">
+            <label>renseignez l'objet de la campagne</label>
+            <input type="text" value="" class="campaign_object_input">
+            <span class="delete-input"></span>
+        </p>
+        <p>L'e-mail d'envoie de votre campagne sera : contact@monchallenge2017.sorewards.com</p>
+        <p>
+            Pour toute modification de cet e-mail veuillez <a href="#" class="nous-contactez">nous contacter</a>
+        </p>
+
+        <div class="row centered">
+            <button class="btn-valider btn-end-step btn-end-step-1">
+                continuer
+            </button>
+        </div>                                            
+    </div>
+    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-2">
+        <div class="modal-step-2">
+            <label>sélectionner une liste de diffusion</label>
+            <div class="list-choice">
+                <div class="dropdown clearable">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuListe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="CHOISIR UNE LISTE">
+                        CHOISIR UNE LISTE
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuListe">
+                        <a class="dropdown-item" href="#">
+                            LISTE 1
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            LISTE 2
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            MA LISTE
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            SHORT LIST
+                        </a>                
+                    </div>
+                    <span class="delete-input"></span>
+                </div>
+            </div>
+            <div>
+                <a href="#" class="add free-add add-template">
+                    créer une nouvelle liste
+                </a>
+            </div>
+        </div> 
+        <div class="row centered">
+            <button class="btn-valider btn-end-step btn-end-step-2">
+                continuer
+            </button>
+        </div>                                            
+    </div>
+    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-3">
+        <div class="modal-step-3 first">
+            <div>
+                <p>sélectionner le template d'e-mail que vous souhaitez utiliser ou modifier</p>
+            </div>                                                
+            <div class="create-new-template">
+                <a href="#" class="add free-add add-list">
+                    créer un template
+                </a>
+            </div>
+            <div class="error-message-container"></div>
+            <div class="template-lists">
+                <div class="template-choice-container">
+                    <div class="template-choice">
+                        <img src="{{ asset("images/cloudsRewards/template_text_image.png") }}">
+                        <div class="checkbox-choice-container">
+                            <input id="text-image-option-radio" class="styled-radio" name="template_choice_option" value="template-1" type="radio">
+                            <label for="text-image-option-radio" ></label>
+                        </div>
+                    </div>
+                </div>                                       
+            </div>
+        </div>
+        <div class="modal-step-3 second">
+        </div>
+        <div class="row centered">
+            <button class="btn-valider btn-end-step btn-end-step-3">
+                continuer
+            </button>
+        </div> 
+    </div>
+    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-4">
+        <div class="modal-step-4">
+            <div>
+                <input checked="checked" type="radio" id="send-now" name="program-campaign" value="now">
+                <label for="send-now">
+                    <span></span>
+                    envoyer la campagne maintenant
+                </label>
+            </div>                                                
+            <div>
+                <input type="radio" id="programed-later" name="program-campaign" value="">
+                <label for="programed-later">
+                    <span></span>
+                    programmer l'envoi de la campagne
+                </label>
+                <div class="select-date">
+                    {# {{ dump(programmed.date_launch.time) }} #}
+                    {{ form_start(programmed) }}
+                    <p>choisissez le jour</p>
+                    <div>             
+                        {{ form_widget(programmed.date_launch.date, {"attr": {"class" : "date_launch_campaign", "style": "display:none;"}}) }}
+                        <div id="calendar"></div>
+                    </div>
+                    <p>et l'heure</p>
+                    <div>
+                        {{ form_widget(programmed.date_launch.time.hour, {"attr":  {"class" : "chosen-select"}}) }}
+                        <span class="between-hour">:</span>
+                        {{ form_widget(programmed.date_launch.time.minute, {"attr":  {"class" : "chosen-select"}}) }} 
+                    </div>
+                    {{ form_end(programmed) }}
+                </div>
+            </div>
+        </div>
+        <div class="row centered">
+            <button class="btn-valider btn-end-step btn-end-step-4">
+                envoyer
+            </button>
+            <button class="btn-valider btn-end-step btn-program-step-4">
+                programmer
+            </button>
+        </div> 
+    </div>
+</div>                              
+
+<div class="add-campaign-folder-error"></div>
