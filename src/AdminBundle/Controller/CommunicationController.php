@@ -541,7 +541,7 @@ class CommunicationController extends AdminController
 
         if ($request->isMethod('GET')) {
             $view = $this->renderView(
-                'AdminBundle:Email/Communication:template_content.html.twig',
+                'AdminBundle:EmailTemplates/Communication:template_content.html.twig',
                 array(
                     'com_email_template' => $com_email_template,
                     'template_model_class' => new TemplateModel(),
