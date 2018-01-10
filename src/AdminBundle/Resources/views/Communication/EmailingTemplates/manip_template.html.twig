@@ -184,7 +184,7 @@
                     <span class="option-title-block">texte</span>
                     <div>
                         {#<textarea class="large-textarea" id="template-text"></textarea>#}
-                        {% if edit_mode is defined and true == edit_mode %}
+                        {% if edit_mode is defined and true == edit_mode and constant('TEXT_ONLY', template_model_class) == manip_template_form.vars.value.templateModel %}
                         {{ form_widget(manip_template_form.contents[0].text_content, {"attr": {"class": "large-textarea"}}) }}
                         {% else %}
                         {{ form_widget(manip_template_form.contents[1].text_content, {"attr": {"class": "large-textarea"}}) }}
