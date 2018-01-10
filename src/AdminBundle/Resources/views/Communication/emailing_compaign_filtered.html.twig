@@ -38,13 +38,13 @@
                     ACTIONS
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                    <a class="dropdown-item" href="#">VOIR LE RAPPORT</a>
-                    <a class="dropdown-item" href="#">VOIR EMAIL</a>
-                    <a class="dropdown-item campaign-rename" href="#">RENOMMER</a>
-                    <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>                                            
-                    <input type="hidden" name="campaign-id" value="{{ li["id"] }}">                                           
+                    <a class="dropdown-item" href="#">STATISTIQUES</a>
+                    <a class="dropdown-item" href="#">APERÇU</a>
+                    <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
+                    <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>                                     
+                    <input type="hidden" name="campaign-id" value="{{ li.id }}">                                           
                 </div>
             </div>
-        </div>                            
+        </div>                         
     </div>
 {% endfor %}

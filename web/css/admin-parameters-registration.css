@@ -1689,8 +1689,11 @@ section .row.ending {
 }
 .campaign-delete-move {
     align-items: center;
-    width: 42% !important;
-    min-width: 400px;
+    width: 40% !important;
+    /*min-width: 400px;*/
+}
+.campaign-delete-move .campaign-archive, .campaign-delete-move .campaign-delete {
+    padding-right: 10px;
 }
 .dropdown.move-to {
     min-width: 215px;
@@ -2053,13 +2056,16 @@ section .row.ending {
 .campaign-archive .btn-valider {
     margin-top: 0;
 }
+.add.add-to-archive {
+    padding-right: 40px;
+}
 .add.add-to-archive:before {
     content: "\f07b";
     font-size: 14px;
     margin-right: 5px;
     font-family: fontawesome;
     position: relative;
-    top: 3px;
+    top: 0;
     padding: 4px;
     color: white;
     background: var(--couleur_1);
@@ -2106,6 +2112,12 @@ section .row.ending {
     section .row.list .campagne-metric > div {
         width: auto;
         padding: 0 10px;
+    }
+    .campaign-delete-move {
+        width: 100% !important;
+    }
+    .campaign-delete-move .campaign-archive, .campaign-delete-move .campaign-delete {
+        width: 50%;
     }
 }
 @media only screen and (max-width: 991px){
@@ -2170,6 +2182,9 @@ section .row.ending {
         padding-left: 0;
     }
     .modal-step-3 .template-choice {
+        width: 100%;
+    }
+    .campaign-delete-move .campaign-archive, .campaign-delete-move .campaign-delete {
         width: 100%;
     }
 }
@@ -2588,7 +2603,7 @@ section .row.ending {
         margin-right: 0;
         width: 120px;
     }
-    
+
     .app-dialog .submit-button-container .btn-valider.validate, #new-campaign-modal .modal-step-3 .btn-valider.validate{
         margin-left: 0;
         width: 120px;
