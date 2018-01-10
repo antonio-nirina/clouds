@@ -25,7 +25,7 @@
                 {% endif %}
                 <tr>
                     <td style="padding: 20px 20px 40px 20px;">
-                        <table  style="border-collapse: collapse;">
+                        <table  style="border-collapse: collapse;" width="100%">
                             {% if constant('TEXT_AND_IMAGE', template_model_class) == com_email_template.templateModel %}
                                 {% set first_content = com_email_template.contents[0] %}
                                 {% if first_content.image is not empty %}
@@ -42,6 +42,7 @@
                                 </td>
                             </tr>
                             {% elseif constant('TEXT_ONLY', template_model_class) == com_email_template.templateModel %}
+                                {% set first_content = com_email_template.contents[0] %}
                             <tr>
                                 <td style="font-family: Lato; font-weight: 300; line-height: 25px;">
                                     {{ first_content.textContent | raw }}
@@ -50,15 +51,17 @@
                             {% endif %}
                             <tr>
                                 <td align="center" style="padding: 20px 0 20px 0;">
-                                    <table width="100%">
+                                    <table width="250">
                                         <tr>
-                                            <td style="font-size: 0; line-height: 0;">&nbsp;</td>
-                                            <td width="250" align="center" style="font-family: Lato; font-weight: 300">
-                                                <a {{ com_email_template.actionButtonUrl is not empty ? "target=_blank" : ""}} href="{{ com_email_template.actionButtonUrl is not empty ? com_email_template.actionButtonUrl : '#' }}">
+                                            <td width="250" align="center" style="font-family: Lato; font-weight: 400">
+                                                {#<a {{ com_email_template.actionButtonUrl is not empty ? "target=_blank" : ""}} href="{{ com_email_template.actionButtonUrl is not empty ? com_email_template.actionButtonUrl : '#' }}">
                                                     <span style="max-width: 560px; border-radius: 50px; border: none;height: 35px; cursor: pointer; color: {{ com_email_template.actionButtonTextColor }}; background-color: {{ com_email_template.actionButtonBackgroundColor }}; display:inline-block; padding-right: 20px; padding-left:20px; line-height: 35px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ com_email_template.actionButtonText }}</span>
+                                                </a>#}
+
+                                                <a href="#" style="text-decoration: none; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:{{ com_email_template.actionButtonTextColor }};background-color: {{ com_email_template.actionButtonBackgroundColor }};">
+                                                    <span>{{ com_email_template.actionButtonText }}</span>
                                                 </a>
                                             </td>
-                                            <td style="font-size: 0; line-height: 0;">&nbsp;</td>
                                         </tr>
                                     </table>
                                 </td>
