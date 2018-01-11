@@ -18,104 +18,109 @@ class EmailingCampaign
     private $id;
 
     /**
-     * @ORM\Column(name="web_id", type="integer", nullable=false)
+     * @ORM\Column(name="AXFractionName", type="string")
      */
-    private $web_id;
+    private $AX_fraction_name;
 
     /**
-     * @ORM\Column(name="type", type="string", nullable=true)
+     * @ORM\Column(name="contact_list_id", type="integer")
      */
-    private $type;
+    private $contacts_list_id;
 
     /**
-     * @ORM\Column(name="create_time", type="string", nullable=true)
+     * @ORM\Column(name="created_at", type="string")
      */
-    private $create_time;
+    private $created_at;
 
     /**
-     * @ORM\Column(name="archive_url", type="text", nullable=true)
+     * @ORM\Column(name="current", type="integer")
      */
-    private $archive_url;
+    private $current;
 
     /**
-     * @ORM\Column(name="long_archive_url", type="text", nullable=true)
+     * @ORM\Column(name="delivered_at", type="string")
      */
-    private $long_archive_url;
+    private $delivered_at;
 
     /**
-     * @ORM\Column(name="status", type="string", nullable=true)
+     * @ORM\Column(name="edit_mode", type="string")
+     */
+    private $edit_mode;
+
+    /**
+     * @ORM\Column(name="ID", type="integer")
+     */
+    private $ID;
+
+    /**
+    * @ORM\Column(name="is_starred", type="boolean")
+    */
+    private $is_starred;
+
+    /**
+     * @ORM\Column(name="is_text_part_included", type="boolean")
+     */
+    private $is_text_part_included;
+
+    /**
+     * @ORM\Column(name="locale", type="string")
+     */
+    private $locale;
+
+    /**
+     * @ORM\Column(name="modified_at", type="string")
+     */
+    private $modified_at;
+
+    /**
+     * @ORM\Column(name="preset", type="object")
+     */
+    private $preset;
+
+    /**
+     * @ORM\Column(name="sender", type="string")
+     */
+    private $sender;
+
+    /**
+     * @ORM\Column(name="sender_email", type="string")
+     */
+    private $sender_email;
+
+    /**
+     * @ORM\Column(name="sender_name", type="string")
+     */
+    private $sender_name;
+
+    /**
+     * @ORM\Column(name="status", type="integer")
      */
     private $status;
 
     /**
-     * @ORM\Column(name="emails_sent", type="integer", nullable=true)
+     * @ORM\Column(name="subject", type="text")
      */
-    private $emails_sent;
+    private $subject;
 
     /**
-     * @ORM\Column(name="send_time", type="string", nullable=true)
+     * @ORM\Column(name="template_id", type="integer")
      */
-    private $send_time;
+    private $template_id;
 
     /**
-     * @ORM\Column(name="content_type", type="string", nullable=true)
+     * @ORM\Column(name="title", type="string")
      */
-    private $content_type;
+    private $title;
 
     /**
-     * @ORM\Column(name="needs_block_refresh", type="boolean", nullable=true)
+     * @ORM\Column(name="url", type="text")
      */
-    private $needs_block_refresh;
+    private $url;
 
     /**
-     * @ORM\Column(name="recipients", type="array", nullable=true)
+     * @ORM\Column(name="used", type="boolean")
      */
-    private $recipients;
-
-    /**
-     * @ORM\Column(name="settings", type="array", nullable=true)
-     */
-    private $settings;
-
-    /**
-     * @ORM\Column(name="variate_settings", type="array", nullable=true)
-     */
-    private $variate_settings;
-
-    /**
-     * @ORM\Column(name="tracking", type="array", nullable=true)
-     */
-    private $tracking;
-
-    /**
-     * @ORM\Column(name="rss_opts", type="array", nullable=true)
-     */
-    private $rss_opts;
-
-    /**
-     * @ORM\Column(name="ab_split_opts", type="array", nullable=true)
-     */
-    private $ab_split_opts;
-
-    /**
-     * @ORM\Column(name="social_card", type="array", nullable=true)
-     */
-    private $social_card;
-
-    /**
-     * @ORM\Column(name="report_summary", type="array", nullable=true)
-     */
-    private $report_summary;
-
-    /**
-     * Get localId
-     *
-     * @return integer
-     */
-    public function getLocalId()
-    {
-        return $this->local_id;
-    }
+    private $used;
 
     /**
      * Set id
@@ -142,129 +147,345 @@ class EmailingCampaign
     }
 
     /**
-     * Set webId
+     * Set aXFractionName
      *
-     * @param integer $webId
+     * @param string $aXFractionName
      *
      * @return EmailingCampaign
      */
-    public function setWebId($webId)
+    public function setAXFractionName($aXFractionName)
     {
-        $this->web_id = $webId;
+        $this->AX_fraction_name = $aXFractionName;
 
         return $this;
     }
 
     /**
-     * Get webId
+     * Get aXFractionName
+     *
+     * @return string
+     */
+    public function getAXFractionName()
+    {
+        return $this->AX_fraction_name;
+    }
+
+    /**
+     * Set contactsListId
+     *
+     * @param integer $contactsListId
+     *
+     * @return EmailingCampaign
+     */
+    public function setContactsListId($contactsListId)
+    {
+        $this->contacts_list_id = $contactsListId;
+
+        return $this;
+    }
+
+    /**
+     * Get contactsListId
      *
      * @return integer
      */
-    public function getWebId()
+    public function getContactsListId()
     {
-        return $this->web_id;
+        return $this->contacts_list_id;
     }
 
     /**
-     * Set type
+     * Set createdAt
      *
-     * @param string $type
+     * @param string $createdAt
      *
      * @return EmailingCampaign
      */
-    public function setType($type)
+    public function setCreatedAt($createdAt)
     {
-        $this->type = $type;
+        $this->created_at = $createdAt;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get createdAt
      *
      * @return string
      */
-    public function getType()
+    public function getCreatedAt()
     {
-        return $this->type;
+        return $this->created_at;
     }
 
     /**
-     * Set createTime
+     * Set current
      *
-     * @param \DateTime $createTime
+     * @param integer $current
      *
      * @return EmailingCampaign
      */
-    public function setCreateTime($createTime)
+    public function setCurrent($current)
     {
-        $this->create_time = $createTime;
+        $this->current = $current;
 
         return $this;
     }
 
     /**
-     * Get createTime
+     * Get current
      *
-     * @return \DateTime
+     * @return integer
      */
-    public function getCreateTime()
+    public function getCurrent()
     {
-        return $this->create_time;
+        return $this->current;
     }
 
     /**
-     * Set archiveUrl
+     * Set deliveredAt
      *
-     * @param string $archiveUrl
+     * @param string $deliveredAt
      *
      * @return EmailingCampaign
      */
-    public function setArchiveUrl($archiveUrl)
+    public function setDeliveredAt($deliveredAt)
     {
-        $this->archive_url = $archiveUrl;
+        $this->delivered_at = $deliveredAt;
 
         return $this;
     }
 
     /**
-     * Get archiveUrl
+     * Get deliveredAt
      *
      * @return string
      */
-    public function getArchiveUrl()
+    public function getDeliveredAt()
     {
-        return $this->archive_url;
+        return $this->delivered_at;
     }
 
     /**
-     * Set longArchiveUrl
+     * Set editMode
      *
-     * @param string $longArchiveUrl
+     * @param string $editMode
      *
      * @return EmailingCampaign
      */
-    public function setLongArchiveUrl($longArchiveUrl)
+    public function setEditMode($editMode)
     {
-        $this->long_archive_url = $longArchiveUrl;
+        $this->edit_mode = $editMode;
 
         return $this;
     }
 
     /**
-     * Get longArchiveUrl
+     * Get editMode
      *
      * @return string
      */
-    public function getLongArchiveUrl()
+    public function getEditMode()
     {
-        return $this->long_archive_url;
+        return $this->edit_mode;
+    }
+
+    /**
+     * Set isStarred
+     *
+     * @param boolean $isStarred
+     *
+     * @return EmailingCampaign
+     */
+    public function setIsStarred($isStarred)
+    {
+        $this->is_starred = $isStarred;
+
+        return $this;
+    }
+
+    /**
+     * Get isStarred
+     *
+     * @return boolean
+     */
+    public function getIsStarred()
+    {
+        return $this->is_starred;
+    }
+
+    /**
+     * Set isTextPartIncluded
+     *
+     * @param boolean $isTextPartIncluded
+     *
+     * @return EmailingCampaign
+     */
+    public function setIsTextPartIncluded($isTextPartIncluded)
+    {
+        $this->is_text_part_included = $isTextPartIncluded;
+
+        return $this;
+    }
+
+    /**
+     * Get isTextPartIncluded
+     *
+     * @return boolean
+     */
+    public function getIsTextPartIncluded()
+    {
+        return $this->is_text_part_included;
+    }
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     *
+     * @return EmailingCampaign
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * Set modifiedAt
+     *
+     * @param string $modifiedAt
+     *
+     * @return EmailingCampaign
+     */
+    public function setModifiedAt($modifiedAt)
+    {
+        $this->modified_at = $modifiedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get modifiedAt
+     *
+     * @return string
+     */
+    public function getModifiedAt()
+    {
+        return $this->modified_at;
+    }
+
+    /**
+     * Set preset
+     *
+     * @param \stdClass $preset
+     *
+     * @return EmailingCampaign
+     */
+    public function setPreset($preset)
+    {
+        $this->preset = $preset;
+
+        return $this;
+    }
+
+    /**
+     * Get preset
+     *
+     * @return \stdClass
+     */
+    public function getPreset()
+    {
+        return $this->preset;
+    }
+
+    /**
+     * Set sender
+     *
+     * @param string $sender
+     *
+     * @return EmailingCampaign
+     */
+    public function setSender($sender)
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    /**
+     * Get sender
+     *
+     * @return string
+     */
+    public function getSender()
+    {
+        return $this->sender;
+    }
+
+    /**
+     * Set senderEmail
+     *
+     * @param string $senderEmail
+     *
+     * @return EmailingCampaign
+     */
+    public function setSenderEmail($senderEmail)
+    {
+        $this->sender_email = $senderEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get senderEmail
+     *
+     * @return string
+     */
+    public function getSenderEmail()
+    {
+        return $this->sender_email;
+    }
+
+    /**
+     * Set senderName
+     *
+     * @param string $senderName
+     *
+     * @return EmailingCampaign
+     */
+    public function setSenderName($senderName)
+    {
+        $this->sender_name = $senderName;
+
+        return $this;
+    }
+
+    /**
+     * Get senderName
+     *
+     * @return string
+     */
+    public function getSenderName()
+    {
+        return $this->sender_name;
     }
 
     /**
      * Set status
      *
-     * @param string $status
+     * @param integer $status
      *
      * @return EmailingCampaign
      */
@@ -278,7 +499,7 @@ class EmailingCampaign
     /**
      * Get status
      *
-     * @return string
+     * @return integer
      */
     public function getStatus()
     {
@@ -286,290 +507,122 @@ class EmailingCampaign
     }
 
     /**
-     * Set emailsSent
+     * Set subject
      *
-     * @param integer $emailsSent
+     * @param string $subject
      *
      * @return EmailingCampaign
      */
-    public function setEmailsSent($emailsSent)
+    public function setSubject($subject)
     {
-        $this->emails_sent = $emailsSent;
+        $this->subject = $subject;
 
         return $this;
     }
 
     /**
-     * Get emailsSent
-     *
-     * @return integer
-     */
-    public function getEmailsSent()
-    {
-        return $this->emails_sent;
-    }
-
-    /**
-     * Set sendTime
-     *
-     * @param \DateTime $sendTime
-     *
-     * @return EmailingCampaign
-     */
-    public function setSendTime($sendTime)
-    {
-        $this->send_time = $sendTime;
-
-        return $this;
-    }
-
-    /**
-     * Get sendTime
-     *
-     * @return \DateTime
-     */
-    public function getSendTime()
-    {
-        return $this->send_time;
-    }
-
-    /**
-     * Set contentType
-     *
-     * @param string $contentType
-     *
-     * @return EmailingCampaign
-     */
-    public function setContentType($contentType)
-    {
-        $this->content_type = $contentType;
-
-        return $this;
-    }
-
-    /**
-     * Get contentType
+     * Get subject
      *
      * @return string
      */
-    public function getContentType()
+    public function getSubject()
     {
-        return $this->content_type;
+        return $this->subject;
     }
 
     /**
-     * Set needsBlockRefresh
+     * Set templateId
      *
-     * @param boolean $needsBlockRefresh
+     * @param integer $templateId
      *
      * @return EmailingCampaign
      */
-    public function setNeedsBlockRefresh($needsBlockRefresh)
+    public function setTemplateId($templateId)
     {
-        $this->needs_block_refresh = $needsBlockRefresh;
+        $this->template_id = $templateId;
 
         return $this;
     }
 
     /**
-     * Get needsBlockRefresh
+     * Get templateId
+     *
+     * @return integer
+     */
+    public function getTemplateId()
+    {
+        return $this->template_id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return EmailingCampaign
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return EmailingCampaign
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set used
+     *
+     * @param boolean $used
+     *
+     * @return EmailingCampaign
+     */
+    public function setUsed($used)
+    {
+        $this->used = $used;
+
+        return $this;
+    }
+
+    /**
+     * Get used
      *
      * @return boolean
      */
-    public function getNeedsBlockRefresh()
+    public function getUsed()
     {
-        return $this->needs_block_refresh;
-    }
-
-    /**
-     * Set recipients
-     *
-     * @param array $recipients
-     *
-     * @return EmailingCampaign
-     */
-    public function setRecipients($recipients)
-    {
-        $this->recipients = $recipients;
-
-        return $this;
-    }
-
-    /**
-     * Get recipients
-     *
-     * @return array
-     */
-    public function getRecipients()
-    {
-        return $this->recipients;
-    }
-
-    /**
-     * Set settings
-     *
-     * @param array $settings
-     *
-     * @return EmailingCampaign
-     */
-    public function setSettings($settings)
-    {
-        $this->settings = $settings;
-
-        return $this;
-    }
-
-    /**
-     * Get settings
-     *
-     * @return array
-     */
-    public function getSettings()
-    {
-        return $this->settings;
-    }
-
-    /**
-     * Set variateSettings
-     *
-     * @param array $variateSettings
-     *
-     * @return EmailingCampaign
-     */
-    public function setVariateSettings($variateSettings)
-    {
-        $this->variate_settings = $variateSettings;
-
-        return $this;
-    }
-
-    /**
-     * Get variateSettings
-     *
-     * @return array
-     */
-    public function getVariateSettings()
-    {
-        return $this->variate_settings;
-    }
-
-    /**
-     * Set tracking
-     *
-     * @param array $tracking
-     *
-     * @return EmailingCampaign
-     */
-    public function setTracking($tracking)
-    {
-        $this->tracking = $tracking;
-
-        return $this;
-    }
-
-    /**
-     * Get tracking
-     *
-     * @return array
-     */
-    public function getTracking()
-    {
-        return $this->tracking;
-    }
-
-    /**
-     * Set rssOpts
-     *
-     * @param array $rssOpts
-     *
-     * @return EmailingCampaign
-     */
-    public function setRssOpts($rssOpts)
-    {
-        $this->rss_opts = $rssOpts;
-
-        return $this;
-    }
-
-    /**
-     * Get rssOpts
-     *
-     * @return array
-     */
-    public function getRssOpts()
-    {
-        return $this->rss_opts;
-    }
-
-    /**
-     * Set abSplitOpts
-     *
-     * @param array $abSplitOpts
-     *
-     * @return EmailingCampaign
-     */
-    public function setAbSplitOpts($abSplitOpts)
-    {
-        $this->ab_split_opts = $abSplitOpts;
-
-        return $this;
-    }
-
-    /**
-     * Get abSplitOpts
-     *
-     * @return array
-     */
-    public function getAbSplitOpts()
-    {
-        return $this->ab_split_opts;
-    }
-
-    /**
-     * Set socialCard
-     *
-     * @param array $socialCard
-     *
-     * @return EmailingCampaign
-     */
-    public function setSocialCard($socialCard)
-    {
-        $this->social_card = $socialCard;
-
-        return $this;
-    }
-
-    /**
-     * Get socialCard
-     *
-     * @return array
-     */
-    public function getSocialCard()
-    {
-        return $this->social_card;
-    }
-
-    /**
-     * Set reportSummary
-     *
-     * @param array $reportSummary
-     *
-     * @return EmailingCampaign
-     */
-    public function setReportSummary($reportSummary)
-    {
-        $this->report_summary = $reportSummary;
-
-        return $this;
-    }
-
-    /**
-     * Get reportSummary
-     *
-     * @return array
-     */
-    public function getReportSummary()
-    {
-        return $this->report_summary;
+        return $this->used;
     }
 }

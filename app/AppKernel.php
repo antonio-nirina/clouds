@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Krlove\AsyncServiceCallBundle\KrloveAsyncServiceCallBundle(),
+            new Mailjet\MailjetBundle\MailjetBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -1,16 +1,12 @@
 $(document).ready(function() {
     function sendFilter() {
-        $('.row.list').html('');
-        var folder_filter = $('.dropdown.dossiers').find('button').hasClass('active'),
-            sort_filter = $('.dropdown.filtres').find('button').hasClass('active'),
+        var a=$("#loading-image").clone();
+        $('.row.list').html(a);
+        var sort_filter = $('.dropdown.filtres').find('button').hasClass('active'),
             data = {};        
         
         if (sort_filter) {
-            data.sort_field = $('.dropdown.filtres').find('button').find("span").html().trim();
-        }
-
-        if (folder_filter) {
-            data.folder_id = $('.dropdown.dossiers').find('button').find("span.folder_id").html().trim();
+            data.status = $('.dropdown.filtres').find('button').find("span").html().trim();
         }
 
         var url = $('input[name=filtered]').val();
@@ -559,5 +555,17 @@ $(document).ready(function() {
 
         addContentConfigBock(new_content_index, $('input[name=template_content_type_text]').val());
     });
-    
+
+    //liste des archivées
+    $(".add-to-archive").on("click", function (e) {
+        e.preventDefault();
+        url = $(this).attr("href");
+        $.ajax({
+            type : "POST",
+            url: url,
+            success: function(html) {
+                $('.row.list').html(html);
+            }
+        });
+    })
 });

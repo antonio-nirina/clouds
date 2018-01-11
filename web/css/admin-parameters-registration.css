@@ -1598,6 +1598,9 @@ section .row.list .campagne-name-date {
 section .row.list .campagne-name-date.wait {
     color: #404040;
 }
+section .row.list .campagne-name-date.programmed {
+    color: #FEAD0D;
+}
 section .row.list .metric-desc {
     font-size: 12px;
     line-height: 18px;
@@ -1723,6 +1726,7 @@ section .row.ending {
 }
 .filter.selected-campaign {
     display: none;
+    padding-top: 35px !important;
 }
 .modal .navbar ul > a {
     padding: 2px 50px 0 10px;
@@ -2074,6 +2078,17 @@ section .row.ending {
 .add.add-to-archive:hover:before {
     background: var(--couleur_1);
     color: white !important;
+}
+#loading-image , .no-result {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.no-result {
+    color: red;
+}
+.hidden-image {
+    display:none;
 }
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {

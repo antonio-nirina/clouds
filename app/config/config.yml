@@ -146,3 +146,7 @@ stof_doctrine_extensions:
 krlove_async_service_call:
     console_path: 'bin/console'
     php_path: '%php_path%'
+
+mailjet:
+    api_key: "001c0363d2dec380dc1ea7b6913715b7"
+    secret_key: "c8abc63e65955e57919ed7627f32c1d6"

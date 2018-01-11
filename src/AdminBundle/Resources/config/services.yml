@@ -65,3 +65,5 @@ services:
         class: AdminBundle\Manager\ComEmailTemplateManager
         autowire: true
 
+    Mailjet\MailjetBundle\Client\MailjetClient: '@mailjet.client'
+

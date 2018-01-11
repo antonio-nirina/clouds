@@ -75,26 +75,26 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
                                     <a class="dropdown-item" href="#">
                                         RÉCENTS
-                                        <span>create_time</span>
+                                        <span></span>
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         ENVOYÉS
-                                        <span>send_time</span>
+                                        <span>Sent</span>
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         EN COURS
-                                        <span>send_time</span>
+                                        <span>Programmed</span>
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        EN ATTENTES
-                                        <span>send_time</span>
+                                        EN ATTENTE
+                                        <span>Draft</span>
                                     </a>
                                 </div>
                                 <span class="delete-input"></span>
                             </div>
 
                             <div>
-                                <a href="#" class="add add-folder-link add-to-archive">
+                                <a href="{{ path("admin_communication_emailing_compaign_archived") }}" class="add add-folder-link add-to-archive">
                                     archivées
                                 </a>
                             </div>
@@ -128,10 +128,26 @@
                                     <label for="{{li.id}}">
                                         <span></span>
                                         <div class="campagne-name-name">
-                                            {{ li.settings["title"] }}
+                                            {{ li.title }}
                                         </div>
-                                        <div class="campagne-name-date">
-                                            {{ li.status }} - {{ li.createTime | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
+                                        {% if li.status >= 2 %}
+                                            {% set date = li.deliveredAt %}
+                                            {% set status = "Envoyé" %}
+                                            {% set pre = "" %}
+                                            {% set class= "" %}
+                                        {% elseif li.status == 1 %}
+                                            {% set date = li.deliveredAt %}
+                                            {% set status = "Programmé" %}
+                                            {% set pre = "" %}
+                                            {% set class= "programmed" %}
+                                        {% else %}
+                                            {% set date = li.modifiedAt %}
+                                            {% set status = "En attente" %}
+                                            {% set pre = "modifié " %}
+                                            {% set class= "wait" %}
+                                        {% endif %}
+                                        <div class="campagne-name-date {{ class }}">
+                                            {{ status }} - {{ pre }}{{ date | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
                                         </div>
                                     </label>                           
                                 </div>
@@ -144,13 +160,13 @@
                                     </div>
                                     <div class="metric-2">
                                         <span class="metric-value">
-                                            {{ (li.reportSummary["open_rate"] is defined)?li.reportSummary["open_rate"]:0 }} %
+                                            {{ (li.openTracked is defined)?li.openTracked:0 }} %
                                         </span>
                                         <span class="metric-desc">ouvertures</span>
                                     </div>
                                     <div class="metric-3">
                                         <span class="metric-value">
-                                            {{ (li.reportSummary["click_rate"] is defined)?li.reportSummary["click_rate"]:0}} %
+                                            {{ (li.clickTracked is defined)?li.clickTracked:0}} %
                                         </span>
                                         <span class="metric-desc">clics</span>
                                     </div>
@@ -162,7 +178,7 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                             <a class="dropdown-item" href="#">STATISTIQUES</a>
-                                            <a class="dropdown-item" href="#">APERÇU</a>
+                                            <a class="dropdown-item" href="{{ li.url }}" target="blank">APERÇU</a>
                                             <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
                                             <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>                                     
                                             <input type="hidden" name="campaign-id" value="{{ li.id }}">                                           
@@ -292,7 +308,11 @@
                 <input type="hidden" name="ckeditor_config_light_path" value="{{ asset('ckeditor/custom/config-light.js') }}">
                 <input type="hidden" name="template_content_type_image" value="{{ constant('IMAGE', content_type_class) }}">
                 <input type="hidden" name="template_content_type_text" value="{{ constant('TEXT', content_type_class) }}">
-                
+                <div class="hidden-image">
+                    <div id="loading-image">
+                        <img src="{{ asset("images/cloudsRewards/loading.gif") }}" />
+                    </div>
+                </div>                
             </div>
         </div>
 

@@ -176,15 +176,10 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        $campaign_list = $campaign->refreshCampaign();
-        // dump($campaign_list); die;
-
-        $campaign_folders = $campaign->getFolders();
-        // $campaign_list = $campaign->getAllCampaigns();
+        $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaign_list = $campaign->getAll();
 
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
-            "folders" => $campaign_folders["folders"],
             "list" => $campaign_list,
             'content_type_class' => new TemplateContentType(),
         ));
@@ -217,22 +212,32 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $data = array();
-
-        if ($folder_id = $request->get('folder_id')) {
-            $data['folder_id'] = $folder_id;
-        }
-
-        if ($sort_field = $request->get('sort_field')) {
-            $data['sort_field'] = $sort_field;
-            $data['sort_dir'] = "DESC";
-        }
-
-        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        $campaign_list = $campaign->getAllCampaigns($data);
+        $status = $request->get('status');
+        // dump($status); die;
+        $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaign_list = $campaign->getAll(["Status" => $status]);
 
         return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
-            "list" => ($campaign_list)?$campaign_list["campaigns"]:array(),
+            "list" => $campaign_list
+        ));
+    }
+
+    /**
+     * @Route("/emailing/campagne/archivees", name="admin_communication_emailing_compaign_archived")
+     * @Method("POST")
+     */
+    public function emailingArchivedCampaignAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaign_list = $campaign->getAll(["isArchived" => true]);
+
+        return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
+            "list" => $campaign_list,
         ));
     }
 
