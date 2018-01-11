@@ -88,6 +88,7 @@ class ComEmailTemplateManager
         }
 
         $template->setLastEditUser($app_user);
+        $template->setLastEdit(new \DateTime('now'));
         $arr_delete_contents_image_command = explode(',', $delete_contents_image_command);
 
         foreach ($template->getContents() as $content) {
