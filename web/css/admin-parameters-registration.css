@@ -2682,6 +2682,10 @@ section .row.ending {
     display: initial;
 }
 
+#preview-template-dialog a{
+    text-decoration: underline !important;
+}
+
 /**
  * Sablier aux chargements Ajax
  */
