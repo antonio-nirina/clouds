@@ -1503,6 +1503,13 @@ section .dropdown-toggle, section .dropdown-toggle.active {
     min-width: 10rem;
     text-align: left;
 }
+
+@media (max-width: 310px){
+    section .dropdown-toggle{
+        min-width: 8rem;
+    }
+}
+
 section /*.row.filter*/ .dropdown.show .dropdown-toggle {
     visibility: hidden;
     box-shadow: none;
@@ -2672,12 +2679,13 @@ section .row.ending {
  */
 .template-characteristic{
     display: flex;
+    padding-left: 0;
 }
 
 .template-characteristic .template-img{
     width: 80px;
     height: 100px;
-    margin: 0 20px;
+    margin: 0 20px 0 0;
 }
 
 .template-characteristic .template-name{

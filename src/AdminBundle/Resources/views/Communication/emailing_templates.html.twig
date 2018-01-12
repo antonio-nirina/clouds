@@ -86,10 +86,10 @@
                                     {% for template in template_list %}
                                 <div class="row">
                                     <div class="col-12 col-lg-9 template-characteristic">
-                                        <div>
+                                        {#<div>
                                             <input id="template-element-{{ loop.index }}-check" class="styled-checkbox bigger" type="checkbox">
                                             <label for="template-element-{{ loop.index }}-check"></label>
-                                        </div>
+                                        </div>#}
                                         <img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">
                                         <div class="template-info">
                                             <span class="template-name">{{ template.name }}</span>
@@ -106,6 +106,7 @@
                                                 <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
                                                 <a class="dropdown-item preview-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_preview_template", {"template_id": template.getId}) }}">PRÉVISUALISER</a>
                                                 <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                                <a class="dropdown-item" href="#">SUPPRIMER</a>
                                             </div>
                                         </div>
                                     </div>
