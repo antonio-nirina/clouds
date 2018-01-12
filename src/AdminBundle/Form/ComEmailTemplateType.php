@@ -38,10 +38,10 @@ class ComEmailTemplateType extends AbstractType
             ->add('action_button_text_color', TextType::class)
             ->add('email_color', TextType::class)
             ->add('background_color', TextType::class)
-            ->add('footer_list_state', CheckboxType::class)
-            ->add('footer_company_state', CheckboxType::class)
-            ->add('footer_unsubscribing_state', CheckboxType::class)
-            ->add('footer_contact_state', CheckboxType::class)
+            ->add('footer_company_info', TextType::class)
+            ->add('footer_contact_info', TextType::class)
+            ->add('footer_unsubscribing_text', TextType::class)
+            ->add('footer_additional_info', TextType::class)
             ->add('contents', CollectionType::class, array(
                 'entry_type' => ComEmailTemplateContentType::class,
                 'entry_options' => array('label' => false),

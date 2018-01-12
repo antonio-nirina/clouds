@@ -16,7 +16,10 @@ class TemplateDataInitializer
             ->setActionButtonBackgroundColor('#ff0000')
             ->setActionButtonTextColor('#ffffff')
             ->setEmailColor('#ffffff')
-            ->setBackgroundColor('#f5f5f5');
+            ->setBackgroundColor('#f5f5f5')
+            ->setFooterCompanyInfo('copyright / société')
+            ->setFooterContactInfo('contact@masociete.com')
+            ->setFooterUnsubscribingText('me désabonner');
 
         $content_img = new ComEmailTemplateContent();
         $content_img->setContentType(TemplateContentType::IMAGE)

@@ -561,6 +561,7 @@ class CommunicationController extends AdminController
                     'template_model_class' => new TemplateModel(),
                     'template_logo_alignment_class' => new TemplateLogoAlignment(),
                     'content_type_class' => new TemplateContentType(),
+                    'preview_mode' => true
                 )
             );
             $data = $json_response_data_provider->success();
