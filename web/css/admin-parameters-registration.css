@@ -2772,3 +2772,48 @@ p.chargementAjax.hidden{
     padding: 0 80px;
     width: 100%;
 }
+
+/**
+ * création - édition email, partie personnalisation
+ */
+
+.styled-on-off-state{
+    display: none;
+}
+
+.styled-on-off-state:checked + label{
+    background: url('../images/cloudsRewards/on-off.png') no-repeat;
+    height: 20px;
+    width: 45px;
+    cursor:pointer;
+}
+
+.styled-on-off-state + label{
+    background: url('../images/cloudsRewards/on-off-off.png') no-repeat;
+    height: 20px;
+    width: 45px;
+    cursor:pointer;
+}
+
+.personalization-container{
+    display: flex;
+}
+
+.personalization-container .personalization-option-container{
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.personalization-container .personalization-option-container .option-label{
+    position: relative;
+    top: 4px;
+    margin-left: 10px;
+}
+
+@media (max-width: 575px){
+    .personalization-container{
+        display: flex;
+        flex-direction: column;
+    }
+}
