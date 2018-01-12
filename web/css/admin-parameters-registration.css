@@ -2612,6 +2612,7 @@ section .row.ending {
 }
 
 .options-container{
+    margin-top: 40px;
     position: relative;
 }
 
