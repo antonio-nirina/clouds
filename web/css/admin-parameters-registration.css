@@ -2535,6 +2535,20 @@ section .row.ending {
     position: relative !important;
 }
 
+@media (max-width: 991px) {
+    .add-other-content-container{
+        flex-direction: column;
+        padding-left: 20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .add-other-content-container .add{
+        width: fit-content;
+        width: -moz-fit-content;
+    }
+}
+
 
 .template-name-container{
     padding-top: 40px;
@@ -2813,7 +2827,7 @@ p.chargementAjax.hidden{
 
 @media (max-width: 575px){
     .personalization-container{
-        display: flex;
-        flex-direction: column;
+        width: fit-content;
+        width: -moz-fit-content;
     }
 }
