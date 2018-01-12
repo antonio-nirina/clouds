@@ -32,7 +32,17 @@
                         <img src="{{ absolute_url(asset(emailing_template_logo_location~com_email_template.logo)) }}" width="{{ logo_width }}" height="" alt="logo" />
                     </td>
                 </tr>
+                    {% else %}
+                <tr>
+                    <td height="20">
+                    </td>
+                </tr>
                     {% endif %}
+                {% else %}
+                <tr>
+                    <td height="20">
+                    </td>
+                </tr>
                 {% endif %}
                 <tr>
                     <td style="padding: 0 0 20px 0;">
