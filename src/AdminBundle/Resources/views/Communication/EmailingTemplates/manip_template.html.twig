@@ -1,7 +1,7 @@
 {% if manip_template_form is defined %}
     {{ form_start(manip_template_form, {"attr": {"novalidate": "novalidate"}}) }}
     <div class="content-container large">
-        <span class="dialog-title">créer votre template d'e-mail</span>
+        <span class="dialog-title">créer votre e-mail</span>
         <div class="row options-container">
             <div class="options-wrapper"></div>
             <div class="col-12 col-lg-4 left-col">
@@ -24,29 +24,42 @@
                 </div>
                 <div class="template-config-block footer-text-block">
                     <span class="option-title">Texte présent dans le footer</span>
-                    <div class="footer-text-option-container">
-                        {#<input id="text_1" type="checkbox" class="styled-checkbox bigger">#}
-                        {{ form_widget(manip_template_form.footer_list_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
-                        <label for="{{ manip_template_form.footer_list_state.vars.id }}"></label>
-                        {{ form_label(manip_template_form.footer_list_state, "liste de diffusion", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    <div class="footer-text-element">
+                        <div class="footer-text-option-container">
+                            {{ form_widget(manip_template_form.footer_company_info, { "attr": {"class": "footer-text-option-input mandatory-footer-text", "placeholder": "copyright / société"}}) }}
+                            <span class="delete-mandatory-input"></span>
+                        </div>
+                        <div class="error-message-container">
+                            {{ form_errors(manip_template_form.footer_company_info) }}
+                        </div>
                     </div>
-                    <div class="footer-text-option-container">
-                        {#<input id="text_2" type="checkbox" class="styled-checkbox bigger">#}
-                        {{ form_widget(manip_template_form.footer_company_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
-                        <label for="{{ manip_template_form.footer_company_state.vars.id }}"></label>
-                        {{ form_label(manip_template_form.footer_company_state, "copyright / société", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    <div class="footer-text-element">
+                        <div class="footer-text-option-container">
+                            {{ form_widget(manip_template_form.footer_contact_info, { "attr": {"class": "footer-text-option-input mandatory-footer-text", "placeholder": "contact@masociete.com"}}) }}
+                            <span class="delete-mandatory-input"></span>
+                        </div>
+                        <div class="error-message-container">
+                            {{ form_errors(manip_template_form.footer_contact_info) }}
+                        </div>
                     </div>
-                    <div class="footer-text-option-container">
-                        {#<input id="text_3" type="checkbox" class="styled-checkbox bigger">#}
-                        {{ form_widget(manip_template_form.footer_unsubscribing_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
-                        <label for="{{ manip_template_form.footer_unsubscribing_state.vars.id }}"></label>
-                        {{ form_label(manip_template_form.footer_unsubscribing_state, "désabonnement", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    <div class="footer-text-element">
+                        <div class="footer-text-option-container">
+                            {{ form_widget(manip_template_form.footer_unsubscribing_text, { "attr": {"class": "footer-text-option-input mandatory-footer-text", "placeholder": "me désabonner"}}) }}
+                            <span class="delete-mandatory-input"></span>
+                        </div>
+                        <div class="error-message-container">
+                            {{ form_errors(manip_template_form.footer_unsubscribing_text) }}
+                        </div>
                     </div>
-                    <div class="footer-text-option-container">
-                        {#<input id="text_4" type="checkbox" class="styled-checkbox bigger">#}
-                        {{ form_widget(manip_template_form.footer_contact_state, {"attr": {"class": "styled-checkbox bigger"}}) }}
-                        <label for="{{ manip_template_form.footer_contact_state.vars.id }}"></label>
-                        {{ form_label(manip_template_form.footer_contact_state, "e-mail de contact", {"label_attr": {"class": "footer-text-option-label"}}) }}
+                    <div class="footer-text-element">
+                        <div class="footer-text-option-container">
+                            {{ form_widget(manip_template_form.footer_additional_info, { "attr": {"class": "footer-text-option-input removable-content-input" }}) }}
+                            {% set delete_input_visibility = 'style=display:none' %}
+                            {% if manip_template_form.vars.value.footerAdditionalInfo | trim is not empty %}
+                                {% set delete_input_visibility = '' %}
+                            {% endif %}
+                            <span class="delete-input" {{ delete_input_visibility }}></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,6 +192,27 @@
                     </div>
                 </div>
                 {% endif %}
+
+                <div class="template-config-block template-content-block">
+                    <span class="option-title-block">personnalisation</span>
+                    <div class="personalization-container">
+                        <div class="personalization-option-container">
+                            <input id="civility-personalization" type="checkbox" class="styled-on-off-state">
+                            <label for="civility-personalization"></label>
+                            <label for="civility-personalization" class="option-label">civilité</label>
+                        </div>
+                        <div class="personalization-option-container">
+                            <input id="firstname-personalization" type="checkbox" class="styled-on-off-state">
+                            <label for="firstname-personalization"></label>
+                            <label for="firstname-personalization" class="option-label">prénom</label>
+                        </div>
+                        <div class="personalization-option-container">
+                            <input id="name-personalization" type="checkbox" class="styled-on-off-state">
+                            <label for="name-personalization"></label>
+                            <label for="name-personalization" class="option-label">nom</label>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="template-config-block template-content-block">
                     <span class="option-title-block">texte</span>
@@ -318,6 +352,7 @@
                 <div class="add-other-content-container">
                     <a class="add add-image-link" href="#"><span>ajouter une image</span></a>
                     <a class="add add-text-link" href="#"><span>ajouter un texte</span></a>
+                    <a class="add add-button-link" href="#"><span>ajouter un bouton</span></a>
                 </div>
                 {% endif %}
             </div>

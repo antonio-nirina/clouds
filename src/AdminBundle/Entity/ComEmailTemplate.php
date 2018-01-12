@@ -97,24 +97,27 @@ class ComEmailTemplate
     private $background_color;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
-    private $footer_list_state;
+    private $footer_company_info;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
-    private $footer_company_state;
+    private $footer_contact_info;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
-    private $footer_unsubscribing_state;
+    private $footer_unsubscribing_text;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $footer_contact_state;
+    private $footer_additional_info;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ComEmailTemplateContent", mappedBy="template")
@@ -281,102 +284,6 @@ class ComEmailTemplate
     public function getActionButtonTextColor()
     {
         return $this->action_button_text_color;
-    }
-
-    /**
-     * Set footerListState
-     *
-     * @param boolean $footerListState
-     *
-     * @return ComEmailTemplate
-     */
-    public function setFooterListState($footerListState)
-    {
-        $this->footer_list_state = $footerListState;
-
-        return $this;
-    }
-
-    /**
-     * Get footerListState
-     *
-     * @return boolean
-     */
-    public function getFooterListState()
-    {
-        return $this->footer_list_state;
-    }
-
-    /**
-     * Set footerCompanyState
-     *
-     * @param boolean $footerCompanyState
-     *
-     * @return ComEmailTemplate
-     */
-    public function setFooterCompanyState($footerCompanyState)
-    {
-        $this->footer_company_state = $footerCompanyState;
-
-        return $this;
-    }
-
-    /**
-     * Get footerCompanyState
-     *
-     * @return boolean
-     */
-    public function getFooterCompanyState()
-    {
-        return $this->footer_company_state;
-    }
-
-    /**
-     * Set footerUnsubscribingState
-     *
-     * @param boolean $footerUnsubscribingState
-     *
-     * @return ComEmailTemplate
-     */
-    public function setFooterUnsubscribingState($footerUnsubscribingState)
-    {
-        $this->footer_unsubscribing_state = $footerUnsubscribingState;
-
-        return $this;
-    }
-
-    /**
-     * Get footerUnsubscribingState
-     *
-     * @return boolean
-     */
-    public function getFooterUnsubscribingState()
-    {
-        return $this->footer_unsubscribing_state;
-    }
-
-    /**
-     * Set footerContactState
-     *
-     * @param boolean $footerContactState
-     *
-     * @return ComEmailTemplate
-     */
-    public function setFooterContactState($footerContactState)
-    {
-        $this->footer_contact_state = $footerContactState;
-
-        return $this;
-    }
-
-    /**
-     * Get footerContactState
-     *
-     * @return boolean
-     */
-    public function getFooterContactState()
-    {
-        return $this->footer_contact_state;
     }
 
     /**
@@ -579,5 +486,101 @@ class ComEmailTemplate
     public function getLastEditUser()
     {
         return $this->last_edit_user;
+    }
+
+    /**
+     * Set footerCompanyInfo
+     *
+     * @param string $footerCompanyInfo
+     *
+     * @return ComEmailTemplate
+     */
+    public function setFooterCompanyInfo($footerCompanyInfo)
+    {
+        $this->footer_company_info = $footerCompanyInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get footerCompanyInfo
+     *
+     * @return string
+     */
+    public function getFooterCompanyInfo()
+    {
+        return $this->footer_company_info;
+    }
+
+    /**
+     * Set footerContactInfo
+     *
+     * @param string $footerContactInfo
+     *
+     * @return ComEmailTemplate
+     */
+    public function setFooterContactInfo($footerContactInfo)
+    {
+        $this->footer_contact_info = $footerContactInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get footerContactInfo
+     *
+     * @return string
+     */
+    public function getFooterContactInfo()
+    {
+        return $this->footer_contact_info;
+    }
+
+    /**
+     * Set footerUnsubscribingText
+     *
+     * @param string $footerUnsubscribingText
+     *
+     * @return ComEmailTemplate
+     */
+    public function setFooterUnsubscribingText($footerUnsubscribingText)
+    {
+        $this->footer_unsubscribing_text = $footerUnsubscribingText;
+
+        return $this;
+    }
+
+    /**
+     * Get footerUnsubscribingText
+     *
+     * @return string
+     */
+    public function getFooterUnsubscribingText()
+    {
+        return $this->footer_unsubscribing_text;
+    }
+
+    /**
+     * Set footerAdditionalInfo
+     *
+     * @param string $footerAdditionalInfo
+     *
+     * @return ComEmailTemplate
+     */
+    public function setFooterAdditionalInfo($footerAdditionalInfo)
+    {
+        $this->footer_additional_info = $footerAdditionalInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get footerAdditionalInfo
+     *
+     * @return string
+     */
+    public function getFooterAdditionalInfo()
+    {
+        return $this->footer_additional_info;
     }
 }

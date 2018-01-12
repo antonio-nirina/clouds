@@ -668,4 +668,23 @@ $(document).ready(function(){
      * Prévisualisation template
      * *********************************************************************************************
      */
+
+    /**
+     * * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Alerte à la suppression de texte de footer obligatoire
+     * * *********************************************************************************************
+     */
+    $(document).on('click', '.delete-mandatory-input', function(e){
+        e.preventDefault();
+        $('#alert-footer-element-dialog').modal('show');
+    });
+
+    /**
+     * * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Alerte à la suppression de texte de footer obligatoire
+     * * *********************************************************************************************
+     */
 });

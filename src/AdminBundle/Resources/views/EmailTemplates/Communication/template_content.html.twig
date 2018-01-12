@@ -9,7 +9,7 @@
             <table align="center"  width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; border-collapse: collapse; background-color: {{ com_email_template.emailColor }}" bgcolor="{{ com_email_template.emailColor }}">
                 <tr>
                     <td style="color: #7f7f7f; padding-top: 20px; padding-bottom: 20px; padding-left:10px; padding-right:10px; font-family: Arial, sans-serif; font-size: 11px;" bgcolor="{{ com_email_template.backgroundColor }}" align="center">
-                        <span>Si cet e-mail ne s'affiche pas correctement <a href="#" style="color:#7f7f7f">cliquez-ici</a> !</span>
+                        <span>Si cet e-mail ne s'affiche pas correctement <a href="{{ preview_mode is defined and true == preview_mode ? '#' : '[[PERMALINK]]' }}" style="color:#7f7f7f" {{ preview_mode is defined and true == preview_mode ? '' : 'target=_blank' }}>cliquez-ici</a> !</span>
                     </td>
                 </tr>
 
@@ -32,7 +32,17 @@
                         <img src="{{ absolute_url(asset(emailing_template_logo_location~com_email_template.logo)) }}" width="{{ logo_width }}" height="" alt="logo" />
                     </td>
                 </tr>
+                    {% else %}
+                <tr>
+                    <td height="20">
+                    </td>
+                </tr>
                     {% endif %}
+                {% else %}
+                <tr>
+                    <td height="20">
+                    </td>
+                </tr>
                 {% endif %}
                 <tr>
                     <td style="padding: 0 0 20px 0;">
@@ -103,24 +113,24 @@
                 </tr>
                 <tr>
                     <td bgcolor="{{ com_email_template.backgroundColor }}" style="color: #7f7f7f;padding: 20px 0 10px 0; line-height: 7px; font-size: 11px; font-family: Arial, sans-serif;" align="center">
-                        {% if true == com_email_template.footerListState  %}
-                        <p>(liste de diffusion)</p>
+                        {% if com_email_template.footerCompanyInfo is not empty %}
+                            <p>{{ com_email_template.footerCompanyInfo }}</p>
                         {% endif %}
 
-                        {% if true == com_email_template.footerCompanyState  %}
-                        <p>&copy Société 2018, droits réservés</p>
-                        {% endif %}
-
-                        {% if true == com_email_template.footerContactState or true == com_email_template.footerUnsubscribingState %}
+                        {% if com_email_template.footerContactInfo is not empty or com_email_template.footerUnsubscribingText is not empty %}
                         <p>
-                            {% if true == com_email_template.footerContactState %}
-                                <a href="#" style="color: #7f7f7f;">contact@domain.tld</a>
+                            {% if com_email_template.footerContactInfo is not empty %}
+                                <a href="mailto:{{ com_email_template.footerContactInfo }}" style="color: #7f7f7f;">{{ com_email_template.footerContactInfo }}</a>
                             {% endif %}
-                            {% if true == com_email_template.footerContactState and true == com_email_template.footerUnsubscribingState %} | {% endif %}
-                            {% if true == com_email_template.footerUnsubscribingState %}
-                                <a href="#" style="color: #7f7f7f;">se désabonner</a>
+                            {% if com_email_template.footerContactInfo is not empty and com_email_template.footerUnsubscribingText is not empty %} | {% endif %}
+                            {% if com_email_template.footerUnsubscribingText is not empty %}
+                                <a href="{{ preview_mode is defined and true == preview_mode ? '#' : '[[UNSUB_LINK_FR]]' }}" style="color: #7f7f7f;">{{ com_email_template.footerUnsubscribingText }}</a>
                             {% endif %}
                         </p>
+                        {% endif %}
+
+                        {% if com_email_template.footerAdditionalInfo is not empty %}
+                            <p>{{ com_email_template.footerAdditionalInfo }}</p>
                         {% endif %}
                     </td>
                 </tr>

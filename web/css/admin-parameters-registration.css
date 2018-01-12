@@ -1214,7 +1214,7 @@ a.blue-anchor{
     background-position: -14px -9px;
 }
 
-.delete-input {
+.delete-input, .delete-mandatory-input {
     width: 25px;
     height: 25px;
     background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
@@ -1457,13 +1457,23 @@ a.blue-anchor{
     .confirm-delete-dialog .text-container{
         padding: 0 25px;
     }
+
+    .simple-message-modal .text-container{
+        padding: 0 25px !important;
+    }
 }
 
 @media (min-width: 575px) and (max-width: 991px) {
     .confirm-delete-dialog .text-container{
         padding: 0 50px;
     }
+
+    .simple-message-modal .text-container{
+        padding: 0 50px !important;
+    }
+
 }
+
 section .row.filter {
     margin: -20px -23px 0px;
     padding: 25px 23px;
@@ -1493,6 +1503,13 @@ section .dropdown-toggle, section .dropdown-toggle.active {
     min-width: 10rem;
     text-align: left;
 }
+
+@media (max-width: 310px){
+    section .dropdown-toggle{
+        min-width: 8rem;
+    }
+}
+
 section /*.row.filter*/ .dropdown.show .dropdown-toggle {
     visibility: hidden;
     box-shadow: none;
@@ -2404,9 +2421,33 @@ section .row.ending {
     text-align:left;
 }
 
+.footer-text-block .footer-text-option-container .footer-text-option-input{
+    color: #636363;
+    border: 1px solid #636363;
+    width: 240px;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    background-color: inherit;
+    text-align:left;
+}
+
+.footer-text-block .footer-text-option-container .delete-input{
+    position: relative;
+    top: 0px;
+}
+
+.footer-text-block .footer-text-option-container .delete-mandatory-input{
+    position: relative;
+    top: 0px;
+}
+
 .footer-text-block .footer-text-option-container{
     display: flex;
     align-items: center;
+}
+
+.footer-text-block .footer-text-element{
     margin-bottom: 15px;
 }
 
@@ -2507,6 +2548,20 @@ section .row.ending {
 
 .add-other-content-container .add::before{
     position: relative !important;
+}
+
+@media (max-width: 991px) {
+    .add-other-content-container{
+        flex-direction: column;
+        padding-left: 20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .add-other-content-container .add{
+        width: fit-content;
+        width: -moz-fit-content;
+    }
 }
 
 
@@ -2612,6 +2667,10 @@ section .row.ending {
         max-width: 80%;
     }
 
+    .footer-text-block .footer-text-option-container .footer-text-option-input{
+        max-width: 80%;
+    }
+
     .app-dialog .submit-button-container{
         display: flex;
         flex-direction: column;
@@ -2620,11 +2679,13 @@ section .row.ending {
 
     .app-dialog .submit-button-container .btn-valider.modify, #new-campaign-modal .modal-step-3 .btn-valider.modify {
         margin-right: 0;
+        margin-left: 0;
         width: 120px;
     }
 
     .app-dialog .submit-button-container .btn-valider.validate, #new-campaign-modal .modal-step-3 .btn-valider.validate{
         margin-left: 0;
+        margin-right: 0;
         width: 120px;
         margin-bottom: 40px;
     }
@@ -2647,12 +2708,13 @@ section .row.ending {
  */
 .template-characteristic{
     display: flex;
+    padding-left: 0;
 }
 
 .template-characteristic .template-img{
     width: 80px;
     height: 100px;
-    margin: 0 20px;
+    margin: 0 20px 0 0;
 }
 
 .template-characteristic .template-name{
@@ -2720,4 +2782,67 @@ p.chargementAjax img{
 
 p.chargementAjax.hidden{
     display: none;
+}
+
+/**
+ * message simple
+ */
+.simple-message-modal .message-title{
+    color: var(--couleur_2);
+    font-size: 25px
+}
+
+.simple-message-modal .message{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.simple-message-modal .text-container{
+    padding: 0 80px;
+    width: 100%;
+}
+
+/**
+ * création - édition email, partie personnalisation
+ */
+
+.styled-on-off-state{
+    display: none;
+}
+
+.styled-on-off-state:checked + label{
+    background: url('../images/cloudsRewards/on-off.png') no-repeat;
+    height: 20px;
+    width: 45px;
+    cursor:pointer;
+}
+
+.styled-on-off-state + label{
+    background: url('../images/cloudsRewards/on-off-off.png') no-repeat;
+    height: 20px;
+    width: 45px;
+    cursor:pointer;
+}
+
+.personalization-container{
+    display: flex;
+}
+
+.personalization-container .personalization-option-container{
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.personalization-container .personalization-option-container .option-label{
+    position: relative;
+    top: 4px;
+    margin-left: 10px;
+}
+
+@media (max-width: 575px){
+    .personalization-container{
+        width: fit-content;
+        width: -moz-fit-content;
+    }
 }
