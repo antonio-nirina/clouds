@@ -687,4 +687,50 @@ $(document).ready(function(){
      * Alerte à la suppression de texte de footer obligatoire
      * * *********************************************************************************************
      */
+
+    /**
+     * **********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Personnalisation
+     * **********************************************************************************************
+     */
+    $(document).on('click', '.personalization-option', function(e){
+        var personalization_value = $(this).attr('data-personalization-value');
+        var variable_personalization_value = '[[data:'+personalization_value+':]]';
+        var main_text_content_id = $('#create-template-dialog .main-text-content').attr('id');
+        if($(this).is(':checked')){
+            if(CKEDITOR.instances[main_text_content_id]){
+                CKEDITOR.instances[main_text_content_id].insertHtml(variable_personalization_value);
+            }
+        } else {
+            if(CKEDITOR.instances[main_text_content_id]){
+                var data = CKEDITOR.instances[main_text_content_id].getData();
+                data = data.replace(new RegExp(/\[\[data\:/.source+personalization_value+/\:\]\]/.source, 'g'), '');
+                CKEDITOR.instances[main_text_content_id].setData(data);
+            }
+        }
+    });
+
+    $('#create-template-dialog').on('shown.bs.modal', function(){
+        setTimeout(function(){
+            var main_text_content_id = $('#create-template-dialog .main-text-content').attr('id');
+            if(CKEDITOR.instances[main_text_content_id]){
+                var data = CKEDITOR.instances[main_text_content_id].getData();
+                var personalization_option_list = $('#create-template-dialog').find('.personalization-option');
+                personalization_option_list.each(function(){
+                    var data_personalization_value = $(this).attr('data-personalization-value');
+                    if(data.search(new RegExp(/\[\[data\:/.source+data_personalization_value+/\:\]\]/.source)) > -1){
+                        $(this).prop('checked', true);
+                    }
+                });
+            }
+        }, 50);
+    });
+    /**
+     * **********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Personnalisation
+     * **********************************************************************************************
+     */
 });
