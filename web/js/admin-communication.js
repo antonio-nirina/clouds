@@ -585,6 +585,7 @@ $(document).ready(function(){
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
         }
+        $('#create-template-dialog').find('.block-model-container').remove();
         $('.chargementAjax').removeClass('hidden');
         $('#create-template-dialog form').ajaxSubmit({
             type: 'POST',
@@ -598,7 +599,6 @@ $(document).ready(function(){
                     $('.chargementAjax').addClass('hidden');
                 } else {
                     window.location.replace($('input[name=template_list_url]').val());
-                    $('.chargementAjax').addClass('hidden');
                 }
             },
             statusCode: {

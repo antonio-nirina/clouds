@@ -47,7 +47,7 @@
                 <tr>
                     <td style="padding: 0 0 20px 0;">
                         <table  style="border-collapse: collapse;" width="100%">
-                            {% if constant('TEXT_AND_IMAGE', template_model_class) == com_email_template.templateModel %}
+                            {#{% if constant('TEXT_AND_IMAGE', template_model_class) == com_email_template.templateModel %}
                                 {% set first_content = com_email_template.contents[0] %}
                                 {% if first_content.image is not empty %}
                             <tr>
@@ -76,9 +76,9 @@
                                     <table width="250">
                                         <tr>
                                             <td width="250" align="center" style="font-family: Arial, sans-serif; font-size: 15px;">
-                                                {#<a {{ com_email_template.actionButtonUrl is not empty ? "target=_blank" : ""}} href="{{ com_email_template.actionButtonUrl is not empty ? com_email_template.actionButtonUrl : '#' }}">
+                                                #}{#<a {{ com_email_template.actionButtonUrl is not empty ? "target=_blank" : ""}} href="{{ com_email_template.actionButtonUrl is not empty ? com_email_template.actionButtonUrl : '#' }}">
                                                     <span style="max-width: 560px; border-radius: 50px; border: none;height: 35px; cursor: pointer; color: {{ com_email_template.actionButtonTextColor }}; background-color: {{ com_email_template.actionButtonBackgroundColor }}; display:inline-block; padding-right: 20px; padding-left:20px; line-height: 35px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ com_email_template.actionButtonText }}</span>
-                                                </a>#}
+                                                </a>#}{#
 
                                                 <a href="#" style="text-decoration: none !important; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:{{ com_email_template.actionButtonTextColor }};background-color: {{ com_email_template.actionButtonBackgroundColor }};">
                                                     <span>{{ com_email_template.actionButtonText }}</span>
@@ -87,11 +87,11 @@
                                         </tr>
                                     </table>
                                 </td>
-                            </tr>
+                            </tr>#}
 
                             {% if com_email_template.contents|length > 2 %}
                                 {% for content in com_email_template.contents %}
-                                        {% if loop.index > 2 %}
+                                        {#{% if loop.index > 2 %}#}
                                             {% if constant('IMAGE', content_type_class) == content.contentType and content.image is not empty %}
                             <tr>
                                 <td align="center" style="padding: 0 0 20px 0; font-family: Arial, sans-serif;font-size: 15px;">
@@ -104,8 +104,22 @@
                                     {{ content.textContent | raw }}
                                 </td>
                             </tr>
+                                            {% elseif constant('BUTTON', content_type_class) == content.contentType%}
+                            <tr>
+                                <td align="center" style="padding: 0 0 20px 0;">
+                                    <table width="250">
+                                        <tr>
+                                            <td width="250" align="center" style="font-family: Arial, sans-serif; font-size: 15px;">
+                                                <a href="#" style="text-decoration: none !important; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:{{ content.actionButtonTextColor }};background-color: {{ content.actionButtonBackgroundColor }};">
+                                                    <span>{{ content.actionButtonText }}</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                                             {% endif %}
-                                        {% endif %}
+                                        {#{% endif %}#}
                                 {% endfor %}
                             {% endif %}
                         </table>
