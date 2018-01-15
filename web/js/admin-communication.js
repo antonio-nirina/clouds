@@ -128,14 +128,14 @@ $(document).ready(function(){
     // $('#action-button-background-color').on('change', function(e){
     $(document).on('change', '.action-button-background-color', function(e){
         e.preventDefault();
-        $('.action-button-preview').css("background-color", $(this).val());
+        $(this).parents('.action-button-block').find('.action-button-preview').css("background-color", $(this).val());
     });
 
 
     // $('#action-button-text-color').on('change', function(e){
     $(document).on('change', '.action-button-text-color', function(e){
         e.preventDefault();
-        $('.action-button-preview').css("color", $(this).val());
+        $(this).parents('.action-button-block').find('.action-button-preview').css("color", $(this).val());
     });
     /**
      * *********************************************************************************************
@@ -199,6 +199,12 @@ $(document).ready(function(){
                                 show: true,
                             });
                         }, 0);
+                        $('.chargementAjax').addClass('hidden');
+                    },
+                    500: function(){
+                        $('#preview-template-dialog').find('.error-message-container.general-message').text('Erreur interne');
+                        $('#preview-template-dialog').find('.modal-body-container').html('');
+                        $('#preview-template-dialog').modal('show');
                         $('.chargementAjax').addClass('hidden');
                     }
                 }
@@ -360,15 +366,15 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
     $(document).on('input', '#create-template-dialog .action-button-text-input', function(e){
-        $(this).parents('#create-template-dialog').find('.action-button-preview').text($(this).val());
+        $(this).parents('.action-button-block').find('.action-button-preview').text($(this).val());
     });
 
     $(document).on('change', '#create-template-dialog .action-button-text-input', function(e){
-        $(this).parents('#create-template-dialog').find('.action-button-preview').text($(this).val());
+        $(this).parents('.action-button-block').find('.action-button-preview').text($(this).val());
     });
 
     $(document).on('click', '#create-template-dialog .delete-action-button-text', function(e){
-        $(this).parents('#create-template-dialog').find('.action-button-preview').text('');
+        $(this).parents('.action-button-block').find('.action-button-preview').text('');
     });
 
     /**
@@ -496,9 +502,40 @@ $(document).ready(function(){
         addContentConfigBock(new_content_index, $('input[name=template_content_type_text]').val());
     });
 
+    $(document).on('click', '.add-other-content-container .add-button-link', function(e){
+        e.preventDefault();
+        var available_content_num = $('.template-config-block-container')
+            .find('.template-config-block.template-content-block').length;
+        var new_content_index = available_content_num;
+        var new_button_content = $('.block-model-container').find('.template-content-button-model').clone();
+        new_button_content.removeClass('template-content-buttton-model');
+        var html_new_button_content = new_button_content.wrap('<div class="model-wrapper"></div>').parent().html();
+        html_new_button_content = html_new_button_content.replace(/__name__/g, new_content_index);
+        new_button_content =  $($.parseHTML(html_new_button_content));
+        var add_content_link_block = $(".add-other-content-container");
+        add_content_link_block.before(new_button_content);
+
+        const DEFAULT_TEXT_COLOR = '#ffffff';
+        const DEFAULT_BG_COLOR = '#ff0000';
+        const DEFAULT_TEXT = 'mon bouton d\'action';
+        new_button_content.find('.action-button-background-color').addClass('color-value');
+        new_button_content.find('.action-button-background-color').val(DEFAULT_BG_COLOR);
+        new_button_content.find('.action-button-text-color').addClass('color-value');
+        new_button_content.find('.action-button-text-color').val(DEFAULT_TEXT_COLOR);
+        installColorPicker();
+        new_button_content.find('.action-button-preview').css({
+            'background-color': DEFAULT_BG_COLOR,
+            'color': DEFAULT_TEXT_COLOR
+        });
+        new_button_content.find('.action-button-text-input').val(DEFAULT_TEXT);
+        new_button_content.find('.action-button-preview').text(DEFAULT_TEXT)
+
+        addContentConfigBock(new_content_index, $('input[name=template_content_type_button]').val());
+    });
+
     /**
      * *********************************************************************************************
-     * FIN
+     * FINF
      * Paramétrages - Communication - Emailing - Templates
      * ajout d'autres contenus
      * *********************************************************************************************
@@ -530,6 +567,12 @@ $(document).ready(function(){
                     $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
                     $('#create-template-dialog').find('.modal-body-container').html('');
                     $('#create-template-dialog').modal('show');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('#preview-template-dialog').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#preview-template-dialog').find('.modal-body-container').html('');
+                    $('#preview-template-dialog').modal('show');
                     $('.chargementAjax').addClass('hidden');
                 }
             }

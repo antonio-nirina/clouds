@@ -47,6 +47,29 @@ class ComEmailTemplateContent
     private $content_order;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
+     */
+    private $action_button_text;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $action_button_url;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Length(max=20)
+     */
+    private $action_button_background_color;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Length(max=20)
+     */
+    private $action_button_text_color;
+
+    /**
      * Get id
      *
      * @return integer
@@ -174,5 +197,101 @@ class ComEmailTemplateContent
     public function getContentOrder()
     {
         return $this->content_order;
+    }
+
+    /**
+     * Set actionButtonText
+     *
+     * @param string $actionButtonText
+     *
+     * @return ComEmailTemplateContent
+     */
+    public function setActionButtonText($actionButtonText)
+    {
+        $this->action_button_text = $actionButtonText;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonText
+     *
+     * @return string
+     */
+    public function getActionButtonText()
+    {
+        return $this->action_button_text;
+    }
+
+    /**
+     * Set actionButtonUrl
+     *
+     * @param string $actionButtonUrl
+     *
+     * @return ComEmailTemplateContent
+     */
+    public function setActionButtonUrl($actionButtonUrl)
+    {
+        $this->action_button_url = $actionButtonUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonUrl
+     *
+     * @return string
+     */
+    public function getActionButtonUrl()
+    {
+        return $this->action_button_url;
+    }
+
+    /**
+     * Set actionButtonBackgroundColor
+     *
+     * @param string $actionButtonBackgroundColor
+     *
+     * @return ComEmailTemplateContent
+     */
+    public function setActionButtonBackgroundColor($actionButtonBackgroundColor)
+    {
+        $this->action_button_background_color = $actionButtonBackgroundColor;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonBackgroundColor
+     *
+     * @return string
+     */
+    public function getActionButtonBackgroundColor()
+    {
+        return $this->action_button_background_color;
+    }
+
+    /**
+     * Set actionButtonTextColor
+     *
+     * @param string $actionButtonTextColor
+     *
+     * @return ComEmailTemplateContent
+     */
+    public function setActionButtonTextColor($actionButtonTextColor)
+    {
+        $this->action_button_text_color = $actionButtonTextColor;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonTextColor
+     *
+     * @return string
+     */
+    public function getActionButtonTextColor()
+    {
+        return $this->action_button_text_color;
     }
 }

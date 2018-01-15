@@ -32,10 +32,6 @@ class ComEmailTemplateType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ))
-            ->add('action_button_text', TextType::class)
-            ->add('action_button_url', TextType::class)
-            ->add('action_button_background_color', TextType::class)
-            ->add('action_button_text_color', TextType::class)
             ->add('email_color', TextType::class)
             ->add('background_color', TextType::class)
             ->add('footer_company_info', TextType::class)

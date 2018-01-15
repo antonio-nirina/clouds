@@ -35,7 +35,8 @@ class ComEmailTemplateManager
 
         foreach ($template->getContents() as $content) {
             if (TemplateModel::TEXT_ONLY == $template->getTemplateModel()) {
-                if (TemplateContentType::TEXT == $content->getContentType()) {
+                if (TemplateContentType::TEXT == $content->getContentType()
+                    || TemplateContentType::BUTTON == $content->getContentType()) {
                     $content->setTemplate($template);
                     $this->em->persist($content);
                 } else {

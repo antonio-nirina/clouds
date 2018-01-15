@@ -226,18 +226,24 @@
                     </div>
                 </div>
 
+                {% set default_button_content = null %}
+                {% if edit_mode is defined and true == edit_mode and constant('TEXT_ONLY', template_model_class) == manip_template_form.vars.value.templateModel %}
+                    {% set default_button_content = manip_template_form.contents[1] %}
+                {% else %}
+                    {% set default_button_content = manip_template_form.contents[2] %}
+                {% endif %}
                 <div class="template-config-block action-button-block">
                     <span class="option-title-block">bouton d'action</span>
                     <div class="row">
                         <div class="col-12 col-lg-3">
                             {#<label>texte du bouton</label>#}
-                            {{ form_label(manip_template_form.action_button_text, "texte de bouton") }}
+                            {{ form_label(default_button_content.action_button_text, "texte de bouton") }}
                         </div>
                         <div class="col-12 col-lg-9 vertical-align-element-container">
                             {#<input type="text" class="action-button-option-input removable-content-input" value="mon bouton d'action">#}
-                            {{ form_widget(manip_template_form.action_button_text, {"attr": {"class": "action-button-option-input removable-content-input action-button-text-input"}}) }}
+                            {{ form_widget(default_button_content.action_button_text, {"attr": {"class": "action-button-option-input removable-content-input action-button-text-input"}}) }}
                             {% set delete_input_visibility = 'style=display:none' %}
-                            {% if manip_template_form.vars.value.actionButtonText | trim is not empty %}
+                            {% if default_button_content.vars.value.actionButtonText | trim is not empty %}
                                 {% set delete_input_visibility = '' %}
                             {% endif %}
                             <span class="delete-input delete-action-button-text" {{ delete_input_visibility }}></span>
@@ -246,13 +252,13 @@
                     <div class="row">
                         <div class="col-12 col-lg-3">
                             {#<label>url / mailto</label>#}
-                            {{ form_label(manip_template_form.action_button_url, "url / mailto") }}
+                            {{ form_label(default_button_content.action_button_url, "url / mailto") }}
                         </div>
                         <div class="col-12 col-lg-9 vertical-align-element-container">
                             {#<input type="text" class="action-button-option-input removable-content-input" value="inscription@gmail.com">#}
-                            {{ form_widget(manip_template_form.action_button_url, {"attr": {"class": "action-button-option-input removable-content-input"}}) }}
+                            {{ form_widget(default_button_content.action_button_url, {"attr": {"class": "action-button-option-input removable-content-input"}}) }}
                             {% set delete_input_visibility = 'style=display:none' %}
-                            {% if manip_template_form.vars.value.actionButtonUrl | trim is not empty %}
+                            {% if default_button_content.vars.value.actionButtonUrl | trim is not empty %}
                                 {% set delete_input_visibility = '' %}
                             {% endif %}
                             <span class="delete-input" {{ delete_input_visibility }}></span>
@@ -263,8 +269,8 @@
                             <label>aspect</label>
                         </div>
                         <div class="col-12 col-lg-9">
-                            <div class="action-button-preview" style="background-color: {{ manip_template_form.vars.value.actionButtonBackgroundColor }}; color: {{ manip_template_form.vars.value.actionButtonTextColor }} ">
-                                {{ manip_template_form.vars.value.actionButtonText }}
+                            <div class="action-button-preview" style="background-color: {{ default_button_content.vars.value.actionButtonBackgroundColor }}; color: {{ default_button_content.vars.value.actionButtonTextColor }} ">
+                                {{ default_button_content.vars.value.actionButtonText }}
                             </div>
                         </div>
                     </div>
@@ -273,20 +279,20 @@
                             <div class="action-button-color-option">
                                 <span class="option-title">Couleur du bouton</span>
                                 {#<input id="action-button-background-color" type="text" class="color-value" data-defaultValue="#ff0000">#}
-                                {{ form_widget(manip_template_form.action_button_background_color, {"attr": {"class": "color-value action-button-background-color"}}) }}
+                                {{ form_widget(default_button_content.action_button_background_color, {"attr": {"class": "color-value action-button-background-color"}}) }}
                             </div>
                             <div class="action-button-color-option">
                                 <span class="option-title">Couleur du texte de bouton</span>
                                 {#<input id="action-button-text-color" type="text" class="color-value" data-defaultValue="#ffffff">#}
-                                {{ form_widget(manip_template_form.action_button_text_color, {"attr": {"class": "color-value action-button-text-color"}}) }}
+                                {{ form_widget(default_button_content.action_button_text_color, {"attr": {"class": "color-value action-button-text-color"}}) }}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {% if (manip_template_form.contents|length) > 2 %}
+                {% if (manip_template_form.contents|length) > 3 %}
                     {% for content in manip_template_form.contents %}
-                        {% if loop.index > 2 %}
+                        {% if loop.index > 3 %}
                             {% if constant('IMAGE', content_type_class) == content.vars.value.contentType %}
                 <div class="template-config-block template-content-block">
                     <span class="option-title-block">image</span>
@@ -335,11 +341,63 @@
                         </div>
                     </div>
                 </div>
-                            {% elseif constant('TEXT', content_type_class) == content.vars.value.contentType%}
+                            {% elseif constant('TEXT', content_type_class) == content.vars.value.contentType %}
                 <div class="template-config-block template-content-block">
                     <span class="option-title-block">texte</span>
                     <div>
                         {{ form_widget(content.text_content, {"attr": {"class": "large-textarea"}}) }}
+                    </div>
+                </div>
+                            {% elseif constant('BUTTON', content_type_class) == content.vars.value.contentType %}
+                <div class="template-config-block action-button-block">
+                    <span class="option-title-block">bouton d'action</span>
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            {{ form_label(content.action_button_text, "texte de bouton") }}
+                        </div>
+                        <div class="col-12 col-lg-9 vertical-align-element-container">
+                            {{ form_widget(content.action_button_text, {"attr": {"class": "action-button-option-input removable-content-input action-button-text-input"}}) }}
+                            {% set delete_input_visibility = 'style=display:none' %}
+                            {% if content.vars.value.actionButtonText | trim is not empty %}
+                                {% set delete_input_visibility = '' %}
+                            {% endif %}
+                            <span class="delete-input delete-action-button-text" {{ delete_input_visibility }}></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            {{ form_label(content.action_button_url, "url / mailto") }}
+                        </div>
+                        <div class="col-12 col-lg-9 vertical-align-element-container">
+                            {{ form_widget(content.action_button_url, {"attr": {"class": "action-button-option-input removable-content-input"}}) }}
+                            {% set delete_input_visibility = 'style=display:none' %}
+                            {% if default_button_content.vars.value.actionButtonUrl | trim is not empty %}
+                                {% set delete_input_visibility = '' %}
+                            {% endif %}
+                            <span class="delete-input" {{ delete_input_visibility }}></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-3">
+                            <label>aspect</label>
+                        </div>
+                        <div class="col-12 col-lg-9">
+                            <div class="action-button-preview" style="background-color: {{ content.vars.value.actionButtonBackgroundColor }}; color: {{ content.vars.value.actionButtonTextColor }} ">
+                                {{ content.vars.value.actionButtonText }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-9 offset-lg-3">
+                            <div class="action-button-color-option">
+                                <span class="option-title">Couleur du bouton</span>
+                                {{ form_widget(content.action_button_background_color, {"attr": {"class": "color-value action-button-background-color"}}) }}
+                            </div>
+                            <div class="action-button-color-option">
+                                <span class="option-title">Couleur du texte de bouton</span>
+                                {{ form_widget(content.action_button_text_color, {"attr": {"class": "color-value action-button-text-color"}}) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
                             {% endif %}
@@ -444,6 +502,48 @@
             <div>
                 {#<textarea class="large-textarea" id="template-text"></textarea>#}
                 {{ form_widget(manip_template_form.contents.vars.prototype.text_content) }}
+            </div>
+        </div>
+        <div class="template-config-block template-content-button-model template-content-block action-button-block">
+            <span class="option-title-block">bouton d'action</span>
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    {{ form_label(manip_template_form.contents.vars.prototype.action_button_text, "texte de bouton") }}
+                </div>
+                <div class="col-12 col-lg-9 vertical-align-element-container">
+                    {{ form_widget(manip_template_form.contents.vars.prototype.action_button_text, {"attr": {"class": "action-button-option-input removable-content-input action-button-text-input"}}) }}
+                    <span class="delete-input delete-action-button-text" style=display:none></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    {{ form_label(manip_template_form.contents.vars.prototype.action_button_url, "url / mailto") }}
+                </div>
+                <div class="col-12 col-lg-9 vertical-align-element-container">
+                    {{ form_widget(manip_template_form.contents.vars.prototype.action_button_url, {"attr": {"class": "action-button-option-input removable-content-input"}}) }}
+                    <span class="delete-input" style=display:none></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <label>aspect</label>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="action-button-preview" style="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-9 offset-lg-3">
+                    <div class="action-button-color-option">
+                        <span class="option-title">Couleur du bouton</span>
+                        {{ form_widget(manip_template_form.contents.vars.prototype.action_button_background_color, {"attr": {"class": "action-button-background-color"}}) }}
+                    </div>
+                    <div class="action-button-color-option">
+                        <span class="option-title">Couleur du texte de bouton</span>
+                        {{ form_widget(manip_template_form.contents.vars.prototype.action_button_text_color, {"attr": {"class": "action-button-text-color"}}) }}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="template-config-block template-content-config-model">

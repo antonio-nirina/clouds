@@ -12,9 +12,6 @@ class TemplateDataInitializer
     {
         $template = new ComEmailTemplate();
         $template->setLogoAlignment(TemplateLogoAlignment::CENTER)
-            ->setActionButtonText("mon bouton d'action")
-            ->setActionButtonBackgroundColor('#ff0000')
-            ->setActionButtonTextColor('#ffffff')
             ->setEmailColor('#ffffff')
             ->setBackgroundColor('#f5f5f5')
             ->setFooterCompanyInfo('copyright / société')
@@ -32,6 +29,15 @@ class TemplateDataInitializer
             ->setTemplate($template)
             ->setContentOrder(2);
         $template->addContent($content_text);
+
+        $content_button = new ComEmailTemplateContent();
+        $content_button->setActionButtonText("mon bouton d'action")
+            ->setActionButtonBackgroundColor('#ff0000')
+            ->setActionButtonTextColor('#ffffff')
+            ->setTemplate($template)
+            ->setContentOrder(3)
+            ->setContentType(TemplateContentType::BUTTON);
+        $template->addContent($content_button);
 
         return $template;
     }
