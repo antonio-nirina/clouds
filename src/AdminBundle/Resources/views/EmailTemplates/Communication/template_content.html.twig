@@ -89,7 +89,7 @@
                                 </td>
                             </tr>#}
 
-                            {% if com_email_template.contents|length > 2 %}
+                            {#{% if com_email_template.contents|length > 2 %}#}
                                 {% for content in com_email_template.contents %}
                                         {#{% if loop.index > 2 %}#}
                                             {% if constant('IMAGE', content_type_class) == content.contentType and content.image is not empty %}
@@ -121,7 +121,7 @@
                                             {% endif %}
                                         {#{% endif %}#}
                                 {% endfor %}
-                            {% endif %}
+                            {#{% endif %}#}
                         </table>
                     </td>
                 </tr>
