@@ -4,10 +4,12 @@ namespace AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="com_email_template")
+ * @UniqueEntity("name")
  */
 class ComEmailTemplate
 {
@@ -17,6 +19,11 @@ class ComEmailTemplate
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $distant_template_id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -463,5 +470,29 @@ class ComEmailTemplate
     public function getFooterAdditionalInfo()
     {
         return $this->footer_additional_info;
+    }
+
+    /**
+     * Set distantTemplateId
+     *
+     * @param integer $distantTemplateId
+     *
+     * @return ComEmailTemplate
+     */
+    public function setDistantTemplateId($distantTemplateId)
+    {
+        $this->distant_template_id = $distantTemplateId;
+
+        return $this;
+    }
+
+    /**
+     * Get distantTemplateId
+     *
+     * @return integer
+     */
+    public function getDistantTemplateId()
+    {
+        return $this->distant_template_id;
     }
 }

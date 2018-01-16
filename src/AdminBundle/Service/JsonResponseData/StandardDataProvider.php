@@ -5,6 +5,7 @@ class StandardDataProvider
 {
     const PAGE_NOT_FOUND_MESSAGE = 'Page non trouvée';
     const FORM_ERROR = 'Données de formulaire non valide';
+    const API_COMMUNICATION_ERROR = 'Erreur communication API';
 
     public function pageNotFound()
     {
@@ -23,5 +24,14 @@ class StandardDataProvider
     public function formError()
     {
         return array('message' => self::FORM_ERROR, 'content' => '', 'error' => self::FORM_ERROR);
+    }
+
+    public function apiCommunicationError()
+    {
+        return array(
+            'message' => self::API_COMMUNICATION_ERROR,
+            'content' => '',
+            'error' => self::API_COMMUNICATION_ERROR
+        );
     }
 }

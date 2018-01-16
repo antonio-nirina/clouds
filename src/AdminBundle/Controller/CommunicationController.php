@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AdminBundle\Event\Communication\EmailTemplateCreatedEvent;
 
 /**
  * @Route("/admin/communication")
@@ -407,11 +408,26 @@ class CommunicationController extends AdminController
             if ($request->request->has("add_template_form")) {
                 $add_template_form->handleRequest($request);
                 if ($add_template_form->isSubmitted() && $add_template_form->isValid()) {
-                    $app_user = $this->getUser();
-                    $manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-                    $template_id = $manager->createTemplate($program, $com_email_template, $app_user);
-                    $data = $json_response_data_provider->success($template_id);
-                    return new JsonResponse($data, 200);
+                    $mailjet_template_handler = $this->get('AdminBundle\Service\MailJet\MailJetTemplate');
+                    $template_data_generator = $this
+                        ->get('AdminBundle\Service\ComEmailingTemplate\TemplateDataGenerator');
+                    $template_data_generator->setComEmailTemplate($com_email_template);
+                    $distant_template_id = $mailjet_template_handler->createTemplate(
+                        $com_email_template->getName(),
+                        $template_data_generator->retrieveHtml(),
+                        $template_data_generator->retrieveText()
+                    );
+                    if (!is_null($distant_template_id)) {
+                        $app_user = $this->getUser();
+                        $manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+                        $com_email_template->setDistantTemplateId($distant_template_id);
+                        $template_id = $manager->createTemplate($program, $com_email_template, $app_user);
+                        $data = $json_response_data_provider->success($template_id);
+                        return new JsonResponse($data, 200);
+                    } else {
+                        $data = $json_response_data_provider->apiCommunicationError();
+                        return new JsonResponse($data, 500);
+                    }
                 } else {
                     $data = $json_response_data_provider->formError();
                     $form_view =  $this->renderView(

@@ -201,7 +201,7 @@ $(document).ready(function(){
                         }, 0);
                         $('.chargementAjax').addClass('hidden');
                     },
-                    500: function(){
+                    500: function(data){
                         $('#preview-template-dialog').find('.error-message-container.general-message').text('Erreur interne');
                         $('#preview-template-dialog').find('.modal-body-container').html('');
                         $('#preview-template-dialog').modal('show');
@@ -275,13 +275,13 @@ $(document).ready(function(){
     $(document).on('click', '#create-template-dialog button.btn-valider.validate.validate-add', function(e){
         var add_template_url = $('input[name=add_template_form_url]').val();
         e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
         $('#create-template-dialog').find('.block-model-container').remove();
 
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
         }
 
-        $('.chargementAjax').removeClass('hidden');
         $('#create-template-dialog form').ajaxSubmit({
             type: 'POST',
             url: add_template_url,
@@ -291,8 +291,10 @@ $(document).ready(function(){
                    $('#create-template-dialog').find('.btn-valider.save').trigger('click');
                    installColorPicker();
                    installWysiwyg();
+                   $('.chargementAjax').addClass('hidden');
                } else {
                    // $('#create-template-dialog').modal('hide');
+                   $('.chargementAjax').addClass('hidden');
                    window.location.replace($('input[name=template_list_url]').val());
                }
             },
@@ -300,10 +302,15 @@ $(document).ready(function(){
                 404: function(data){
                     $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
                     $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(data){
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
                 }
             }
         });
-        $('.chargementAjax').addClass('hidden');
     });
 
     /**
