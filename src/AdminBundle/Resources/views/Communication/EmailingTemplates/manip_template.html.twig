@@ -294,7 +294,7 @@
                     {% for content in manip_template_form.contents %}
                         {% if loop.index > 3 %}
                             {% if constant('IMAGE', content_type_class) == content.vars.value.contentType %}
-                <div class="template-config-block template-content-block">
+                <div class="template-config-block template-content-block" data-form-field-id="{{ content.vars.id }}">
                     <div class="option-title-block">image<span class="delete-content"></span></div>
                     <div class="row">
                         <div class="col-12 col-lg-2">
@@ -342,14 +342,14 @@
                     </div>
                 </div>
                             {% elseif constant('TEXT', content_type_class) == content.vars.value.contentType %}
-                <div class="template-config-block template-content-block">
+                <div class="template-config-block template-content-block" data-form-field-id="{{ content.vars.id }}">
                     <div class="option-title-block">texte<span class="delete-content"></span></div>
                     <div>
                         {{ form_widget(content.text_content, {"attr": {"class": "large-textarea"}}) }}
                     </div>
                 </div>
                             {% elseif constant('BUTTON', content_type_class) == content.vars.value.contentType %}
-                <div class="template-config-block template-content-block action-button-block">
+                <div class="template-config-block template-content-block action-button-block" data-form-field-id="{{ content.vars.id }}">
                     <div class="option-title-block">bouton d'action<span class="delete-content"></span></div>
                     <div class="row">
                         <div class="col-12 col-lg-3">

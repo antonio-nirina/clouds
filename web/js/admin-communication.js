@@ -276,7 +276,6 @@ $(document).ready(function(){
         var add_template_url = $('input[name=add_template_form_url]').val();
         e.preventDefault();
         $('#create-template-dialog').find('.block-model-container').remove();
-        $('#add_template_form_contents').remove();
 
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
@@ -587,7 +586,7 @@ $(document).ready(function(){
             CKEDITOR.instances[name].updateElement();
         }
         $('#create-template-dialog').find('.block-model-container').remove();
-        $('#edit_template_form_contents').remove();
+
         $('.chargementAjax').removeClass('hidden');
         $('#create-template-dialog form').ajaxSubmit({
             type: 'POST',
@@ -787,7 +786,8 @@ $(document).ready(function(){
      */
     $(document).on('click', '.delete-content', function(e){
         e.preventDefault();
-        $(this).parents('.template-config-block').next('.template-config-block').remove();
+        $('#'+$(this).parents('.template-content-block').attr('data-form-field-id')).remove();
+        $(this).parents('.template-config-block').next('.template-config-block').not('.template-content-block').remove();
         $(this).parents('.template-config-block').remove();
     });
 
