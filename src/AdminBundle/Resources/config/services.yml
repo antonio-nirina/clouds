@@ -67,3 +67,8 @@ services:
 
     Mailjet\MailjetBundle\Client\MailjetClient: '@mailjet.client'
 
+    AdminBundle\EventListener\Communication\EmailTemplateListener:
+        class: AdminBundle\EventListener\Communication\EmailTemplateListener
+        tags:
+            - { name:  kernel.event_listener, event: com.email.template.created}
+        autowire: true

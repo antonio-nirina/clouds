@@ -148,5 +148,5 @@ krlove_async_service_call:
     php_path: '%php_path%'
 
 mailjet:
-    api_key: "001c0363d2dec380dc1ea7b6913715b7"
-    secret_key: "c8abc63e65955e57919ed7627f32c1d6"
+    api_key: "8b46705492737dcc775a869858066b64"
+    secret_key: "7263741dd3d04301a7c3637adc14c31f"
