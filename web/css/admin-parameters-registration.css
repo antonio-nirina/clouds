@@ -2847,3 +2847,22 @@ p.chargementAjax.hidden{
         width: -moz-fit-content;
     }
 }
+
+@media (max-width: 991px){
+    .personalization-container{
+        flex-direction: column;
+    }
+}
+
+
+
+/**
+ * création, édition email, suppression contenu
+ */
+.delete-content{
+    width: 25px;
+    height: 25px;
+    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    float: right;
+}

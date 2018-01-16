@@ -69,6 +69,7 @@ class ComEmailTemplateManager
     public function editTemplate(
         ComEmailTemplate $template,
         AppUser $app_user,
+        $original_contents,
         $original_logo_image,
         $original_contents_image,
         $delete_logo_image_command,
@@ -114,6 +115,14 @@ class ComEmailTemplateManager
             if (is_null($content->getId())) {
                 $content->setTemplate($template);
                 $this->em->persist($content);
+            }
+        }
+
+        foreach ($original_contents as $content) {
+            if (false === $template->getContents()->contains($content)) {
+                $content->setTemplate(null);
+                $template->removeContent($content);
+                $this->em->remove($content);
             }
         }
 

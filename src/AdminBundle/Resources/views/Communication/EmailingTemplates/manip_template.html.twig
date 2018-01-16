@@ -66,7 +66,7 @@
             <div class="col-12 col-lg-8 right-col template-config-block-container">
                 {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
                 <div class="template-config-block">
-                    <span class="option-title-block">logo</span>
+                    <div class="option-title-block">logo</div>
                     <div class="row">
                         <div class="col-12 col-lg-2">
                             {#<label>image</label>#}
@@ -145,7 +145,7 @@
 
                 {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
                 <div class="template-config-block template-content-block">
-                    <span class="option-title-block">image</span>
+                    <div class="option-title-block">image</div>
                     <div class="row">
                         <div class="col-12 col-lg-2">
                             {#<label>image</label>#}
@@ -194,7 +194,7 @@
                 {% endif %}
 
                 <div class="template-config-block template-content-block">
-                    <span class="option-title-block">personnalisation</span>
+                    <div class="option-title-block">personnalisation</div>
                     <div class="personalization-container">
                         <div class="personalization-option-container">
                             <input id="civility-personalization" type="checkbox" class="styled-on-off-state personalization-option" data-personalization-value="civility">
@@ -215,7 +215,7 @@
                 </div>
 
                 <div class="template-config-block template-content-block">
-                    <span class="option-title-block">texte</span>
+                    <div class="option-title-block">texte</div>
                     <div>
                         {#<textarea class="large-textarea" id="template-text"></textarea>#}
                         {% if edit_mode is defined and true == edit_mode and constant('TEXT_ONLY', template_model_class) == manip_template_form.vars.value.templateModel %}
@@ -233,7 +233,7 @@
                     {% set default_button_content = manip_template_form.contents[2] %}
                 {% endif %}
                 <div class="template-config-block action-button-block">
-                    <span class="option-title-block">bouton d'action</span>
+                    <div class="option-title-block">bouton d'action</div>
                     <div class="row">
                         <div class="col-12 col-lg-3">
                             {#<label>texte du bouton</label>#}
@@ -290,12 +290,12 @@
                     </div>
                 </div>
 
-                {% if (manip_template_form.contents|length) > 3 %}
+                {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) and (manip_template_form.contents|length) > 3 %}
                     {% for content in manip_template_form.contents %}
                         {% if loop.index > 3 %}
                             {% if constant('IMAGE', content_type_class) == content.vars.value.contentType %}
                 <div class="template-config-block template-content-block">
-                    <span class="option-title-block">image</span>
+                    <div class="option-title-block">image<span class="delete-content"></span></div>
                     <div class="row">
                         <div class="col-12 col-lg-2">
                             {#<label>image</label>#}
@@ -343,14 +343,14 @@
                 </div>
                             {% elseif constant('TEXT', content_type_class) == content.vars.value.contentType %}
                 <div class="template-config-block template-content-block">
-                    <span class="option-title-block">texte</span>
+                    <div class="option-title-block">texte<span class="delete-content"></span></div>
                     <div>
                         {{ form_widget(content.text_content, {"attr": {"class": "large-textarea"}}) }}
                     </div>
                 </div>
                             {% elseif constant('BUTTON', content_type_class) == content.vars.value.contentType %}
                 <div class="template-config-block template-content-block action-button-block">
-                    <span class="option-title-block">bouton d'action</span>
+                    <div class="option-title-block">bouton d'action<span class="delete-content"></span></div>
                     <div class="row">
                         <div class="col-12 col-lg-3">
                             {{ form_label(content.action_button_text, "texte de bouton") }}
@@ -466,7 +466,7 @@
     </div>
     <div class="block-model-container">
         <div class="template-config-block template-content-image-model template-content-block">
-            <span class="option-title-block">image</span>
+            <div class="option-title-block">image<span class="delete-content"></span></div>
             <div class="row">
                 <div class="col-12 col-lg-2">
                     {#<label>image</label>#}
@@ -498,14 +498,14 @@
             </div>
         </div>
         <div class="template-config-block template-content-text-model template-content-block">
-            <span class="option-title-block">texte</span>
+            <div class="option-title-block">texte<span class="delete-content"></span></div>
             <div>
                 {#<textarea class="large-textarea" id="template-text"></textarea>#}
                 {{ form_widget(manip_template_form.contents.vars.prototype.text_content) }}
             </div>
         </div>
         <div class="template-config-block template-content-button-model template-content-block action-button-block">
-            <span class="option-title-block">bouton d'action</span>
+            <div class="option-title-block">bouton d'action<span class="delete-content"></span></div>
             <div class="row">
                 <div class="col-12 col-lg-3">
                     {{ form_label(manip_template_form.contents.vars.prototype.action_button_text, "texte de bouton") }}

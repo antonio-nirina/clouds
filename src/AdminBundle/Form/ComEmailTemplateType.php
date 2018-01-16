@@ -42,6 +42,7 @@ class ComEmailTemplateType extends AbstractType
                 'entry_type' => ComEmailTemplateContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
+                'allow_delete' => true,
             ))
             ->add('template_model', HiddenType::class)
             ->add('delete_logo_image_command', HiddenType::class, array('mapped' => false))

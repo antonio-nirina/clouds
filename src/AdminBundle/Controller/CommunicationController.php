@@ -476,6 +476,10 @@ class CommunicationController extends AdminController
         foreach ($com_email_template->getContents() as $content) {
             $original_contents_image[$content->getId()] = $content->getImage();
         }
+        $original_contents = new ArrayCollection();
+        foreach ($com_email_template->getContents() as $content) {
+            $original_contents->add($content);
+        }
 
         if ($request->isMethod('GET')) {
             $form_view = $this->renderView(
@@ -502,6 +506,7 @@ class CommunicationController extends AdminController
                     $manager->editTemplate(
                         $com_email_template,
                         $app_user,
+                        $original_contents,
                         $original_logo_image,
                         $original_contents_image,
                         $edit_template_form->get('delete_logo_image_command')->getData(),
