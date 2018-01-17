@@ -614,6 +614,12 @@ $(document).ready(function(){
                     $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
                     $('#create-template-dialog').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
+                },
+
+                500: function(data){
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
                 }
             }
         });

@@ -30,17 +30,29 @@ class MailJetTemplate extends MailJetHandler
         $response = $this->mailjet->post(Resources::$Template, array('body' => $body));
         if (self::STATUS_CODE_CREATED == $response->getStatus()) {
             $template_id = $response->getData()[0]['ID'];
-            $template_detail_body = array(
-                'Html-part' => $html_data,
-                'Text-part' => $text_data,
-            );
-            $template_detail_response = $this->mailjet->post(Resources::$TemplateDetailcontent, array(
-                'id' => $template_id,
-                'body' => $template_detail_body
-            ));
-            if (self::STATUS_CODE_CREATED == $template_detail_response->getStatus()) {
-                return $template_id;
-            }
+            return $this->editDistantTemplateContent($template_id, $html_data, $text_data);
+        }
+
+        return null;
+    }
+
+    public function editTemplate($distant_template_id, $html_data, $text_data = '')
+    {
+        return $this->editDistantTemplateContent($distant_template_id, $html_data, $text_data);
+    }
+
+    private function editDistantTemplateContent($distant_template_id, $html_data, $text_data = '')
+    {
+        $template_detail_body = array(
+            'Html-part' => $html_data,
+            'Text-part' => $text_data,
+        );
+        $template_detail_response = $this->mailjet->post(Resources::$TemplateDetailcontent, array(
+            'id' => $distant_template_id,
+            'body' => $template_detail_body
+        ));
+        if (self::STATUS_CODE_CREATED == $template_detail_response->getStatus()) {
+            return $distant_template_id;
         }
 
         return null;

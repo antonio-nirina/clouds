@@ -517,19 +517,25 @@ class CommunicationController extends AdminController
             if ($request->request->has("edit_template_form")) {
                 $edit_template_form->handleRequest($request);
                 if ($edit_template_form->isSubmitted() && $edit_template_form->isValid()) {
-                    $app_user = $this->getUser();
-                    $manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-                    $manager->editTemplate(
+                    $com_email_template_data_sync = $this
+                        ->get('AdminBundle\Service\DataSynchronizer\ComEmailTemplateDataSynchronizer');
+                    $edit_result = $com_email_template_data_sync->editTemplate(
                         $com_email_template,
-                        $app_user,
+                        $this->getUser(),
                         $original_contents,
                         $original_logo_image,
                         $original_contents_image,
                         $edit_template_form->get('delete_logo_image_command')->getData(),
                         $edit_template_form->get('delete_contents_image_command')->getData()
                     );
-                    $data = $json_response_data_provider->success();
-                    return new JsonResponse($data, 200);
+
+                    if ($edit_result) {
+                        $data = $json_response_data_provider->success();
+                        return new JsonResponse($data, 200);
+                    } else {
+                        $data = $json_response_data_provider->apiCommunicationError();
+                        return new JsonResponse($data, 500);
+                    }
                 } else {
                     $data = $json_response_data_provider->formError();
                     $form_view =  $this->renderView(
