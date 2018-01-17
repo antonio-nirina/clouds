@@ -7,6 +7,7 @@ use Mailjet\Resources;
 class MailJetTemplate extends MailJetHandler
 {
     const OWNER_TYPE = 'apikey';
+    const DEFAULT_PURPOSES = array('marketing');
 
     public function retrieveTemplates($limit = 0)
     {
@@ -20,6 +21,20 @@ class MailJetTemplate extends MailJetHandler
             'status' => $response->getStatus(),
             'data' => $response->getData(),
         );
+    }
+
+    public function createDistantTemplate($name)
+    {
+        $body = array(
+            'Name' => $name,
+            'Purposes' => self::DEFAULT_PURPOSES,
+        );
+        $response = $this->mailjet->post(Resources::$Template, array('body' => $body));
+        if (self::STATUS_CODE_CREATED == $response->getStatus()) {
+            return $response->getData()[0]['ID'];
+        }
+
+        return null;
     }
 
     public function createTemplate($name, $html_data, $text_data = '')
@@ -41,7 +56,7 @@ class MailJetTemplate extends MailJetHandler
         return $this->editDistantTemplateContent($distant_template_id, $html_data, $text_data);
     }
 
-    private function editDistantTemplateContent($distant_template_id, $html_data, $text_data = '')
+    public function editDistantTemplateContent($distant_template_id, $html_data, $text_data = '')
     {
         $template_detail_body = array(
             'Html-part' => $html_data,
@@ -56,5 +71,19 @@ class MailJetTemplate extends MailJetHandler
         }
 
         return null;
+    }
+
+    public function deleteDistantTemplate($distant_template_id)
+    {
+        $delete_template_response = $this->mailjet->delete(Resources::$Template, array(
+            'Id' => $distant_template_id
+        ));
+        if (self::STATUS_CODE_NO_CONTENT == $delete_template_response->getStatus()) {
+            return true;
+        } elseif (self::STATUS_CODE_NOT_FOUND == $delete_template_response->getStatus()) {
+            return false;
+        }
+
+        return false;
     }
 }

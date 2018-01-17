@@ -55,4 +55,35 @@ class ComEmailTemplateDataSynchronizer
             return false;
         }
     }
+
+    public function createTemplate($program, $com_email_template, $app_user)
+    {
+        $distant_template_id = $this->mailjet_template_handler->createDistantTemplate($com_email_template->getName());
+        if (is_null($distant_template_id)) {
+            return null;
+        }
+
+        $com_email_template->setDistantTemplateId($distant_template_id);
+        $this->com_email_template_manager->createTemplate(
+            $program,
+            $com_email_template,
+            $app_user,
+            $flush = false
+        );
+
+        $this->template_data_generator->setComEmailTemplate($com_email_template);
+        $distant_template_id = $this->mailjet_template_handler->editDistantTemplateContent(
+            $distant_template_id,
+            $this->template_data_generator->retrieveHtml(),
+            $this->template_data_generator->retrieveText()
+        );
+
+        if (is_null($distant_template_id)) {
+            $this->mailjet_template_handler->deleteDistantTemplate($distant_template_id);
+            return null;
+        } else {
+            $this->com_email_template_manager->flush();
+            return $distant_template_id;
+        }
+    }
 }

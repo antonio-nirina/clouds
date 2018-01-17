@@ -131,6 +131,16 @@ class ComEmailTemplateManager
         }
     }
 
+    public function deleteTemplate(ComEmailTemplate $template, $flush = true)
+    {
+        $this->em->remove($template);
+        if (true == $flush) {
+            $this->flush();
+        }
+
+        return;
+    }
+
     public function flush()
     {
         $this->em->flush();
