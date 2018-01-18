@@ -294,4 +294,11 @@ class ComEmailTemplateContent
     {
         return $this->action_button_text_color;
     }
+
+    public function setIdToNull()
+    {
+        $this->id = null;
+
+        return $this;
+    }
 }

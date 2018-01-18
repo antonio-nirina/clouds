@@ -28,6 +28,7 @@ use AdminBundle\Event\Communication\EmailTemplateCreatedEvent;
 class CommunicationController extends AdminController
 {
     const SIDEBAR_VIEW = 'AdminBundle:Communication:menu_sidebar_communication.html.twig';
+    const TEMPLATE_NOT_FOUND_MESSAGE = 'Modèle non trouvé';
 
     public function __construct()
     {
@@ -597,5 +598,40 @@ class CommunicationController extends AdminController
         }
 
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+    }
+
+    /**
+     * @Route(
+     *     "/emailling/templates/duplication-template/{template_id}",
+     *     name="admin_communication_emailing_templates_duplicate_template",
+     *     requirements={"template_id": "\d+"}
+     * )
+     */
+    public function emailingTemplatesDuplicateTemplateAction(Request $request, $template_id)
+    {
+        $auth_checker = $this->get('security.authorization_checker');
+        if (false === $auth_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $com_email_template = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findOneBy(array(
+                'id' => $template_id,
+                'program' => $program,
+            ));
+        if (is_null($com_email_template)) {
+            return $this->createNotFoundException(self::TEMPLATE_NOT_FOUND_MESSAGE);
+        }
+
+        $template_duplicator = $this->get('AdminBundle\Service\DataDuplicator\ComEmailTemplateDuplicator');
+        $template_duplicator->duplicate($program, $com_email_template, $this->getUser());
+
+        return $this->redirectToRoute('admin_communication_emailing_templates');
     }
 }
