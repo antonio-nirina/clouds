@@ -155,4 +155,5 @@ class PartialPageController extends Controller
 	public function afficheListImgEditorAction(array $datas){
 		return $this->render('AdminBundle:PartialPage/Ajax:afficheListImgEditor.html.twig', array('images' => $datas));
 	}
+	
 }

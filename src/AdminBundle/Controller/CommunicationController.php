@@ -598,4 +598,24 @@ class CommunicationController extends AdminController
 
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
+	
+	/**
+     * @Route("/emailing/campagne/preview",name="admin_communication_emailing_campagne_preview_template")
+     */
+	public function PreviewCampagneTplAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response('');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$UrlTpl = $request->get('urlTpl');
+			$Contents = file_get_contents($UrlTpl);
+			return new Response($Contents);
+		}
+		
+		return new Response('');
+	}
 }

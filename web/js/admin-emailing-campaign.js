@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$('#preview-template-dialog').modal('hide');
     function sendFilter() {
         var a=$("#loading-image").clone();
         $('.row.list').html(a);
@@ -567,5 +568,35 @@ $(document).ready(function() {
                 $('.row.list').html(html);
             }
         });
-    })
+    });
+	
+	
+	$(document).on('click', 'a#apercu_campagne', function(){
+		var urlTpl = $(this).attr('data-url');
+		var UrlApercuCampagne = $('input#preview_template_campagne').val();
+		$('.chargementAjax').removeClass('hidden');
+		/*
+		$('#preview-template-dialog').find('.modal-body-container').html(' <iframe src="'+urlTpl+'"></iframe>');
+		$('#preview-template-dialog').find('.modal-body-container').html(text);
+		$('#preview-template-dialog').modal('show');
+		$('.chargementAjax').addClass('hidden');
+		*/
+		
+		$.ajax({
+			type : "POST",
+			url: UrlApercuCampagne,
+			data : 'urlTpl='+urlTpl+'',
+			dataType : 'html',
+			success: function(text){
+				$('#preview-template-dialog').find('.modal-body-container').html(text);
+				$('#preview-template-dialog').modal('show');
+				$('.chargementAjax').addClass('hidden');
+			}
+		});
+		
+		return false;
+	});
 });
+
+function AfficheApercuCampagne(apercu){
+}
