@@ -141,6 +141,22 @@ class ComEmailTemplateManager
         return;
     }
 
+    public function deleteTemplateAndContents(ComEmailTemplate $template, $flush = true)
+    {
+        foreach ($template->getContents() as $content) {
+            $content->setTemplate(null);
+            $template->removeContent($content);
+            $this->em->remove($content);
+        }
+
+        $this->em->remove($template);
+        if (true == $flush) {
+            $this->flush();
+        }
+
+        return;
+    }
+
     public function flush()
     {
         $this->em->flush();
