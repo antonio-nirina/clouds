@@ -68,7 +68,7 @@ $(document).ready(function(){
         modal.find('input[name=edito_post_id]').val(edito_post_id);
     });
 
-    $('.confirm-delete-dialog  .confirm-delete').on('click', function(e){
+    $('#confirm-delete-dialog  .confirm-delete').on('click', function(e){
         e.preventDefault();
         var edito_post_id = $(this).parents('.confirm-delete-dialog').find('input[name=edito_post_id]').val();
         if(NaN !== parseInt(edito_post_id)){
