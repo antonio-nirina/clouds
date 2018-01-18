@@ -86,4 +86,16 @@ class ComEmailTemplateDataSynchronizer
             return $distant_template_id;
         }
     }
+
+    public function deleteTemplate($com_email_template)
+    {
+        $delete_res = $this->mailjet_template_handler
+            ->deleteDistantTemplate($com_email_template->getDistantTemplateId());
+        if (true == $delete_res) {
+            $this->com_email_template_manager->deleteTemplateAndContents($com_email_template);
+            return true;
+        }
+
+        return false;
+    }
 }

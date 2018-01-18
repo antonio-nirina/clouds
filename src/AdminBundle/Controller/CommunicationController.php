@@ -656,4 +656,41 @@ class CommunicationController extends AdminController
 
         return $this->redirectToRoute('admin_communication_emailing_templates');
     }
+
+    /**
+     * @Route(
+     *     "/emailing/templates/delete-template/{template_id}",
+     *     name="admin_communication_emailing_templates_delete_template",
+     * )
+     */
+    public function emailingTemplateDeleteTemplateAction(Request $request, $template_id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $com_email_template = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findOneBy(array(
+                'id' => $template_id,
+                'program' => $program,
+            ));
+
+        if (!is_null($com_email_template)) {
+            $com_email_template_data_sync = $this
+                ->get('AdminBundle\Service\DataSynchronizer\ComEmailTemplateDataSynchronizer');
+            $delete_res = $com_email_template_data_sync->deleteTemplate($com_email_template);
+            if (true == $delete_res) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                $data = $json_response_data_provider->apiCommunicationError();
+                return new JsonResponse($data, 500);
+            }
+        }
+
+        return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+    }
 }

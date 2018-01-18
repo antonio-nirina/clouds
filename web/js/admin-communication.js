@@ -68,7 +68,7 @@ $(document).ready(function(){
         modal.find('input[name=edito_post_id]').val(edito_post_id);
     });
 
-    $('.confirm-delete-dialog  .confirm-delete').on('click', function(e){
+    $('#confirm-delete-dialog  .confirm-delete').on('click', function(e){
         e.preventDefault();
         var edito_post_id = $(this).parents('.confirm-delete-dialog').find('input[name=edito_post_id]').val();
         if(NaN !== parseInt(edito_post_id)){
@@ -809,6 +809,58 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Communication - Emailing - Templates
      * Suprression de contenu
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication
+     * Confirmation suppression de template
+     * *********************************************************************************************
+     */
+    $('.delete-template').on('click', function(e){
+        e.preventDefault();
+    });
+
+    $('#confirm-delete-template').on('show.bs.modal', function(e){
+        var trigger = e.relatedTarget;
+        var template_id = $(trigger).attr('data-template-id');
+        $(this).find('input[name=template_id]').val(template_id);
+    });
+
+    $('#confirm-delete-template .confirm-delete').on('click', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var template_id = $(this).parents('.confirm-delete-dialog').find('input[name=template_id]').val();
+        if(NaN !== parseInt(template_id)){
+            var part_delete_template_url = $('input[name=delete_template_url]').val();
+            console.log(part_delete_template_url);
+            var delete_template_url = part_delete_template_url.replace(/__id__/, template_id);
+            $.ajax({
+                type: 'GET',
+                url: delete_template_url,
+                success: function(data){
+                    window.location.replace($('input[name=template_list_url]').val());
+                },
+                statusCode: {
+                    404: function(data){
+                        $('.chargementAjax').addClass('hidden');
+                        $('#confirm-delete-template').modal('hide');
+                    },
+                    500: function(data){
+                        $('.chargementAjax').addClass('hidden');
+                        $('#confirm-delete-template').modal('hide');
+                    }
+                }
+            });
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication
+     * Confirmation suppression de template
      * *********************************************************************************************
      */
 });
