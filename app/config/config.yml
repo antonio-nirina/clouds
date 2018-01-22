@@ -41,6 +41,10 @@ parameters:
     emailing_template_image_content_upload_dir: '%kernel.project_dir%/web/communication/emailing/template/image_content'
     emailing_template_image_content_location: 'communication/emailing/template/image_content/'
 
+    # Parameters - Communication - Emailing - Templates : thumbnail
+    emailing_template_thumbnail_dir: '%kernel.project_dir%/web/communication/emailing/template/thumbnail'
+    emailing_template_thumbnail_location: 'communication/emailing/template/thumbnail/'
+
     # Application time zone
     app_time_zone: 'Europe/Paris'
 

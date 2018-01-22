@@ -342,9 +342,20 @@ class CommunicationController extends AdminController
                 )
             );
 
+        $template_data_list = array();
+        $template_thumbnail_generator = $this
+            ->get('AdminBundle\Service\ComEmailingTemplate\TemplateThumbnailGenerator');
+        foreach ($template_list as $template) {
+            $template_thumbnail_generator->setComEmailTemplate($template);
+            array_push($template_data_list, array(
+                'template_data' => $template,
+                'template_thumbnail_image' => $template_thumbnail_generator->retrieveThumbnailFullName(),
+            ));
+        }
+
         return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array(
             'template_model_class' => new TemplateModel(),
-            'template_list' => $template_list,
+            'template_list' => $template_data_list,
             'content_type_class' => new TemplateContentType(),
         ));
     }

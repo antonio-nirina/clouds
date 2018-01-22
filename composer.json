@@ -24,6 +24,7 @@
         "drewm/mailchimp-api": "^2.4",
         "friendsofsymfony/user-bundle": "2.0.1",
         "incenteev/composer-parameter-handler": "^2.0",
+        "knplabs/knp-snappy-bundle": "^1.5",
         "krlove/async-service-call-bundle": "1.0.5",
         "liip/imagine-bundle": "1.9.1",
         "liuggio/excelbundle": "^2.1",

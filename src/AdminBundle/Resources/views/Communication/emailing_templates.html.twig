@@ -84,13 +84,18 @@
                             <div class="row list template-list">
                                 {% if template_list is defined and template_list is not empty %}
                                     {% for template in template_list %}
+                                        {% set template_data = template %}
+                                        {% set template = template['template_data'] %}
                                 <div class="row">
                                     <div class="col-12 col-lg-9 template-characteristic">
                                         {#<div>
                                             <input id="template-element-{{ loop.index }}-check" class="styled-checkbox bigger" type="checkbox">
                                             <label for="template-element-{{ loop.index }}-check"></label>
                                         </div>#}
-                                        <img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">
+                                        {#<img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">#}
+                                        <div class="template-img-container">
+                                            <img src="{{ asset(template_data['template_thumbnail_image']) }}" class="template-img hidden-xs-down">
+                                        </div>
                                         <div class="template-info">
                                             <span class="template-name">{{ template.name }}</span>
                                             <span class="template-edit-info">Modifiée le {{ template.lastEdit | localizeddate('none', 'none', locale, null, "dd MMMM yyyy à kk:mm")}} par {{ template.lastEditUser.username }}</span>
