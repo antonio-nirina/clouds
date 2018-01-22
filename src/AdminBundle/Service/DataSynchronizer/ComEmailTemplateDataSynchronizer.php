@@ -54,8 +54,8 @@ class ComEmailTemplateDataSynchronizer
 
         if (!is_null($distant_template_id)) {
             $this->com_email_template_manager->flush();
-            $this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
-            $this->template_thumbnail_generator->generate();
+            /*$this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
+            $this->template_thumbnail_generator->generate();*/
 
             return true;
         } else {
@@ -90,8 +90,8 @@ class ComEmailTemplateDataSynchronizer
             return null;
         } else {
             $this->com_email_template_manager->flush();
-            $this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
-            $this->template_thumbnail_generator->generate();
+            /*$this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
+            $this->template_thumbnail_generator->generate();*/
 
             return $distant_template_id;
         }
@@ -103,8 +103,8 @@ class ComEmailTemplateDataSynchronizer
             ->deleteDistantTemplate($com_email_template->getDistantTemplateId());
         if (true == $delete_res) {
             $this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
-            $this->template_thumbnail_generator->deleteThumbnailFile();
-            $this->com_email_template_manager->deleteTemplateAndContents($com_email_template);
+            /*$this->template_thumbnail_generator->deleteThumbnailFile();
+            $this->com_email_template_manager->deleteTemplateAndContents($com_email_template);*/
             
             return true;
         }
