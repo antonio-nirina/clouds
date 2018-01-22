@@ -102,9 +102,9 @@ class ComEmailTemplateDataSynchronizer
         $delete_res = $this->mailjet_template_handler
             ->deleteDistantTemplate($com_email_template->getDistantTemplateId());
         if (true == $delete_res) {
-            $this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
-            /*$this->template_thumbnail_generator->deleteThumbnailFile();
-            $this->com_email_template_manager->deleteTemplateAndContents($com_email_template);*/
+            /*$this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
+            $this->template_thumbnail_generator->deleteThumbnailFile();*/
+            $this->com_email_template_manager->deleteTemplateAndContents($com_email_template);
             
             return true;
         }
