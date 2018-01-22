@@ -2718,6 +2718,7 @@ section .row.ending {
 
 .template-characteristic .template-img-container{
     width: 80px;
+    min-width: 80px;
     height: 100px;
     max-height: 100px;
     overflow: hidden;
