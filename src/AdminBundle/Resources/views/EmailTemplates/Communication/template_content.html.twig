@@ -134,7 +134,7 @@
                         {% if com_email_template.footerContactInfo is not empty or com_email_template.footerUnsubscribingText is not empty %}
                         <p>
                             {% if com_email_template.footerContactInfo is not empty %}
-                                <a href="mailto:{{ com_email_template.footerContactInfo }}" style="color: #7f7f7f;">{{ com_email_template.footerContactInfo }}</a>
+                                <a href="{{ preview_mode is defined and true == preview_mode ? '#' : 'mailto:'~com_email_template.footerContactInfo }}" style="color: #7f7f7f;">{{ com_email_template.footerContactInfo }}</a>
                             {% endif %}
                             {% if com_email_template.footerContactInfo is not empty and com_email_template.footerUnsubscribingText is not empty %} | {% endif %}
                             {% if com_email_template.footerUnsubscribingText is not empty %}
