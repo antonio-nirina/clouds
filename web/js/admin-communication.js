@@ -863,4 +863,43 @@ $(document).ready(function(){
      * Confirmation suppression de template
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Tri
+     * *********************************************************************************************
+     */
+    $('.template-sorting-element').on('click', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var partial_sort_template_url = $('input[name=sort_template_list_url]').val();
+        var sort_template_url = partial_sort_template_url.replace(/__param__/, $(this).attr('data-sorting-parameter'));
+        var current_sorting_element = $(this);
+        $.ajax({
+            type: 'GET',
+            url: sort_template_url,
+            success: function(data){
+                $('div.row.template-list').html(data.content);
+                $('.chargementAjax').addClass('hidden');
+                $('#dropdownMenuFiltre').text(current_sorting_element.text());
+            },
+            statusCode: {
+                404: function(data){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(data){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Tri
+     * *********************************************************************************************
+     */
 });
