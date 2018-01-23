@@ -330,28 +330,10 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-
-        $em = $this->getDoctrine()->getManager();
-        $template_list = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
-            ->findBy(
-                array(
-                    'program' => $program
-                ),
-                array(
-                    'last_edit' => 'DESC'
-                )
-            );
-
-        $template_data_list = array();
-        $template_thumbnail_generator = $this
-            ->get('AdminBundle\Service\ComEmailingTemplate\TemplateThumbnailGenerator');
-        foreach ($template_list as $template) {
-            $template_thumbnail_generator->setComEmailTemplate($template);
-            array_push($template_data_list, array(
-                'template_data' => $template,
-                'template_thumbnail_image' => $template_thumbnail_generator->retrieveThumbnailFullName(),
-            ));
-        }
+        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $template_list = $template_manager->listSortedTemplate($program);
+        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $template_data_list = $template_list_data_handler->retrieveListData($template_list);
 
         return $this->render('AdminBundle:Communication:emailing_templates.html.twig', array(
             'template_model_class' => new TemplateModel(),
@@ -375,45 +357,15 @@ class CommunicationController extends AdminController
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
-        $available_sorting_parameter = array(
-            null,
-            TemplateSortingParameter::RECENT,
-            TemplateSortingParameter::A_TO_Z,
-            TemplateSortingParameter::Z_TO_A
-        );
+        $available_sorting_parameter = TemplateSortingParameter::AVAILABLE_SORTING_PARAMETERS;
         if (!in_array($sorting_parameter, $available_sorting_parameter)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $sort_option = array();
-        switch ($sorting_parameter) {
-            case null:
-                $sort_option = array('last_edit' => 'DESC');
-                break;
-            case TemplateSortingParameter::RECENT:
-                $sort_option = array('last_edit' => 'DESC');
-                break;
-            case TemplateSortingParameter::A_TO_Z:
-                $sort_option = array('name' => 'ASC');
-                break;
-            case TemplateSortingParameter::Z_TO_A:
-                $sort_option = array('name' => 'DESC');
-                break;
-        }
-
-        $template_list = $em->getRepository('AdminBundle\Entity\ComEmailTemplate')
-            ->findBy(array('program' => $program,), $sort_option);
-        $template_data_list = array();
-        $template_thumbnail_generator = $this
-            ->get('AdminBundle\Service\ComEmailingTemplate\TemplateThumbnailGenerator');
-        foreach ($template_list as $template) {
-            $template_thumbnail_generator->setComEmailTemplate($template);
-            array_push($template_data_list, array(
-                'template_data' => $template,
-                'template_thumbnail_image' => $template_thumbnail_generator->retrieveThumbnailFullName(),
-            ));
-        }
+        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $template_list = $template_manager->listSortedTemplate($program, $sorting_parameter);
+        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $template_data_list = $template_list_data_handler->retrieveListData($template_list);
 
         $template_list_view = $this
             ->renderView('AdminBundle:Communication/EmailingTemplates:sorted_emailing_template.html.twig', array(
