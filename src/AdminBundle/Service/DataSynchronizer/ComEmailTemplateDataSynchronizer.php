@@ -65,7 +65,7 @@ class ComEmailTemplateDataSynchronizer
 
     public function createTemplate($program, $com_email_template, $app_user)
     {
-        $distant_template_id = $this->mailjet_template_handler->createDistantTemplate($com_email_template->getName());
+        $distant_template_id = $this->mailjet_template_handler->createNonExistentDistantTemplate($com_email_template->getName());
         if (is_null($distant_template_id)) {
             return null;
         }
