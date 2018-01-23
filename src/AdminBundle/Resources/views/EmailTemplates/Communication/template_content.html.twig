@@ -110,7 +110,7 @@
                                     <table width="250">
                                         <tr>
                                             <td width="250" align="center" style="font-family: Arial, sans-serif; font-size: 15px;">
-                                                <a href="#" style="text-decoration: none !important; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:{{ content.actionButtonTextColor }};background-color: {{ content.actionButtonBackgroundColor }};">
+                                                <a href="{{ preview_mode is defined and true == preview_mode ? '#' : content.actionButtonUrl}}" {{ preview_mode is defined and true == preview_mode ? '' : 'target=_blank'}} style="text-decoration: none !important; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:{{ content.actionButtonTextColor }};background-color: {{ content.actionButtonBackgroundColor }};">
                                                     <span>{{ content.actionButtonText }}</span>
                                                 </a>
                                             </td>
