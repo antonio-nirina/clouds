@@ -414,6 +414,7 @@ class CommunicationController extends AdminController
             $com_email_template
         );
 
+        $template_data_generator = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateDataGenerator');
         if ($request->isMethod('GET')) {
             if (!is_null($model) && in_array($model, $valid_models)) {
                 $form_view =  $this->renderView(
@@ -423,6 +424,9 @@ class CommunicationController extends AdminController
                         'current_template_model' => $model,
                         'template_model_class' => new TemplateModel(),
                         'content_type_class' => new TemplateContentType(),
+                        'instantaneous_template_preview' => $template_data_generator
+                            ->retrieveContentPartHtml($com_email_template, true),
+                        'template_logo_alignment_class' => new TemplateLogoAlignment(),
                     )
                 );
                 $data = $json_response_data_provider->success();
@@ -461,6 +465,9 @@ class CommunicationController extends AdminController
                             'current_template_model' => $com_email_template->getTemplateModel(),
                             'template_model_class' => new TemplateModel(),
                             'content_type_class' => new TemplateContentType(),
+                            'instantaneous_template_preview' => $template_data_generator
+                                ->retrieveContentPartHtml($com_email_template, true),
+                            'template_logo_alignment_class' => new TemplateLogoAlignment(),
                         )
                     );
                     $data['content'] = $form_view;
