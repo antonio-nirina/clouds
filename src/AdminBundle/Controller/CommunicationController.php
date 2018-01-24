@@ -417,6 +417,7 @@ class CommunicationController extends AdminController
         $template_data_generator = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateDataGenerator');
         if ($request->isMethod('GET')) {
             if (!is_null($model) && in_array($model, $valid_models)) {
+                $template_data_generator->setComEmailTemplate($com_email_template);
                 $form_view =  $this->renderView(
                     'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
                     array(
@@ -425,7 +426,7 @@ class CommunicationController extends AdminController
                         'template_model_class' => new TemplateModel(),
                         'content_type_class' => new TemplateContentType(),
                         'instantaneous_template_preview' => $template_data_generator
-                            ->retrieveContentPartHtml($com_email_template, true),
+                            ->retrieveContentPartHtml(true),
                         'template_logo_alignment_class' => new TemplateLogoAlignment(),
                     )
                 );
@@ -458,6 +459,7 @@ class CommunicationController extends AdminController
                     }
                 } else {
                     $data = $json_response_data_provider->formError();
+                    $template_data_generator->setComEmailTemplate($com_email_template);
                     $form_view =  $this->renderView(
                         'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
                         array(
@@ -466,7 +468,7 @@ class CommunicationController extends AdminController
                             'template_model_class' => new TemplateModel(),
                             'content_type_class' => new TemplateContentType(),
                             'instantaneous_template_preview' => $template_data_generator
-                                ->retrieveContentPartHtml($com_email_template, true),
+                                ->retrieveContentPartHtml(true),
                             'template_logo_alignment_class' => new TemplateLogoAlignment(),
                         )
                     );
@@ -528,7 +530,9 @@ class CommunicationController extends AdminController
             $original_contents->add($content);
         }
 
+        $template_data_generator = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateDataGenerator');
         if ($request->isMethod('GET')) {
+            $template_data_generator->setComEmailTemplate($com_email_template);
             $form_view = $this->renderView(
                 'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
                 array(
@@ -537,6 +541,9 @@ class CommunicationController extends AdminController
                     'template_model_class' => new TemplateModel(),
                     'content_type_class' => new TemplateContentType(),
                     'edit_mode' => true,
+                    'instantaneous_template_preview' => $template_data_generator
+                        ->retrieveContentPartHtml(true),
+                    'template_logo_alignment_class' => new TemplateLogoAlignment(),
                 )
             );
             $data = $json_response_data_provider->success();
@@ -569,6 +576,7 @@ class CommunicationController extends AdminController
                     }
                 } else {
                     $data = $json_response_data_provider->formError();
+                    $template_data_generator->setComEmailTemplate($com_email_template);
                     $form_view =  $this->renderView(
                         'AdminBundle:Communication/EmailingTemplates:manip_template.html.twig',
                         array(
@@ -577,6 +585,9 @@ class CommunicationController extends AdminController
                             'template_model_class' => new TemplateModel(),
                             'content_type_class' => new TemplateContentType(),
                             'edit_mode' => true,
+                            'instantaneous_template_preview' => $template_data_generator
+                                ->retrieveContentPartHtml(true),
+                            'template_logo_alignment_class' => new TemplateLogoAlignment(),
                         )
                     );
                     $data['content'] = $form_view;
