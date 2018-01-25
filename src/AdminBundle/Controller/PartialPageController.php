@@ -159,4 +159,8 @@ class PartialPageController extends Controller
 	public function emailingListeContactEditAjaxAction(){
 		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig');
 	}
+	
+	public function emailingListeContactCreerAjaxAction(){
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer.html.twig');
+	}
 }

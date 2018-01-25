@@ -1,0 +1,114 @@
+<div class = "separator"></div>
+<div class = "row">
+
+	<div class = "col-2">
+		<label>nom de la liste</label>
+	</div>
+	
+	<div class = "col-8">
+		<input value="" class="liste_name_input" type="text">
+		<span class="delete-input"></span>
+	</div>
+	
+	<div class = "col-2"></div>
+</div>
+
+<div class = "separator"></div>
+
+<div class = "row">
+	<div class = "col-12">
+		<span class = "sep-block-titre">éditez votre liste de contacts</span>
+	</div>
+</div>
+
+<div class = "row" style = "margin-top:20px;">
+
+	<div class = "col-5">
+		<div class = "row">
+			<div class = "col-8">
+				<label>sélectionnez les contacts de votre nouvelle liste</label>
+			</div>
+			
+			<div class = "col-4">
+				<input  value="00" class="liste_name_input_small" type="text">
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class = "col-4">
+		<input value="" class="liste_name_input" type="text">
+	</div>
+	
+	<div class = "col-3">
+		<div class="dropdown clearable filtres">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltreEditListContact" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+				FILTRER PAR LISTE
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuFiltreEditListContact">
+				<a class="dropdown-item" href="#">
+					MANAGER
+				</a>
+				<a class="dropdown-item" href="#">
+					COMMERCIAL
+				</a>
+			</div>
+			<span class="delete-input"></span>
+		</div>
+	</div>
+</div>
+
+<div class = "separator"></div>
+
+<div class = "row">
+	<div class = "col-12">
+		<table id="ListUserContactMailjet" class="table table-striped table-bordered block-table" width="100%" cellspacing="0">
+			<thead>
+				<tr>
+					<th style = "display:none;"></th>
+					<th class = "entete-selection">
+						<input id="checkbox-publish-all" class="checkbox-publish-all styled-checkbox" type="checkbox"> 
+						<label for="checkbox-publish-all"></label>
+					</th>
+					<th>prénom</th>
+					<th>nom</th>
+					<th>adresse e-mail</th>
+					<th>rôle</th>
+					<th>désabonné(e)</th>
+				</tr>
+			</thead>
+			
+			<tfoot>
+				<tr>
+					<th style = "display:none;"></th>
+					<th>
+						<input id="cl1-row32" class="form-field-published styled-checkbox" checked="" type="checkbox">
+						<label for="cl1-row32"><span></span></label> 
+					</th>
+					<th>prénom</th>
+					<th>nom</th>
+					<th>adresse e-mail</th>
+					<th>rôle</th>
+					<th>désabonné(e)</th>
+				</tr>
+			</tfoot>
+			
+			<tbody>
+				{% for i in 0..90 %}
+					<tr>
+						<td style = "display:none;"></td>
+						<td class = "ligne-selection">
+							<input id="cl1-{{i}}" class="form-field-published styled-checkbox" checked="" type="checkbox">
+							<label for="cl1-row{{i}}" data-id = "{{i}}" class = "check-ligne"><span></span></label>
+						</td>
+						<td class = "ligne-standards">Adrien</td>
+						<td class = "ligne-standards">Bourdais</td>
+						<td class = "ligne-standards">adrien_bourdais@gmail.com</td>
+						<td class = "ligne-standards">manager</td>
+						<td class = "ligne-standards"></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
