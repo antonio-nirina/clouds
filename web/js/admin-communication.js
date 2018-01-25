@@ -232,6 +232,13 @@ $(document).ready(function(){
                 width: 600,
                 customConfig: ckeditor_config_light_path
             });
+
+            // instantaneous preview feat
+            CKEDITOR.instances[$(this).attr('id')].on('change', function(){
+                var text_content_index = $(this).parents('.text-content-block').index('.text-content-block');
+                var corresponding_text_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.text-content-tr').eq(text_content_index);
+                corresponding_text_content_tr.find('td').html(this.getData());
+            });
         });
     }
 
@@ -504,6 +511,18 @@ $(document).ready(function(){
             width: 600,
             customConfig: ckeditor_config_light_path
         });
+
+        // fonctionnalité prévisualisation instantanée
+            //  tr correspondant
+        var new_text_content_tr = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.text-content-tr').clone();
+        $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.contents-container-table').append(new_text_content_tr);
+            // mise à jour de la prévisualisation
+        CKEDITOR.instances[new_text_content.find('textarea').attr('id')].on('change', function(){
+            var text_content_index = new_text_content.find('textarea').parents('.text-content-block').index('.text-content-block');
+            var corresponding_text_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.text-content-tr').eq(text_content_index);
+            corresponding_text_content_tr.find('td').html(this.getData());
+        });
+
         new_text_content.show();
 
         addContentConfigBock(new_content_index, $('input[name=template_content_type_text]').val());
@@ -799,6 +818,20 @@ $(document).ready(function(){
      */
     $(document).on('click', '.delete-content', function(e){
         e.preventDefault();
+        // fonctionnalité de prévisualisation instantanée
+        var content_block = $(this).parents('.template-content-block');
+        if(content_block.hasClass('image-content-block')){
+            var content_block_index = content_block.index('.image-content-block');
+            $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.img-content-tr').eq(content_block_index).remove();
+        } else if (content_block.hasClass('text-content-block')) {
+            var content_block_index = content_block.index('.text-content-block');
+            $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.text-content-tr').eq(content_block_index).remove();
+        } else if (content_block.hasClass('button-content-block')) {
+            var content_block_index = content_block.index('.button-content-block');
+            $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.button-content-tr').eq(content_block_index).remove();
+        }
+
+        // suppression des éléments du contenu
         $('#'+$(this).parents('.template-content-block').attr('data-form-field-id')).remove();
         $(this).parents('.template-config-block').next('.template-config-block').not('.template-content-block').remove();
         $(this).parents('.template-config-block').remove();
@@ -861,6 +894,177 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Communication
      * Confirmation suppression de template
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Tri
+     * *********************************************************************************************
+     */
+    $('.template-sorting-element').on('click', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var partial_sort_template_url = $('input[name=sort_template_list_url]').val();
+        var sort_template_url = partial_sort_template_url.replace(/__param__/, $(this).attr('data-sorting-parameter'));
+        var current_sorting_element = $(this);
+        $.ajax({
+            type: 'GET',
+            url: sort_template_url,
+            success: function(data){
+                $('div.row.template-list').html(data.content);
+                $('.chargementAjax').addClass('hidden');
+                $('#dropdownMenuFiltre').text(current_sorting_element.text());
+            },
+            statusCode: {
+                404: function(data){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(data){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Tri
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Prévisualisation instantanée dans Popup
+     * *********************************************************************************************
+     */
+    function setInstantaneousPreview(current_create_template_dialog)
+    {
+        var instantaneous_preview_content = current_create_template_dialog.find('.instantaneous-preview-container').html();
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').html(instantaneous_preview_content);
+    }
+
+    $('#create-template-dialog').on('shown.bs.modal', function(){
+        setInstantaneousPreview($(this));
+    });
+
+    $('#create-template-dialog').on('hidden.bs.modal', function(){
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').html('');
+    });
+
+    $(document).on('click', '.magnify-template-preview', function(e){
+        e.preventDefault();
+        $('#instantaneous-preview-template-dialog').modal('show');
+    });
+
+    function createImagePreview(input, preview_container) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                preview_container.attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // changement logo
+    $(document).on('change', '.logo-image-input', function(){
+        var logo_image_block_no_image = $('#instantaneous-preview-template-dialog .pseudo-body-table .logo-img-tr-no-image');
+        if(logo_image_block_no_image.length > 0){
+            var new_logo_image_block = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.logo-img-tr').clone();
+            logo_image_block_no_image.replaceWith(new_logo_image_block);
+        }
+        var logo_image_block = $('#instantaneous-preview-template-dialog .pseudo-body-table .logo-img-tr');
+        createImagePreview(this, logo_image_block.find('img'));
+    });
+
+    // changement alignement logo
+    $(document).on('click', '.logo-alignment-option-radio', function(){
+        var alignment_option_value = $(this).val();
+        var logo_alignment = 'center';
+        var logo_width = 200;
+        switch(alignment_option_value){
+            case $('input[name=template_logo_alignment_left]').val():
+                logo_alignment = 'left';
+                break;
+            case $('input[name=template_logo_alignment_right]').val():
+                logo_alignment = 'right';
+                break;
+            case $('input[name=template_logo_alignment_expanded]').val():
+                logo_width = '100%';
+                break;
+        }
+        var logo_image_block = $('#instantaneous-preview-template-dialog .pseudo-body-table .logo-img-tr');
+        logo_image_block.find('td.logo-img-td').attr('align', logo_alignment);
+        logo_image_block.find('td.logo-img-td img').attr('width', logo_width);
+    });
+
+    // changement de contenu de type image
+    $(document).on('change', '.image-content-input', function(e){
+        var image_content_index = $(this).parents('.image-content-block').index('.image-content-block');
+        var corresponding_image_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.img-content-tr').eq(image_content_index);
+        if(corresponding_image_content_tr.hasClass('no-image')){
+            var new_image_content_tr = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.img-content-tr').not('.no-image').clone();
+            corresponding_image_content_tr.replaceWith(new_image_content_tr);
+            createImagePreview(this, new_image_content_tr.find('img'));
+        } else {
+            createImagePreview(this, corresponding_image_content_tr.find('img'));
+        }
+
+    });
+
+    // changement de contenu de type bouton
+        // changement de texte
+    function getCorrespondingButtonContentTr(element)
+    {
+        var button_content_index = element.parents('.button-content-block').index('.button-content-block');
+        var corresponding_button_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.button-content-tr').eq(button_content_index);
+        return corresponding_button_content_tr;
+    }
+
+    $(document).on('input', '.action-button-text-input', function(){
+        var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
+        corresponding_button_content_tr.find('a span').text($(this).val());
+    });
+
+    $(document).on('click', '.delete-action-button-text', function(){
+        var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
+        corresponding_button_content_tr.find('a span').text('');
+    });
+
+        // changement couleur de fond
+    $(document).on('change', '.action-button-background-color', function(){
+        var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
+        corresponding_button_content_tr.find('a').css("background-color", $(this).val());
+    });
+
+        // changement couleur de couleur de texte
+    $(document).on('change', '.action-button-text-color', function(){
+        var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
+        corresponding_button_content_tr.find('a').css("color", $(this).val());
+    });
+
+    // ajout nouvel image
+    $(document).on('click', '.add-image-link', function(){
+        var new_image_content_tr = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.img-content-tr.no-image').clone();
+        $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.contents-container-table').append(new_image_content_tr);
+    });
+
+    // ajout nouveau bouton
+    $(document).on('click', '.add-button-link', function(){
+        var new_button_content_tr = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.button-content-tr').clone();
+        $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.contents-container-table').append(new_button_content_tr);
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Prévisualisation instantanée dans Popup
      * *********************************************************************************************
      */
 });

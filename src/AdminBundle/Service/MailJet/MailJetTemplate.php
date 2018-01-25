@@ -37,6 +37,38 @@ class MailJetTemplate extends MailJetHandler
         return null;
     }
 
+    public function createNonExistentDistantTemplate($name)
+    {
+        $existent_distant_template_state = true;
+        $template_index = 1;
+        $distant_template_id = null;
+        $original_name = $name;
+        while (true == $existent_distant_template_state) {
+            $name = $original_name . ' ' . $template_index;
+            $body = array(
+                'Name' => $name,
+                'Purposes' => self::DEFAULT_PURPOSES,
+            );
+            $response = $this->mailjet->post(Resources::$Template, array('body' => $body));
+
+            if (self::STATUS_CODE_BAD_REQUEST == $response->getStatus()
+                && self::ERROR_CODE_EXISTENT_TEMPLATE == $response->getData()["ErrorCode"]
+            ) {
+                $template_index++;
+                continue;
+            } else {
+                if (self::STATUS_CODE_CREATED == $response->getStatus()) {
+                    $existent_distant_template_state = false;
+                    $distant_template_id = $response->getData()[0]['ID'];
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return $distant_template_id;
+    }
+
     public function createTemplate($name, $html_data, $text_data = '')
     {
         $body = array(

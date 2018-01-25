@@ -2713,10 +2713,21 @@ section .row.ending {
 }
 
 .template-characteristic .template-img{
-    width: 80px;
-    height: 100px;
-    margin: 0 20px 0 0;
+    width: 100%;
 }
+
+.template-characteristic .template-img-container{
+    width: 80px;
+    min-width: 80px;
+    height: 100px;
+    max-height: 100px;
+    overflow: hidden;
+    margin: 0 20px 0 0;
+    display: flex;
+    align-items: flex-start;
+    border: 0.5px solid rgba(0,0,0,0.2);
+}
+
 
 .template-characteristic .template-name{
     font-family: var(--police_bold);
@@ -2853,8 +2864,6 @@ p.chargementAjax.hidden{
         flex-direction: column;
     }
 }
-
-
 
 /**
  * création, édition email, suppression contenu

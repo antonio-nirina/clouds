@@ -1,4 +1,4 @@
-<table  cellpadding="0" cellspacing="0" width="100%" style="background-color: {{ com_email_template.backgroundColor }};" bgcolor="{{ com_email_template.backgroundColor }}">
+<table  {{ instantaneous_preview_mode is defined ? 'class=pseudo-body-table' : '' }} cellpadding="0" cellspacing="0" width="100%" style="background-color: {{ com_email_template.backgroundColor }};" bgcolor="{{ com_email_template.backgroundColor }}">
     <tr>
         <td style="padding: 0 0 0 0;">
             <!--[if (gte mso 9)|(IE)]>
@@ -7,7 +7,7 @@
                     <td>
             <![endif]-->
             <table align="center"  width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; border-collapse: collapse; background-color: {{ com_email_template.emailColor }}" bgcolor="{{ com_email_template.emailColor }}">
-                <tr>
+                <tr {{ instantaneous_preview_mode is defined ? 'class=preheader-tr' : '' }}>
                     <td style="color: #7f7f7f; padding-top: 20px; padding-bottom: 20px; padding-left:10px; padding-right:10px; font-family: Arial, sans-serif; font-size: 11px;" bgcolor="{{ com_email_template.backgroundColor }}" align="center">
                         <span>Si cet e-mail ne s'affiche pas correctement <a href="{{ preview_mode is defined and true == preview_mode ? '#' : '[[PERMALINK]]' }}" style="color:#7f7f7f" {{ preview_mode is defined and true == preview_mode ? '' : 'target=_blank' }}>cliquez-ici</a> !</span>
                     </td>
@@ -27,13 +27,13 @@
                     {% endif %}
 
                     {% if com_email_template.logo is not empty %}
-                <tr>
-                    <td {{ logo_alignment }} style="padding: 20px 0 20px 0; font-family: Arial, sans-serif; font-size: 15px; line-height: 25px;">
+                <tr {{ instantaneous_preview_mode is defined ? 'class=logo-img-tr' : '' }}>
+                    <td {{ instantaneous_preview_mode is defined ? 'class=logo-img-td' : '' }} {{ logo_alignment }} style="padding: 20px 0 20px 0; font-family: Arial, sans-serif; font-size: 15px; line-height: 25px;">
                         <img src="{{ absolute_url(asset(emailing_template_logo_location~com_email_template.logo)) }}" width="{{ logo_width }}" height="" alt="logo" />
                     </td>
                 </tr>
                     {% else %}
-                <tr>
+                <tr {{ instantaneous_preview_mode is defined ? 'class=logo-img-tr-no-image' : '' }}>
                     <td height="20">
                     </td>
                 </tr>
@@ -46,7 +46,7 @@
                 {% endif %}
                 <tr>
                     <td style="padding: 0 0 20px 0;">
-                        <table  style="border-collapse: collapse;" width="100%">
+                        <table  style="border-collapse: collapse;" width="100%" {{ instantaneous_preview_mode is defined ? 'class=contents-container-table' : '' }}>
                             {#{% if constant('TEXT_AND_IMAGE', template_model_class) == com_email_template.templateModel %}
                                 {% set first_content = com_email_template.contents[0] %}
                                 {% if first_content.image is not empty %}
@@ -92,25 +92,32 @@
                             {#{% if com_email_template.contents|length > 2 %}#}
                                 {% for content in com_email_template.contents %}
                                         {#{% if loop.index > 2 %}#}
-                                            {% if constant('IMAGE', content_type_class) == content.contentType and content.image is not empty %}
-                            <tr>
+                                            {% if constant('IMAGE', content_type_class) == content.contentType %}
+                                                {% if content.image is not empty %}
+                            <tr {{ instantaneous_preview_mode is defined ? 'class=img-content-tr' : '' }}>
                                 <td align="center" style="padding: 0 0 20px 0; font-family: Arial, sans-serif;font-size: 15px;">
                                     <img src="{{ absolute_url(asset(emailing_template_image_content_location~content.image)) }}" width="100%" height="" alt="image" />
                                 </td>
                             </tr>
+                                                {% else %}
+                            <tr {{ instantaneous_preview_mode is defined ? 'class="img-content-tr no-image"' : '' }}>
+                                <td>
+                                </td>
+                            </tr>
+                                                {% endif %}
                                             {% elseif constant('TEXT', content_type_class) == content.contentType%}
-                            <tr>
+                            <tr {{ instantaneous_preview_mode is defined ? 'class=text-content-tr' : '' }}>
                                 <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; line-height: 21px;font-size: 15px;">
                                     {{ content.textContent | raw }}
                                 </td>
                             </tr>
                                             {% elseif constant('BUTTON', content_type_class) == content.contentType%}
-                            <tr>
+                            <tr {{ instantaneous_preview_mode is defined ? 'class=button-content-tr' : '' }}>
                                 <td align="center" style="padding: 0 0 20px 0;">
                                     <table width="250">
                                         <tr>
                                             <td width="250" align="center" style="font-family: Arial, sans-serif; font-size: 15px;">
-                                                <a href="#" style="text-decoration: none !important; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:{{ content.actionButtonTextColor }};background-color: {{ content.actionButtonBackgroundColor }};">
+                                                <a href="{{ preview_mode is defined and true == preview_mode ? '#' : content.actionButtonUrl}}" {{ preview_mode is defined and true == preview_mode ? '' : 'target=_blank'}} style="text-decoration: none !important; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:{{ content.actionButtonTextColor }};background-color: {{ content.actionButtonBackgroundColor }};">
                                                     <span>{{ content.actionButtonText }}</span>
                                                 </a>
                                             </td>
@@ -134,7 +141,7 @@
                         {% if com_email_template.footerContactInfo is not empty or com_email_template.footerUnsubscribingText is not empty %}
                         <p>
                             {% if com_email_template.footerContactInfo is not empty %}
-                                <a href="mailto:{{ com_email_template.footerContactInfo }}" style="color: #7f7f7f;">{{ com_email_template.footerContactInfo }}</a>
+                                <a href="{{ preview_mode is defined and true == preview_mode ? '#' : 'mailto:'~com_email_template.footerContactInfo }}" style="color: #7f7f7f;">{{ com_email_template.footerContactInfo }}</a>
                             {% endif %}
                             {% if com_email_template.footerContactInfo is not empty and com_email_template.footerUnsubscribingText is not empty %} | {% endif %}
                             {% if com_email_template.footerUnsubscribingText is not empty %}
@@ -157,3 +164,41 @@
         </td>
     </tr>
 </table>
+
+{% if instantaneous_preview_mode is defined and instantaneous_preview_mode == true %}
+<div class="block-model-container email-template-block-model-container">
+    <table>
+        <tr class="logo-img-tr">
+            <td class="logo-img-td" align="center" style="padding: 20px 0 20px 0; font-family: Arial, sans-serif; font-size: 15px; line-height: 25px;">
+                <img src="" width="200" height="" alt="logo" />
+            </td>
+        </tr>
+        <tr class="img-content-tr">
+            <td align="center" style="padding: 0 0 20px 0; font-family: Arial, sans-serif;font-size: 15px;">
+                <img src="" width="100%" height="" alt="image" />
+            </td>
+        </tr>
+        <tr class="img-content-tr no-image">
+            <td>
+            </td>
+        </tr>
+        <tr class="text-content-tr">
+            <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; line-height: 21px;font-size: 15px;">
+            </td>
+        </tr>
+        <tr class="button-content-tr">
+            <td align="center" style="padding: 0 0 20px 0;">
+                <table width="250">
+                    <tr>
+                        <td width="250" align="center" style="font-family: Arial, sans-serif; font-size: 15px;">
+                            <a href="#" style="text-decoration: none !important; display:inline-block; border-radius: 25px; padding-top: 10px; padding-right: 20px; padding-bottom: 10px; padding-left: 20px; color:#ffffff;background-color: #ff0000;">
+                                <span>mon bouton d'action</span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endif %}

@@ -70,27 +70,31 @@
                                 <div class="next-create">
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
-                                            FILTRES
+                                            TRI
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
-                                            <a class="dropdown-item" href="#">OPTION</a>
-                                            <a class="dropdown-item" href="#">OPTION</a>
-                                            <a class="dropdown-item" href="#">OPTION</a>
+                                            <a class="dropdown-item template-sorting-element" href="#" data-sorting-parameter="{{ constant('RECENT', template_sorting_parameter_class) }}">RÉCENTS</a>
+                                            <a class="dropdown-item template-sorting-element" href="#" data-sorting-parameter="{{ constant('A_TO_Z', template_sorting_parameter_class) }}">A/Z</a>
+                                            <a class="dropdown-item template-sorting-element" href="#" data-sorting-parameter="{{ constant('Z_TO_A', template_sorting_parameter_class) }}">Z/A</a>
                                         </div>
                                         <span class="delete-input"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row list template-list">
-                                {% if template_list is defined and template_list is not empty %}
-                                    {% for template in template_list %}
+                                {% if template_data_list is defined and template_data_list is not empty %}
+                                    {% for template_data in template_data_list %}
+                                        {% set template = template_data['template_data'] %}
                                 <div class="row">
                                     <div class="col-12 col-lg-9 template-characteristic">
                                         {#<div>
                                             <input id="template-element-{{ loop.index }}-check" class="styled-checkbox bigger" type="checkbox">
                                             <label for="template-element-{{ loop.index }}-check"></label>
                                         </div>#}
-                                        <img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">
+                                        {#<img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">#}
+                                        <div class="template-img-container">
+                                            <img src="{{ asset(template_data['template_thumbnail_image']) }}" class="template-img">
+                                        </div>
                                         <div class="template-info">
                                             <span class="template-name">{{ template.name }}</span>
                                             <span class="template-edit-info">Modifiée le {{ template.lastEdit | localizeddate('none', 'none', locale, null, "dd MMMM yyyy à kk:mm")}} par {{ template.lastEditUser.username }}</span>
@@ -246,6 +250,23 @@
                             </div>
                             <!-- FIN - dialog - confirmation suppression template -->
 
+                            <!-- dialog - prévisulisation instantanée template-->
+                            <div id="instantaneous-preview-template-dialog" class="app-dialog modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="error-message-container centered-message general-message"></div>
+                                            <div class="modal-body-container">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - dialog - prévisulisation instantanée template-->
+
                             <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
                             <input type="hidden" name="template_model_text_and_image" value="{{ constant('TEXT_AND_IMAGE', template_model_class) }}">
                             <input type="hidden" name="template_model_text_only" value="{{ constant('TEXT_ONLY', template_model_class) }}">
@@ -255,6 +276,7 @@
                             <input type="hidden" name="template_content_type_text" value="{{ constant('TEXT', content_type_class) }}">
                             <input type="hidden" name="template_content_type_button" value="{{ constant('BUTTON', content_type_class) }}">
                             <input type="hidden" name="delete_template_url" value="{{ path("admin_communication_emailing_templates_delete_template", {"template_id": "__id__"}) }}">
+                            <input type="hidden" name="sort_template_list_url" value="{{ path("admin_communication_emailing_templates_sort", {"sorting_parameter": "__param__"}) }}">
                         </div>
                     </div>
                 </section>

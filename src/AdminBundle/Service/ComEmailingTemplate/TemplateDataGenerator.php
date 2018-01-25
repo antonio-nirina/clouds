@@ -25,25 +25,32 @@ class TemplateDataGenerator
         return $this;
     }
 
-    public function retrieveHtml()
+    public function retrieveHtml($preview_mode = false)
     {
-        if (is_null($this->com_email_template)) {
-            throw new NoComEmailTemplateSetException();
-        }
-
-        $template_content_view = $this->twig->render(
-            'AdminBundle:EmailTemplates/Communication:template_content.html.twig',
-            array(
-                'com_email_template' => $this->com_email_template,
-                'template_model_class' => new TemplateModel(),
-                'template_logo_alignment_class' => new TemplateLogoAlignment(),
-                'content_type_class' => new TemplateContentType(),
-            )
-        );
+        $template_content_view = $this->retrieveContentPartHtml($preview_mode);
 
         return $this->twig->render('AdminBundle:EmailTemplates/Communication:template_container.html.twig', array(
             'template_content' => $template_content_view,
         ));
+    }
+
+    public function retrieveContentPartHtml($preview_mode = false)
+    {
+        $rendering_option = array(
+            'com_email_template' => $this->com_email_template,
+            'template_model_class' => new TemplateModel(),
+            'template_logo_alignment_class' => new TemplateLogoAlignment(),
+            'content_type_class' => new TemplateContentType(),
+            'instantaneous_preview_mode' => true,
+        );
+        if (true == $preview_mode) {
+            $rendering_option['preview_mode'] = true;
+        }
+
+        return  $this->twig->render(
+            'AdminBundle:EmailTemplates/Communication:template_content.html.twig',
+            $rendering_option
+        );
     }
 
     public function retrieveText()

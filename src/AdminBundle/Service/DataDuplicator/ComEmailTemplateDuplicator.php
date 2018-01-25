@@ -51,7 +51,7 @@ class ComEmailTemplateDuplicator
     public function createDistantDuplicatedTemplate(ComEmailTemplate $com_email_template)
     {
         $this->template_data_generator->setComEmailTemplate($com_email_template);
-        return $this->mailjet_template_handler->createTemplate(
+        return $this->mailjet_template_handler->createNonExistentDistantTemplate(
             $com_email_template->getName(),
             $this->template_data_generator->retrieveHtml(),
             $this->template_data_generator->retrieveText()

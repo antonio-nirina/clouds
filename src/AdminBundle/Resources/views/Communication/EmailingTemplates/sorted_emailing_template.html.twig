@@ -1,0 +1,35 @@
+{% if template_data_list is defined and template_data_list is not empty %}
+    {% for template_data in template_data_list %}
+        {% set template = template_data['template_data'] %}
+        <div class="row">
+            <div class="col-12 col-lg-9 template-characteristic">
+                {#<div>
+                    <input id="template-element-{{ loop.index }}-check" class="styled-checkbox bigger" type="checkbox">
+                    <label for="template-element-{{ loop.index }}-check"></label>
+                </div>#}
+                {#<img src="{{ asset("images/cloudsRewards/temp.png") }}" class="template-img hidden-xs-down">#}
+                <div class="template-img-container">
+                    <img src="{{ asset(template_data['template_thumbnail_image']) }}" class="template-img">
+                </div>
+                <div class="template-info">
+                    <span class="template-name">{{ template.name }}</span>
+                    <span class="template-edit-info">Modifiée le {{ template.lastEdit | localizeddate('none', 'none', locale, null, "dd MMMM yyyy à kk:mm")}} par {{ template.lastEditUser.username }}</span>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 template-action-container">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                        ACTIONS
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                        <a class="dropdown-item edit-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": template.getId}) }}">ÉDITER</a>
+                        <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
+                        <a class="dropdown-item preview-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_preview_template", {"template_id": template.getId}) }}">PRÉVISUALISER</a>
+                        <a class="dropdown-item" href="{{ path("admin_communication_emailing_templates_duplicate_template", {"template_id": template.getId}) }}">DUPLIQUER</a>
+                        <a class="dropdown-item delete-template" href="#" data-template-id="{{ template.getId }}" data-toggle="modal" data-target="#confirm-delete-template">SUPPRIMER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

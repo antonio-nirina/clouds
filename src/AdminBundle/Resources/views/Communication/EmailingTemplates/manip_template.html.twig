@@ -75,7 +75,7 @@
                         <div class="col-12 col-lg-10">
                             <div class="row">
                                 <div class="col-12 col-sm-12">
-                                    {{ form_widget(manip_template_form.logo, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    {{ form_widget(manip_template_form.logo, {"attr": {"class": "hidden-input-file image-input logo-image-input"}}) }}
                                     {% if manip_template_form.vars.value.logo is not empty %}
                                     <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
                                         <span class="upload"></span>
@@ -112,28 +112,28 @@
                         <div class="col-12 col-sm-12 logo-alignment-option-container">
                             <div class="logo-alignment-option">
                                 {#<input checked id="logo-alignment-center-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
-                                {{ form_widget(manip_template_form.logo_alignment[0], {"attr": {"class": "styled-radio bigger"}}) }}
+                                {{ form_widget(manip_template_form.logo_alignment[0], {"attr": {"class": "styled-radio bigger logo-alignment-option-radio"}}) }}
                                 <label for="{{ manip_template_form.logo_alignment[0].vars.id }}"></label>
                                 {#<label for="logo-alignment-center-choice" class="text-label">centré</label>#}
                                 {{ form_label(manip_template_form.logo_alignment[0], "centré", {"label_attr":{"class": "text-label"}}) }}
                             </div>
                             <div class="logo-alignment-option">
                                 {#<input id="logo-alignment-left-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
-                                {{ form_widget(manip_template_form.logo_alignment[1], {"attr": {"class": "styled-radio bigger"}}) }}
+                                {{ form_widget(manip_template_form.logo_alignment[1], {"attr": {"class": "styled-radio bigger logo-alignment-option-radio"}}) }}
                                 <label for="{{ manip_template_form.logo_alignment[1].vars.id }}"></label>
                                 {#<label for="logo-alignment-left-choice" class="text-label">ferré à gauche</label>#}
                                 {{ form_label(manip_template_form.logo_alignment[1], "férré à gauche", {"label_attr":{"class": "text-label"}}) }}
                             </div>
                             <div class="logo-alignment-option">
                                 {#<input id="logo-alignment-right-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
-                                {{ form_widget(manip_template_form.logo_alignment[2], {"attr": {"class": "styled-radio bigger"}}) }}
+                                {{ form_widget(manip_template_form.logo_alignment[2], {"attr": {"class": "styled-radio bigger logo-alignment-option-radio"}}) }}
                                 <label for="{{ manip_template_form.logo_alignment[2].vars.id }}"></label>
                                 {#<label for="logo-alignment-right-choice" class="text-label">ferré à droite</label>#}
                                 {{ form_label(manip_template_form.logo_alignment[2], "férré à droite", {"label_attr":{"class": "text-label"}}) }}
                             </div>
                             <div class="logo-alignment-option">
                                 {#<input id="logo-alignment-expanded-choice" type="radio" name="logo_alignment" class="styled-radio bigger">#}
-                                {{ form_widget(manip_template_form.logo_alignment[3], {"attr": {"class": "styled-radio bigger"}}) }}
+                                {{ form_widget(manip_template_form.logo_alignment[3], {"attr": {"class": "styled-radio bigger logo-alignment-option-radio"}}) }}
                                 <label for="{{ manip_template_form.logo_alignment[3].vars.id }}"></label>
                                 {#<label for="logo-alignment-expanded-choice" class="text-label">étendue</label>#}
                                 {{ form_label(manip_template_form.logo_alignment[3], "étendue", {"label_attr":{"class": "text-label"}}) }}
@@ -144,7 +144,7 @@
                 {% endif %}
 
                 {% if current_template_model == constant('TEXT_AND_IMAGE', template_model_class) %}
-                <div class="template-config-block template-content-block">
+                <div class="template-config-block template-content-block image-content-block">
                     <div class="option-title-block">image</div>
                     <div class="row">
                         <div class="col-12 col-lg-2">
@@ -154,7 +154,7 @@
                         <div class="col-12 col-lg-10">
                             <div class="row">
                                 <div class="col-12 col-sm-12">
-                                    {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input image-content-input"}}) }}
                                     {% if manip_template_form.contents[0].vars.value.image is not empty %}
                                     <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
                                         <span class="upload"></span>
@@ -214,7 +214,7 @@
                     </div>
                 </div>
 
-                <div class="template-config-block template-content-block">
+                <div class="template-config-block template-content-block text-content-block">
                     <div class="option-title-block">texte</div>
                     <div>
                         {#<textarea class="large-textarea" id="template-text"></textarea>#}
@@ -232,7 +232,7 @@
                 {% else %}
                     {% set default_button_content = manip_template_form.contents[2] %}
                 {% endif %}
-                <div class="template-config-block action-button-block">
+                <div class="template-config-block action-button-block button-content-block">
                     <div class="option-title-block">bouton d'action</div>
                     <div class="row">
                         <div class="col-12 col-lg-3">
@@ -294,7 +294,7 @@
                     {% for content in manip_template_form.contents %}
                         {% if loop.index > 3 %}
                             {% if constant('IMAGE', content_type_class) == content.vars.value.contentType %}
-                <div class="template-config-block template-content-block" data-form-field-id="{{ content.vars.id }}">
+                <div class="template-config-block template-content-block image-content-block" data-form-field-id="{{ content.vars.id }}">
                     <div class="option-title-block">image<span class="delete-content"></span></div>
                     <div class="row">
                         <div class="col-12 col-lg-2">
@@ -304,7 +304,7 @@
                         <div class="col-12 col-lg-10">
                             <div class="row">
                                 <div class="col-12 col-sm-12">
-                                    {{ form_widget(content.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                                    {{ form_widget(content.image, {"attr": {"class": "hidden-input-file image-input image-content-input"}}) }}
                                     {% if content.vars.value.image is not empty %}
                                     <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
                                         <span class="upload"></span>
@@ -342,14 +342,14 @@
                     </div>
                 </div>
                             {% elseif constant('TEXT', content_type_class) == content.vars.value.contentType %}
-                <div class="template-config-block template-content-block" data-form-field-id="{{ content.vars.id }}">
+                <div class="template-config-block template-content-block text-content-block" data-form-field-id="{{ content.vars.id }}">
                     <div class="option-title-block">texte<span class="delete-content"></span></div>
                     <div>
                         {{ form_widget(content.text_content, {"attr": {"class": "large-textarea"}}) }}
                     </div>
                 </div>
                             {% elseif constant('BUTTON', content_type_class) == content.vars.value.contentType %}
-                <div class="template-config-block template-content-block action-button-block" data-form-field-id="{{ content.vars.id }}">
+                <div class="template-config-block template-content-block action-button-block button-content-block" data-form-field-id="{{ content.vars.id }}">
                     <div class="option-title-block">bouton d'action<span class="delete-content"></span></div>
                     <div class="row">
                         <div class="col-12 col-lg-3">
@@ -465,7 +465,7 @@
         </button>
     </div>
     <div class="block-model-container">
-        <div class="template-config-block template-content-image-model template-content-block">
+        <div class="template-config-block template-content-image-model template-content-block image-content-block">
             <div class="option-title-block">image<span class="delete-content"></span></div>
             <div class="row">
                 <div class="col-12 col-lg-2">
@@ -475,7 +475,7 @@
                 <div class="col-12 col-lg-10">
                     <div class="row">
                         <div class="col-12 col-sm-12">
-                            {{ form_widget(manip_template_form.contents.vars.prototype.image, {"attr": {"class": "hidden-input-file image-input"}}) }}
+                            {{ form_widget(manip_template_form.contents.vars.prototype.image, {"attr": {"class": "hidden-input-file image-input image-content-input"}}) }}
                             <button class="btn-valider btn-upload choose-upload-img-button">
                                 <span class="upload"></span>
                                 choisissez un fichier...
@@ -497,14 +497,14 @@
                 </div>
             </div>
         </div>
-        <div class="template-config-block template-content-text-model template-content-block">
+        <div class="template-config-block template-content-text-model template-content-block text-content-block">
             <div class="option-title-block">texte<span class="delete-content"></span></div>
             <div>
                 {#<textarea class="large-textarea" id="template-text"></textarea>#}
                 {{ form_widget(manip_template_form.contents.vars.prototype.text_content) }}
             </div>
         </div>
-        <div class="template-config-block template-content-button-model template-content-block action-button-block">
+        <div class="template-config-block template-content-button-model template-content-block action-button-block button-content-block">
             <div class="option-title-block">bouton d'action<span class="delete-content"></span></div>
             <div class="row">
                 <div class="col-12 col-lg-3">
@@ -551,5 +551,14 @@
             {{ form_widget(manip_template_form.contents.vars.prototype.content_order, {"attr": {"class": "content-order" }}) }}
         </div>
     </div>
+
+    <div class="instantaneous-preview-container">
+        {{ instantaneous_template_preview | raw }}
+    </div>
+
+    <input type="hidden" name="template_logo_alignment_left" value="{{ constant('LEFT', template_logo_alignment_class) }}">
+    <input type="hidden" name="template_logo_alignment_center" value="{{ constant('CENTER', template_logo_alignment_class) }}">
+    <input type="hidden" name="template_logo_alignment_right" value="{{ constant('RIGHT', template_logo_alignment_class) }}">
+    <input type="hidden" name="template_logo_alignment_expanded" value="{{ constant('EXPANDED', template_logo_alignment_class) }}">
     {{ form_end(manip_template_form) }}
 {% endif %}

@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use AdminBundle\Component\CommunicationEmail\TemplateModel;
 use AdminBundle\Component\CommunicationEmail\TemplateContentType;
 use UserBundle\Entity\User as AppUser;
+use AdminBundle\Component\CommunicationEmail\TemplateSortingParameter;
 
 class ComEmailTemplateManager
 {
@@ -160,5 +161,30 @@ class ComEmailTemplateManager
     public function flush()
     {
         $this->em->flush();
+    }
+
+    public function listSortedTemplate(Program $program, $sorting_parameter = null)
+    {
+        if (null == $sorting_parameter) {
+            $sorting_parameter = TemplateSortingParameter::RECENT;
+        }
+
+        $sort_option = array();
+        switch ($sorting_parameter) {
+            case TemplateSortingParameter::RECENT:
+                $sort_option = array('last_edit' => 'DESC');
+                break;
+            case TemplateSortingParameter::A_TO_Z:
+                $sort_option = array('name' => 'ASC');
+                break;
+            case TemplateSortingParameter::Z_TO_A:
+                $sort_option = array('name' => 'DESC');
+                break;
+        }
+
+        $template_list = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findBy(array('program' => $program), $sort_option);
+
+        return $template_list;
     }
 }
