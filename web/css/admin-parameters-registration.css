@@ -1974,9 +1974,11 @@ section .row.ending {
 .ui-datepicker-next.ui-corner-all {
     right: 2px !important;
 }
-.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+
+/*.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
     background: none !important;
 }
+
 .ui-datepicker .ui-datepicker-prev:before {
     content: "\f104";    
 }
@@ -1993,7 +1995,20 @@ section .row.ending {
     display: block;
     position: absolute;
     -webkit-text-stroke: 2px #ffffff !important;
+}*/
+
+.ui-datepicker .ui-datepicker-prev span {
+    background-image: url('../images/cloudsRewards/fleche-gauche.png') !important;
+    background-position: -3px -2px !important;
+    background-size:  20px 20px;
 }
+
+.ui-datepicker .ui-datepicker-next span{
+    background-image: url('../images/cloudsRewards/fleche-droite.png') !important;
+    background-position: -1px -2px !important;
+    background-size:  20px 20px;
+}
+
 /*---------time select --------*/
 .chosen-select + .chosen-container {
     border: 1px solid #e5e5e5;
