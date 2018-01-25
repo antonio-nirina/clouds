@@ -1,0 +1,276 @@
+section .row.list .campagne-metric > div{
+	width:200px!important;
+}
+
+section .row.list .campagne-name{
+	min-width: 30%!important;
+}
+
+section .row.list .campagne-action{
+	width: calc(50% - 300px)!important;
+	position:absolute;
+	right:15px;
+}
+
+.list{
+	position:relative;
+}
+
+section .row.list .campagne-name-name{
+	margin:0!important;
+}
+
+section .row.list .campagne-name label > div{
+	padding:0!important;
+}
+
+.dropdown-item{
+	text-transform: uppercase; 
+}
+
+section .row.ending{
+	height:30px!important;
+}
+
+.modal-xl{
+	max-width:1000px;
+}
+
+.app-dialog .content-container{
+	padding:0 30px!important;
+}
+
+input.liste_name_input{
+	min-width: 50%;
+	border: 1px solid;
+	border-radius: 7px;
+	padding: 5px 10px;
+	color: var(--couleur_4);
+	width:93%;
+}
+
+input.liste_name_input_small{
+	min-width: 50%;
+	border: 1px solid grey;
+	padding: 5px 10px;
+	color: var(--couleur_4);
+	width:93%;
+	text-align:right;
+	
+	font-size: 17px;
+	line-height: 19px;
+	font-family: var(--police_bold);
+	font-weight: bold;
+	color: var(--couleur_2);
+	
+	background: #f9f9f9;
+}
+
+.modal p.form-line {
+    display: flex;
+    margin-bottom: 40px;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+.modal p > label {
+    min-width: 111px;
+}
+
+.sep-block-titre{
+	display:block;
+	font-size: 17px;
+	line-height: 19px;
+	font-family: var(--police_bold);
+	font-weight: bold;
+	color: var(--couleur_2);
+}
+
+.separator{
+	margin-top:30px;
+}
+
+#dropdownMenuFiltreEditListContact{
+	width:80%!important;
+	border:0;
+	position:relative;
+	text-align:left;
+}
+
+.dropdown-menu, .dropdown-menu > a, .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+.dropdown-menu {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+
+.dropdown.dossiers button, .dropdown.filtres button, .dropdown.dossiers .dropdown-menu, .dropdown.filtres .dropdown-menu{
+	width:80%!important;
+}
+
+.dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+
+#ListUserContactMailjet_filter{
+	display:none;
+}
+
+table#ListUserContactMailjet tfoot{
+	display:none;
+}
+
+table#ListUserContactMailjet{
+	text-align:center;
+	border: 1px solid #CBCBCB!important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: 0!important;
+    margin-left: -6px!important;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #333 !important;
+    border: 0!important;
+    border-radius: 0!important;
+}
+
+.page-item.active .page-link {
+    z-index: 2;
+    background-color: white!important;
+    border-color: white!important;
+	
+	font-size: 17px;
+	line-height: 19px;
+	font-family: var(--police_bold);
+	font-weight: bold;
+	color: var(--couleur_2)!important;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: var(--couleur_4)!important;
+    background-color: #fff;
+    border: 0!important;
+	
+	font-size: 17px;
+	line-height: 19px;
+}
+
+#ListUserContactMailjet_paginate{
+	margin-top:70px;
+}
+
+.page-link:hover{
+	text-decoration:none!important;
+	background:none!important;
+	background-color:white!important;
+	border:0!important;
+	
+	z-index: 2;
+    background-color: white!important;
+    border-color: white!important;
+	
+	font-size: 17px;
+	line-height: 19px;
+	font-family: var(--police_bold);
+	font-weight: bold;
+	color: var(--couleur_2)!important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+	text-decoration:none!important;
+	background:none!important;
+	background-color:white!important;
+	border:0!important;
+}
+
+ul.pagination{
+	text-align: center;
+	margin: 0 auto;
+	width: 31%;
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled{
+	background-position: 22px center !important;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+	border:0!important;
+}
+
+table.dataTable, table.dataTable td.ligne-standards{
+	border-top:0!important;
+	border-right:0!important;
+	border-left:0!important;
+	font-size: 12px;
+	font-family: var(--police);
+}
+
+table.dataTable, table.dataTable td.ligne-selection{
+	border-top:0!important;
+	border-left:0!important;
+	background:#f9f9f9;
+}
+
+.table-striped tbody tr:nth-of-type(2n+1){
+	background:white!important;
+}
+
+table.dataTable tbody tr{
+	border-bottom:1px solid #505050!important;
+}
+
+table.dataTable, table.dataTable th.entete-selection{
+	border-right: 1px solid #CBCBCB!important;
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc{
+	vertical-align:middle!important;
+	text-align:left;
+}
+
+table.dataTable thead th{
+	padding-left:40px!important;
+}
+
+table.dataTable thead th.entete-selection{
+	padding-left:19px!important;
+}
+
+table.dataTable thead th, table.dataTable tfoot th{
+	font-weight:normal!important;
+}
+
+div#ListUserContactMailjet_wrapper{
+	padding:0!important;
+}
