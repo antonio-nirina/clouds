@@ -14,19 +14,19 @@
                     <div class="color-option-container">
                         <span class="option-title">Couleur de l'e-mail</span>
                         {#<input id="email-color" type="text" class="color-value">#}
-                        {{ form_widget(manip_template_form.email_color, {"attr":{"class": "color-value"}}) }}
+                        {{ form_widget(manip_template_form.email_color, {"attr":{"class": "color-value email-color"}}) }}
                     </div>
                     <div class="color-option-container">
                         <span class="option-title">Couleur de l'arrière plan</span>
                         {#<input id="background-color" type="text" class="color-value">#}
-                        {{ form_widget(manip_template_form.background_color, {"attr":{"class": "color-value"}}) }}
+                        {{ form_widget(manip_template_form.background_color, {"attr":{"class": "color-value template-background-color"}}) }}
                     </div>
                 </div>
                 <div class="template-config-block footer-text-block">
                     <span class="option-title">Texte présent dans le footer</span>
                     <div class="footer-text-element">
                         <div class="footer-text-option-container">
-                            {{ form_widget(manip_template_form.footer_company_info, { "attr": {"class": "footer-text-option-input mandatory-footer-text", "placeholder": "copyright / société"}}) }}
+                            {{ form_widget(manip_template_form.footer_company_info, { "attr": {"class": "footer-text-option-input mandatory-footer-text company-info", "placeholder": "copyright / société"}}) }}
                             <span class="delete-mandatory-input"></span>
                         </div>
                         <div class="error-message-container">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="footer-text-element">
                         <div class="footer-text-option-container">
-                            {{ form_widget(manip_template_form.footer_contact_info, { "attr": {"class": "footer-text-option-input mandatory-footer-text", "placeholder": "contact@masociete.com"}}) }}
+                            {{ form_widget(manip_template_form.footer_contact_info, { "attr": {"class": "footer-text-option-input mandatory-footer-text contact", "placeholder": "contact@masociete.com"}}) }}
                             <span class="delete-mandatory-input"></span>
                         </div>
                         <div class="error-message-container">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="footer-text-element">
                         <div class="footer-text-option-container">
-                            {{ form_widget(manip_template_form.footer_unsubscribing_text, { "attr": {"class": "footer-text-option-input mandatory-footer-text", "placeholder": "me désabonner"}}) }}
+                            {{ form_widget(manip_template_form.footer_unsubscribing_text, { "attr": {"class": "footer-text-option-input mandatory-footer-text unsubscribe", "placeholder": "me désabonner"}}) }}
                             <span class="delete-mandatory-input"></span>
                         </div>
                         <div class="error-message-container">
@@ -53,12 +53,12 @@
                     </div>
                     <div class="footer-text-element">
                         <div class="footer-text-option-container">
-                            {{ form_widget(manip_template_form.footer_additional_info, { "attr": {"class": "footer-text-option-input removable-content-input" }}) }}
+                            {{ form_widget(manip_template_form.footer_additional_info, { "attr": {"class": "footer-text-option-input removable-content-input additional-info" }}) }}
                             {% set delete_input_visibility = 'style=display:none' %}
                             {% if manip_template_form.vars.value.footerAdditionalInfo | trim is not empty %}
                                 {% set delete_input_visibility = '' %}
                             {% endif %}
-                            <span class="delete-input" {{ delete_input_visibility }}></span>
+                            <span class="delete-input delete-footer-text-additional-info" {{ delete_input_visibility }}></span>
                         </div>
                     </div>
                 </div>
@@ -417,7 +417,7 @@
         </div>
         <div class="row template-name-container hidden">
             <div class="col-12 col-lg-5 template-name-label-container">
-                {{ form_label(manip_template_form.name, "nommmer votre template", {"label_attr":{"class": "template-name-label"}}) }}
+                {{ form_label(manip_template_form.name, "nommer votre modèle", {"label_attr":{"class": "template-name-label"}}) }}
             </div>
             <div class="col-12 col-lg-7 vertical-align-element-container">
                 <div class="row template-name-input-row-container">

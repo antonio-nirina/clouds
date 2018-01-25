@@ -349,8 +349,9 @@ $(document).ready(function() {
                     $('#new-campaign-modal').find('.modal-step-3.first').css('display','none');
                     $('#new-campaign-modal').find('.modal-step-3.second').css('display','block').html(data.content);
                     $('#new-campaign-modal .previous').addClass('keep');
-                    var text = "Créer votre email, il sera sauvegardé dans l'onglet \"templates\", vous pourrez le réutiliser et/ou modifier ultérieurement.";
+                    var text = "Créer votre email, il sera sauvegardé dans l'onglet \"modèle d'e-mail\", vous pourrez le réutiliser et/ou modifier ultérieurement.";
                     $('#new-campaign-modal').find('.modal-step-3 .dialog-title').html(text);
+                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').removeClass('dialog-title');
                     $(".btn-valider.modify").addClass("hidden");
                     $(".btn-valider.modify").addClass("hidden");
                     $(".btn-valider.validate.validate-add").addClass("hidden");
@@ -424,6 +425,9 @@ $(document).ready(function() {
                if(data['error']){                    
                    $('#new-campaign-modal').find('.modal-step-3.second').html(data.content);
                    $('#new-campaign-modal').find('.modal-step-3.second').find('.btn-valider.save').trigger('click');
+                   var text = "Créer votre email, il sera sauvegardé dans l'onglet \"modèle d'e-mail\", vous pourrez le réutiliser et/ou modifier ultérieurement.";
+                   $('#new-campaign-modal').find('.modal-step-3 .dialog-title').html(text);
+                   $('#new-campaign-modal').find('.modal-step-3 .dialog-title').removeClass('dialog-title');
                    installColorPicker();
                    installWysiwyg();
                } else {
