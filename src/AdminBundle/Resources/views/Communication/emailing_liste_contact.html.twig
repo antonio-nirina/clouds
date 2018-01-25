@@ -1,0 +1,264 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+			<link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/communications/emailing-list-contact.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+            <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':1})) }}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_compaign") }}">campagnes </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_compaign") }}">campagnes </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_templates") }}">modèles d'e-mails </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_emailing_list_contact") }}">liste des contacts </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">statistiques </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">sur-mesures </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset slideshow active">
+                    <div class="row filter">
+                        <div class="create">
+                            <button class="btn-valider" data-toggle="modal" data-target="#new-list-modal">
+                                créer une liste
+                            </button>
+                        </div>
+                        <div class="next-create">                            
+                            <div class="dropdown clearable filtres">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                    FILTRES
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                    <a class="dropdown-item" href="#">
+                                        RÉCENTS
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        A-Z
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        Z-A
+                                    </a>
+                                </div>
+                                <span class="delete-input"></span>
+                            </div>
+							
+                        </div>
+                    </div>
+					
+                    <div class="row list">
+                        <div class="row campagne-1">
+							<div class="campagne-name list-name">
+								<label for="1">
+									<div class="campagne-name-name">
+										Liste manager
+									</div>
+								</label>                           
+							</div>
+							<div class="campagne-metric">
+								<div class="metric-1">
+									<span class="metric-value">
+										28/12/2017 - 20:22
+									</span>
+									<span class="metric-desc">date de création</span>
+								</div>
+								<div style = "width:20%!important;"></div>
+								<div class="metric-3">
+									<span class="metric-value">
+										150
+									</span>
+									<span class="metric-desc">contacts</span>
+								</div>
+							</div>
+							<div class="campagne-action">
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+										ACTIONS
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+										<a class="dropdown-item list-contact-edit" href="#">{{ 'éditer'|capitalize }}</a>
+										<a class="dropdown-item list-contact-duplicate" href="#">{{ 'dupliquer'|capitalize }}</a>
+										<a class="dropdown-item list-contact-export" href="#">{{ 'exporter'|capitalize }}</a>
+										<a class="dropdown-item list-contact-delete" href="#">{{ 'supprimer'|capitalize }}</a>                                          
+									</div>
+								</div>
+							</div>                            
+						</div>                   
+                    </div>                    
+                    <div class="row ending"></div>
+					
+					<div class="row list">
+                        <div class="row campagne-1">
+							<div class="campagne-name list-name">
+								<label for="1">
+									<div class="campagne-name-name">
+										Liste commercial
+									</div>
+								</label>                           
+							</div>
+							<div class="campagne-metric">
+								<div class="metric-1">
+									<span class="metric-value">
+										10/12/2017 - 18:30
+									</span>
+									<span class="metric-desc">date de création</span>
+								</div>
+								<div style = "width:20%!important;"></div>
+								<div class="metric-3">
+									<span class="metric-value">
+										500
+									</span>
+									<span class="metric-desc">contacts</span>
+								</div>
+							</div>
+							<div class="campagne-action">
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+										ACTIONS
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+										<a class="dropdown-item" href="#">{{ 'éditer'|capitalize }}</a>
+										<a class="dropdown-item campaign-replicate" href="#">{{ 'dupliquer'|capitalize }}</a>
+										<a class="dropdown-item campaign-replicate" href="#">{{ 'exporter'|capitalize }}</a>
+										<a class="dropdown-item campaign-rename" href="#">{{ 'supprimer'|capitalize }}</a>                                          
+									</div>
+								</div>
+							</div>                            
+						</div>                   
+                    </div>                    
+                    <div class="row ending"></div>
+					
+					<div class="row list">
+                        <div class="row campagne-1">
+							<div class="campagne-name list-name">
+								<label for="1">
+									<div class="campagne-name-name">
+										Liste participants
+									</div>
+								</label>                           
+							</div>
+							<div class="campagne-metric">
+								<div class="metric-1">
+									<span class="metric-value">
+										31/11/2011 - 18:30
+									</span>
+									<span class="metric-desc">date de création</span>
+								</div>
+								<div style = "width:20%!important;"></div>
+								<div class="metric-3">
+									<span class="metric-value">
+										3000
+									</span>
+									<span class="metric-desc">contacts</span>
+								</div>
+							</div>
+							<div class="campagne-action">
+								<div class="dropdown">
+									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+										ACTIONS
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+										<a class="dropdown-item" href="#">{{ 'éditer'|capitalize }}</a>
+										<a class="dropdown-item campaign-replicate" href="#">{{ 'dupliquer'|capitalize }}</a>
+										<a class="dropdown-item campaign-replicate" href="#">{{ 'exporter'|capitalize }}</a>
+										<a class="dropdown-item campaign-rename" href="#">{{ 'supprimer'|capitalize }}</a>                                          
+									</div>
+								</div>
+							</div>                            
+						</div>                   
+                    </div>                    
+                    <div class="row ending"></div>
+                </section>                
+            </div>
+        </div>
+
+        <div class = "row separator"></div>
+		
+		<p class = "chargementAjax hidden">
+            <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+        </p>
+		
+		<input id = "UriEditListContact" type = "hidden" name = "UriEditListContact" value = "{{ path("admin_communication_emailing_list_contact_edition") }}">
+    </main>
+	
+	<!-- dialog - édition liste des contacts -->
+	<div id="edit-list-contact" class="app-dialog modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+				</div>
+				<div class="modal-body">
+					<div class="error-message-container centered-message general-message"></div>
+					<div class="modal-body-container">
+						<div class="content-container">
+							<span class="dialog-title">éditer une liste de contacts</span>
+							<div class = "body-container"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+            <script src="{{ asset('js/communications/emailing-list-contact.js') }}"></script>            
+            <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+            <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>             
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

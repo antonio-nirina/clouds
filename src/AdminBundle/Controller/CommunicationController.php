@@ -693,4 +693,43 @@ class CommunicationController extends AdminController
 
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
+	
+	/**
+     * @Route(
+     *     "/emailing/liste-contact",
+     *     name="admin_communication_emailing_list_contact",
+     * )
+     */
+    public function emailingListeContactAction(Request $request){
+		$json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+		
+		return $this->render('AdminBundle:Communication:emailing_liste_contact.html.twig');
+	}
+	
+	/**
+     * @Route(
+     *     "/emailing/liste-contact-edit",
+     *     name="admin_communication_emailing_list_contact_edition",
+     * )
+     */
+    public function emailingListeContactEditAction(Request $request){
+		$json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+		
+		$response = $this->forward('AdminBundle:PartialPage:emailingListeContactEditAjax');
+		return new Response($response->getContent());
+		
+		//return $this->render('AdminBundle:Communication:emailing_liste_contact_edit.html.twig');
+	}
 }

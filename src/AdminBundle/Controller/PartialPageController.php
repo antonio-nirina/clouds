@@ -156,4 +156,7 @@ class PartialPageController extends Controller
 		return $this->render('AdminBundle:PartialPage/Ajax:afficheListImgEditor.html.twig', array('images' => $datas));
 	}
 	
+	public function emailingListeContactEditAjaxAction(){
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig');
+	}
 }
