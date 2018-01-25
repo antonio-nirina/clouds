@@ -1060,6 +1060,45 @@ $(document).ready(function(){
         $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.contents-container-table').append(new_button_content_tr);
     });
 
+    // changement de couleur de fond
+        // couleur d'email
+    $(document).on('change', '.email-color', function(){
+        var main_table = $('#instantaneous-preview-template-dialog').find('.main-table');
+        main_table.css('background-color', $(this).val());
+    });
+        // couleur de fond
+    $(document).on('change', '.template-background-color', function(){
+        var pseudo_body_table = $('#instantaneous-preview-template-dialog').find('.pseudo-body-table');
+        pseudo_body_table.css('background-color', $(this).val());
+        var same_bg_color_as_background = $('#instantaneous-preview-template-dialog').find('.same-bg-color-as-background');
+        same_bg_color_as_background.find('td').css('background-color', $(this).val());
+    });
+
+    // changements textes footer
+    $(document).on('input', '.footer-text-option-input.company-info', function(){
+        var footer_text_company_info = $('#instantaneous-preview-template-dialog').find('.footer-text-company-info');
+        footer_text_company_info.text($(this).val());
+    });
+
+    $(document).on('input', '.footer-text-option-input.contact', function(){
+        var footer_text_contact = $('#instantaneous-preview-template-dialog').find('.footer-text-contact');
+        footer_text_contact.text($(this).val());
+    });
+
+    $(document).on('input', '.footer-text-option-input.unsubscribe', function(){
+        var footer_text_unsubscribe = $('#instantaneous-preview-template-dialog').find('.footer-text-unsubscribe');
+        footer_text_unsubscribe.text($(this).val());
+    });
+
+    $(document).on('input', '.footer-text-option-input.additional-info', function(){
+        var footer_text_additional_info = $('#instantaneous-preview-template-dialog').find('.footer-text-additional-info');
+        footer_text_additional_info.text($(this).val());
+    });
+
+    $(document).on('click','.delete-footer-text-additional-info', function(){
+        var footer_text_additional_info = $('#instantaneous-preview-template-dialog').find('.footer-text-additional-info');
+        footer_text_additional_info.text('');
+    });
     /**
      * *********************************************************************************************
      * FIN
