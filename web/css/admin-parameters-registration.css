@@ -1982,7 +1982,7 @@ section .row.ending {
     content: "\f105";    
 }
 .ui-datepicker .ui-datepicker-next:before ,.ui-datepicker .ui-datepicker-prev:before {
-    font-family: fontAwesome;
+    font-family: "FontAwesome";
     font-size: 25px;
     color: #000000;
     top: 50%;
