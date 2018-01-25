@@ -1010,8 +1010,11 @@ $(document).ready(function(){
         if(corresponding_image_content_tr.hasClass('no-image')){
             var new_image_content_tr = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.img-content-tr').not('.no-image').clone();
             corresponding_image_content_tr.replaceWith(new_image_content_tr);
+            createImagePreview(this, new_image_content_tr.find('img'));
+        } else {
+            createImagePreview(this, corresponding_image_content_tr.find('img'));
         }
-        createImagePreview(this, new_image_content_tr.find('img'));
+
     });
 
     // changement de contenu de type bouton
