@@ -2802,7 +2802,7 @@ p.chargementAjax{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1050;
+    z-index: 1070;
 }
 
 p.chargementAjax img{
@@ -2891,4 +2891,72 @@ p.chargementAjax.hidden{
     background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
     display: inline-block;
     float: right;
+}
+
+/**
+ * enregistrement à la fermeture de création de modèle
+ */
+.app-dialog .message{
+    margin-top: 40px;
+}
+
+.app-dialog .form-element-container{
+    margin-top: 20px;
+    display: flex;
+}
+
+.app-dialog .form-element-container .input-text.semi-large-input-text{
+    width: 250px;
+}
+
+.app-dialog .form-element-container .input-container{
+    margin-left: 10px;
+}
+
+.app-dialog .form-element-container .error-message-container{
+    margin-left: 10px;
+}
+
+#save-template-on-close-dialog.app-dialog .button-container{
+    margin-bottom: 20px;
+}
+
+#save-template-on-close-dialog.app-dialog .save{
+    margin-right: 40px;
+}
+
+#save-template-on-close-dialog.app-dialog .cancel{
+    margin-left: 40px;
+}
+
+@media (max-width: 575px) {
+    .app-dialog .form-element-container{
+        flex-direction: column;
+    }
+
+    #save-template-on-close-dialog.app-dialog .button-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #save-template-on-close-dialog.app-dialog .save{
+        margin-right: 0;
+    }
+
+    #save-template-on-close-dialog.app-dialog .cancel{
+        margin-left: 0;
+        margin-top: 20px !important;
+    }
+
+    .app-dialog .form-element-container .input-text.semi-large-input-text{
+        max-width: 80%;
+    }
+
+    .app-dialog .form-element-container .input-container{
+        margin-left: 0;
+    }
+
+    .app-dialog .form-element-container .error-message-container{
+        margin-left: 0;
+    }
 }

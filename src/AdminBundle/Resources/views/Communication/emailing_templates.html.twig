@@ -170,12 +170,12 @@
 
                             <!-- dialog - création template  -->
                             {#<button id="create-template-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-template-dialog"></button>#}
-                            <div id="create-template-dialog" class="app-dialog modal" tabindex="-1" role="dialog">
+                            <div id="create-template-dialog" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
                                 <div class="modal-dialog modal-lg larger" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <a class="previous"></a>
-                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                            <a class="close-modal" aria-label="Close"></a>
                                         </div>
                                         <div class="modal-body">
                                             <div class="error-message-container centered-message general-message"></div>
@@ -267,6 +267,47 @@
                             </div>
                             <!-- FIN - dialog - prévisulisation instantanée template-->
 
+                            <!-- dialog - enregistrement template à la fermeture -->
+                            <div id="save-template-on-close-dialog" class="modal app-dialog" tabindex="-1" role="dialog" data-backdrop="static">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-body-container">
+                                                <div class="content-container">
+                                                    <span class="dialog-title">enregistrer votre modèle</span>
+                                                    <p class="message">vous pourrez le modifier ultérieurement à partir de la liste des modèles</p>
+                                                    <div class="form-element-container">
+                                                        <div>
+                                                            <label>nom du modèle</label>
+                                                        </div>
+                                                        <div>
+                                                            <div class="input-container">
+                                                                {#<input type="text" class="input-text semi-large-input-text">#}
+                                                                <span class="delete-input" style="display: none;"></span>
+                                                            </div>
+                                                            <div class="error-message-container">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="button-container">
+                                                    <button class ="btn-valider save">
+                                                        enregistrer
+                                                    </button>
+                                                    <button class ="btn-valider cancel">
+                                                        annuler
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="template_id" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - dialog - enregistrement template à la fermeture -->
+
                             <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
                             <input type="hidden" name="template_model_text_and_image" value="{{ constant('TEXT_AND_IMAGE', template_model_class) }}">
                             <input type="hidden" name="template_model_text_only" value="{{ constant('TEXT_ONLY', template_model_class) }}">
@@ -277,6 +318,7 @@
                             <input type="hidden" name="template_content_type_button" value="{{ constant('BUTTON', content_type_class) }}">
                             <input type="hidden" name="delete_template_url" value="{{ path("admin_communication_emailing_templates_delete_template", {"template_id": "__id__"}) }}">
                             <input type="hidden" name="sort_template_list_url" value="{{ path("admin_communication_emailing_templates_sort", {"sorting_parameter": "__param__"}) }}">
+                            <input type="hidden" name="edit_template_url" value="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": "__id__"}) }}">
                         </div>
                     </div>
                 </section>

@@ -322,7 +322,7 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/emailing/templates", name="admin_communication_emailing_templates")
+     * @Route("/emailing/modeles-emails", name="admin_communication_emailing_templates")
      */
     public function emailingTemplatesAction()
     {
@@ -345,7 +345,7 @@ class CommunicationController extends AdminController
 
     /**
      * @Route(
-     *     "/emailing/templates/tri/{sorting_parameter}",
+     *     "/emailing/modeles-emails/tri/{sorting_parameter}",
      *     name="admin_communication_emailing_templates_sort",
      *     defaults={"sorting_parameter"=null})
      */
@@ -379,7 +379,7 @@ class CommunicationController extends AdminController
 
     /**
      * @Route(
-     *     "/emailling/templates/ajout-template/{model}",
+     *     "/emailling/modeles-emails/ajout-modele/{model}",
      *     name="admin_communication_emailing_templates_add_template",
      *     defaults={"model"=null}
      * )
@@ -483,9 +483,8 @@ class CommunicationController extends AdminController
 
     /**
      * @Route(
-     *     "/emailling/templates/edition-template/{template_id}",
+     *     "/emailling/modeles-emails/edition-modele/{template_id}",
      *     name="admin_communication_emailing_templates_edit_template",
-     *     requirements={"template_id": "\d+"}
      * )
      */
     public function emailingTemplatesEditTemplateAction(Request $request, $template_id)
@@ -602,7 +601,7 @@ class CommunicationController extends AdminController
 
     /**
      * @Route(
-     *     "/emailling/templates/previsulisation-template/{template_id}",
+     *     "/emailling/modeles-emails/previsulisation-modele/{template_id}",
      *     name="admin_communication_emailing_templates_preview_template",
      *     requirements={"template_id": "\d+"}
      * )

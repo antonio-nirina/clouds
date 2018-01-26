@@ -867,7 +867,6 @@ $(document).ready(function(){
         var template_id = $(this).parents('.confirm-delete-dialog').find('input[name=template_id]').val();
         if(NaN !== parseInt(template_id)){
             var part_delete_template_url = $('input[name=delete_template_url]').val();
-            console.log(part_delete_template_url);
             var delete_template_url = part_delete_template_url.replace(/__id__/, template_id);
             $.ajax({
                 type: 'GET',
@@ -1104,6 +1103,182 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Communication - Emailing - Templates
      * Prévisualisation instantanée dans Popup
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Enregistrement de modèle à la création
+     * *********************************************************************************************
+     */
+    function handleTemplateNameInputPlace()
+    {
+        var template_name_error_message = transferErrorMessage();
+        if(template_name_error_message.length > 0){
+            transferTemplateNameInput();
+        } else {
+            $('#save-template-on-close-dialog').modal('hide');
+        }
+    }
+
+    function transferTemplateNameInput()
+    {
+        var template_name_input = $('#create-template-dialog').find('.template-name-input');
+        if(template_name_input.length <= 0){
+            $('#create-template-dialog').modal('hide');
+            $('#save-template-on-close-dialog').modal('hide');
+        }
+        template_name_input.addClass('input-text');
+        template_name_input.addClass('semi-large-input-text');
+        $('#save-template-on-close-dialog').find('.input-container').find('.delete-input').before(template_name_input);
+        if(template_name_input.val().trim() != ''){
+            $('#save-template-on-close-dialog').find('.input-container').find('.delete-input').show();
+        }
+        template_name_input.removeAttr('required');
+    }
+
+    function transferBackTemplateNameInput()
+    {
+        var template_name_input = $('#save-template-on-close-dialog').find('.input-container').find('input');
+        var to_transfer_template_name_input = template_name_input.clone();
+        template_name_input.removeAttr('name');
+        template_name_input.removeAttr('id');
+        $('#create-template-dialog').find('.template-name-input-row-container').find('.delete-input').before(to_transfer_template_name_input);
+    }
+
+    function transferErrorMessage()
+    {
+        var error_message = $('#create-template-dialog').find('.template-name-error').children();
+        if(error_message.length > 0){
+            $('#save-template-on-close-dialog').find('.form-element-container').find('.error-message-container').html('');
+            $('#save-template-on-close-dialog').find('.form-element-container').find('.error-message-container').append(error_message);
+        }
+        return error_message;
+    }
+
+    $(document).on('click', '#create-template-dialog .close-modal', function(e){
+        e.preventDefault();
+        transferTemplateNameInput();
+        var manip_mode = $('#create-template-dialog').find('input[name=manip_mode]').val();
+        if('edit' == manip_mode){
+            $('#save-template-on-close-dialog').find('.save').addClass('save-edit');
+            var template_id = $('input[name=template_id]').val();
+            var data_target_url = $('input[name=edit_template_url]').val();
+            data_target_url = data_target_url.replace(/__id__/, template_id);
+            $('#save-template-on-close-dialog').find('.save').attr('data-target-url', data_target_url);
+        } else if ('create' == manip_mode){
+            $('#save-template-on-close-dialog').find('.save').addClass('save-create');
+        }
+        $('#save-template-on-close-dialog').modal('show');
+    });
+
+    $(document).on('click', '#save-template-on-close-dialog .cancel', function(){
+        $('#create-template-dialog').modal('hide');
+        $('#save-template-on-close-dialog').modal('hide');
+        $('#save-template-on-close-dialog').find('.save').removeClass('save-create');
+        $('#save-template-on-close-dialog').find('.save').removeClass('save-edit');
+        $('#save-template-on-close-dialog').find('.form-element-container').find('.error-message-container').html('');
+    });
+
+    $('#save-template-on-close-dialog').on('hidden.bs.modal', function(){
+        $(this).find('.input-container').find('input').remove();
+    });
+
+    $(document).on('click', '#save-template-on-close-dialog .save.save-create', function(e){
+        e.preventDefault();
+        var add_template_url = $('input[name=add_template_form_url]').val();
+        $('.chargementAjax').removeClass('hidden');
+        $('#create-template-dialog').find('.block-model-container').remove();
+        transferBackTemplateNameInput();
+        for (name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].updateElement();
+        }
+        $('#create-template-dialog form').ajaxSubmit({
+            type: 'POST',
+            url: add_template_url,
+            success: function(data){
+                if(data['error']){
+                    $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                    $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
+                    handleTemplateNameInputPlace();
+                    installColorPicker();
+                    installWysiwyg();
+                    $('.chargementAjax').addClass('hidden');
+                } else {
+                    $('.chargementAjax').addClass('hidden');
+                    window.location.replace($('input[name=template_list_url]').val());
+                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
+                    $('#save-template-on-close-dialog').modal('hide');
+                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(data){
+                    $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
+                    $('#save-template-on-close-dialog').modal('hide');
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#save-template-on-close-dialog .save.save-edit', function(e){
+        e.preventDefault();
+        $('#create-template-dialog').find('.block-model-container').remove();
+        transferBackTemplateNameInput();
+        for (name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].updateElement();
+        }
+        $('#create-template-dialog').find('.block-model-container').remove();
+        $('.chargementAjax').removeClass('hidden');
+
+        $('#create-template-dialog form').ajaxSubmit({
+            type: 'POST',
+            url: $(this).attr('data-target-url'),
+            success: function(data){
+                if(data['error']){
+                    $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                    $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
+                    handleTemplateNameInputPlace();
+                    installColorPicker();
+                    installWysiwyg();
+                    $('.chargementAjax').addClass('hidden');
+                } else {
+                    window.location.replace($('input[name=template_list_url]').val());
+                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
+                    $('#save-template-on-close-dialog').modal('hide');
+                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
+                },
+
+                500: function(data){
+                    $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
+                    $('#save-template-on-close-dialog').modal('hide');
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Enregistrement de modèle à la création
      * *********************************************************************************************
      */
 });
