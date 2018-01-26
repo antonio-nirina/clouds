@@ -15,8 +15,8 @@ $(document).ready(function(){
 					$('div#creer-list-contact').find('.body-container').html(reponse);
 					$('div#creer-list-contact').modal('show');
 					$('.chargementAjax').addClass('hidden');
-					
-					var table = $('#ListUserContactMailjet').DataTable( {
+					//table.destroy();
+					var table1 = $('#ListUserContactMailjet').DataTable( {
 						lengthChange: false,
 						"info":     false,
 						searching: false,
@@ -27,7 +27,7 @@ $(document).ready(function(){
 						//buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
 					});
 
-					table.buttons().container().appendTo( '#ListUserContactMailjet_wrapper .col-md-6:eq(0)' );
+					table1.buttons().container().appendTo( '#ListUserContactMailjet_wrapper .col-md-6:eq(0)' );
 					
 					//Modification libellé 'Previews && Next'
 					OverridePagination();
@@ -39,6 +39,9 @@ $(document).ready(function(){
 					$('input.form-field-published').each(function(i){
 						$(this).prop("checked", false);
 					});
+					
+					//Ajouter separateur sur les boutons de pagination
+					AddSeparatorPaginate();
 				}
 			});
 		}, 300);
@@ -59,11 +62,13 @@ $(document).ready(function(){
 					$('#edit-list-contact').find('.body-container').html(reponse);
 					$('#edit-list-contact').modal('show');
 					$('.chargementAjax').addClass('hidden');
-					
-					var table = $('#ListUserContactMailjet').DataTable( {
+					//table.destroy();
+					var table2 = $('#ListUserContactMailjet').DataTable( {
+						"dom": 'rtp',
 						lengthChange: false,
 						"info":     false,
 						searching: false,
+						responsive: true,
 						"columnDefs": [ {
 							"targets": 1,
 							"orderable": false
@@ -71,13 +76,16 @@ $(document).ready(function(){
 						//buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
 					});
 
-					table.buttons().container().appendTo( '#ListUserContactMailjet_wrapper .col-md-6:eq(0)' );
+					table2.buttons().container().appendTo( '#ListUserContactMailjet_wrapper .col-md-6:eq(0)' );
 					
 					//Modification libellé 'Previews && Next'
 					OverridePagination();
 					
 					//Modifier conteneur pagination 
 					UpdateWidthPagination();
+					
+					//Ajouter separateur sur les boutons de pagination
+					AddSeparatorPaginate();
 				}
 			});
 		}, 300);
@@ -98,10 +106,12 @@ $(document).ready(function(){
 	
 	$(document).on('click', 'ul.pagination', function(){
 		OverridePagination();
+		AddSeparatorPaginate();
 	});
 	
 	$(document).on('click', 'table#ListUserContactMailjet th', function(){
 		OverridePagination();
+		AddSeparatorPaginate();
 	});
 });
 
@@ -116,4 +126,13 @@ function OverridePagination(){
 	
 	//Cacher le bouton 'Previews'
 	$('li#ListUserContactMailjet_previous').hide();
+}
+
+function AddSeparatorPaginate(){
+	$('li.paginate_button').each(function(i){
+		if(i > 0){
+			$('<li class = "paginate_separator"><span>&nbsp;</span></li>').insertAfter($(this));
+		}
+	});
+	$('li.paginate_separator').last().remove();
 }
