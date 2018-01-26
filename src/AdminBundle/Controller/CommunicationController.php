@@ -485,7 +485,6 @@ class CommunicationController extends AdminController
      * @Route(
      *     "/emailling/modeles-emails/edition-modele/{template_id}",
      *     name="admin_communication_emailing_templates_edit_template",
-     *     requirements={"template_id": "\d+"}
      * )
      */
     public function emailingTemplatesEditTemplateAction(Request $request, $template_id)

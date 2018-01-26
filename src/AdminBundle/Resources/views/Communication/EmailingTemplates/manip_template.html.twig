@@ -560,5 +560,7 @@
     <input type="hidden" name="template_logo_alignment_center" value="{{ constant('CENTER', template_logo_alignment_class) }}">
     <input type="hidden" name="template_logo_alignment_right" value="{{ constant('RIGHT', template_logo_alignment_class) }}">
     <input type="hidden" name="template_logo_alignment_expanded" value="{{ constant('EXPANDED', template_logo_alignment_class) }}">
+    <input type="hidden" name="manip_mode" value="{{ edit_mode is defined and edit_mode == true ? "edit" : "create" }}">
+    <input type="hidden" name="template_id" value="{{ manip_template_form.vars.value.getId }}">
     {{ form_end(manip_template_form) }}
 {% endif %}
