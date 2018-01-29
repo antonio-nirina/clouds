@@ -1348,14 +1348,12 @@ $(document).ready(function(){
             },
             statusCode:{
                 404: function(data){
-                    alert('404');
                     $('#duplicate-template-dialog').find('.modal-body-container').html('');
                     $('#duplicate-template-dialog').find('.error-message-container.general-message').text('Page non trouvée');
                     $('#duplicate-template-dialog').find('.close-modal').show();
                     $('.chargementAjax').addClass('hidden');
                 },
                 500: function(data){
-                    alert('500');
                     $('#duplicate-template-dialog').find('.modal-body-container').html('');
                     $('#duplicate-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
                     $('#duplicate-template-dialog').find('.close-modal').show();
