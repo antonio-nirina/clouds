@@ -6,7 +6,7 @@
 	</div>
 	
 	<div class = "col-12 col-md-10 col-lg-8">
-		<input value="" class="liste_name_input" type="text">
+		<input id = "id_nom_contact_list" value="" class="liste_name_input" type="text">
 		<span class="delete-input"></span>
 	</div>
 	
@@ -94,21 +94,44 @@
 			</tfoot>
 			
 			<tbody>
-				{% for i in 0..50 %}
+				{% for User in Users %}
+					{% if 'ROLE_MANAGER' in User.roles or 'ROLE_COMMERCIAL' in User.roles or 'ROLE_PARTICIPANT' in User.roles %}
+					
 					<tr>
 						<td style = "display:none;"></td>
 						<td class = "ligne-selection">
-							<input id="cl1-{{i}}" class="form-field-published styled-checkbox" checked="" type="checkbox">
-							<label for="cl1-row{{i}}" data-id = "{{i}}" class = "check-ligne"><span></span></label>
+							<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox contact-ajout" checked="" type="checkbox" value = "{{ User.Id }}">
+							<label for="cl1-row{{ User.Id }}" data-id = "{{ User.Id }}" class = "check-ligne"><span></span></label>
 						</td>
-						<td class = "ligne-standards">Adrien</td>
-						<td class = "ligne-standards">Bourdais</td>
-						<td class = "ligne-standards">adrien_bourdais@gmail.com</td>
-						<td class = "ligne-standards">manager</td>
+						<td class = "ligne-standards">{{ User.firstname }}</td>
+						<td class = "ligne-standards">{{ User.name }}</td>
+						<td class = "ligne-standards">{{ User.email }}</td>
+						<td class = "ligne-standards">
+							{% if User.roles[0] == 'ROLE_MANAGER' %}
+								manager
+							{% elseif User.roles[0] == 'ROLE_COMMERCIAL' %}
+								commercial
+							{% elseif User.roles[0] == 'ROLE_PARTICIPANT' %}
+								participant
+							{% else %}
+								{{ User.roles[0] }}
+							{% endif %}
+						</td>
 						<td class = "ligne-standards"></td>
 					</tr>
+					
+					{% endif %}
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+</div>
+
+
+<div class="row submit-button-container">
+	<div class="col-lg-12">
+		<button id = "valider-creation-contact-list" class="btn-valider valider submit-form">
+			valider
+		</button>
 	</div>
 </div>

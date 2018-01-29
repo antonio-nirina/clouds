@@ -92,128 +92,49 @@
                         </div>
                     </div>
 					
-                    <div class="row list">
-                        <div class="row campagne-1">
-							<div class="campagne-name list-name">
-								<label for="1">
-									<div class="campagne-name-name">
-										Liste manager
+					{% for ContactList in ListContact %}
+						<div class="row list">
+							<div class="row campagne-1">
+								<div class="campagne-name list-name">
+									<label for="1">
+										<div class="campagne-name-name">
+											{{ ContactList.Name }}
+										</div>
+									</label>                           
+								</div>
+								<div class="campagne-metric">
+									<div class="metric-1">
+										<span class="metric-value">
+											{{ ContactList.CreatedAt|date('d/m/Y - H:i') }}
+										</span>
+										<span class="metric-desc">date de création</span>
 									</div>
-								</label>                           
-							</div>
-							<div class="campagne-metric">
-								<div class="metric-1">
-									<span class="metric-value">
-										28/12/2017 - 20:22
-									</span>
-									<span class="metric-desc">date de création</span>
-								</div>
-								<div style = "width:20%!important;"></div>
-								<div class="metric-3">
-									<span class="metric-value">
-										150
-									</span>
-									<span class="metric-desc">contacts</span>
-								</div>
-							</div>
-							<div class="campagne-action">
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-										ACTIONS
-									</button>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-										<a class="dropdown-item list-contact-edit" href="#">{{ 'éditer'|capitalize }}</a>
-										<a class="dropdown-item list-contact-duplicate" href="#">{{ 'dupliquer'|capitalize }}</a>
-										<a class="dropdown-item list-contact-export" href="#">{{ 'exporter'|capitalize }}</a>
-										<a class="dropdown-item list-contact-delete" href="#">{{ 'supprimer'|capitalize }}</a>                                          
+									<div style = "width:20%!important;"></div>
+									<div class="metric-3">
+										<span class="metric-value">
+											{{ ContactList.SubscriberCount }}
+										</span>
+										<span class="metric-desc">contacts</span>
 									</div>
 								</div>
-							</div>                            
-						</div>                   
-                    </div>                    
-                    <div class="row ending"></div>
+								<div class="campagne-action">
+									<div class="dropdown">
+										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+											ACTIONS
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+											<a class="dropdown-item list-contact-edit" href="#" data-id = "{{ ContactList.ID }}">{{ 'éditer'|capitalize }}</a>
+											<a class="dropdown-item list-contact-duplicate" href="#" data-id = "{{ ContactList.ID }}">{{ 'dupliquer'|capitalize }}</a>
+											<a class="dropdown-item list-contact-export" href="#" data-id = "{{ ContactList.ID }}">{{ 'exporter'|capitalize }}</a>
+											<a class="dropdown-item list-contact-delete" href="#" data-id = "{{ ContactList.ID }}">{{ 'supprimer'|capitalize }}</a>                                          
+										</div>
+									</div>
+								</div>                            
+							</div>                   
+						</div>                    
+						<div class="row ending"></div>
+					{% endfor %}
 					
-					<div class="row list">
-                        <div class="row campagne-1">
-							<div class="campagne-name list-name">
-								<label for="1">
-									<div class="campagne-name-name">
-										Liste commercial
-									</div>
-								</label>                           
-							</div>
-							<div class="campagne-metric">
-								<div class="metric-1">
-									<span class="metric-value">
-										10/12/2017 - 18:30
-									</span>
-									<span class="metric-desc">date de création</span>
-								</div>
-								<div style = "width:20%!important;"></div>
-								<div class="metric-3">
-									<span class="metric-value">
-										500
-									</span>
-									<span class="metric-desc">contacts</span>
-								</div>
-							</div>
-							<div class="campagne-action">
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-										ACTIONS
-									</button>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-										<a class="dropdown-item" href="#">{{ 'éditer'|capitalize }}</a>
-										<a class="dropdown-item campaign-replicate" href="#">{{ 'dupliquer'|capitalize }}</a>
-										<a class="dropdown-item campaign-replicate" href="#">{{ 'exporter'|capitalize }}</a>
-										<a class="dropdown-item campaign-rename" href="#">{{ 'supprimer'|capitalize }}</a>                                          
-									</div>
-								</div>
-							</div>                            
-						</div>                   
-                    </div>                    
-                    <div class="row ending"></div>
-					
-					<div class="row list">
-                        <div class="row campagne-1">
-							<div class="campagne-name list-name">
-								<label for="1">
-									<div class="campagne-name-name">
-										Liste participants
-									</div>
-								</label>                           
-							</div>
-							<div class="campagne-metric">
-								<div class="metric-1">
-									<span class="metric-value">
-										31/11/2011 - 18:30
-									</span>
-									<span class="metric-desc">date de création</span>
-								</div>
-								<div style = "width:20%!important;"></div>
-								<div class="metric-3">
-									<span class="metric-value">
-										3000
-									</span>
-									<span class="metric-desc">contacts</span>
-								</div>
-							</div>
-							<div class="campagne-action">
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-										ACTIONS
-									</button>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-										<a class="dropdown-item" href="#">{{ 'éditer'|capitalize }}</a>
-										<a class="dropdown-item campaign-replicate" href="#">{{ 'dupliquer'|capitalize }}</a>
-										<a class="dropdown-item campaign-replicate" href="#">{{ 'exporter'|capitalize }}</a>
-										<a class="dropdown-item campaign-rename" href="#">{{ 'supprimer'|capitalize }}</a>                                          
-									</div>
-								</div>
-							</div>                            
-						</div>                   
-                    </div>                    
-                    <div class="row ending"></div>
                 </section>                
             </div>
         </div>
@@ -226,6 +147,7 @@
 		
 		<input id = "UriEditListContact" type = "hidden" name = "UriEditListContact" value = "{{ path("admin_communication_emailing_list_contact_edition") }}">
 		<input id = "UriCreerListContact" type = "hidden" name = "UriCreerListContact" value = "{{ path("admin_communication_emailing_list_contact_creation") }}">
+		<input id = "UrlAddContactList" type = "hidden" name = "UrlAddContactList" value = "{{ path("admin_communication_emailing_list_contact_creation_submit") }}">
     </main>
 	
 	<!-- dialog - édition liste des contacts -->

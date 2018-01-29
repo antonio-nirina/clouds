@@ -5,6 +5,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Component\SiteForm\FieldType;
+use Mailjet\MailjetBundle\Model\Contact;
 
 class PartialPageController extends Controller
 {
@@ -157,10 +158,38 @@ class PartialPageController extends Controller
 	}
 	
 	public function emailingListeContactEditAjaxAction(){
-		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig');
+		//Get all user 
+		$rôle = array('ROLE_PARTICIPANT', 'ROLE_COMMERCIAL', 'ROLE_MANAGER');
+		$em = $this->getDoctrine()->getManager();
+        $Users = $em->getRepository('UserBundle\Entity\User')->findAll();
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig', array('Users' => $Users));
 	}
 	
 	public function emailingListeContactCreerAjaxAction(){
-		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer.html.twig');
+		//Get all user 
+		$rôle = array('ROLE_PARTICIPANT', 'ROLE_COMMERCIAL', 'ROLE_MANAGER');
+		$em = $this->getDoctrine()->getManager();
+        $Users = $em->getRepository('UserBundle\Entity\User')->findAll();
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer.html.twig', array('Users' => $Users));
+	}
+	
+	public function emailingListeContactCreerSubmitAjaxAction($ListName, $UserId){ 
+
+		$em = $this->getDoctrine()->getManager();
+		
+		//Infos User 
+		$ExplodeUserId = explode('##_##', $UserId);
+		$UsersLists = array();
+		foreach($ExplodeUserId as $IdUser){
+			$UsersLists = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
+			
+			//Call ContactList manager service
+			$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+			
+			//Add contactList
+			$ContactList->addContactList($ListName, $UsersLists);
+		}
+		
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
 	}
 }

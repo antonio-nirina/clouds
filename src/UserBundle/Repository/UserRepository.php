@@ -12,4 +12,14 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+	
+	/*
+	public function findAllUserWithRoleList($roles){
+		$q = $this->createQueryBuilder('user');
+		$q->where($q->expr()->In('user.roles', ':roles'))->setParameter('roles', $roles);
+		//$q->where('user.roles IN (:roles)')->setParameter('roles', $roles);
+		
+		return $q->getQuery()->getResult();
+	}
+	*/
 }

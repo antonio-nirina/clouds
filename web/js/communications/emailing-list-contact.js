@@ -113,6 +113,37 @@ $(document).ready(function(){
 		OverridePagination();
 		AddSeparatorPaginate();
 	});
+	
+	$(document).on('click', 'button#valider-creation-contact-list', function(){
+		//Verifier les champs obligatoires
+		var id_nom_contact_list = $.trim($('input#id_nom_contact_list').val());
+		
+		var cpt = 0;
+		var ListIdUser = new Array;
+		$('input.contact-ajout:checked').each(function(e){
+			ListIdUser.push($(this).val());
+			cpt++;
+		});
+		
+		if(cpt > 0){
+			var ListIdUserAll = ListIdUser.join('##_##');
+			var UrlAddContactList = $('input#UrlAddContactList').val();
+			$('.chargementAjax').removeClass('hidden');
+			setTimeout(function(){
+				$.ajax({
+					type : "POST",
+					url: UrlAddContactList,
+					data : 'UserId='+ListIdUserAll+'&ListName='+id_nom_contact_list+'',
+					success: function(reponse){
+						$('.chargementAjax').addClass('hidden');
+						$('#creer-list-contact').find('.body-container').html('');
+						$('#creer-list-contact').find('.body-container').html('');
+						$('#creer-list-contact').modal('hide');
+					}
+				});
+			}, 300);
+		}
+	});
 });
 
 function UpdateWidthPagination(){
