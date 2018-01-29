@@ -1281,4 +1281,94 @@ $(document).ready(function(){
      * Enregistrement de modèle à la création
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Duplidation de template
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.duplicate-template', function(e){
+        e.preventDefault();
+        var target_url = $(this).attr('data-target-url');
+        $('.chargementAjax').removeClass('hidden');
+        $.ajax({
+            type: 'GET',
+            url: target_url,
+            success: function(data){
+                $('#duplicate-template-dialog').find('.modal-body-container').html(data.content);
+                $('#duplicate-template-dialog').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            },
+            statusCode: {
+                404: function(data){
+                    $('#duplicate-template-dialog').find('.modal-body-container').html('');
+                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text('Page non trouvée');
+                    $('#duplicate-template-dialog').find('.close-modal').show();
+                    $('#duplicate-template-dialog').modal('show');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(data){
+                    $('#duplicate-template-dialog').find('.modal-body-container').html('');
+                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#duplicate-template-dialog').find('.close-modal').show();
+                    $('#duplicate-template-dialog').modal('show');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#duplicate-template-dialog .cancel', function(e){
+        e.preventDefault();
+        $('#duplicate-template-dialog').find('.modal-body-container').html('');
+        $('#duplicate-template-dialog').modal('hide');
+    });
+
+    $('#duplicate-template-dialog').on('hidden.bs.modal', function(){
+        $(this).find('.close-modal').hide();
+        $('#duplicate-template-dialog').find('.error-message-container.general-message').text('');
+    });
+
+    $(document).on('click', '#duplicate-template-dialog .save.save-duplication', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var duplicate_template_url = $(this).attr('data-target-url');
+        console.log(duplicate_template_url);
+        $('#duplicate-template-dialog form').ajaxSubmit({
+            type: 'POST',
+            url: duplicate_template_url,
+            success: function(data){
+                if(data['error']){
+                    $('#duplicate-template-dialog').find('.modal-body-container').html(data.content);
+                    $('.chargementAjax').addClass('hidden');
+                } else {
+                    window.location.replace($('input[name=template_list_url]').val());
+                }
+            },
+            statusCode:{
+                404: function(data){
+                    $('#duplicate-template-dialog').find('.modal-body-container').html('');
+                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text('Page non trouvée');
+                    $('#duplicate-template-dialog').find('.close-modal').show();
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(data){
+                    $('#duplicate-template-dialog').find('.modal-body-container').html('');
+                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    $('#duplicate-template-dialog').find('.close-modal').show();
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Duplidation de template
+     * *********************************************************************************************
+     */
 });

@@ -109,7 +109,7 @@
                                                 <a class="dropdown-item edit-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": template.getId}) }}">ÉDITER</a>
                                                 <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
                                                 <a class="dropdown-item preview-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_preview_template", {"template_id": template.getId}) }}">PRÉVISUALISER</a>
-                                                <a class="dropdown-item" href="{{ path("admin_communication_emailing_templates_duplicate_template", {"template_id": template.getId}) }}">DUPLIQUER</a>
+                                                <a class="dropdown-item duplicate-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_duplicate_template", {"template_id": template.getId}) }}">DUPLIQUER</a>
                                                 <a class="dropdown-item delete-template" href="#" data-template-id="{{ template.getId }}" data-toggle="modal" data-target="#confirm-delete-template">SUPPRIMER</a>
                                             </div>
                                         </div>
@@ -308,6 +308,23 @@
                             </div>
                             <!-- FIN - dialog - enregistrement template à la fermeture -->
 
+                            <!-- dialog - duplication template -->
+                            <div id="duplicate-template-dialog" class="modal app-dialog" tabindex="-1" role="dialog" data-backdrop="static">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close" style="display: none"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="error-message-container centered-message general-message"></div>
+                                            <div class="modal-body-container"></div>
+                                        </div>
+                                        <input type="hidden" name="template_id" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - dialog - duplication template -->
+
                             <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
                             <input type="hidden" name="template_model_text_and_image" value="{{ constant('TEXT_AND_IMAGE', template_model_class) }}">
                             <input type="hidden" name="template_model_text_only" value="{{ constant('TEXT_ONLY', template_model_class) }}">
@@ -319,6 +336,7 @@
                             <input type="hidden" name="delete_template_url" value="{{ path("admin_communication_emailing_templates_delete_template", {"template_id": "__id__"}) }}">
                             <input type="hidden" name="sort_template_list_url" value="{{ path("admin_communication_emailing_templates_sort", {"sorting_parameter": "__param__"}) }}">
                             <input type="hidden" name="edit_template_url" value="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": "__id__"}) }}">
+                            <input type="hidden" name="duplicate_template_url" value="{{ path("admin_communication_emailing_templates_duplicate_template") }}">
                         </div>
                     </div>
                 </section>
