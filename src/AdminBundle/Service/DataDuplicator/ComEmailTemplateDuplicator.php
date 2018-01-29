@@ -25,15 +25,17 @@ class ComEmailTemplateDuplicator
         $this->template_data_generator = $template_data_generator;
     }
 
-    public function duplicate(Program $program, ComEmailTemplate $com_email_template, $user)
+    public function duplicate(Program $program, ComEmailTemplate $com_email_template, $user, $new_template_name)
     {
         $new_template = clone $com_email_template;
         $new_template->setIdToNull()
             ->setDistantTemplateId(null)
-            ->setName($this->generateTemplateName($program, $new_template->getName()))
+//            ->setName($this->generateTemplateName($program, $new_template->getName()))
+            ->setName($new_template_name)
             ->setLastEditUser($user)
             ->setLastEdit(new \DateTime('now'))
-            ->setContentsToEmpty();
+            ->setContentsToEmpty()
+            ->setProgram($program);
 
         $this->duplicateTemplateContents($com_email_template, $new_template);
 
@@ -73,7 +75,7 @@ class ComEmailTemplateDuplicator
     }
 
 
-    private function generateTemplateName(Program $program, $source_name)
+    public function generateTemplateName(Program $program, $source_name)
     {
         $same_name_template_state = true;
         $name = $source_name;

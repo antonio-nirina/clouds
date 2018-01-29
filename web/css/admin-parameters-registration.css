@@ -2921,11 +2921,11 @@ p.chargementAjax.hidden{
     margin-bottom: 20px;
 }
 
-#save-template-on-close-dialog.app-dialog .save{
+.app-dialog .save{
     margin-right: 40px;
 }
 
-#save-template-on-close-dialog.app-dialog .cancel{
+.app-dialog .cancel{
     margin-left: 40px;
 }
 
@@ -2939,11 +2939,11 @@ p.chargementAjax.hidden{
         flex-direction: column;
     }
 
-    #save-template-on-close-dialog.app-dialog .save{
+    .app-dialog .save{
         margin-right: 0;
     }
 
-    #save-template-on-close-dialog.app-dialog .cancel{
+    .app-dialog .cancel{
         margin-left: 0;
         margin-top: 20px !important;
     }
@@ -2959,4 +2959,13 @@ p.chargementAjax.hidden{
     .app-dialog .form-element-container .error-message-container{
         margin-left: 0;
     }
+}
+
+/**
+ * duplication template
+ */
+.app-dialog .modal-body-container form{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
 }

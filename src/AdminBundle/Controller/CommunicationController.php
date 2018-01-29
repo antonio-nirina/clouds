@@ -8,6 +8,7 @@ use AdminBundle\Component\CommunicationEmail\TemplateSortingParameter;
 use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
+use AdminBundle\DTO\ComEmailTemplateDuplicationData;
 use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\CampaignDateType;
@@ -21,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AdminBundle\Form\DuplicationForm;
 
 /**
  * @Route("/admin/communication")
@@ -671,19 +673,23 @@ class CommunicationController extends AdminController
      * @Route(
      *     "/emailling/templates/duplication-template/{template_id}",
      *     name="admin_communication_emailing_templates_duplicate_template",
-     *     requirements={"template_id": "\d+"}
+     *     requirements={"template_id": "\d+"},
+     *     defaults={"template_id"=null}
      * )
      */
     public function emailingTemplatesDuplicateTemplateAction(Request $request, $template_id)
     {
         $auth_checker = $this->get('security.authorization_checker');
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (false === $auth_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('fos_user_security_logout');
+//            return $this->redirectToRoute('fos_user_security_logout');
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
+//            return $this->redirectToRoute('fos_user_security_logout');
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -692,14 +698,63 @@ class CommunicationController extends AdminController
                 'id' => $template_id,
                 'program' => $program,
             ));
+
         if (is_null($com_email_template)) {
-            return $this->createNotFoundException(self::TEMPLATE_NOT_FOUND_MESSAGE);
+//            return $this->createNotFoundException(self::TEMPLATE_NOT_FOUND_MESSAGE);
+            $data = $json_response_data_provider->pageNotFound();
+            $data['message'] = self::TEMPLATE_NOT_FOUND_MESSAGE;
+            return new JsonResponse($data, 404);
         }
 
         $template_duplicator = $this->get('AdminBundle\Service\DataDuplicator\ComEmailTemplateDuplicator');
-        $template_duplicator->duplicate($program, $com_email_template, $this->getUser());
+        $new_name = $template_duplicator->generateTemplateName($program, $com_email_template->getName());
 
-        return $this->redirectToRoute('admin_communication_emailing_templates');
+        $form_factory = $this->get('form.factory');
+        $duplication_data = new ComEmailTemplateDuplicationData($em);
+        $duplication_data->setDuplicationSourceId($com_email_template->getId())
+            ->setName($new_name);
+        $duplicate_template_form = $form_factory->createNamed(
+            'duplicate_template_form',
+            DuplicationForm::class,
+            $duplication_data
+        );
+
+        if ($request->isMethod('GET')) {
+            $view = $this
+                ->renderView('AdminBundle:Communication/EmailingTemplates:duplicate_template.html.twig', array(
+                    'duplicate_template_form' => $duplicate_template_form->createView(),
+                ));
+            $data = $json_response_data_provider->success();
+            $data['content'] = $view;
+            return new JsonResponse($data, 200);
+        }
+
+        if ($request->isMethod('POST')) {
+            if ($request->request->has("duplicate_template_form")) {
+                $duplicate_template_form->handleRequest($request);
+                if ($duplicate_template_form->isSubmitted() && $duplicate_template_form->isValid()) {
+                    if ($template_id == $duplication_data->getDuplicationSourceId()) {
+                        $template_duplicator
+                            ->duplicate($program, $com_email_template, $this->getUser(), $duplication_data->getName());
+                        $data = $json_response_data_provider->success();
+                        return new JsonResponse($data, 200);
+                    }
+                } else {
+                    $data = $json_response_data_provider->formError();
+                    $view = $this
+                        ->renderView('AdminBundle:Communication/EmailingTemplates:duplicate_template.html.twig', array(
+                            'duplicate_template_form' => $duplicate_template_form->createView(),
+                        ));
+                    $data['content'] = $view;
+                    return new JsonResponse($data, 200);
+                }
+            }
+        }
+
+        /*$template_duplicator = $this->get('AdminBundle\Service\DataDuplicator\ComEmailTemplateDuplicator');
+        $template_duplicator->duplicate($program, $com_email_template, $this->getUser());*/
+
+        return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
 
     /**
