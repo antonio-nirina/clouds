@@ -892,4 +892,17 @@ class CommunicationController extends AdminController
 			return new Response($response->getContent());
 		}
 	}
+
+    /**
+     * @Route("/emailing/sur-mesure", name="admin_communication_emailing_custom")
+     */
+	public function emailingCustomAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Communication:emailing_custom.html.twig');
+    }
 }

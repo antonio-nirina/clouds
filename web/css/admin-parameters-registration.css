@@ -3011,3 +3011,29 @@ p.chargementAjax.hidden{
         transform: scale(0.8);
     }
 }
+
+/**
+ * Communication - emailing - sur mesure
+ */
+
+.img-emailing-custom{
+    background:url('../images/cloudsRewards/img-sur-mesure.png') no-repeat;
+    background-position: -155px -79px;
+}
+
+.contact-link{
+    font-family: var(--police_bold);
+    color: var(--couleur_2) !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+section.with-bottom-space{
+    padding-bottom: 150px;
+}
+
+@media (max-width: 767px) {
+    .emailing-custom-text{
+        margin-top: 20px;
+    }
+}
