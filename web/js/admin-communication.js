@@ -300,6 +300,7 @@ $(document).ready(function(){
                    $('#create-template-dialog').find('.btn-valider.save').trigger('click');
                    installColorPicker();
                    installWysiwyg();
+                   $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
                    $('.chargementAjax').addClass('hidden');
                } else {
                    // $('#create-template-dialog').modal('hide');
@@ -628,6 +629,7 @@ $(document).ready(function(){
                     $('#create-template-dialog').find('.btn-valider.save').trigger('click');
                     installColorPicker();
                     installWysiwyg();
+                    $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
                     $('.chargementAjax').addClass('hidden');
                 } else {
                     window.location.replace($('input[name=template_list_url]').val());
