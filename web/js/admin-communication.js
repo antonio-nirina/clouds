@@ -190,7 +190,8 @@ $(document).ready(function(){
                 },
                 statusCode: {
                     404: function(data){
-                        $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                        var message = 'undefined' === typeof data.responseJSON ? 'Page non trouvée' : data.responseJSON.message;
+                        $('#create-template-dialog').find('.error-message-container.general-message').text(message);
                         $('#create-template-dialog').find('.modal-body-container').html('');
                         $('#choose-model-dialog').modal('hide');
                         setTimeout(function(){
@@ -313,7 +314,8 @@ $(document).ready(function(){
                     $('.chargementAjax').addClass('hidden');
                 },
                 500: function(data){
-                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#create-template-dialog').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 }
@@ -592,8 +594,8 @@ $(document).ready(function(){
             },
             statusCode: {
                 404: function(data){
-                    $('')
-                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Page non trouvée' : data.responseJSON.message;
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#create-template-dialog').find('.modal-body-container').html('');
                     $('#create-template-dialog').modal('show');
                     $('.chargementAjax').addClass('hidden');
@@ -639,7 +641,8 @@ $(document).ready(function(){
                 },
 
                 500: function(data){
-                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#create-template-dialog').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 }
@@ -725,7 +728,8 @@ $(document).ready(function(){
             },
             statusCode:{
                 404: function(data){
-                    $('#preview-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Page non trouvée' : data.responseJSON.message;
+                    $('#preview-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#preview-template-dialog').find('.modal-body-container').html('');
                     $('#preview-template-dialog').modal('show');
                     $('.chargementAjax').addClass('hidden');
@@ -1277,7 +1281,8 @@ $(document).ready(function(){
                 500: function(data){
                     $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
                     $('#save-template-on-close-dialog').modal('hide');
-                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#create-template-dialog').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 }
@@ -1322,7 +1327,8 @@ $(document).ready(function(){
                 500: function(data){
                     $('#save-template-on-close-dialog').find('.input-container').find('input').remove();
                     $('#save-template-on-close-dialog').modal('hide');
-                    $('#create-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#create-template-dialog').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 }
@@ -1366,7 +1372,8 @@ $(document).ready(function(){
                 },
                 500: function(data){
                     $('#duplicate-template-dialog').find('.modal-body-container').html('');
-                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#duplicate-template-dialog').find('.close-modal').show();
                     $('#duplicate-template-dialog').modal('show');
                     $('.chargementAjax').addClass('hidden');
@@ -1411,7 +1418,8 @@ $(document).ready(function(){
                 },
                 500: function(data){
                     $('#duplicate-template-dialog').find('.modal-body-container').html('');
-                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text(data.responseJSON.message);
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#duplicate-template-dialog').find('.error-message-container.general-message').text(message);
                     $('#duplicate-template-dialog').find('.close-modal').show();
                     $('.chargementAjax').addClass('hidden');
                 }
