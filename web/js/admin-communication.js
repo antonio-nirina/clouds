@@ -838,7 +838,7 @@ $(document).ready(function(){
         $('#'+$(this).parents('.template-content-block').attr('data-form-field-id')).remove();
         $(this).parents('.template-config-block').next('.template-config-block').not('.template-content-block').remove();
         $(this).parents('.template-config-block').remove();
-        
+
         $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
@@ -954,8 +954,9 @@ $(document).ready(function(){
 
     function setMiniInstantaneousPreview(current_create_template_dialog)
     {
-        var instantaneous_preview_content = current_create_template_dialog.find('.instantaneous-preview-container').html();
-        current_create_template_dialog.find('.template-preview-container .template-preview-content-container').append(instantaneous_preview_content);
+        /*var instantaneous_preview_content = current_create_template_dialog.find('.instantaneous-preview-container').html();
+        current_create_template_dialog.find('.template-preview-container .template-preview-content-container').append(instantaneous_preview_content);*/
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     }
 
     $('#create-template-dialog').on('shown.bs.modal', function(){
@@ -1129,9 +1130,11 @@ $(document).ready(function(){
     // mise à jour prévisualisation en miniature
     $(document).on('template-preview-modified', '#instantaneous-preview-template-dialog .modal-body-container', function(){
         setTimeout(function(){
-            var instantaneous_preview_content = $('#instantaneous-preview-template-dialog').find('.modal-body-container').html();
-            $('#create-template-dialog').find('.template-preview-container .template-preview-content-container').html('');
-            $('#create-template-dialog').find('.template-preview-container .template-preview-content-container').html(instantaneous_preview_content);
+            var instantaneous_preview_content = $('#instantaneous-preview-template-dialog').find('.modal-body-container').children().first().clone();
+            instantaneous_preview_content.find('.block-model-container').remove();
+            // $('#create-template-dialog').find('.template-preview-container .template-preview-content-container').html('');
+            $('#create-template-dialog').find('.template-preview-container .template-preview-content-container').find('.template-preview-wrapper').next().remove();
+            $('#create-template-dialog').find('.template-preview-container .template-preview-content-container').append(instantaneous_preview_content);
         }, 100);
 
     });
