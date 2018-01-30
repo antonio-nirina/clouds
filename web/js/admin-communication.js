@@ -1127,6 +1127,22 @@ $(document).ready(function(){
         $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
+    // mise à jour prévisualisation à la suppression d'image de logo
+    $(document).on('click', '.delete-logo-image', function(e){
+        e.preventDefault();
+        $('#instantaneous-preview-template-dialog').find('.pseudo-body-table .logo-img-tr img').attr('src', '');
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
+    });
+
+    // mise à jour prévisualisation à la suppression d'image de contenu
+    $(document).on('click', '.delete-content-image', function(e){
+        e.preventDefault();
+        var content_block = $(this).parents('.template-content-block');
+        var image_content_block_index = content_block.index('.image-content-block');
+        $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.img-content-tr').eq(image_content_block_index).find('img').attr('src', '');
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
+    });
+
     // mise à jour prévisualisation en miniature
     $(document).on('template-preview-modified', '#instantaneous-preview-template-dialog .modal-body-container', function(){
         setTimeout(function(){
