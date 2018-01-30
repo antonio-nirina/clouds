@@ -238,6 +238,7 @@ $(document).ready(function(){
                 var text_content_index = $(this).parents('.text-content-block').index('.text-content-block');
                 var corresponding_text_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.text-content-tr').eq(text_content_index);
                 corresponding_text_content_tr.find('td').html(this.getData());
+                $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
             });
         });
     }
@@ -521,11 +522,13 @@ $(document).ready(function(){
             var text_content_index = new_text_content.find('textarea').parents('.text-content-block').index('.text-content-block');
             var corresponding_text_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.text-content-tr').eq(text_content_index);
             corresponding_text_content_tr.find('td').html(this.getData());
+            $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
         });
 
         new_text_content.show();
 
         addContentConfigBock(new_content_index, $('input[name=template_content_type_text]').val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     $(document).on('click', '.add-other-content-container .add-button-link', function(e){
@@ -835,6 +838,8 @@ $(document).ready(function(){
         $('#'+$(this).parents('.template-content-block').attr('data-form-field-id')).remove();
         $(this).parents('.template-config-block').next('.template-config-block').not('.template-content-block').remove();
         $(this).parents('.template-config-block').remove();
+        
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     /**
@@ -947,8 +952,15 @@ $(document).ready(function(){
         $('#instantaneous-preview-template-dialog').find('.modal-body-container').html(instantaneous_preview_content);
     }
 
+    function setMiniInstantaneousPreview(current_create_template_dialog)
+    {
+        var instantaneous_preview_content = current_create_template_dialog.find('.instantaneous-preview-container').html();
+        current_create_template_dialog.find('.template-preview-container .template-preview-content-container').append(instantaneous_preview_content);
+    }
+
     $('#create-template-dialog').on('shown.bs.modal', function(){
         setInstantaneousPreview($(this));
+        setMiniInstantaneousPreview($(this));
     });
 
     $('#create-template-dialog').on('hidden.bs.modal', function(){
@@ -979,6 +991,7 @@ $(document).ready(function(){
         }
         var logo_image_block = $('#instantaneous-preview-template-dialog .pseudo-body-table .logo-img-tr');
         createImagePreview(this, logo_image_block.find('img'));
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     // changement alignement logo
@@ -1000,6 +1013,7 @@ $(document).ready(function(){
         var logo_image_block = $('#instantaneous-preview-template-dialog .pseudo-body-table .logo-img-tr');
         logo_image_block.find('td.logo-img-td').attr('align', logo_alignment);
         logo_image_block.find('td.logo-img-td img').attr('width', logo_width);
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     // changement de contenu de type image
@@ -1013,7 +1027,7 @@ $(document).ready(function(){
         } else {
             createImagePreview(this, corresponding_image_content_tr.find('img'));
         }
-
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     // changement de contenu de type bouton
@@ -1028,35 +1042,41 @@ $(document).ready(function(){
     $(document).on('input', '.action-button-text-input', function(){
         var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
         corresponding_button_content_tr.find('a span').text($(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     $(document).on('click', '.delete-action-button-text', function(){
         var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
         corresponding_button_content_tr.find('a span').text('');
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
         // changement couleur de fond
     $(document).on('change', '.action-button-background-color', function(){
         var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
         corresponding_button_content_tr.find('a').css("background-color", $(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
         // changement couleur de couleur de texte
     $(document).on('change', '.action-button-text-color', function(){
         var corresponding_button_content_tr = getCorrespondingButtonContentTr($(this));
         corresponding_button_content_tr.find('a').css("color", $(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     // ajout nouvel image
     $(document).on('click', '.add-image-link', function(){
         var new_image_content_tr = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.img-content-tr.no-image').clone();
         $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.contents-container-table').append(new_image_content_tr);
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     // ajout nouveau bouton
     $(document).on('click', '.add-button-link', function(){
         var new_button_content_tr = $('#instantaneous-preview-template-dialog').find('.email-template-block-model-container').find('.button-content-tr').clone();
         $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.contents-container-table').append(new_button_content_tr);
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     // changement de couleur de fond
@@ -1064,6 +1084,7 @@ $(document).ready(function(){
     $(document).on('change', '.email-color', function(){
         var main_table = $('#instantaneous-preview-template-dialog').find('.main-table');
         main_table.css('background-color', $(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
         // couleur de fond
     $(document).on('change', '.template-background-color', function(){
@@ -1071,32 +1092,48 @@ $(document).ready(function(){
         pseudo_body_table.css('background-color', $(this).val());
         var same_bg_color_as_background = $('#instantaneous-preview-template-dialog').find('.same-bg-color-as-background');
         same_bg_color_as_background.find('td').css('background-color', $(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     // changements textes footer
     $(document).on('input', '.footer-text-option-input.company-info', function(){
         var footer_text_company_info = $('#instantaneous-preview-template-dialog').find('.footer-text-company-info');
         footer_text_company_info.text($(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     $(document).on('input', '.footer-text-option-input.contact', function(){
         var footer_text_contact = $('#instantaneous-preview-template-dialog').find('.footer-text-contact');
         footer_text_contact.text($(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     $(document).on('input', '.footer-text-option-input.unsubscribe', function(){
         var footer_text_unsubscribe = $('#instantaneous-preview-template-dialog').find('.footer-text-unsubscribe');
         footer_text_unsubscribe.text($(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     $(document).on('input', '.footer-text-option-input.additional-info', function(){
         var footer_text_additional_info = $('#instantaneous-preview-template-dialog').find('.footer-text-additional-info');
         footer_text_additional_info.text($(this).val());
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
     });
 
     $(document).on('click','.delete-footer-text-additional-info', function(){
         var footer_text_additional_info = $('#instantaneous-preview-template-dialog').find('.footer-text-additional-info');
         footer_text_additional_info.text('');
+        $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
+    });
+
+    // mise à jour prévisualisation en miniature
+    $(document).on('template-preview-modified', '#instantaneous-preview-template-dialog .modal-body-container', function(){
+        setTimeout(function(){
+            var instantaneous_preview_content = $('#instantaneous-preview-template-dialog').find('.modal-body-container').html();
+            $('#create-template-dialog').find('.template-preview-container .template-preview-content-container').html('');
+            $('#create-template-dialog').find('.template-preview-container .template-preview-content-container').html(instantaneous_preview_content);
+        }, 100);
+
     });
     /**
      * *********************************************************************************************
