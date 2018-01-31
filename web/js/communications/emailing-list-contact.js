@@ -49,6 +49,7 @@ $(document).ready(function(){
 	
 	//Click sur édition des contacts
 	$(document).on('click', 'a.list-contact-edit', function(){
+		var IdList = $(this).attr('data-id');
 		$('.chargementAjax').removeClass('hidden');
 		var UriEditListContact = $('input#UriEditListContact').val();
 		
@@ -56,7 +57,7 @@ $(document).ready(function(){
 			$.ajax({
 				type : "POST",
 				url: UriEditListContact,
-				data : '',
+				data : 'IdList='+IdList+'',
 				success: function(reponse){
 					$('#edit-list-contact').find('.body-container').html('');
 					$('#edit-list-contact').find('.body-container').html(reponse);
@@ -136,9 +137,48 @@ $(document).ready(function(){
 					data : 'UserId='+ListIdUserAll+'&ListName='+id_nom_contact_list+'',
 					success: function(reponse){
 						$('.chargementAjax').addClass('hidden');
-						$('#creer-list-contact').find('.body-container').html('');
-						$('#creer-list-contact').find('.body-container').html('');
-						$('#creer-list-contact').modal('hide');
+						$('div#creer-list-contact').find('.body-container').html('');
+						$('div#creer-list-contact').find('.body-container').html('');
+						$('div#creer-list-contact').modal('hide');
+						location.reload();
+					}
+				});
+			}, 300);
+		}
+	});
+	
+	$(document).on('click', 'a.close-modal', function(){
+		setTimeout(function(){
+			location.reload();
+		}, 300);
+	});
+	
+	$(document).on('click', 'button#valider-edition-contact-list', function(){
+		//Verifier les champs obligatoires
+		var id_nom_contact_list = $.trim($('input#id_nom_contact_list').val());
+		
+		var cpt = 0;
+		var ListIdUser = new Array;
+		$('input.contact-ajout:checked').each(function(e){
+			ListIdUser.push($(this).val());
+			cpt++;
+		});
+		
+		if(cpt > 0){
+			var ListIdUserAll = ListIdUser.join('##_##');
+			var UrlEditContactList = $('input#UrlEditContactList').val();
+			$('.chargementAjax').removeClass('hidden');
+			setTimeout(function(){
+				$.ajax({
+					type : "POST",
+					url: UrlEditContactList,
+					data : 'UserId='+ListIdUserAll+'&IdList='+id_nom_contact_list+'',
+					success: function(reponse){
+						$('.chargementAjax').addClass('hidden');
+						$('div#edit-list-contact').find('.body-container').html('');
+						$('div#edit-list-contact').find('.body-container').html('');
+						$('div#edit-list-contact').modal('hide');
+						location.reload();
 					}
 				});
 			}, 300);

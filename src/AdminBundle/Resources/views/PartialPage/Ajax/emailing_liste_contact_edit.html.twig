@@ -6,7 +6,10 @@
 	</div>
 	
 	<div class = "col-12 col-md-10 col-lg-8">
-		<input value="Liste manager" class="liste_name_input" type="text">
+		{% for List in Listinfos %}
+			<input value="{{ List.Name }}" class="liste_name_input" type="text">
+			<input id = "id_nom_contact_list" value="{{ List.ID }}" type="hidden">
+		{% endfor %}
 		<span class="delete-input"></span>
 	</div>
 	
@@ -30,7 +33,9 @@
 			</div>
 			
 			<div class = "col-4">
-				<input  value="150" class="liste_name_input_small" type="text">
+				{% for List in Listinfos %}
+					<input  value="{{ List.SubscriberCount }}" class="liste_name_input_small" type="text">
+				{% endfor %}
 			</div>
 		</div>
 	</div>
@@ -94,35 +99,50 @@
 			</tfoot>
 			
 			<tbody>
-				{% for User in Users %}
-					{% if 'ROLE_MANAGER' in User.roles or 'ROLE_COMMERCIAL' in User.roles or 'ROLE_PARTICIPANT' in User.roles %}
-					
-					<tr>
-						<td style = "display:none;"></td>
-						<td class = "ligne-selection">
-							<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox" checked="" type="checkbox">
-							<label for="cl1-row{{ User.Id }}" data-id = "{{ User.Id }}" class = "check-ligne"><span></span></label>
-						</td>
-						<td class = "ligne-standards">{{ User.firstname }}</td>
-						<td class = "ligne-standards">{{ User.name }}</td>
-						<td class = "ligne-standards">{{ User.email }}</td>
-						<td class = "ligne-standards">
-							{% if User.roles[0] == 'ROLE_MANAGER' %}
-								manager
-							{% elseif User.roles[0] == 'ROLE_COMMERCIAL' %}
-								commercial
-							{% elseif User.roles[0] == 'ROLE_PARTICIPANT' %}
-								participant
-							{% else %}
-								{{ User.roles[0] }}
-							{% endif %}
-						</td>
-						<td class = "ligne-standards"></td>
-					</tr>
-					
-					{% endif %}
+				{% for UserArray in Users %}
+					{% for User in UserArray %}
+						{% if 'ROLE_MANAGER' in User.roles or 'ROLE_COMMERCIAL' in User.roles or 'ROLE_PARTICIPANT' in User.roles %}
+						
+						<tr>
+							<td style = "display:none;"></td>
+							<td class = "ligne-selection">
+								{% if User.email in ListContactSub %}
+									<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox contact-ajout" checked="checked" type="checkbox" value = "{{ User.Id }}">
+								{% else %}
+									<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox contact-ajout" type="checkbox" value = "{{ User.Id }}">
+								{% endif %}
+								
+								<label for="cl1-row{{ User.Id }}" data-id = "{{ User.Id }}" class = "check-ligne"><span></span></label>
+							</td>
+							<td class = "ligne-standards">{{ User.firstname }}</td>
+							<td class = "ligne-standards">{{ User.name }}</td>
+							<td class = "ligne-standards">{{ User.email }}</td>
+							<td class = "ligne-standards">
+								{% if User.roles[0] == 'ROLE_MANAGER' %}
+									manager
+								{% elseif User.roles[0] == 'ROLE_COMMERCIAL' %}
+									commercial
+								{% elseif User.roles[0] == 'ROLE_PARTICIPANT' %}
+									participant
+								{% else %}
+									{{ User.roles[0] }}
+								{% endif %}
+							</td>
+							<td class = "ligne-standards"></td>
+						</tr>
+						
+						{% endif %}
+					{% endfor %}
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+</div>
+
+<div class="row submit-button-container">
+	<div class="col-lg-12">
+		<button id = "valider-edition-contact-list" class="btn-valider valider submit-form">
+			valider
+		</button>
 	</div>
 </div>

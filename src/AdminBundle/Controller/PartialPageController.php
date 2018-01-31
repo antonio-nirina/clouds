@@ -157,19 +157,75 @@ class PartialPageController extends Controller
 		return $this->render('AdminBundle:PartialPage/Ajax:afficheListImgEditor.html.twig', array('images' => $datas));
 	}
 	
-	public function emailingListeContactEditAjaxAction(){
+	public function emailingListeContactEditAjaxAction($IdList){
 		//Get all user 
 		$rôle = array('ROLE_PARTICIPANT', 'ROLE_COMMERCIAL', 'ROLE_MANAGER');
 		$em = $this->getDoctrine()->getManager();
-        $Users = $em->getRepository('UserBundle\Entity\User')->findAll();
-		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig', array('Users' => $Users));
+        //Call ContactList manager service
+		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+		$AllContact = $ContactList->getAllContact();
+		$Users = array();
+		foreach($AllContact as $Contacts){
+			//Get infos user 
+			$Users[] = $em->getRepository('UserBundle\Entity\User')->findUserByMail($Contacts['Email']);
+		}
+		
+		//Get ListInfos
+		$Listinfos = $ContactList->getListById($IdList);
+		
+		//Get All contact by List
+		$ListContactSub = array();
+		$ListContact = $ContactList->getAllContactByName($Listinfos[0]['Name']);
+		foreach($ListContact as $ContactId){
+			$ContactSub = $ContactList->getContactById($ContactId['ContactID']);
+			$ListContactSub[] = $ContactSub[0]['Email'];
+		}
+		
+		
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig', array('Users' => $Users, 'Listinfos' => $Listinfos, 'ListContactSub' => $ListContactSub));
+	}
+	
+	public function emailingListeContactEditSubmitAjaxAction($IdList, $UserId){ 
+
+		$em = $this->getDoctrine()->getManager();
+		
+		//Infos User 
+		$ExplodeUserId = explode('##_##', $UserId);
+		$UsersLists = array();
+		$Reponses = array();
+		foreach($ExplodeUserId as $IdUser){
+			$UsersLists[] = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
+		}
+		
+		//Call ContactList manager service
+		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+		
+		//Add contactList
+		$Reponses = $ContactList->editContactList($IdList, $UsersLists);
+		
+		
+		//$Reponses = $ContactList->getAllContact();
+		
+		
+		//$Reponses = $ContactList->getContactById('321781');
+		
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
 	}
 	
 	public function emailingListeContactCreerAjaxAction(){
 		//Get all user 
 		$rôle = array('ROLE_PARTICIPANT', 'ROLE_COMMERCIAL', 'ROLE_MANAGER');
 		$em = $this->getDoctrine()->getManager();
-        $Users = $em->getRepository('UserBundle\Entity\User')->findAll();
+		
+		//Call ContactList manager service
+		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+		$AllContact = $ContactList->getAllContact();
+		$Users = array();
+		foreach($AllContact as $Contacts){
+			//Get infos user 
+			$Users[] = $em->getRepository('UserBundle\Entity\User')->findUserByMail($Contacts['Email']);
+		}
+        
 		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer.html.twig', array('Users' => $Users));
 	}
 	
@@ -180,15 +236,22 @@ class PartialPageController extends Controller
 		//Infos User 
 		$ExplodeUserId = explode('##_##', $UserId);
 		$UsersLists = array();
+		$Reponses = array();
 		foreach($ExplodeUserId as $IdUser){
-			$UsersLists = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
-			
-			//Call ContactList manager service
-			$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
-			
-			//Add contactList
-			$ContactList->addContactList($ListName, $UsersLists);
+			$UsersLists[] = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
 		}
+		
+		//Call ContactList manager service
+		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+		
+		//Add contactList
+		$Reponses = $ContactList->addContactList($ListName, $UsersLists);
+		
+		
+		//$Reponses = $ContactList->getAllContact();
+		
+		
+		//$Reponses = $ContactList->getContactById('321781');
 		
 		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
 	}

@@ -13,6 +13,14 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 	
+	public function findUserByMail($email)
+    {
+        $qb = $this->createQueryBuilder('user');
+        $qb->where($qb->expr()->like('user.email', ':email'))->setParameter('email', ''.$email.'');
+
+        return $qb->getQuery()->getResult();
+    }
+	
 	/*
 	public function findAllUserWithRoleList($roles){
 		$q = $this->createQueryBuilder('user');

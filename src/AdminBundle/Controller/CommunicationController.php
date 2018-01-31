@@ -813,7 +813,7 @@ class CommunicationController extends AdminController
 		$AllContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 		
 		//Get all contacts Lists
-		$ListContact = $AllContactList->getAll();
+		$ListContact = $AllContactList->getAllList();
 		
 		
 		
@@ -837,10 +837,41 @@ class CommunicationController extends AdminController
 
         $em = $this->getDoctrine()->getManager();
 		
-		$response = $this->forward('AdminBundle:PartialPage:emailingListeContactEditAjax');
-		return new Response($response->getContent());
+		if ($request->isMethod('POST')) {
+			$IdList = $request->get('IdList');
+			$response = $this->forward('AdminBundle:PartialPage:emailingListeContactEditAjax', array('IdList' => $IdList));
+			return new Response($response->getContent());
+		}
 		
 		//return $this->render('AdminBundle:Communication:emailing_liste_contact_edit.html.twig');
+	}
+	
+	/**
+     * @Route(
+     *     "/emailing/liste-contact-edit-submit",
+     *     name="admin_communication_emailing_list_contact_edition_submit",
+     * )
+     */
+    public function emailingListeContactEditSubmitAction(Request $request){
+		$json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$IdList = $request->get('IdList');
+			$UserId = $request->get('UserId');
+			
+			$response = $this->forward('AdminBundle:PartialPage:emailingListeContactEditSubmitAjax', array(
+				'IdList' => $IdList,
+				'UserId' => $UserId,
+			));
+		
+			return new Response($response->getContent());
+		}
 	}
 	
 	/**
