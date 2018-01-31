@@ -2397,13 +2397,22 @@ section .row.ending {
 
 .template-preview-container{
     border: 1px solid #9a9a9a;
-    -webkit-border-radius: 5px;
+    /*-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 5px;*/
     width: 260px;
     height: 320px;
-    background-color: #f5f5f5;
+    /*background-color: #f5f5f5;*/
     margin: auto;
+    position: relative;
+
+    overflow: auto;
+}
+
+@media (max-width: 319px){
+    .template-preview-container{
+        display: none;
+    }
 }
 
 .magnify-template-preview{
@@ -2968,4 +2977,63 @@ p.chargementAjax.hidden{
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
+}
+
+/**
+ * Prévisualisation miniature
+ */
+.template-preview-content-container{
+    width: 800px;
+    transform: scale(0.3);
+    transform-origin: left top;
+    position: absolute;
+    top: 0px;
+    left: 9px;
+}
+
+.template-preview-wrapper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+@media (max-width: 991px){
+    .template-preview-content-container{
+        width: 500px;
+        transform: scale(0.48);
+    }
+}
+
+@media (max-width: 575px) {
+    .template-preview-content-container{
+        width: 300px;
+        transform: scale(0.8);
+    }
+}
+
+/**
+ * Communication - emailing - sur mesure
+ */
+
+.img-emailing-custom{
+    background:url('../images/cloudsRewards/img-sur-mesure.png') no-repeat;
+    background-position: -155px -79px;
+}
+
+.contact-link{
+    font-family: var(--police_bold);
+    color: var(--couleur_2) !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+section.with-bottom-space{
+    padding-bottom: 150px;
+}
+
+@media (max-width: 767px) {
+    .emailing-custom-text{
+        margin-top: 20px;
+    }
 }

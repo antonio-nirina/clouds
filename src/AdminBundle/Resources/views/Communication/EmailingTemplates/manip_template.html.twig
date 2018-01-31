@@ -7,7 +7,11 @@
             <div class="col-12 col-lg-4 left-col">
                 <div class="template-preview-block template-config-block">
                     <span class="option-title">prévisualisation</span>
-                    <div class="template-preview-container hidden-xs-down"></div>
+                    <div class="template-preview-container {#hidden-xs-down#}">
+                        <div class="template-preview-content-container">
+                            <div class="template-preview-wrapper"></div>
+                        </div>
+                    </div>
                     <a href="#" class="magnify-template-preview"></a>
                 </div>
                 <div class="template-config-block">
@@ -76,7 +80,33 @@
                             <div class="row">
                                 <div class="col-12 col-sm-12">
                                     {{ form_widget(manip_template_form.logo, {"attr": {"class": "hidden-input-file image-input logo-image-input"}}) }}
-                                    {% if manip_template_form.vars.value.logo is not empty %}
+                                    {% if manip_template_form.vars.value.logo is empty or manip_template_form.vars.value.logo matches '#^/tmp#' %}
+                                        <button class="btn-valider btn-upload choose-upload-img-button">
+                                            <span class="upload"></span>
+                                            choisissez un fichier...
+                                        </button>
+                                        <div class="upload-img-button-container hidden-button">
+                                            <button class="upload-img-button">
+                                                <span class="blue-upload"></span><span class="img-name-container"></span>
+                                            </button>
+                                        </div>
+                                        <a href="#" class="delete-link delete-image delete-logo-image" style="display: none;"></a>
+                                        <input type="hidden" class="initial-image">
+                                    {% else %}
+                                        <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+                                            <span class="upload"></span>
+                                            choisissez un fichier...
+                                        </button>
+                                        <div class="upload-img-button-container">
+                                            <button class="upload-img-button">
+                                                <span class="blue-upload"></span><span class="img-name-container">{{ manip_template_form.vars.value.logo }}</span>
+                                            </button>
+                                        </div>
+                                        <a href="#" class="delete-link delete-image delete-logo-image"></a>
+                                        <input type="hidden" class="initial-image" value="{{ manip_template_form.vars.value.logo }}">
+                                    {% endif %}
+
+                                    {#{% if manip_template_form.vars.value.logo is not empty %}
                                     <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
                                         <span class="upload"></span>
                                         choisissez un fichier...
@@ -100,7 +130,7 @@
                                     </div>
                                     <a href="#" class="delete-link delete-image delete-logo-image" style="display: none;"></a>
                                     <input type="hidden" class="initial-image">
-                                    {% endif %}
+                                    {% endif %}#}
                                 </div>
                                 <div class="col-12 col-sm-12 error-message-container">
                                     {{ form_errors(manip_template_form.logo) }}
@@ -155,7 +185,33 @@
                             <div class="row">
                                 <div class="col-12 col-sm-12">
                                     {{ form_widget(manip_template_form.contents[0].image, {"attr": {"class": "hidden-input-file image-input image-content-input"}}) }}
-                                    {% if manip_template_form.contents[0].vars.value.image is not empty %}
+                                    {% if manip_template_form.contents[0].vars.value.image is empty or manip_template_form.contents[0].vars.value.image matches '#^/tmp#' %}
+                                    <button class="btn-valider btn-upload choose-upload-img-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container hidden-button">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                        </button>
+                                    </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" style="display: none;" data-content-id="{{ manip_template_form.contents[0].vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="">
+                                    {% else %}
+                                    <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container">{{ manip_template_form.contents[0].vars.value.image }}</span>
+                                        </button>
+                                    </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" data-content-id="{{ manip_template_form.contents[0].vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="{{ manip_template_form.contents[0].vars.value.image }}">
+                                    {% endif %}
+
+                                    {#{% if manip_template_form.contents[0].vars.value.image is not empty %}
                                     <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
                                         <span class="upload"></span>
                                         choisissez un fichier...
@@ -179,7 +235,7 @@
                                     </div>
                                     <a href="#" class="delete-link delete-image delete-content-image" style="display: none;" data-content-id="{{ manip_template_form.contents[0].vars.value.getId }}"></a>
                                     <input type="hidden" class="initial-image" value="">
-                                    {% endif %}
+                                    {% endif %}#}
                                     <div class="info-container">
                                         <p>largeur optimale de l'image : 600px</p>
                                     </div>
@@ -305,7 +361,33 @@
                             <div class="row">
                                 <div class="col-12 col-sm-12">
                                     {{ form_widget(content.image, {"attr": {"class": "hidden-input-file image-input image-content-input"}}) }}
-                                    {% if content.vars.value.image is not empty %}
+                                    {% if content.vars.value.image is empty or content.vars.value.image matches '#^/tmp#' %}
+                                    <button class="btn-valider btn-upload choose-upload-img-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container hidden-button">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container"></span>
+                                        </button>
+                                    </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" style="display: none;" data-content-id="{{ content.vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="">
+                                    {% else %}
+                                    <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
+                                        <span class="upload"></span>
+                                        choisissez un fichier...
+                                    </button>
+                                    <div class="upload-img-button-container">
+                                        <button class="upload-img-button">
+                                            <span class="blue-upload"></span><span class="img-name-container">{{ content.vars.value.image }}</span>
+                                        </button>
+                                    </div>
+                                    <a href="#" class="delete-link delete-image delete-content-image" data-content-id="{{ content.vars.value.getId }}"></a>
+                                    <input type="hidden" class="initial-image" value="{{ content.vars.value.image }}">
+                                    {% endif %}
+
+                                    {#{% if content.vars.value.image is not empty %}
                                     <button class="btn-valider btn-upload choose-upload-img-button hidden-button">
                                         <span class="upload"></span>
                                         choisissez un fichier...
@@ -329,7 +411,7 @@
                                     </div>
                                     <a href="#" class="delete-link delete-image delete-content-image" style="display: none;" data-content-id="{{ content.vars.value.getId }}"></a>
                                     <input type="hidden" class="initial-image" value="">
-                                    {% endif %}
+                                    {% endif %}#}
                                     <div class="info-container">
                                         <p>largeur optimale de l'image : 600px</p>
                                     </div>
