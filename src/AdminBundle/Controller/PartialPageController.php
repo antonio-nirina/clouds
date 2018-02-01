@@ -175,39 +175,103 @@ class PartialPageController extends Controller
 		
 		//Get All contact by List
 		$ListContactSub = array();
+		$ListUserUnsubscribed = array();
 		$ListContact = $ContactList->getAllContactByName($Listinfos[0]['Name']);
 		foreach($ListContact as $ContactId){
 			$ContactSub = $ContactList->getContactById($ContactId['ContactID']);
-			$ListContactSub[] = $ContactSub[0]['Email'];
+			if($ContactId['IsUnsubscribed'] == '1'){
+				$ListUserUnsubscribed[] = $ContactSub[0]['Email'];
+			}else{
+				$ListContactSub[] = $ContactSub[0]['Email'];
+			}
 		}
 		
 		
-		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig', array('Users' => $Users, 'Listinfos' => $Listinfos, 'ListContactSub' => $ListContactSub));
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig', array(
+			'Users' => $Users, 
+			'Listinfos' => $Listinfos, 
+			'ListContactSub' => $ListContactSub,
+			'ListUserUnsubscribed' => $ListUserUnsubscribed
+		));
 	}
 	
 	public function emailingListeContactEditSubmitAjaxAction($IdList, $UserId){ 
 
 		$em = $this->getDoctrine()->getManager();
 		
-		//Infos User 
-		$ExplodeUserId = explode('##_##', $UserId);
-		$UsersLists = array();
-		$Reponses = array();
-		foreach($ExplodeUserId as $IdUser){
-			$UsersLists[] = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
-		}
-		
 		//Call ContactList manager service
 		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 		
+		//Infos User 
+		$ExplodeUserId = explode('##_##', $UserId);
+		$Reponses = array();
+		$ListUserSubscribing = array();
+		$ListUserSubscribingData = array();
+		foreach($ExplodeUserId as $IdUser){
+			$UsersListes = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
+			$ListUserSubscribing[] = $UsersListes->getEmail();
+			$ListUserSubscribingData[$UsersListes->getEmail()] = $UsersListes;
+		}
+		
+		
+		/*
+		 * Les Users qui sont déjà inscrits sur la liste des contacts
+		 **/
+		$ReponsesList = $ContactList->getListById($IdList);
+		$ReponsesContacts = $ContactList->getAllContactByName($ReponsesList[0]['Name']);
+		$ListUserDejaSub = array();
+		$ListUserDejaSubdata = array();
+		foreach($ReponsesContacts as $ContactsId){
+			$ReponsesContactsData = $ContactList->getContactById($ContactsId['ContactID']);
+			$ListUserDejaSubdata[$ReponsesContactsData[0]['Email']] = $ReponsesContactsData;
+			$ListUserDejaSub[] = $ReponsesContactsData[0]['Email'];
+		}
+		
+		
+		/*
+		 * Separer les users déjà inscrits et non insscrits
+		 */
+		$ListUserDejaInscritsListConact = array();
+		$ListUserNonInscritsListConact = array();
+		foreach($ListUserSubscribing as $EmailsNew){
+			//Déjà inscrits
+			if(in_array($EmailsNew, $ListUserDejaSub)){
+				$ListUserDejaInscritsListConact[] = $EmailsNew;
+			}else{//Pas encore inscrits
+				$ListUserNonInscritsListConact[] = $EmailsNew;
+			}
+		}
+		
 		//Add contactList
-		$Reponses = $ContactList->editContactList($IdList, $UsersLists);
+		$UsersNonLists = array();
+		if(count($ListUserNonInscritsListConact) > 0){
+			foreach($ListUserNonInscritsListConact as $EmailNonInscrits){
+				$UsersNonLists[] = $ListUserSubscribingData[$EmailNonInscrits];
+			}
+			$ReponsesListInscriptions = $ContactList->editContactList($IdList, $UsersNonLists);
+		}
 		
+		/*
+		 * Isoler les users à enlever de la liste des contacts 
+		 **/
+		$ListUserAEnleverDeLaListe = array();
+		if(count($ListUserDejaSub) > 0){
+			foreach($ListUserDejaSub as $EmailDejaInscrits){
+				//S'il est encore dans la liste des users à inscrire
+				if(!in_array($EmailDejaInscrits, $ListUserSubscribing)){
+					$ListUserAEnleverDeLaListe[] = $EmailDejaInscrits;
+				}
+			}
+		}
 		
-		//$Reponses = $ContactList->getAllContact();
-		
-		
-		//$Reponses = $ContactList->getContactById('321781');
+		//Enlever de la liste des contacts
+		$ListUserAEnleverDeLaListeData = array();
+		if(count($ListUserAEnleverDeLaListe) > 0){
+			foreach($ListUserAEnleverDeLaListe as $EmailEnlevers){
+				$ListUserAEnleverDeLaListeData[] = $EmailEnlevers;
+			}
+			$ReponsesListDesinscriptions = $ContactList->DesinscritContactList($IdList, $ListUserAEnleverDeLaListeData);
+		}
 		
 		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
 	}
@@ -247,12 +311,22 @@ class PartialPageController extends Controller
 		//Add contactList
 		$Reponses = $ContactList->addContactList($ListName, $UsersLists);
 		
-		
-		//$Reponses = $ContactList->getAllContact();
-		
-		
-		//$Reponses = $ContactList->getContactById('321781');
-		
 		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
+	}
+	
+	public function emailingListeContactDeleteAjaxAction($IdList){ 
+
+		$em = $this->getDoctrine()->getManager();
+		
+		//Call ContactList manager service
+		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+		
+		//Add contactList
+		$Reponses = $ContactList->deleteListById($IdList);
+		echo '<pre>';
+		print_r($Reponses);
+		echo '</pre>';
+		
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_delete.html.twig');
 	}
 }

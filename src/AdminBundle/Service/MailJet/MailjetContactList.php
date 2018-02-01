@@ -6,6 +6,7 @@ use Mailjet\MailjetBundle\Client\MailjetClient;
 use Mailjet\MailjetBundle\Manager\ContactsListManager;
 use Mailjet\MailjetBundle\Manager\ContactMetadataManager;
 use Mailjet\MailjetBundle\Model\Contact;
+use Mailjet\MailjetBundle\Model\ContactsList;
 use Mailjet\Resources;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -13,6 +14,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 class MailjetContactList{
+	
 	protected $manager;
     protected $mailjet;
     protected $contactmetadata;
@@ -177,6 +179,30 @@ class MailjetContactList{
      */
 	public function getAllContactByName($ListName){
 		$response = $this->mailjet->get(Resources::$Listrecipient, ['filters' => ['ListName' => $ListName]]);
+		return $response->getData();
+	}
+	
+	/*
+	 * De-iscrire l'user 
+	 **/
+	public function DesinscritContactList($IdList, $UsersLists){
+		$reponses = array();
+		foreach($UsersLists as $Email){
+			$ObjContacts = new Contact($Email);
+			$reponses[] = $this->manager->unsubscribe($IdList, $ObjContacts);
+		}
+		return $reponses;
+	}
+	
+	/**
+     * Delete List with Id
+     * @return array
+     */
+	public function deleteListById($idList){
+		//$contact->setAction(Resources::$Contactslist::ACTION_ADDFORCE);
+		//$ContactslistObj = new Contactslist($idList, ContactsList::ACTION_REMOVE, array());
+		
+		$response = $this->mailjet->delete(Resources::$Contactslist, ['id' => $idList]);
 		return $response->getData();
 	}
 }

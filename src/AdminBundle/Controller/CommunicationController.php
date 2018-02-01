@@ -923,6 +923,33 @@ class CommunicationController extends AdminController
 			return new Response($response->getContent());
 		}
 	}
+	
+	
+	/**
+     * @Route(
+     *     "/emailing/liste-contact-delete",
+     *     name="admin_communication_emailing_list_contact_delete",
+     * )
+     */
+    public function emailingListeContactDeleteAction(Request $request){
+		$json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$IdList = $request->get('IdList');
+			
+			$response = $this->forward('AdminBundle:PartialPage:emailingListeContactDeleteAjax', array(
+				'IdList' => $IdList
+			));
+		
+			return new Response($response->getContent());
+		}
+	}
 
     /**
      * @Route("/emailing/sur-mesure", name="admin_communication_emailing_custom")

@@ -47,6 +47,51 @@ $(document).ready(function(){
 		}, 300);
 	});
 	
+	//Click sur suppression de la liste des contacts 
+	$(document).on('click', 'a.list-contact-delete', function(){
+		var IdList = $(this).attr('data-id');
+		
+		var Html = '';
+		Html += '<div class = "row" style = "margin-top:60px;">';
+		Html += '<div class = "col-12"><span>Vous souhaitez supprimer définitivement cette liste!</span></div>';
+		Html += '</div>';
+		
+		Html += '<div class = "row" style = "margin-top:60px;">';
+		Html += '<div class = "col-12 col-md-6" style = "text-align:center;"><button id = "oui-supprimer-contact-list" class="btn-valider valider submit-form" data-id = "'+IdList+'">supprimer</button></div>';
+		Html += '<div class = "col-12 col-md-6" style = "text-align:center;"><button id = "non-supprimer-contact-list" class="btn-valider valider submit-form" >annuler</button></div>';
+		Html += '</div>';
+		
+		$('div#delete-list-contact').find('.body-container').html('');
+		$('div#delete-list-contact').find('.body-container').html(Html);
+		$('div#delete-list-contact').modal('show');
+		$('.chargementAjax').addClass('hidden');
+
+		return false;
+	});
+	
+	$(document).on('click', 'button#non-supprimer-contact-list', function(){
+		$('div#delete-list-contact').modal('hide');
+	});
+	
+	$(document).on('click', 'button#oui-supprimer-contact-list', function(){
+		var IdList = $(this).attr('data-id');
+		var UriDeleteListContact = $('input#UriDeleteListContact').val();
+		$('.chargementAjax').removeClass('hidden');
+		setTimeout(function(){
+			$.ajax({
+				type : "POST",
+				url: UriDeleteListContact,
+				data : 'IdList='+IdList+'',
+				success: function(reponse){
+					$('.chargementAjax').addClass('hidden');
+					$('div#delete-list-contact').modal('hide');
+					location.reload();
+				}
+			});
+		}, 300);
+		//$('div#delete-list-contact').modal('hide');
+	});
+	
 	//Click sur édition des contacts
 	$(document).on('click', 'a.list-contact-edit', function(){
 		var IdList = $(this).attr('data-id');
@@ -178,7 +223,7 @@ $(document).ready(function(){
 						$('div#edit-list-contact').find('.body-container').html('');
 						$('div#edit-list-contact').find('.body-container').html('');
 						$('div#edit-list-contact').modal('hide');
-						location.reload();
+						//location.reload();
 					}
 				});
 			}, 300);

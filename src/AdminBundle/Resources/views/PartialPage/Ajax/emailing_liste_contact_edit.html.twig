@@ -103,33 +103,45 @@
 					{% for User in UserArray %}
 						{% if 'ROLE_MANAGER' in User.roles or 'ROLE_COMMERCIAL' in User.roles or 'ROLE_PARTICIPANT' in User.roles %}
 						
-						<tr>
-							<td style = "display:none;"></td>
-							<td class = "ligne-selection">
-								{% if User.email in ListContactSub %}
-									<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox contact-ajout" checked="checked" type="checkbox" value = "{{ User.Id }}">
-								{% else %}
-									<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox contact-ajout" type="checkbox" value = "{{ User.Id }}">
-								{% endif %}
-								
-								<label for="cl1-row{{ User.Id }}" data-id = "{{ User.Id }}" class = "check-ligne"><span></span></label>
-							</td>
-							<td class = "ligne-standards">{{ User.firstname }}</td>
-							<td class = "ligne-standards">{{ User.name }}</td>
-							<td class = "ligne-standards">{{ User.email }}</td>
-							<td class = "ligne-standards">
-								{% if User.roles[0] == 'ROLE_MANAGER' %}
-									manager
-								{% elseif User.roles[0] == 'ROLE_COMMERCIAL' %}
-									commercial
-								{% elseif User.roles[0] == 'ROLE_PARTICIPANT' %}
-									participant
-								{% else %}
-									{{ User.roles[0] }}
-								{% endif %}
-							</td>
-							<td class = "ligne-standards"></td>
-						</tr>
+							{% if User.email in ListContactSub %}
+							<tr>
+							{% elseif User.email in ListUserUnsubscribed %}
+							<tr class = "list-desabonnes">
+							{% else %}
+							<tr>
+							{% endif %}
+								<td style = "display:none;"></td>
+								<td class = "ligne-selection">
+									{% if User.email in ListContactSub %}
+										<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox contact-ajout" checked="checked" type="checkbox" value = "{{ User.Id }}">
+										<label for="cl1-row{{ User.Id }}" data-id = "{{ User.Id }}" class = "check-ligne"><span></span></label>
+									{% elseif User.email in ListUserUnsubscribed %}
+										<input id="cl1-{{ User.Id }}" type="hidden" value = "{{ User.Id }}">
+									{% else %}
+										<input id="cl1-{{ User.Id }}" class="form-field-published styled-checkbox contact-ajout" type="checkbox" value = "{{ User.Id }}">
+										<label for="cl1-row{{ User.Id }}" data-id = "{{ User.Id }}" class = "check-ligne"><span></span></label>
+									{% endif %}
+								</td>
+								<td class = "ligne-standards">{{ User.firstname }}</td>
+								<td class = "ligne-standards">{{ User.name }}</td>
+								<td class = "ligne-standards">{{ User.email }}</td>
+								<td class = "ligne-standards">
+									{% if User.roles[0] == 'ROLE_MANAGER' %}
+										manager
+									{% elseif User.roles[0] == 'ROLE_COMMERCIAL' %}
+										commercial
+									{% elseif User.roles[0] == 'ROLE_PARTICIPANT' %}
+										participant
+									{% else %}
+										{{ User.roles[0] }}
+									{% endif %}
+								</td>
+								<td class = "ligne-standards">
+									{% if User.email in ListUserUnsubscribed %}
+										désabonné(e)
+									{% endif %}
+								</td>
+							</tr>
 						
 						{% endif %}
 					{% endfor %}
