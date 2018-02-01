@@ -121,7 +121,9 @@
                         </div>
                     </div> 
                     <div class="row list">
-                        {% for li in list %}
+                        {% for campaign_data in list %}
+                            {% set li = campaign_data['campaign_draft_data'] %}
+                            {% set overview = campaign_data['campaign_overview_data'] %}
                             <div class="row campaign-{{li.id}}">
                                 <div class="campagne-name">
                                     <input type="checkbox" class="styled-checkbox bigger" id="{{li.id}}">
@@ -130,7 +132,7 @@
                                         <div class="campagne-name-name">
                                             {{ li.title }}
                                         </div>
-                                        {% if li.status >= 2 %}
+                                        {% if li.status == 2 %}
                                             {% set date = li.deliveredAt %}
                                             {% set status = "Envoyé" %}
                                             {% set pre = "" %}
@@ -140,33 +142,50 @@
                                             {% set status = "Programmé" %}
                                             {% set pre = "" %}
                                             {% set class= "programmed" %}
-                                        {% else %}
+                                        {% elseif li.status == 0 %}
                                             {% set date = li.modifiedAt %}
                                             {% set status = "En attente" %}
                                             {% set pre = "modifié " %}
                                             {% set class= "wait" %}
                                         {% endif %}
                                         <div class="campagne-name-date {{ class }}">
+                                            {% if li.status == 0 or li.status == 1 or li.status == 2 %}
                                             {{ status }} - {{ pre }}{{ date | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
+                                            {% endif %}
                                         </div>
                                     </label>                           
                                 </div>
                                 <div class="campagne-metric">
                                     <div class="metric-1">
                                         <span class="metric-value">
-                                            {{ (li.recipients["recipient_count"] is defined)?li.recipients["recipient_count"]:0 }}
+                                            {#{{ (li.recipients["recipient_count"] is defined)?li.recipients["recipient_count"]:0 }}#}
+                                            {% set recipient_value = 0 %}
+                                            {% if overview is not null %}
+                                                {% set recipient_value = overview['ProcessedCount'] %}
+                                            {% endif %}
+                                            {{ recipient_value }}
                                         </span>
                                         <span class="metric-desc">inscrits</span>
                                     </div>
                                     <div class="metric-2">
                                         <span class="metric-value">
-                                            {{ (li.openTracked is defined)?li.openTracked:0 }} %
+                                            {#{{ (li.openTracked is defined)?li.openTracked:0 }} %#}
+                                            {% set open_value = 0 %}
+                                            {% if overview is not null and overview['ProcessedCount'] > 0 %}
+                                                {% set open_value = overview['OpenedCount']/overview['ProcessedCount']*100 %}
+                                            {% endif %}
+                                            {{ open_value~' %' }}
                                         </span>
                                         <span class="metric-desc">ouvertures</span>
                                     </div>
                                     <div class="metric-3">
                                         <span class="metric-value">
-                                            {{ (li.clickTracked is defined)?li.clickTracked:0}} %
+                                            {#{{ (li.clickTracked is defined)?li.clickTracked:0}} %#}
+                                            {% set click_value = 0 %}
+                                            {% if overview is not null and overview['ProcessedCount'] > 0 %}
+                                                {% set click_value = overview['ClickedCount']/overview['ProcessedCount']*100 %}
+                                            {% endif %}
+                                            {{ click_value~' %' }}
                                         </span>
                                         <span class="metric-desc">clics</span>
                                     </div>
