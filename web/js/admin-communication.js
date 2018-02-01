@@ -1437,4 +1437,22 @@ $(document).ready(function(){
      * Duplidation de template
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
+     * *********************************************************************************************
+     */
+    $('#create-template-dialog').on('shown.bs.modal', function(){
+        $(document).off('focusin.modal');
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
+     * *********************************************************************************************
+     */
 });
