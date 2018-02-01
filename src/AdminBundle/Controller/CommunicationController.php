@@ -181,10 +181,13 @@ class CommunicationController extends AdminController
         }
 
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $campaign_list = $campaign->getAll();
+        $filters = array(
+            'Limit' => 0,
+        );
+        $campaign_data_list = $campaign->getAllVisibleWithData($filters);
 
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
-            "list" => $campaign_list,
+            "list" => $campaign_data_list,
             'content_type_class' => new TemplateContentType(),
         ));
     }
