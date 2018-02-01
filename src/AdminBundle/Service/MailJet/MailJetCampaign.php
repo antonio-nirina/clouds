@@ -22,6 +22,16 @@ class MailJetCampaign extends MailJetHandler
         self::CAMPAIGN_STATUS_ARCHIVED,
         self::CAMPAIGN_STATUS_DELETED
     );
+    const CAMPAIGN_FILTER_RECENT = 'Recent';
+    const CAMPAIGN_FILTER_SENT = 'Sent';
+    const CAMPAIGN_FILTER_PROGRAMMED = 'Programmed';
+    const CAMPAIGN_FILTER_DRAFT = 'Draft';
+    const CAMPAIGN_VALID_FILTERS = array(
+        self::CAMPAIGN_FILTER_RECENT,
+        self::CAMPAIGN_FILTER_SENT,
+        self::CAMPAIGN_FILTER_PROGRAMMED,
+        self::CAMPAIGN_FILTER_DRAFT,
+    );
 
     protected $campaign_draft_manager;
     protected $campaign_manager;
@@ -78,13 +88,6 @@ class MailJetCampaign extends MailJetHandler
                     }
                 }
             }
-
-            /*$distant_campaign_id = $campaign->getId();
-            foreach ($campaing_overview_list as $campaign_overview) {
-                if ($distant_campaign_id == $campaign_overview['ID']) {
-                    $campaign_data_el['campaign_overview_data'] = $campaign_overview;
-                }
-            }*/
             array_push($campaign_data_list, $campaign_data_el);
         }
 
@@ -101,6 +104,22 @@ class MailJetCampaign extends MailJetHandler
         }
 
         return array_values($campaign_data_list);
+    }
+
+    public function getAllVisibleWithDataFiltered($filter_value)
+    {
+        if (is_null($filter_value)) {
+            return $this->getAllVisibleWithData(array('Limit' => 0));
+        }
+
+        if (self::CAMPAIGN_FILTER_RECENT == $filter_value) {
+            return array_slice($this->getAllVisibleWithData(array('Limit' => 0)), 0, 10);
+        } else {
+            if (in_array($filter_value, self::CAMPAIGN_VALID_FILTERS)) {
+                return $this->getAllVisibleWithData(array('Limit' => 0, 'Status' => $filter_value));
+            }
+        }
+        return array();
     }
 
     public function getAllCampaignOverview()

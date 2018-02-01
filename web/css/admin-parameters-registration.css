@@ -2119,7 +2119,8 @@ section .row.ending {
     justify-content: center;
 }
 .no-result {
-    color: red;
+    /*color: red;*/
+    margin-top: 20px
 }
 .hidden-image {
     display:none;

@@ -220,12 +220,12 @@ class CommunicationController extends AdminController
         }
 
         $status = $request->get('status');
-        // dump($status); die;
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $campaign_list = $campaign->getAll(["Status" => $status]);
+//        $campaign_list = $campaign->getAll(["Status" => $status]);
+        $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
 
         return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
-            "list" => $campaign_list
+            "list" => $campaign_data_list
         ));
     }
 
