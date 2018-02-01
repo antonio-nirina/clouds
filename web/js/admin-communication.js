@@ -236,7 +236,7 @@ $(document).ready(function(){
 
             // instantaneous preview feat
             CKEDITOR.instances[$(this).attr('id')].on('change', function(){
-                var text_content_index = $(this).parents('.text-content-block').index('.text-content-block');
+                var text_content_index = $('#'+this.name).parents('.text-content-block').index('.text-content-block');
                 var corresponding_text_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.text-content-tr').eq(text_content_index);
                 corresponding_text_content_tr.find('td').html(this.getData());
                 $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
@@ -522,7 +522,7 @@ $(document).ready(function(){
         $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.contents-container-table').append(new_text_content_tr);
             // mise à jour de la prévisualisation
         CKEDITOR.instances[new_text_content.find('textarea').attr('id')].on('change', function(){
-            var text_content_index = new_text_content.find('textarea').parents('.text-content-block').index('.text-content-block');
+            var text_content_index = $('#'+this.name).parents('.text-content-block').index('.text-content-block');
             var corresponding_text_content_tr = $('#instantaneous-preview-template-dialog .pseudo-body-table').find('.text-content-tr').eq(text_content_index);
             corresponding_text_content_tr.find('td').html(this.getData());
             $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
