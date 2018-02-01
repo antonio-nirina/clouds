@@ -2980,6 +2980,14 @@ p.chargementAjax.hidden{
 }
 
 /**
+ * prévisualisation instantanée de template
+ */
+#instantaneous-preview-template-dialog a{
+    text-decoration: underline !important;
+}
+
+
+/**
  * Prévisualisation miniature
  */
 .template-preview-content-container{
