@@ -1019,7 +1019,7 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/statistiques", name="admin_communication_statistiques")
+     * @Route("/emailing/statistiques", name="admin_communication_statistiques")
      */
     public function statistiqueshowAction(Request $request)
     {

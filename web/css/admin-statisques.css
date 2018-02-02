@@ -340,18 +340,14 @@ margin-left: 4px;
 }
 
 .first-date{
-   /*display: inline-block;
-   float: right;
-   width: 100%;
-   padding-left: 590px;*/
-   display: inline-block;
+   display: flex;
+   margin-top: 5px;
 }
-
-/*.second-date{
-    display: inline-block;
-    margin-left: 536px;
-    float: right;
-}*/
+.secondDate{
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
 
 .suiv{
     margin-left: 541px;
@@ -563,7 +559,7 @@ display: block;
     
 }
 .ui-datepicker.ui-widget.ui-widget-content.question{
-    margin: 26px -153px !important;
+    margin: 52px -153px !important;
 } 
 
 
@@ -634,7 +630,7 @@ input[type=submit].with2 ~ label:before{
     content: "\f107";
     letter-spacing: 10px;
     font-size: 1.2em;
-    color: red;/*#F9F9F9;*/
+    color: black;/*#F9F9F9;*/
     width: 1.4em;
 }
 /********end**********/
@@ -679,7 +675,7 @@ input[type=submit].with4 ~ label:before{
     content: "\f107";
     letter-spacing: 10px;
     font-size: 1.0em;
-    color: red; /*#F9F9F9;*/
+    color: black; /*#F9F9F9;*/
     width: 0;
 
 
@@ -1063,6 +1059,7 @@ padding-left: 35px;
 padding-bottom: 13px;
 padding-right: 34px;
 margin-left: -11px;
+width: 71%;
 }
 .btn-download{
 min-width: 120px !important;
@@ -1079,10 +1076,7 @@ margin-left: -11px;
 .canvasjs-chart-credit{
     display: none;
 }
-.secondDate{
-    display: flex;
-    align-items: center;
-}
+
 
 .tableDetail{
     border: 1px solid #CFCFCF;
@@ -1128,12 +1122,12 @@ margin-left: -11px;
             float: left;
         }
         section .row.filter div.stat-per-date div.first-date {
-            padding-left: 688px;
-            margin-left: -475px;
+            margin-left: -542px;
             margin-right: 348px;
             padding-bottom: 14px;
             padding-top: 31px;
             padding-left: 249px;
+            display: flex;
         }
        
         section .row.filter div.stat-per-date div.first-date div.fa-first{
@@ -1219,16 +1213,18 @@ margin-left: -11px;
             background: 0 0;   
     }
     .suiv{
-       display: flex;
-       margin-left: 296px;
+    display: flex;
+    align-items: center;
+    margin-left: 177px;
+    margin-top: -19px;
     }
     .secondDate{
-        display: flex;
-        align-items: center;
-        margin-left: -352px;
-        margin-top: 84px;
+    display: flex;
+    align-items: center;
+    margin-left: -503px;
+    margin-top: 84px;
     }   
-    .statDays{
+    /*.statDays{
         margin-left: -179px;
         margin-right: 127px;
         } 
@@ -1253,7 +1249,7 @@ margin-left: -11px;
     .statYear1{
         margin-left: -94px;
         margin-right: 4px;
-    }
+    }*/
     #perDate{
         margin-left: -114px;
     }
@@ -1395,38 +1391,63 @@ margin-left: -11px;
         height: 49px;
     }
 .total{
-    background-color:#F9F9F9;
+    /*background-color:#F9F9F9;
     margin-right: 4px;
     margin-left: -8px;
     padding: 13px 32px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
     margin-bottom: 14px;
 }
 .delivrer{
-    background-color:#F9F9F9;
+    /*background-color:#F9F9F9;
     margin-right: 5px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
     margin-left: 6px;
     padding: 13px 25px;
     margin-bottom: 14px;
 }
 .ouvert{
-    background-color:#F9F9F9;
+    /*background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
     margin-right: 10px;
     margin-left: 6px;
     padding: 13px 25px;
     margin-bottom: 14px;
 }
 .clique{
-    background-color:#F9F9F9;
+    /*background-color:#F9F9F9;
     margin-right: 21px;
     margin-left: 1px;
     padding: 14px 27px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
     margin-bottom: 14px;
 }
 .bloque{
-    background-color:#F9F9F9;
+    /*background-color:#F9F9F9;
     padding-top: 12px;
     margin-left: 8px;
     padding: 14px 10px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
     margin-bottom: 14px;
 }
 .detaile{
@@ -1511,11 +1532,12 @@ margin-left: -11px;
         }
         section .row.filter div.stat-per-date div.first-date {
             padding-left: 688px;
-            margin-left: -475px;
+            margin-left: -659px;
             margin-right: 348px;
             padding-bottom: 14px;
             padding-top: 31px;
             padding-left: 249px;
+            display: flex;
         }
        
         section .row.filter div.stat-per-date div.first-date div.fa-first{
@@ -1537,8 +1559,8 @@ margin-left: -11px;
 
         .choice{
             margin-left: 12px;
-            display: inline-block;
-            margin-top: 8px;
+            display: flex;
+            margin-top: 259px;
         }
 
         .hours{
@@ -1612,10 +1634,10 @@ margin-left: -11px;
     .secondDate{
         display: flex;
         align-items: center;
-        margin-left: -352px;
+        margin-left: -509px;
         margin-top: 84px;
     }   
-    .statDays{
+    /*.statDays{
         margin-left: -179px;
         margin-right: 127px;
         } 
@@ -1640,7 +1662,7 @@ margin-left: -11px;
     .statYear1{
         margin-left: -94px;
         margin-right: 4px;
-    }
+    }*/
     #perDate{
         margin-left: -114px;
     }
@@ -1763,6 +1785,7 @@ margin-left: -11px;
     white-space: nowrap;
     background: 0 0; 
     min-width: 13rem;
+
 }
     .tableDetail{
         width: 453px;
@@ -1778,6 +1801,7 @@ margin-left: -11px;
     padding: 25px 29px;
     background-color: #F9F9F9;
     margin-bottom: -236px;
+    height: 331px;
     }
 
     .btn-valider{
@@ -1897,8 +1921,8 @@ margin-left: -11px;
         }
         section .row.filter div.stat-per-date div.first-date {
             padding-left: 688px;
-            margin-left: -475px;
-            margin-right: 348px;
+            margin-left: -647px;
+            margin-right: 188px;
             padding-bottom: 14px;
             padding-top: 31px;
             padding-left: 249px;
@@ -2001,7 +2025,7 @@ margin-left: -11px;
         margin-left: -352px;
         margin-top: 84px;
     }   
-    .statDays{
+    /*.statDays{
         margin-left: -179px;
         margin-right: 127px;
         } 
@@ -2012,10 +2036,10 @@ margin-left: -11px;
     }
     .statYear{
         margin-left: -94px;
-    }
+    }*/
 
-    .statDays1{
-        margin-left: -179px;
+    /*.statDays1{
+        margin-left: -216px;
         margin-right: 127px;
         } 
     .statMonths1{
@@ -2026,7 +2050,7 @@ margin-left: -11px;
     .statYear1{
         margin-left: -94px;
         margin-right: 4px;
-    }
+    }*/
     #perDate{
         margin-left: -114px;
     }
@@ -2154,7 +2178,7 @@ margin-left: -11px;
     min-width: 13rem;
 }
     .tableDetail{
-       width: 471px;
+       width: 612px;
     }
 
     section .row.filter {
@@ -2214,6 +2238,7 @@ margin-left: -11px;
 .est-mode {
      background: url('../images/cloudsRewards/on-off1.png') no-repeat;
      background-size: 35px 16px;
+     margin-left: 5px;
 }
 
 
@@ -2290,12 +2315,12 @@ margin-left: -11px;
             float: left;
         }
         section .row.filter div.stat-per-date div.first-date {
-            padding-left: 688px;
-            margin-left: -426px;
-            margin-right: 348px;
+           margin-left: -272px;
+            margin-right: 302px;
             padding-bottom: 14px;
             padding-top: 31px;
             padding-left: 249px;
+            display: flex;
         }
        
         section .row.filter div.stat-per-date div.first-date div.fa-first{
@@ -2387,15 +2412,15 @@ margin-left: -11px;
     }
     .suiv{
        display: flex;
-       margin-left: 296px;
+       margin-left: -32px;
     }
     .secondDate{
         display: flex;
         align-items: center;
-        margin-left: -183px;
-        margin-top: 20px;
+        margin-left: -299px;
+        margin-top: 6px;
     }   
-    .statDays{
+    /*.statDays{
         margin-left: -179px;
         margin-right: 127px;
         } 
@@ -2420,7 +2445,7 @@ margin-left: -11px;
     .statYear1{
         margin-left: -94px;
         margin-right: 4px;
-    }
+    }*/
     #perDate{
         margin-left: -59px;
     }
@@ -2613,11 +2638,11 @@ margin-left: -11px;
 }
     /*calendar*/
     .ui-datepicker.ui-widget.ui-widget-content.question{
-        margin: 316px -279px !important;
+        margin: 361px -132px !important;
     } 
 
     .ui-datepicker.ui-widget.ui-widget-content.question3 {
-     margin:  335px -111px !important;
+     margin:  229px -111px !important;
     
     }
      .ui-datepicker-next.ui-corner-all{
@@ -2641,3 +2666,81 @@ margin-left: -11px;
     }
 }
 
+@media (min-width: 1200px) {
+    .statDays{
+    width: 35px;
+    height: 32px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-left: 6px;
+    margin-right: 4px;
+}
+
+.statMonths{
+width: 35px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 10px;
+}
+.statYear{
+width: 50px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 6px;
+margin-left: 4px;
+}
+
+.statDays1{
+    width: 37px;
+    height: 32px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-left: 6px;
+    margin-right: 4px;
+    margin-left: -8px;
+}
+
+.statMonths1{
+width: 37px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 10px;
+}
+.statYear1{
+width: 54px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 6px;
+margin-left: 4px;
+}
+
+.first-date{
+   display: flex;
+}
+.secondDate{
+    display: flex;
+    align-items: center;
+    margin-top: -5px;
+}
+
+.suiv{
+    margin-left: 538;
+    display: flex;
+}
+
+#perDate{
+    margin: 5px 0 0 535px;
+    color:black;
+    margin-left: 537;
+}
+}
