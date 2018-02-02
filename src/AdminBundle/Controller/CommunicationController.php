@@ -263,9 +263,30 @@ class CommunicationController extends AdminController
         $to_archive_campaign_ids = explode(',', $to_archive_campaign_ids);
 
         $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        dump($to_archive_campaign_ids);
         if (!empty($to_archive_campaign_ids)) {
             $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+        }
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/emailing/campagne/restaurer", name="admin_communication_emailing_campaign_restore_archived")
+     * @Method("POST")
+     */
+    public function emailingCampaignRestoreArchivedAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $to_restore_ids = $request->get('campaign_checked_ids');
+        $to_restore_ids = explode(',', $to_restore_ids);
+
+        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        if (!empty($to_restore_ids)) {
+            $campaign_handler->restoreArchivedCampaignDraftByIdList($to_restore_ids);
         }
 
         return new JsonResponse($json_response_data_provider->success(), 200);
