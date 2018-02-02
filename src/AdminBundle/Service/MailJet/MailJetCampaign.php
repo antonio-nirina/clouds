@@ -19,6 +19,7 @@ class MailJetCampaign extends MailJetHandler
     const CAMPAIGN_STATUS_ARCHIVED = -1;
     const CAMPAIGN_STATUS_DELETED = -2;
     const CAMPAIGN_STATUS_SENT = 2;
+    const CAMPAIGN_STATUS_DRAFT = 0;
     const CAMPAIGN_NOT_VISIBLE_STATUS_LIST = array(
         self::CAMPAIGN_STATUS_ARCHIVED,
         self::CAMPAIGN_STATUS_DELETED
@@ -201,6 +202,29 @@ class MailJetCampaign extends MailJetHandler
                     'Id' => $campaign_draft_id,
                     'body' => array('Status' => self::CAMPAIGN_STATUS_ARCHIVED),
                 ));
+            }
+        }
+
+        return;
+    }
+
+    public function restoreArchivedCampaignDraftByIdList(array $campaign_draft_id_list)
+    {
+        if (!empty($campaign_draft_id_list)) {
+            foreach ($campaign_draft_id_list as $campaign_draft_id) {
+                $result = $this->mailjet->get(Resources::$Campaigndraft, array('Id' => $campaign_draft_id));
+                if (self::STATUS_CODE_SUCCESS == $result->getStatus()) {
+                    $campaign_draft = $result->getData()[0];
+                    if ('' == $campaign_draft['DeliveredAt']) {
+                        $body = array('Status' => self::CAMPAIGN_STATUS_DRAFT);
+                    } else {
+                        $body = array('Status' => self::CAMPAIGN_STATUS_SENT);
+                    }
+                    $this->mailjet->put(Resources::$Campaigndraft, array(
+                        'Id' => $campaign_draft_id,
+                        'body' => $body,
+                    ));
+                }
             }
         }
 

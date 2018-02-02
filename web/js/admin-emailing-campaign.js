@@ -651,6 +651,31 @@ $(document).ready(function() {
         });
     });
 
+    // fonctionnalité "restauration campagne archivée"
+    $(document).on('click', '.restore-campaign-button', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var campaign_checked_ids = getChecked();
+        campaign_checked_ids = campaign_checked_ids.join(',');
+        var restore_campaign_url = $('input[name=restore_campaign_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: restore_campaign_url,
+            data: {campaign_checked_ids: campaign_checked_ids},
+            success: function(){
+                window.location.replace($('input[name=campaign_list_url]').val());
+            },
+            statusCode:{
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
 });
 
 function AfficheApercuCampagne(apercu){
