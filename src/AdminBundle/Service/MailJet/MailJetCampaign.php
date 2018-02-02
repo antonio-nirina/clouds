@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use AdminBundle\Service\MailJet\MailJetHandler;
+use Mailjet\MailjetBundle\Model\CampaignDraft;
 
 class MailJetCampaign extends MailJetHandler
 {
@@ -169,10 +170,10 @@ class MailJetCampaign extends MailJetHandler
         return $this->getSerializer()->deserialize(json_encode($campaign), EmailingCampaign::class, 'json');
     }
 
-    public function getCampaignId($campaign)
+    /*public function getCampaignId($campaign)
     {
         $id = $campaign->getId();
-    }
+    }*/
 
     public function getSerializer()
     {
@@ -190,5 +191,19 @@ class MailJetCampaign extends MailJetHandler
         }
 
         return $response->getData();
+    }
+
+    public function updateCampaignDraftByIdList(array $campaign_draft_id_list)
+    {
+        if (!empty($campaign_draft_id_list)) {
+            foreach ($campaign_draft_id_list as $campaign_draft_id) {
+                $this->mailjet->put(Resources::$Campaigndraft, array(
+                    'Id' => $campaign_draft_id,
+                    'body' => array('Status' => self::CAMPAIGN_STATUS_ARCHIVED),
+                ));
+            }
+        }
+
+        return;
     }
 }

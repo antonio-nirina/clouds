@@ -249,6 +249,29 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * @Route("/emailing/campagne/archiver", name="admin_communication_emailing_campaign_archive")
+     * @Method("POST")
+     */
+    public function emailingCampaignArchiveAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $to_archive_campaign_ids = $request->get('campaign_checked_ids');
+        $to_archive_campaign_ids = explode(',', $to_archive_campaign_ids);
+
+        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        dump($to_archive_campaign_ids);
+        if (!empty($to_archive_campaign_ids)) {
+            $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+        }
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
      * @Route("/emailing/campagne/new/folder", name="admin_communication_emailing_compaign_new_folder")
      * @Method("POST")
      */
