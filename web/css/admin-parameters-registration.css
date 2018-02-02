@@ -2119,11 +2119,17 @@ section .row.ending {
     justify-content: center;
 }
 .no-result {
-    color: red;
+    /*color: red;*/
+    margin-top: 20px
 }
 .hidden-image {
     display:none;
 }
+
+.restore-campaign-button{
+    display: none;
+}
+
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {
         max-width: 95%;

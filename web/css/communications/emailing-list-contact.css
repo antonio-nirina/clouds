@@ -164,7 +164,7 @@
 		-webkit-text-stroke: 1px #e5e5e5;
 	}
 
-	#ListUserContactMailjet_filter{
+	#ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
 		display:none;
 	}
 
@@ -437,7 +437,7 @@
 		-webkit-text-stroke: 1px #e5e5e5;
 	}
 
-	#ListUserContactMailjet_filter{
+	#ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
 		display:none;
 	}
 
@@ -710,7 +710,7 @@
 		-webkit-text-stroke: 1px #e5e5e5;
 	}
 
-	#ListUserContactMailjet_filter{
+	#ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
 		display:none;
 	}
 
@@ -984,7 +984,7 @@
 		-webkit-text-stroke: 1px #e5e5e5;
 	}
 
-	#ListUserContactMailjet_filter{
+	#ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
 		display:none;
 	}
 
@@ -1244,7 +1244,7 @@
 		-webkit-text-stroke: 1px #e5e5e5;
 	}
 
-	#ListUserContactMailjet_filter{
+	#ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
 		display:none;
 	}
 

@@ -17,7 +17,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('user');
         $qb->where($qb->expr()->like('user.email', ':email'))->setParameter('email', ''.$email.'');
-
         return $qb->getQuery()->getResult();
     }
 	

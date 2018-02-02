@@ -1,8 +1,9 @@
 $(document).ready(function() {
 	$('#preview-template-dialog').modal('hide');
     function sendFilter() {
-        var a=$("#loading-image").clone();
-        $('.row.list').html(a);
+        /*var a=$("#loading-image").clone();
+        $('.row.list').html(a);*/
+        $('.chargementAjax').removeClass('hidden');
         var sort_filter = $('.dropdown.filtres').find('button').hasClass('active'),
             data = {};        
         
@@ -17,6 +18,7 @@ $(document).ready(function() {
             data: data,
             success: function(html) {
                 $('.row.list').html(html);
+                $('.chargementAjax').addClass('hidden');
             }
         });             
     }
@@ -125,6 +127,7 @@ $(document).ready(function() {
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
         setTimeout(sendFilter(), 0);
+        resetCampaignCountBlock();
     });
 
     $('.btn-valider.btn-new-campaign-folder').on('click', function(e) {//validation nouveau dossier
@@ -564,18 +567,40 @@ $(document).ready(function() {
     //liste des archivées
     $(".add-to-archive").on("click", function (e) {
         e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
         url = $(this).attr("href");
         $.ajax({
             type : "POST",
             url: url,
             success: function(html) {
                 $('.row.list').html(html);
+                $('.create-campaign-button').hide();
+                $('.restore-campaign-button').show();
+                $('.archive-campaign-button').parents('.campaign-archive').hide();
+                resetCampaignCountBlock();
+                $('.chargementAjax').addClass('hidden');
+            },
+            statusCode: {
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
             }
         });
     });
+
+    function resetCampaignCountBlock()
+    {
+        $('.selected-count input').val('');
+        $('.row.selected-campaign').hide();
+    }
+
+
 	
-	
-	$(document).on('click', 'a#apercu_campagne', function(){
+	// aperçu campagne en popup
+	$(document).on('click', 'a.campaign-preview', function(){
 		var urlTpl = $(this).attr('data-url');
 		var UrlApercuCampagne = $('input#preview_template_campagne').val();
 		$('.chargementAjax').removeClass('hidden');
@@ -600,6 +625,32 @@ $(document).ready(function() {
 		
 		return false;
 	});
+
+    // fontionnalité "archiver campagne"
+    $(document).on('click', '.archive-campaign-button', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var campaign_checked_ids = getChecked();
+        campaign_checked_ids = campaign_checked_ids.join(',');
+        var archive_campaign_url = $('input[name=archive_campaign_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: archive_campaign_url,
+            data: {campaign_checked_ids: campaign_checked_ids},
+            success: function(){
+                window.location.replace($('input[name=campaign_list_url]').val());
+            },
+            statusCode:{
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
 });
 
 function AfficheApercuCampagne(apercu){

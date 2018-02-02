@@ -105,31 +105,32 @@ class MailjetContactList{
 		
 		foreach($UsersLists as $UserConacts){
 			$ListRoles = $UserConacts->getRoles();
-		
-			if($ListRoles[0] == 'ROLE_MANAGER'){
-				$roles = 'manager';
-			}elseif($ListRoles[0] == 'ROLE_COMMERCIAL'){
-				$roles = 'commercial';
-			}elseif($ListRoles[0] == 'ROLE_PARTICIPANT'){
-				$roles = 'participant';
+			if($ListRoles[0] != 'ROLE_ADMIN'){
+				if($ListRoles[0] == 'ROLE_MANAGER'){
+					$roles = 'manager';
+				}elseif($ListRoles[0] == 'ROLE_COMMERCIAL'){
+					$roles = 'commercial';
+				}elseif($ListRoles[0] == 'ROLE_PARTICIPANT'){
+					$roles = 'participant';
+				}
+				
+				//Add contact to a list
+				$contact = array(
+					"Email" =>  $UserConacts->getEmail(),
+					"Name" =>  $UserConacts->getName(),
+					"Action" =>  Contact::ACTION_ADDFORCE,
+					"Properties" =>  array(
+						"status" =>  $roles,
+						"prénom" =>  $UserConacts->getFirstname(),
+						"nom" =>  $UserConacts->getName(),
+						"pays" =>  '',
+						"newsletter_insc" => '0',
+					)
+				);
+				
+				$ObjContacts = new Contact($contact['Email'], $contact['Name'], $contact['Properties']);
+				$ContactInfos[] = $this->manager->subscribe($IdList, $ObjContacts, true);
 			}
-			
-			//Add contact to a list
-			$contact = array(
-				"Email" =>  $UserConacts->getEmail(),
-				"Name" =>  $UserConacts->getName(),
-				"Action" =>  Contact::ACTION_ADDFORCE,
-				"Properties" =>  array(
-					"status" =>  $roles,
-					"prénom" =>  $UserConacts->getFirstname(),
-					"nom" =>  $UserConacts->getName(),
-					"pays" =>  '',
-					"newsletter_insc" => '0',
-				)
-			);
-			
-			$ObjContacts = new Contact($contact['Email'], $contact['Name'], $contact['Properties']);
-			$ContactInfos[] = $this->manager->subscribe($IdList, $ObjContacts, true);
 		}
 		
 		return $ContactInfos;
