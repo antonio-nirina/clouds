@@ -323,10 +323,38 @@ class PartialPageController extends Controller
 		
 		//Add contactList
 		$Reponses = $ContactList->deleteListById($IdList);
-		echo '<pre>';
-		print_r($Reponses);
-		echo '</pre>';
 		
 		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_delete.html.twig');
+	}
+	
+	public function emailingListeContactDupliquerAjaxAction($ListName, $ListId){ 
+
+		$em = $this->getDoctrine()->getManager();
+		
+		//Call ContactList manager service
+		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+		
+		//Verifie list name
+		$ReponsesListName = $ContactList->getAllContactByName($ListName);
+		if(count($ReponsesListName) == 0){
+			//Création du nouveaux liste
+			$ReponsesCreateList = $ContactList->createList($ListName);
+			
+			//Recuperations des contacts de la liste dupliquer
+			$ListInfos = $ContactList->getListById($ListId);
+			$ListContactsInfos = $ContactList->getAllContactByName($ListInfos[0]['Name']);
+			$UsersListes = array();
+			$UserListesId = array();
+			if(count($ListContactsInfos) > 0){
+				foreach($ListContactsInfos as $ContactsInfos){
+					$ListContactsDatas = $ContactList->getContactById($ContactsInfos['ContactID']);
+					$UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ListContactsDatas[0]['Email']);
+					$UserListesId[] = $UsersListes[0];
+				}
+				$ReponsesListInscriptions = $ContactList->editContactList($ReponsesCreateList[0]['ID'], $UserListesId);
+			}
+		}
+		
+		return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_dupliquer.html.twig');
 	}
 }

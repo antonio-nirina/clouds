@@ -1,5 +1,13 @@
 $(document).ready(function(){
 	
+	/*
+	$(document).on('keypress', 'input#id_search_table', function(){
+		var InfosPress = $(this).val();
+		$('div#ListUserContactMailjet_filter input').focus();
+		$('div#ListUserContactMailjet_filter input').trigger('change').val(InfosPress);
+	});
+	*/
+	
 	//Click sur créer une liste 
 	$(document).on('click', 'button#creer-list-contact', function(){
 		$('.chargementAjax').removeClass('hidden');
@@ -19,7 +27,7 @@ $(document).ready(function(){
 					var table1 = $('#ListUserContactMailjet').DataTable( {
 						lengthChange: false,
 						"info":     false,
-						searching: false,
+						/*searching: false,*/
 						"columnDefs": [ {
 							"targets": 1,
 							"orderable": false
@@ -224,6 +232,93 @@ $(document).ready(function(){
 						$('div#edit-list-contact').find('.body-container').html('');
 						$('div#edit-list-contact').modal('hide');
 						//location.reload();
+					}
+				});
+			}, 300);
+		}
+	});
+	
+	//Incremente/Decremente les nombres des contacts 
+	$(document).on('click', 'input.contact-ajout', function(){
+		var NbreContactsEnCours = parseInt($('input#id_nbre_contacts_selectionner').val());
+		if($(this).is(':checked')){
+			NbreContactsEnCours++;
+		}else{
+			NbreContactsEnCours--;
+		}
+		$('input#id_nbre_contacts_selectionner').val(NbreContactsEnCours);
+	});
+	
+	$(document).on('click', 'input#checkbox-publish-all', function(){
+		if($(this).is(':checked')){
+			$('input#id_nbre_contacts_selectionner').val(0);
+		}
+		
+		if($(this).is(':checked')){
+			$('input.contact-ajout').each(function(i){
+				$(this).prop("checked", false);
+				$(this).click();
+			});
+		}else{
+			$('input.contact-ajout').each(function(i){
+				$(this).prop("checked", true);
+				$(this).click();
+			});
+		}
+	});
+	
+	//Dupliquer la liste des contacts 
+	$(document).on('click', 'a.list-contact-duplicate', function(){
+		var IdList = $(this).attr('data-id');
+		var NameList = $(this).attr('data-name');
+		
+		var Html = '';
+		Html += '<div class = "row" style = "margin-top:60px;">';
+		
+		Html += '<div class="col-12 col-md-12 col-lg-2">';
+		Html += '<label>nom du nouveau modèle</label>';
+		Html += '</div>';
+
+		Html += '<div class="col-12 col-md-10 col-lg-8">';
+		Html += '<input id = "id_list_name_dupliquer" value="'+NameList+'" class="liste_name_input" type="text">';
+		Html += '<span class="delete-input"></span>';
+		Html += '</div>';
+		
+		Html += '</div>';
+		
+		Html += '<div class = "row" style = "margin-top:60px;">';
+		Html += '<div class = "col-12 col-md-6" style = "text-align:center;"><button id = "oui-dupliquer-contact-list" class="btn-valider valider submit-form" data-id = "'+IdList+'">enregistrer</button></div>';
+		Html += '<div class = "col-12 col-md-6" style = "text-align:center;"><button id = "non-dupliquer-contact-list" class="btn-valider valider submit-form" >annuler</button></div>';
+		Html += '</div>';
+		
+		$('div#dupliquer-list-contact').find('.body-container').html('');
+		$('div#dupliquer-list-contact').find('.body-container').html(Html);
+		$('div#dupliquer-list-contact').modal('show');
+		$('input#id_list_name_dupliquer').focus();
+
+		return false;
+	});
+	
+	$(document).on('click', 'button#non-dupliquer-contact-list', function(){
+		$('div#dupliquer-list-contact').modal('hide');
+	});
+	
+	$(document).on('click', 'button#oui-dupliquer-contact-list', function(){
+		var ListName = $.trim($('input#id_list_name_dupliquer').val());
+		var ListId = $(this).attr('data-id');
+		
+		if(ListName != ''){
+			$('.chargementAjax').removeClass('hidden');
+			var UrlDupliquerContactList = $('input#UrlDupliquerContactList').val();
+			setTimeout(function(){
+				$.ajax({
+					type : "POST",
+					url: UrlDupliquerContactList,
+					data : 'ListName='+ListName+'&ListId='+ListId+'',
+					success: function(reponse){
+						$('.chargementAjax').addClass('hidden');
+						$('div#dupliquer-list-contact').modal('hide');
+						location.reload();
 					}
 				});
 			}, 300);
