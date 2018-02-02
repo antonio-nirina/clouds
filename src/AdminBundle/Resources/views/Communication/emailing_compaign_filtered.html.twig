@@ -75,10 +75,14 @@
                         ACTIONS
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                        {% if archived_mode is not defined %}
                         <a class="dropdown-item" href="#">STATISTIQUES</a>
+                        {% endif %}
                         <a class="dropdown-item" href="{{ li.url }}" target="blank">APERÇU</a>
                         <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
-                        <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>                                     
+                        {% if archived_mode is not defined %}
+                        <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>
+                        {% endif %}
                         <input type="hidden" name="campaign-id" value="{{ li.id }}">                                           
                     </div>
                 </div>

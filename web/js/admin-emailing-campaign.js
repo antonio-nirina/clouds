@@ -127,6 +127,7 @@ $(document).ready(function() {
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
         setTimeout(sendFilter(), 0);
+        resetCampaignCountBlock();
     });
 
     $('.btn-valider.btn-new-campaign-folder').on('click', function(e) {//validation nouveau dossier
@@ -573,6 +574,10 @@ $(document).ready(function() {
             url: url,
             success: function(html) {
                 $('.row.list').html(html);
+                $('.create-campaign-button').hide();
+                $('.restore-campaign-button').show();
+                $('.archive-campaign-button').parents('.campaign-archive').hide();
+                resetCampaignCountBlock();
                 $('.chargementAjax').addClass('hidden');
             },
             statusCode: {
@@ -585,8 +590,16 @@ $(document).ready(function() {
             }
         });
     });
+
+    function resetCampaignCountBlock()
+    {
+        $('.selected-count input').val('');
+        $('.row.selected-campaign').hide();
+    }
+
+
 	
-	
+	// aperçu campagne en popup
 	$(document).on('click', 'a#apercu_campagne', function(){
 		var urlTpl = $(this).attr('data-url');
 		var UrlApercuCampagne = $('input#preview_template_campagne').val();

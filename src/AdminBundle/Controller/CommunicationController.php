@@ -243,7 +243,8 @@ class CommunicationController extends AdminController
         $campaign_data_list = $campaign->getAllArchivedWithData($filters);
 
         return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
-            "list" => $campaign_data_list,
+            'list' => $campaign_data_list,
+            'archived_mode' => true,
         ));
     }
 
