@@ -75,7 +75,7 @@ class MailJetCampaign extends MailJetHandler
             if (self::CAMPAIGN_STATUS_SENT == $campaign_draft->getStatus()) {
                 $sent_campaign_id = null;
                 foreach ($sent_campaign_list as $sent_campaign) {
-                    if ($campaign_draft->getid() == $sent_campaign['NewsLetterID']) {
+                    if ($campaign_draft->getId() == $sent_campaign['NewsLetterID']) {
                         $sent_campaign_id = $sent_campaign['ID'];
                     }
                 }
@@ -104,6 +104,15 @@ class MailJetCampaign extends MailJetHandler
         }
 
         return array_values($campaign_data_list);
+    }
+
+    public function getAllArchivedWithData($data = null)
+    {
+        $archived_filter = array('Status' => self::CAMPAIGN_STATUS_ARCHIVED);
+        $data = is_null($data) ? $archived_filter : array_merge($data, $archived_filter);
+        $campaign_data_list = $this->getAllWithData($data);
+
+        return $campaign_data_list;
     }
 
     public function getAllVisibleWithDataFiltered($filter_value)

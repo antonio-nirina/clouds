@@ -132,7 +132,8 @@
                                         <div class="campagne-name-name">
                                             {{ li.title }}
                                         </div>
-                                        {% if li.status == 2 %}
+                                        {% set class= "" %}
+                                        {% if li.status == 2 or (li.status == -1 and li.deliveredAt is not empty) %}
                                             {% set date = li.deliveredAt %}
                                             {% set status = "Envoyé" %}
                                             {% set pre = "" %}
@@ -142,7 +143,7 @@
                                             {% set status = "Programmé" %}
                                             {% set pre = "" %}
                                             {% set class= "programmed" %}
-                                        {% elseif li.status == 0 %}
+                                        {% elseif li.status == 0 or (li.status == -1 and li.deliveredAt is empty) %}
                                             {% set date = li.modifiedAt %}
                                             {% set status = "En attente" %}
                                             {% set pre = "modifié " %}

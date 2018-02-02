@@ -10,7 +10,8 @@
                     <div class="campagne-name-name">
                         {{ li.title }}
                     </div>
-                    {% if li.status == 2 %}
+                    {% set class= "" %}
+                    {% if li.status == 2 or (li.status == -1 and li.deliveredAt != '') %}
                         {% set date = li.deliveredAt %}
                         {% set status = "Envoyé" %}
                         {% set pre = "" %}
@@ -20,18 +21,18 @@
                         {% set status = "Programmé" %}
                         {% set pre = "" %}
                         {% set class= "programmed" %}
-                    {% elseif li.status == 0 %}
+                    {% elseif li.status == 0 or (li.status == -1 and li.deliveredAt == '') %}
                         {% set date = li.modifiedAt %}
                         {% set status = "En attente" %}
                         {% set pre = "modifié " %}
                         {% set class= "wait" %}
                     {% endif %}
                     <div class="campagne-name-date {{ class }}">
-                        {% if li.status == 0 or li.status == 1 or li.status == 2 %}
+                        {% if li.status == -1 or li.status == 0 or li.status == 1 or li.status == 2 %}
                             {{ status }} - {{ pre }}{{ date | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
                         {% endif %}
                     </div>
-                </label>                           
+                </label>
             </div>
             <div class="campagne-metric">
                 <div class="metric-1">

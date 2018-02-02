@@ -566,12 +566,22 @@ $(document).ready(function() {
     //liste des archivées
     $(".add-to-archive").on("click", function (e) {
         e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
         url = $(this).attr("href");
         $.ajax({
             type : "POST",
             url: url,
             success: function(html) {
                 $('.row.list').html(html);
+                $('.chargementAjax').addClass('hidden');
+            },
+            statusCode: {
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
             }
         });
     });
