@@ -78,7 +78,7 @@
                         {% if archived_mode is not defined %}
                         <a class="dropdown-item" href="#">STATISTIQUES</a>
                         {% endif %}
-                        <a class="dropdown-item" href="{{ li.url }}" target="blank">APERÇU</a>
+                        <a class="dropdown-item campaign-preview" data-url="{{ li.url }}" style = "cursor:pointer;">APERÇU</a>
                         <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
                         {% if archived_mode is not defined %}
                         <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>

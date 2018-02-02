@@ -600,7 +600,7 @@ $(document).ready(function() {
 
 	
 	// aperçu campagne en popup
-	$(document).on('click', 'a#apercu_campagne', function(){
+	$(document).on('click', 'a.campaign-preview', function(){
 		var urlTpl = $(this).attr('data-url');
 		var UrlApercuCampagne = $('input#preview_template_campagne').val();
 		$('.chargementAjax').removeClass('hidden');
