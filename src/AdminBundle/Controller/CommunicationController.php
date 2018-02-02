@@ -181,9 +181,7 @@ class CommunicationController extends AdminController
         }
 
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $filters = array(
-            'Limit' => 0,
-        );
+        $filters = array('Limit' => 0);
         $campaign_data_list = $campaign->getAllVisibleWithData($filters);
 
         return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
@@ -241,11 +239,36 @@ class CommunicationController extends AdminController
         }
 
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $campaign_list = $campaign->getAll(["isArchived" => true]);
+        $filters = array('Limit' => 0);
+        $campaign_data_list = $campaign->getAllArchivedWithData($filters);
 
         return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
-            "list" => $campaign_list,
+            'list' => $campaign_data_list,
+            'archived_mode' => true,
         ));
+    }
+
+    /**
+     * @Route("/emailing/campagne/archiver", name="admin_communication_emailing_campaign_archive")
+     * @Method("POST")
+     */
+    public function emailingCampaignArchiveAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $to_archive_campaign_ids = $request->get('campaign_checked_ids');
+        $to_archive_campaign_ids = explode(',', $to_archive_campaign_ids);
+
+        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        dump($to_archive_campaign_ids);
+        if (!empty($to_archive_campaign_ids)) {
+            $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+        }
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
     /**

@@ -2125,6 +2125,11 @@ section .row.ending {
 .hidden-image {
     display:none;
 }
+
+.restore-campaign-button{
+    display: none;
+}
+
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {
         max-width: 95%;
