@@ -1,0 +1,372 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/admin-statisques.css") }}" rel="stylesheet">
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+            <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':1})) }}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_compaign") }}">campagnes </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_compaign") }}">campagnes </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_templates") }}">modèles d'e-mails </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">liste des contacts </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{path("admin_communication_statistiques")}}">statistiques </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">sur-mesures </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+         <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset slideshow active">
+                    <div class="row filter">
+                        <div class="create">                            
+                            <div class="dropdown clearable filtres">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAdress" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                    TOUTES LES ADRESSES
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                    <a class="dropdown-itemAd" href="#">
+                                        OPTION1
+                                        <span>fff</span>
+                                    </a>
+                                    <a class="dropdown-itemAd" href="#">
+                                        OPTION2
+                                        <span>Sent</span>
+                                    </a>
+                                    <a class="dropdown-itemAd" href="#">
+                                        OPTION3
+                                        <span>Programmed</span>
+                                    </a>
+                                    <a class="dropdown-itemAd" href="#">
+                                        OPTION4
+                                        <span>Draft</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="next-create">                            
+                            <div class="dropdown clearable filtres">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                    TOUS LES TYPES
+                                </button>
+                                <div class="dropdown-menu menuType" aria-labelledby="dropdownMenuFiltre">
+                                    <a class="dropdown-itemTY" href="#">
+                                        OPTION1
+                                        <span></span>
+                                    </a>
+                                    <a class="dropdown-itemTY" href="#">
+                                        OPTION2
+                                        <span>Sent</span>
+                                    </a>
+                                    <a class="dropdown-itemTY" href="#">
+                                        OPTION3
+                                        <span>Programmed</span>
+                                    </a>
+                                    <a class="dropdown-itemTY" href="#">
+                                        OPTION4
+                                        <span>Draft</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="now-create">                            
+                            <div class="dropdown clearable filtres">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuNow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                    AUJOURD'HUI
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                    <a class="dropdown-itemNo" href="#">
+                                        OPTION1
+                                        <span></span>
+                                    </a>
+                                    <a class="dropdown-itemNo" href="#">
+                                        OPTION2
+                                        <span>Sent</span>
+                                    </a>
+                                    <a class="dropdown-itemNo" href="#">
+                                        OPTION3
+                                        <span>Programmed</span>
+                                    </a>
+                                    <a class="dropdown-itemNo" href="#">
+                                        OPTION4
+                                        <span>Draft</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-per-date">
+                            <p id="perDate"> période</p>
+                             <input type="text" name="periode" class="periode" id="calendar">
+                                <div class="suiv">
+                                    <div class="first-date">
+                                        <input type="text" name="statDays" class="statDays" id="d2">
+                                        <input type="text" name="statMonths" class="statMonths" id="m2">
+                                        <input type="text" name="statYear" class="statYear" id="y2">
+                                        <input type="submit" id="question" value="" class="with">
+                                        <label for="question" id="qst"></label>
+                                        <input type="submit" id="question2" value="" class="with2">
+                                        <label for="question2" id="qst2"></label>
+                                    </div>
+                                    <div class="secondDate">
+                                        <input type="text" name="periode1" class="periode1">
+                                        <input type="text" name="statDays" class="statDays1" id="d1">
+                                        <input type="text" name="statMonths" class="statMonths1" id="m1" >
+                                        <input type="text" name="statYear" class="statYear1" id="y1">
+
+                                        <input type="submit"id="question3" value=""class="with3">
+                                        <label for="question3" id="qst3"></label>
+                                        <input type="submit" id="question4" value="" class="with4">
+                                        <label for="question4" id="qst4"></label>
+                                    </div>
+                                </div>
+                        </div>                       
+                    </div>
+                    <div class="row choice">
+                            <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeE">ENVOYÉS</p>
+                          <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeD">{{"délivrés"|upper}}</p>
+                            <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeO">{{"ouverts"|upper}}</p>
+                            <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeC">{{"cliqués"|upper}}</p>
+                            <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeDe">{{"désabo."|upper}}</p>
+                            <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeBl">{{"bloqués"|upper}}</p>
+                            <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeSp">{{"spam"|upper}}</p>
+                            <label id="mode-radio" class="checkboxBtn est-mode">
+                                <input type="hidden" name="challenge_mode">
+                            </label>
+                            <p class="libelle-modeErr ">{{"erreurs"|upper}}</p>
+                            <div class="row filter12 hours12">
+                         <div class="heure-create">                            
+                                <div class="dropdown clearable filtres">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownHeure" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                        HEURES
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                        <a class="dropdown-itemH" href="#">
+                                            OPTION1
+                                            <span>fff</span>
+                                        </a>
+                                        <a class="dropdown-itemH" href="#">
+                                            OPTION2
+                                            <span>Sent</span>
+                                        </a>
+                                        <a class="dropdown-itemH" href="#">
+                                            OPTION3
+                                            <span>Programmed</span>
+                                        </a>
+                                    </div>
+                                </div>
+                    </div>                   
+                        <div id="chartContainer"></div>
+                        <div class="message">
+                            <h6 id="messag">Pendant cette période, vous envoyé <span id="nbrMail">00</span>e-mails.</h6>
+                            <h6 id="messagSelect">Sélectionnez une autre période pour voir plus de statistiques.</h6>
+                        </div>
+                    <div class="row result">
+                            <div class=" total">
+                                <p id="titreT">{{"total"|upper}}</p>
+                                <h4 id="valTot">15 520</h4>
+                                <p class="mailTot">e-mails</p>
+                            </div>
+                            <div class=" delivrer">
+                                <p id="titreDel">{{"délivrés"|upper}}</p>
+                                <h4 id="valDel">15 520</h4>
+                                <p class="mailTot">e-mails</p>
+                            </div>
+                            <div class="ouvert" >
+                                <p id="titreOuv">{{"ouverts"|upper}}</p>
+                                <h4 id="valOuv">15 520</h4>
+                                <p class="mailTot">e-mails</p>
+                            </div>
+                            <div class=" clique">
+                                <p id="titreClik">{{"cliqués"|upper}}</p>
+                                <h4 id="valClik">15 520</h4>
+                                <p class="mailTot">e-mails</p>
+                            </div>
+                            <div class="bloque">
+                                <div class="titreEtat">
+                                    <p class="blbl">{{"bloqués"|upper}} </p>
+                                    <p class="blErr">{{"erreurs"|upper}}</p>
+                                    <p class="blDesa">{{"désabo."|upper}} </p>
+                                    <p class="blSp">{{"spam"|upper}} </p>
+                                </div>
+                                <div class="valEtat">
+                                    <p class="blbl">1212121</p>
+                                    <p class="blErr"> 1212121</p>
+                                    <p class="blDesa"> 1212121</p>
+                                    <p class="blSp"> 1212121</p>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="detaile">
+                        <h6 id="detaStat">Statistiques détaileés sur la période sélectionnée</h6><br>
+                        <p style="font-size:1.1rem">Pour voir les statistiques détaillées (liste des emails, liste des contatcs qui ont l'email, liens les plus cliqués,etc),</p><p>cliquez sur le buton ci-dessus:</p>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <button class="btn-valider btn-download" id="vueStat">
+                                <span class="vueStat">voir les statistiques détailées</span>
+                            </button>
+                        </div> 
+                    </div>
+                    <div class="ensemble">
+                        <div class="row filter1 hours1">
+                             <p class="listeEmail">Liste des e-mails</p>
+                            <div class="heure-create">                            
+                                        <div class="dropdown clearable filtres email">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownEmail" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                                E-MAILS
+                                            </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                                    <a class="dropdownMail1" href="#">
+                                                        OPTION1
+                                                        <span></span>
+                                                    </a>
+                                                    <a class="dropdownMail2" href="#">
+                                                        OPTION2
+                                                        <span>Sent</span>
+                                                    </a>
+                                                    <a class="dropdownMail3" href="#">
+                                                        OPTION3
+                                                        <span>Programmed</span>
+                                                    </a>
+                                                </div>
+                                        </div>
+                            </div>
+                        </div>
+                                <div class="row filter2 hours2">
+                                         <div class="heure-create">                            
+                                                    <div class="dropdown clearable filtres delivrerEmail">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDelivre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                                            {{"délivrés"|upper}}
+                                                        </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                                                                <a class="dropdownDel1" href="#">
+                                                                    OPTION1
+                                                                    <span></span>
+                                                                </a>
+                                                                <a class="dropdownDel2" href="#">
+                                                                    OPTION2
+                                                                    <span>Sent</span>
+                                                                </a>
+                                                                <a class="dropdownDel3" href="#">
+                                                                    OPTION3
+                                                                    <span>Programmed</span>
+                                                                </a>
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                </div> 
+                                <div class="tableDetail ">
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <th>sujet</th>
+                                            <th class="de">de</th>
+                                            <th class="a">à</th>
+                                            <th class="dateDel">date</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>lorem ipsum</td>
+                                                <td class="de">marie-emmanuelledelabourdaisdelafayette@gmail.com</td>
+                                                <td class="a">sqsqsds@gmail.com</td>
+                                                <td class="dateDel">25/12/2017</td>
+                                            </tr>
+                                            <tr>
+                                                <td>lorem ipsum</td>
+                                                <td class="de">marie-emmanuelledelabourdaisdelafayette@gmail.com</td>
+                                                <td class="a">sqsqsds@gmail.com</td>
+                                                <td class="dateDel">25/12/2017</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8">
+                                <button class="btn-valider btn-download">
+                                    <span class="download">télécharger la liste au format csv</span>
+                                </button>
+                            </div>
+                    </div> 
+
+                    </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>            
+            <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+            <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>  
+            <script src="{{asset('js/statistique/admin-emailing-statistik.js')}}"></script>  
+            <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>  
+            <script type="text/javascript" src="{{ asset('js/statistique/graph.js')}}"></script>  
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>     
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

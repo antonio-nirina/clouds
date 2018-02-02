@@ -966,4 +966,12 @@ class CommunicationController extends AdminController
 
         return $this->render('AdminBundle:Communication:emailing_custom.html.twig');
     }
+
+    /**
+     * @Route("/statistiques", name="admin_communication_statistiques")
+     */
+    public function statistiqueshowAction(Request $request)
+    {
+        return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig');
+    }
 }
