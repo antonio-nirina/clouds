@@ -1,8 +1,9 @@
 $(document).ready(function() {
 	$('#preview-template-dialog').modal('hide');
     function sendFilter() {
-        var a=$("#loading-image").clone();
-        $('.row.list').html(a);
+        /*var a=$("#loading-image").clone();
+        $('.row.list').html(a);*/
+        $('.chargementAjax').removeClass('hidden');
         var sort_filter = $('.dropdown.filtres').find('button').hasClass('active'),
             data = {};        
         
@@ -17,6 +18,7 @@ $(document).ready(function() {
             data: data,
             success: function(html) {
                 $('.row.list').html(html);
+                $('.chargementAjax').addClass('hidden');
             }
         });             
     }
