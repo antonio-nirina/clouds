@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Component\SiteForm\FieldType;
 use Mailjet\MailjetBundle\Model\Contact;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PartialPageController extends Controller
 {

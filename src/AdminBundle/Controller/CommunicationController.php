@@ -23,7 +23,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Form\DuplicationForm;
+
 use \Mailjet\Resources;
+
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @Route("/admin/communication")
@@ -220,12 +225,19 @@ class CommunicationController extends AdminController
 
         $status = $request->get('status');
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-//        $campaign_list = $campaign->getAll(["Status" => $status]);
-        $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
 
-        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
-            "list" => $campaign_data_list
-        ));
+        $view_options = array();
+        if (!is_null($request->get('archived_campaign_mode'))
+            && 'true' == $request->get('archived_campaign_mode')
+        ) {
+            $campaign_data_list = $campaign->getAllArchivedWithDataFiltered($status);
+            $view_options['archived_mode'] = true;
+        } else {
+            $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
+        }
+        $view_options['list'] = $campaign_data_list;
+
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', $view_options);
     }
 
     /**
@@ -265,7 +277,7 @@ class CommunicationController extends AdminController
 
         $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
         if (!empty($to_archive_campaign_ids)) {
-            $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+            $campaign_handler->archiveCampaignDraftByIdList($to_archive_campaign_ids);
         }
 
         return new JsonResponse($json_response_data_provider->success(), 200);
@@ -328,26 +340,6 @@ class CommunicationController extends AdminController
         $response = $this->get('krlove.async')->call('emailing_campaign', 'replicateCampaign', [$request->get('id')]);
 
         return new JsonResponse(array());
-    }
-
-    /**
-     * @Route("/emailing/campagne/rename", name="admin_communication_emailing_compaign_rename")
-     * @Method("POST")
-     */
-    public function emailingCampaignRenameAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        // $response = $campaign->renameCampaign($request->get('id'), $request->get('name'));
-
-        //asynchronous to API
-        $this->get('krlove.async')->call('emailing_campaign', 'renameCampaign', [$request->get('id'), $request->get('name')]);
-
-        return new JsonResponse();
     }
 
     /**
@@ -844,16 +836,20 @@ class CommunicationController extends AdminController
 	
 	/**
      * @Route(
-     *     "/emailing/liste-contact",
+     *     "/emailing/liste-contact/{trie}",
      *     name="admin_communication_emailing_list_contact",
      * )
      */
-    public function emailingListeContactAction(Request $request){
+    public function emailingListeContactAction(Request $request, $trie){
 		$json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
 		$program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
+		
+		if(empty($trie) || is_null($trie)){
+			return $this->redirectToRoute('admin_communication_emailing_list_contact', array('trie' => 'recents'));
+		}
 
         $em = $this->getDoctrine()->getManager();
 		
@@ -863,10 +859,23 @@ class CommunicationController extends AdminController
 		//Get all contacts Lists
 		$ListContact = $AllContactList->getAllList();
 		
+		// Obtient une liste de colonnes
+		foreach ($ListContact as $key => $row) {
+			$Name[$key]  = $row['Name'];
+			$CreatedAt[$key]  = $row['CreatedAt'];
+		}
 		
+		if($trie == 'a-z'){
+			array_multisort($Name, SORT_ASC, $ListContact);
+		}elseif($trie == 'z-a'){
+			array_multisort($Name, SORT_DESC, $ListContact);
+		}elseif($trie == 'recents'){
+			array_multisort($CreatedAt, SORT_DESC, $ListContact);
+		}
 		
 		return $this->render('AdminBundle:Communication:emailing_liste_contact.html.twig', array(
-			'ListContact' => $ListContact
+			'ListContact' => $ListContact,
+			'trie' => $trie
 		));
 	}
 	
@@ -1025,6 +1034,183 @@ class CommunicationController extends AdminController
 		
 			return new Response($response->getContent());
 		}
+	}
+	
+	/**
+     * @Route(
+     *     "/emailing/liste-contact-export/{id}",
+     *     name="admin_communication_emailing_list_contact_export"),
+     *     requirements={"id": "\d+"}
+     * 
+     */
+    public function emailingListeContactExportAction($id){
+		$json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+		$program = $this->container->get('admin.program')->getCurrent();
+		
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+		
+        $em = $this->getDoctrine()->getManager();
+		
+		$em = $this->getDoctrine()->getManager();
+	
+		//Call ContactList manager service
+		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+
+		// ask the service for a Excel5
+		$objPHPExcel = $this->get('phpexcel')->createPHPExcelObject();
+
+		$objPHPExcel->getProperties()->setCreator('CloudRewards');
+		$objPHPExcel->getProperties()->setLastModifiedBy('CloudRewards');
+		$objPHPExcel->getProperties()->setTitle("Office 2007 XLSX Listing");
+		$objPHPExcel->getProperties()->setSubject("Office 2007 XLSX Listing");
+		$objPHPExcel->getProperties()->setDescription("Listing for Office 2007 XLSX, generated using Symfony.");
+		
+		$bordersarray = array(
+				'borders'=>array(
+				'top'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN), 
+				'left'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
+				'right'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
+				'bottom'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN)
+			)
+		);
+		
+		$objPHPExcel->getActiveSheet()->SetCellValue('A3','prénom');
+		$objPHPExcel->getActiveSheet()->SetCellValue('B3','nom');
+		$objPHPExcel->getActiveSheet()->SetCellValue('C3','adresse e-mail');
+		$objPHPExcel->getActiveSheet()->SetCellValue('D3','rôle');
+		$objPHPExcel->getActiveSheet()->SetCellValue('E3','désabonné(e)');
+		
+		$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->applyFromArray(array('bold'=>true,'size'=>12,'name' => 'Arial','color' => array('rgb' => '404040')));
+		
+		$objPHPExcel->getActiveSheet()->getStyle('A3')->applyFromArray($bordersarray);
+		$objPHPExcel->getActiveSheet()->getStyle('B3')->applyFromArray($bordersarray);
+		$objPHPExcel->getActiveSheet()->getStyle('C3')->applyFromArray($bordersarray);
+		$objPHPExcel->getActiveSheet()->getStyle('D3')->applyFromArray($bordersarray);
+		$objPHPExcel->getActiveSheet()->getStyle('E3')->applyFromArray($bordersarray);
+		
+		$objPHPExcel->getActiveSheet()->getStyle('A:E')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
+		
+		$objPHPExcel->getActiveSheet()->setTitle('Liste des contacts');
+		
+		//array de configuration des bordures
+		$center = array('alignment'=>array('horizontal'=>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,'vertical'=>\PHPExcel_Style_Alignment::VERTICAL_CENTER));
+			
+		//pour aligner à gauche
+		$left = array('alignment'=>array('horizontal'=>\PHPExcel_Style_Alignment::HORIZONTAL_LEFT));
+			
+		//pour souligner
+		$souligner = array('font' => array('underline' => \PHPExcel_Style_Font::UNDERLINE_DOUBLE));	
+		
+		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(25);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(25);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(40);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+		$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e4e6f8');
+
+		
+		//Get List form ID 
+		$ListInfos = $ContactList->getListById($id);
+		
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($bordersarray);
+		$objPHPExcel->getActiveSheet()->getStyle('B1')->applyFromArray($bordersarray);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:B1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e4e6f8');
+		$objPHPExcel->getActiveSheet()->getStyle('A1:B1')->getFont()->applyFromArray(array('bold'=>true,'size'=>12,'name' => 'Arial','color' => array('rgb' => '404040')));
+		$objPHPExcel->getActiveSheet()->SetCellValue('A1', $ListInfos[0]['Name']);
+		$objPHPExcel->getActiveSheet()->SetCellValue('B1', $ListInfos[0]['SubscriberCount'].' contacts');
+		
+		//Get All contact By ListName 
+		$ContactsInfos = $ContactList->getAllContactByName($ListInfos[0]['Name']);
+		
+		$cpt = 1;
+		$i = 4;
+		foreach($ContactsInfos as $Contacts){
+			//Get Contact by ID 
+			$ContactsDatas = $ContactList->getContactById($Contacts['ContactID']);
+			
+			//Get Contact datas in db 
+			$UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ContactsDatas[0]['Email']);
+			
+			$Roles = $UsersListes[0]->getRoles();
+			if($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN'){
+				//Fill excel 
+				/*
+				if(($cpt%2) == 0){
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFFFB3');
+				}else{
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFFFD0');
+				}
+				*/
+				
+				$objPHPExcel->getActiveSheet()->SetCellValue('A'.$i, $UsersListes[0]->getFirstname());
+				$objPHPExcel->getActiveSheet()->SetCellValue('B'.$i, $UsersListes[0]->getName());
+				$objPHPExcel->getActiveSheet()->SetCellValue('C'.$i, $UsersListes[0]->getEmail());
+				
+				if($Roles[0] == 'ROLE_MANAGER'){
+					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'manager');
+				}elseif($Roles[0] == 'ROLE_COMMERCIAL'){
+					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'commercial');
+				}elseif($Roles[0] == 'ROLE_PARTICIPANT'){
+					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'participant');
+				}
+				
+				if($Contacts['IsUnsubscribed'] == '1'){
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
+					$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, 'désabonné(e)');
+				}else{
+					$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, '');
+				}
+				
+				$cpt++;
+				$i++;
+			}
+		}
+		
+		
+		
+		// create the writer
+		$writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel2007');
+		
+		$RootDir = __DIR__.'/../../../web/emailing/liste-contacts-export';
+		if(!file_exists($RootDir)){
+			mkdir($RootDir, 0777, true);
+		}
+		$nameFile = 'export-liste-contact-'.date('YmdHi').'-emailing.xlsx';
+		$FileDest = $RootDir.'/'.$nameFile;
+		$writer->save($FileDest);
+		
+		return $this->redirectToRoute('admin_communication_emailing_list_contact_export_download', array('filename' => $nameFile));
+	}
+	
+	/**
+     * @Route(
+     *     "/emailing/liste-contact-export-download/{filename}",
+     *     name="admin_communication_emailing_list_contact_export_download"),
+     *     requirements={"filename": ".+"}
+     * 
+     */
+    public function emailingListeContactExportDownloadAction($filename){
+		/**
+		* $basePath can be either exposed (typically inside web/)
+		* or "internal"
+		*/
+		$basePath = $this->container->getParameter('kernel.root_dir').'/../web/emailing/liste-contacts-export';
+		$filePath = $basePath.'/'.$filename;
+		
+		// check if file exists
+		$fs = new FileSystem();
+		if (!$fs->exists($filePath)) {
+			throw $this->createNotFoundException();
+		}
+
+
+		// prepare BinaryFileResponse
+		$response = new BinaryFileResponse($filePath);
+		$response->trustXSendfileTypeHeader();
+		$response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE,$filename,iconv('UTF-8', 'ASCII//TRANSLIT', $filename));
+		return $response;
 	}
 
     /**
