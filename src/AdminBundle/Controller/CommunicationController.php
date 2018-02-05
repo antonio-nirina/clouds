@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Form\DuplicationForm;
+use \Mailjet\Resources;
 
 /**
  * @Route("/admin/communication")
@@ -1044,6 +1045,38 @@ class CommunicationController extends AdminController
      */
     public function statistiqueshowAction(Request $request)
     {
-        return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig');
+        $data=[];
+        $mailjet=$this->get('mailjet.client');
+        $response = $mailjet->get(Resources::$Campaignstatistics);
+        $total=$response->getTotal();
+        $listsInfoCampaign=$response->getData();
+        foreach ($listsInfoCampaign as  $value) {
+            $data["delivre"][]=($value["DeliveredCount"]);
+            $data["ouvert"][]=$value["OpenedCount"];
+            $data["cliquer"][]=$value["ClickedCount"];
+            $data["bloque"][]=$value["BlockedCount"];
+            $data["spam"][]=$value["SpamComplaintCount"];
+            $data["desabo"][]=$value["UnsubscribedCount"];
+            $data["erreur"][]=$value["BouncedCount"];
+        }
+        $delivre=array_sum($data["delivre"]);
+        $ouvert=array_sum($data["ouvert"]);
+        $cliquer=array_sum($data["cliquer"]);
+        $bloque=array_sum($data["bloque"]);
+        $spam=array_sum($data["spam"]);
+        $desabo=array_sum($data["desabo"]);
+        $erreur=array_sum($data["erreur"]);
+
+        return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
+            [
+                "total"=>$total,
+                "delivre"=>$delivre,
+                "ouvert"=>$ouvert,
+                "cliquer"=>$cliquer,
+                "bloque"=>$bloque,
+                "spam"=>$spam,
+                "desabo"=>$desabo,
+                "erreur"=>$erreur
+        ]);
     }
 }

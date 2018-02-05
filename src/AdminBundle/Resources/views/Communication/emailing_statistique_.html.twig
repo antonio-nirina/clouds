@@ -226,45 +226,45 @@
                             <div class=" total">
                                 <div class="totalTitreVal">
                                     <p id="titreT">{{"total"|upper}}</p>
-                                    <h4 id="valTot">15 520</h4>
+                                    <h4 id="valTot">{{total}}</h4>
                                     <p class="mailTot">e-mails</p>
                                 </div>
                             </div>
-                            <div class=" delivrer">
-                                <div class="delTitreVal">
-                                    <p id="titreDel">{{"délivrés"|upper}}</p>
-                                    <h4 id="valDel">15 520</h4>
-                                    <p class="mailTot">e-mails</p>
-                                </div>                                   
-                            </div>
-                            <div class="ouvert" >
-                                <div class="ouvTitreVal">
-                                    <p id="titreOuv">{{"ouverts"|upper}}</p>
-                                    <h4 id="valOuv">15 520</h4>
-                                    <p class="mailTot">e-mails</p> 
-                                </div>             
-                            </div>                                                                                              
-                            <div class=" clique">
-                                <div class="cliTitreVal">
-                                    <p id="titreClik">{{"cliqués"|upper}}</p>   
-                                    <h4 id="valClik">15 520</h4>
-                                    <p class="mailTot">e-mails</p>
+                                <div class=" delivrer">
+                                    <div class="delTitreVal">
+                                        <p id="titreDel">{{"délivrés"|upper}}</p>
+                                            <h4 id="valDel">{{delivre}}</h4>
+                                        <p class="mailTot">e-mails</p>
+                                    </div>                                   
                                 </div>
-                            </div>
-                            <div class="bloque">
-                                <div class="titreEtat">
-                                    <p class="blbl">{{"bloqués"|upper}} </p>
-                                    <p class="blErr">{{"erreurs"|upper}}</p>
-                                    <p class="blDesa">{{"désabo."|upper}} </p>
-                                    <p class="blSp">{{"spam"|upper}} </p>
+                                <div class="ouvert" >
+                                    <div class="ouvTitreVal">
+                                        <p id="titreOuv">{{"ouverts"|upper}}</p>
+                                            <h4 id="valOuv">{{ouvert}}</h4>
+                                        <p class="mailTot">e-mails</p> 
+                                    </div>             
+                                </div>                                                                                              
+                                <div class=" clique">
+                                    <div class="cliTitreVal">
+                                        <p id="titreClik">{{"cliqués"|upper}}</p> 
+                                        <h4 id="valClik">{{cliquer}}</h4>
+                                        <p class="mailTot">e-mails</p>
+                                    </div>
                                 </div>
-                                <div class="valEtat">
-                                    <p class="blbl">1212121</p>
-                                    <p class="blErr"> 1212121</p>
-                                    <p class="blDesa"> 1212121</p>
-                                    <p class="blSp"> 1212121</p>
+                                <div class="bloque">
+                                    <div class="titreEtat">
+                                        <p class="blbl">{{"bloqués"|upper}} </p>
+                                        <p class="blErr">{{"erreurs"|upper}}</p>
+                                        <p class="blDesa">{{"désabo."|upper}} </p>
+                                        <p class="blSp">{{"spam"|upper}} </p>
+                                    </div>
+                                    <div class="valEtat">
+                                        <p class="blbl">{{bloque}}</p>
+                                        <p class="blErr">{{erreur}}</p>
+                                        <p class="blDesa">{{desabo}}</p>
+                                        <p class="blSp">{{spam}}</p>
+                                    </div>
                                 </div>
-                            </div>
                     </div>
                     <div class="detaile">
                         <h6 id="detaStat">Statistiques détaileés sur la période sélectionnée</h6><br>
@@ -379,7 +379,6 @@
                                 </div>
                             </div>
                     </div> 
-
                 </div>
         </section>
     </main>
