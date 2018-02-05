@@ -223,17 +223,18 @@ class CommunicationController extends AdminController
         $status = $request->get('status');
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
 
+        $view_options = array();
         if (!is_null($request->get('archived_campaign_mode'))
             && 'true' == $request->get('archived_campaign_mode')
         ) {
             $campaign_data_list = $campaign->getAllArchivedWithDataFiltered($status);
+            $view_options['archived_mode'] = true;
         } else {
             $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
         }
+        $view_options['list'] = $campaign_data_list;
 
-        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
-            "list" => $campaign_data_list
-        ));
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', $view_options);
     }
 
     /**
