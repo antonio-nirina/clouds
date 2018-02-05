@@ -124,9 +124,15 @@
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
 											<a class="dropdown-item list-contact-edit" href="#" data-id = "{{ ContactList.ID }}">{{ 'éditer'|capitalize }}</a>
-											<a class="dropdown-item list-contact-duplicate" href="#" data-id = "{{ ContactList.ID }}" data-name = "{{ ContactList.Name }}">{{ 'dupliquer'|capitalize }}</a>
-											<a class="dropdown-item list-contact-export" href="#" data-id = "{{ ContactList.ID }}">{{ 'exporter'|capitalize }}</a>
-											<a class="dropdown-item list-contact-delete" href="#" data-id = "{{ ContactList.ID }}">{{ 'supprimer'|capitalize }}</a>                                          
+											<a class="dropdown-item list-contact-duplicate" href="#" data-id = "{{ ContactList.ID }}" data-name = "{{ ContactList.Name }}">
+											{{ 'dupliquer'|capitalize }}
+											</a>
+											<a class="dropdown-item list-contact-export" href="{{ path("admin_communication_emailing_list_contact_export", { 'id': ContactList.ID }) }}">
+											{{ 'exporter'|capitalize }}
+											</a>
+											<a class="dropdown-item list-contact-delete" href="#" data-id = "{{ ContactList.ID }}">
+											{{ 'supprimer'|capitalize }}
+											</a>                                          
 										</div>
 									</div>
 								</div>                            

@@ -324,6 +324,13 @@ $(document).ready(function(){
 			}, 300);
 		}
 	});
+	
+	//Export la liste des contacts 
+	/*
+	$(document).on('click', 'a.list-contact-export', function(){
+		$('.chargementAjax').removeClass('hidden');
+	});
+	*/
 });
 
 function UpdateWidthPagination(){
