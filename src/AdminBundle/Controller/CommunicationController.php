@@ -336,26 +336,6 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/emailing/campagne/rename", name="admin_communication_emailing_compaign_rename")
-     * @Method("POST")
-     */
-    public function emailingCampaignRenameAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        // $response = $campaign->renameCampaign($request->get('id'), $request->get('name'));
-
-        //asynchronous to API
-        $this->get('krlove.async')->call('emailing_campaign', 'renameCampaign', [$request->get('id'), $request->get('name')]);
-
-        return new JsonResponse();
-    }
-
-    /**
      * @Route("/emailing/campagne/delete", name="admin_communication_emailing_compaign_delete")
      * @Method("POST")
      */

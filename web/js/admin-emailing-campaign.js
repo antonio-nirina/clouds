@@ -177,15 +177,6 @@ $(document).ready(function() {
         setTimeout(sendFilter(), 250);
     });
 
-    $(document).on('click', '.campaign-rename', function(e) {// renommer compaigne
-        e.preventDefault();
-        var current_name = $(this).parents(".list .row").find(".campagne-name-name").html().trim();
-
-        $("#btn-modal-rename").click();  
-        $("#btn-modal-rename").next('.modal').find('input[name=campaign-id]').val($(this).parent().find('input[name=campaign-id]').val());
-        $("#btn-modal-rename").next('.modal').find('input[name=campaign_new_name]').val(current_name);
-    });
-
     $('.btn-rename-campaign').on('click', function(e) {
         var name = $('#campaign_new_name').val().trim();
         var id = $(this).parents('.modal').find('input[name=campaign-id]').val();

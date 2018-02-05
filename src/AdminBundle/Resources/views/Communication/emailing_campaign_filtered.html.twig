@@ -81,7 +81,7 @@
                         <a class="dropdown-item campaign-preview" data-url="{{ campaign_draft_data.url }}" style = "cursor:pointer;">APERÇU</a>
                         <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
                         {% if archived_mode is not defined %}
-                        <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>
+                        <a class="dropdown-item" href="#">ARCHIVER</a>
                         {% endif %}
                         <input type="hidden" name="campaign-id" value="{{ campaign_draft_data.id }}">
                     </div>
