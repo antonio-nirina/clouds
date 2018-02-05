@@ -219,8 +219,14 @@ class CommunicationController extends AdminController
 
         $status = $request->get('status');
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-//        $campaign_list = $campaign->getAll(["Status" => $status]);
-        $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
+
+        if (!is_null($request->get('archived_campaign_mode'))
+            && 'true' == $request->get('archived_campaign_mode')
+        ) {
+            $campaign_data_list = $campaign->getAllArchivedWithDataFiltered($status);
+        } else {
+            $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
+        }
 
         return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
             "list" => $campaign_data_list
@@ -264,7 +270,7 @@ class CommunicationController extends AdminController
 
         $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
         if (!empty($to_archive_campaign_ids)) {
-            $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+            $campaign_handler->archiveCampaignDraftByIdList($to_archive_campaign_ids);
         }
 
         return new JsonResponse($json_response_data_provider->success(), 200);

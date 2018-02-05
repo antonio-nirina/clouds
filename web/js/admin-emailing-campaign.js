@@ -1,14 +1,21 @@
 $(document).ready(function() {
 	$('#preview-template-dialog').modal('hide');
-    function sendFilter() {
+    function sendFilter(source = null) {
         /*var a=$("#loading-image").clone();
         $('.row.list').html(a);*/
         $('.chargementAjax').removeClass('hidden');
         var sort_filter = $('.dropdown.filtres').find('button').hasClass('active'),
-            data = {};        
+            data = {};
         
         if (sort_filter) {
             data.status = $('.dropdown.filtres').find('button').find("span").html().trim();
+        }
+
+        if (null != source) {
+            if ('undefined' !== typeof source.attr('data-archived-campaign-mode')
+                && 'true' == source.attr('data-archived-campaign-mode')) {
+                data.archived_campaign_mode = true;
+            }
         }
 
         var url = $('input[name=filtered]').val();
@@ -20,7 +27,7 @@ $(document).ready(function() {
                 $('.row.list').html(html);
                 $('.chargementAjax').addClass('hidden');
             }
-        });             
+        });
     }
 
     function getChecked() {
@@ -119,14 +126,14 @@ $(document).ready(function() {
         $(this).off('click');
         $(this).parent().find('button').html($(this).parent().find('button').removeClass('active').attr('data-default'));
         $(this).css({'visibility':'hidden','display':'inline-block'});
-        setTimeout(sendFilter(), 0);
+        setTimeout(sendFilter($(this)), 0);
     });
 
     $(document).on('click','.clearable .dropdown-item', function(e){//activer filtre
         e.preventDefault();
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
-        setTimeout(sendFilter(), 0);
+        setTimeout(sendFilter($(this)), 0);
         resetCampaignCountBlock();
     });
 
@@ -578,6 +585,9 @@ $(document).ready(function() {
                 $('.restore-campaign-button').show();
                 $('.archive-campaign-button').parents('.campaign-archive').hide();
                 resetCampaignCountBlock();
+                $('.filtres a.dropdown-item.programmed-item').hide();
+                $('.filtres').find('.dropdown-item').attr('data-archived-campaign-mode', true);
+                $('.filtres').find('.delete-input').attr('data-archived-campaign-mode', true);
                 $('.chargementAjax').addClass('hidden');
             },
             statusCode: {
