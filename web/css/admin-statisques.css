@@ -1,0 +1,2871 @@
+.fieldset h3, h4, h5{
+    color: 	var(--couleur_4);
+    font-size: 25px;
+	/*color: rgb(64,64,64);*/
+	font-family: var(--police_light);
+}
+
+.fieldset{
+    padding:20px 24px 50px 24px;
+    margin-top:10px;
+    margin-bottom: 30px;
+    position:relative;
+    box-shadow: 0px 0px #000000;
+    background-color: #F5F5F5;
+    height: auto;
+    color: 	var(--couleur_4);
+    max-width: 1024px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.fieldset.active{
+    margin-top:10px;
+    position:relative;
+    box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
+    background-color: #FFFFFF;
+    /*border-top: solid 2px var(--couleur_2);*/
+}
+
+
+section .row.filter12 {
+    margin: 15px -9px;
+    padding: 25px 2px;
+    background-color: #FFFFFF;
+}
+
+
+
+section .row.filter {
+    margin: -20px -23px 0px;
+    padding: 25px 29px;
+    background-color: #F9F9F9;
+}
+section .row.list row {
+    background-color: #F9F9F9;
+}
+section .row.filter div.create {
+    width: 31%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+}
+section .row.filter div.next-create {
+    width: 24%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+    margin-left: 61px;
+}
+
+section .row.filter div.now-create {
+    width: 29%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+}
+
+section .row.filter12 div.heure-create {
+    width: 31%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+    margin-left: 0px;
+}
+
+section .row.filter div.now-create {
+    width: 37%;
+}
+section .row.filter div.create button {
+    margin-top: 0;
+}
+
+/*section .dropdown-toggle, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 10rem;
+    text-align: left;
+}*/
+section #dropdownMenuAdress, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 19rem;
+    text-align: left;
+}
+
+section #dropdownMenuType, section .dropdown-toggleType.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 11rem;
+    text-align: left;
+    /*margin: 0px 5px 0 63px;*/
+}
+section #dropdownMenuNow, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 16rem;
+    text-align: left;
+    margin: 0 0 0 -1px;
+}
+
+section #dropdownHeure, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 10rem;
+    text-align: left;
+    
+}
+
+section  .dropdown.show .dropdown-toggle {
+    visibility: hidden;
+    box-shadow: none;
+}
+section .dropdown-menu {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+
+}
+
+section .dropdown-menu, section  .dropdown-menu > a, section .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+/***********************************Mod*****************************/
+
+/*section  .dropdown.show .dropdown-toggle {
+    visibility: hidden;
+    box-shadow: none;
+}*/
+section .menuType {
+    border: 0;
+    margin-left: 81px;
+    padding: 0;
+    top: 0;
+    width: 171px;
+
+}
+
+.menuType, section  .menuType > a, section  .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    /*height: 35px;*/
+    margin-left: 1px !important;
+}
+/*section  .dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}*/
+/*section  .dropdown-menuType > a{
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+section .dropdown-menuType > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}*/
+
+/*****************************mod*********************************/
+
+
+section  .dropdown-menu > a{
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+section .dropdown-menu > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+
+section  .dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+
+.dropdown-itemAd {
+        display: block;
+        width: 190%;
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;   
+    } 
+
+.dropdown-itemTY {
+        display: block;
+        width: 102%;
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;
+        margin-left: 77px;   
+        height: 34px !important;
+    }  
+
+.dropdown-itemNo {
+        display: block;
+        width: 160%;
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;   
+    } 
+.dropdown-itemH {
+        display: block;
+        width: 100%;
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;   
+    }   
+
+.filter .dropdown .dropdown-menu > a > span, .filter .dropdown button > span {
+    display: none;
+}
+.filter12 .dropdown .dropdown-menu > a > span, .filter .dropdown button > span {
+    display: none;
+}
+.statDays{
+    width: 35px;
+    height: 32px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-left: 6px;
+    margin-right: 4px;
+}
+
+.statMonths{
+width: 35px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 10px;
+}
+.statYear{
+width: 50px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 6px;
+margin-left: 4px;
+}
+
+.statDays1{
+    width: 37px;
+    height: 32px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-left: 6px;
+    margin-right: 4px;
+    margin-left: -8px;
+}
+
+.statMonths1{
+width: 37px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 10px;
+}
+.statYear1{
+width: 54px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 6px;
+margin-left: 4px;
+}
+
+.first-date{
+   display: flex;
+   margin-top: 5px;
+}
+.secondDate{
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.suiv{
+    margin-left: 541px;
+    display: flex;
+}
+
+.choice{
+    margin-top: 50px;
+    margin-left: 12px;
+}
+
+.filter-hours{
+       margin-left: 12px;  
+    }
+
+.first{
+    margin-right: 20px;
+}
+
+.est-mode {
+     background: url('../images/cloudsRewards/on-off1.png') no-repeat;
+     background-size: 35px 16px;
+}
+
+.no-mode {
+     background: url('../images/cloudsRewards/on-off-off1.png') no-repeat;
+     background-size: 35px 16px;
+}
+.libelle-mode{
+    margin-right: 12px;
+    margin-left: -10px;
+}
+
+/*---------calendar---------*/
+
+..ui-widget-content {
+    background-color: ;
+}
+.ui-state-default, .ui-datepicker-title , .ui-datepicker-calendar thead tr{
+    color: #404040 !important;
+    font-size: 14px !important;
+    letter-spacing: 1px !important;
+    font-family: var(--police) !important;
+    text-align: center !important; 
+    z-index: 1;   
+} 
+.ui-state-default, .ui-widget-header {
+    border: none !important;
+    background: none !important;
+}   
+.ui-widget-header {
+    padding: 10px !important;
+    border-bottom: 1px solid white !important;
+}
+.ui-datepicker-title {
+    text-transform: uppercase;
+    letter-spacing: 0 !important;
+}
+.ui-datepicker-calendar  thead * {
+    background: none !important;
+    font-family: var(--police_bold);
+}
+.ui-datepicker-week-end {
+    color: #989898 !important;
+}
+.ui-datepicker-calendar thead {
+    border-bottom: 1px solid white !important;    
+}
+.ui-datepicker-calendar tbody tr:first-child td {
+    padding-top: 10px;
+}
+.ui-datepicker-current-day > a {
+    color: #ffffff !important;
+    position: relative;
+    background: red;
+    z-index: 1;
+}
+.ui-datepicker-unselectable.ui-state-disabled {
+    opacity: 1 !important;
+}
+.ui-datepicker-unselectable.ui-state-disabled span{
+    color: #ffffff !important;
+}
+.ui-datepicker-current-day {
+    position: relative;
+}
+
+
+.ui-datepicker-current-day:before {
+    background: #37cb00 !important;
+    border: 1px solid #37cb00 !important;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    z-index: -1;
+}
+
+
+
+.ui-datepicker-today {
+    position: relative;
+}
+/*.ui-datepicker-today > a {
+    color: #ffffff !important;
+    position: relative;
+    background: red;
+    z-index: 1;
+}
+.ui-datepicker-today:before {
+    background: #37cb00 !important;
+    border: 1px solid #37cb00 !important;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 11px;
+    left: 3px;
+    z-index: -1;
+}*/
+
+.ui-datepicker-calendar tbody tr:first-child td.ui-datepicker-current-day:before{
+    top: 12px;
+}
+.ui-datepicker.ui-widget.ui-widget-content{
+    /*width: 276px;
+    background-color: #e5e5e5 !important;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 0;*/
+
+    width: 276px;
+    background-color: #e5e5e5 !important;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 0;
+    border: 1px solid #989898;
+   /* margin: 0 auto;*/
+    padding: 3em;
+    width: 18em;
+    height: 19em;
+    position: relative;
+    box-shadow: 
+    inset 0 0 0 8px #fff,
+    inset 0 0 0 9px #989898;
+}
+.ui-datepicker-prev.ui-corner-all, .ui-datepicker-next.ui-corner-all {
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    border-radius: 0;
+    font-weight: inherit !important;
+    top: 5px !important;
+}
+.ui-datepicker-prev.ui-corner-all {
+    left: 2px !important;
+}
+.ui-datepicker-next.ui-corner-all {
+    right: 2px !important;
+}
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+    background: none !important;
+}
+.ui-datepicker .ui-datepicker-prev:before {
+    content: "\f104";    
+}
+.ui-datepicker .ui-datepicker-next:before {
+    content: "\f105";    
+}
+.ui-datepicker .ui-datepicker-next:before ,.ui-datepicker .ui-datepicker-prev:before {
+    font-family: fontAwesome;
+    font-size: 25px;
+    color: #000000;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    position: absolute;
+    -webkit-text-stroke: 2px #ffffff !important;
+}
+
+/*#ui-datepicker-div{
+position: absolute;
+top: 322.5px;
+left: 641.233px;
+z-index: 2;
+display: block;
+}*/
+
+.ui-datepicker-next{
+    width: 1.7em !important;
+    height: 1.5em !important;
+}
+
+.ui-datepicker-prev{
+    width: 1.7em !important;
+    height: 1.5em !important;
+}
+
+.ui-datepicker.ui-widget.ui-widget-content.question3 {
+     margin:  26px -106px !important;
+    
+    
+}
+.ui-datepicker.ui-widget.ui-widget-content.question{
+    margin: 52px -153px !important;
+    
+} 
+
+
+.clearable .filtres .show{
+    width: 1rem;
+}
+
+section  .dropdown-datepicker::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+
+.ui-datepicker-title{
+    margin: -2px 1.3em !important;
+}
+
+/***end Calendar***/
+
+
+/****Choice of date1***/
+input[type=submit].with{
+    border: 0;
+    /*clip: rect(0 0 0 0);*/
+    height: 0px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 0px; 
+    margin:-8px 3px;
+  }
+input[type=submit].with2{
+    border: 0;
+    /*clip: rect(0 0 0 0);*/
+    height: 0px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 0px;  
+  }
+
+input[type=submit].with ~ label:before{
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f106";
+    letter-spacing: 10px;
+    font-size: 1.2em;
+    color: black;
+    width: 1.4em;
+}
+
+input[type=submit].with2 ~ label:before{
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f107";
+    letter-spacing: 10px;
+    font-size: 1.2em;
+    color: black;/*#F9F9F9;*/
+    width: 1.4em;
+}
+/********end**********/
+
+/*****Choice of date1*****/
+
+input[type=submit].with3{
+    border: 0;
+    /*clip: rect(0 0 0 0);*/
+    height: 0px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 0px;
+    margin:0px 1px;  
+  }
+input[type=submit].with4{
+    border: 0;
+    /*clip: rect(0 0 0 0);*/
+    height: 0px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 0px;  
+  }
+
+input[type=submit].with3 ~ label:before{
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f106";
+    letter-spacing: 10px;
+    font-size: 1.2em;
+    color: black;
+    width: 1.1em;
+}
+
+input[type=submit].with4 ~ label:before{
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f107";
+    letter-spacing: 10px;
+    font-size: 1.0em;
+    color: black; /*#F9F9F9;*/
+    width: 0;
+
+
+}
+
+/*************/
+
+.result{
+width: 100%;
+margin-top: 56px;
+margin-left: 5px;
+}
+
+#chartContainer{
+margin-top: 30px;
+}
+.message{
+   margin-left: 261px; 
+   margin-top: 43px;
+}
+.total{
+    background-color:#F9F9F9;
+    margin-right: 11px;
+    margin-left: -8px;
+padding: 13px 32px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    margin-right: 5px;
+    margin-left: 6px;
+padding: 13px 25px;
+}
+.ouvert{
+    background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: -1px;
+padding: 13px 25px;
+}
+.clique{
+    background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: -8px;
+    padding: 14px 27px;
+}
+.bloque{
+    background-color:#F9F9F9;
+    padding-top: 12px;
+    margin-left: 8px;
+    padding: 14px 10px;
+}
+.detaile{
+    margin-top: 71px;
+}
+#titreT{
+color: #6F85DA;
+font-size: 1.1rem;
+padding-left: 38px;
+border-top-width: 0px;
+border-top-style: solid;
+padding-top: 12px;
+font-weight: bold;
+}
+#qst{
+  font-size: 20px;  
+  margin: 0 7px;
+}
+#qst2{
+  font-size: 20px;  
+}
+#qst3{
+  font-size: 20px; 
+  margin: 9px 8px; 
+}
+#qst4{
+  font-size: 20px;  
+}
+#question{
+    display: none;
+}
+
+#question2{
+    display: none;
+}
+#question3{
+    display: none; 
+}
+#question4{
+    display: none; 
+}
+.libelle-modeE{
+    font-size: 14px;
+    margin-left: -11px;
+    margin-right: 8px;
+    font-weight: bold;
+}
+.libelle-modeD{
+    color:#808080;
+    font-size: 14px;
+    margin-left: -10px;
+    margin-right: 9px;
+    font-weight: bold;
+}
+.libelle-modeO{
+    color:#32cd32;
+    font-size: 14px;
+    margin-left: -13px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+.libelle-modeC{
+    color:#008000;
+    font-size: 14px;
+    margin-left: -11px;
+    margin-right: 12px;
+    font-weight: bold;
+}
+.libelle-modeDe{
+   font-size: 14px;
+    margin-left: -10px;
+    margin-right: 6px;
+    font-weight: bold;
+}
+.libelle-modeBl{
+    color:#000000;
+    font-size: 14px;
+    margin-left: -11px;
+    margin-right: 6px;
+    font-weight: bold;
+}
+.libelle-modeSp{
+    color:red;
+    font-size: 14px;
+    margin-left: -8px;
+    margin-right: 6px;
+    font-weight: bold;
+}
+.libelle-modeErr{
+    color:orange;
+    font-size: 14px;
+    margin-left: -11px;
+    margin-right: 7px;
+    font-weight: bold;
+}
+.periode{
+    display: none;
+}
+#perDate{
+    margin: 5px 0 0 535px;
+    color:black;
+    margin-left: 543px;
+}
+.periode1{
+    display: none;
+}
+#chartContainer{
+    height: 300px; width: 100%;
+}
+#valTot{
+    color:#6F85DA;font-size:1.6rem;font-weight: bold;padding-left: 23px;
+}
+.mailTot{
+    font-size:1.2rem; 
+    padding-left: 33px;
+}
+.totalTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+.delTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+.ouvTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+.cliTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+
+#titreDel{
+    color:#505050;
+    padding-left: 27px;
+    border-top-width: 0px;
+    border-top-style: solid;
+    padding-top: 12px;              
+    font-weight: bold;
+}
+
+#valDel{
+    color:#505050;
+    font-size:1.6rem;
+    font-weight: bold;
+    padding-left: 23px;
+}
+#titreOuv{
+color:#93D706;
+padding-left: 27px;
+border-top-width: 0px;
+border-top-style: solid;
+padding-top: 12px;
+font-weight: bold;
+}
+#valOuv{
+    color:#93D706;
+    font-size:1.6rem;
+    font-weight: bold;
+    padding-left: 23px;
+}
+#titreClik{         
+color:#13A20A;
+padding-left: 27px;
+border-top-width: 0px;
+border-top-style: solid;
+padding-top: 12px;
+font-weight: bold;
+}
+#valClik{
+    color:#13A20A;
+    font-size:1.6rem;
+    font-weight: bold;
+    padding-left: 23px;
+}
+#messag{
+    font-size:1.1rem;
+}
+#messagSelect{
+    font-size:1.1rem;margin-left: -41px;
+}
+#nbrMail{
+    color:#6F85DA;
+}
+.blbl{
+    color:#000000;
+    font-weight: bold;
+}
+.blErr{
+    color:orange;
+    font-weight: bold;
+}
+.blDesa{
+    color:#1CC8FA;
+    font-weight: bold;
+}
+.blSp{
+    color:#FC0007;
+    font-weight: bold;
+}
+#detaStat{
+    color:#747EDF;
+    font-size:1rem;
+    font-weight:bold;
+}
+.valEtat{
+padding-top: 3px;
+padding-left: 91px;
+margin-top: -164px;
+}
+
+section #dropdownEmail, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 19rem;
+    text-align: left;
+}
+
+section #dropdownDelivre, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 19rem;
+    text-align: left;
+}
+
+.dropdownMail1{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 19rem; 
+}
+
+.dropdownMail2{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 19rem;  
+}
+.dropdownMail3{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 19rem; 
+}
+.dropdownDel1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 19rem;
+}
+.dropdownDel2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 19rem;
+}
+.dropdownDel3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 19rem;
+}
+section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownEmail{
+        min-width: 12rem;
+}
+
+section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownDelivre{
+        min-width: 12rem;
+}
+
+.delivrerEmail{
+margin-left: 355px;
+margin-top: -34px;
+margin-bottom: 22px;
+}
+.description{
+    margin-top: -1px;
+}
+
+.de{
+    padding-left: 2.75rem !important;
+    font-size: 14px;
+}
+.a{
+    padding-left: 4.75rem !important;
+    font-size: 14px;
+}
+.dateDel{
+    padding-left: 6.5rem !important;
+    font-size: 14px;
+}
+
+.download{    
+    width: auto;
+    padding: 27px;  
+}
+.download {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    background-position: 1px 30px;
+    margin-left: -21px;
+}
+.email{
+margin-left: -108px;
+margin-top: 43px;
+}
+.listeEmail{
+    margin-left: 14px;
+}
+#vueStat{
+padding-left: 35px;
+padding-bottom: 13px;
+padding-right: 34px;
+margin-left: -11px;
+width: 71%;
+}
+.btn-download{
+min-width: 120px !important;
+padding-left: 35px;
+padding-bottom: 13px;
+padding-right: 5px;
+margin-left: -11px;
+}
+
+.ensemble{
+    display: none;
+}
+
+.canvasjs-chart-credit{
+    display: none;
+}
+
+
+.tableDetail{
+    border: 1px solid #CFCFCF;
+    width: 100%;
+}
+.legende{
+    display: flex;
+    font-size: 0.6rem;
+    margin: 49px 7px;
+    font-weight: bold;
+}
+
+.legendeEnvoye{
+    display: flex;
+    color: #6F85DA;
+    margin-right: 21px;
+}
+#legendeEnvoye{
+    margin-right: 7px;
+}
+.legendeDel{
+    display: flex;
+    color:#505050;
+    margin-right: 21px;
+}
+#legendeDel{
+        margin-right: 7px;
+}
+.legendeOuv{
+    display: flex;
+    color:#93D706;
+    margin-right: 21px;
+}
+#legendeOuv{
+    margin-right: 7px;
+}
+.legendeCli{
+    display: flex;
+    color:#13A20A;
+    margin-right: 21px;
+}
+#legendeCli{
+    margin-right: 7px;
+}
+.legendeDesa{
+    display: flex;
+    color:#1CC8FA;
+    margin-right: 21px;
+}
+#legendeDesa{
+    margin-right: 7px;
+}
+.legendeBlo{
+    display: flex;
+    color:#000000;
+    margin-right: 21px;
+}
+#legendeBlo{
+    margin-right: 7px;
+}
+.legendeSpam{
+    display: flex;
+    color:#FC0007;
+    margin-right: 21px;
+}
+#legendeSpam{
+    margin-right: 7px;
+}
+.legendeErr{
+    display: flex;
+    color:orange;
+}
+#legendeErr{
+    margin-right: 7px;
+}
+
+     
+
+@media (max-width: 575px)  {
+
+        section .row.list div.heure-create {
+            justify-content: center;
+            width: 100%;
+            padding-top: 35px;
+        }
+        section .row.filter div.create {
+            width: 100%;
+            margin-bottom:21px;
+            margin-left: -9px;
+        }
+        section .row.filter div.next-create {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: -9px;
+        }
+
+        section .row.filter div.now-create {
+            width: 100%;
+            margin-left: -9px;
+            margin-bottom: 375px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: -8px;
+        }
+        section .row.filter div.stat-per-date {
+            width: 70%;
+            margin-bottom: 28px;
+            /*margin-top: 47px;*/
+            margin-top: -368px;
+            display: inline-block;
+            margin-left: 112px;
+            margin-right: -146px;
+        }
+        section .row.filter div.stat-per-date p{
+            float: left;
+        }
+        section .row.filter div.stat-per-date div.first-date {
+            margin-left: -542px;
+            margin-right: 348px;
+            padding-bottom: 14px;
+            padding-top: 31px;
+            padding-left: 249px;
+            display: flex;
+        }
+       
+        section .row.filter div.stat-per-date div.first-date div.fa-first{
+            display: none;
+        }
+        
+        section .row.filter div.create div.dropdown.clearable.filtres #dropdownMenuAdress{
+            min-width: 12rem;
+        }
+
+        section .row.filter div.next-create div.dropdown.clearable.filtres #dropdownMenuType{
+            min-width: 12rem;
+        }
+
+        section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownMenuNow{
+            min-width: 12rem;
+            margin-top: 4px;
+        }
+
+        section .row.filter12{
+            width: 45%
+        }
+
+        .choice{
+            margin-left: 12px;
+            display: inline-block;
+            /*margin-top: 8px;*/
+            margin-top:266px;
+        }
+
+        .hours{
+           margin-left: 77px;
+        }
+        .hours1{
+           margin-left: 1px;
+            width: 100%;
+        }
+
+        .dropdown-itemAd {
+            display: block;
+            width: 119%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 0px !important;
+            margin-right: -261px;   
+        } 
+
+    .dropdown-itemTY {
+            display: block;
+            width: 110%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 77px;   
+            height: 34px !important;
+    }  
+
+    .dropdown-itemNo {
+            display: block;
+            width: 119%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+        } 
+    .dropdown-itemH {
+            display: block;
+            width: 119%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+    }
+    .suiv{
+    display: flex;
+    align-items: center;
+    margin-left: 177px;
+    margin-top: -19px;
+    }
+    .secondDate{
+    display: flex;
+    align-items: center;
+    margin-left: -503px;
+    margin-top: 84px;
+    }   
+    /*.statDays{
+        margin-left: -179px;
+        margin-right: 127px;
+        } 
+    .statMonths{
+    margin-left: -127px;
+    margin-top: -23px;
+    margin-right: 96px;
+    }
+    .statYear{
+        margin-left: -94px;
+    }
+
+    .statDays1{
+        margin-left: -179px;
+        margin-right: 127px;
+        } 
+    .statMonths1{
+    margin-left: -121px;
+    margin-top: -1px;
+    margin-right: 101px;
+    }
+    .statYear1{
+        margin-left: -94px;
+        margin-right: 4px;
+    }*/
+    #perDate{
+        margin-left: -114px;
+    }
+
+    .message{
+        margin-left: -1px;
+        margin-bottom: -53px;
+    }
+    #messag{
+       padding-right: 7px;
+        font-size: 0.9rem; 
+    }
+    #messagSelect{
+        padding-right: 4px;
+        padding-left: 105px;
+        margin-left: -106px;
+            font-size: 0.9rem;
+    }
+    #detaStat{
+        margin-top: -66px;
+    }
+    #vueStat{
+        margin-top: 1px;
+        width: 194px;
+        height: 36px;
+    }
+    .email{
+       margin-top: 28px;
+        margin-left: -115px;
+        margin-bottom: 22px;
+    }
+    section #dropdownEmail, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 10rem;
+        text-align: left;
+    }
+
+    .delivrerEmail{
+        margin-left: 24px;
+        margin-top: -12px;
+        margin-bottom: 30px;
+    }
+    section #dropdownDelivre, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 10rem;
+        text-align: left;
+    }
+    .dropdownMail1{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 10rem; 
+}
+
+.dropdownMail2{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 10rem;  
+}
+.dropdownMail3{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 10rem; 
+}
+.dropdownDel1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 10rem;
+}
+.dropdownDel2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 10rem;
+}
+.dropdownDel3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 10rem;
+}
+    .tableDetail{
+        width: 256px;
+    }
+
+    section .row.filter {
+    margin: -20px -23px 0px;
+    padding: 25px 29px;
+    background-color: #F9F9F9;
+    margin-bottom: -236px;
+    height: 340px;
+    }
+
+    .btn-valider{
+        width: 237px;
+        height: 49px;
+    }
+.total{
+    /*background-color:#F9F9F9;
+    margin-right: 4px;
+    margin-left: -8px;
+    padding: 13px 32px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.delivrer{
+    /*background-color:#F9F9F9;
+    margin-right: 5px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.ouvert{
+    /*background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.clique{
+    /*background-color:#F9F9F9;
+    margin-right: 21px;
+    margin-left: 1px;
+    padding: 14px 27px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.bloque{
+    /*background-color:#F9F9F9;
+    padding-top: 12px;
+    margin-left: 8px;
+    padding: 14px 10px;
+    margin-bottom: 14px;*/
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.detaile{
+    margin-top: 71px;
+}
+.legende{
+    display: block;
+    margin: 49px 39px;
+}
+
+
+    /*calendar*/
+    .ui-datepicker.ui-widget.ui-widget-content.question{
+        margin: 11px -23px !important;
+    } 
+     .ui-datepicker-next.ui-corner-all{
+        right: -21px !important;
+    }
+    .ui-datepicker.ui-widget.ui-widget-content.question3 {
+     margin:  26px -22px !important;
+    
+    }
+
+    .ui-datepicker.ui-widget.ui-widget-content{
+    width: 276px;
+    background-color: #e5e5e5 !important;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 0;
+    border: 1px solid #989898;
+    padding: 3em;
+    width: 15em;
+    /*height: 19em;*/
+    position: relative;
+    box-shadow: 
+    inset 0 0 0 8px #fff,
+    inset 0 0 0 9px #989898;
+    }
+
+   .download {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    background-position: 2px 15px;
+    margin-left: -8px;
+    }
+  
+}
+
+
+@media (min-width: 576px) and (max-width: 767px) {
+
+        section .row.list div.heure-create {
+            justify-content: center;
+            width: 100%;
+            padding-top: 35px;
+        }
+        section .row.filter div.create {
+            width: 100%;
+            margin-bottom:21px;
+            margin-left: -9px;
+        }
+        section .row.filter div.next-create {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: -9px;
+        }
+
+        section .row.filter div.now-create {
+            width: 100%;
+            margin-left: -9px;
+            margin-bottom: 375px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: -8px;
+        }
+        section .row.filter div.stat-per-date {
+            width: 70%;
+            margin-bottom: 28px;
+            margin-top: -366px;
+            display: inline-block;
+            margin-left: 107px;
+            margin-right: -146px;
+        }
+        section .row.filter div.stat-per-date p{
+            float: left;
+        }
+        section .row.filter div.stat-per-date div.first-date {
+            padding-left: 688px;
+            margin-left: -659px;
+            margin-right: 348px;
+            padding-bottom: 14px;
+            padding-top: 31px;
+            padding-left: 249px;
+            display: flex;
+        }
+       
+        section .row.filter div.stat-per-date div.first-date div.fa-first{
+            display: none;
+        }
+        
+        section .row.filter div.create div.dropdown.clearable.filtres #dropdownMenuAdress{
+            min-width: 18rem;
+        }
+
+        section .row.filter div.next-create div.dropdown.clearable.filtres #dropdownMenuType{
+            min-width: 18rem;
+        }
+
+        section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownMenuNow{
+            min-width: 18rem;
+            margin-top: 4px;
+        }
+
+        section .row.filter12{
+            width: 103%
+        }
+
+        .choice{
+            margin-left: 12px;
+            display: flex;
+            margin-top: 259px;
+        }
+
+        .hours{
+           margin-left: 77px;
+        }
+        .hours1{
+           margin-left: 1px;
+            width: 100%;
+        }
+        /*#d2{
+            margin-right: 147px;
+        }
+        #m2{
+            margin-right: 147px;
+        }*/
+
+        .dropdown-itemAd {
+            display: block;
+            width: 181%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 0px !important;
+            margin-right: -261px;   
+        } 
+
+    .dropdown-itemTY {
+            display: block;
+            width: 171%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 77px;   
+            height: 34px !important;
+        }  
+
+    .dropdown-itemNo {
+            display: block;
+            width: 181%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+        } 
+    .dropdown-itemH {
+            display: block;
+            width: 102%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+    }
+    .suiv{
+       display: flex;
+       margin-left: 296px;
+    }
+    .secondDate{
+        display: flex;
+        align-items: center;
+        margin-left: -509px;
+        margin-top: 84px;
+    }   
+    /*.statDays{
+        margin-left: -179px;
+        margin-right: 127px;
+        } 
+    .statMonths{
+    margin-left: -127px;
+    margin-top: -23px;
+    margin-right: 96px;
+    }
+    .statYear{
+        margin-left: -94px;
+    }
+
+    .statDays1{
+        margin-left: -179px;
+        margin-right: 127px;
+        } 
+    .statMonths1{
+    margin-left: -121px;
+    margin-top: -1px;
+    margin-right: 101px;
+    }
+    .statYear1{
+        margin-left: -94px;
+        margin-right: 4px;
+    }*/
+    #perDate{
+        margin-left: -114px;
+    }
+
+    .message{
+        margin-left: -1px;
+        margin-bottom: -53px;
+    }
+    #messag{
+       padding-right: 7px 
+    }
+    #messagSelect{
+        padding-right: 4px;
+        padding-left: 105px;
+        margin-left: -106px
+    }
+    #detaStat{
+        margin-top: -66px;
+    }
+    #vueStat{
+        margin-top: 1px;
+        width: 248px;
+        height: 50px;
+    }
+    .email{
+       margin-top: 28px;
+        margin-left: -115px;
+        margin-bottom: 22px;
+    }
+    section #dropdownEmail, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 13rem;
+        text-align: left;
+    }
+    .delivrerEmail{
+        margin-left: 251px;
+        margin-top: -58px;
+        margin-bottom: 30px;
+    }
+    section #dropdownDelivre, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 13rem;
+        text-align: left;
+    }
+    .dropdownMail1{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 13rem; 
+}
+
+.dropdownMail2{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 13rem;  
+}
+.dropdownMail3{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 13rem; 
+}
+.dropdownDel1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+.dropdownDel2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+.dropdownDel3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+
+}
+    .tableDetail{
+        width: 453px;
+    }
+
+    .est-mode {
+     background: url('../images/cloudsRewards/on-off1.png') no-repeat;
+     background-size: 35px 16px;
+    }
+
+    section .row.filter {
+    margin: -20px -23px 0px;
+    padding: 25px 29px;
+    background-color: #F9F9F9;
+    margin-bottom: -236px;
+    height: 331px;
+    }
+
+    .btn-valider{
+        width: 295px;
+        height: 38px;
+    }
+
+    .total{
+    background-color:#F9F9F9;
+    margin-right: 4px;
+    margin-left: -8px;
+    padding: 13px 32px;
+    margin-bottom: 14px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    margin-right: 5px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.ouvert{
+    background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.clique{
+    background-color:#F9F9F9;
+    margin-right: 21px;
+    margin-left: 1px;
+    padding: 14px 27px;
+    margin-bottom: 14px;
+}
+.bloque{
+    background-color:#F9F9F9;
+    padding-top: 12px;
+    margin-left: 8px;
+    padding: 14px 10px;
+    margin-bottom: 14px;
+}
+.legende{
+    display: block;
+    margin: 49px 145px;
+}
+
+    /*calendar*/
+    .ui-datepicker.ui-widget.ui-widget-content.question{
+        margin: 296px -23px !important;
+    } 
+
+    .ui-datepicker.ui-widget.ui-widget-content.question3 {
+     margin:  315px -39px !important;
+    
+    }
+     .ui-datepicker-next.ui-corner-all{
+        right: -21px !important;
+    }
+    .ui-datepicker.ui-widget.ui-widget-content{
+    width: 276px;
+    background-color: #e5e5e5 !important;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 0;
+    border: 1px solid #989898;
+    padding: 3em;
+    width: 15em;
+    /*height: 19em;*/
+    position: relative;
+    box-shadow: 
+    inset 0 0 0 8px #fff,
+    inset 0 0 0 9px #989898;
+}
+
+}
+
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+        
+        section .row.list div.heure-create {
+            justify-content: center;
+            width: 100%;
+            padding-top: 35px;
+        }
+        section .row.filter div.create {
+            width: 100%;
+            margin-bottom:21px;
+            margin-left: -9px;
+        }
+        section .row.filter div.next-create {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: -9px;
+        }
+
+        section .row.filter div.now-create {
+            width: 100%;
+            margin-left: -9px;
+            margin-bottom: 375px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: -8px;
+        }
+        section .row.filter div.stat-per-date {
+            width: 70%;
+            margin-bottom: 28px;
+            margin-top: -366px;
+            display: inline-block;
+            margin-left: 107px;
+            margin-right: -146px;
+        }
+        section .row.filter div.stat-per-date p{
+            float: left;
+        }
+        section .row.filter div.stat-per-date div.first-date {
+            padding-left: 688px;
+            margin-left: -647px;
+            margin-right: 188px;
+            padding-bottom: 14px;
+            padding-top: 31px;
+            padding-left: 249px;
+        }
+       
+        section .row.filter div.stat-per-date div.first-date div.fa-first{
+            display: none;
+        }
+        
+        section .row.filter div.create div.dropdown.clearable.filtres #dropdownMenuAdress{
+            min-width: 18rem;
+        }
+
+        section .row.filter div.next-create div.dropdown.clearable.filtres #dropdownMenuType{
+            min-width: 18rem;
+        }
+
+        section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownMenuNow{
+            min-width: 18rem;
+            margin-top: 4px;
+        }
+
+        section .row.filter12{
+                width: 103%;
+        }
+
+        .choice{
+            margin-left: 12px;
+            display: flex;
+            margin-top: 249px;
+        }
+
+        .hours{
+           margin-left: 77px;
+        }
+        .hours1{
+           margin-left: 1px;
+            width: 100%;
+        }
+        /*#d2{
+            margin-right: 147px;
+        }
+        #m2{
+            margin-right: 147px;
+        }*/
+
+        .dropdown-itemAd {
+            display: block;
+            width: 181%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 0px !important;
+            margin-right: -261px;   
+        } 
+
+    .dropdown-itemTY {
+            display: block;
+            width: 171%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 77px;   
+            height: 34px !important;
+        }  
+
+    .dropdown-itemNo {
+            display: block;
+            width: 181%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+        } 
+    .dropdown-itemH {
+            display: block;
+            width: 102%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+    }
+    .suiv{
+       display: flex;
+       margin-left: 296px;
+    }
+    .secondDate{
+        display: flex;
+        align-items: center;
+        margin-left: -352px;
+        margin-top: 84px;
+    }   
+    /*.statDays{
+        margin-left: -179px;
+        margin-right: 127px;
+        } 
+    .statMonths{
+    margin-left: -127px;
+    margin-top: -23px;
+    margin-right: 96px;
+    }
+    .statYear{
+        margin-left: -94px;
+    }*/
+
+    /*.statDays1{
+        margin-left: -216px;
+        margin-right: 127px;
+        } 
+    .statMonths1{
+    margin-left: -121px;
+    margin-top: -1px;
+    margin-right: 101px;
+    }
+    .statYear1{
+        margin-left: -94px;
+        margin-right: 4px;
+    }*/
+    #perDate{
+        margin-left: -114px;
+    }
+     .bloque{
+        margin-left: 30px;
+     }   
+
+    .message{
+        margin-left: -1px;
+        margin-bottom: -53px;
+    }
+    #messag{
+       padding-right: 7px 
+    }
+    #messagSelect{
+        padding-right: 4px;
+        padding-left: 105px;
+        margin-left: -106px
+    }
+    #detaStat{
+        margin-top: -66px;
+    }
+    #vueStat{
+        margin-top: 1px;
+        width: 248px;
+        height: 50px;
+    }
+    .email{
+       margin-top: 28px;
+        margin-left: -115px;
+        margin-bottom: 22px;
+    }
+    section #dropdownEmail, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 13rem;
+        text-align: left;
+    }
+    .delivrerEmail{
+        margin-left: 251px;
+        margin-top: -58px;
+        margin-bottom: 30px;
+    }
+    section #dropdownDelivre, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 13rem;
+        text-align: left;
+    }
+    .dropdownMail1{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 13rem; 
+}
+
+.dropdownMail2{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 13rem;  
+}
+.dropdownMail3{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 13rem; 
+}
+.dropdownDel1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+.dropdownDel2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+.dropdownDel3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+    .tableDetail{
+       width: 508px;
+    }
+
+    section .row.filter {
+    margin: -20px -23px 0px;
+    padding: 25px 29px;
+    background-color: #F9F9F9;
+    margin-bottom: -236px;
+    height: 333px;
+    }
+
+    .btn-valider{
+        width: 295px;
+        height: 38px;
+    }
+    .download {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    background-position: -1px 15px;
+    margin-left: -5px;
+    }
+
+    .total{
+    background-color:#F9F9F9;
+    margin-right: 4px;
+    margin-left: -8px;
+    padding: 13px 32px;
+    margin-bottom: 14px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    margin-right: 5px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.ouvert{
+    background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.clique{
+    background-color:#F9F9F9;
+    margin-right: 21px;
+    margin-left: 1px;
+    padding: 14px 27px;
+    margin-bottom: 14px;
+}
+.bloque{
+    background-color:#F9F9F9;
+    padding-top: 12px;
+    margin-left: 8px;
+    padding: 14px 10px;
+    margin-bottom: 14px;
+}
+
+.est-mode {
+     background: url('../images/cloudsRewards/on-off1.png') no-repeat;
+     background-size: 35px 16px;
+     margin-left: 5px;
+}
+.legende{
+    display: block;
+    margin: 49px 39px;
+}
+
+
+    /*calendar*/
+    .ui-datepicker.ui-widget.ui-widget-content.question{
+        margin: 300px -37px !important;
+    } 
+
+    .ui-datepicker.ui-widget.ui-widget-content.question3 {
+     margin: 100px -39px !important;
+    
+    }
+    .ui-datepicker-next.ui-corner-all{
+        right: -21px !important;
+    }
+    .ui-datepicker.ui-widget.ui-widget-content{
+    width: 276px;
+    background-color: #e5e5e5 !important;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 0;
+    border: 1px solid #989898;
+    padding: 3em;
+    width: 15em;
+    /*height: 19em;*/
+    position: relative;
+    box-shadow: 
+    inset 0 0 0 8px #fff,
+    inset 0 0 0 9px #989898;
+}
+}
+
+
+
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+        section .row.list div.heure-create {
+            justify-content: center;
+            width: 100%;
+            padding-top: 35px;
+        }
+        section .row.filter div.create {
+            width: 100%;
+            margin-bottom:21px;
+            margin-left: -9px;
+        }
+        section .row.filter div.next-create {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-left: 201px;
+            margin-top: -55px;
+        }
+
+        section .row.filter div.now-create {
+            width: 100%;
+            margin-left: 426px;
+            margin-bottom: 375px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: -57px;
+        }
+        section .row.filter div.stat-per-date {
+            width: 70%;
+            margin-bottom: 28px;
+            margin-top: -378px;
+            display: inline-block;
+            margin-left: 389px;
+            margin-right: -146px;
+        }
+        section .row.filter div.stat-per-date p{
+            float: left;
+        }
+        section .row.filter div.stat-per-date div.first-date {
+           margin-left: -272px;
+            margin-right: 302px;
+            padding-bottom: 14px;
+            padding-top: 31px;
+            padding-left: 249px;
+            display: flex;
+        }
+       
+        section .row.filter div.stat-per-date div.first-date div.fa-first{
+            display: none;
+        }
+        
+        section .row.filter div.create div.dropdown.clearable.filtres #dropdownMenuAdress{
+            min-width: 12rem;
+        }
+
+        section .row.filter div.next-create div.dropdown.clearable.filtres #dropdownMenuType{
+            min-width: 12rem;
+        }
+
+        section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownMenuNow{
+            min-width: 12rem;
+            margin-top: 4px;
+        }
+
+        .choice{
+            margin-left: 12px;
+            display: flex;
+        margin-top: 404px;
+        }
+
+        .hours{
+           margin-left: 77px;
+        }
+        .hours1{
+           margin-left: 1px;
+            width: 100%;
+        }
+        /*#d2{
+            margin-right: 147px;
+        }
+        #m2{
+            margin-right: 147px;
+        }*/
+
+        .dropdown-itemAd {
+            display: block;
+            width: 119%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 0px !important;
+            margin-right: -261px;   
+        } 
+
+    .dropdown-itemTY {
+            display: block;
+            width: 110%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;
+            margin-left: 77px;   
+            height: 34px !important;
+        }  
+
+    .dropdown-itemNo {
+            display: block;
+            width: 119%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+        } 
+    .dropdown-itemH {
+            display: block;
+            width: 119%;
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;   
+    }
+    .suiv{
+       display: flex;
+       margin-left: -32px;
+    }
+    .secondDate{
+        display: flex;
+        align-items: center;
+        margin-left: -299px;
+        margin-top: 6px;
+    }   
+    /*.statDays{
+        margin-left: -179px;
+        margin-right: 127px;
+        } 
+    .statMonths{
+    margin-left: -127px;
+    margin-top: -23px;
+    margin-right: 96px;
+    }
+    .statYear{
+        margin-left: -94px;
+    }
+
+    .statDays1{
+        margin-left: -179px;
+        margin-right: 127px;
+        } 
+    .statMonths1{
+    margin-left: -121px;
+    margin-top: -1px;
+    margin-right: 101px;
+    }
+    .statYear1{
+        margin-left: -94px;
+        margin-right: 4px;
+    }*/
+    #perDate{
+        margin-left: -59px;
+    }
+
+    .message{
+        margin-left: 84px;
+        margin-bottom: -53px;
+    }
+    #messag{
+       padding-right: 7px 
+    }
+    #messagSelect{
+        padding-right: 4px;
+        padding-left: 67px;
+        margin-left: -106px
+    }
+    #detaStat{
+        margin-top: -66px;
+    }
+    #vueStat{
+        margin-top: 1px;
+        width: 268px;
+        height: 36px;
+    }
+    .email{
+       margin-top: 28px;
+        margin-left: -115px;
+        margin-bottom: 22px;
+    }
+    section #dropdownEmail, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 13rem;
+        text-align: left;
+    }
+    .delivrerEmail{
+        margin-left: 263px;
+        margin-top: -56px;
+        margin-bottom: 30px;
+    }
+    section #dropdownDelivre, section .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 13rem;
+        text-align: left;
+    }
+    .dropdownMail1{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 13rem; 
+}
+
+.dropdownMail2{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 13rem;  
+}
+.dropdownMail3{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 13rem; 
+}
+.dropdownDel1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+.dropdownDel2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+.dropdownDel3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 13rem;
+}
+    .tableDetail{
+        width: 662px;
+    }
+
+    section .row.filter {
+    margin: -20px -23px 0px;
+    padding: 25px 29px;
+    background-color: #F9F9F9;
+    margin-bottom: -349px;
+    height: 165px;
+    }
+    .result {
+    width: 79%;
+    margin-top: 56px;
+    margin-left: 7px;
+    }
+
+    button.btn-valider{
+        width: 282px;
+        height: 40px;
+    }
+
+    .download {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    background-position: 0px 28px;
+    margin-left: -36px;
+    }
+
+    .total{
+    background-color:#F9F9F9;
+    margin-right: 4px;
+    margin-left: -8px;
+    padding: 13px 32px;
+    margin-bottom: 14px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    margin-right: 5px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.ouvert{
+    background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: 6px;
+    padding: 13px 25px;
+    margin-bottom: 14px;
+}
+.clique{
+    background-color:#F9F9F9;
+    margin-right: 21px;
+    margin-left: 1px;
+    padding: 14px 27px;
+    margin-bottom: 14px;
+}
+.bloque{
+    background-color:#F9F9F9;
+    padding-top: 12px;
+    margin-left: 8px;
+    padding: 14px 10px;
+    margin-bottom: 14px;
+}
+.est-mode {
+     background: url('../images/cloudsRewards/on-off1.png') no-repeat;
+     background-size: 35px 16px;
+}
+
+.legende{
+    display: flex;
+    margin: 49px 39px;
+}
+    /*calendar*/
+    .ui-datepicker.ui-widget.ui-widget-content.question{
+        margin: 361px -132px !important;
+    } 
+
+    .ui-datepicker.ui-widget.ui-widget-content.question3 {
+     margin:  229px -111px !important;
+    
+    }
+     .ui-datepicker-next.ui-corner-all{
+        right: -21px !important;
+    }
+    .ui-datepicker.ui-widget.ui-widget-content{
+    width: 276px;
+    background-color: #e5e5e5 !important;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 0;
+    border: 1px solid #989898;
+    padding: 3em;
+    width: 15em;
+    /*height: 19em;*/
+    position: relative;
+    box-shadow: 
+    inset 0 0 0 8px #fff,
+    inset 0 0 0 9px #989898;
+    }
+
+}
+
+@media (min-width: 1200px) {
+    .statDays{
+    width: 35px;
+    height: 32px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-left: 6px;
+    margin-right: 4px;
+}
+
+.statMonths{
+width: 35px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 10px;
+}
+.statYear{
+width: 50px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 6px;
+margin-left: 4px;
+}
+
+.statDays1{
+    width: 37px;
+    height: 32px;
+    font-size: 14px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-left: 6px;
+    margin-right: 4px;
+    margin-left: -8px;
+}
+
+.statMonths1{
+width: 37px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 10px;
+}
+.statYear1{
+width: 54px;
+height: 32px;
+font-size: 14px;
+border: 1px solid;
+border-radius: 4px;
+padding-left: 6px;
+margin-left: 4px;
+}
+
+.first-date{
+   display: flex;
+}
+.secondDate{
+    display: flex;
+    align-items: center;
+    margin-top: -5px;
+}
+
+.suiv{
+    margin-left: 538;
+    display: flex;
+}
+
+#perDate{
+    margin: 5px 0 0 542px;
+    color:black;
+    margin-left: 537;
+}
+}

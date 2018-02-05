@@ -184,12 +184,10 @@ class CommunicationController extends AdminController
         }
 
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $filters = array(
-            'Limit' => 0,
-        );
+        $filters = array('Limit' => 0);
         $campaign_data_list = $campaign->getAllVisibleWithData($filters);
 
-        return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
+        return $this->render('AdminBundle:Communication:emailing_campaign.html.twig', array(
             "list" => $campaign_data_list,
             'content_type_class' => new TemplateContentType(),
         ));
@@ -206,7 +204,7 @@ class CommunicationController extends AdminController
         }
 
         $form = $this->createForm(CampaignDateType::class);
-        return $this->render('AdminBundle:Communication:emailing_compaign_new.html.twig', array(
+        return $this->render('AdminBundle:Communication:emailing_campaign_new.html.twig', array(
             "programmed" => $form->createView()
         ));
     }
@@ -227,7 +225,7 @@ class CommunicationController extends AdminController
 //        $campaign_list = $campaign->getAll(["Status" => $status]);
         $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
 
-        return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
             "list" => $campaign_data_list
         ));
     }
@@ -244,11 +242,57 @@ class CommunicationController extends AdminController
         }
 
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $campaign_list = $campaign->getAll(["isArchived" => true]);
+        $filters = array('Limit' => 0);
+        $campaign_data_list = $campaign->getAllArchivedWithData($filters);
 
-        return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
-            "list" => $campaign_list,
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
+            'list' => $campaign_data_list,
+            'archived_mode' => true,
         ));
+    }
+
+    /**
+     * @Route("/emailing/campagne/archiver", name="admin_communication_emailing_campaign_archive")
+     * @Method("POST")
+     */
+    public function emailingCampaignArchiveAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $to_archive_campaign_ids = $request->get('campaign_checked_ids');
+        $to_archive_campaign_ids = explode(',', $to_archive_campaign_ids);
+
+        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        if (!empty($to_archive_campaign_ids)) {
+            $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+        }
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/emailing/campagne/restaurer", name="admin_communication_emailing_campaign_restore_archived")
+     * @Method("POST")
+     */
+    public function emailingCampaignRestoreArchivedAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $to_restore_ids = $request->get('campaign_checked_ids');
+        $to_restore_ids = explode(',', $to_restore_ids);
+
+        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        if (!empty($to_restore_ids)) {
+            $campaign_handler->restoreArchivedCampaignDraftByIdList($to_restore_ids);
+        }
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
     /**
@@ -1173,5 +1217,13 @@ class CommunicationController extends AdminController
         }
 
         return $this->render('AdminBundle:Communication:emailing_custom.html.twig');
+    }
+
+    /**
+     * @Route("/emailing/statistiques", name="admin_communication_statistiques")
+     */
+    public function statistiqueshowAction(Request $request)
+    {
+        return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig');
     }
 }

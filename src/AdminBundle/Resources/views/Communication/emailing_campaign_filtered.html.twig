@@ -10,7 +10,8 @@
                     <div class="campagne-name-name">
                         {{ li.title }}
                     </div>
-                    {% if li.status == 2 %}
+                    {% set class= "" %}
+                    {% if li.status == 2 or (li.status == -1 and li.deliveredAt != '') %}
                         {% set date = li.deliveredAt %}
                         {% set status = "Envoyé" %}
                         {% set pre = "" %}
@@ -20,18 +21,18 @@
                         {% set status = "Programmé" %}
                         {% set pre = "" %}
                         {% set class= "programmed" %}
-                    {% elseif li.status == 0 %}
+                    {% elseif li.status == 0 or (li.status == -1 and li.deliveredAt == '') %}
                         {% set date = li.modifiedAt %}
                         {% set status = "En attente" %}
                         {% set pre = "modifié " %}
                         {% set class= "wait" %}
                     {% endif %}
                     <div class="campagne-name-date {{ class }}">
-                        {% if li.status == 0 or li.status == 1 or li.status == 2 %}
+                        {% if li.status == -1 or li.status == 0 or li.status == 1 or li.status == 2 %}
                             {{ status }} - {{ pre }}{{ date | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
                         {% endif %}
                     </div>
-                </label>                           
+                </label>
             </div>
             <div class="campagne-metric">
                 <div class="metric-1">
@@ -74,10 +75,14 @@
                         ACTIONS
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                        {% if archived_mode is not defined %}
                         <a class="dropdown-item" href="#">STATISTIQUES</a>
-                        <a class="dropdown-item" href="{{ li.url }}" target="blank">APERÇU</a>
+                        {% endif %}
+                        <a class="dropdown-item campaign-preview" data-url="{{ li.url }}" style = "cursor:pointer;">APERÇU</a>
                         <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
-                        <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>                                     
+                        {% if archived_mode is not defined %}
+                        <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>
+                        {% endif %}
                         <input type="hidden" name="campaign-id" value="{{ li.id }}">                                           
                     </div>
                 </div>

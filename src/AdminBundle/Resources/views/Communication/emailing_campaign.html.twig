@@ -41,7 +41,7 @@
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page" href="#">statistiques </a>
+                                <a class="nav-link-niv-3 menu-page" href="{{path('admin_communication_statistiques')}}">statistiques </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
@@ -63,8 +63,11 @@
                 <section class="fieldset slideshow active">
                     <div class="row filter">
                         <div class="create">
-                            <button class="btn-valider" data-toggle="modal" data-target="#new-campaign-modal">
+                            <button class="btn-valider create-campaign-button" data-toggle="modal" data-target="#new-campaign-modal">
                                 créer une campagne
+                            </button>
+                            <button class="btn-valider restore-campaign-button">
+                                restaurer campagne
                             </button>
                         </div>
                         <div class="next-create">                            
@@ -109,12 +112,12 @@
                         </div>
                         <div class="next-create campaign-delete-move">                            
                             <div class="campaign-archive">
-                                <button class="btn-valider" class="btn btn-primary">
+                                <button class="btn-valider btn btn-primary archive-campaign-button">
                                     archiver
                                 </button> 
                             </div>
                             <div class="campaign-delete">
-                                <button class="btn-valider" class="btn btn-primary" data-toggle="modal" data-target="#delete-modal-campaign">
+                                <button class="btn-valider btn btn-primary delete-campaign-button" data-toggle="modal" data-target="#delete-modal-campaign">
                                     supprimer
                                 </button> 
                             </div>
@@ -132,7 +135,8 @@
                                         <div class="campagne-name-name">
                                             {{ li.title }}
                                         </div>
-                                        {% if li.status == 2 %}
+                                        {% set class= "" %}
+                                        {% if li.status == 2 or (li.status == -1 and li.deliveredAt is not empty) %}
                                             {% set date = li.deliveredAt %}
                                             {% set status = "Envoyé" %}
                                             {% set pre = "" %}
@@ -142,7 +146,7 @@
                                             {% set status = "Programmé" %}
                                             {% set pre = "" %}
                                             {% set class= "programmed" %}
-                                        {% elseif li.status == 0 %}
+                                        {% elseif li.status == 0 or (li.status == -1 and li.deliveredAt is empty) %}
                                             {% set date = li.modifiedAt %}
                                             {% set status = "En attente" %}
                                             {% set pre = "modifié " %}
@@ -197,7 +201,7 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                             <a class="dropdown-item" href="#">STATISTIQUES</a>
-                                            <a id = "apercu_campagne" class="dropdown-item" data-url = "{{ li.url }}" style = "cursor:pointer;">APERÇU</a>
+                                            <a id = "apercu_campagne" class="dropdown-item campaign-preview" data-url = "{{ li.url }}" style = "cursor:pointer;">APERÇU</a>
                                             <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
                                             <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>                                     
                                             <input type="hidden" name="campaign-id" value="{{ li.id }}">                                           
@@ -220,9 +224,9 @@
                                     <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
                                 </div>
                                 <div class="content">
-                                    <div><h4>renommer la compaigne</h4></div>
+                                    <div><h4>renommer la campagne</h4></div>
                                     <div class="row btn-new-campaign-folder">
-                                        <label for="campaign_new_name">nom de la compaigne </label>
+                                        <label for="campaign_new_name">nom de la campagne </label>
                                         <input id="campaign_new_name" name="campaign_new_name" value="" type="text">
                                         <input name="campaign-id" type="hidden" value="">
                                     </div>                                
@@ -328,6 +332,9 @@
                 <input type="hidden" name="ckeditor_config_light_path" value="{{ asset('ckeditor/custom/config-light.js') }}">
                 <input type="hidden" name="template_content_type_image" value="{{ constant('IMAGE', content_type_class) }}">
                 <input type="hidden" name="template_content_type_text" value="{{ constant('TEXT', content_type_class) }}">
+                <input type="hidden" name="archive_campaign_url" value="{{ path("admin_communication_emailing_campaign_archive") }}">
+                <input type="hidden" name="campaign_list_url" value="{{ path("admin_communication_emailing_compaign") }}">
+                <input type="hidden" name="restore_campaign_url" value="{{ path("admin_communication_emailing_campaign_restore_archived") }}">
                 <div class="hidden-image">
                     <div id="loading-image">
                         <img src="{{ asset("images/cloudsRewards/loading.gif") }}" />
