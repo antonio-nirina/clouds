@@ -224,24 +224,32 @@
                         </div>
                     <div class="row result">
                             <div class=" total">
-                                <p id="titreT">{{"total"|upper}}</p>
-                                <h4 id="valTot">15 520</h4>
-                                <p class="mailTot">e-mails</p>
+                                <div class="totalTitreVal">
+                                    <p id="titreT">{{"total"|upper}}</p>
+                                    <h4 id="valTot">15 520</h4>
+                                    <p class="mailTot">e-mails</p>
+                                </div>
                             </div>
                             <div class=" delivrer">
-                                <p id="titreDel">{{"délivrés"|upper}}</p>
-                                <h4 id="valDel">15 520</h4>
-                                <p class="mailTot">e-mails</p>
+                                <div class="delTitreVal">
+                                    <p id="titreDel">{{"délivrés"|upper}}</p>
+                                    <h4 id="valDel">15 520</h4>
+                                    <p class="mailTot">e-mails</p>
+                                </div>                                   
                             </div>
                             <div class="ouvert" >
-                                <p id="titreOuv">{{"ouverts"|upper}}</p>
-                                <h4 id="valOuv">15 520</h4>
-                                <p class="mailTot">e-mails</p>
-                            </div>
+                                <div class="ouvTitreVal">
+                                    <p id="titreOuv">{{"ouverts"|upper}}</p>
+                                    <h4 id="valOuv">15 520</h4>
+                                    <p class="mailTot">e-mails</p> 
+                                </div>             
+                            </div>                                                                                              
                             <div class=" clique">
-                                <p id="titreClik">{{"cliqués"|upper}}</p>
-                                <h4 id="valClik">15 520</h4>
-                                <p class="mailTot">e-mails</p>
+                                <div class="cliTitreVal">
+                                    <p id="titreClik">{{"cliqués"|upper}}</p>   
+                                    <h4 id="valClik">15 520</h4>
+                                    <p class="mailTot">e-mails</p>
+                                </div>
                             </div>
                             <div class="bloque">
                                 <div class="titreEtat">
@@ -344,9 +352,35 @@
                                     <span class="download">télécharger la liste au format csv</span>
                                 </button>
                             </div>
+                           <div class="legende">
+                                <div class="legendeEnvoye">
+                                  <p id="legendeEnvoye">O</p><p>{{"envoyés"|upper}}</p>
+                                </div>
+                                <div class="legendeDel">
+                                     <p id="legendeDel">O</p><p>{{"délivrés"|upper}}</p>
+                                </div>
+                                <div class="legendeOuv">
+                                    <p id="legendeOuv">O</p><p>{{"ouverts"|upper}}</p>
+                                </div>
+                                <div class="legendeCli">
+                                     <p id="legendeCli">O</p><p>{{"cliqués"|upper}}</p>
+                                </div>
+                                <div class="legendeDesa">
+                                    <p id="legendeDesa">O</p><p>{{"désabo."|upper}} </p>
+                                </div>
+                                <div class="legendeBlo">
+                                    <p id="legendeBlo">O</p><p>{{"bloqués"|upper}} </p>
+                                </div>
+                                <div class="legendeSpam">
+                                    <p id="legendeSpam">O</p><p>{{"spam"|upper}} </p>
+                                </div>
+                                <div class="legendeErr">
+                                     <p id="legendeErr">O</p><p>{{"erreurs"|upper}}</p>
+                                </div>
+                            </div>
                     </div> 
 
-                    </div>
+                </div>
         </section>
     </main>
 {% endblock %}

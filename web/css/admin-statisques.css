@@ -557,9 +557,11 @@ display: block;
 .ui-datepicker.ui-widget.ui-widget-content.question3 {
      margin:  26px -106px !important;
     
+    
 }
 .ui-datepicker.ui-widget.ui-widget-content.question{
     margin: 52px -153px !important;
+    
 } 
 
 
@@ -698,7 +700,7 @@ margin-top: 30px;
 }
 .total{
     background-color:#F9F9F9;
-    margin-right: 4px;
+    margin-right: 11px;
     margin-left: -8px;
 padding: 13px 32px;
 }
@@ -711,14 +713,14 @@ padding: 13px 25px;
 .ouvert{
     background-color:#F9F9F9;
     margin-right: 10px;
-    margin-left: 6px;
+    margin-left: -1px;
 padding: 13px 25px;
 }
 .clique{
     background-color:#F9F9F9;
-    margin-right: 21px;
-    margin-left: 1px;
-padding: 14px 27px;
+    margin-right: 10px;
+    margin-left: -8px;
+    padding: 14px 27px;
 }
 .bloque{
     background-color:#F9F9F9;
@@ -740,12 +742,14 @@ font-weight: bold;
 }
 #qst{
   font-size: 20px;  
+  margin: 0 7px;
 }
 #qst2{
   font-size: 20px;  
 }
 #qst3{
-  font-size: 20px;  
+  font-size: 20px; 
+  margin: 9px 8px; 
 }
 #qst4{
   font-size: 20px;  
@@ -838,14 +842,32 @@ font-weight: bold;
     font-size:1.2rem; 
     padding-left: 33px;
 }
+.totalTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+.delTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+.ouvTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+.cliTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+}
+
 #titreDel{
     color:#505050;
     padding-left: 27px;
     border-top-width: 0px;
     border-top-style: solid;
-    padding-top: 12px;
+    padding-top: 12px;              
     font-weight: bold;
 }
+
 #valDel{
     color:#505050;
     font-size:1.6rem;
@@ -866,7 +888,7 @@ font-weight: bold;
     font-weight: bold;
     padding-left: 23px;
 }
-#titreClik{
+#titreClik{         
 color:#13A20A;
 padding-left: 27px;
 border-top-width: 0px;
@@ -881,10 +903,10 @@ font-weight: bold;
     padding-left: 23px;
 }
 #messag{
-    font-size:1.3rem;
+    font-size:1.1rem;
 }
 #messagSelect{
-    font-size:1.3rem;margin-left: -41px;
+    font-size:1.1rem;margin-left: -41px;
 }
 #nbrMail{
     color:#6F85DA;
@@ -910,10 +932,9 @@ font-weight: bold;
     font-size:1rem;
     font-weight:bold;
 }
-
 .valEtat{
-padding-top: 6px;
-padding-left: 81px;
+padding-top: 3px;
+padding-left: 91px;
 margin-top: -164px;
 }
 
@@ -1082,6 +1103,78 @@ margin-left: -11px;
     border: 1px solid #CFCFCF;
     width: 100%;
 }
+.legende{
+    display: flex;
+    font-size: 0.6rem;
+    margin: 49px 7px;
+    font-weight: bold;
+}
+
+.legendeEnvoye{
+    display: flex;
+    color: #6F85DA;
+    margin-right: 21px;
+}
+#legendeEnvoye{
+    margin-right: 7px;
+}
+.legendeDel{
+    display: flex;
+    color:#505050;
+    margin-right: 21px;
+}
+#legendeDel{
+        margin-right: 7px;
+}
+.legendeOuv{
+    display: flex;
+    color:#93D706;
+    margin-right: 21px;
+}
+#legendeOuv{
+    margin-right: 7px;
+}
+.legendeCli{
+    display: flex;
+    color:#13A20A;
+    margin-right: 21px;
+}
+#legendeCli{
+    margin-right: 7px;
+}
+.legendeDesa{
+    display: flex;
+    color:#1CC8FA;
+    margin-right: 21px;
+}
+#legendeDesa{
+    margin-right: 7px;
+}
+.legendeBlo{
+    display: flex;
+    color:#000000;
+    margin-right: 21px;
+}
+#legendeBlo{
+    margin-right: 7px;
+}
+.legendeSpam{
+    display: flex;
+    color:#FC0007;
+    margin-right: 21px;
+}
+#legendeSpam{
+    margin-right: 7px;
+}
+.legendeErr{
+    display: flex;
+    color:orange;
+}
+#legendeErr{
+    margin-right: 7px;
+}
+
+     
 
 @media (max-width: 575px)  {
 
@@ -1145,6 +1238,10 @@ margin-left: -11px;
         section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownMenuNow{
             min-width: 12rem;
             margin-top: 4px;
+        }
+
+        section .row.filter12{
+            width: 45%
         }
 
         .choice{
@@ -1259,12 +1356,14 @@ margin-left: -11px;
         margin-bottom: -53px;
     }
     #messag{
-       padding-right: 7px 
+       padding-right: 7px;
+        font-size: 0.9rem; 
     }
     #messagSelect{
         padding-right: 4px;
         padding-left: 105px;
-        margin-left: -106px
+        margin-left: -106px;
+            font-size: 0.9rem;
     }
     #detaStat{
         margin-top: -66px;
@@ -1375,7 +1474,7 @@ margin-left: -11px;
     min-width: 10rem;
 }
     .tableDetail{
-        width: 222px;
+        width: 256px;
     }
 
     section .row.filter {
@@ -1452,6 +1551,10 @@ margin-left: -11px;
 }
 .detaile{
     margin-top: 71px;
+}
+.legende{
+    display: block;
+    margin: 49px 39px;
 }
 
 
@@ -1555,6 +1658,10 @@ margin-left: -11px;
         section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownMenuNow{
             min-width: 18rem;
             margin-top: 4px;
+        }
+
+        section .row.filter12{
+            width: 103%
         }
 
         .choice{
@@ -1844,6 +1951,10 @@ margin-left: -11px;
     padding: 14px 10px;
     margin-bottom: 14px;
 }
+.legende{
+    display: block;
+    margin: 49px 145px;
+}
 
     /*calendar*/
     .ui-datepicker.ui-widget.ui-widget-content.question{
@@ -1943,6 +2054,10 @@ margin-left: -11px;
         section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownMenuNow{
             min-width: 18rem;
             margin-top: 4px;
+        }
+
+        section .row.filter12{
+                width: 103%;
         }
 
         .choice{
@@ -2178,7 +2293,7 @@ margin-left: -11px;
     min-width: 13rem;
 }
     .tableDetail{
-       width: 612px;
+       width: 508px;
     }
 
     section .row.filter {
@@ -2239,6 +2354,10 @@ margin-left: -11px;
      background: url('../images/cloudsRewards/on-off1.png') no-repeat;
      background-size: 35px 16px;
      margin-left: 5px;
+}
+.legende{
+    display: block;
+    margin: 49px 39px;
 }
 
 
@@ -2636,6 +2755,11 @@ margin-left: -11px;
      background: url('../images/cloudsRewards/on-off1.png') no-repeat;
      background-size: 35px 16px;
 }
+
+.legende{
+    display: flex;
+    margin: 49px 39px;
+}
     /*calendar*/
     .ui-datepicker.ui-widget.ui-widget-content.question{
         margin: 361px -132px !important;
@@ -2664,6 +2788,7 @@ margin-left: -11px;
     inset 0 0 0 8px #fff,
     inset 0 0 0 9px #989898;
     }
+
 }
 
 @media (min-width: 1200px) {
@@ -2739,7 +2864,7 @@ margin-left: 4px;
 }
 
 #perDate{
-    margin: 5px 0 0 535px;
+    margin: 5px 0 0 542px;
     color:black;
     margin-left: 537;
 }
