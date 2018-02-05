@@ -222,8 +222,14 @@ class CommunicationController extends AdminController
 
         $status = $request->get('status');
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-//        $campaign_list = $campaign->getAll(["Status" => $status]);
-        $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
+
+        if (!is_null($request->get('archived_campaign_mode'))
+            && 'true' == $request->get('archived_campaign_mode')
+        ) {
+            $campaign_data_list = $campaign->getAllArchivedWithDataFiltered($status);
+        } else {
+            $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
+        }
 
         return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
             "list" => $campaign_data_list
@@ -267,7 +273,7 @@ class CommunicationController extends AdminController
 
         $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
         if (!empty($to_archive_campaign_ids)) {
-            $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+            $campaign_handler->archiveCampaignDraftByIdList($to_archive_campaign_ids);
         }
 
         return new JsonResponse($json_response_data_provider->success(), 200);
@@ -330,26 +336,6 @@ class CommunicationController extends AdminController
         $response = $this->get('krlove.async')->call('emailing_campaign', 'replicateCampaign', [$request->get('id')]);
 
         return new JsonResponse(array());
-    }
-
-    /**
-     * @Route("/emailing/campagne/rename", name="admin_communication_emailing_compaign_rename")
-     * @Method("POST")
-     */
-    public function emailingCampaignRenameAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        // $response = $campaign->renameCampaign($request->get('id'), $request->get('name'));
-
-        //asynchronous to API
-        $this->get('krlove.async')->call('emailing_campaign', 'renameCampaign', [$request->get('id'), $request->get('name')]);
-
-        return new JsonResponse();
     }
 
     /**
