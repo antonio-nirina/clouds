@@ -2130,10 +2130,6 @@ section .row.ending {
     display: none;
 }
 
-.selected-count input{
-    background-color: #ffffff;
-}
-
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {
         max-width: 95%;
