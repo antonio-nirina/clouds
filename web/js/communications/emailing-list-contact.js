@@ -325,12 +325,26 @@ $(document).ready(function(){
 		}
 	});
 	
-	//Export la liste des contacts 
-	/*
-	$(document).on('click', 'a.list-contact-export', function(){
-		$('.chargementAjax').removeClass('hidden');
+	//Filtre liste des contacts 'RECENTS'
+	$(document).on('click', 'a#MenuFiltreListeContactsRecents', function(){
+		$('.chargementAjax').addClass('hidden');
+		var UrlContactListRecents = $('input#UrlContactListRecents').val();
+		document.location.href=UrlContactListRecents;
 	});
-	*/
+	
+	//Filtre liste des contacts 'A-Z'
+	$(document).on('click', 'a#MenuFiltreListeContactsAZ', function(){
+		$('.chargementAjax').addClass('hidden');
+		var UrlContactListAZ = $('input#UrlContactListAZ').val();
+		document.location.href=UrlContactListAZ;
+	});
+	
+	//Filtre liste des contacts 'Z-A'
+	$(document).on('click', 'a#MenuFiltreListeContactsZA', function(){
+		$('.chargementAjax').addClass('hidden');
+		var UrlContactListZA = $('input#UrlContactListZA').val();
+		document.location.href=UrlContactListZA;
+	});
 });
 
 function UpdateWidthPagination(){

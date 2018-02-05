@@ -846,16 +846,20 @@ class CommunicationController extends AdminController
 	
 	/**
      * @Route(
-     *     "/emailing/liste-contact",
+     *     "/emailing/liste-contact/{trie}",
      *     name="admin_communication_emailing_list_contact",
      * )
      */
-    public function emailingListeContactAction(Request $request){
+    public function emailingListeContactAction(Request $request, $trie){
 		$json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
 		$program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
+		
+		if(empty($trie) || is_null($trie)){
+			return $this->redirectToRoute('admin_communication_emailing_list_contact', array('trie' => 'recents'));
+		}
 
         $em = $this->getDoctrine()->getManager();
 		
@@ -865,10 +869,23 @@ class CommunicationController extends AdminController
 		//Get all contacts Lists
 		$ListContact = $AllContactList->getAllList();
 		
+		// Obtient une liste de colonnes
+		foreach ($ListContact as $key => $row) {
+			$Name[$key]  = $row['Name'];
+			$CreatedAt[$key]  = $row['CreatedAt'];
+		}
 		
+		if($trie == 'a-z'){
+			array_multisort($Name, SORT_ASC, $ListContact);
+		}elseif($trie == 'z-a'){
+			array_multisort($Name, SORT_DESC, $ListContact);
+		}elseif($trie == 'recents'){
+			array_multisort($CreatedAt, SORT_DESC, $ListContact);
+		}
 		
 		return $this->render('AdminBundle:Communication:emailing_liste_contact.html.twig', array(
-			'ListContact' => $ListContact
+			'ListContact' => $ListContact,
+			'trie' => $trie
 		));
 	}
 	

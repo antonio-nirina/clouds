@@ -40,7 +40,7 @@
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_emailing_list_contact") }}">liste des contacts </a>
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_emailing_list_contact", { 'trie': 'recents' }) }}">liste des contacts </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
@@ -73,16 +73,24 @@
                         <div class="next-create col-12 col-sm-4">                            
                             <div class="dropdown clearable filtres">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
-                                    FILTRES
+									{% if trie == 'recents' %}
+										RÉCENTS
+									{% elseif trie == 'a-z' %}
+										A-Z
+									{% elseif trie == 'z-a' %}
+										Z-A
+									{% else %}
+										FILTRES
+									{% endif %}
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
-                                    <a class="dropdown-item" href="#">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltreListeContactsAZ">
+                                    <a id = "MenuFiltreListeContactsRecents" class="dropdown-item" href="#">
                                         RÉCENTS
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a id = "MenuFiltreListeContactsAZ" class="dropdown-item" href="#">
                                         A-Z
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a id = "MenuFiltreListeContactsZA" class="dropdown-item" href="#">
                                         Z-A
                                     </a>
                                 </div>
@@ -157,6 +165,9 @@
 		<input id = "UrlEditContactList" type = "hidden" name = "UrlEditContactList" value = "{{ path("admin_communication_emailing_list_contact_edition_submit") }}">
 		<input id = "UriDeleteListContact" type = "hidden" name = "UriDeleteListContact" value = "{{ path("admin_communication_emailing_list_contact_delete") }}">
 		<input id = "UrlDupliquerContactList" type = "hidden" name = "UrlDupliquerContactList" value = "{{ path("admin_communication_emailing_list_contact_dupliquer") }}">
+		<input id = "UrlContactListAZ" type = "hidden" name = "UrlContactListAZ" value = "{{ path("admin_communication_emailing_list_contact", { 'trie': 'a-z' }) }}">
+		<input id = "UrlContactListZA" type = "hidden" name = "UrlContactListZA" value = "{{ path("admin_communication_emailing_list_contact", { 'trie': 'z-a' }) }}">
+		<input id = "UrlContactListRecents" type = "hidden" name = "UrlContactListRecents" value = "{{ path("admin_communication_emailing_list_contact", { 'trie': 'recents' }) }}">
     </main>
 	
 	<!-- dialog - édition liste des contacts -->
