@@ -184,7 +184,7 @@ class CommunicationController extends AdminController
         $filters = array('Limit' => 0);
         $campaign_data_list = $campaign->getAllVisibleWithData($filters);
 
-        return $this->render('AdminBundle:Communication:emailing_compaign.html.twig', array(
+        return $this->render('AdminBundle:Communication:emailing_campaign.html.twig', array(
             "list" => $campaign_data_list,
             'content_type_class' => new TemplateContentType(),
         ));
@@ -201,7 +201,7 @@ class CommunicationController extends AdminController
         }
 
         $form = $this->createForm(CampaignDateType::class);
-        return $this->render('AdminBundle:Communication:emailing_compaign_new.html.twig', array(
+        return $this->render('AdminBundle:Communication:emailing_campaign_new.html.twig', array(
             "programmed" => $form->createView()
         ));
     }
@@ -222,7 +222,7 @@ class CommunicationController extends AdminController
 //        $campaign_list = $campaign->getAll(["Status" => $status]);
         $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
 
-        return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
             "list" => $campaign_data_list
         ));
     }
@@ -242,7 +242,7 @@ class CommunicationController extends AdminController
         $filters = array('Limit' => 0);
         $campaign_data_list = $campaign->getAllArchivedWithData($filters);
 
-        return $this->render('AdminBundle:Communication:emailing_compaign_filtered.html.twig', array(
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
             'list' => $campaign_data_list,
             'archived_mode' => true,
         ));
