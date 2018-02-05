@@ -238,7 +238,7 @@ class MailJetCampaign extends MailJetHandler
         return $response->getData();
     }
 
-    public function updateCampaignDraftByIdList(array $campaign_draft_id_list)
+    public function archiveCampaignDraftByIdList(array $campaign_draft_id_list)
     {
         if (!empty($campaign_draft_id_list)) {
             foreach ($campaign_draft_id_list as $campaign_draft_id) {

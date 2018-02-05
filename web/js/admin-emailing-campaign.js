@@ -677,6 +677,30 @@ $(document).ready(function() {
         });
     });
 
+    // fonctionnalité "archiver", dans "Actions"
+    $(document).on('click', '.dropdown-item.campaign-archive', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var campaign_id = 'undefined' !== typeof $(this).attr('data-campaign-draft-id') ? $(this).attr('data-campaign-draft-id') : '';
+        var archive_campaign_url = $('input[name=archive_campaign_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: archive_campaign_url,
+            data: {campaign_checked_ids: campaign_id},
+            success: function(){
+                window.location.replace($('input[name=campaign_list_url]').val());
+            },
+            statusCode:{
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
 });
 
 function AfficheApercuCampagne(apercu){
