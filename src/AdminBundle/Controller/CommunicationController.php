@@ -1143,41 +1143,36 @@ class CommunicationController extends AdminController
 			//Get Contact datas in db 
 			$UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ContactsDatas[0]['Email']);
 			
-			$Roles = $UsersListes[0]->getRoles();
-			if($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN'){
-				//Fill excel 
-				/*
-				if(($cpt%2) == 0){
-					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFFFB3');
-				}else{
-					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFFFD0');
+			if(isset($UsersListes[0])){
+				$Roles = $UsersListes[0]->getRoles();
+				if($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN'){
+					//Fill excel 
+					
+					
+					$objPHPExcel->getActiveSheet()->SetCellValue('A'.$i, $UsersListes[0]->getFirstname());
+					$objPHPExcel->getActiveSheet()->SetCellValue('B'.$i, $UsersListes[0]->getName());
+					$objPHPExcel->getActiveSheet()->SetCellValue('C'.$i, $UsersListes[0]->getEmail());
+					
+					if($Roles[0] == 'ROLE_MANAGER'){
+						$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'manager');
+					}elseif($Roles[0] == 'ROLE_COMMERCIAL'){
+						$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'commercial');
+					}elseif($Roles[0] == 'ROLE_PARTICIPANT'){
+						$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'participant');
+					}
+					
+					if($Contacts['IsUnsubscribed'] == '1'){
+						$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
+						$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, 'désabonné(e)');
+					}else{
+						$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, '');
+					}
+					
+					$cpt++;
+					$i++;
 				}
-				*/
-				
-				$objPHPExcel->getActiveSheet()->SetCellValue('A'.$i, $UsersListes[0]->getFirstname());
-				$objPHPExcel->getActiveSheet()->SetCellValue('B'.$i, $UsersListes[0]->getName());
-				$objPHPExcel->getActiveSheet()->SetCellValue('C'.$i, $UsersListes[0]->getEmail());
-				
-				if($Roles[0] == 'ROLE_MANAGER'){
-					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'manager');
-				}elseif($Roles[0] == 'ROLE_COMMERCIAL'){
-					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'commercial');
-				}elseif($Roles[0] == 'ROLE_PARTICIPANT'){
-					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'participant');
-				}
-				
-				if($Contacts['IsUnsubscribed'] == '1'){
-					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
-					$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, 'désabonné(e)');
-				}else{
-					$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, '');
-				}
-				
-				$cpt++;
-				$i++;
 			}
 		}
-		
 		
 		
 		// create the writer
