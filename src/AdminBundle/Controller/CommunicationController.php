@@ -9,6 +9,7 @@ use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
 use AdminBundle\DTO\ComEmailTemplateDuplicationData;
+use AdminBundle\DTO\DuplicationData;
 use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\CampaignDateType;
@@ -301,6 +302,49 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
+    /**
+     * @Route("/emailing/campagne/dupliquer", name="admin_communication_emailing_campaign_duplicate")
+     * @Method("POST")
+     */
+    public function emailingCampaignDuplicateAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $campaign_duplication_source_id = $request->get('campaign_draft_id');
+        $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaign_duplication_source = $campaign_handler->retrieveCampaignDraftById($campaign_duplication_source_id);
+        if (is_null($campaign_duplication_source_id) || is_null($campaign_duplication_source)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $duplication_data = new DuplicationData();
+        $duplication_data->setDuplicationSourceId($campaign_duplication_source['ID'])
+            ->setName($campaign_duplication_source['Title']);
+        $campaign_duplication_form = $this->createForm(DuplicationForm::class, $duplication_data);
+        $campaign_duplication_form->handleRequest($request);
+
+        if ($campaign_duplication_form->isSubmitted() && $campaign_duplication_form->isValid()) {
+            if ($campaign_duplication_source_id == $duplication_data->getDuplicationSourceId()) {
+                $campaign_handler->duplicateCampaignDraft($campaign_duplication_source, $duplication_data->getName());
+                $data = $json_response_data_provider->success();
+
+                return new JsonResponse($data, 200);
+            }
+        }
+
+        $view = $this->renderView(
+            'AdminBundle:Communication/EmailingTemplates:duplicate_campaign.html.twig',
+            array('duplicate_campaign_form' => $campaign_duplication_form->createView())
+        );
+        $data = $json_response_data_provider->success();
+        $data['content'] = $view;
+
+        return new JsonResponse($data, 200);
+    }
 
     /**
      * @Route("/emailing/modeles-emails", name="admin_communication_emailing_templates")
