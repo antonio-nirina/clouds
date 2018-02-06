@@ -141,10 +141,8 @@ class MailjetContactList{
      * @return array
      */
 	public function createList($Lname){
-		
 		$response = $this->mailjet->post(Resources::$Contactslist, ['body' => ['Name' => $Lname]]);
 		return $response->getData();
-		
 	}
 	
 	/**

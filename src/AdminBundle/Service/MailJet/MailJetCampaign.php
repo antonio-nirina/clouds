@@ -274,4 +274,46 @@ class MailJetCampaign extends MailJetHandler
 
         return;
     }
+
+    /**
+     * Retrieve campaign draft data by its id
+     *
+     * @param int $id
+     *
+     * @return null|array
+     */
+    public function retrieveCampaignDraftById($id)
+    {
+        $result = $this->mailjet->get(Resources::$Campaigndraft, array('Id' => $id));
+        if (self::STATUS_CODE_SUCCESS == $result->getStatus()) {
+            return $result->getData()[0];
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Duplicate campaign draft
+     *
+     * @param array $source_campaign_draft_data
+     * @param string $campaign_draft_title
+     *
+     * @return null|int
+     */
+    public function duplicateCampaignDraft(array $source_campaign_draft_data, $campaign_draft_title)
+    {
+        unset($source_campaign_draft_data['CreatedAt']);
+        unset($source_campaign_draft_data['Current']);
+        unset($source_campaign_draft_data['ID']);
+        unset($source_campaign_draft_data['ModifiedAt']);
+        $source_campaign_draft_data['Status'] = 0;
+        $source_campaign_draft_data['Title'] = $campaign_draft_title;
+        $result = $this->mailjet->post(Resources::$Campaigndraft, array('body' => $source_campaign_draft_data));
+        if (in_array($result->getStatus(), self::STATUS_CODE_SUCCESS_LIST)) {
+            return $result->getData()[0]['ID'];
+        }
+
+        return null;
+    }
 }

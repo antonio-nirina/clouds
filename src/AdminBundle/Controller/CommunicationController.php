@@ -9,6 +9,7 @@ use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
 use AdminBundle\DTO\ComEmailTemplateDuplicationData;
+use AdminBundle\DTO\DuplicationData;
 use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\CampaignDateType;
@@ -16,7 +17,6 @@ use AdminBundle\Form\ComEmailTemplateType;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
-use DrewM\MailChimp\MailChimp;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -306,61 +306,47 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/emailing/campagne/new/folder", name="admin_communication_emailing_compaign_new_folder")
+     * @Route("/emailing/campagne/dupliquer", name="admin_communication_emailing_campaign_duplicate")
      * @Method("POST")
      */
-    public function emailingCampaignNewFolderAction(Request $request)
+    public function emailingCampaignDuplicateAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
-        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        $response = $campaign->createFolder($request->get('name'));
-
-        return new JsonResponse($response);
-    }
-
-    /**
-     * @Route("/emailing/campagne/replicate", name="admin_communication_emailing_compaign_replicate")
-     * @Method("POST")
-     */
-    public function emailingCampaignReplicateAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
+        $campaign_duplication_source_id = $request->get('campaign_draft_id');
+        $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaign_duplication_source = $campaign_handler->retrieveCampaignDraftById($campaign_duplication_source_id);
+        if (is_null($campaign_duplication_source_id) || is_null($campaign_duplication_source)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
-        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        // $response = $campaign->replicateCampaign($request->get('id'));
+        $duplication_data = new DuplicationData();
+        $duplication_data->setDuplicationSourceId($campaign_duplication_source['ID'])
+            ->setName($campaign_duplication_source['Title']);
+        $campaign_duplication_form = $this->createForm(DuplicationForm::class, $duplication_data);
+        $campaign_duplication_form->handleRequest($request);
 
-        //asynchronous to API
-        $response = $this->get('krlove.async')->call('emailing_campaign', 'replicateCampaign', [$request->get('id')]);
+        if ($campaign_duplication_form->isSubmitted() && $campaign_duplication_form->isValid()) {
+            if ($campaign_duplication_source_id == $duplication_data->getDuplicationSourceId()) {
+                $campaign_handler->duplicateCampaignDraft($campaign_duplication_source, $duplication_data->getName());
+                $data = $json_response_data_provider->success();
 
-        return new JsonResponse(array());
-    }
-
-    /**
-     * @Route("/emailing/campagne/delete", name="admin_communication_emailing_compaign_delete")
-     * @Method("POST")
-     */
-    public function emailingCampaignDeleteAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
+                return new JsonResponse($data, 200);
+            }
         }
 
-        $ids = explode(',', $request->get('ids'));
-        foreach ($ids as $id) {
-            // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-            // $response = $campaign->deleteCampaign($id);
-            $this->get('krlove.async')->call('emailing_campaign', 'deleteCampaign', [(string) $id]);
-        }
+        $view = $this->renderView(
+            'AdminBundle:Communication/EmailingTemplates:duplicate_campaign.html.twig',
+            array('duplicate_campaign_form' => $campaign_duplication_form->createView())
+        );
+        $data = $json_response_data_provider->success();
+        $data['content'] = $view;
 
-        return new JsonResponse();
+        return new JsonResponse($data, 200);
     }
 
     /**
@@ -1133,41 +1119,36 @@ class CommunicationController extends AdminController
 			//Get Contact datas in db 
 			$UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ContactsDatas[0]['Email']);
 			
-			$Roles = $UsersListes[0]->getRoles();
-			if($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN'){
-				//Fill excel 
-				/*
-				if(($cpt%2) == 0){
-					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFFFB3');
-				}else{
-					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('FFFFD0');
+			if(isset($UsersListes[0])){
+				$Roles = $UsersListes[0]->getRoles();
+				if($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN'){
+					//Fill excel 
+					
+					
+					$objPHPExcel->getActiveSheet()->SetCellValue('A'.$i, $UsersListes[0]->getFirstname());
+					$objPHPExcel->getActiveSheet()->SetCellValue('B'.$i, $UsersListes[0]->getName());
+					$objPHPExcel->getActiveSheet()->SetCellValue('C'.$i, $UsersListes[0]->getEmail());
+					
+					if($Roles[0] == 'ROLE_MANAGER'){
+						$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'manager');
+					}elseif($Roles[0] == 'ROLE_COMMERCIAL'){
+						$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'commercial');
+					}elseif($Roles[0] == 'ROLE_PARTICIPANT'){
+						$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'participant');
+					}
+					
+					if($Contacts['IsUnsubscribed'] == '1'){
+						$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
+						$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, 'désabonné(e)');
+					}else{
+						$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, '');
+					}
+					
+					$cpt++;
+					$i++;
 				}
-				*/
-				
-				$objPHPExcel->getActiveSheet()->SetCellValue('A'.$i, $UsersListes[0]->getFirstname());
-				$objPHPExcel->getActiveSheet()->SetCellValue('B'.$i, $UsersListes[0]->getName());
-				$objPHPExcel->getActiveSheet()->SetCellValue('C'.$i, $UsersListes[0]->getEmail());
-				
-				if($Roles[0] == 'ROLE_MANAGER'){
-					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'manager');
-				}elseif($Roles[0] == 'ROLE_COMMERCIAL'){
-					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'commercial');
-				}elseif($Roles[0] == 'ROLE_PARTICIPANT'){
-					$objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'participant');
-				}
-				
-				if($Contacts['IsUnsubscribed'] == '1'){
-					$objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
-					$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, 'désabonné(e)');
-				}else{
-					$objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, '');
-				}
-				
-				$cpt++;
-				$i++;
 			}
 		}
-		
 		
 		
 		// create the writer

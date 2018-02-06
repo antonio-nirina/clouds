@@ -79,7 +79,7 @@
                         <a class="dropdown-item" href="#">STATISTIQUES</a>
                         {% endif %}
                         <a class="dropdown-item campaign-preview" data-url="{{ campaign_draft_data.url }}" style = "cursor:pointer;">APERÇU</a>
-                        <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
+                        <a class="dropdown-item campaign-duplicate" href="#" data-campaign-draft-id="{{ campaign_draft_data.id }}">DUPLIQUER</a>
                         {% if archived_mode is not defined %}
                         <a class="dropdown-item campaign-archive" href="#"  data-campaign-draft-id="{{ campaign_draft_data.id }}">ARCHIVER</a>
                         {% endif %}

@@ -154,3 +154,21 @@ krlove_async_service_call:
 mailjet:
     api_key: "8b46705492737dcc775a869858066b64"
     secret_key: "7263741dd3d04301a7c3637adc14c31f"
+    call: true
+    options:
+        url: "api.mailjet.com"
+        version: "v3"
+        call: true
+        secured: true
+    transactionnal:
+        call: true 
+        options:
+            url: "api.mailjet.com" 
+            version: "v3" 
+            call: true 
+            secured: true
+    event_endpoint_route: app_event_endpoint_route
+    event_endpoint_token: "secretCode12345678"
+    lists:
+        listId1:
+            contact_provider: 'app.mailjet.fos_contact_provider'
