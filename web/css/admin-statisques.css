@@ -836,7 +836,10 @@ font-weight: bold;
     height: 300px; width: 100%;
 }
 #valTot{
-    color:#6F85DA;font-size:1.6rem;font-weight: bold;padding-left: 23px;
+    color:#6F85DA;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
 }
 .mailTot{
     font-size:1.2rem; 
@@ -870,9 +873,9 @@ font-weight: bold;
 
 #valDel{
     color:#505050;
-    font-size:1.6rem;
+   font-size:1.2rem;
     font-weight: bold;
-    padding-left: 23px;
+    padding-left: 54px;
 }
 #titreOuv{
 color:#93D706;
@@ -884,9 +887,9 @@ font-weight: bold;
 }
 #valOuv{
     color:#93D706;
-    font-size:1.6rem;
+    font-size:1.2rem;
     font-weight: bold;
-    padding-left: 23px;
+    padding-left: 54px;
 }
 #titreClik{         
 color:#13A20A;
@@ -898,9 +901,9 @@ font-weight: bold;
 }
 #valClik{
     color:#13A20A;
-    font-size:1.6rem;
+    font-size:1.2rem;
     font-weight: bold;
-    padding-left: 23px;
+    padding-left: 54px;
 }
 #messag{
     font-size:1.1rem;

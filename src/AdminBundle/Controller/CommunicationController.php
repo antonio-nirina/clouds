@@ -23,6 +23,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Form\DuplicationForm;
+
+use \Mailjet\Resources;
+
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Filesystem\Filesystem;
@@ -222,12 +225,19 @@ class CommunicationController extends AdminController
 
         $status = $request->get('status');
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-//        $campaign_list = $campaign->getAll(["Status" => $status]);
-        $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
 
-        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
-            "list" => $campaign_data_list
-        ));
+        $view_options = array();
+        if (!is_null($request->get('archived_campaign_mode'))
+            && 'true' == $request->get('archived_campaign_mode')
+        ) {
+            $campaign_data_list = $campaign->getAllArchivedWithDataFiltered($status);
+            $view_options['archived_mode'] = true;
+        } else {
+            $campaign_data_list = $campaign->getAllVisibleWithDataFiltered($status);
+        }
+        $view_options['list'] = $campaign_data_list;
+
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', $view_options);
     }
 
     /**
@@ -267,7 +277,7 @@ class CommunicationController extends AdminController
 
         $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
         if (!empty($to_archive_campaign_ids)) {
-            $campaign_handler->updateCampaignDraftByIdList($to_archive_campaign_ids);
+            $campaign_handler->archiveCampaignDraftByIdList($to_archive_campaign_ids);
         }
 
         return new JsonResponse($json_response_data_provider->success(), 200);
@@ -330,26 +340,6 @@ class CommunicationController extends AdminController
         $response = $this->get('krlove.async')->call('emailing_campaign', 'replicateCampaign', [$request->get('id')]);
 
         return new JsonResponse(array());
-    }
-
-    /**
-     * @Route("/emailing/campagne/rename", name="admin_communication_emailing_compaign_rename")
-     * @Method("POST")
-     */
-    public function emailingCampaignRenameAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        // $response = $campaign->renameCampaign($request->get('id'), $request->get('name'));
-
-        //asynchronous to API
-        $this->get('krlove.async')->call('emailing_campaign', 'renameCampaign', [$request->get('id'), $request->get('name')]);
-
-        return new JsonResponse();
     }
 
     /**
@@ -1236,6 +1226,38 @@ class CommunicationController extends AdminController
      */
     public function statistiqueshowAction(Request $request)
     {
-        return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig');
+        $data=[];
+        $mailjet=$this->get('mailjet.client');
+        $response = $mailjet->get(Resources::$Campaignstatistics);
+        $total=$response->getTotal();
+        $listsInfoCampaign=$response->getData();
+        foreach ($listsInfoCampaign as  $value) {
+            $data["delivre"][]=($value["DeliveredCount"]);
+            $data["ouvert"][]=$value["OpenedCount"];
+            $data["cliquer"][]=$value["ClickedCount"];
+            $data["bloque"][]=$value["BlockedCount"];
+            $data["spam"][]=$value["SpamComplaintCount"];
+            $data["desabo"][]=$value["UnsubscribedCount"];
+            $data["erreur"][]=$value["BouncedCount"];
+        }
+        $delivre=array_sum($data["delivre"]);
+        $ouvert=array_sum($data["ouvert"]);
+        $cliquer=array_sum($data["cliquer"]);
+        $bloque=array_sum($data["bloque"]);
+        $spam=array_sum($data["spam"]);
+        $desabo=array_sum($data["desabo"]);
+        $erreur=array_sum($data["erreur"]);
+
+        return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
+            [
+                "total"=>$total,
+                "delivre"=>$delivre,
+                "ouvert"=>$ouvert,
+                "cliquer"=>$cliquer,
+                "bloque"=>$bloque,
+                "spam"=>$spam,
+                "desabo"=>$desabo,
+                "erreur"=>$erreur
+        ]);
     }
 }

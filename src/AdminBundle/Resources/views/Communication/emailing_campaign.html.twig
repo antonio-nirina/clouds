@@ -84,7 +84,7 @@
                                         ENVOYÉS
                                         <span>Sent</span>
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item programmed-item" href="#">
                                         EN COURS
                                         <span>Programmed</span>
                                     </a>
@@ -106,7 +106,7 @@
                     <div class="row filter selected-campaign">
                         <div class="create campagne-count">
                             <div class="selected-count">
-                                <input type="text" value="campagne sélectionnée">
+                                <input type="text" value="campagne sélectionnée" disabled>
                                 <span class="delete-input"></span>
                             </div>
                         </div>
@@ -125,35 +125,35 @@
                     </div> 
                     <div class="row list">
                         {% for campaign_data in list %}
-                            {% set li = campaign_data['campaign_draft_data'] %}
+                            {% set campaign_draft_data = campaign_data['campaign_draft_data'] %}
                             {% set overview = campaign_data['campaign_overview_data'] %}
-                            <div class="row campaign-{{li.id}}">
+                            <div class="row campaign-{{campaign_draft_data.id}}">
                                 <div class="campagne-name">
-                                    <input type="checkbox" class="styled-checkbox bigger" id="{{li.id}}">
-                                    <label for="{{li.id}}">
+                                    <input type="checkbox" class="styled-checkbox bigger" id="{{campaign_draft_data.id}}">
+                                    <label for="{{campaign_draft_data.id}}">
                                         <span></span>
                                         <div class="campagne-name-name">
-                                            {{ li.title }}
+                                            {{ campaign_draft_data.title }}
                                         </div>
                                         {% set class= "" %}
-                                        {% if li.status == 2 or (li.status == -1 and li.deliveredAt is not empty) %}
-                                            {% set date = li.deliveredAt %}
+                                        {% if campaign_draft_data.status == 2 or (campaign_draft_data.status == -1 and campaign_draft_data.deliveredAt is not empty) %}
+                                            {% set date = campaign_draft_data.deliveredAt %}
                                             {% set status = "Envoyé" %}
                                             {% set pre = "" %}
                                             {% set class= "" %}
-                                        {% elseif li.status == 1 %}
-                                            {% set date = li.deliveredAt %}
+                                        {% elseif campaign_draft_data.status == 1 %}
+                                            {% set date = campaign_draft_data.deliveredAt %}
                                             {% set status = "Programmé" %}
                                             {% set pre = "" %}
                                             {% set class= "programmed" %}
-                                        {% elseif li.status == 0 or (li.status == -1 and li.deliveredAt is empty) %}
-                                            {% set date = li.modifiedAt %}
+                                        {% elseif campaign_draft_data.status == 0 or (campaign_draft_data.status == -1 and campaign_draft_data.deliveredAt is empty) %}
+                                            {% set date = campaign_draft_data.modifiedAt %}
                                             {% set status = "En attente" %}
                                             {% set pre = "modifié " %}
                                             {% set class= "wait" %}
                                         {% endif %}
                                         <div class="campagne-name-date {{ class }}">
-                                            {% if li.status == 0 or li.status == 1 or li.status == 2 %}
+                                            {% if campaign_draft_data.status == 0 or campaign_draft_data.status == 1 or campaign_draft_data.status == 2 %}
                                             {{ status }} - {{ pre }}{{ date | localizeddate('none', 'none', locale, null, "'le' d MMMM Y 'à' H:mm") }}
                                             {% endif %}
                                         </div>
@@ -162,7 +162,7 @@
                                 <div class="campagne-metric">
                                     <div class="metric-1">
                                         <span class="metric-value">
-                                            {#{{ (li.recipients["recipient_count"] is defined)?li.recipients["recipient_count"]:0 }}#}
+                                            {#{{ (campaign_draft_data.recipients["recipient_count"] is defined)?campaign_draft_data.recipients["recipient_count"]:0 }}#}
                                             {% set recipient_value = 0 %}
                                             {% if overview is not null %}
                                                 {% set recipient_value = overview['ProcessedCount'] %}
@@ -173,7 +173,7 @@
                                     </div>
                                     <div class="metric-2">
                                         <span class="metric-value">
-                                            {#{{ (li.openTracked is defined)?li.openTracked:0 }} %#}
+                                            {#{{ (campaign_draft_data.openTracked is defined)?campaign_draft_data.openTracked:0 }} %#}
                                             {% set open_value = 0 %}
                                             {% if overview is not null and overview['ProcessedCount'] > 0 %}
                                                 {% set open_value = overview['OpenedCount']/overview['ProcessedCount']*100 %}
@@ -184,7 +184,7 @@
                                     </div>
                                     <div class="metric-3">
                                         <span class="metric-value">
-                                            {#{{ (li.clickTracked is defined)?li.clickTracked:0}} %#}
+                                            {#{{ (campaign_draft_data.clickTracked is defined)?campaign_draft_data.clickTracked:0}} %#}
                                             {% set click_value = 0 %}
                                             {% if overview is not null and overview['ProcessedCount'] > 0 %}
                                                 {% set click_value = overview['ClickedCount']/overview['ProcessedCount']*100 %}
@@ -201,10 +201,12 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                             <a class="dropdown-item" href="#">STATISTIQUES</a>
-                                            <a id = "apercu_campagne" class="dropdown-item campaign-preview" data-url = "{{ li.url }}" style = "cursor:pointer;">APERÇU</a>
+                                            <a id = "apercu_campagne" class="dropdown-item campaign-preview" data-url = "{{ campaign_draft_data.url }}" style = "cursor:pointer;">APERÇU</a>
                                             <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
-                                            <a class="dropdown-item campaign-rename" href="#">ARCHIVER</a>                                     
-                                            <input type="hidden" name="campaign-id" value="{{ li.id }}">                                           
+                                            {% if campaign_draft_data.status != 1 %}
+                                            <a class="dropdown-item campaign-archive" href="#" data-campaign-draft-id="{{ campaign_draft_data.id }}">ARCHIVER</a>
+                                            {% endif %}
+                                            <input type="hidden" name="campaign-id" value="{{ campaign_draft_data.id }}">
                                         </div>
                                     </div>
                                 </div>                            
@@ -324,7 +326,6 @@
                 <input id="new_folder_link" type="hidden" value="{{ path("admin_communication_emailing_compaign_new_folder") }}">
                 <input id="preview_template_campagne" type="hidden" value="{{ path("admin_communication_emailing_campagne_preview_template") }}">
                 <input type="hidden" name="replicate" value="{{ path("admin_communication_emailing_compaign_replicate") }}">
-                <input type="hidden" name="rename" value="{{ path("admin_communication_emailing_compaign_rename") }}">
                 <input type="hidden" name="filtered" value="{{ path("admin_communication_emailing_compaign_filter") }}">
                 <input type="hidden" name="delete-campaign-link" value="{{ path("admin_communication_emailing_compaign_delete") }}">
                 <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">

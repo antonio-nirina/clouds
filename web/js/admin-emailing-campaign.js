@@ -1,14 +1,21 @@
 $(document).ready(function() {
 	$('#preview-template-dialog').modal('hide');
-    function sendFilter() {
+    function sendFilter(source = null) {
         /*var a=$("#loading-image").clone();
         $('.row.list').html(a);*/
         $('.chargementAjax').removeClass('hidden');
         var sort_filter = $('.dropdown.filtres').find('button').hasClass('active'),
-            data = {};        
+            data = {};
         
         if (sort_filter) {
             data.status = $('.dropdown.filtres').find('button').find("span").html().trim();
+        }
+
+        if (null != source) {
+            if ('undefined' !== typeof source.attr('data-archived-campaign-mode')
+                && 'true' == source.attr('data-archived-campaign-mode')) {
+                data.archived_campaign_mode = true;
+            }
         }
 
         var url = $('input[name=filtered]').val();
@@ -20,7 +27,7 @@ $(document).ready(function() {
                 $('.row.list').html(html);
                 $('.chargementAjax').addClass('hidden');
             }
-        });             
+        });
     }
 
     function getChecked() {
@@ -119,14 +126,14 @@ $(document).ready(function() {
         $(this).off('click');
         $(this).parent().find('button').html($(this).parent().find('button').removeClass('active').attr('data-default'));
         $(this).css({'visibility':'hidden','display':'inline-block'});
-        setTimeout(sendFilter(), 0);
+        setTimeout(sendFilter($(this)), 0);
     });
 
     $(document).on('click','.clearable .dropdown-item', function(e){//activer filtre
         e.preventDefault();
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
-        setTimeout(sendFilter(), 0);
+        setTimeout(sendFilter($(this)), 0);
         resetCampaignCountBlock();
     });
 
@@ -168,15 +175,6 @@ $(document).ready(function() {
             }
         });
         setTimeout(sendFilter(), 250);
-    });
-
-    $(document).on('click', '.campaign-rename', function(e) {// renommer compaigne
-        e.preventDefault();
-        var current_name = $(this).parents(".list .row").find(".campagne-name-name").html().trim();
-
-        $("#btn-modal-rename").click();  
-        $("#btn-modal-rename").next('.modal').find('input[name=campaign-id]').val($(this).parent().find('input[name=campaign-id]').val());
-        $("#btn-modal-rename").next('.modal').find('input[name=campaign_new_name]').val(current_name);
     });
 
     $('.btn-rename-campaign').on('click', function(e) {
@@ -578,6 +576,9 @@ $(document).ready(function() {
                 $('.restore-campaign-button').show();
                 $('.archive-campaign-button').parents('.campaign-archive').hide();
                 resetCampaignCountBlock();
+                $('.filtres a.dropdown-item.programmed-item').hide();
+                $('.filtres').find('.dropdown-item').attr('data-archived-campaign-mode', true);
+                $('.filtres').find('.delete-input').attr('data-archived-campaign-mode', true);
                 $('.chargementAjax').addClass('hidden');
             },
             statusCode: {
@@ -662,6 +663,30 @@ $(document).ready(function() {
             type: 'POST',
             url: restore_campaign_url,
             data: {campaign_checked_ids: campaign_checked_ids},
+            success: function(){
+                window.location.replace($('input[name=campaign_list_url]').val());
+            },
+            statusCode:{
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    // fonctionnalité "archiver", dans "Actions"
+    $(document).on('click', '.dropdown-item.campaign-archive', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var campaign_id = 'undefined' !== typeof $(this).attr('data-campaign-draft-id') ? $(this).attr('data-campaign-draft-id') : '';
+        var archive_campaign_url = $('input[name=archive_campaign_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: archive_campaign_url,
+            data: {campaign_checked_ids: campaign_id},
             success: function(){
                 window.location.replace($('input[name=campaign_list_url]').val());
             },

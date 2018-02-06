@@ -35,6 +35,12 @@ class MailJetCampaign extends MailJetHandler
         self::CAMPAIGN_FILTER_DRAFT,
     );
 
+    const CAMPAIGN_ARCHIVED_VALID_FILTERS = array(
+        self::CAMPAIGN_FILTER_RECENT,
+        self::CAMPAIGN_FILTER_SENT,
+        self::CAMPAIGN_FILTER_DRAFT,
+    );
+
     protected $campaign_draft_manager;
     protected $campaign_manager;
     /*protected $mailjet;*/
@@ -117,6 +123,44 @@ class MailJetCampaign extends MailJetHandler
         return $campaign_data_list;
     }
 
+    public function getAllArchivedWithDataFiltered($filter_value)
+    {
+        $archived_campaign_with_data = $this->getAllArchivedWithData(array('Limit' => 0));
+        if (is_null($filter_value)) {
+            return $archived_campaign_with_data;
+        }
+
+        if (self::CAMPAIGN_FILTER_RECENT == $filter_value) {
+            return array_slice($archived_campaign_with_data, 0, 10);
+        } elseif (self::CAMPAIGN_FILTER_SENT == $filter_value) {
+            $filtered_archived_campaign_with_data = array();
+            foreach ($archived_campaign_with_data as $campaign_data) {
+                if ('' != $campaign_data['campaign_draft_data']->getDeliveredAt()) {
+                    array_push($filtered_archived_campaign_with_data, $campaign_data);
+                }
+            }
+            return $filtered_archived_campaign_with_data;
+        } elseif (self::CAMPAIGN_FILTER_DRAFT == $filter_value) {
+            $filtered_archived_campaign_with_data = array();
+            foreach ($archived_campaign_with_data as $campaign_data) {
+                if ('' == $campaign_data['campaign_draft_data']->getDeliveredAt()) {
+                    array_push($filtered_archived_campaign_with_data, $campaign_data);
+                }
+            }
+            return $filtered_archived_campaign_with_data;
+        }
+
+        /*if (self::CAMPAIGN_FILTER_RECENT == $filter_value) {
+            return array_slice($this->getAllArchivedWithData(array('Limit' => 0)), 0, 10);
+        } elseif (self::CAMPAIGN_FILTER_SENT == $filter_value) {
+            if (in_array($filter_value, self::CAMPAIGN_ARCHIVED_VALID_FILTERS)) {
+                return $this->getAllArchivedWithData(array('Limit' => 0, 'Status' => $filter_value));
+            }
+        }*/
+
+        return array();
+    }
+
     public function getAllVisibleWithDataFiltered($filter_value)
     {
         if (is_null($filter_value)) {
@@ -194,7 +238,7 @@ class MailJetCampaign extends MailJetHandler
         return $response->getData();
     }
 
-    public function updateCampaignDraftByIdList(array $campaign_draft_id_list)
+    public function archiveCampaignDraftByIdList(array $campaign_draft_id_list)
     {
         if (!empty($campaign_draft_id_list)) {
             foreach ($campaign_draft_id_list as $campaign_draft_id) {
