@@ -16,7 +16,6 @@ use AdminBundle\Form\ComEmailTemplateType;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
-use DrewM\MailChimp\MailChimp;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -302,63 +301,6 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
-    /**
-     * @Route("/emailing/campagne/new/folder", name="admin_communication_emailing_compaign_new_folder")
-     * @Method("POST")
-     */
-    public function emailingCampaignNewFolderAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        $response = $campaign->createFolder($request->get('name'));
-
-        return new JsonResponse($response);
-    }
-
-    /**
-     * @Route("/emailing/campagne/replicate", name="admin_communication_emailing_compaign_replicate")
-     * @Method("POST")
-     */
-    public function emailingCampaignReplicateAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        // $response = $campaign->replicateCampaign($request->get('id'));
-
-        //asynchronous to API
-        $response = $this->get('krlove.async')->call('emailing_campaign', 'replicateCampaign', [$request->get('id')]);
-
-        return new JsonResponse(array());
-    }
-
-    /**
-     * @Route("/emailing/campagne/delete", name="admin_communication_emailing_compaign_delete")
-     * @Method("POST")
-     */
-    public function emailingCampaignDeleteAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        $ids = explode(',', $request->get('ids'));
-        foreach ($ids as $id) {
-            // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-            // $response = $campaign->deleteCampaign($id);
-            $this->get('krlove.async')->call('emailing_campaign', 'deleteCampaign', [(string) $id]);
-        }
-
-        return new JsonResponse();
-    }
 
     /**
      * @Route("/emailing/modeles-emails", name="admin_communication_emailing_templates")
