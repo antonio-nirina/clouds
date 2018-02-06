@@ -92,20 +92,12 @@
                                 </button>
                                 <div class="dropdown-menu menuType" aria-labelledby="dropdownMenuFiltre">
                                     <a class="dropdown-itemTY" href="#">
-                                        OPTION1
-                                        <span></span>
+                                        {{"Campaign Seulement"|upper}}
+                                        <span>campaign</span>
                                     </a>
                                     <a class="dropdown-itemTY" href="#">
-                                        OPTION2
-                                        <span>Sent</span>
-                                    </a>
-                                    <a class="dropdown-itemTY" href="#">
-                                        OPTION3
-                                        <span>Programmed</span>
-                                    </a>
-                                    <a class="dropdown-itemTY" href="#">
-                                        OPTION4
-                                        <span>Draft</span>
+                                        {{"Transaction Seulement"|upper}}
+                                        <span>transaction</span>
                                     </a>
                                 </div>
                             </div>
@@ -117,20 +109,24 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
                                     <a class="dropdown-itemNo" href="#">
-                                        OPTION1
-                                        <span></span>
+                                         AUJOURD'HUI
+                                        <span>Today</span>
                                     </a>
                                     <a class="dropdown-itemNo" href="#">
-                                        OPTION2
-                                        <span>Sent</span>
+                                        HIER
+                                        <span>Yesterday</span>
                                     </a>
                                     <a class="dropdown-itemNo" href="#">
-                                        OPTION3
-                                        <span>Programmed</span>
+                                        {{"7 dernier jours"|upper}}
+                                        <span>Last 7 days</span>
                                     </a>
                                     <a class="dropdown-itemNo" href="#">
-                                        OPTION4
-                                        <span>Draft</span>
+                                        {{"ce mois"|upper}}
+                                        <span>This month</span>
+                                    </a>
+                                    <a class="dropdown-itemNo" href="#">
+                                        {{"mois dernier"|upper}}
+                                        <span>last month</span>
                                     </a>
                                 </div>
                             </div>
@@ -219,35 +215,35 @@
                     </div>                   
                         <div id="chartContainer"></div>
                         <div class="message">
-                            <h6 id="messag">Pendant cette période, vous envoyé <span id="nbrMail">00</span>e-mails.</h6>
+                        <h6 id="messag">Pendant cette période, vous envoyé <span id="nbrMail">{{total<10? 0~total:total}}</span>e-mails.</h6>
                             <h6 id="messagSelect">Sélectionnez une autre période pour voir plus de statistiques.</h6>
                         </div>
                     <div class="row result">
                             <div class=" total">
                                 <div class="totalTitreVal">
                                     <p id="titreT">{{"total"|upper}}</p>
-                                    <h4 id="valTot">{{total}}</h4>
+                                    <h4 id="valTot">{{total<10? 0~total:total}}</h4>
                                     <p class="mailTot">e-mails</p>
                                 </div>
                             </div>
                                 <div class=" delivrer">
                                     <div class="delTitreVal">
                                         <p id="titreDel">{{"délivrés"|upper}}</p>
-                                            <h4 id="valDel">{{delivre}}</h4>
+                                            <h4 id="valDel">{{delivre<10?0~delivre:delivre}}</h4>
                                         <p class="mailTot">e-mails</p>
                                     </div>                                   
                                 </div>
                                 <div class="ouvert" >
                                     <div class="ouvTitreVal">
                                         <p id="titreOuv">{{"ouverts"|upper}}</p>
-                                            <h4 id="valOuv">{{ouvert}}</h4>
+                                            <h4 id="valOuv">{{ouvert<10? 0~ouvert:ouvert}}</h4>
                                         <p class="mailTot">e-mails</p> 
                                     </div>             
                                 </div>                                                                                              
                                 <div class=" clique">
                                     <div class="cliTitreVal">
                                         <p id="titreClik">{{"cliqués"|upper}}</p> 
-                                        <h4 id="valClik">{{cliquer}}</h4>
+                                        <h4 id="valClik">{{cliquer<10? 0~cliquer:cliquer}}</h4>
                                         <p class="mailTot">e-mails</p>
                                     </div>
                                 </div>
@@ -259,10 +255,10 @@
                                         <p class="blSp">{{"spam"|upper}} </p>
                                     </div>
                                     <div class="valEtat">
-                                        <p class="blbl">{{bloque}}</p>
-                                        <p class="blErr">{{erreur}}</p>
-                                        <p class="blDesa">{{desabo}}</p>
-                                        <p class="blSp">{{spam}}</p>
+                                        <p class="blbl">{{bloque<10? 0~bloque:bloque}}</p>
+                                        <p class="blErr">{{erreur<10? 0~erreur:erreur}}</p>
+                                        <p class="blDesa">{{desabo<10? 0~desabo:desabo}}</p>
+                                        <p class="blSp">{{spam<10? 0~spam:spam}}</p>
                                     </div>
                                 </div>
                     </div>
@@ -307,17 +303,37 @@
                                                             {{"délivrés"|upper}}
                                                         </button>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
-                                                                <a class="dropdownDel1" href="#">
-                                                                    OPTION1
-                                                                    <span></span>
+                                                                <a class="dropdownDel3" href="#">
+                                                                    {{"délivrés"|upper}}
+                                                                    <span>delivred</span>
                                                                 </a>
-                                                                <a class="dropdownDel2" href="#">
-                                                                    OPTION2
+                                                                <a class="dropdownDel1" href="#">
+                                                                    {{"envoyés"|upper}}
                                                                     <span>Sent</span>
                                                                 </a>
+                                                                <a class="dropdownDel2" href="#">
+                                                                    {{"ouverts"|upper}}
+                                                                    <span>opened</span>
+                                                                </a>
                                                                 <a class="dropdownDel3" href="#">
-                                                                    OPTION3
-                                                                    <span>Programmed</span>
+                                                                    {{"cliqués"|upper}}
+                                                                    <span>clicked</span>
+                                                                </a>
+                                                                <a class="dropdownDel3" href="#">
+                                                                    {{"erreur"|upper}}
+                                                                    <span>bounce</span>
+                                                                </a>
+                                                                <a class="dropdownDel3" href="#">
+                                                                    {{"spam"|upper}}
+                                                                    <span>spam</span>
+                                                                </a>
+                                                                <a class="dropdownDel3" href="#">
+                                                                    {{"désabo."|upper}}
+                                                                    <span>unsub</span>
+                                                                </a>
+                                                                <a class="dropdownDel3" href="#">
+                                                                    {{"bloqués"|upper}}
+                                                                    <span>blocked</span>
                                                                 </a>
                                                             </div>
                                                     </div>
@@ -377,6 +393,7 @@
                                 <div class="legendeErr">
                                      <p id="legendeErr">O</p><p>{{"erreurs"|upper}}</p>
                                 </div>
+                                <input type="hidden" name="filterPeriode" value="{{path('admin_statistiques_filter')}}">
                             </div>
                     </div> 
                 </div>

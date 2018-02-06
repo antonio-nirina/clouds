@@ -1232,18 +1232,21 @@ class CommunicationController extends AdminController
     public function statistiqueshowAction(Request $request)
     {
         $data=[];
+        $now=(new \DateTime())->format("Y-m-d");
+        $filters=["lastactivityat"=>$now];
         $mailjet=$this->get('mailjet.client');
-        $response = $mailjet->get(Resources::$Campaignstatistics);
+        $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
         $total=$response->getTotal();
         $listsInfoCampaign=$response->getData();
-        foreach ($listsInfoCampaign as  $value) {
+
+        foreach ($listsInfoCampaign as  $value) {       
             $data["delivre"][]=($value["DeliveredCount"]);
             $data["ouvert"][]=$value["OpenedCount"];
             $data["cliquer"][]=$value["ClickedCount"];
             $data["bloque"][]=$value["BlockedCount"];
             $data["spam"][]=$value["SpamComplaintCount"];
             $data["desabo"][]=$value["UnsubscribedCount"];
-            $data["erreur"][]=$value["BouncedCount"];
+            $data["erreur"][]=$value["BouncedCount"];    
         }
         $delivre=array_sum($data["delivre"]);
         $ouvert=array_sum($data["ouvert"]);
@@ -1252,9 +1255,8 @@ class CommunicationController extends AdminController
         $spam=array_sum($data["spam"]);
         $desabo=array_sum($data["desabo"]);
         $erreur=array_sum($data["erreur"]);
-
         return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
-            [
+        [
                 "total"=>$total,
                 "delivre"=>$delivre,
                 "ouvert"=>$ouvert,
@@ -1264,5 +1266,31 @@ class CommunicationController extends AdminController
                 "desabo"=>$desabo,
                 "erreur"=>$erreur
         ]);
+    }
+
+    /**
+     * @Route("/emailing/statistiques/filter/date", name="admin_statistiques_filter")
+     * @Method({"POST"})
+     */
+    public function statistiqueFilterDateAction(Request $request)
+    {
+        $now=$request->request->get('filter');
+        $filters=["lastactivityat"=>$now];
+        $mailjet=$this->get('mailjet.client');
+        $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
+        $total=$response->getTotal();
+        $listsInfoCampaign=$response->getData();
+        foreach ($listsInfoCampaign as  $value) {       
+            $data["delivre"][]=($value["DeliveredCount"]);
+            $data["ouvert"][]=$value["OpenedCount"];
+            $data["cliquer"][]=$value["ClickedCount"];
+            $data["bloque"][]=$value["BlockedCount"];
+            $data["spam"][]=$value["SpamComplaintCount"];
+            $data["desabo"][]=$value["UnsubscribedCount"];
+            $data["erreur"][]=$value["BouncedCount"];    
+        }
+        $response=new JsonResponse($data);
+        return $response;
+
     }
 }

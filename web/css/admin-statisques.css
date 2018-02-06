@@ -726,7 +726,8 @@ padding: 13px 25px;
     background-color:#F9F9F9;
     padding-top: 12px;
     margin-left: 8px;
-    padding: 14px 10px;
+    /*padding: 14px 10px;*/
+    padding: 14px 45px;
 }
 .detaile{
     margin-top: 71px;
