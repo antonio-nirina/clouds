@@ -649,7 +649,7 @@ $(document).ready(function() {
     $(".add-to-archive").on("click", function (e) {
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
-        url = $(this).attr("href");
+        url = $(this).attr("data-target-link");
         $.ajax({
             type : "POST",
             url: url,
