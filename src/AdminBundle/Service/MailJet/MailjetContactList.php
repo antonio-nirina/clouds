@@ -12,12 +12,14 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use UserBundle\Entity\User as User;
 
 class MailjetContactList{
 	
 	protected $manager;
     protected $mailjet;
     protected $contactmetadata;
+	protected $user;
 	
 	public function __construct(ContactsListManager $manager, MailjetClient $mailjet, ContactMetadataManager $contactmetadata)
     {
@@ -25,6 +27,14 @@ class MailjetContactList{
         $this->mailjet = $mailjet;
         $this->contactmetadata = $contactmetadata;
     }
+	
+	public function setUser($users){
+		$this->user = $users;
+	}
+	
+	public function getUser(){
+		return $this->user;
+	}
 	
 	/**
      * Retrieve all ContactsList
@@ -150,7 +160,7 @@ class MailjetContactList{
      * @return array
      */
 	public function getAllContact(){
-		$response = $this->mailjet->get(Resources::$Contact);
+		$response = $this->mailjet->get(Resources::$Contact, ['filters' => ['Limit' => 0]]);
 		return $response->getData();
 	}
 	
@@ -202,6 +212,15 @@ class MailjetContactList{
 		//$ContactslistObj = new Contactslist($idList, ContactsList::ACTION_REMOVE, array());
 		
 		$response = $this->mailjet->delete(Resources::$Contactslist, ['id' => $idList]);
+		return $response->getData();
+	}
+	
+	/**
+     * Create contact with its email
+     * @return array
+     */
+	public function createContactByMail(User $user){
+		$response = $this->mailjet->post(Resources::$Contact, ['body' => ['Email' => $user->getEmail()]]);
 		return $response->getData();
 	}
 }

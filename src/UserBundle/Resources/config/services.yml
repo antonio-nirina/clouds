@@ -1,0 +1,8 @@
+services:
+    app.registration.confirm.listener:
+        class: 'UserBundle\EventListener\RegistrationConfirmListener'
+        arguments:
+            - '@router'
+            - '@service_container'
+        tags:
+            - { name: kernel.event_subscriber}
