@@ -836,7 +836,14 @@ font-weight: bold;
 #chartContainer{
     height: 300px; width: 100%;
 }
-#valTot{
+.valTot,.valTot1{
+    color:#6F85DA;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
+.valTot2{
+    display: none;
     color:#6F85DA;
     font-size:1.2rem;
     font-weight: bold;
@@ -872,12 +879,21 @@ font-weight: bold;
     font-weight: bold;
 }
 
-#valDel{
+.valDel,.valDel1{
     color:#505050;
    font-size:1.2rem;
     font-weight: bold;
     padding-left: 54px;
 }
+
+.valDel2{
+    display: none;
+    color:#505050;
+   font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
+
 #titreOuv{
 color:#93D706;
 padding-left: 27px;
@@ -886,7 +902,15 @@ border-top-style: solid;
 padding-top: 12px;
 font-weight: bold;
 }
-#valOuv{
+.valOuv,.valOuv1{
+    color:#93D706;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
+
+.valOuv2{
+    display: none;
     color:#93D706;
     font-size:1.2rem;
     font-weight: bold;
@@ -900,12 +924,22 @@ border-top-style: solid;
 padding-top: 12px;
 font-weight: bold;
 }
-#valClik{
+.valClik,.valClik1{
     color:#13A20A;
     font-size:1.2rem;
     font-weight: bold;
     padding-left: 54px;
 }
+
+.valClik2{
+    display: none;
+    color:#13A20A;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
+
+
 #messag{
     font-size:1.1rem;
 }
@@ -915,22 +949,72 @@ font-weight: bold;
 #nbrMail{
     color:#6F85DA;
 }
-.blbl{
+#nbrMail2{
+    color:#6F85DA;
+}
+.blbl,.blbl1{
     color:#000000;
     font-weight: bold;
 }
-.blErr{
+.blErr,.blErr1{
     color:orange;
     font-weight: bold;
 }
-.blDesa{
+.blDesa,.blDesa1{
     color:#1CC8FA;
     font-weight: bold;
 }
-.blSp{
+.blSp,.blSp1{
     color:#FC0007;
     font-weight: bold;
 }
+
+
+
+.blbl2{
+    display: none;
+    color:#000000;
+    font-weight: bold;
+}
+.blErr2{
+    display: none;
+    color:orange;
+    font-weight: bold;
+}
+.blDesa2{
+    display: none;
+    color:#1CC8FA;
+    font-weight: bold;
+}
+.blSp2{
+    display: none;
+    color:#FC0007;
+    font-weight: bold;
+}
+
+#blbl2{
+    display: none;
+    color:#000000;
+    font-weight: bold;
+}
+#blErr2{
+    display: none;
+    color:orange;
+    font-weight: bold;
+}
+#blDesa2{
+    display: none;
+    color:#1CC8FA;
+    font-weight: bold;
+}
+#blSp2{
+    display: none;
+    color:#FC0007;
+    font-weight: bold;
+}
+
+
+
 #detaStat{
     color:#747EDF;
     font-size:1rem;
