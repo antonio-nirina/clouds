@@ -307,6 +307,7 @@ class MailJetCampaign extends MailJetHandler
         unset($source_campaign_draft_data['Current']);
         unset($source_campaign_draft_data['ID']);
         unset($source_campaign_draft_data['ModifiedAt']);
+        unset($source_campaign_draft_data['DeliveredAt']);
         $source_campaign_draft_data['Status'] = 0;
         $source_campaign_draft_data['Title'] = $campaign_draft_title;
         $result = $this->mailjet->post(Resources::$Campaigndraft, array('body' => $source_campaign_draft_data));
@@ -315,5 +316,26 @@ class MailJetCampaign extends MailJetHandler
         }
 
         return null;
+    }
+
+    /**
+     * Delete campaign draft by ID list
+     *
+     * @param array $campaign_draft_id_list
+     *
+     * @return void
+     */
+    public function deleteCampaignDraftByIdList(array $campaign_draft_id_list)
+    {
+        if (!empty($campaign_draft_id_list)) {
+            foreach ($campaign_draft_id_list as $campaign_draft_id) {
+                $this->mailjet->put(Resources::$Campaigndraft, array(
+                    'Id' => $campaign_draft_id,
+                    'body' => array('Status' => self::CAMPAIGN_STATUS_DELETED),
+                ));
+            }
+        }
+
+        return;
     }
 }

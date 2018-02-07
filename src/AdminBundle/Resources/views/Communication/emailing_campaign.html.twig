@@ -97,7 +97,7 @@
                             </div>
 
                             <div>
-                                <a href="{{ path("admin_communication_emailing_compaign_archived") }}" class="add add-folder-link add-to-archive">
+                                <a href="#" class="add add-folder-link add-to-archive archived-campaign" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
                                     archivées
                                 </a>
                             </div>
@@ -117,7 +117,7 @@
                                 </button> 
                             </div>
                             <div class="campaign-delete">
-                                <button class="btn-valider btn btn-primary delete-campaign-button" data-toggle="modal" data-target="#delete-modal-campaign">
+                                <button class="btn-valider btn btn-primary delete-campaign-button">
                                     supprimer
                                 </button> 
                             </div>
@@ -242,30 +242,34 @@
                             </div>
                         </div>
                     </div>
-                    {#modal delete#}                    
-                    <!-- Modal supprimer-->
-                    <div id="delete-modal-campaign" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+                    <!-- modal - confirmation suppression campagne -->
+                    <div id="confirm-delete-campaign" class="modal confirm-delete-dialog" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
                                 </div>
-                                <div class="content">
-                                    <div><h4>suppression</h4></div>
-                                    <div class="row btn-new-campaign-folder">
-                                        <label for="">Êtes-vous sûr de vouloir supprimer définitivement cette campagne ?</label>
-                                    </div>                                
-                                    <div class="row centered">
-                                        <button class="btn-valider btn-delete-campaign">
-                                            valider
-                                        </button>
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="text-container">
+                                            <span class="confirm-dialog-title">Suppression</span>
+                                            <p class="message">Êtes-vous sûr de vouloir supprimer définitivement cette campagne?</p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider confirm-delete">
+                                                valider
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="add-campaign-folder-error"></div>
                                 </div>
+                                <input type="hidden" name="campaign_draft_ids" value="">
                             </div>
                         </div>
                     </div>
-                    <!-- Modal créer nouveau-->                    
+                    <!-- FIN - modal - confirmation suppression campagne -->
+
+                    <!-- Modal créer nouveau-->
                     <div id="new-campaign-modal" class="modal bs-example-modal-lg app-dialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg big" role="document">
                             <div class="modal-content">
@@ -350,6 +354,7 @@
                 <input type="hidden" name="campaign_list_url" value="{{ path("admin_communication_emailing_compaign") }}">
                 <input type="hidden" name="restore_campaign_url" value="{{ path("admin_communication_emailing_campaign_restore_archived") }}">
                 <input type="hidden" name="duplicate_campaign_url" value="{{ path("admin_communication_emailing_campaign_duplicate") }}">
+                <input type="hidden" name="delete_campaign_url" value="{{ path("admin_communication_emailing_campaign_delete") }}">
                 <div class="hidden-image">
                     <div id="loading-image">
                         <img src="{{ asset("images/cloudsRewards/loading.gif") }}" />

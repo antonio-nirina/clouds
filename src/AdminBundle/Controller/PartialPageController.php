@@ -286,6 +286,7 @@ class PartialPageController extends Controller
 		//Call ContactList manager service
 		$ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 		$AllContact = $ContactList->getAllContact();
+		
 		$Users = array();
 		foreach($AllContact as $Contacts){
 			//Get infos user 
