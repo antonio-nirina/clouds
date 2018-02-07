@@ -1236,7 +1236,7 @@ class CommunicationController extends AdminController
     {
         $data=[];
         $date=new \DateTime();
-        $now=($date->settime(0,0,0))->format("Y-m-d");
+        $now=$date->settime(0,0,0)->format("Y-m-d");
         $filters=["lastactivityat"=>$now];
         $mailjet=$this->get('mailjet.client');
         $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);//call of ApiMailjet
