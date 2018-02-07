@@ -102,10 +102,8 @@ $(document).ready(function(){
                                  
                     }else{
 
-                    }
-                    
+                    }                   
                 }
-
             });
               //$('#ui-datepicker-div').css('display','none');
         }); 
@@ -113,5 +111,4 @@ $(document).ready(function(){
        $('.ensemble').css('display','block');
        $('#vueStat').css('display','none');
     });
-      
 });

@@ -1,0 +1,34 @@
+{% if duplicate_campaign_form is defined %}
+    {{ form_start(duplicate_campaign_form, {"attr": {"novalidate": "novalidate"}}) }}
+    <div class="content-container">
+        <span class="dialog-title">dupliquer la campagne</span>
+        <div class="form-element-container">
+            <div>
+                {{ form_label(duplicate_campaign_form.name, "titre de la nouvelle campagne") }}
+            </div>
+            <div>
+                <div class="input-container">
+                    {{ form_widget(duplicate_campaign_form.name, {"attr": {"class": "input-text semi-large-input-text removable-content-input"}}) }}
+                    {% set delete_input_visibility = 'style=display:none' %}
+                    {% if duplicate_campaign_form.vars.value.name | trim is not empty %}
+                        {% set delete_input_visibility = '' %}
+                    {% endif %}
+                    <span class="delete-input" {{ delete_input_visibility }}></span>
+                </div>
+                <div class="error-message-container">
+                    {{ form_errors(duplicate_campaign_form.name) }}
+                </div>
+            </div>
+        </div>
+        {{ form_widget(duplicate_campaign_form.duplication_source_id, {"attr": {"class": "duplication-source-id"}}) }}
+    </div>
+    <div class="button-container">
+        <button class ="btn-valider save save-duplication" data-target-url="{{ path("admin_communication_emailing_campaign_duplicate")}}">
+            enregistrer
+        </button>
+        <button class ="btn-valider cancel cancel-duplication">
+            annuler
+        </button>
+    </div>
+    {{ form_end(duplicate_campaign_form) }}
+{% endif %}

@@ -1,3 +1,36 @@
+$(document).ready(function(){
+
+  var date=new Date().toLocaleDateString();
+  var dataPoints=[];
+   var url = $('input[name=filterPeriode]').val();
+  $.ajax({
+      url:url,
+      method:'POST',
+      data:{'filter':date},
+      dataType: 'json',
+      success:function(data){
+          console.log(data);
+      }
+    });
+
+    $(document).on('click','.clearable .dropdown-itemNo', function(e){
+        e.preventDefault();
+        var a=$(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
+        setTimeout(sendChoice($(this)), 0);
+    });
+
+    $(document).on('mouseleave', '.dropdown-menu', function() {
+        $(document).click();
+    });
+
+    function sendChoice($periode=null){
+       var filter = $('.dropdown.filtres').find('button').hasClass('active'),
+            data = {};
+        if (filter) {
+            data.status = $('.dropdown.filtres').find('button').find("span").html().trim();
+        }
+    }
+
 var chart = new CanvasJS.Chart("chartContainer",{  
   theme: "light2",      
   axisX:{ 
@@ -10,7 +43,7 @@ var chart = new CanvasJS.Chart("chartContainer",{
     tickLength: 5,
     tickThickness: 6,
     tickColor:"#25C8FF",
-    minimum: new Date(2014,02,09,00,00),
+    minimum: new Date(2018,01,06,00,00),
     labelFormatter: function (e) {
       var d = new Date(e.value);
       var n = d.getHours();
@@ -31,18 +64,20 @@ var chart = new CanvasJS.Chart("chartContainer",{
       color: "#87ceeb",
       markerType: "square",
       dataPoints: [
-        { x:new Date(2014,02,09,02,00), y: 0 },
-        { x: new Date(2014,02,09,04,00), y: 0 },
-        { x: new Date(2014,02,09,06,00), y: 0 },
-        { x: new Date(2014,02,09,08,00), y: 0},
-        { x: new Date(2014,02,09,10,00), y: 0 },
-        { x: new Date(2014,02,09,14,00), y: 0 },
-        { x: new Date(2014,02,09,16,00), y: 0 },
-        { x: new Date(2014,02,09,18,00), y: 0.05634 },
-        { x: new Date(2014,02,09,20,00), y: 0.0156614 }
+        { x:new Date(2018,01,06,02,00), y: 0 },
+        { x: new Date(2018,01,06,04,00), y: 0 },
+        { x: new Date(2018,01,06,06,00), y: 0 },
+        { x: new Date(2018,01,06,08,00), y: 0},
+        { x: new Date(2018,01,06,10,00), y: 0 },
+        { x: new Date(2018,01,06,14,00), y: 0 },
+        { x: new Date(2018,01,06,16,00), y: 0 },
+        { x: new Date(2018,01,06,18,00), y: 0.05634 },
+        { x: new Date(2018,01,06,20,00), y: 0.0156614 }
       ]
     }         
   ]
 });
 
 chart.render();
+
+});

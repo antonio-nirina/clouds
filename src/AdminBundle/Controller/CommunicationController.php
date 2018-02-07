@@ -9,6 +9,7 @@ use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
 use AdminBundle\DTO\ComEmailTemplateDuplicationData;
+use AdminBundle\DTO\DuplicationData;
 use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\CampaignDateType;
@@ -16,7 +17,6 @@ use AdminBundle\Form\ComEmailTemplateType;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
-use DrewM\MailChimp\MailChimp;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -306,61 +306,67 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/emailing/campagne/new/folder", name="admin_communication_emailing_compaign_new_folder")
+     * @Route("/emailing/campagne/dupliquer", name="admin_communication_emailing_campaign_duplicate")
      * @Method("POST")
      */
-    public function emailingCampaignNewFolderAction(Request $request)
+    public function emailingCampaignDuplicateAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
-        $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        $response = $campaign->createFolder($request->get('name'));
+        $campaign_duplication_source_id = $request->get('campaign_draft_id');
+        $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaign_duplication_source = $campaign_handler->retrieveCampaignDraftById($campaign_duplication_source_id);
+        if (is_null($campaign_duplication_source_id) || is_null($campaign_duplication_source)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
 
-        return new JsonResponse($response);
+        $duplication_data = new DuplicationData();
+        $duplication_data->setDuplicationSourceId($campaign_duplication_source['ID'])
+            ->setName($campaign_duplication_source['Title']);
+        $campaign_duplication_form = $this->createForm(DuplicationForm::class, $duplication_data);
+        $campaign_duplication_form->handleRequest($request);
+
+        if ($campaign_duplication_form->isSubmitted() && $campaign_duplication_form->isValid()) {
+            if ($campaign_duplication_source_id == $duplication_data->getDuplicationSourceId()) {
+                $campaign_handler->duplicateCampaignDraft($campaign_duplication_source, $duplication_data->getName());
+                $data = $json_response_data_provider->success();
+
+                return new JsonResponse($data, 200);
+            }
+        }
+
+        $view = $this->renderView(
+            'AdminBundle:Communication/EmailingTemplates:duplicate_campaign.html.twig',
+            array('duplicate_campaign_form' => $campaign_duplication_form->createView())
+        );
+        $data = $json_response_data_provider->success();
+        $data['content'] = $view;
+
+        return new JsonResponse($data, 200);
     }
 
     /**
-     * @Route("/emailing/campagne/replicate", name="admin_communication_emailing_compaign_replicate")
-     * @Method("POST")
-     */
-    public function emailingCampaignReplicateAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-        // $response = $campaign->replicateCampaign($request->get('id'));
-
-        //asynchronous to API
-        $response = $this->get('krlove.async')->call('emailing_campaign', 'replicateCampaign', [$request->get('id')]);
-
-        return new JsonResponse(array());
-    }
-
-    /**
-     * @Route("/emailing/campagne/delete", name="admin_communication_emailing_compaign_delete")
+     * @Route("/emailing/campagne/supprimer", name="admin_communication_emailing_campaign_delete")
      * @Method("POST")
      */
     public function emailingCampaignDeleteAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $to_delete_campaign_ids = explode(',', $request->get('campaign_checked_ids'));
+        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        if (!empty($to_delete_campaign_ids)) {
+            $campaign_handler->deleteCampaignDraftByIdList($to_delete_campaign_ids);
         }
 
-        $ids = explode(',', $request->get('ids'));
-        foreach ($ids as $id) {
-            // $campaign = $this->container->get('AdminBundle\Service\MailChimp\MailChimpCampaign');
-            // $response = $campaign->deleteCampaign($id);
-            $this->get('krlove.async')->call('emailing_campaign', 'deleteCampaign', [(string) $id]);
-        }
-
-        return new JsonResponse();
+        return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
     /**
@@ -1227,18 +1233,21 @@ class CommunicationController extends AdminController
     public function statistiqueshowAction(Request $request)
     {
         $data=[];
+        $now=(new \DateTime())->format("Y-m-d");
+        $filters=["lastactivityat"=>$now];
         $mailjet=$this->get('mailjet.client');
-        $response = $mailjet->get(Resources::$Campaignstatistics);
+        $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
         $total=$response->getTotal();
         $listsInfoCampaign=$response->getData();
-        foreach ($listsInfoCampaign as  $value) {
+
+        foreach ($listsInfoCampaign as  $value) {       
             $data["delivre"][]=($value["DeliveredCount"]);
             $data["ouvert"][]=$value["OpenedCount"];
             $data["cliquer"][]=$value["ClickedCount"];
             $data["bloque"][]=$value["BlockedCount"];
             $data["spam"][]=$value["SpamComplaintCount"];
             $data["desabo"][]=$value["UnsubscribedCount"];
-            $data["erreur"][]=$value["BouncedCount"];
+            $data["erreur"][]=$value["BouncedCount"];    
         }
         $delivre=array_sum($data["delivre"]);
         $ouvert=array_sum($data["ouvert"]);
@@ -1247,9 +1256,8 @@ class CommunicationController extends AdminController
         $spam=array_sum($data["spam"]);
         $desabo=array_sum($data["desabo"]);
         $erreur=array_sum($data["erreur"]);
-
         return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
-            [
+        [
                 "total"=>$total,
                 "delivre"=>$delivre,
                 "ouvert"=>$ouvert,
@@ -1259,5 +1267,31 @@ class CommunicationController extends AdminController
                 "desabo"=>$desabo,
                 "erreur"=>$erreur
         ]);
+    }
+
+    /**
+     * @Route("/emailing/statistiques/filter/date", name="admin_statistiques_filter")
+     * @Method({"POST"})
+     */
+    public function statistiqueFilterDateAction(Request $request)
+    {
+        $now=$request->request->get('filter');
+        $filters=["lastactivityat"=>$now];
+        $mailjet=$this->get('mailjet.client');
+        $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
+        $total=$response->getTotal();
+        $listsInfoCampaign=$response->getData();
+        foreach ($listsInfoCampaign as  $value) {       
+            $data["delivre"][]=($value["DeliveredCount"]);
+            $data["ouvert"][]=$value["OpenedCount"];
+            $data["cliquer"][]=$value["ClickedCount"];
+            $data["bloque"][]=$value["BlockedCount"];
+            $data["spam"][]=$value["SpamComplaintCount"];
+            $data["desabo"][]=$value["UnsubscribedCount"];
+            $data["erreur"][]=$value["BouncedCount"];    
+        }
+        $response=new JsonResponse($data);
+        return $response;
+
     }
 }

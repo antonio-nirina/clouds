@@ -98,7 +98,7 @@ $(document).ready(function() {
             }
         } 
         if ($('#create-tabs a.activated.active').hasClass("step-3")) {
-            console.log($('input[name=template_choice_option]:checked').val());
+            // console.log($('input[name=template_choice_option]:checked').val());
             if ($('input[name=template_choice_option]:checked').val() || "undefined" != typeof $('input[name=template_choice_option]:checked').val() ) {
                 addDone();
                 return true;
@@ -161,7 +161,7 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on('click', '.campaign-replicate', function(e) {// dupliquer compaigne
+    /*$(document).on('click', '.campaign-replicate', function(e) {// dupliquer compagne
         e.preventDefault();
         var url = $('input[name=replicate]').val();
         var data = {'id': $(this).parent().find('input[name=campaign-id]').val()};
@@ -175,9 +175,92 @@ $(document).ready(function() {
             }
         });
         setTimeout(sendFilter(), 250);
+    });*/
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Duplidation de campagne
+     * *********************************************************************************************
+     */
+    // calling duplicate form
+    $(document).on('click', '.campaign-duplicate', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var duplicate_campaign_url = $('input[name=duplicate_campaign_url]').val(),
+        data = {};
+        data.campaign_draft_id = $(this).attr('data-campaign-draft-id');
+        $.ajax({
+            type: 'POST',
+            url: duplicate_campaign_url,
+            data: data,
+            success: function(data){
+                $('#duplicate-campaign-dialog').find('.modal-body-container').html(data.content);
+                $('#duplicate-campaign-dialog').find('.general-message').html('');
+            },
+            statusCode: {
+                404: function(){
+                    $('#duplicate-campaign-dialog').find('.general-message').html('Page non trouvée');
+                },
+                500: function(){
+                    $('#duplicate-campaign-dialog').find('.general-message').html('Erreur interne');
+                }
+            },
+            complete: function(){
+                $('#duplicate-campaign-dialog').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
     });
 
-    $('.btn-rename-campaign').on('click', function(e) {
+    $('#duplicate-campaign-dialog').on('hidden.bs.modal', function(){
+        $(this).find('.general-message').html('');
+    });
+
+    // close duplicate form
+    $(document).on('click', '#duplicate-campaign-dialog .button-container .cancel-duplication', function(e){
+        e.preventDefault();
+        $('#duplicate-campaign-dialog').find('.modal-body-container').html('');
+        $('#duplicate-campaign-dialog').modal('hide');
+    });
+
+    // submit duplicate form
+    $(document).on('click', '#duplicate-campaign-dialog .button-container .save-duplication', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var duplicate_campaign_url = $('input[name=duplicate_campaign_url]').val(),
+            data = {};
+        data.campaign_draft_id = $('#duplicate-campaign-dialog').find('.duplication-source-id').val();
+        $('#duplicate-campaign-dialog form').ajaxSubmit({
+            type: 'POST',
+            url: duplicate_campaign_url,
+            data: data,
+            success: function(data){
+                window.location.replace($('input[name=campaign_list_url]').val());
+            },
+            statusCode: {
+                404: function(){
+                    $('#duplicate-campaign-dialog').find('.general-message').html('Page non trouvée');
+                },
+                500: function(){
+                    $('#duplicate-campaign-dialog').find('.general-message').html('Erreur interne');
+                }
+            },
+            complete: function(){
+                $('#duplicate-campaign-dialog').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Duplidation de campagne
+     * *********************************************************************************************
+     */
+
+    /*$('.btn-rename-campaign').on('click', function(e) {
         var name = $('#campaign_new_name').val().trim();
         var id = $(this).parents('.modal').find('input[name=campaign-id]').val();
         var current_name = $('.campaign-'+id).find(".campagne-name-name").html().trim();
@@ -198,7 +281,7 @@ $(document).ready(function() {
             setTimeout(sendFilter(), 250);
             $(".modal").modal('hide');
         }        
-    })
+    })*/
 
     $(document).on('change', ".campagne-name .styled-checkbox", function() {//selection des campagnes
         checked = getChecked();        
@@ -433,7 +516,7 @@ $(document).ready(function() {
                    installWysiwyg();
                } else {
                     //set new template selected
-                    console.log(data);
+                    // console.log(data);
                     $('.step-3').addClass('done');
                     clickNext();//next step
                }
@@ -566,7 +649,7 @@ $(document).ready(function() {
     $(".add-to-archive").on("click", function (e) {
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
-        url = $(this).attr("href");
+        url = $(this).attr("data-target-link");
         $.ajax({
             type : "POST",
             url: url,
@@ -579,6 +662,7 @@ $(document).ready(function() {
                 $('.filtres a.dropdown-item.programmed-item').hide();
                 $('.filtres').find('.dropdown-item').attr('data-archived-campaign-mode', true);
                 $('.filtres').find('.delete-input').attr('data-archived-campaign-mode', true);
+                $('.selected-campaign').find('.delete-campaign-button').attr('data-archived-campaign-mode', true);
                 $('.chargementAjax').addClass('hidden');
             },
             statusCode: {
@@ -700,6 +784,65 @@ $(document).ready(function() {
             }
         });
     });
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suppression de campagne(s)
+     * *********************************************************************************************
+     */
+    const confirm_delete_campaign = 'Êtes-vous sûr de vouloir supprimer définitivement cette campagne?';
+    const confirm_delete_campaign_plural = 'Êtes-vous sûr de vouloir supprimer définitivement ces campagnes?';
+    $(document).on('click', '.delete-campaign-button', function(e){
+        e.preventDefault();
+        var campaign_draft_ids = getChecked();
+        campaign_draft_ids = campaign_draft_ids.join(',');
+        $('#confirm-delete-campaign').find('input[name=campaign_draft_ids]').val(campaign_draft_ids);
+        if(campaign_draft_ids.indexOf(',') > 0){
+            $('#confirm-delete-campaign').find('.modal-body .message').text(confirm_delete_campaign_plural);
+        } else {
+            $('#confirm-delete-campaign').find('.modal-body .message').text(confirm_delete_campaign)
+        }
+        $('#confirm-delete-campaign').modal('show');
+    });
+
+    $(document).on('click', '#confirm-delete-campaign .confirm-delete', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var campaign_draft_ids = $('#confirm-delete-campaign').find('input[name=campaign_draft_ids]').val();
+        var delete_campaign_url = $('input[name=delete_campaign_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: delete_campaign_url,
+            data: {campaign_checked_ids: campaign_draft_ids},
+            success: function(){
+                if('undefined' !== typeof $('.selected-campaign .delete-campaign-button').attr('data-archived-campaign-mode')
+                    && 'true' == $('.selected-campaign .delete-campaign-button').attr('data-archived-campaign-mode')){
+                    $('.chargementAjax').addClass('hidden');
+                    $('#confirm-delete-campaign').modal('hide');
+                    $('.archived-campaign').trigger('click');
+                } else {
+                    window.location.replace($('input[name=campaign_list_url]').val());
+                }
+            },
+            statusCode:{
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suppression de campagne(s)
+     * *********************************************************************************************
+     */
 
 });
 

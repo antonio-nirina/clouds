@@ -2243,7 +2243,38 @@ section .row.ending {
         width: 100%;
     }
 }
+/**
+ * dialog - dupliquer campagne (et template)
+ */
+#duplicate-campaign-dialog{
+    font-family: var(--police_light);
+}
 
+@media (max-width: 991px) {
+    .duplication-dialog form input
+    {
+        width: 150px !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .duplication-dialog form input
+    {
+        width: 75% !important;
+    }
+
+    .duplication-dialog .input-container
+    {
+        display: flex;
+    }
+}
+
+/**
+ * Suppression campagne
+ */
+#confirm-delete-campaign{
+    font-family: var(--police_light);
+}
 
 /**
  * dialog - éléments communs
@@ -2949,7 +2980,10 @@ p.chargementAjax.hidden{
         flex-direction: column;
     }
 
-    #save-template-on-close-dialog.app-dialog .button-container{
+    #save-template-on-close-dialog.app-dialog .button-container,
+    #duplicate-template-dialog.app-dialog .button-container,
+    #duplicate-campaign-dialog.app-dialog .button-container
+    {
         display: flex;
         flex-direction: column;
     }

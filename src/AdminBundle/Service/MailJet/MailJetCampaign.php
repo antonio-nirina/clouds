@@ -274,4 +274,68 @@ class MailJetCampaign extends MailJetHandler
 
         return;
     }
+
+    /**
+     * Retrieve campaign draft data by its id
+     *
+     * @param int $id
+     *
+     * @return null|array
+     */
+    public function retrieveCampaignDraftById($id)
+    {
+        $result = $this->mailjet->get(Resources::$Campaigndraft, array('Id' => $id));
+        if (self::STATUS_CODE_SUCCESS == $result->getStatus()) {
+            return $result->getData()[0];
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Duplicate campaign draft
+     *
+     * @param array $source_campaign_draft_data
+     * @param string $campaign_draft_title
+     *
+     * @return null|int
+     */
+    public function duplicateCampaignDraft(array $source_campaign_draft_data, $campaign_draft_title)
+    {
+        unset($source_campaign_draft_data['CreatedAt']);
+        unset($source_campaign_draft_data['Current']);
+        unset($source_campaign_draft_data['ID']);
+        unset($source_campaign_draft_data['ModifiedAt']);
+        unset($source_campaign_draft_data['DeliveredAt']);
+        $source_campaign_draft_data['Status'] = 0;
+        $source_campaign_draft_data['Title'] = $campaign_draft_title;
+        $result = $this->mailjet->post(Resources::$Campaigndraft, array('body' => $source_campaign_draft_data));
+        if (in_array($result->getStatus(), self::STATUS_CODE_SUCCESS_LIST)) {
+            return $result->getData()[0]['ID'];
+        }
+
+        return null;
+    }
+
+    /**
+     * Delete campaign draft by ID list
+     *
+     * @param array $campaign_draft_id_list
+     *
+     * @return void
+     */
+    public function deleteCampaignDraftByIdList(array $campaign_draft_id_list)
+    {
+        if (!empty($campaign_draft_id_list)) {
+            foreach ($campaign_draft_id_list as $campaign_draft_id) {
+                $this->mailjet->put(Resources::$Campaigndraft, array(
+                    'Id' => $campaign_draft_id,
+                    'body' => array('Status' => self::CAMPAIGN_STATUS_DELETED),
+                ));
+            }
+        }
+
+        return;
+    }
 }

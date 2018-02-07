@@ -97,7 +97,7 @@
                             </div>
 
                             <div>
-                                <a href="{{ path("admin_communication_emailing_compaign_archived") }}" class="add add-folder-link add-to-archive">
+                                <a href="#" class="add add-folder-link add-to-archive archived-campaign" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
                                     archivées
                                 </a>
                             </div>
@@ -117,7 +117,7 @@
                                 </button> 
                             </div>
                             <div class="campaign-delete">
-                                <button class="btn-valider btn btn-primary delete-campaign-button" data-toggle="modal" data-target="#delete-modal-campaign">
+                                <button class="btn-valider btn btn-primary delete-campaign-button">
                                     supprimer
                                 </button> 
                             </div>
@@ -142,9 +142,9 @@
                                             {% set pre = "" %}
                                             {% set class= "" %}
                                         {% elseif campaign_draft_data.status == 1 %}
-                                            {% set date = campaign_draft_data.deliveredAt %}
+                                            {% set date = campaign_draft_data.modifiedAt %}
                                             {% set status = "Programmé" %}
-                                            {% set pre = "" %}
+                                            {% set pre = "modifié" %}
                                             {% set class= "programmed" %}
                                         {% elseif campaign_draft_data.status == 0 or (campaign_draft_data.status == -1 and campaign_draft_data.deliveredAt is empty) %}
                                             {% set date = campaign_draft_data.modifiedAt %}
@@ -202,7 +202,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                             <a class="dropdown-item" href="#">STATISTIQUES</a>
                                             <a id = "apercu_campagne" class="dropdown-item campaign-preview" data-url = "{{ campaign_draft_data.url }}" style = "cursor:pointer;">APERÇU</a>
-                                            <a class="dropdown-item campaign-replicate" href="#">DUPLIQUER</a>
+                                            <a class="dropdown-item campaign-duplicate" href="#" data-campaign-draft-id="{{ campaign_draft_data.id }}">DUPLIQUER</a>
                                             {% if campaign_draft_data.status != 1 %}
                                             <a class="dropdown-item campaign-archive" href="#" data-campaign-draft-id="{{ campaign_draft_data.id }}">ARCHIVER</a>
                                             {% endif %}
@@ -242,30 +242,34 @@
                             </div>
                         </div>
                     </div>
-                    {#modal delete#}                    
-                    <!-- Modal supprimer-->
-                    <div id="delete-modal-campaign" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+                    <!-- modal - confirmation suppression campagne -->
+                    <div id="confirm-delete-campaign" class="modal confirm-delete-dialog" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
                                 </div>
-                                <div class="content">
-                                    <div><h4>suppression</h4></div>
-                                    <div class="row btn-new-campaign-folder">
-                                        <label for="">Êtes-vous sûr de vouloir supprimer définitivement cette campagne ?</label>
-                                    </div>                                
-                                    <div class="row centered">
-                                        <button class="btn-valider btn-delete-campaign">
-                                            valider
-                                        </button>
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="text-container">
+                                            <span class="confirm-dialog-title">Suppression</span>
+                                            <p class="message">Êtes-vous sûr de vouloir supprimer définitivement cette campagne?</p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider confirm-delete">
+                                                valider
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="add-campaign-folder-error"></div>
                                 </div>
+                                <input type="hidden" name="campaign_draft_ids" value="">
                             </div>
                         </div>
                     </div>
-                    <!-- Modal créer nouveau-->                    
+                    <!-- FIN - modal - confirmation suppression campagne -->
+
+                    <!-- Modal créer nouveau-->
                     <div id="new-campaign-modal" class="modal bs-example-modal-lg app-dialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg big" role="document">
                             <div class="modal-content">
@@ -321,13 +325,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div>             
+                    </div>
+
+                    <!-- modal - duplication campagne -->
+                    <div id="duplicate-campaign-dialog" class="modal app-dialog duplication-dialog" tabindex="-1" role="dialog" data-backdrop="static">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                </div>
+                                <div class="modal-body">
+                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="modal-body-container"></div>
+                                </div>
+                                <input type="hidden" name="template_id" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN - modal - duplication campagne -->
                 </section>
-                <input id="new_folder_link" type="hidden" value="{{ path("admin_communication_emailing_compaign_new_folder") }}">
                 <input id="preview_template_campagne" type="hidden" value="{{ path("admin_communication_emailing_campagne_preview_template") }}">
-                <input type="hidden" name="replicate" value="{{ path("admin_communication_emailing_compaign_replicate") }}">
                 <input type="hidden" name="filtered" value="{{ path("admin_communication_emailing_compaign_filter") }}">
-                <input type="hidden" name="delete-campaign-link" value="{{ path("admin_communication_emailing_compaign_delete") }}">
                 <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
                 <input type="hidden" name="new_campaign_url" value="{{ path("admin_communication_emailing_compaign_new") }}">
                 <input type="hidden" name="ckeditor_config_light_path" value="{{ asset('ckeditor/custom/config-light.js') }}">
@@ -336,6 +353,8 @@
                 <input type="hidden" name="archive_campaign_url" value="{{ path("admin_communication_emailing_campaign_archive") }}">
                 <input type="hidden" name="campaign_list_url" value="{{ path("admin_communication_emailing_compaign") }}">
                 <input type="hidden" name="restore_campaign_url" value="{{ path("admin_communication_emailing_campaign_restore_archived") }}">
+                <input type="hidden" name="duplicate_campaign_url" value="{{ path("admin_communication_emailing_campaign_duplicate") }}">
+                <input type="hidden" name="delete_campaign_url" value="{{ path("admin_communication_emailing_campaign_delete") }}">
                 <div class="hidden-image">
                     <div id="loading-image">
                         <img src="{{ asset("images/cloudsRewards/loading.gif") }}" />
