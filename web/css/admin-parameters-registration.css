@@ -2270,6 +2270,13 @@ section .row.ending {
 }
 
 /**
+ * Suppression campagne
+ */
+#confirm-delete-campaign{
+    font-family: var(--police_light);
+}
+
+/**
  * dialog - éléments communs
  */
 .app-dialog .modal-body-container{

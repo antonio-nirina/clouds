@@ -662,6 +662,7 @@ $(document).ready(function() {
                 $('.filtres a.dropdown-item.programmed-item').hide();
                 $('.filtres').find('.dropdown-item').attr('data-archived-campaign-mode', true);
                 $('.filtres').find('.delete-input').attr('data-archived-campaign-mode', true);
+                $('.selected-campaign').find('.delete-campaign-button').attr('data-archived-campaign-mode', true);
                 $('.chargementAjax').addClass('hidden');
             },
             statusCode: {
@@ -783,6 +784,65 @@ $(document).ready(function() {
             }
         });
     });
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suppression de campagne(s)
+     * *********************************************************************************************
+     */
+    const confirm_delete_campaign = 'Êtes-vous sûr de vouloir supprimer définitivement cette campagne?';
+    const confirm_delete_campaign_plural = 'Êtes-vous sûr de vouloir supprimer définitivement ces campagnes?';
+    $(document).on('click', '.delete-campaign-button', function(e){
+        e.preventDefault();
+        var campaign_draft_ids = getChecked();
+        campaign_draft_ids = campaign_draft_ids.join(',');
+        $('#confirm-delete-campaign').find('input[name=campaign_draft_ids]').val(campaign_draft_ids);
+        if(campaign_draft_ids.indexOf(',') > 0){
+            $('#confirm-delete-campaign').find('.modal-body .message').text(confirm_delete_campaign_plural);
+        } else {
+            $('#confirm-delete-campaign').find('.modal-body .message').text(confirm_delete_campaign)
+        }
+        $('#confirm-delete-campaign').modal('show');
+    });
+
+    $(document).on('click', '#confirm-delete-campaign .confirm-delete', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var campaign_draft_ids = $('#confirm-delete-campaign').find('input[name=campaign_draft_ids]').val();
+        var delete_campaign_url = $('input[name=delete_campaign_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: delete_campaign_url,
+            data: {campaign_checked_ids: campaign_draft_ids},
+            success: function(){
+                if('undefined' !== typeof $('.selected-campaign .delete-campaign-button').attr('data-archived-campaign-mode')
+                    && 'true' == $('.selected-campaign .delete-campaign-button').attr('data-archived-campaign-mode')){
+                    $('.chargementAjax').addClass('hidden');
+                    $('#confirm-delete-campaign').modal('hide');
+                    $('.archived-campaign').trigger('click');
+                } else {
+                    window.location.replace($('input[name=campaign_list_url]').val());
+                }
+            },
+            statusCode:{
+                404: function(){
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suppression de campagne(s)
+     * *********************************************************************************************
+     */
 
 });
 

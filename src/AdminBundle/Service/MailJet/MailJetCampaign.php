@@ -317,4 +317,25 @@ class MailJetCampaign extends MailJetHandler
 
         return null;
     }
+
+    /**
+     * Delete campaign draft by ID list
+     *
+     * @param array $campaign_draft_id_list
+     *
+     * @return void
+     */
+    public function deleteCampaignDraftByIdList(array $campaign_draft_id_list)
+    {
+        if (!empty($campaign_draft_id_list)) {
+            foreach ($campaign_draft_id_list as $campaign_draft_id) {
+                $this->mailjet->put(Resources::$Campaigndraft, array(
+                    'Id' => $campaign_draft_id,
+                    'body' => array('Status' => self::CAMPAIGN_STATUS_DELETED),
+                ));
+            }
+        }
+
+        return;
+    }
 }

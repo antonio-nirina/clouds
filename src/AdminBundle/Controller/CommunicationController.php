@@ -350,6 +350,26 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * @Route("/emailing/campagne/supprimer", name="admin_communication_emailing_campaign_delete")
+     * @Method("POST")
+     */
+    public function emailingCampaignDeleteAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $to_delete_campaign_ids = explode(',', $request->get('campaign_checked_ids'));
+        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        if (!empty($to_delete_campaign_ids)) {
+            $campaign_handler->deleteCampaignDraftByIdList($to_delete_campaign_ids);
+        }
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
      * @Route("/emailing/modeles-emails", name="admin_communication_emailing_templates")
      */
     public function emailingTemplatesAction()
