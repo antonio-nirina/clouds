@@ -1260,13 +1260,13 @@ class CommunicationController extends AdminController
      * @Route("/emailing/statistiques/filter/date", name="admin_statistiques_filter")
      * @Method({"POST"})
      */
-    public function statistiqueFilterDateAction(Request $request):JsonResponse
+    public function statistiqueFilterDateAction(Request $request)
     {
         $filtre=$request->request->get('filter');
         $mailjet=$this->get('mailjet.client');
         $date=new \DateTime();
         if ($filtre=="today") {
-            $now=($date->settime(0,0,0))->format("Y-m-d");
+            $now=$date->settime(0,0,0)->format("Y-m-d");
             $filters=["lastactivityat"=>$now];
             $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
             $total=$response->getTotal();
@@ -1274,7 +1274,7 @@ class CommunicationController extends AdminController
             $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); 
         } elseif ($filtre=="Yesterday") {
             $date->modify('-1 day');
-            $yest=($date->settime(0,0,0))->format("Y-m-d");
+            $yest=$date->settime(0,0,0)->format("Y-m-d");
             $filters=["lastactivityat"=>$yest];
             $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
             $total=$response->getTotal();

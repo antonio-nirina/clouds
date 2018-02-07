@@ -69,7 +69,7 @@ $(document).ready(function(){
       }          
     ]
   });*/
-
+var url = $('input[name=filterPeriode]').val();
     var data={
     bloque: 0.5,
     cliquer: 1,
@@ -143,7 +143,6 @@ $(document).ready(function(){
       }          
     ]
   });
-
   chart.render();
 
   $(document).on('click','.clearable .dropdown-itemNo', function(e){
