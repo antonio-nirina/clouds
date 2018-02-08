@@ -121,7 +121,8 @@
 		margin-top:30px;
 	}
 
-	#dropdownMenuFiltreEditListContact{
+	#dropdownMenuFiltreEditListContact,
+	#dropdownMenuFiltreCreerListContact{
 		width:80%!important;
 		border:0;
 		position:relative;
@@ -394,7 +395,8 @@
 		margin-top:30px;
 	}
 
-	#dropdownMenuFiltreEditListContact{
+	#dropdownMenuFiltreEditListContact,
+	#dropdownMenuFiltreCreerListContact{
 		width:80%!important;
 		border:0;
 		position:relative;
@@ -667,7 +669,8 @@
 		margin-top:30px;
 	}
 
-	#dropdownMenuFiltreEditListContact{
+	#dropdownMenuFiltreEditListContact,
+	#dropdownMenuFiltreCreerListContact{
 		width:80%!important;
 		border:0;
 		position:relative;
@@ -941,7 +944,8 @@
 		margin-top:30px;
 	}
 
-	#dropdownMenuFiltreEditListContact{
+	#dropdownMenuFiltreEditListContact,
+	#dropdownMenuFiltreCreerListContact{
 		width:80%!important;
 		border:0;
 		position:relative;
@@ -1201,7 +1205,8 @@
 		margin-top:30px;
 	}
 
-	#dropdownMenuFiltreEditListContact{
+	#dropdownMenuFiltreEditListContact,
+	#dropdownMenuFiltreCreerListContact{
 		width:80%!important;
 		border:0;
 		position:relative;
