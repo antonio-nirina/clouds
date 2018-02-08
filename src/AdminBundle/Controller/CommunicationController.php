@@ -1255,19 +1255,21 @@ class CommunicationController extends AdminController
         $filters=["lastactivityat"=>$now];
         $mailjet=$this->get('mailjet.client');
         $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);//call of ApiMailjet
-        $total=$response->getTotal();
         $listsInfoCampaign=$response->getData();
         $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); //call of service
+        $fromTo=$this->get('adminBundle.statistique')->getContactByCampaign();
+        
         return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
         [
-            "total"=>$total,
+            "total"=>$data["total"],
             "delivre"=>$data["delivre"],
             "ouvert"=>$data["ouvert"],
             "cliquer"=>$data["cliquer"],
             "bloque"=>$data["bloque"],
             "spam"=>$data["spam"],
             "desabo"=>$data["desabo"],
-            "erreur"=>$data["erreur"]
+            "erreur"=>$data["erreur"],
+            "fromTo"=>$fromTo
         ]);
     }
 
@@ -1282,6 +1284,7 @@ class CommunicationController extends AdminController
         $date = new \DateTime();
         if ($filtre == "Yesterday") {
             $date->modify('-1 day');
+
             $yest=$date->settime(0,0,0)->format("Y-m-d");
             $filters=["lastactivityat"=>$yest];
             $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
@@ -1290,6 +1293,21 @@ class CommunicationController extends AdminController
             $data = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday,$total); 
         }
         $response = new JsonResponse($data);
+
+            $yest = $date->settime(0,0,0)->format("Y-m-d");
+            $filters = ["lastactivityat"=>$yest];
+            $response = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters]);
+            dump($response);
+            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
+            $listsInfoCampaignYesterday = $response->getData();
+            $info = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday);
+            $data = [
+                    "fromTo"=>$allContactSendCampagne,
+                    "info"=>$info
+                    ]; 
+        }        
+        $response=new JsonResponse($data);
+
         return $response;
     }
 }
