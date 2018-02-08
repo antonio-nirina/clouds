@@ -13,6 +13,8 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use AdminBundle\Service\MailJet\MailJetHandler;
 use Mailjet\MailjetBundle\Model\CampaignDraft;
+use AdminBundle\DTO\CampaignDraftData;
+use AdminBundle\Service\MailJet\MailJetSender;
 
 class MailJetCampaign extends MailJetHandler
 {
@@ -40,19 +42,24 @@ class MailJetCampaign extends MailJetHandler
         self::CAMPAIGN_FILTER_SENT,
         self::CAMPAIGN_FILTER_DRAFT,
     );
+    const DEFAULT_EDIT_MODE = 'tool2';
+    const DEFAULT_LOCALE = 'fr_FR';
 
     protected $campaign_draft_manager;
     protected $campaign_manager;
+    protected $mailjet_sender_handler;
     /*protected $mailjet;*/
 
     public function __construct(
         CampaignDraftManager $campaign_draft_manager,
         CampaignManager $campaign_manager,
-        MailjetClient $mailjet
+        MailjetClient $mailjet,
+        MailJetSender $mailjet_sender_handler
     ) {
         parent::__construct($mailjet);
         $this->campaign_draft_manager = $campaign_draft_manager;
         $this->campaign_manager = $campaign_manager;
+        $this->mailjet_sender_handler = $mailjet_sender_handler;
     }
 
     public function getAll($data = null, $sort_by_created_at_desc = true)
@@ -337,5 +344,51 @@ class MailJetCampaign extends MailJetHandler
         }
 
         return;
+    }
+
+    public function createAndSend(CampaignDraftData $campaign_draft_data)
+    {
+        $sender = $this->mailjet_sender_handler->getDefault();
+        if (!is_null($sender)) {
+            $body = array(
+                'ContactsListID' => $campaign_draft_data->getListId(),
+                'EditMode' => self::DEFAULT_EDIT_MODE,
+                'Locale' => self::DEFAULT_LOCALE,
+                'Sender' => $sender['ID'],
+                'SenderEmail' => $sender['Email'],
+                'Status' => 0,
+                'Subject' => $campaign_draft_data->getObject(),
+                'TemplateID' => $campaign_draft_data->getTemplateId(),
+                'Title' => $campaign_draft_data->getName()
+            );
+            $create_result = $this->mailjet->post(Resources::$Campaigndraft, array('body' => $body));
+            if (self::STATUS_CODE_CREATED == $create_result->getStatus()) {
+                $template_content_result = $this
+                    ->mailjet
+                    ->get(Resources::$TemplateDetailcontent, array('id' => $campaign_draft_data->getTemplateId()));
+                if (self::STATUS_CODE_SUCCESS == $template_content_result->getStatus()) {
+                    $content_body = array(
+                        'Text-part' => $template_content_result->getData()[0]['Text-part'],
+                        'Html-part' => $template_content_result->getData()[0]['Html-part'],
+                    );
+                    $set_content_result = $this
+                        ->mailjet
+                        ->post(
+                            Resources::$CampaigndraftDetailcontent,
+                            array('id' => $create_result->getData()[0]['ID'], 'body' => $content_body)
+                        );
+                    if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
+                        $send_result = $this
+                            ->mailjet
+                            ->post(Resources::$CampaigndraftSend, array('id' => $create_result->getData()[0]['ID']));
+                        if (self::STATUS_CODE_SUCCESS == $send_result->getStatus()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

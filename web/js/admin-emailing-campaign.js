@@ -1,6 +1,71 @@
 $(document).ready(function() {
 	$('#preview-template-dialog').modal('hide');
-    function sendFilter(source = null) {
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Selection multiple dans liste campagne
+     * *********************************************************************************************
+     */
+    function getChecked() {
+        var checked = [];
+        $(".campagne-name .styled-checkbox").each(function() {
+            if ($(this).is(':checked')) {
+                checked.push($(this).attr('id'));
+            }
+        });
+        return checked;
+    }
+
+    $(document).on('change', ".campagne-name .styled-checkbox", function() {//selection des campagnes
+        checked = getChecked();
+        text = (checked.length == 1)?checked.length+" campagne sélectionnée":((checked.length > 1)?checked.length+" campagnes sélectionnées":"");
+        $(".selected-count input").val(text);
+
+        if (checked.length > 0) {
+            $('.filter.selected-campaign').css('display',"flex");
+            $('.selected-count .delete-input').css('display','block');
+        } else {
+            $('.filter.selected-campaign').css('display',"none");
+        }
+    });
+
+    $('.selected-count .delete-input').on("click", function () {//désélection des campaignes
+        var checked = getChecked();
+        for (i in checked) {
+            $("#"+checked[i]).click();
+        }
+        $('.filter.selected-campaign').css('display',"none");
+    });
+
+    $(document).on('mouseleave', '.dropdown-menu', function() {// sortir des dropdown, en général
+        $(document).click();
+    });
+
+    $(document).on('keyup', '.form-line input', function() {
+        if ($(this).val()) {
+            $(this).next('span').css('display', 'inline-block');
+        } else {
+            $(this).next('span').css('display', 'none');
+        }
+    })
+
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Selection multiple dans liste campagne
+     * *********************************************************************************************
+     */
+
+	/**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Filtres
+     * *********************************************************************************************
+     */
+	function sendFilter(source = null) {
         /*var a=$("#loading-image").clone();
         $('.row.list').html(a);*/
         $('.chargementAjax').removeClass('hidden');
@@ -30,16 +95,35 @@ $(document).ready(function() {
         });
     }
 
-    function getChecked() {
-        var checked = [];
-        $(".campagne-name .styled-checkbox").each(function() {
-            if ($(this).is(':checked')) {
-                checked.push($(this).attr('id'));
-            }
-        });
-        return checked;
-    }
+    $(document).on('click','.filtres.dropdown .delete-input', function(){//annuler filtre
+        $(this).off('click');
+        $(this).parent().find('button').html($(this).parent().find('button').removeClass('active').attr('data-default'));
+        $(this).css({'visibility':'hidden','display':'inline-block'});
+        setTimeout(sendFilter($(this)), 0);
+    });
 
+    $(document).on('click','.filtres.clearable .dropdown-item', function(e){//activer filtre
+        e.preventDefault();
+        $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
+        $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
+        setTimeout(sendFilter($(this)), 0);
+        resetCampaignCountBlock();
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Filtres
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Création campagne
+     * *********************************************************************************************
+     */
     function showPrevious() {
         if ($('#create-tabs a:first-child').hasClass('active')) {
             $('#new-campaign-modal .previous').css('display','none');
@@ -56,7 +140,7 @@ $(document).ready(function() {
             altFormat: "d MM yy"
         });
     }
-    
+
     function initSelectChosen() {
         $(".chosen-select").chosen({//hour selectable
             disable_search: true,
@@ -96,10 +180,10 @@ $(document).ready(function() {
                 addDone();
                 return true;
             }
-        } 
+        }
         if ($('#create-tabs a.activated.active').hasClass("step-3")) {
-            // console.log($('input[name=template_choice_option]:checked').val());
-            if ($('input[name=template_choice_option]:checked').val() || "undefined" != typeof $('input[name=template_choice_option]:checked').val() ) {
+            // if ($('input[name=template_choice_option]:checked').val() || "undefined" != typeof $('input[name=template_choice_option]:checked').val() ) {
+            if ($('#new-campaign-modal .template-choice-container .template-choice-input:checked').length > 0) {
                 addDone();
                 return true;
             } else {
@@ -114,68 +198,185 @@ $(document).ready(function() {
         var next = $('#create-tabs a.activated.active').next('a');
         if (!next.hasClass("activated")) {
             next.addClass("activated");
-        }     
+        }
         if (next.hasClass("step-4")) {
             next.addClass("done");
-        }       
+        }
         next.click();
         showPrevious();
     }
 
-    $(document).on('click','.dropdown .delete-input', function(){//annuler filtre
-        $(this).off('click');
-        $(this).parent().find('button').html($(this).parent().find('button').removeClass('active').attr('data-default'));
-        $(this).css({'visibility':'hidden','display':'inline-block'});
-        setTimeout(sendFilter($(this)), 0);
+    $(document).on('click', "#new-campaign-modal .previous", function() {//affichage de l'onglet precedent
+        if ($(this).hasClass('keep') && $('#create-tabs a.activated.active').hasClass("step-3")) {
+            $(this).removeClass('keep');
+            $('#new-campaign-modal').find('.modal-step-3.first').css('display','block');
+            $('#new-campaign-modal').find('.modal-step-3.second').css('display','none');
+        } else {
+            if ($('#create-tabs a.activated.active').hasClass("done")) {
+                $('#create-tabs a.activated.active').removeClass("done");
+            }
+            $('#create-tabs a.activated.active').removeClass("activated").prev('a').click();
+        }
+        showPrevious();
     });
 
-    $(document).on('click','.clearable .dropdown-item', function(e){//activer filtre
-        e.preventDefault();
-        $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
-        $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
-        setTimeout(sendFilter($(this)), 0);
-        resetCampaignCountBlock();
+    //boutton de programmation
+    $(document).on("change", "input.programmed-state-input", function() {
+        if ($(this).val() =="0") {
+            $(".btn-end-step-4").css("display", "initial");
+            $(".btn-program-step-4").css("display", "none");
+            $(".select-date").css("display", "none");
+        } else {
+            $(".btn-end-step-4").css("display", "none");
+            $(".btn-program-step-4").css("display", "initial");
+            $(".select-date").css("display", "block");
+        }
     });
 
-    $('.btn-valider.btn-new-campaign-folder').on('click', function(e) {//validation nouveau dossier
+    $(document).on('click', '.btn-end-step', function(e) { // terminer une étape pour aller à l'autre
         e.preventDefault();
-        var url = $('#new_folder_link').val();
-        var data = {'name' :$('#campaign_new_folder').val()};
-        $.ajax({
-            type: "POST",
-            url : url,
-            data: data,
-            dataType: "json",
-            success: function(json){
-                if (json.error) {
-                    $('.add-campaign-folder-error').html(json.error);
-                } else if (json.response) {
-                    if(json.response.id) {
-                        $("#new-folder-modal-campaign").modal('hide');
-                        $(".dropdown.dossiers").find(".dropdown-menu").append(
-                            '<a class="dropdown-item" href="#">'+json.response.name+'<span class="folder_count">'+json.response.count+'</span><span class="folder_id">'+json.response.id+'</span></a>'
-                        );
+        if (isDone()) {
+            clickNext();
+        }
+    });
+
+    $(document).on('click', '.add.free-add.add-list', function(e){//création nouveau template
+        e.preventDefault();
+        var template_model = "text-and-image";
+        // var template_model = "TEXT_AND_IMAGE";
+
+        if(null !== template_model){
+            var add_template_url = $('input[name=add_template_form_url]').val();
+            add_template_url = add_template_url+'/'+template_model;
+
+            $.ajax({
+                type: 'GET',
+                url: add_template_url,
+                success: function(data){
+                    $('#new-campaign-modal').find('.modal-step-3.first').css('display','none');
+                    $('#new-campaign-modal').find('.modal-step-3.second').css('display','block').html(data.content);
+                    $('#new-campaign-modal .previous').addClass('keep');
+                    var text = "Créer votre email, il sera sauvegardé dans l'onglet \"modèle d'e-mail\", vous pourrez le réutiliser et/ou modifier ultérieurement.";
+                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').html(text);
+                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').removeClass('dialog-title');
+                    $(".btn-valider.modify").addClass("hidden");
+                    $(".btn-valider.modify").addClass("hidden");
+                    $(".btn-valider.validate.validate-add").addClass("hidden");
+                    $(".btn-end-step-3").addClass("hidden");
+                    installColorPicker();
+                    installWysiwyg();
+                },
+                statusCode: {
+                    404: function(data){
+                        $('#new-campaign-modal').find('.modal-step-3.first > .error-message-container').text(data.responseJSON.message);
                     }
                 }
+            });
+        }
+    });
+
+    $(document).on("click", ".btn-end-step.btn-end-step-4", function() {//envoie campagne
+        $('.chargementAjax').removeClass('hidden');
+        var new_campaign_url = $('input[name=new_campaign_url]').val();
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: new_campaign_url,
+            success: function(){
+                $("#new-campaign-modal").modal("hide");
+                setTimeout(function(){
+                    $("#sent-campaign-modal").modal("show");
+                },0);
+            },
+            statusCode:{
+                404: function(){
+
+                },
+                500: function(){
+
+                }
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+
+
+        /*$("#new-campaign-modal").modal("hide");
+        $("span.date-envoi").html($('.date_launch_campaign').val());
+        setTimeout(function(){
+            $("#done-campaign-modal").modal("show");
+        },0);*/
+    });
+
+    $(document).on("click", ".btn-end-step.btn-program-step-4", function() {//envoie campagne programmée
+        $("#new-campaign-modal").modal("hide");
+        $("span.date-envoi").html($('.date_launch_campaign').val());
+        setTimeout(function(){
+            $("#done-campaign-modal").modal("show");
+        },0);
+    });
+
+    $('.create-campaign-button').on('click', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var create_campaign_url = $("input[name=new_campaign_url").val();
+        $.ajax({
+            type: 'POST',
+            url: create_campaign_url,
+            success: function(data){
+                $('#new-campaign-modal').find(".modal-content .content").html(data.content);
+                $('#create-tabs a.activated:last').tab('show');
+                showPrevious();
+                initCalendar();
+                initSelectChosen();
+            },
+            statusCode: {
+                404: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Page non trouvée');
+                    $('#new-campaign-modal').find('.previous').hide();
+                },
+                500: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').find('.previous').hide();
+                }
+            },
+            complete: function(){
+                $('#new-campaign-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
             }
         });
     });
 
-    /*$(document).on('click', '.campaign-replicate', function(e) {// dupliquer compagne
+    $('#new-campaign-modal').on('hidden.bs.modal', function(){
+        $('#new-campaign-modal').find('.error-message-container.general-message').text('');
+        $('#new-campaign-modal').find(".modal-content .content").html('');
+        $('#new-campaign-modal').find('.previous').show();
+    });
+
+    // selection liste de diffusion
+    $(document).on('click', '.list-choice .dropdown-menu .dropdown-item', function(e){
         e.preventDefault();
-        var url = $('input[name=replicate]').val();
-        var data = {'id': $(this).parent().find('input[name=campaign-id]').val()};
-        $.ajax({
-            type: "POST",
-            url : url,
-            data: data,
-            dataType: "json",
-            success: function() {
-                console.log('success');
-            }
-        });
-        setTimeout(sendFilter(), 250);
-    });*/
+        var data_value = $(this).attr('data-value');
+        $(this).parents('.list-choice').find('.list-choice-select').find('option[value='+data_value+']').prop('selected', true);
+        $(this).parents('.dropdown').find('button.dropdown-toggle').text($(this).text());
+        $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
+    });
+
+    // annulation selection de liste de diffusion
+    const DEFAUTL_LIST_CHOICE_LABEL = 'CHOISIR UNE LISTE';
+    $(document).on('click', '.list-choice .delete-input.delete-selection', function(){
+        $(this).parents('.dropdown').find('button.dropdown-toggle').text(DEFAUTL_LIST_CHOICE_LABEL);
+    });
+
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Création campagne
+     * *********************************************************************************************
+     */
+
 
     /**
      * *********************************************************************************************
@@ -260,42 +461,12 @@ $(document).ready(function() {
      * *********************************************************************************************
      */
 
-    /*$('.btn-rename-campaign').on('click', function(e) {
-        var name = $('#campaign_new_name').val().trim();
-        var id = $(this).parents('.modal').find('input[name=campaign-id]').val();
-        var current_name = $('.campaign-'+id).find(".campagne-name-name").html().trim();
-        if (name != current_name) {
-            var url = $('input[name=rename]').val();
-            var data = {'id': id, 'name': name};
-            $.ajax({
-                type: "POST",
-                url : url,
-                data: data,
-                dataType: "json",
-                success: function(json) { 
-                    if (json.id) {
-                        $('.campaign-'+id).find(".campagne-name-name").html(name);                        
-                    }                    
-                }
-            });
-            setTimeout(sendFilter(), 250);
-            $(".modal").modal('hide');
-        }        
-    })*/
-
-    $(document).on('change', ".campagne-name .styled-checkbox", function() {//selection des campagnes
-        checked = getChecked();        
-        text = (checked.length == 1)?checked.length+" campagne sélectionnée":((checked.length > 1)?checked.length+" campagnes sélectionnées":"");
-        $(".selected-count input").val(text);
-
-        if (checked.length > 0) {
-            $('.filter.selected-campaign').css('display',"flex");
-            $('.selected-count .delete-input').css('display','block');
-        } else {
-            $('.filter.selected-campaign').css('display',"none");
-        }
-    });
-
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suppression de campagne
+     * *********************************************************************************************
+     */
     $('.btn-valider.btn-delete-campaign').on("click", function() { //suppression campagenes
         checked = getChecked();
         var data = {'ids' : checked.join(',')};
@@ -311,73 +482,20 @@ $(document).ready(function() {
         $(".modal").modal('hide');
     });
 
-    $('.selected-count .delete-input').on("click", function () {//désélection des campaignes
-        var checked = getChecked();
-        for (i in checked) {
-            $("#"+checked[i]).click();
-        }
-        $('.filter.selected-campaign').css('display',"none");
-    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suppression de campagne
+     * *********************************************************************************************
+     */
 
-    $(document).on('mouseleave', '.dropdown-menu', function() {// sortir des dropdown
-        $(document).click();
-    });
-
-    $(document).on('keyup', '.form-line input', function() {
-        if ($(this).val()) {
-            $(this).next('span').css('display', 'inline-block');
-        } else {
-            $(this).next('span').css('display', 'none');            
-        }
-    })
-
-    $('#new-campaign-modal').on('shown.bs.modal', function() {//affichage de l'onglet création campaigne
-        var url = $("input[name=new_campaign_url").val();
-        $.ajax({
-            type: "GET",
-            url: url,
-            success: function (html) {
-                $('#new-campaign-modal').find(".modal-content .content").html(html);
-                $('#create-tabs a.activated:last').tab('show');
-                showPrevious();
-                initCalendar();
-                initSelectChosen();
-            }
-        })               
-    });
-
-    $(document).on('click', "#new-campaign-modal .previous", function() {//affichage de l'onglet precedent
-        if ($(this).hasClass('keep') && $('#create-tabs a.activated.active').hasClass("step-3")) {
-            $(this).removeClass('keep');
-            $('#new-campaign-modal').find('.modal-step-3.first').css('display','block');
-            $('#new-campaign-modal').find('.modal-step-3.second').css('display','none');
-        } else {
-            if ($('#create-tabs a.activated.active').hasClass("done")) {
-                $('#create-tabs a.activated.active').removeClass("done");
-            }
-            $('#create-tabs a.activated.active').removeClass("activated").prev('a').click();
-        }
-        showPrevious();
-    });
-
-    $(document).on("change", "input[name=program-campaign]", function() {//boutton de programmation
-        if ($(this).val() =="now") {
-            $(".btn-end-step-4").css("display", "initial");
-            $(".btn-program-step-4").css("display", "none");
-            $(".select-date").css("display", "none");
-        } else {
-            $(".btn-end-step-4").css("display", "none");
-            $(".btn-program-step-4").css("display", "initial");
-            $(".select-date").css("display", "block");
-        }
-    });
-
-    $(document).on('click', '.btn-end-step', function() { // terminer une étape pour aller à l'autre
-        if (isDone()) {
-            clickNext();
-        }        
-    });     
-
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * modal création template - enregistrement et validation
+     * *********************************************************************************************
+     */
     function installWysiwyg()
     {
         var ckeditor_config_light_path = $('input[name=ckeditor_config_light_path]').val();
@@ -417,62 +535,6 @@ $(document).ready(function() {
         }
     }
 
-    $(document).on('click', '.add.free-add.add-list', function(e){//création nouveau template
-        e.preventDefault();
-        var template_model = "text-and-image";
-        // var template_model = "TEXT_AND_IMAGE";
-
-        if(null !== template_model){
-            var add_template_url = $('input[name=add_template_form_url]').val();
-            add_template_url = add_template_url+'/'+template_model;
-
-            $.ajax({
-                type: 'GET',
-                url: add_template_url,
-                success: function(data){
-                    $('#new-campaign-modal').find('.modal-step-3.first').css('display','none');
-                    $('#new-campaign-modal').find('.modal-step-3.second').css('display','block').html(data.content);
-                    $('#new-campaign-modal .previous').addClass('keep');
-                    var text = "Créer votre email, il sera sauvegardé dans l'onglet \"modèle d'e-mail\", vous pourrez le réutiliser et/ou modifier ultérieurement.";
-                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').html(text);
-                    $('#new-campaign-modal').find('.modal-step-3 .dialog-title').removeClass('dialog-title');
-                    $(".btn-valider.modify").addClass("hidden");
-                    $(".btn-valider.modify").addClass("hidden");
-                    $(".btn-valider.validate.validate-add").addClass("hidden");
-                    $(".btn-end-step-3").addClass("hidden");
-                    installColorPicker();
-                    installWysiwyg();
-                },
-                statusCode: {
-                    404: function(data){
-                        $('#new-campaign-modal').find('.modal-step-3.first > .error-message-container').text(data.responseJSON.message);                        
-                    }
-                }
-            });
-        }
-    });
-
-    $(document).on("click", ".btn-end-step.btn-end-step-4", function() {//envoie campagne
-        $("#new-campaign-modal").modal("hide");
-        $("span.date-envoi").html($('.date_launch_campaign').val());
-        setTimeout(function(){
-            $("#done-campaign-modal").modal("show");
-        },0);
-    });   
-    $(document).on("click", ".btn-end-step.btn-program-step-4", function() {//envoie campagne programmée
-        $("#new-campaign-modal").modal("hide");
-        $("span.date-envoi").html($('.date_launch_campaign').val());        
-        setTimeout(function(){
-            $("#done-campaign-modal").modal("show");
-        },0);
-    });
-
-    /**
-     * *********************************************************************************************
-     * Paramétrages - Communication - Emailing - Templates
-     * modal création template - enregistrement et validation
-     * *********************************************************************************************
-     */
     $(document).on('click', '.modal-step-3 .btn-valider.save', function(e){
         e.preventDefault();
         $('.options-wrapper').addClass('active');
@@ -582,8 +644,16 @@ $(document).ready(function() {
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Emailing - Templates
-     * ajout d'autres contenus
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * modal création template - enregistrement et validation
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * ajout d'autres contenus, dans création template
      * *********************************************************************************************
      */
     function addContentConfigBock(new_content_index, content_type)
@@ -644,7 +714,20 @@ $(document).ready(function() {
 
         addContentConfigBock(new_content_index, $('input[name=template_content_type_text]').val());
     });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * ajout d'autres contenus, dans création template
+     * *********************************************************************************************
+     */
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Liste campagnes archivées
+     * *********************************************************************************************
+     */
     //liste des archivées
     $(".add-to-archive").on("click", function (e) {
         e.preventDefault();
@@ -682,8 +765,21 @@ $(document).ready(function() {
         $('.row.selected-campaign').hide();
     }
 
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Liste campagnes archivées
+     * *********************************************************************************************
+     */
 
-	
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Aperçu campagne
+     * *********************************************************************************************
+     */
 	// aperçu campagne en popup
 	$(document).on('click', 'a.campaign-preview', function(){
 		var urlTpl = $(this).attr('data-url');
@@ -710,7 +806,20 @@ $(document).ready(function() {
 		
 		return false;
 	});
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Aperçu campagne
+     * *********************************************************************************************
+     */
 
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Archive de campagnes
+     * *********************************************************************************************
+     */
     // fontionnalité "archiver campagne"
     $(document).on('click', '.archive-campaign-button', function(e){
         e.preventDefault();
@@ -787,6 +896,14 @@ $(document).ready(function() {
 
     /**
      * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Archive de campagnes
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
      * Paramétrages - Communication - Emailing - Campagnes
      * Suppression de campagne(s)
      * *********************************************************************************************
@@ -845,6 +962,3 @@ $(document).ready(function() {
      */
 
 });
-
-function AfficheApercuCampagne(apercu){
-}

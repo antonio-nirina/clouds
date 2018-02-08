@@ -63,7 +63,7 @@
                 <section class="fieldset slideshow active">
                     <div class="row filter">
                         <div class="create">
-                            <button class="btn-valider create-campaign-button" data-toggle="modal" data-target="#new-campaign-modal">
+                            <button class="btn-valider create-campaign-button">
                                 créer une campagne
                             </button>
                             <button class="btn-valider restore-campaign-button">
@@ -277,12 +277,18 @@
                                     <a class="previous"></a>
                                     <a class="close-modal" data-target="#abort-new-campaign-modal" data-toggle="modal" aria-label="Close"></a>
                                 </div>
-                                <div class="content">                                   
+                                <div class="error-message-container centered-message general-message"></div>
+                                <div class="content">
                                 </div>
+                                {#<div class="modal-body">
+                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="modal-body-container">
+                                    </div>
+                                </div>#}
                             </div>
                         </div>
                     </div> 
-                    <!-- Modal création envoyé-->                    
+                    <!-- Modal création programmé-->
                     <div id="done-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg big" role="document">
                             <div class="modal-content">
@@ -303,7 +309,28 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
+
+                    <!-- Modal création envoyé-->
+                    <div id="sent-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg big" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="content">
+                                    <div><h4>Envoyé !</h4></div>
+                                    <div>
+                                        <p>
+                                            Votre campagne a été envoyée avec succès.
+                                        </p>
+                                    </div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Modal suspendre création nouveau-->                    
                     <div id="abort-new-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg " role="document">

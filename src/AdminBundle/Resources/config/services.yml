@@ -66,3 +66,8 @@ services:
         autowire: true
 
     Mailjet\MailjetBundle\Client\MailjetClient: '@mailjet.client'
+
+    AdminBundle\Form\CampaignDraftType:
+        class: AdminBundle\Form\CampaignDraftType
+        autowire: true
+        autoconfigure: true
