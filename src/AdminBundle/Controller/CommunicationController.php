@@ -1292,20 +1292,7 @@ class CommunicationController extends AdminController
             $listsInfoCampaignYesterday = $response->getData();
             $data = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday,$total); 
         }
-        $response = new JsonResponse($data);
-
-            $yest = $date->settime(0,0,0)->format("Y-m-d");
-            $filters = ["lastactivityat"=>$yest];
-            $response = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters]);
-            dump($response);
-            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
-            $listsInfoCampaignYesterday = $response->getData();
-            $info = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday);
-            $data = [
-                    "fromTo"=>$allContactSendCampagne,
-                    "info"=>$info
-                    ]; 
-        }        
+              
         $response=new JsonResponse($data);
 
         return $response;
