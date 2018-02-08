@@ -29,6 +29,7 @@ use \Mailjet\Resources;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Filesystem\Filesystem;
+use AdminBundle\Service\Statistique\Common;
 
 /**
  * @Route("/admin/communication")
@@ -1229,43 +1230,29 @@ class CommunicationController extends AdminController
 
     /**
      * @Route("/emailing/statistiques", name="admin_communication_statistiques")
+     * Call of Mailjet Api and traitement of service statistique
      */
     public function statistiqueshowAction(Request $request)
     {
         $data=[];
-        $now=(new \DateTime())->format("Y-m-d");
+        $date=new \DateTime();
+        $now=$date->settime(0,0,0)->format("Y-m-d");
         $filters=["lastactivityat"=>$now];
         $mailjet=$this->get('mailjet.client');
-        $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
+        $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);//call of ApiMailjet
         $total=$response->getTotal();
         $listsInfoCampaign=$response->getData();
-
-        foreach ($listsInfoCampaign as  $value) {       
-            $data["delivre"][]=($value["DeliveredCount"]);
-            $data["ouvert"][]=$value["OpenedCount"];
-            $data["cliquer"][]=$value["ClickedCount"];
-            $data["bloque"][]=$value["BlockedCount"];
-            $data["spam"][]=$value["SpamComplaintCount"];
-            $data["desabo"][]=$value["UnsubscribedCount"];
-            $data["erreur"][]=$value["BouncedCount"];    
-        }
-        $delivre=array_sum($data["delivre"]);
-        $ouvert=array_sum($data["ouvert"]);
-        $cliquer=array_sum($data["cliquer"]);
-        $bloque=array_sum($data["bloque"]);
-        $spam=array_sum($data["spam"]);
-        $desabo=array_sum($data["desabo"]);
-        $erreur=array_sum($data["erreur"]);
+        $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); //call of service
         return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
         [
-                "total"=>$total,
-                "delivre"=>$delivre,
-                "ouvert"=>$ouvert,
-                "cliquer"=>$cliquer,
-                "bloque"=>$bloque,
-                "spam"=>$spam,
-                "desabo"=>$desabo,
-                "erreur"=>$erreur
+            "total"=>$total,
+            "delivre"=>$data["delivre"],
+            "ouvert"=>$data["ouvert"],
+            "cliquer"=>$data["cliquer"],
+            "bloque"=>$data["bloque"],
+            "spam"=>$data["spam"],
+            "desabo"=>$data["desabo"],
+            "erreur"=>$data["erreur"]
         ]);
     }
 
@@ -1275,23 +1262,19 @@ class CommunicationController extends AdminController
      */
     public function statistiqueFilterDateAction(Request $request)
     {
-        $now=$request->request->get('filter');
-        $filters=["lastactivityat"=>$now];
+        $filtre=$request->request->get('filter');
         $mailjet=$this->get('mailjet.client');
-        $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
-        $total=$response->getTotal();
-        $listsInfoCampaign=$response->getData();
-        foreach ($listsInfoCampaign as  $value) {       
-            $data["delivre"][]=($value["DeliveredCount"]);
-            $data["ouvert"][]=$value["OpenedCount"];
-            $data["cliquer"][]=$value["ClickedCount"];
-            $data["bloque"][]=$value["BlockedCount"];
-            $data["spam"][]=$value["SpamComplaintCount"];
-            $data["desabo"][]=$value["UnsubscribedCount"];
-            $data["erreur"][]=$value["BouncedCount"];    
-        }
+        $date=new \DateTime();
+        if ($filtre=="Yesterday") {
+            $date->modify('-1 day');
+            $yest=$date->settime(0,0,0)->format("Y-m-d");
+            $filters=["lastactivityat"=>$yest];
+            $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
+            $total=$response->getTotal();
+            $listsInfoCampaignYesterday=$response->getData();
+            $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday,$total); 
+        }        
         $response=new JsonResponse($data);
         return $response;
-
     }
 }

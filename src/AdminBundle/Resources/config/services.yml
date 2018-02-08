@@ -66,3 +66,7 @@ services:
         autowire: true
 
     Mailjet\MailjetBundle\Client\MailjetClient: '@mailjet.client'
+
+    adminBundle.statistique:
+        class: AdminBundle\Service\Statistique\Common
+        autowire: true

@@ -149,7 +149,6 @@
                                         <input type="text" name="statDays" class="statDays1" id="d1">
                                         <input type="text" name="statMonths" class="statMonths1" id="m1" >
                                         <input type="text" name="statYear" class="statYear1" id="y1">
-
                                         <input type="submit"id="question3" value=""class="with3">
                                         <label for="question3" id="qst3"></label>
                                         <input type="submit" id="question4" value="" class="with4">
@@ -215,50 +214,94 @@
                     </div>                   
                         <div id="chartContainer"></div>
                         <div class="message">
-                        <h6 id="messag">Pendant cette période, vous envoyé <span id="nbrMail">{{total<10? 0~total:total}}</span>e-mails.</h6>
+                        <h6 id="messag">Pendant cette période, vous envoyé <span id="nbrMail">{{total<10? 0~total:total}}</span> <span id="nbrMail2"></span>e-mails.</h6>
                             <h6 id="messagSelect">Sélectionnez une autre période pour voir plus de statistiques.</h6>
                         </div>
                     <div class="row result">
                             <div class=" total">
                                 <div class="totalTitreVal">
                                     <p id="titreT">{{"total"|upper}}</p>
-                                    <h4 id="valTot">{{total<10? 0~total:total}}</h4>
+                                    <h4 class="valTot2"></h4>
+                                    {% if total is not empty %}
+                                        <h4 class="valTot">{{total<10? 0~total:total}}</h4>
+                                    {% else %}
+                                        <h4 class="valTot1"></h4>
+                                    {% endif %}
                                     <p class="mailTot">e-mails</p>
                                 </div>
                             </div>
                                 <div class=" delivrer">
                                     <div class="delTitreVal">
                                         <p id="titreDel">{{"délivrés"|upper}}</p>
-                                            <h4 id="valDel">{{delivre<10?0~delivre:delivre}}</h4>
+                                        <h4 class="valDel2"></h4>
+                                        {% if delivre is not empty %}
+                                            <h4 class="valDel">{{delivre<10?0~delivre:delivre}}</h4>
+                                        {% else %}
+                                            <h4 class="valDel1"></h4>
+                                        {% endif %} 
                                         <p class="mailTot">e-mails</p>
                                     </div>                                   
                                 </div>
                                 <div class="ouvert" >
                                     <div class="ouvTitreVal">
                                         <p id="titreOuv">{{"ouverts"|upper}}</p>
-                                            <h4 id="valOuv">{{ouvert<10? 0~ouvert:ouvert}}</h4>
+                                         <h4 class="valOuv2"></h4>
+                                        {% if ouvert is not empty %}
+                                            <h4 class="valOuv">{{ouvert<10? 0~ouvert:ouvert}}</h4>
+                                        {% else %}
+                                            <h4 class="valOuv1"></h4>
+                                        {% endif %} 
                                         <p class="mailTot">e-mails</p> 
                                     </div>             
                                 </div>                                                                                              
                                 <div class=" clique">
                                     <div class="cliTitreVal">
-                                        <p id="titreClik">{{"cliqués"|upper}}</p> 
-                                        <h4 id="valClik">{{cliquer<10? 0~cliquer:cliquer}}</h4>
+                                        <p id="titreClik">{{"cliqués"|upper}}</p>
+                                        <h4 class="valClik2"></h4>
+                                        {% if cliquer is not empty %} 
+                                            <h4 class="valClik">{{cliquer<10? 0~cliquer:cliquer}}</h4>
+                                         {% else %}
+                                             <h4 class="valClik1"></h4>
+                                         {% endif %} 
                                         <p class="mailTot">e-mails</p>
                                     </div>
                                 </div>
                                 <div class="bloque">
                                     <div class="titreEtat">
                                         <p class="blbl">{{"bloqués"|upper}} </p>
+                                        <p class="blbl2">{{"bloqués"|upper}} </p>
                                         <p class="blErr">{{"erreurs"|upper}}</p>
+                                        <p class="blErr2">{{"erreurs"|upper}}</p>
                                         <p class="blDesa">{{"désabo."|upper}} </p>
+                                        <p class="blDesa2">{{"désabo."|upper}} </p>
                                         <p class="blSp">{{"spam"|upper}} </p>
+                                        <p class="blSp2">{{"spam"|upper}} </p>
                                     </div>
                                     <div class="valEtat">
-                                        <p class="blbl">{{bloque<10? 0~bloque:bloque}}</p>
-                                        <p class="blErr">{{erreur<10? 0~erreur:erreur}}</p>
-                                        <p class="blDesa">{{desabo<10? 0~desabo:desabo}}</p>
-                                        <p class="blSp">{{spam<10? 0~spam:spam}}</p>
+                                        <p id="blbl2"></p>
+                                        {% if bloque is not empty %}
+                                            <p class="blbl">{{bloque<10? 0~bloque:bloque}}</p>
+                                        {% else %}
+                                             <p class="blbl1"></p>
+                                        {% endif %}
+                                        <p id="blErr2"></p>
+                                        {% if erreur is not empty %} 
+                                            <p class="blErr">{{erreur<10? 0~erreur:erreur}}</p>
+                                        {% else %}
+                                            <p class="blErr1"></p>
+                                        {% endif %}
+                                        <p id="blDesa2"></p>
+                                        {% if desabo is not empty %} 
+                                            <p class="blDesa">{{desabo<10? 0~desabo:desabo}}</p>
+                                        {% else %}
+                                            <p class="blDesa1">{{desabo<10? 0~desabo:desabo}}</p>
+                                        {% endif %}
+                                         <p id="blSp2"></p>
+                                        {% if spam is not empty %} 
+                                            <p class="blSp">{{spam<10? 0~spam:spam}}</p>
+                                        {% else %}
+                                             <p class="blSp1"></p>
+                                        {% endif %}
                                     </div>
                                 </div>
                     </div>
@@ -393,7 +436,7 @@
                                 <div class="legendeErr">
                                      <p id="legendeErr">O</p><p>{{"erreurs"|upper}}</p>
                                 </div>
-                                <input type="hidden" name="filterPeriode" value="{{path('admin_statistiques_filter')}}">
+                            <input type="hidden" name="filterPeriode" value="{{path('admin_statistiques_filter')}}">
                             </div>
                     </div> 
                 </div>
@@ -405,18 +448,17 @@
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
-            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
-            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
-            <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>            
-            <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
-            <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>  
-            <script src="{{asset('js/statistique/admin-emailing-statistik.js')}}"></script>  
-            <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>  
-            <script type="text/javascript" src="{{ asset('js/statistique/graph.js')}}"></script>  
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+    <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>            
+    <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+    <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>  
+    <script src="{{asset('js/statistique/admin-emailing-statistik.js')}}"></script>  
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>  
+    <script type="text/javascript" src="{{ asset('js/statistique/graph.js')}}"></script>      
         {% endblock %}
     {% endembed %}
 {% endblock %}
