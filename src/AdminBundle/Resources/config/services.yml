@@ -69,4 +69,5 @@ services:
 
     adminBundle.statistique:
         class: AdminBundle\Service\Statistique\Common
+        arguments: ["@mailjet.client"]
         autowire: true

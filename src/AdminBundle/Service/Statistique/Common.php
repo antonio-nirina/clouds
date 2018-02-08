@@ -1,12 +1,19 @@
 <?php
 namespace AdminBundle\Service\Statistique;
-
+use Mailjet\MailjetBundle\Client\MailjetClient ;
+use \Mailjet\Resources;
 
 
 class Common
 {
+    private $mailjetClient;
+
+    public function __construct(MailjetClient  $mailjetClient)
+    {
+        $this->mailjetClient=$mailjetClient;
+    }
 	
-	public function getTraitement($listsInfoCampaign,$total=0)
+	public function getTraitement($listsInfoCampaign)
 	{
 		if (!empty($listsInfoCampaign)) {
 	        foreach ($listsInfoCampaign as  $value) {       
@@ -34,7 +41,8 @@ class Common
             $res["desabo"] = $desabo;
             $res["erreur"] = $erreur;
             $res["last"] = $data["lastAct"] ;
-            $res["total"] = $total;
+            $res["total"] = $delivre;
+            
 		}else{
 			$res["delivre"] = 0;
             $res["ouvert"] = 0;
@@ -43,11 +51,49 @@ class Common
             $res["spam"] = 0;
             $res["desabo"] = 0;
             $res["erreur"] = 0;
-            $res["total"] = $total;
+            $res["total"] = 0;
             $res["last"] = new \DateTime(); 
 		}
 
 		return $res;
 
 	}
+
+    /**
+    * couple sender and to and date and subject
+    */ 
+
+    public function getContactByCampaign()
+    {
+        $campaigns = $this->mailjetClient->get(Resources::$Campaign)->getData();
+        foreach ($campaigns as $value) {
+            $contacts[]=["sender"=>$value["FromEmail"],
+                        "to"=>$value["FromName"],
+                        "sujet"=>$value["Subject"],
+                        "date"=>$value["CreatedAt"]
+                        ];
+        }
+       return $contacts;
+    }
+
+    public function getContactByPeriode($filtre)
+    {
+        $date=new \DateTime();
+        if ($filtre=="Yesterday") {
+            $date->modify('-1 day');
+            $filters = $date->settime(0,0,0)->getTimestamp();
+            $campaigns = $this->mailjetClient->get(Resources::$Campaign,['filters' => (string)$filters])->getData();
+            foreach ($campaigns as $value) {
+            $contacts[]=["sender"=>$value["FromEmail"],
+                        "to"=>$value["FromName"],
+                        "sujet"=>$value["Subject"],
+                        "date"=>$value["CreatedAt"]
+                        ];
+             }
+        }
+        return $contacts;
+    }
+
+
+
 }

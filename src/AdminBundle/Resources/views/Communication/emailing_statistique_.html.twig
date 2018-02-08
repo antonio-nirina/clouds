@@ -391,18 +391,27 @@
                                             <th class="dateDel">date</th>
                                         </thead>
                                         <tbody>
+                                        {% for list in fromTo %}
                                             <tr>
-                                                <td>lorem ipsum</td>
-                                                <td class="de">marie-emmanuelledelabourdaisdelafayette@gmail.com</td>
-                                                <td class="a">sqsqsds@gmail.com</td>
-                                                <td class="dateDel">25/12/2017</td>
+                                                <td>{{list["sujet"]}}</td>
+                                                <td class="de">{{list["sender"]}}</td>
+                                                <td class="a">{{list["to"]}}</td>
+                                                <td class="dateDel">{{list["date"]|date('d/m/Y')}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>lorem ipsum</td>
-                                                <td class="de">marie-emmanuelledelabourdaisdelafayette@gmail.com</td>
-                                                <td class="a">sqsqsds@gmail.com</td>
-                                                <td class="dateDel">25/12/2017</td>
-                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tableDetail2 ">
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <th>sujet</th>
+                                            <th>de</th>
+                                            <th>à</th>
+                                            <th>date</th>
+                                        </thead>
+                                        <tbody>
+                                            
                                         </tbody>
                                     </table>
                                 </div> 

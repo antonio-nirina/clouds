@@ -1191,6 +1191,12 @@ margin-left: -11px;
     border: 1px solid #CFCFCF;
     width: 100%;
 }
+.tableDetail2{
+    display: none;
+    border: 1px solid #CFCFCF;
+    width: 100%;
+}
+
 .legende{
     display: flex;
     font-size: 0.6rem;
