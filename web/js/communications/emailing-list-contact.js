@@ -1,13 +1,5 @@
 $(document).ready(function(){
 	
-	/*
-	$(document).on('keypress', 'input#id_search_table', function(){
-		var InfosPress = $(this).val();
-		$('div#ListUserContactMailjet_filter input').focus();
-		$('div#ListUserContactMailjet_filter input').trigger('change').val(InfosPress);
-	});
-	*/
-	
 	//Click sur créer une liste 
 	$(document).on('click', 'button#creer-list-contact', function(){
 		$('.chargementAjax').removeClass('hidden');
@@ -23,8 +15,8 @@ $(document).ready(function(){
 					$('div#creer-list-contact').find('.body-container').html(reponse);
 					$('div#creer-list-contact').modal('show');
 					$('.chargementAjax').addClass('hidden');
-					//table.destroy();
-					var table1 = $('#ListUserContactMailjet').DataTable( {
+					
+					var table1 = $('#ListUserContactMailjet').DataTable({
 						lengthChange: false,
 						"info":     false,
 						/*searching: false,*/
@@ -32,10 +24,69 @@ $(document).ready(function(){
 							"targets": 1,
 							"orderable": false
 						} ]
-						//buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
 					});
 
 					table1.buttons().container().appendTo( '#ListUserContactMailjet_wrapper .col-md-6:eq(0)' );
+					
+					//Seach engine
+					$('input.input-search-list').on('keyup', function(){
+						table1.search(this.value).draw();
+						//Modification libellé 'Previews && Next'
+						OverridePagination();
+						
+						//Modifier conteneur pagination 
+						UpdateWidthPagination();
+						
+						//Décocher tous les contacts 
+						$('input.form-field-published').each(function(i){
+							$(this).prop("checked", false);
+						});
+						
+						//Ajouter separateur sur les boutons de pagination
+						AddSeparatorPaginate();
+					});
+					
+					//Menu filter table (manager/commercial/participant)
+					$('a.FiltreList').unbind().bind('click', function() {
+					   var searchTerm = $.trim($(this).html().toLowerCase());
+					   
+					   if (!searchTerm) {
+						   table1.draw();   
+						 return;
+					   }
+					   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+						  for (var i=0;i<data.length;i++) {
+							 if (data[i].toLowerCase() == searchTerm) return true;
+						  }
+						  return false;
+					   });
+					   table1.draw();   
+					   $.fn.dataTable.ext.search.pop();
+					   
+					   //Modification libellé 'Previews && Next'
+						OverridePagination();
+						
+						//Modifier conteneur pagination 
+						UpdateWidthPagination();
+						
+						//Décocher tous les contacts 
+						$('input.form-field-published').each(function(i){
+							$(this).prop("checked", false);
+						});
+						
+						//Ajouter separateur sur les boutons de pagination
+						AddSeparatorPaginate();
+						
+						return false;
+					});
+					
+					//Reset filtre 
+					$('span#id-delete-input-filtre-creer-liste-contact').on('click', function(){
+						table1.search('').columns().search('').draw();
+						$('button#dropdownMenuFiltreCreerListContact').html('FILTRER PAR LISTE');
+						$(this).hide();
+						return false;
+					});
 					
 					//Modification libellé 'Previews && Next'
 					OverridePagination();
@@ -116,21 +167,71 @@ $(document).ready(function(){
 					$('#edit-list-contact').find('.body-container').html(reponse);
 					$('#edit-list-contact').modal('show');
 					$('.chargementAjax').addClass('hidden');
-					//table.destroy();
+					
 					var table2 = $('#ListUserContactMailjet').DataTable( {
 						"dom": 'rtp',
 						lengthChange: false,
 						"info":     false,
-						searching: false,
+						/*searching: false,*/
 						responsive: true,
 						"columnDefs": [ {
 							"targets": 1,
 							"orderable": false
 						} ]
-						//buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
 					});
 
 					table2.buttons().container().appendTo( '#ListUserContactMailjet_wrapper .col-md-6:eq(0)' );
+					
+					//Seach engine
+					$('input.input-search-list').on('keyup', function(){
+						table2.search(this.value).draw();
+						
+						//Modification libellé 'Previews && Next'
+						OverridePagination();
+						
+						//Modifier conteneur pagination 
+						UpdateWidthPagination();
+						
+						//Ajouter separateur sur les boutons de pagination
+						AddSeparatorPaginate();
+					});
+					
+					//Menu filter table (manager/commercial/participant)
+					$('a.FiltreList').unbind().bind('click', function() {
+					   var searchTerm = $.trim($(this).html().toLowerCase());
+					   
+					   if (!searchTerm) {
+						   table2.draw();   
+						 return;
+					   }
+					   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+						  for (var i=0;i<data.length;i++) {
+							 if (data[i].toLowerCase() == searchTerm) return true;
+						  }
+						  return false;
+					   });
+					   table2.draw();   
+					   $.fn.dataTable.ext.search.pop();
+					   
+					   //Modification libellé 'Previews && Next'
+						OverridePagination();
+						
+						//Modifier conteneur pagination 
+						UpdateWidthPagination();
+						
+						//Ajouter separateur sur les boutons de pagination
+						AddSeparatorPaginate();
+						
+						return false;
+					});
+					
+					//Reset filtre 
+					$('span#id-delete-input-filtre-edit-liste-contact').on('click', function(){
+						table2.search('').columns().search('').draw();
+						$('button#dropdownMenuFiltreEditListContact').html('FILTRER PAR LISTE');
+						$(this).hide();
+						return false;
+					});
 					
 					//Modification libellé 'Previews && Next'
 					OverridePagination();
