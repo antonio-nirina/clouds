@@ -1,0 +1,307 @@
+p.chargementAjax.hidden {
+    display: none;
+}
+
+p.chargementAjax {
+    text-align: center;
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1070;
+}
+
+.corner-circle-img{
+    width: 137px;
+    height: 137px;
+    background-repeat: no-repeat;
+    border: 2px solid #BEBEBE;
+    float: right;
+    box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
+}
+
+.fieldset {
+    padding: 20px 24px 50px 24px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	position: relative;
+	box-shadow: 0px 0px #000000;
+	background-color: #F5F5F5;
+	height: auto;
+	color: var(--couleur_4);
+	max-width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.fieldset h3, h4, h5 {
+    color: var(--couleur_4);
+    font-size: 25px;
+    font-family: var(--police_light);
+}
+
+.img-content-sondanges-quiz{
+	background: url('../../images/cloudsRewards/sondages-quizz.jpg') no-repeat;
+	background-position: -15px -35px;
+}
+
+p.descr-sondage-quiz{
+	font-size: 13px;
+	color: var(--couleur_4);
+	font-family: var(--police);
+}
+
+.titre-section-sondage-quiz span {
+    color: var(--couleur_2);
+    font-family: var(--police_bold);
+}
+
+section div.ligne-separator::after,
+section div.ligne-separator-question::after {
+    display: inline;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	content: "\f107";
+	font-family: "FontAwesome";
+	font-size: 27px;
+	border: none !important;
+	position: absolute;
+	right: 0;
+	top: -22px;
+	color: #404040;
+	-webkit-text-stroke: 1px #e5e5e5;
+	font-weight: bold;
+}
+
+div.ligne-separator{
+	width: 100%;
+	height: 1px;
+	background: #CCCCCC;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+div.ligne-separator-question{
+	width: 100%;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.info-container {
+    margin: 10px 0 10px 0;
+}
+
+.info-container p {
+    margin: 0;
+    font-size: 13px;
+}
+
+div.action-btn{
+	float: right;
+	width: 85%;
+	border-radius: 5px;
+	text-align: left !important;
+	margin-right: 33px;
+}
+
+.separator{
+	clear:both;
+	height:30px!important;
+}
+
+.previsualisation-im-sondage-quiz {
+    width: 100%;
+    max-width: 1024px;
+    height: 100%;
+    max-height: 243px;
+    text-align: center;
+}
+
+.styled-checkbox + label {
+    background: url('../../images/cloudsRewards/checkoff.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+}
+
+.styled-checkbox:checked + label {
+    background: url('../../images/cloudsRewards/checkon.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+}
+
+.styled-checkbox {
+    display: none;
+}
+
+div.check-creation-sondage,
+div.check-creation-quiz,
+p.check-creation-sondage-check,
+p.check-creation-sondage-libelle,
+p.check-creation-quiz-check,
+p.check-creation-quiz-libelle,
+div.check-reponse-obligatoire,
+p.check-reponse-obligatoire-check,
+p.check-reponse-obligatoire-libelle{
+	display:inline-block;
+	vertical-align:middle;
+	margin:0;
+	padding:0;
+	line-height: 0.2em;
+}
+
+.input-form-text {
+    width: 79%!important;
+}
+
+.large-textarea {
+    width: 100%;
+    background-color: inherit;
+    border: 1px solid #636363;
+    border-radius: 5px;
+}
+
+.small-textarea{
+	width: 79%!important;
+	background-color: inherit;
+    border: 1px solid #636363;
+    border-radius: 5px;
+	float: right;
+	margin-right: 33px;
+}
+
+div.content-questionnaire{
+	border:1px solid #CBCBCB;
+}
+
+.dropdown button, .dropdown .dropdown-menu {
+    width: 100%;
+}
+
+section .dropdown-menu, section .dropdown-menu > a, section .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+section .dropdown-toggle, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 10rem;
+    text-align: left;
+}
+
+section .dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+
+#dropdownMenuAction{
+	width: 79%!important;
+	float: right;
+	margin-right: 33px;
+}
+
+span.corbeil-input{
+	background: url('../../images/cloudsRewards/delete.png') no-repeat;
+    height: 21px;
+    width: 16px;
+    display: inline-block;
+    cursor: pointer;
+	position: absolute;
+	margin-left: 10px;
+	right: 36px;
+}
+
+.input-form-text-reponse {
+    float: right;
+    width: 70%;
+    border-radius: 5px;
+    background: none;
+    border: 0;
+    border: 1px solid #505050;
+    padding-left: 10px;
+    text-align: left;
+    margin-right: 100px;
+}
+
+label.champForm span.delete-input-reponse{
+	right:66px;
+	width: 25px;
+	height: 25px;
+	background: url('../../images/cloudsRewards/close-table.png') center center no-repeat;
+	display: inline-block;
+	position: absolute;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+span.trie-input a.reorder-up-field-row-link {
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../../images/cloudsRewards/arrow-up-overlay.png') no-repeat;
+    background-position: center;
+}
+
+span.trie-input a.reorder-down-field-row-link {
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../../images/cloudsRewards/arrow-down-overlay.png') no-repeat;
+    background-position: center;
+}
+
+span.trie-input{
+	right:0px;
+	width: 25px;
+	height: 24px;
+	display: inline-block;
+	position: absolute;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.add {
+    color: var(--couleur_1) !important;
+    font-size: 14px;
+}
+
+.add-field-link {
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.add::before {
+    position: static;
+}
+
+.fieldset .custom-field-allowed-container {
+    margin-right: 2px;
+}

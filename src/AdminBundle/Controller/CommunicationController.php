@@ -603,8 +603,7 @@ class CommunicationController extends AdminController
             if ($request->request->has("edit_template_form")) {
                 $edit_template_form->handleRequest($request);
                 if ($edit_template_form->isSubmitted() && $edit_template_form->isValid()) {
-                    $com_email_template_data_sync = $this
-                        ->get('AdminBundle\Service\DataSynchronizer\ComEmailTemplateDataSynchronizer');
+                    $com_email_template_data_sync = $this->get('AdminBundle\Service\DataSynchronizer\ComEmailTemplateDataSynchronizer');
                     $edit_result = $com_email_template_data_sync->editTemplate(
                         $com_email_template,
                         $this->getUser(),
@@ -1214,6 +1213,22 @@ class CommunicationController extends AdminController
 		$response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE,$filename,iconv('UTF-8', 'ASCII//TRANSLIT', $filename));
 		return $response;
 	}
+	
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/",
+     *     name="admin_communication_sondage_quiz")
+     * 
+     */
+    public function sondageQuizAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Communication:sondage_quiz.html.twig');
+	}
 
     /**
      * @Route("/emailing/sur-mesure", name="admin_communication_emailing_custom")
@@ -1264,17 +1279,17 @@ class CommunicationController extends AdminController
     {
         $filtre=$request->request->get('filter');
         $mailjet=$this->get('mailjet.client');
-        $date=new \DateTime();
-        if ($filtre=="Yesterday") {
+        $date = new \DateTime();
+        if ($filtre == "Yesterday") {
             $date->modify('-1 day');
             $yest=$date->settime(0,0,0)->format("Y-m-d");
             $filters=["lastactivityat"=>$yest];
             $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
             $total=$response->getTotal();
-            $listsInfoCampaignYesterday=$response->getData();
-            $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday,$total); 
-        }        
-        $response=new JsonResponse($data);
+            $listsInfoCampaignYesterday = $response->getData();
+            $data = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday,$total); 
+        }
+        $response = new JsonResponse($data);
         return $response;
     }
 }
