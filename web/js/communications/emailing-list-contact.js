@@ -85,6 +85,21 @@ $(document).ready(function(){
 						table1.search('').columns().search('').draw();
 						$('button#dropdownMenuFiltreCreerListContact').html('FILTRER PAR LISTE');
 						$(this).hide();
+						
+						//Modification libellé 'Previews && Next'
+						OverridePagination();
+						
+						//Modifier conteneur pagination 
+						UpdateWidthPagination();
+						
+						//Décocher tous les contacts 
+						$('input.form-field-published').each(function(i){
+							$(this).prop("checked", false);
+						});
+						
+						//Ajouter separateur sur les boutons de pagination
+						AddSeparatorPaginate();
+						
 						return false;
 					});
 					
@@ -230,6 +245,21 @@ $(document).ready(function(){
 						table2.search('').columns().search('').draw();
 						$('button#dropdownMenuFiltreEditListContact').html('FILTRER PAR LISTE');
 						$(this).hide();
+						
+						//Modification libellé 'Previews && Next'
+						OverridePagination();
+						
+						//Modifier conteneur pagination 
+						UpdateWidthPagination();
+						
+						//Décocher tous les contacts 
+						$('input.form-field-published').each(function(i){
+							$(this).prop("checked", false);
+						});
+						
+						//Ajouter separateur sur les boutons de pagination
+						AddSeparatorPaginate();
+						
 						return false;
 					});
 					
