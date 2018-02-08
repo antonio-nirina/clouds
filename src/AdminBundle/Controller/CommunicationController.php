@@ -1265,14 +1265,7 @@ class CommunicationController extends AdminController
         $filtre=$request->request->get('filter');
         $mailjet=$this->get('mailjet.client');
         $date=new \DateTime();
-        if ($filtre=="today") {
-            $now=$date->settime(0,0,0)->format("Y-m-d");
-            $filters=["lastactivityat"=>$now];
-            $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
-            $total=$response->getTotal();
-            $listsInfoCampaign=$response->getData();
-            $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); 
-        } elseif ($filtre=="Yesterday") {
+        if ($filtre=="Yesterday") {
             $date->modify('-1 day');
             $yest=$date->settime(0,0,0)->format("Y-m-d");
             $filters=["lastactivityat"=>$yest];
