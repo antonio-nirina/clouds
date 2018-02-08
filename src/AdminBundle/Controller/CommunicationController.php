@@ -495,7 +495,7 @@ class CommunicationController extends AdminController
                         'template_model_class' => new TemplateModel(),
                         'content_type_class' => new TemplateContentType(),
                         'instantaneous_template_preview' => $template_data_generator
-                            ->retrieveContentPartHtml(true),
+                            ->retrieveContentPartHtml(true, true),
                         'template_logo_alignment_class' => new TemplateLogoAlignment(),
                     )
                 );
@@ -537,7 +537,7 @@ class CommunicationController extends AdminController
                             'template_model_class' => new TemplateModel(),
                             'content_type_class' => new TemplateContentType(),
                             'instantaneous_template_preview' => $template_data_generator
-                                ->retrieveContentPartHtml(true),
+                                ->retrieveContentPartHtml(true, true),
                             'template_logo_alignment_class' => new TemplateLogoAlignment(),
                         )
                     );
@@ -610,7 +610,7 @@ class CommunicationController extends AdminController
                     'content_type_class' => new TemplateContentType(),
                     'edit_mode' => true,
                     'instantaneous_template_preview' => $template_data_generator
-                        ->retrieveContentPartHtml(true),
+                        ->retrieveContentPartHtml(true, true),
                     'template_logo_alignment_class' => new TemplateLogoAlignment(),
                 )
             );
@@ -654,7 +654,7 @@ class CommunicationController extends AdminController
                             'content_type_class' => new TemplateContentType(),
                             'edit_mode' => true,
                             'instantaneous_template_preview' => $template_data_generator
-                                ->retrieveContentPartHtml(true),
+                                ->retrieveContentPartHtml(true, true),
                             'template_logo_alignment_class' => new TemplateLogoAlignment(),
                         )
                     );
