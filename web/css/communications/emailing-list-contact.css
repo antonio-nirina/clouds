@@ -77,7 +77,7 @@
 		border-radius: 7px;
 		padding: 5px 10px;
 		color: var(--couleur_4);
-		width:93%;
+		width:87%;
 	}
 
 	input.liste_name_input_small{
@@ -276,11 +276,17 @@
 	ul.pagination{
 		text-align: center;
 		margin: 0 auto;
-		width: 31%;
+		width: inherit;
+		display:inline-block;
 	}
 
 	#ListUserContactMailjet_next{
 		margin-left:9px;
+	}
+	
+	.separator-btn{
+		margin-top:20px;
+		height:20px;
 	}
 }
 
@@ -351,7 +357,7 @@
 		border-radius: 7px;
 		padding: 5px 10px;
 		color: var(--couleur_4);
-		width:93%;
+		width:90%;
 	}
 
 	input.liste_name_input_small{
@@ -550,7 +556,8 @@
 	ul.pagination{
 		text-align: center;
 		margin: 0 auto;
-		width: 31%;
+		width: inherit;
+		display:inline-block;
 	}
 
 	#ListUserContactMailjet_next{
@@ -824,7 +831,8 @@
 	ul.pagination{
 		text-align: center;
 		margin: 0 auto;
-		width: 31%;
+		width: inherit;
+		display:inline-block;
 	}
 
 	#ListUserContactMailjet_next{
@@ -1099,7 +1107,8 @@
 	ul.pagination{
 		text-align: center;
 		margin: 0 auto;
-		width: 31%;
+		width: inherit;
+		display:inline-block;
 	}
 
 	#ListUserContactMailjet_next{
@@ -1360,7 +1369,8 @@
 	ul.pagination{
 		text-align: center;
 		margin: 0 auto;
-		width: 31%;
+		width: inherit;
+		display:inline-block;
 	}
 
 	#ListUserContactMailjet_next{
