@@ -1243,7 +1243,6 @@ class CommunicationController extends AdminController
         $listsInfoCampaign=$response->getData();
         $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); //call of service
         $fromTo=$this->get('adminBundle.statistique')->getContactByCampaign();
-        
         return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
         [
             "total"=>$data["total"],
@@ -1269,13 +1268,21 @@ class CommunicationController extends AdminController
         $date=new \DateTime();
         if ($filtre=="Yesterday") {
             $date->modify('-1 day');
-            $yest = $date->settime(0,0,0)->format("Y-m-d");
-            $filters = ["lastactivityat"=>$yest];
-            $response = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters]);
-            dump($response);
+            $format= $date->format("Y-m-d");
+            $yest = $date->settime(0,0,0)->getTimestamp();
+            $filters = ["fromts"=>(string)$yest];
+            $respons = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters]);
             $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
-            $listsInfoCampaignYesterday = $response->getData();
-            $info = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaignYesterday);
+            $listsInfoCampaignYesterday = $respons->getData();
+            foreach ($listsInfoCampaignYesterday as $value) {
+                $dateFiter = new \DateTime($value["LastActivityAt"]);
+                $time= $dateFiter->format("Y-m-d");
+                if ($time == $format) {
+                    $listsInfoCampaign[] = $value;
+                }
+               
+            }
+            $info = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign);
             $data = [
                     "fromTo"=>$allContactSendCampagne,
                     "info"=>$info

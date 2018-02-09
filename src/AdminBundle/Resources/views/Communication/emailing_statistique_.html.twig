@@ -391,24 +391,26 @@
                                             <th class="dateDel">date</th>
                                         </thead>
                                         <tbody>
-                                        {% for list in fromTo %}
-                                            <tr>
-                                                <td>{{list["sujet"]}}</td>
-                                                <td class="de">{{list["sender"]}}</td>
-                                                <td class="a">{{list["to"]}}</td>
-                                                <td class="dateDel">{{list["date"]|date('d/m/Y')}}</td>
-                                            </tr>
-                                        {% endfor %}
+                                        {% if fromTo is not empty %}
+                                            {% for list in fromTo %}
+                                                <tr>
+                                                    <td>{{list["sujet"]}}</td>
+                                                    <td class="de">{{list["sender"]}}</td>
+                                                    <td class="a">{{list["to"]}}</td>
+                                                    <td class="dateDel">{{list["date"]|date('d/m/Y')}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="tableDetail2 ">
                                     <table class="table table-responsive">
                                         <thead>
-                                            <th>sujet</th>
-                                            <th>de</th>
-                                            <th>à</th>
-                                            <th>date</th>
+                                            <th class="headSujet">sujet</th>
+                                            <th  class="headDe">de</th>
+                                            <th class="headA">à</th>
+                                            <th class="headDate">date</th>
                                         </thead>
                                         <tbody>
                                             
