@@ -2149,7 +2149,6 @@ section .row.ending {
 #new-campaign-modal .template-choice-container.row{
     margin-right: 0;
     margin-left: 0;
-    justify-content: space-between;
 }
 
 #new-campaign-modal .template-choice-container .template-choice{
@@ -2180,12 +2179,10 @@ section .row.ending {
     position: relative;
     top: -6px;
 }
-
-@media (max-width: 1199px) {
-    #new-campaign-modal .template-choice-container.row{
-        justify-content: space-around;
-    }
+#new-campaign-modal .modal-content{
+    padding-bottom: 50px;
 }
+
 /**
  * FIN - correction mise en forme modal création template
  */

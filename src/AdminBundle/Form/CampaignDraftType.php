@@ -13,6 +13,8 @@ use AdminBundle\Manager\ProgramManager;
 use AdminBundle\Exception\NoRelatedProgramException;
 use AdminBundle\Manager\ComEmailTemplateManager;
 use AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form type for manipulating campaign draft (e.g.: create campaign draft)
@@ -24,6 +26,7 @@ class CampaignDraftType extends AbstractType
     private $program_manager;
     private $template_manager;
     private $template_list_data_handler;
+    private $container;
 
     /**
      * CampaignDraftType constructor
@@ -33,19 +36,22 @@ class CampaignDraftType extends AbstractType
      * @param ProgramManager $program_manager
      * @param ComEmailTemplateManager $template_manager
      * @param TemplateListDataHandler $template_list_data_handler
+     * @param ContainerInterface $container
      */
     public function __construct(
         MailjetContactList $contact_list_handler,
         EntityManager $em,
         ProgramManager $program_manager,
         ComEmailTemplateManager $template_manager,
-        TemplateListDataHandler $template_list_data_handler
+        TemplateListDataHandler $template_list_data_handler,
+        ContainerInterface $container
     ) {
         $this->contact_list_handler = $contact_list_handler;
         $this->em = $em;
         $this->program_manager = $program_manager;
         $this->template_manager = $template_manager;
         $this->template_list_data_handler = $template_list_data_handler;
+        $this->container = $container;
     }
 
     /**
@@ -72,6 +78,16 @@ class CampaignDraftType extends AbstractType
                 ),
                 'expanded' => true,
                 'multiple' => false,
+            ))
+            ->add('programmed_launch_date', DateTimeType::class, array(
+                'label' => false,
+                'date_widget' => "single_text",
+                'time_widget' => "choice",
+                'with_seconds' => false,
+                'html5' => false,
+                'date_format'=>'dd/MM/yyyy',
+                'input' => 'datetime',
+                'model_timezone' => $this->container->getParameter('app_time_zone'),
             ));
     }
 

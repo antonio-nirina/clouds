@@ -137,7 +137,7 @@ $(document).ready(function() {
         $('#calendar').datepicker({
             minDate: new Date(),
             altField: ".date_launch_campaign",
-            altFormat: "d MM yy"
+            altFormat: "dd/mm/yy"
         });
     }
 
@@ -288,6 +288,7 @@ $(document).ready(function() {
     $(document).on("click", ".btn-end-step.btn-end-step-4", function() {
         $('.chargementAjax').removeClass('hidden');
         var new_campaign_url = $('input[name=new_campaign_url]').val();
+        var current_end_step_button = $(this);
         $('#new-campaign-modal form').ajaxSubmit({
             type: 'POST',
             url: new_campaign_url,
@@ -303,9 +304,16 @@ $(document).ready(function() {
                     $('#new-campaign-modal').modal('show');
                 } else {
                     $("#new-campaign-modal").modal("hide");
-                    setTimeout(function(data){
-                        $("#sent-campaign-modal").modal("show");
-                    },0);
+
+                    if('send' == current_end_step_button.attr('data-button-type')){
+                        setTimeout(function(data){
+                            $("#sent-campaign-modal").modal("show");
+                        },0);
+                    } else if ('program' == current_end_step_button.attr('data-button-type')){
+                        setTimeout(function(){
+                            $("#done-campaign-modal").modal("show");
+                        },0);
+                    }
                 }
             },
             statusCode:{
@@ -329,13 +337,13 @@ $(document).ready(function() {
         $('#new-campaign-modal').find('content').html('');
     });
 
-    $(document).on("click", ".btn-end-step.btn-program-step-4", function() {//envoie campagne programmée
+    /*$(document).on("click", ".btn-end-step.btn-program-step-4", function() {//envoie campagne programmée
         $("#new-campaign-modal").modal("hide");
         $("span.date-envoi").html($('.date_launch_campaign').val());
         setTimeout(function(){
             $("#done-campaign-modal").modal("show");
         },0);
-    });
+    });*/
 
     // création de nouvelle campagne
     $('.create-campaign-button').on('click', function(e){
@@ -348,6 +356,7 @@ $(document).ready(function() {
             success: function(data){
                 $('#new-campaign-modal').find('.error-message-container.general-message').text('');
                 $('#new-campaign-modal').find(".modal-content .content").html(data.content);
+                activateCampaignConfirmationOnClose();
                 $('#create-tabs a.activated:last').tab('show');
                 showPrevious();
                 initCalendar();
@@ -355,12 +364,14 @@ $(document).ready(function() {
             },
             statusCode: {
                 404: function(){
-                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Page non trouvée');
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
                     $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose();
                 },
                 500: function(){
                     $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
                     $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose()
                 }
             },
             complete: function(){
@@ -369,6 +380,17 @@ $(document).ready(function() {
             }
         });
     });
+
+    function deactivateCampaignConfirmationOnClose(){
+        $('#new-campaign-modal').find('.close-modal').removeAttr('data-toggle');
+        $('#new-campaign-modal').find('.close-modal').attr('data-dismiss', 'modal');
+    }
+
+    function activateCampaignConfirmationOnClose(){
+        $('#new-campaign-modal').find('.close-modal').attr('data-toggle', 'modal');
+        $('#new-campaign-modal').find('.close-modal').removeAttr('data-dismiss');
+        $('#new-campaign-modal').find('.close-modal').attr('data-target', '#abort-new-campaign-modal');
+    }
 
     $('#new-campaign-modal').on('hidden.bs.modal', function(){
         $('#new-campaign-modal').find('.error-message-container.general-message').text('');
@@ -387,6 +409,11 @@ $(document).ready(function() {
 
     // rechargement de la liste de campagne après fermeture du modal de confirmation d'envoi de campagne
     $('#sent-campaign-modal').on('hidden.bs.modal', function(){
+        sendFilter();
+    });
+
+    // rechargement de la liste de campagne après fermeture du modal de confirmation de programmation de campagne
+    $('#done-campaign-modal').on('hidden.bs.modal', function(){
         sendFilter();
     });
 

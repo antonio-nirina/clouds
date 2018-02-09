@@ -212,11 +212,12 @@ class CommunicationController extends AdminController
         }
 
         $campaign_draft_data = new CampaignDraftData();
+        $campaign_draft_data->setProgrammedLaunchDate(new \DateTime('now'));
         $campaign_draft_form = $this->createForm(CampaignDraftType::class, $campaign_draft_data);
         $campaign_draft_form->handleRequest($request);
         if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
             $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-            if ($campaign_handler->createAndSend($campaign_draft_data)) {
+            if ($campaign_handler->createAndProcess($campaign_draft_data)) {
                 $data = $json_response_data_provider->success();
                 return new JsonResponse($data, 200);
             } else {
