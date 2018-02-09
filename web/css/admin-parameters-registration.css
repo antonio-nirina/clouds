@@ -2179,6 +2179,9 @@ section .row.ending {
     position: relative;
     top: -6px;
 }
+#new-campaign-modal .modal-content{
+    padding-bottom: 50px;
+}
 
 /**
  * FIN - correction mise en forme modal création template
