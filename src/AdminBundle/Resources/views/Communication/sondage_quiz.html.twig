@@ -20,7 +20,7 @@
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
                     <ul class="content-menu-niv-3 hidden-lg-up">
                         <li class="nav-item-niv-3 form-inscription">
-                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_sondage_quiz") }}">sondages / quiz</a>
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_sondage_quiz") }}">sondages / quiz</a>
                             <span class = "bulle-aide"></span>
                         </li>
                     </ul>
@@ -68,11 +68,11 @@
                     </div>
 					
 					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4 titre-section-sondage-quiz">
+						<div class="col-xl-4 col-lg-6 col-md-7 col-sm-12 titre-section-sondage-quiz">
 							<span>Non du menu et bannière haut de page</span>
 						</div>
 						
-						<div class="col-lg-8 col-md-8 col-sm-8">
+						<div class="col-xl-8 col-lg-6 col-md-5 col-sm-12">
 							<div class = "ligne-separator">&nbsp;</div>
 						</div>
 					</div>
@@ -92,11 +92,11 @@
 					<div class = "row separator"></div>
 					
 					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4 titre-section-sondage-quiz">
+						<div class="col-lg-4 col-md-12 col-sm-12 titre-section-sondage-quiz">
 							<span>Bannière de haut de page</span>
 						</div>
 						
-						<div class="col-lg-8 col-md-8 col-sm-8"></div>
+						<div class="col-lg-8 col-md-12 col-sm-12"></div>
 					</div>
 					
 					<div class = "row separator"></div>
@@ -210,7 +210,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<label class="champForm">
 								<span class="lib-form block editeur">texte de description</span>
-								<textarea id="login_portal_data_form_text" name="text_description" class="large-textarea"></textarea>
+								<textarea id="id_description_sondage_quiz" name="text_description" class="large-textarea"></textarea>
 							</label>
 						</div>
 					</div>
@@ -219,11 +219,11 @@
 					<div class = "row separator"></div>
 					
 					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4 titre-section-sondage-quiz">
+						<div class="col-8 col-lg-4 col-md-4 col-sm-4 col-xl-4 titre-section-sondage-quiz">
 							<span>QUESTION 1</span>
 						</div>
 						
-						<div class="col-lg-8 col-md-8 col-sm-8">
+						<div class="col-4 col-lg-8 col-md-8 col-sm-8 col-xl-8">
 							<div class = "ligne-separator-question">&nbsp;</div>
 						</div>
 					</div>
@@ -232,51 +232,46 @@
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label class="champForm">
 									<span class="lib-form">votre question</span>
 									<input class="input-form-text" name="question" value="" placeholder="Pourquoi avez vous ....?" type="text">
 									<span class="delete-input"></span>
 								</label>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label class="champForm">
 									<span class="lib-form">commentaire</span>
 									<textarea name="commentaire" class="small-textarea"></textarea>
 								</label>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label class="champForm">
 									<span class="lib-form">type de question</span>
-									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-										CASE A COCHER
-									</button>
+									<span class = "content-dropdown-toggle">
+										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+											CASE A COCHER
+										</button>
+									</span>
 								</label>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label class="champForm">
 									<span class="lib-form">reponse 1</span>
 									<input class="input-form-text-reponse" name="reponse1" value="" placeholder="Parce que ..." type="text">
@@ -288,14 +283,12 @@
 									</span>
 								</label>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label class="champForm">
 									<span class="lib-form">reponse 2</span>
 									<input class="input-form-text-reponse" name="reponse2" value="" placeholder="Pour des raisons ..." type="text">
@@ -307,14 +300,12 @@
 									</span>
 								</label>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label class="champForm">
 									<span class="lib-form">reponse 3</span>
 									<input class="input-form-text-reponse" name="reponse3" value="" placeholder="Sans aucune ..." type="text">
@@ -326,25 +317,21 @@
 									</span>
 								</label>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<a class="add-field-link add" href="#">ajouter une reponse (<span class="custom-field-allowed-container">7</span> maximum)</a>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
 						
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class = "check-reponse-obligatoire">
 									<p class = "check-reponse-obligatoire-libelle">
 										<span class = "libelle-mode">réponse obligatoire</span>
@@ -356,7 +343,6 @@
 									<div style = "clear:both;"></div>
 								</div>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 						
 						<div class = "row separator"></div>
@@ -366,11 +352,9 @@
 					
 					<div class = "content-questionnaire">
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<a class="add-field-link add" href="#">ajouter une question (<span class="custom-field-allowed-container">9</span> maximum)</a>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 					</div>
 					
@@ -406,10 +390,27 @@
             {{ parent() }}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
-            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
+            <script src="{{ asset('ckeditor-uploader/ckeditor.js') }}"></script>                     
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
-            <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>            
+            <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>  
+            <script>
+                $(document).ready(function(){
+                    CKEDITOR.replace( 'id_description_sondage_quiz', {
+                        language: 'fr',
+                        uiColor: '#9AB8F3',
+                        height: 150,
+                        width: 600,
+                        customConfig: "{{ asset('ckeditor-uploader/custom/config-general.js') }}",
+                    });
+
+                    CKEDITOR.on("instanceReady", function(){
+                        $('.cke_wysiwyg_frame').contents().find('body').css(
+                            'background-color', '#F5F5F5'
+                        )
+                    });
+                });
+            </script>
         {% endblock %}
     {% endembed %}
 {% endblock %}
