@@ -1,15 +1,38 @@
 <?php
 namespace AdminBundle\DTO;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * A DTO class for holding data when manipulating campaign draft (e.g. : create campaign draft)
  */
 class CampaignDraftData
 {
+    /**
+     * @Assert\NotBlank()
+     */
     private $name;
+
+    /**
+     * @Assert\NotBlank()
+     */
     private $object;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
     private $list_id;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
+     */
     private $template_id;
+
+    /**
+     * @Assert\NotBlank()
+     */
     private $programmed_state;
 
     /**

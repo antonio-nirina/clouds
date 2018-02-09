@@ -346,6 +346,13 @@ class MailJetCampaign extends MailJetHandler
         return;
     }
 
+    /**
+     * Create campaign draft then send it
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
     public function createAndSend(CampaignDraftData $campaign_draft_data)
     {
         $sender = $this->mailjet_sender_handler->getDefault();
@@ -381,7 +388,7 @@ class MailJetCampaign extends MailJetHandler
                         $send_result = $this
                             ->mailjet
                             ->post(Resources::$CampaigndraftSend, array('id' => $create_result->getData()[0]['ID']));
-                        if (self::STATUS_CODE_SUCCESS == $send_result->getStatus()) {
+                        if (self::STATUS_CODE_CREATED == $send_result->getStatus()) {
                             return true;
                         }
                     }

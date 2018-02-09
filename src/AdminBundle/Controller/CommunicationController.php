@@ -205,7 +205,7 @@ class CommunicationController extends AdminController
     public function emailingCampaignNewAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
-        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\CampaignDataProvider');
         if (empty($program)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
@@ -215,7 +215,13 @@ class CommunicationController extends AdminController
         $campaign_draft_form->handleRequest($request);
         if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
             $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-            $campaign_handler->createAndSend($campaign_draft_data);
+            if ($campaign_handler->createAndSend($campaign_draft_data)) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                $data = $json_response_data_provider->campaignSendingError();
+                return new JsonResponse($data, 200);
+            }
         }
 
         $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
@@ -228,6 +234,9 @@ class CommunicationController extends AdminController
             'template_data_list' => $template_data_list,
         ));
         $data = $json_response_data_provider->success();
+        if ($campaign_draft_form->isSubmitted() && !$campaign_draft_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
         $data['content'] = $view;
 
         return new JsonResponse($data, 200);

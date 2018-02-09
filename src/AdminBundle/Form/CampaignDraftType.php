@@ -67,8 +67,8 @@ class CampaignDraftType extends AbstractType
             ))
             ->add('programmed_state', ChoiceType::class, array(
                 'choices' => array(
-                    'false' => false,
-                    'true' => true,
+                    'false' => 'false',
+                    'true' => 'true',
                 ),
                 'expanded' => true,
                 'multiple' => false,
