@@ -71,3 +71,8 @@ services:
         class: AdminBundle\Service\Statistique\Common
         arguments: ["@mailjet.client"]
         autowire: true
+
+    AdminBundle\Form\CampaignDraftType:
+        class: AdminBundle\Form\CampaignDraftType
+        autowire: true
+        autoconfigure: true

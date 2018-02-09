@@ -100,6 +100,7 @@ var url = $('input[name=filterPeriode]').val();
                   var d = new Date(inputFormat);
                   return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
             }
+
           $.ajax({
             url:url,
             method:'POST',
@@ -107,45 +108,49 @@ var url = $('input[name=filterPeriode]').val();
             dataType: 'json',
             success:function(dataY){
               console.log(dataY);
-              $('.valTot').css('display','none');
-              $('.valTot2').css('display','block');
-              $('.valDel2').css('display','block');
-              $('.valDel').css('display','none');
-              $('.valOuv2').css('display','block');
-              $('.valOuv').css('display','none');
-              $('.valClik2').css('display','block');
-              $('.valClik').css('display','none');
-              $('#blbl2').css('display','block');
-              $('.blbl2').css('display','block');
-              $('.blbl').css('display','none');
-              $('#blErr2').css('display','block');
-              $('.blErr2').css('display','block');
-              $('.blErr').css('display','none');
-              $('#blDesa2').css('display','block');
-              $('.blDesa2').css('display','block');
-              $('.blDesa').css('display','none');
-              $('#blSp2').css('display','block');
-              $('.blSp2').css('display','block');
-              $('.blSp').css('display','none');
-              $('#nbrMail').css('display','none');
-              /*display of value campaign total,delivre,click,...*/
-              $('.valTot2').append(dataY.info.total);
-              $('.valDel2').append(dataY.info.delivre);
-              $('.valOuv2').append(dataY.info.ouvert);
-              $('.valClik2').append(dataY.info.cliquer);
-              $('#blbl2').append(dataY.info.bloque);
-              $('#blErr2').append(dataY.info.erreur);
-              $('#blDesa2').append(dataY.info.desabo);
-              $('#blSp2').append(dataY.info.spam);
-              $('#nbrMail2').append(dataY.info.total);
+              if (dataY!={}){
+                $('.valTot').css('display','none');
+                $('.valTot2').css('display','block');
+                $('.valDel2').css('display','block');
+                $('.valDel').css('display','none');
+                $('.valOuv2').css('display','block');
+                $('.valOuv').css('display','none');
+                $('.valClik2').css('display','block');
+                $('.valClik').css('display','none');
+                $('#blbl2').css('display','block');
+                $('.blbl2').css('display','block');
+                $('.blbl').css('display','none');
+                $('#blErr2').css('display','block');
+                $('.blErr2').css('display','block');
+                $('.blErr').css('display','none');
+                $('#blDesa2').css('display','block');
+                $('.blDesa2').css('display','block');
+                $('.blDesa').css('display','none');
+                $('#blSp2').css('display','block');
+                $('.blSp2').css('display','block');
+                $('.blSp').css('display','none');
+                $('#nbrMail').css('display','none');
+                
+                $('.valTot2').append(dataY.info.total);
+                $('.valDel2').append(dataY.info.delivre);
+                $('.valOuv2').append(dataY.info.ouvert);
+                $('.valClik2').append(dataY.info.cliquer);
+                $('#blbl2').append(dataY.info.bloque);
+                $('#blErr2').append(dataY.info.erreur);
+                $('#blDesa2').append(dataY.info.desabo);
+                $('#blSp2').append(dataY.info.spam);
+                $('#nbrMail2').append(dataY.info.total);
 
-              $('.tableDetail').css('display','none');
-              $('.tableDetail2').css('display','block');
-              $.each(dataY.fromTo,function(i, value) {
-              $("<tr></tr>").appendTo('.table tbody')
-              .append("<td>"+ value.sujet+"</td><td>"+ value.sender +"</td><td>"+value.to+"</td><td>"+convertDate(value.date)+"</td>");
-      
-              });
+                $('.tableDetail').css('display','none');
+                $('.tableDetail2').css('display','block');
+                $.each(dataY.fromTo,function(i, value) {
+                $("<tr></tr>").appendTo('.table tbody')
+                .append("<td>"+ value.sujet+"</td><td>"+ value.sender +"</td><td>"+value.to+"</td><td>"+convertDate(value.date)+"</td>");
+        
+                 });
+              }else{
+                $('.headSujet').css('width','23%');
+              }
             }
         });
       }
