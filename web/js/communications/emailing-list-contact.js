@@ -127,7 +127,7 @@ $(document).ready(function(){
 		
 		var Html = '';
 		Html += '<div class = "row" style = "margin-top:60px;">';
-		Html += '<div class = "col-12"><span>Vous souhaitez supprimer définitivement cette liste!</span></div>';
+		Html += '<div class = "col-12"><span>Vous souhaitez supprimer définitivement cette liste !</span></div>';
 		Html += '</div>';
 		
 		Html += '<div class = "row" style = "margin-top:60px;">';
@@ -289,10 +289,12 @@ $(document).ready(function(){
 		$('input#cl1-'+DataId+'').click();
 	});
 	
+	/*
 	$(document).on('click', 'ul.pagination', function(){
 		OverridePagination();
 		AddSeparatorPaginate();
 	});
+	*/
 	
 	$(document).on('click', 'table#ListUserContactMailjet th', function(){
 		OverridePagination();
@@ -362,7 +364,7 @@ $(document).ready(function(){
 						$('div#edit-list-contact').find('.body-container').html('');
 						$('div#edit-list-contact').find('.body-container').html('');
 						$('div#edit-list-contact').modal('hide');
-						//location.reload();
+						location.reload();
 					}
 				});
 			}, 300);
@@ -406,7 +408,7 @@ $(document).ready(function(){
 		var Html = '';
 		Html += '<div class = "row" style = "margin-top:60px;">';
 		
-		Html += '<div class="col-12 col-md-12 col-lg-2">';
+		Html += '<div class="col-12 col-md-12 col-lg-3">';
 		Html += '<label>nom du nouveau modèle</label>';
 		Html += '</div>';
 
@@ -418,8 +420,9 @@ $(document).ready(function(){
 		Html += '</div>';
 		
 		Html += '<div class = "row" style = "margin-top:60px;">';
-		Html += '<div class = "col-12 col-md-6" style = "text-align:center;"><button id = "oui-dupliquer-contact-list" class="btn-valider valider submit-form" data-id = "'+IdList+'">enregistrer</button></div>';
-		Html += '<div class = "col-12 col-md-6" style = "text-align:center;"><button id = "non-dupliquer-contact-list" class="btn-valider valider submit-form" >annuler</button></div>';
+		Html += '<div class = "col-12 col-md-6 col-sm-6 col-lg-6 col-xl-6" style = "text-align:center;"><button id = "oui-dupliquer-contact-list" class="btn-valider valider submit-form" data-id = "'+IdList+'">enregistrer</button></div>';
+		Html += '<div class = "hidden-sm-up separator-btn"></div>';
+		Html += '<div class = "col-12 col-md-6 col-sm-6 col-lg-6 col-xl-6" style = "text-align:center;"><button id = "non-dupliquer-contact-list" class="btn-valider valider submit-form" >annuler</button></div>';
 		Html += '</div>';
 		
 		$('div#dupliquer-list-contact').find('.body-container').html('');
@@ -476,6 +479,8 @@ $(document).ready(function(){
 		var UrlContactListZA = $('input#UrlContactListZA').val();
 		document.location.href=UrlContactListZA;
 	});
+	
+	
 });
 
 function UpdateWidthPagination(){
