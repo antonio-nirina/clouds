@@ -284,7 +284,7 @@ $(document).ready(function() {
         }
     }
 
-    //envoie campagne
+    //envoie ou programmation de campagne
     $(document).on("click", ".btn-end-step.btn-end-step-4", function() {
         $('.chargementAjax').removeClass('hidden');
         var new_campaign_url = $('input[name=new_campaign_url]').val();
@@ -303,14 +303,15 @@ $(document).ready(function() {
                     setSelectedContactList();
                     $('#new-campaign-modal').modal('show');
                 } else {
+                    var launch_date =  $("#new-campaign-modal").find('.date_launch_campaign').val();
                     $("#new-campaign-modal").modal("hide");
-
                     if('send' == current_end_step_button.attr('data-button-type')){
                         setTimeout(function(data){
                             $("#sent-campaign-modal").modal("show");
                         },0);
                     } else if ('program' == current_end_step_button.attr('data-button-type')){
                         setTimeout(function(){
+                            setLaunchDateInModal(launch_date);
                             $("#done-campaign-modal").modal("show");
                         },0);
                     }
@@ -331,6 +332,14 @@ $(document).ready(function() {
             }
         });
     });
+
+    function setLaunchDateInModal(launch_date)
+    {
+        var fr_month_array = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+        var arr_launch_date = launch_date.split('/');
+        var str_launch_date = arr_launch_date[0] + ' ' + fr_month_array[arr_launch_date[1]-1] + ' ' + arr_launch_date[2];
+        $('#done-campaign-modal').find('.date-envoi').text(str_launch_date);
+    }
 
     $('#new-campaign-modal').on('hidden.bs.modal', function(){
         $('#new-campaign-modal').find('.error-message-container.general-message').text('');
