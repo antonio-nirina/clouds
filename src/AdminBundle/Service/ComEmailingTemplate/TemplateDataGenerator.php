@@ -27,22 +27,26 @@ class TemplateDataGenerator
 
     public function retrieveHtml($preview_mode = false)
     {
-        $template_content_view = $this->retrieveContentPartHtml($preview_mode);
+        $template_content_view = $this->retrieveContentPartHtml($preview_mode, false);
 
         return $this->twig->render('AdminBundle:EmailTemplates/Communication:template_container.html.twig', array(
             'template_content' => $template_content_view,
         ));
     }
 
-    public function retrieveContentPartHtml($preview_mode = false)
+    public function retrieveContentPartHtml($preview_mode = false, $instantaneous_preview_mode = false)
     {
         $rendering_option = array(
             'com_email_template' => $this->com_email_template,
             'template_model_class' => new TemplateModel(),
             'template_logo_alignment_class' => new TemplateLogoAlignment(),
             'content_type_class' => new TemplateContentType(),
-            'instantaneous_preview_mode' => true,
         );
+
+        if (true == $instantaneous_preview_mode) {
+            $rendering_option['instantaneous_preview_mode'] = true;
+        }
+
         if (true == $preview_mode) {
             $rendering_option['preview_mode'] = true;
         }

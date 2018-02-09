@@ -21,144 +21,164 @@
                 étape 4<br>
                 <span class="tab-spec">envoi de la campagne</span>
                 <span class="fullfilled"></span>
-            </a>                                
+            </a>
         </ul>
     </div>
 </div>
 
-<div class = "row tab-content">                    
-    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-1">
-        <p class="form-line">
-            <label>renseignez le nom de la campagne</label>
-            <input type="text" value="" class="campaign_name_input">
-            <span class="delete-input"></span>
-        </p>
-        <p class="form-line">
-            <label>renseignez l'objet de la campagne</label>
-            <input type="text" value="" class="campaign_object_input">
-            <span class="delete-input"></span>
-        </p>
-        <p>L'e-mail d'envoie de votre campagne sera : contact@monchallenge2017.sorewards.com</p>
-        <p>
-            Pour toute modification de cet e-mail veuillez <a href="#" class="nous-contactez">nous contacter</a>
-        </p>
+{% if campaign_draft_form is defined %}
+    {{ form_start(campaign_draft_form, {"attr": {"novalidate": "novalidate"}}) }}
+    <div class = "row tab-content">
+        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-1">
+            <p class="form-line">
+                {#<label>renseignez le nom de la campagne</label>#}
+                {{ form_label(campaign_draft_form.name, "renseignez le nom de la campagne") }}
+                {#<input type="text" value="" class="campaign_name_input">#}
+                {{ form_widget(campaign_draft_form.name, {"attr": {"class": "campaign_name_input"}}) }}
+                <span class="delete-input"></span>
+            </p>
+            <p class="form-line">
+                {#<label>renseignez l'objet de la campagne</label>#}
+                {{ form_label(campaign_draft_form.object, "renseignez l'objet de la campagne") }}
+                {#<input type="text" value="" class="campaign_object_input">#}
+                {{ form_widget(campaign_draft_form.object, {"attr": {"class": "campaign_object_input"}}) }}
+                <span class="delete-input"></span>
+            </p>
+            <p>L'e-mail d'envoie de votre campagne sera : contact@monchallenge2017.sorewards.com</p>
+            <p>
+                Pour toute modification de cet e-mail veuillez <a href="#" class="nous-contactez">nous contacter</a>
+            </p>
 
-        <div class="row centered">
-            <button class="btn-valider btn-end-step btn-end-step-1">
-                continuer
-            </button>
-        </div>                                            
-    </div>
-    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-2">
-        <div class="modal-step-2">
-            <label>sélectionner une liste de diffusion</label>
-            <div class="list-choice">
-                <div class="dropdown clearable">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuListe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="CHOISIR UNE LISTE">
-                        CHOISIR UNE LISTE
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuListe">
-                        <a class="dropdown-item" href="#">
-                            LISTE 1
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            LISTE 2
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            MA LISTE
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            SHORT LIST
-                        </a>                
-                    </div>
-                    <span class="delete-input"></span>
-                </div>
+            <div class="row centered">
+                <button class="btn-valider btn-end-step btn-end-step-1">
+                    continuer
+                </button>
             </div>
-            <div>
-                <a href="#" class="add free-add add-template">
-                    créer une nouvelle liste
-                </a>
-            </div>
-        </div> 
-        <div class="row centered">
-            <button class="btn-valider btn-end-step btn-end-step-2">
-                continuer
-            </button>
-        </div>                                            
-    </div>
-    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-3">
-        <div class="modal-step-3 first">
-            <div>
-                <p>sélectionner le modèle d'e-mail que vous souhaitez utiliser ou modifier</p>
-            </div>                                                
-            <div class="create-new-template">
-                <a href="#" class="add free-add add-list">
-                    créer un modèle
-                </a>
-            </div>
-            <div class="error-message-container"></div>
-            <div class="template-lists">
-                <div class="template-choice-container">
-                    <div class="template-choice">
-                        <img src="{{ asset("images/cloudsRewards/template_text_image.png") }}">
-                        <div class="checkbox-choice-container">
-                            <input id="text-image-option-radio" class="styled-radio" name="template_choice_option" value="template-1" type="radio">
-                            <label for="text-image-option-radio" ></label>
+        </div>
+        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-2">
+            <div class="modal-step-2">
+                <label>sélectionner une liste de diffusion</label>
+                <div class="list-choice">
+                    <div class="dropdown clearable">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuListe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="CHOISIR UNE LISTE">
+                            CHOISIR UNE LISTE
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuListe">
+                            {% for choice in campaign_draft_form.list_id.vars.choices %}
+                            <a class="dropdown-item" href="#" data-value="{{ choice.value }}">
+                                {{ choice.label }}
+                            </a>
+                            {% endfor %}
                         </div>
+                        <span class="delete-input delete-selection"></span>
                     </div>
-                </div>                                       
-            </div>
-        </div>
-        <div class="modal-step-3 second">
-        </div>
-        <div class="row centered">
-            <button class="btn-valider btn-end-step btn-end-step-3">
-                continuer
-            </button>
-        </div> 
-    </div>
-    <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-4">
-        <div class="modal-step-4">
-            <div>
-                <input checked="checked" type="radio" id="send-now" name="program-campaign" value="now">
-                <label for="send-now">
-                    <span></span>
-                    envoyer la campagne maintenant
-                </label>
-            </div>                                                
-            <div>
-                <input type="radio" id="programed-later" name="program-campaign" value="">
-                <label for="programed-later">
-                    <span></span>
-                    programmer l'envoi de la campagne
-                </label>
-                <div class="select-date">
-                    {# {{ dump(programmed.date_launch.time) }} #}
-                    {{ form_start(programmed) }}
-                    <p>choisissez le jour</p>
-                    <div>             
-                        {{ form_widget(programmed.date_launch.date, {"attr": {"class" : "date_launch_campaign", "style": "display:none;"}}) }}
-                        <div id="calendar"></div>
-                    </div>
-                    <p>et l'heure</p>
-                    <div>
-                        {{ form_widget(programmed.date_launch.time.hour, {"attr":  {"class" : "chosen-select"}}) }}
-                        <span class="between-hour">:</span>
-                        {{ form_widget(programmed.date_launch.time.minute, {"attr":  {"class" : "chosen-select"}}) }} 
-                    </div>
-                    {{ form_end(programmed) }}
+                    {{ form_widget(campaign_draft_form.list_id, {"attr": {"class": "hidden-select list-choice-select"}}) }}
+                </div>
+                <div>
+                    <a href="#" class="add free-add add-template">
+                        créer une nouvelle liste
+                    </a>
                 </div>
             </div>
+            <div class="row centered">
+                <button class="btn-valider btn-end-step btn-end-step-2">
+                    continuer
+                </button>
+            </div>
         </div>
-        <div class="row centered">
-            <button class="btn-valider btn-end-step btn-end-step-4">
-                envoyer
-            </button>
-            <button class="btn-valider btn-end-step btn-program-step-4">
-                programmer
-            </button>
-        </div> 
+        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-3">
+            <div class="modal-step-3 first">
+                <div>
+                    <p>sélectionner le modèle d'e-mail que vous souhaitez utiliser ou modifier</p>
+                </div>
+                <div class="create-new-template">
+                    <a href="#" class="add free-add add-list">
+                        créer un modèle
+                    </a>
+                </div>
+                <div class="error-message-container"></div>
+                <div class="template-lists">
+                    <div class="template-choice-container row">
+                        {% if template_data_list is defined %}
+                            {% for template_choice in campaign_draft_form.template_id.children %}
+                                <div class="col-12 col-sm-12 col-md-6 col-xl-4 template-choice-element-container">
+                                    <div class="template-choice">
+                                        {% set image_url = template_data_list[template_choice.vars.label]['template_thumbnail_image'] %}
+                                        {% set image_alt = template_data_list[template_choice.vars.label]['template_data'].name %}
+                                        <img src="{{ asset(image_url) }}" alt="{{ image_alt }}">
+                                        <div class="checkbox-choice-container">
+                                            {#<input id="text-image-option-radio" class="styled-radio" name="template_choice_option" value="template-1" type="radio">#}
+                                            {{ form_widget(template_choice, {"attr": {"class": "styled-radio template-choice-input"}}) }}
+                                            <label for="{{ template_choice.vars.id }}" ></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-step-3 second">
+            </div>
+            <div class="row centered">
+                <button class="btn-valider btn-end-step btn-end-step-3">
+                    continuer
+                </button>
+            </div>
+        </div>
+        <div class = "col-12 col-md-12 tab-pane" id="tab-form-level-4">
+            <div class="modal-step-4">
+                <div class="programmed-state-container">
+                    {#<input checked="checked" type="radio" id="send-now" name="program-campaign" value="now">#}
+                    {{ form_widget(campaign_draft_form.programmed_state[0], {"attr": {"class": "styled-radio-2 programmed-state-input", "checked": "checked"}}) }}
+                    {#<label for="send-now">
+                        <span></span>
+                        envoyer la campagne maintenant
+                    </label>#}
+                    <label for="{{ campaign_draft_form.programmed_state[0].vars.id }}"></label>
+                    {{ form_label(campaign_draft_form.programmed_state[0], "envoyer la campagne maintenant", {"label_attr": {"class": "text-label"}}) }}
+                </div>
+                <div>
+                    <div class="programmed-state-container">
+                        {#<input type="radio" id="programed-later" name="program-campaign" value="">#}
+                        {{ form_widget(campaign_draft_form.programmed_state[1], {"attr": {"class": "styled-radio-2 programmed-state-input"}}) }}
+                        {#<label for="programed-later">
+                            <span></span>
+                            programmer l'envoi de la campagne
+                        </label>#}
+                        <label for="{{ campaign_draft_form.programmed_state[1].vars.id }}"></label>
+                        {{ form_label(campaign_draft_form.programmed_state[1], "programmer l'envoi de la campagne", {"label_attr": {"class": "text-label"}}) }}
+                    </div>
+                    <div class="select-date">
+                        {#{{ form_start(programmed) }}#}
+                        <p>choisissez le jour</p>
+                        <div>
+                            {#{{ form_widget(programmed.date_launch.date, {"attr": {"class" : "date_launch_campaign", "style": "display:none;"}}) }}#}
+                            <input type="text" class="date_launch_campaign" style="display: none;">
+                            <div id="calendar"></div>
+                        </div>
+                        <p>et l'heure</p>
+                        <div>
+                            {#{{ form_widget(programmed.date_launch.time.hour, {"attr":  {"class" : "chosen-select"}}) }}#}
+                            <input type="text" class="chosen-select">
+                            <span class="between-hour">:</span>
+                            {#{{ form_widget(programmed.date_launch.time.minute, {"attr":  {"class" : "chosen-select"}}) }} #}
+                            <input type="text" class="chosen-select">
+                        </div>
+                        {#{{ form_end(programmed) }}#}
+                    </div>
+                </div>
+            </div>
+            <div class="row centered">
+                <button class="btn-valider btn-end-step btn-end-step-4">
+                    envoyer
+                </button>
+                <button class="btn-valider btn-end-step btn-program-step-4">
+                    programmer
+                </button>
+            </div>
+        </div>
     </div>
-</div>                              
-
+    {{ form_end(campaign_draft_form) }}
+{% endif %}
 <div class="add-campaign-folder-error"></div>

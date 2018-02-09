@@ -8,11 +8,13 @@ use AdminBundle\Component\CommunicationEmail\TemplateSortingParameter;
 use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
 use AdminBundle\Controller\AdminController;
+use AdminBundle\DTO\CampaignDraftData;
 use AdminBundle\DTO\ComEmailTemplateDuplicationData;
 use AdminBundle\DTO\DuplicationData;
 use AdminBundle\Entity\ComEmailTemplate;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\CampaignDateType;
+use AdminBundle\Form\CampaignDraftType;
 use AdminBundle\Form\ComEmailTemplateType;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
@@ -199,18 +201,46 @@ class CommunicationController extends AdminController
 
     /**
      * @Route("/emailing/campagne/new", name="admin_communication_emailing_compaign_new")
+     * @Method("POST")
      */
-    public function emailingCampaignNewAction()
+    public function emailingCampaignNewAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\CampaignDataProvider');
         if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
-        $form = $this->createForm(CampaignDateType::class);
-        return $this->render('AdminBundle:Communication:emailing_campaign_new.html.twig', array(
-            "programmed" => $form->createView()
+        $campaign_draft_data = new CampaignDraftData();
+        $campaign_draft_form = $this->createForm(CampaignDraftType::class, $campaign_draft_data);
+        $campaign_draft_form->handleRequest($request);
+        if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
+            $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+            if ($campaign_handler->createAndSend($campaign_draft_data)) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                $data = $json_response_data_provider->campaignSendingError();
+                return new JsonResponse($data, 200);
+            }
+        }
+
+        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $template_list = $template_manager->listSortedTemplate($program);
+        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $template_data_list = $template_list_data_handler->retrieveListDataIndexedById($template_list);
+
+        $view = $this->renderView('AdminBundle:Communication:emailing_campaign_new.html.twig', array(
+            'campaign_draft_form' => $campaign_draft_form->createView(),
+            'template_data_list' => $template_data_list,
         ));
+        $data = $json_response_data_provider->success();
+        if ($campaign_draft_form->isSubmitted() && !$campaign_draft_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $view;
+
+        return new JsonResponse($data, 200);
     }
 
     /**
@@ -475,7 +505,7 @@ class CommunicationController extends AdminController
                         'template_model_class' => new TemplateModel(),
                         'content_type_class' => new TemplateContentType(),
                         'instantaneous_template_preview' => $template_data_generator
-                            ->retrieveContentPartHtml(true),
+                            ->retrieveContentPartHtml(true, true),
                         'template_logo_alignment_class' => new TemplateLogoAlignment(),
                     )
                 );
@@ -517,7 +547,7 @@ class CommunicationController extends AdminController
                             'template_model_class' => new TemplateModel(),
                             'content_type_class' => new TemplateContentType(),
                             'instantaneous_template_preview' => $template_data_generator
-                                ->retrieveContentPartHtml(true),
+                                ->retrieveContentPartHtml(true, true),
                             'template_logo_alignment_class' => new TemplateLogoAlignment(),
                         )
                     );
@@ -590,7 +620,7 @@ class CommunicationController extends AdminController
                     'content_type_class' => new TemplateContentType(),
                     'edit_mode' => true,
                     'instantaneous_template_preview' => $template_data_generator
-                        ->retrieveContentPartHtml(true),
+                        ->retrieveContentPartHtml(true, true),
                     'template_logo_alignment_class' => new TemplateLogoAlignment(),
                 )
             );
@@ -633,7 +663,7 @@ class CommunicationController extends AdminController
                             'content_type_class' => new TemplateContentType(),
                             'edit_mode' => true,
                             'instantaneous_template_preview' => $template_data_generator
-                                ->retrieveContentPartHtml(true),
+                                ->retrieveContentPartHtml(true, true),
                             'template_logo_alignment_class' => new TemplateLogoAlignment(),
                         )
                     );

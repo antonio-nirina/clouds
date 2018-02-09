@@ -2091,6 +2091,11 @@ section .row.ending {
 #done-campaign-modal .content > div {
     margin-bottom: 50px;
 }
+
+#sent-campaign-modal .content, #sent-campaign-modal .content h4 {
+    text-align: center !important;
+}
+
 .campaign-archive .btn-valider {
     margin-top: 0;
 }
@@ -2129,6 +2134,62 @@ section .row.ending {
 .restore-campaign-button{
     display: none;
 }
+
+.hidden-select{
+    display: none;
+}
+
+/**
+ * correction mise en forme modal création template
+ */
+#new-campaign-modal .modal-content .content{
+    padding: 0 40px;
+}
+
+#new-campaign-modal .template-choice-container.row{
+    margin-right: 0;
+    margin-left: 0;
+    justify-content: space-between;
+}
+
+#new-campaign-modal .template-choice-container .template-choice{
+    margin-bottom: 25px;
+}
+
+#new-campaign-modal .row{
+    padding: 0;
+}
+
+#new-campaign-modal .template-choice-element-container div{
+    margin: auto;
+}
+
+#new-campaign-modal .template-choice-element-container{
+    margin-bottom: 20px;
+}
+
+#new-campaign-modal .programmed-state-container{
+    height: 25px;
+}
+
+#new-campaign-modal .programmed-state-container label{
+    margin-left: 10px;
+}
+
+#new-campaign-modal .programmed-state-container label.text-label{
+    position: relative;
+    top: -6px;
+}
+
+@media (max-width: 1199px) {
+    #new-campaign-modal .template-choice-container.row{
+        justify-content: space-around;
+    }
+}
+/**
+ * FIN - correction mise en forme modal création template
+ */
+
 
 @media only screen and (max-width: 1199px){
     .modal-dialog.big {
@@ -2191,6 +2252,7 @@ section .row.ending {
     .modal-step-3 .create-new-template {
         padding-right: 0;
     }
+
 }
 @media only screen and (max-width: 767px){
     .modal .tab-pane p > input {
@@ -3084,4 +3146,21 @@ section.with-bottom-space{
     .emailing-custom-text{
         margin-top: 20px;
     }
+}
+
+/**
+ * style radio - type 2
+ */
+.styled-radio-2:checked + label{
+    background: url('../images/cloudsRewards/on-off.png') no-repeat;
+    height: 20px;
+    width: 45px;
+    cursor:pointer;
+}
+
+.styled-radio-2 + label{
+    background: url('../images/cloudsRewards/on-off-off.png') no-repeat;
+    height: 20px;
+    width: 45px;
+    cursor:pointer;
 }

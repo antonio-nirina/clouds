@@ -12,10 +12,10 @@ class StandardDataProvider
         return array('message' => self::PAGE_NOT_FOUND_MESSAGE, 'content' => '');
     }
 
-    public function success($template_id = false)
+    public function success($id = false)
     {
-        if ($template_id) {
-            return array('message' => '', 'content' => '', "id" => $template_id);
+        if ($id) {
+            return array('message' => '', 'content' => '', "id" => $id);
         } else {
             return array('message' => '', 'content' => '');
         }
