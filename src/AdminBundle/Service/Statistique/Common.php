@@ -68,12 +68,22 @@ class Common
         $campaigns = $this->mailjetClient->get(Resources::$Campaign)->getData();
         if (!empty($campaigns)) {
             foreach ($campaigns as $value) {
-            $contacts[]=["sender"=>$value["FromEmail"],
-                        "to"=>$value["FromName"],
+            $idContact[]=$value["ListID"];
+            $sendSubj[]=["sender"=>$value["FromEmail"],
                         "sujet"=>$value["Subject"],
                         "date"=>$value["CreatedAt"]
                         ];
             }
+            foreach ($idContact as  $cont) {
+                $filters = ["contactslist"=>$cont];
+                $contact[] = $this->mailjetClient->get(Resources::$Contact,['filters' =>$filters])->getData();
+            }
+            foreach ($contact as $emails) {
+                foreach ($emails as $email) {
+                    $to[] = $email["Email"];
+                }
+            }
+            $contacts = ["send"=>$sendSubj,"email"=>$to];
             return $contacts;
         }
         return "";

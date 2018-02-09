@@ -391,15 +391,15 @@
                                             <th class="dateDel">date</th>
                                         </thead>
                                         <tbody>
-                                        {% if fromTo is not empty %}
-                                            {% for list in fromTo %}
-                                                <tr>
-                                                    <td>{{list["sujet"]}}</td>
-                                                    <td class="de">{{list["sender"]}}</td>
-                                                    <td class="a">{{list["to"]}}</td>
-                                                    <td class="dateDel">{{list["date"]|date('d/m/Y')}}</td>
-                                                </tr>
-                                            {% endfor %}
+                                        {% if fromSend is not empty and mailTo is not empty %}
+                                                    <tr>
+                                                        <td>{{fromSend["sujet"]}}</td>
+                                                        <td class="de">{{fromSend["sender"]}}</td>
+                                                        {% for email in mailTo %}
+                                                            <td class="a">{{email}}</td>
+                                                        {% endfor %}
+                                                        <td class="dateDel">{{fromSend["date"]|date('d/m/Y')}}</td>
+                                                    </tr>
                                         {% endif %}
                                         </tbody>
                                     </table>

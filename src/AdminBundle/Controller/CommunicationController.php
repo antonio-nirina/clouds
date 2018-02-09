@@ -1268,7 +1268,8 @@ class CommunicationController extends AdminController
             "spam"=>$data["spam"],
             "desabo"=>$data["desabo"],
             "erreur"=>$data["erreur"],
-            "fromTo"=>$fromTo
+            "fromSend"=>$fromTo["send"][0],
+            "mailTo"=>$fromTo["email"]
         ]);
     }
 
