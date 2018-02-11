@@ -1,5 +1,107 @@
 
 $(document).ready(function(){
+	/*
+		<script src="code/highcharts.js"></script>
+		function add(H){
+        //const H = Highcharts;
+        H.wrap(H.Tick.prototype, 'render', function (p, i, o, op) {
+        p.call(this, i, o, op);
+        const axis = this.axis;
+        var aq = axis.axisLine;
+    if (axis.isXAxis) {
+        var a = axis.ticks;
+        const mark = this.mark;
+        const label = this.label; 
+        
+        aq.attr({
+            stroke: 'red',
+            "stroke-width":3
+        });
+        var ad = label.textStr;
+            if(ad.split(':')[0]%2 !== 0){
+                label.css({
+                display: 'none'
+            });
+            } else {
+                label.css({
+                fontSize: '10px',
+                fontWeigth: 'bold',
+                color: 'black'
+                });
+            }
+            console.log(mark);
+        const d = mark.d.split(' ').map(v => {
+          var n = Number(v);
+          return H.isNumber(n) ? n : v;
+        });
+        d[2] -= 3;
+        d[5] += 2;    
+        mark.attr({
+          'stroke-width': 1,
+          stroke: 'green',
+          d: d.join(' ')
+        });
+    }
+    });
+};
+
+const H = Highcharts;
+add(H);
+H.chart('container', {
+    xAxis: {
+            type: 'datetime',
+            tickInterval:1*3600*1000,
+            
+    },
+    yAxis: {
+            minRange:0.1,
+            opposite: true,
+            className: 'highcharts-color-1',
+            opposite: true,
+            title: {
+                text: 'Secondary axis'
+            }   
+                  //tickInterval: 1
+    },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            line: {
+                softThreshold:false
+            }
+                }
+    },
+  series: [{
+    pointStart: Date.UTC(2018,02,06,0,0),
+    marker: {
+        symbol: "square",
+        width: 16,
+        height: 16,
+        fillColor: 'red'
+        },
+        data: [
+            //[dataPA[0].x,dataPA[0].y],
+        [Date.UTC(2018,02,06,4,34),null],
+        [Date.UTC(2018,02,06,5,04),null],
+        [Date.UTC(2018,02,06,6,30),null],
+        [Date.UTC(2018,02,06,8,14),null],
+        [Date.UTC(2018,02,06,9,34),null],
+        [Date.UTC(2018,02,06,10,34),1],
+        [Date.UTC(2018,02,06,12,34),0],
+        [Date.UTC(2018,02,06,13,34),0],
+        [Date.UTC(2018,02,06,16,34),0],
+        [Date.UTC(2018,02,06,18,34),0],
+        [Date.UTC(2018,02,06,19,34),0],
+        [Date.UTC(2018,02,06,21,34),0],
+        [Date.UTC(2018,02,06,23,34),0]
+
+        ]
+  }]
+});
+
+*/
    
 var url = $('input[name=filterPeriode]').val();
     var data={
