@@ -142,9 +142,9 @@
                                             {% set pre = "" %}
                                             {% set class= "" %}
                                         {% elseif campaign_draft_data.status == 1 %}
-                                            {% set date = campaign_draft_data.modifiedAt %}
+                                            {% set date = campaign_draft_data.deliveredAt %}
                                             {% set status = "Programmé" %}
-                                            {% set pre = "modifié" %}
+                                            {% set pre = "" %}
                                             {% set class= "programmed" %}
                                         {% elseif campaign_draft_data.status == 0 or (campaign_draft_data.status == -1 and campaign_draft_data.deliveredAt is empty) %}
                                             {% set date = campaign_draft_data.modifiedAt %}

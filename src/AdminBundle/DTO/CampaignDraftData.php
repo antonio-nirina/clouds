@@ -35,6 +35,8 @@ class CampaignDraftData
      */
     private $programmed_state;
 
+    private $programmed_launch_date;
+
     /**
      * Set name
      *
@@ -153,5 +155,29 @@ class CampaignDraftData
     public function getProgrammedState()
     {
         return $this->programmed_state;
+    }
+
+    /**
+     * Set programmed_launch_date
+     *
+     * @param \DateTime $date
+     *
+     * @return CampaignDraftData
+     */
+    public function setProgrammedLaunchDate(\DateTime $date)
+    {
+        $this->programmed_launch_date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get programmed_launch_date
+     *
+     * @return null|DateTime
+     */
+    public function getProgrammedLaunchDate()
+    {
+        return $this->programmed_launch_date;
     }
 }

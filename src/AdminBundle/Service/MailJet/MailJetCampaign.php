@@ -22,6 +22,7 @@ class MailJetCampaign extends MailJetHandler
     const CAMPAIGN_STATUS_DELETED = -2;
     const CAMPAIGN_STATUS_SENT = 2;
     const CAMPAIGN_STATUS_DRAFT = 0;
+    const CAMPAIGN_STATUS_PROGRAMMED = 1;
     const CAMPAIGN_NOT_VISIBLE_STATUS_LIST = array(
         self::CAMPAIGN_STATUS_ARCHIVED,
         self::CAMPAIGN_STATUS_DELETED
@@ -347,13 +348,30 @@ class MailJetCampaign extends MailJetHandler
     }
 
     /**
-     * Create campaign draft then send it
+     * Create campaign data. Then send or program it.
      *
-     * @param CampaignDraftData $campaign_draft_data
+     *  @param CampaignDraftData $campaign_draft_data
      *
      * @return bool
      */
-    public function createAndSend(CampaignDraftData $campaign_draft_data)
+    public function createAndProcess(CampaignDraftData $campaign_draft_data)
+    {
+        if ('true' == $campaign_draft_data->getProgrammedState()) {
+            return $this->createAndProgram($campaign_draft_data);
+        } else {
+            return $this->createAndSend($campaign_draft_data);
+        }
+    }
+
+    /**
+     * Create campaign draft and set its content
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     * @param int $status
+     *
+     * @return null|int
+     */
+    private function createCampaignDraft(CampaignDraftData $campaign_draft_data, $status = 0)
     {
         $sender = $this->mailjet_sender_handler->getDefault();
         if (!is_null($sender)) {
@@ -363,7 +381,7 @@ class MailJetCampaign extends MailJetHandler
                 'Locale' => self::DEFAULT_LOCALE,
                 'Sender' => $sender['ID'],
                 'SenderEmail' => $sender['Email'],
-                'Status' => 0,
+                'Status' => $status,
                 'Subject' => $campaign_draft_data->getObject(),
                 'TemplateID' => $campaign_draft_data->getTemplateId(),
                 'Title' => $campaign_draft_data->getName()
@@ -385,14 +403,57 @@ class MailJetCampaign extends MailJetHandler
                             array('id' => $create_result->getData()[0]['ID'], 'body' => $content_body)
                         );
                     if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
-                        $send_result = $this
-                            ->mailjet
-                            ->post(Resources::$CampaigndraftSend, array('id' => $create_result->getData()[0]['ID']));
-                        if (self::STATUS_CODE_CREATED == $send_result->getStatus()) {
-                            return true;
-                        }
+                        return $create_result->getData()[0]['ID'];
                     }
                 }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Create campaign draft then send it
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function createAndSend(CampaignDraftData $campaign_draft_data)
+    {
+        $campaign_draft_id = $this->createCampaignDraft($campaign_draft_data);
+        if ($campaign_draft_id) {
+            $send_result = $this
+                ->mailjet
+                ->post(Resources::$CampaigndraftSend, array('id' => $campaign_draft_id));
+            if (self::STATUS_CODE_CREATED == $send_result->getStatus()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Create campaign draft then program it
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function createAndProgram(CampaignDraftData $campaign_draft_data)
+    {
+        $campaign_draft_id = $this->createCampaignDraft($campaign_draft_data, self::CAMPAIGN_STATUS_PROGRAMMED);
+        if ($campaign_draft_id) {
+            $schedule_body = array(
+                'Date' => $campaign_draft_data->getProgrammedLaunchDate()->format(\DateTime::RFC3339)
+            );
+            $set_schedule_result = $this->mailjet->put(Resources::$CampaigndraftSchedule, array(
+                'id' => $campaign_draft_id,
+                'body' => $schedule_body
+            ));
+            if (self::STATUS_CODE_SUCCESS == $set_schedule_result->getStatus()) {
+                return true;
             }
         }
 
