@@ -1259,6 +1259,50 @@ class CommunicationController extends AdminController
 
         return $this->render('AdminBundle:Communication:sondage_quiz.html.twig');
 	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/add-question",
+     *     name="admin_communication_sondage_quiz_add_question")
+     * 
+     */
+    public function sondageQuizAddQuestionAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		if ($request->isMethod('POST')) {
+			$IdQuestion = $request->get('idQuestion');
+		}
+
+        return $this->render('AdminBundle:PartialPage/Ajax:sondage_quiz_add_question.html.twig', array(
+			'IdQuestion' => $IdQuestion
+		));
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/add-reponses",
+     *     name="admin_communication_sondage_quiz_add_reponses")
+     * 
+     */
+    public function sondageQuizAddReponsesAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		if ($request->isMethod('POST')) {
+			$idReponse = $request->get('idReponses');
+			$IdQuestion = $request->get('idQuestions');
+		}
+
+        return $this->render('AdminBundle:PartialPage/Ajax:sondage_quiz_add_reponses.html.twig', array(
+			'IdReponse' => $idReponse,
+			'IdQuestion' => $IdQuestion
+		));
+	}
 
     /**
      * @Route("/emailing/sur-mesure", name="admin_communication_emailing_custom")

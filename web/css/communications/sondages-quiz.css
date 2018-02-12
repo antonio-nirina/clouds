@@ -10,6 +10,7 @@ p.chargementAjax {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1070;
+	width:154px;
 }
 
 .corner-circle-img{
@@ -329,6 +330,17 @@ span.trie-input{
 
 .fieldset .custom-field-allowed-container {
     margin-right: 2px;
+}
+
+.img-preview{
+	display:none;
+	width: 100%;
+	max-height: 283px;
+	object-fit: cover;
+}
+
+div.question-emplacement{
+	margin-top:20px;
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
