@@ -1303,7 +1303,8 @@ class CommunicationController extends AdminController
 			'formSondagesQuiz' => $formSondagesQuiz->createView(),
 			'IsBanniere' => $IsBanniere,
 			'BannierePath' => $BannierePath,
-			'IsSondagesQuiz' => $IsSondagesQuiz
+			'IsSondagesQuiz' => $IsSondagesQuiz,
+			'program' => $program
 		));
 	}
 	

@@ -158,7 +158,11 @@
 								<label class="champForm">
 									<span class="lib-form block">prévisualisation</span>
 									<span id="img-preview-15" class="previsualisation-im-sondage-quiz block">
-										<img id="img-preview" class = "img-preview" src="#" />
+										{% if IsBanniere %}
+											<img id="img-preview" class = "img-preview" src="{{asset('/web/content/sondages_quiz/'~program.Id~'/'~BannierePath)}}" style = "display:block;" />
+										{% else %}
+											<img id="img-preview" class = "img-preview" src="#" />
+										{% endif %}
 									</span>
 								</label>
 							</div>
