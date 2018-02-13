@@ -343,6 +343,60 @@ div.question-emplacement{
 	margin-top:20px;
 }
 
+input.input-upload-img-sondages-quizz{
+	display:none;
+}
+
+.dropdown.dossiers button, .dropdown.filtres button, .dropdown.dossiers .dropdown-menu, .dropdown.filtres .dropdown-menu{
+	width: 15rem;
+	text-transform:uppercase;
+}
+
+section .dropdown-menu, section .dropdown-menu > a, section .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+section .dropdown-toggle, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 15rem;
+    text-align: left;
+}
+
+.dropdown, .dropup {
+    position: relative;
+}
+
+section .dropdown-menu > a {
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+
+section .dropdown-menu, section .dropdown-menu > a, section .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+section .dropdown-menu {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+
+.dropdown-item{
+	text-transform:uppercase;
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	.input-form-text{

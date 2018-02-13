@@ -25,6 +25,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Form\DuplicationForm;
+use AdminBundle\Form\SondagesQuizType;
+use AdminBundle\Entity\SondagesQuiz;
 
 use \Mailjet\Resources;
 
@@ -1257,8 +1259,79 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$IsSondagesQuiz = false;
+		$SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+		if(!isset($SondagesQuizArray[0])){
+			$SondagesQuiz = new SondagesQuiz();
+		}else{
+			$SondagesQuiz = $SondagesQuizArray[0];
+			$IsSondagesQuiz = true;
+		}
+		
+		
+		$formSondagesQuiz = $this->createForm(SondagesQuizType::class, $SondagesQuiz, array(
+            'action' => $this->generateUrl('admin_communication_sondage_quiz'),
+            'method' => 'POST',
+        ));
+		
+		$formSondagesQuiz->handleRequest($request);
+		if ($formSondagesQuiz->isSubmitted() && $formSondagesQuiz->isValid()) {
+			$SondagesQuizData = $formSondagesQuiz->getData();
+			$SondagesQuizData->setProgram($program);
+			$SondagesQuizData->upload($program);
+			
+			if(!isset($SondagesQuizArray[0])){
+				$SondagesQuizData->setDateCreation(new \DateTime());
+				$em->persist($SondagesQuizData);
+			}
+			
+			$em->flush();
+			return $this->redirectToRoute('admin_communication_sondage_quiz');
+		}
+		
+		$IsBanniere = false;
+		$BannierePath = "";
+		if(!empty($SondagesQuiz->getPath())){
+			$IsBanniere = true;
+			$BannierePath = $SondagesQuiz->getPath();
+		}
 
-        return $this->render('AdminBundle:Communication:sondage_quiz.html.twig');
+        return $this->render('AdminBundle:Communication:sondage_quiz.html.twig', array(
+			'formSondagesQuiz' => $formSondagesQuiz->createView(),
+			'IsBanniere' => $IsBanniere,
+			'BannierePath' => $BannierePath,
+			'IsSondagesQuiz' => $IsSondagesQuiz
+		));
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/delete-banniere",
+     *     name="admin_communication_sondage_quiz_delete_banniere")
+     * 
+     */
+    public function sondageQuizDeleteBanniereAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+			if(isset($SondagesQuizArray[0])){
+				$SondagesQuiz = $SondagesQuizArray[0];
+				$SondagesQuiz->setPath(NULL);
+				$em->flush();
+				return new Response('ok');
+			}else{
+				return new Response('error');
+			}
+		}
 	}
 	
 	/**

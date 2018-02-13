@@ -64,11 +64,11 @@ $(document).ready(function(){
 	
 	//Simuler click input file
 	$(document).on('click', 'button.btn-upload-img-sondage-quiz', function(){
-		$('input#input-upload-img-sondage-quiz').click();
+		$('input#sondages_quiz_image').click();
 	});
 	
 	//Previsualiser l'image
-	$(document).on('change', 'input#input-upload-img-sondage-quiz', function(){
+	$(document).on('change', 'input#sondages_quiz_image', function(){
 		readURL(this);
 	});
 	
@@ -198,5 +198,38 @@ $(document).ready(function(){
 		}else{
 			$('div#content-questionnaire-'+IdQuestion+'').show();
 		}
+	});
+	
+	//Delete banniére
+	$(document).on('click', 'img#img-delete-img-banniere', function(){
+		$('.chargementAjax').removeClass('hidden');
+		var UrlDeleteBanniere = $('input#UrlDeleteBanniere').val();
+		setTimeout(function(){
+			$.ajax({
+				type : "POST",
+				url: UrlDeleteBanniere,
+				data : 'type=1',
+				success: function(reponse){
+					if(reponse == 'ok'){
+						location.reload();
+						$('.chargementAjax').addClass('hidden');
+					}
+				}
+			});
+		}, 300);				
+	});
+	
+	//Selection menu type question 
+	$(document).on('click', 'button#dropdownMenuActionTypeQuestion', function(){
+		$('div#dropdownMenuListeTypeUestion').show();
+		//return false;
+	});
+	
+	//Selection menu type question 
+	$(document).on('click', 'div#dropdownMenuListeTypeUestion a.dropdown-item', function(){
+		var MenuClicker = $.trim($(this).html());
+		$('button#dropdownMenuActionTypeQuestion').html(MenuClicker);
+		$('div#dropdownMenuListeTypeUestion').hide();
+		return false;
 	});
 });
