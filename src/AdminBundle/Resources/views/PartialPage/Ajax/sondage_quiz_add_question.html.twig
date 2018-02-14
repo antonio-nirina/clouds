@@ -1,0 +1,99 @@
+<div class="row">
+	<div class="col-8 col-lg-4 col-md-4 col-sm-4 col-xl-4 titre-section-sondage-quiz">
+		<span>QUESTION {{ IdQuestion }}</span>
+	</div>
+	
+	<div class="col-4 col-lg-8 col-md-8 col-sm-8 col-xl-8">
+		<div id = "ligne-separator-question-{{ IdQuestion }}" class = "ligne-separator-question">&nbsp;</div>
+	</div>
+</div>
+
+<div id = "content-questionnaire-{{ IdQuestion }}" class = "content-questionnaire">
+	<div class = "row separator"></div>
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label class="champForm">
+				<span class="lib-form">votre question</span>
+				<input class="input-form-text" name="question[{{ IdQuestion }}]" value="" placeholder="Pourquoi avez vous ....?" type="text">
+				<span class="delete-input"></span>
+			</label>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label class="champForm">
+				<span class="lib-form">commentaire</span>
+				<textarea name="commentaire[{{ IdQuestion }}]" class="small-textarea"></textarea>
+			</label>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label class="champForm">
+				<span class="lib-form">type de question</span>
+				<span class = "content-dropdown-toggle dropdown clearable filtres">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuActionTypeQuestion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+						CASE A COCHER
+					</button>
+					<div id = "dropdownMenuListeTypeUestion" class="dropdown-menu" aria-labelledby="dropdownMenuListeTypeUestion">
+						<a class="dropdown-item" href="#">
+							choix multiples
+						</a>
+						<a class="dropdown-item" href="#">
+							échelle linéaire
+						</a>
+						<a class="dropdown-item" href="#">
+							tableau à choix multiples
+						</a>
+					</div>
+				</span>
+			</label>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+	<div class = "row separator"></div>
+	
+	<div id = "reponses-emplacement-{{ IdQuestion }}-1" class = "reponses-emplacement-{{ IdQuestion }}"></div>
+	<div id = "reponses-emplacement-{{ IdQuestion }}-2" class = "reponses-emplacement-{{ IdQuestion }}"></div>
+	<div id = "reponses-emplacement-{{ IdQuestion }}-3" class = "reponses-emplacement-{{ IdQuestion }}"></div>
+	<div id = "reponses-emplacement-{{ IdQuestion }}-4" class = "reponses-emplacement-{{ IdQuestion }}"></div>
+	<div id = "reponses-emplacement-{{ IdQuestion }}-5" class = "reponses-emplacement-{{ IdQuestion }}"></div>
+	<div id = "reponses-emplacement-{{ IdQuestion }}-6" class = "reponses-emplacement-{{ IdQuestion }}"></div>
+	<div id = "reponses-emplacement-{{ IdQuestion }}-7" class = "reponses-emplacement-{{ IdQuestion }}"></div>
+	
+	<div class = "row separator"></div>
+	<div class = "row separator"></div>
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<a id = "add-field-link-reponse-{{ IdQuestion }}" class="add-field-link add add-field-link-reponse" href="#">ajouter une reponse (<span class="custom-field-allowed-container">7</span> maximum)</a>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class = "check-reponse-obligatoire">
+				<p class = "check-reponse-obligatoire-libelle">
+					<span class = "libelle-mode">réponse obligatoire</span>
+				</p>
+				<p class = "check-reponse-obligatoire-check">
+					<input id="reponse-obligatoire-{{ IdQuestion }}" class="form-field-mandatory styled-checkbox" name = "reponse_obligatoire" type="checkbox">
+					<label for="reponse-obligatoire-{{ IdQuestion }}"><span></span></label> 
+				</p>
+				<div style = "clear:both;"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+</div>

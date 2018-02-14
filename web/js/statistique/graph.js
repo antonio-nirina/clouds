@@ -286,9 +286,8 @@ $.each(erreu, function(index, val) {
 $(document).ready(function(){
 var url = $('input[name=filterPeriode]').val();
 var jsonNow = $('input[name=dataNow]').val();
-   createChart(JSON.parse(jsonNow));
+  createChart(JSON.parse(jsonNow));
 
-//console.log(H);
 /**filtre sur periode aujord'hui hier last7 days...**/
   $(document).on('click','.clearable .dropdown-itemNo', function(e){
         e.preventDefault();

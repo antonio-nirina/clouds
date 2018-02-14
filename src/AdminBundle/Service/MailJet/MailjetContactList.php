@@ -104,6 +104,60 @@ class MailjetContactList{
 		
 		return $ContactInfos;
 	}
+
+    /**
+     * Add contact list and contact data, returning contact list and contact information
+     *
+     * @param $listName
+     * @param $UsersLists
+     *
+     * @return array
+     */
+	public function addContactListReturningInfos($listName, $UsersLists)
+    {
+        $eMessages = array();
+        $DataList = $this->createList($listName);
+        if(isset($DataList['StatusCode']) && ($DataList['StatusCode'] == 400)){
+            $eMessages['error'] = 'La liste existe déjà!';
+        }elseif(isset($DataList[0]['CreatedAt'])){
+            $eMessages['idList'] = $DataList[0]['ID'];
+        }
+
+        $ContactInfos = array();
+        if(isset($eMessages['idList']) && $eMessages['idList'] > 0){
+            foreach($UsersLists as $UserConacts){
+                $ListRoles = $UserConacts->getRoles();
+
+                if($ListRoles[0] == 'ROLE_MANAGER'){
+                    $roles = 'manager';
+                }elseif($ListRoles[0] == 'ROLE_COMMERCIAL'){
+                    $roles = 'commercial';
+                }elseif($ListRoles[0] == 'ROLE_PARTICIPANT'){
+                    $roles = 'participant';
+                }
+
+                //Add contact to a list
+                $contact = array(
+                    "Email" =>  $UserConacts->getEmail(),
+                    "Name" =>  $UserConacts->getName(),
+                    "Action" =>  Contact::ACTION_ADDFORCE,
+                    "Properties" =>  array(
+                        "status" =>  $roles,
+                        "prénom" =>  $UserConacts->getFirstname(),
+                        "nom" =>  $UserConacts->getName(),
+                        "pays" =>  '',
+                        "newsletter_insc" => '0',
+                    )
+                );
+
+                $ObjContacts = new Contact($contact['Email'], $contact['Name'], $contact['Properties']);
+                $ContactInfos['contact_infos'][] = $this->manager->subscribe($DataList[0]['ID'], $ObjContacts, true);
+            }
+            $ContactInfos['contact_list_infos'] = $DataList[0];
+        }
+
+        return $ContactInfos;
+    }
 	
 	/**
      * Add ContactsList && contact data

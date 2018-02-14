@@ -20,7 +20,7 @@
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
                     <ul class="content-menu-niv-3 hidden-lg-up">
                         <li class="nav-item-niv-3 form-inscription">
-                            <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_sondage_quiz") }}">sondages / quiz</a>
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_sondage_quiz") }}">sondages / quiz</a>
                             <span class = "bulle-aide"></span>
                         </li>
                     </ul>
@@ -68,94 +68,118 @@
                     </div>
 					
 					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4 titre-section-sondage-quiz">
-							<span>Non du menu et bannière haut de page</span>
+						<div class="col-xl-4 col-lg-6 col-md-7 col-sm-12 titre-section-sondage-quiz">
+							<span>Nom du menu et bannière haut de page</span>
 						</div>
 						
-						<div class="col-lg-8 col-md-8 col-sm-8">
-							<div class = "ligne-separator">&nbsp;</div>
+						<div class="col-xl-8 col-lg-6 col-md-5 col-sm-12">
+							<div id = "id-ligne-separator" class = "ligne-separator">&nbsp;</div>
 						</div>
 					</div>
 					
 					<div class = "row separator"></div>
-					
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<label class="champForm">
-								<span class="lib-form">nom du menu</span>
-								<input class="input-form-text" name="menu_page" value="sondages / quiz" placeholder="" type="text">
-								<span class="delete-input"></span>
-							</label>
-						</div>
-					</div>
-					
-					<div class = "row separator"></div>
-					
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4 titre-section-sondage-quiz">
-							<span>Bannière de haut de page</span>
+					{% if IsSondagesQuiz %}
+					<div class = "conteneur-menu-banniere-sondage-quiz" style = "display:none;">
+					{% else %}
+					<div class = "conteneur-menu-banniere-sondage-quiz">
+					{% endif %}
+						{{ form_start(formSondagesQuiz) }}
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<label class="champForm">
+									<span class="lib-form">nom du menu</span>
+									{{ form_widget(formSondagesQuiz.nom_menu, {'attr': {'class': 'input-form-text'}}) }}
+									<span class="delete-input"></span>
+								</label>
+								{{ form_errors(formSondagesQuiz.nom_menu) }}
+							</div>
 						</div>
 						
-						<div class="col-lg-8 col-md-8 col-sm-8"></div>
-					</div>
-					
-					<div class = "row separator"></div>
-					
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<label class="champForm">
-								<span class="lib-form">titre</span>
-								<input class="input-form-text" name="titre_page" value="SONDAGES / QUIZ" placeholder="" type="text">
-								<span class="delete-input"></span>
-							</label>
+						<div class = "row separator"></div>
+						
+						<div class="row">
+							<div class="col-lg-4 col-md-12 col-sm-12 titre-section-sondage-quiz">
+								<span>Bannière de haut de page</span>
+							</div>
+							
+							<div class="col-lg-8 col-md-12 col-sm-12"></div>
 						</div>
-					</div>
-					
-					<div class = "row separator"></div>
-					
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<div class="champForm">
-								<span class="lib-form">image</span>
-								<div class = "action-btn">
-									<button id="btn-upload-img-page-standard-15" class="btn-valider btn-upload choose-upload-img-button" type="button" style = "margin:0;">
-										<span id="id-lib-upload-15" class="upload"></span> 
-										<span id="lib-btn-pages-15">choisissez un fichier...</span>
-									</button>
+						
+						<div class = "row separator"></div>
+						
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<label class="champForm">
+									<span class="lib-form">titre</span>
+									{{ form_widget(formSondagesQuiz.titre, {'attr': {'class': 'input-form-text'}}) }}
+									<span class="delete-input"></span>
+								</label>
+								{{ form_errors(formSondagesQuiz.titre) }}
+							</div>
+						</div>
+						
+						<div class = "row separator"></div>
+						
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<div class="champForm">
+									<span class="lib-form">image</span>
+									<div class = "action-btn">
+										
+										{% if IsBanniere %}
+											<button id="btn-upload-img-sondage-quiz" class="btn-valider-etat btn-upload choose-upload-img-button btn-upload-img-sondage-quiz" type="button" style = "margin:0;">
+												<span id="id-lib-upload" class="uploaded"></span> 
+												<span id="lib-btn-pages">{{ BannierePath }}</span>
+											</button>
+											<img id="img-delete-img-banniere" class="img-delete-img" src="/web/images/cloudsRewards/delete.png">
+										{% else %}
+											<button id="btn-upload-img-sondage-quiz" class="btn-valider btn-upload choose-upload-img-button btn-upload-img-sondage-quiz" type="button" style = "margin:0;">
+												<span id="id-lib-upload" class="upload"></span> 
+												<span id="lib-btn-pages">choisissez un fichier...</span>
+											</button>
+										{% endif %}
 
-									<input style="display:none;" name="img_page" class="input-upload-img-sondages-quizz" type="file">
-									<div class="info-container">
-										<p>taille optimale de l'image : <span class="bigger">L 1024 X H 243px</span></p>
-										<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
-										<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+										{{ form_widget(formSondagesQuiz.image, {'attr': {'class': 'input-upload-img-sondages-quizz'}}) }}
+										<div class="info-container">
+											<p>taille optimale de l'image : <span class="bigger">L 1024 X H 243px</span></p>
+											<p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+											<p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+										</div>
 									</div>
+									<div style = "clear:both;"></div>
 								</div>
-								<div style = "clear:both;"></div>
 							</div>
 						</div>
-					</div>
-					
-					<div class = "row separator"></div>
-					
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<label class="champForm">
-								<span class="lib-form block">prévisualisation</span>
-								<span id="img-preview-15" class="previsualisation-im-sondage-quiz block"></span>
-							</label>
-						</div>
-					</div>
-					
-					<div class = "row separator"></div>
-					
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<div class="champForm" style="text-align:center;">
-								<button class="btn-valider valider submit-form">
-									valider
-								</button>
+						
+						<div class = "row separator"></div>
+						
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<label class="champForm">
+									<span class="lib-form block">prévisualisation</span>
+									<span id="img-preview-15" class="previsualisation-im-sondage-quiz block">
+										{% if IsBanniere %}
+											<img id="img-preview" class = "img-preview" src="{{asset('/web/content/sondages_quiz/'~program.Id~'/'~BannierePath)}}" style = "display:block;" />
+										{% else %}
+											<img id="img-preview" class = "img-preview" src="#" />
+										{% endif %}
+									</span>
+								</label>
 							</div>
 						</div>
+						
+						<div class = "row separator"></div>
+						
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<div class="champForm" style="text-align:center;">
+									<button class="btn-valider valider submit-form" type = "submit">
+										valider
+									</button>
+								</div>
+							</div>
+						</div>
+						{{ form_end(formSondagesQuiz) }}
 					</div>
 					
 				</section>
@@ -210,7 +234,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<label class="champForm">
 								<span class="lib-form block editeur">texte de description</span>
-								<textarea id="login_portal_data_form_text" name="text_description" class="large-textarea"></textarea>
+								<textarea id="id_description_sondage_quiz" name="text_description" class="large-textarea"></textarea>
 							</label>
 						</div>
 					</div>
@@ -218,159 +242,23 @@
 					<div class = "row separator"></div>
 					<div class = "row separator"></div>
 					
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4 titre-section-sondage-quiz">
-							<span>QUESTION 1</span>
-						</div>
-						
-						<div class="col-lg-8 col-md-8 col-sm-8">
-							<div class = "ligne-separator-question">&nbsp;</div>
-						</div>
-					</div>
-					
-					<div class = "content-questionnaire">
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<label class="champForm">
-									<span class="lib-form">votre question</span>
-									<input class="input-form-text" name="question" value="" placeholder="Pourquoi avez vous ....?" type="text">
-									<span class="delete-input"></span>
-								</label>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<label class="champForm">
-									<span class="lib-form">commentaire</span>
-									<textarea name="commentaire" class="small-textarea"></textarea>
-								</label>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<label class="champForm">
-									<span class="lib-form">type de question</span>
-									<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-										CASE A COCHER
-									</button>
-								</label>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<label class="champForm">
-									<span class="lib-form">reponse 1</span>
-									<input class="input-form-text-reponse" name="reponse1" value="" placeholder="Parce que ..." type="text">
-									<span class="delete-input-reponse"></span>
-									<span class="corbeil-input"></span>
-									<span class="trie-input">
-										<a href="#" class="reorder-up-field-row-link"></a>
-										<a href="#" class="reorder-down-field-row-link"></a>
-									</span>
-								</label>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<label class="champForm">
-									<span class="lib-form">reponse 2</span>
-									<input class="input-form-text-reponse" name="reponse2" value="" placeholder="Pour des raisons ..." type="text">
-									<span class="delete-input-reponse"></span>
-									<span class="corbeil-input"></span>
-									<span class="trie-input">
-										<a href="#" class="reorder-up-field-row-link"></a>
-										<a href="#" class="reorder-down-field-row-link"></a>
-									</span>
-								</label>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<label class="champForm">
-									<span class="lib-form">reponse 3</span>
-									<input class="input-form-text-reponse" name="reponse3" value="" placeholder="Sans aucune ..." type="text">
-									<span class="delete-input-reponse"></span>
-									<span class="corbeil-input"></span>
-									<span class="trie-input">
-										<a href="#" class="reorder-up-field-row-link"></a>
-										<a href="#" class="reorder-down-field-row-link"></a>
-									</span>
-								</label>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<a class="add-field-link add" href="#">ajouter une reponse (<span class="custom-field-allowed-container">7</span> maximum)</a>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-						
-						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<div class = "check-reponse-obligatoire">
-									<p class = "check-reponse-obligatoire-libelle">
-										<span class = "libelle-mode">réponse obligatoire</span>
-									</p>
-									<p class = "check-reponse-obligatoire-check">
-										<input id="cl2-row53" class="form-field-mandatory styled-checkbox" name = "reponse_obligatoire" type="checkbox">
-										<label for="cl2-row53"><span></span></label> 
-									</p>
-									<div style = "clear:both;"></div>
-								</div>
-							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-						</div>
-						
-						<div class = "row separator"></div>
-					</div>
+					<div id = "question-emplacement-1" class = "question-emplacement"></div>
+					<div id = "question-emplacement-2" class = "question-emplacement"></div>
+					<div id = "question-emplacement-3" class = "question-emplacement"></div>
+					<div id = "question-emplacement-4" class = "question-emplacement"></div>
+					<div id = "question-emplacement-5" class = "question-emplacement"></div>
+					<div id = "question-emplacement-6" class = "question-emplacement"></div>
+					<div id = "question-emplacement-7" class = "question-emplacement"></div>
+					<div id = "question-emplacement-8" class = "question-emplacement"></div>
+					<div id = "question-emplacement-9" class = "question-emplacement"></div>
 					
 					<div class = "row separator"></div>
 					
 					<div class = "content-questionnaire">
 						<div class="row">
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
-							<div class="col-lg-10 col-md-10 col-sm-10">
-								<a class="add-field-link add" href="#">ajouter une question (<span class="custom-field-allowed-container">9</span> maximum)</a>
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<a class="add-field-link add add-field-question" href="#">ajouter une question (<span class="custom-field-allowed-container">9</span> maximum)</a>
 							</div>
-							<div class="col-lg-1 col-md-1 col-sm-1"></div>
 						</div>
 					</div>
 					
@@ -396,6 +284,9 @@
 		<p class = "chargementAjax hidden">
             <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
         </p>
+		<input id = "UrlAjoutQuestions" type = "hidden" name = "UrlAjoutQuestions" value = "{{ path("admin_communication_sondage_quiz_add_question") }}">
+		<input id = "UrlAjoutReponses" type = "hidden" name = "UrlAjoutReponses" value = "{{ path("admin_communication_sondage_quiz_add_reponses") }}">
+		<input id = "UrlDeleteBanniere" type = "hidden" name = "UrlDeleteBanniere" value = "{{ path("admin_communication_sondage_quiz_delete_banniere") }}">
     </main>
 
 {% endblock %}
@@ -406,10 +297,27 @@
             {{ parent() }}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
-            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
+            <script src="{{ asset('ckeditor-uploader/ckeditor.js') }}"></script>                     
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
-            <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>            
+            <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>  
+            <script>
+                $(document).ready(function(){
+                    CKEDITOR.replace( 'id_description_sondage_quiz', {
+                        language: 'fr',
+                        uiColor: '#9AB8F3',
+                        height: 150,
+                        width: 600,
+                        customConfig: "{{ asset('ckeditor-uploader/custom/config-general.js') }}",
+                    });
+
+                    CKEDITOR.on("instanceReady", function(){
+                        $('.cke_wysiwyg_frame').contents().find('body').css(
+                            'background-color', '#F5F5F5'
+                        )
+                    });
+                });
+            </script>
         {% endblock %}
     {% endembed %}
 {% endblock %}

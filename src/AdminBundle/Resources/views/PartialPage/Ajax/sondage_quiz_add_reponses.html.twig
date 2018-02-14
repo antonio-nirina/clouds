@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<label class="champForm">
+			<span class="lib-form">reponse {{ IdReponse }}</span>
+			<input id = "input-form-text-reponse-{{ IdQuestion }}-{{ IdReponse }}" class="input-form-text-reponse" name="reponse[{{ IdQuestion }}][{{ IdReponse }}]" value="" placeholder="Parce que ..." type="text">
+			<input id = "order-{{ IdQuestion }}-{{ IdReponse }}" type = "hidden" name = "order[{{ IdQuestion }}][{{ IdReponse }}]" value = "{{ IdReponse }}">
+			<span id = "delete-input-reponse-{{ IdQuestion }}-{{ IdReponse }}" class="delete-input-reponse"></span>
+			<span id = "corbeil-input-{{ IdQuestion }}-{{ IdReponse }}" class="corbeil-input"></span>
+			<span class="trie-input">
+				<a id = "reorder-up-field-row-link-{{ IdQuestion }}-{{ IdReponse }}" href="#" class="reorder-up-field-row-link"></a>
+				<a id = "reorder-down-field-row-link-{{ IdQuestion }}-{{ IdReponse }}" href="#" class="reorder-down-field-row-link"></a>
+			</span>
+		</label>
+	</div>
+</div>
+
+<div class = "row separator"></div>

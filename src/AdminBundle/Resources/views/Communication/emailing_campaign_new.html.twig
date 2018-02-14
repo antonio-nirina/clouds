@@ -65,9 +65,9 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuListe">
                             {% for choice in campaign_draft_form.list_id.vars.choices %}
-                            <a class="dropdown-item" href="#" data-value="{{ choice.value }}">
-                                {{ choice.label }}
-                            </a>
+                                <a class="dropdown-item" href="#" data-value="{{ choice.value }}">
+                                    {{ choice.label }}
+                                </a>
                             {% endfor %}
                         </div>
                         <span class="delete-input delete-selection"></span>
@@ -75,7 +75,7 @@
                     {{ form_widget(campaign_draft_form.list_id, {"attr": {"class": "hidden-select list-choice-select"}}) }}
                 </div>
                 <div>
-                    <a href="#" class="add free-add add-template">
+                    <a href="#" class="add free-add create-new-contact-list">
                         créer une nouvelle liste
                     </a>
                 </div>
@@ -150,30 +150,31 @@
                         {{ form_label(campaign_draft_form.programmed_state[1], "programmer l'envoi de la campagne", {"label_attr": {"class": "text-label"}}) }}
                     </div>
                     <div class="select-date">
-                        {#{{ form_start(programmed) }}#}
                         <p>choisissez le jour</p>
                         <div>
                             {#{{ form_widget(programmed.date_launch.date, {"attr": {"class" : "date_launch_campaign", "style": "display:none;"}}) }}#}
-                            <input type="text" class="date_launch_campaign" style="display: none;">
+                            {#<input type="text" class="date_launch_campaign" style="display: none;">#}
+                            {{ form_widget(campaign_draft_form.programmed_launch_date.date, {"attr": {"class": "date_launch_campaign", "style": "display:none;"}}) }}
                             <div id="calendar"></div>
                         </div>
                         <p>et l'heure</p>
                         <div>
                             {#{{ form_widget(programmed.date_launch.time.hour, {"attr":  {"class" : "chosen-select"}}) }}#}
-                            <input type="text" class="chosen-select">
+                            {#<input type="text" class="chosen-select">#}
+                            {{ form_widget(campaign_draft_form.programmed_launch_date.time.hour, {"attr": {"class": "chosen-select"}}) }}
                             <span class="between-hour">:</span>
                             {#{{ form_widget(programmed.date_launch.time.minute, {"attr":  {"class" : "chosen-select"}}) }} #}
-                            <input type="text" class="chosen-select">
+                            {#<input type="text" class="chosen-select">#}
+                            {{ form_widget(campaign_draft_form.programmed_launch_date.time.minute, {"attr": {"class": "chosen-select"}}) }}
                         </div>
-                        {#{{ form_end(programmed) }}#}
                     </div>
                 </div>
             </div>
             <div class="row centered">
-                <button class="btn-valider btn-end-step btn-end-step-4">
+                <button class="btn-valider btn-end-step btn-end-step-4" data-button-type="send">
                     envoyer
                 </button>
-                <button class="btn-valider btn-end-step btn-program-step-4">
+                <button class="btn-valider btn-end-step btn-end-step-4 btn-program-step-4" data-button-type="program">
                     programmer
                 </button>
             </div>

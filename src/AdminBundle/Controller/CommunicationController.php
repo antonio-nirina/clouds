@@ -25,6 +25,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Form\DuplicationForm;
+use AdminBundle\Form\SondagesQuizType;
+use AdminBundle\Entity\SondagesQuiz;
 
 use \Mailjet\Resources;
 
@@ -212,11 +214,12 @@ class CommunicationController extends AdminController
         }
 
         $campaign_draft_data = new CampaignDraftData();
+        $campaign_draft_data->setProgrammedLaunchDate(new \DateTime('now'));
         $campaign_draft_form = $this->createForm(CampaignDraftType::class, $campaign_draft_data);
         $campaign_draft_form->handleRequest($request);
         if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
             $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-            if ($campaign_handler->createAndSend($campaign_draft_data)) {
+            if ($campaign_handler->createAndProcess($campaign_draft_data)) {
                 $data = $json_response_data_provider->success();
                 return new JsonResponse($data, 200);
             } else {
@@ -398,6 +401,39 @@ class CommunicationController extends AdminController
         }
 
         return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/emailing/campagne/creer-liste-contact", name="admin_communication_emailing_campaign_create_contact_list")
+     * @Method("POST")
+     */
+    public function emailingCampaignCreateContactList(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\ContactListDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $list_name = $request->get('ListName');
+        $user_ids = $request->get('UserId');
+        $arr_user_ids = explode('##_##', $user_ids);
+
+        $em = $this->getDoctrine()->getManager();
+        $users_list = array();
+        foreach ($arr_user_ids as $user_id) {
+            $users_list[] = $em->getRepository('UserBundle\Entity\User')->find($user_id);
+        }
+        $contact_list_handler = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $response = $contact_list_handler->addContactListReturningInfos($list_name, $users_list);
+        if (!empty($response)) {
+            return new JsonResponse($json_response_data_provider->contactListCreationSuccess(
+                $response['contact_list_infos']['ID'],
+                ''
+            ), 200);
+        } else {
+            return new JsonResponse($json_response_data_provider->contactListCreationError(), 200);
+        }
     }
 
     /**
@@ -1256,8 +1292,124 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$IsSondagesQuiz = false;
+		$SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+		if(!isset($SondagesQuizArray[0])){
+			$SondagesQuiz = new SondagesQuiz();
+		}else{
+			$SondagesQuiz = $SondagesQuizArray[0];
+			$IsSondagesQuiz = true;
+		}
+		
+		
+		$formSondagesQuiz = $this->createForm(SondagesQuizType::class, $SondagesQuiz, array(
+            'action' => $this->generateUrl('admin_communication_sondage_quiz'),
+            'method' => 'POST',
+        ));
+		
+		$formSondagesQuiz->handleRequest($request);
+		if ($formSondagesQuiz->isSubmitted() && $formSondagesQuiz->isValid()) {
+			$SondagesQuizData = $formSondagesQuiz->getData();
+			$SondagesQuizData->setProgram($program);
+			$SondagesQuizData->upload($program);
+			
+			if(!isset($SondagesQuizArray[0])){
+				$SondagesQuizData->setDateCreation(new \DateTime());
+				$em->persist($SondagesQuizData);
+			}
+			
+			$em->flush();
+			return $this->redirectToRoute('admin_communication_sondage_quiz');
+		}
+		
+		$IsBanniere = false;
+		$BannierePath = "";
+		if(!empty($SondagesQuiz->getPath())){
+			$IsBanniere = true;
+			$BannierePath = $SondagesQuiz->getPath();
+		}
 
-        return $this->render('AdminBundle:Communication:sondage_quiz.html.twig');
+        return $this->render('AdminBundle:Communication:sondage_quiz.html.twig', array(
+			'formSondagesQuiz' => $formSondagesQuiz->createView(),
+			'IsBanniere' => $IsBanniere,
+			'BannierePath' => $BannierePath,
+			'IsSondagesQuiz' => $IsSondagesQuiz,
+			'program' => $program
+		));
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/delete-banniere",
+     *     name="admin_communication_sondage_quiz_delete_banniere")
+     * 
+     */
+    public function sondageQuizDeleteBanniereAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if ($request->isMethod('POST')) {
+			$SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+			if(isset($SondagesQuizArray[0])){
+				$SondagesQuiz = $SondagesQuizArray[0];
+				$SondagesQuiz->setPath(NULL);
+				$em->flush();
+				return new Response('ok');
+			}else{
+				return new Response('error');
+			}
+		}
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/add-question",
+     *     name="admin_communication_sondage_quiz_add_question")
+     * 
+     */
+    public function sondageQuizAddQuestionAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		if ($request->isMethod('POST')) {
+			$IdQuestion = $request->get('idQuestion');
+		}
+
+        return $this->render('AdminBundle:PartialPage/Ajax:sondage_quiz_add_question.html.twig', array(
+			'IdQuestion' => $IdQuestion
+		));
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/add-reponses",
+     *     name="admin_communication_sondage_quiz_add_reponses")
+     * 
+     */
+    public function sondageQuizAddReponsesAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		if ($request->isMethod('POST')) {
+			$idReponse = $request->get('idReponses');
+			$IdQuestion = $request->get('idQuestions');
+		}
+
+        return $this->render('AdminBundle:PartialPage/Ajax:sondage_quiz_add_reponses.html.twig', array(
+			'IdReponse' => $idReponse,
+			'IdQuestion' => $IdQuestion
+		));
 	}
 
     /**

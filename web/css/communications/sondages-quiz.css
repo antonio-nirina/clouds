@@ -10,6 +10,7 @@ p.chargementAjax {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1070;
+	width:154px;
 }
 
 .corner-circle-img{
@@ -42,8 +43,8 @@ p.chargementAjax {
 }
 
 .img-content-sondanges-quiz{
-	background: url('../../images/cloudsRewards/sondages-quizz.jpg') no-repeat;
-	background-position: -15px -35px;
+	background: url('../../images/cloudsRewards/sondage-quiz-admin.png') no-repeat;
+	background-position: -91px -9px;
 }
 
 p.descr-sondage-quiz{
@@ -57,8 +58,7 @@ p.descr-sondage-quiz{
     font-family: var(--police_bold);
 }
 
-section div.ligne-separator::after,
-section div.ligne-separator-question::after {
+section div.ligne-separator::after {
     display: inline;
 	width: 0;
 	height: 0;
@@ -73,10 +73,29 @@ section div.ligne-separator-question::after {
 	color: #404040;
 	-webkit-text-stroke: 1px #e5e5e5;
 	font-weight: bold;
+	cursor:pointer;
+}
+
+section div.ligne-separator-question::after{
+	display: inline;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	content: "\f107";
+	font-family: "FontAwesome";
+	font-size: 27px;
+	border: none !important;
+	position: absolute;
+	right: 0;
+	top: -7px;
+	color: #404040;
+	-webkit-text-stroke: 1px #e5e5e5;
+	font-weight: bold;
+	cursor:pointer;
 }
 
 div.ligne-separator{
-	width: 100%;
+	width: 96%;
 	height: 1px;
 	background: #CCCCCC;
 	position: relative;
@@ -85,7 +104,7 @@ div.ligne-separator{
 }
 
 div.ligne-separator-question{
-	width: 100%;
+	width: 96%;
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
@@ -171,16 +190,17 @@ p.check-reponse-obligatoire-libelle{
 }
 
 .small-textarea{
-	width: 79%!important;
+	width: 83%!important;
 	background-color: inherit;
     border: 1px solid #636363;
     border-radius: 5px;
 	float: right;
-	margin-right: 33px;
 }
 
 div.content-questionnaire{
 	border:1px solid #CBCBCB;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .dropdown button, .dropdown .dropdown-menu {
@@ -221,11 +241,17 @@ section .dropdown-toggle::after {
     -webkit-text-stroke: 1px #e5e5e5;
 }
 
-#dropdownMenuAction{
-	width: 79%!important;
+span.content-dropdown-toggle{
+	width: 83%!important;
 	float: right;
-	margin-right: 33px;
 }
+
+/*
+#dropdownMenuAction{
+	width: 83%!important;
+	float: right;
+}
+*/
 
 span.corbeil-input{
 	background: url('../../images/cloudsRewards/delete.png') no-repeat;
@@ -304,4 +330,233 @@ span.trie-input{
 
 .fieldset .custom-field-allowed-container {
     margin-right: 2px;
+}
+
+.img-preview{
+	display:none;
+	width: 100%;
+	max-height: 283px;
+	object-fit: cover;
+}
+
+div.question-emplacement{
+	margin-top:20px;
+}
+
+input.input-upload-img-sondages-quizz{
+	display:none;
+}
+
+.dropdown.dossiers button, .dropdown.filtres button, .dropdown.dossiers .dropdown-menu, .dropdown.filtres .dropdown-menu{
+	width: 15rem;
+	text-transform:uppercase;
+}
+
+section .dropdown-menu, section .dropdown-menu > a, section .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+section .dropdown-toggle, section .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 15rem;
+    text-align: left;
+}
+
+.dropdown, .dropup {
+    position: relative;
+}
+
+section .dropdown-menu > a {
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+
+section .dropdown-menu, section .dropdown-menu > a, section .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+section .dropdown-menu {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+
+.dropdown-item{
+	text-transform:uppercase;
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575px) {
+	.input-form-text{
+		width:90%!important;
+		float:none!important;
+	}
+	
+	label.champForm span.delete-input{
+		right:-8px!important;
+	}
+	
+	section div.ligne-separator-question::after{
+		right:11px!important;
+	}
+	
+	.small-textarea{
+		width:100%!important;
+	}
+	
+	span.content-dropdown-toggle{
+		float:none!important;
+	}
+	
+	.input-form-text-reponse{
+		float:none!important;
+		width:100%!important;
+		margin-bottom: 5px;
+	}
+	
+	.add-field-link{
+		display:inline-block!important;
+	}
+	
+	button.btn-valider{
+		margin-top:7px!important;
+	}
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767px) {
+	.input-form-text{
+		width:90%!important;
+		float:none!important;
+	}
+	
+	label.champForm span.delete-input{
+		right:-8px!important;
+	}
+	
+	section div.ligne-separator-question::after{
+		right:11px!important;
+	}
+	
+	.small-textarea{
+		width:100%!important;
+	}
+	
+	span.content-dropdown-toggle{
+		float:none!important;
+	}
+	
+	.input-form-text-reponse{
+		float:none!important;
+		width:100%!important;
+		margin-bottom: 5px;
+	}
+	
+	.add-field-link{
+		display:inline-block!important;
+	}
+	
+	button.btn-valider{
+		margin-top:7px!important;
+	}
+	
+	div.action-btn{
+		width:68%!important;
+	}
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991px) {
+	.input-form-text{
+		width:65%!important;
+		right:40px!important;
+	}
+	
+	label.champForm span.delete-input{
+		top:0!important;
+	}
+	
+	div.action-btn{
+		width:72%!important;
+	}
+	
+	.small-textarea{
+		width:72%!important;
+	}
+	
+	span.content-dropdown-toggle{
+		width:72%!important;
+	}
+	
+	.input-form-text-reponse{
+		width:51%!important;
+	}
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199px) {
+	.input-form-text{
+		width:75%!important;
+		right:40px!important;
+	}
+	
+	label.champForm span.delete-input{
+		top:0!important;
+	}
+	
+	div.action-btn{
+		width:75%!important;
+	}
+	
+	.small-textarea{
+		width:80%!important;
+	}
+	
+	span.content-dropdown-toggle{
+		width:80%!important;
+	}
+	
+	.input-form-text-reponse{
+		width:65%!important;
+	}
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1199px) {
+	.input-form-text{
+		width:75%!important;
+		right:40px!important;
+	}
+	
+	label.champForm span.delete-input{
+		top:0!important;
+	}
+	
+	div.action-btn{
+		width:75%!important;
+	}
+	
+	.small-textarea{
+		width:79%!important;
+	}
+	
+	span.content-dropdown-toggle{
+		width:79%!important;
+	}
+	
+	.input-form-text-reponse{
+		width:68%!important;
+	}
 }
