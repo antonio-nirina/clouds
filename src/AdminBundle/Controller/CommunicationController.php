@@ -1279,27 +1279,28 @@ class CommunicationController extends AdminController
      */
     public function statistiqueshowAction(Request $request)
     {
-        $data=[];
-        $date=new \DateTime();
-        $now=$date->settime(0,0,0)->format("Y-m-d");
-        $filters=["lastactivityat"=>$now];
-        $mailjet=$this->get('mailjet.client');
+        $data = [];
+        $date = new \DateTime();
+        $now = $date->settime(0,0,0)->format("Y-m-d");
+        $filters = ["lastactivityat"=>$now];
+        $mailjet = $this->get('mailjet.client');
         $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);//call of ApiMailjet
-        $listsInfoCampaign=$response->getData();
-        $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); //call of service
-        $fromTo=$this->get('adminBundle.statistique')->getContactByCampaign();
+        $listsInfoCampaign = $response->getData();
+        $data = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); //call of service
+        $fromTo = $this->get('adminBundle.statistique')->getContactByCampaign();
+        $send = !empty($fromTo)?$fromTo:[];
         return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
         [
-            "total"=>$data["total"],
-            "delivre"=>$data["delivre"],
-            "ouvert"=>$data["ouvert"],
-            "cliquer"=>$data["cliquer"],
-            "bloque"=>$data["bloque"],
-            "spam"=>$data["spam"],
-            "desabo"=>$data["desabo"],
-            "erreur"=>$data["erreur"],
-            "fromSend"=>$fromTo["send"][0],
-            "mailTo"=>$fromTo["email"]
+            "total" => $data["res"]["total"],
+            "delivre" => $data["res"]["delivre"],
+            "ouvert" => $data["res"]["ouvert"],
+            "cliquer" => $data["res"]["cliquer"],
+            "bloque" => $data["res"]["bloque"],
+            "spam" => $data["res"]["spam"],
+            "desabo" => $data["res"]["desabo"],
+            "erreur" => $data["res"]["erreur"],
+            "fromSend" => $send,
+            "json" =>$data["json"]->getContent()
         ]);
     }
 
@@ -1309,32 +1310,49 @@ class CommunicationController extends AdminController
      */
     public function statistiqueFilterDateAction(Request $request)
     {
-        $filtre=$request->request->get('filter');
-        $mailjet=$this->get('mailjet.client');
-        $date = new \DateTime();
+        $filtre = $request->request->get('filter');
+        $mailjet = $this->get('mailjet.client');
         if ($filtre == "Yesterday") {
+            $date = new \DateTime();
             $date->modify('-1 day');
             $format= $date->format("Y-m-d");
             $yest = $date->settime(0,0,0)->getTimestamp();
-            $filters = ["fromts"=>(string)$yest];
-            $respons = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters]);
-            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
+            $filters = ["fromts" => (string)$yest];
+            $respons = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
             $listsInfoCampaignYesterday = $respons->getData();
-            foreach ($listsInfoCampaignYesterday as $value) {
-                $dateFiter = new \DateTime($value["LastActivityAt"]);
-                $time= $dateFiter->format("Y-m-d");
-                if ($time == $format) {
-                    $listsInfoCampaign[] = $value;
+            if (!empty($listsInfoCampaignYesterday)) {
+               foreach ($listsInfoCampaignYesterday as $value) {
+                    $dateFiter = new \DateTime($value["LastActivityAt"]);
+                    $time= $dateFiter->format("Y-m-d");
+                    if ($time == $format) {
+                        $listsInfoCampaign[] = $value;
+                    }            
                 }
-               
             }
-            $info = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign);
+            $listCampaigns = !empty($listsInfoCampaign)?$listsInfoCampaign:"";
+            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre); 
+            $info = $this->get('adminBundle.statistique')->getTraitement($listCampaigns);
             $data = [
                     "fromTo"=>$allContactSendCampagne,
-                    "info"=>$info
+                    "info"=>$info,
+                    "dataGraph"=>$listsInfoCampaignYesterday
                     ]; 
+        } elseif ($filtre == "last7days" ) {
+            $date = new \DateTime();
+            $last = $date->modify('-6 day');
+            $last7 = $date->settime(0,0,0)->getTimestamp();
+            $filters = ["fromts"=>(string)$last7];
+            $response7 = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters])->getData();
+            $allContactSendCampagne7 = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
+            $info = $this->get('adminBundle.statistique')->getTraitement($response7);
+            $data = [
+                    "fromTo" => $allContactSendCampagne7,
+                    "info" => $info,
+                    "dataGraph"=>$response7
+                    ]; 
+
         }        
-        $response=new JsonResponse($data);
+        $response = new JsonResponse($data);
         return $response;
     }
 }

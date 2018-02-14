@@ -70,11 +70,12 @@ section .row.filter div.now-create {
 
 section .row.filter12 div.heure-create {
     width: 31%;
-    display: flex;
+    /*display: flex;*/
     flex-flow: row wrap;
     justify-content: space-between;
     align-content: center;
-    margin-left: 0px;
+    /*margin-left: 0px;*/
+    margin-top: -13px;
 }
 
 section .row.filter div.now-create {
@@ -291,6 +292,16 @@ section  .dropdown-toggle::after {
     padding-left: 6px;
     margin-right: 4px;
 }
+
+.graphique{
+    margin-top: 26px;
+    /*margin-left: -275px;*/
+}
+
+.graphique,#container.highcharts-container {
+    width: 850px !important;
+}
+
 
 .statMonths{
 width: 35px;
@@ -695,8 +706,8 @@ margin-left: 5px;
 margin-top: 30px;
 }
 .message{
-   margin-left: 261px; 
-   margin-top: 43px;
+   margin-left: 213px; 
+   margin-top: 16px;
 }
 .total{
     background-color:#F9F9F9;
@@ -849,6 +860,13 @@ font-weight: bold;
     font-weight: bold;
     padding-left: 54px;
 }
+.valTot3{
+    display: none;
+    color:#6F85DA;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
 .mailTot{
     font-size:1.2rem; 
     padding-left: 33px;
@@ -894,6 +912,14 @@ font-weight: bold;
     padding-left: 54px;
 }
 
+.valDel3{
+    display: none;
+    color:#505050;
+   font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
+
 #titreOuv{
 color:#93D706;
 padding-left: 27px;
@@ -910,6 +936,14 @@ font-weight: bold;
 }
 
 .valOuv2{
+    display: none;
+    color:#93D706;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
+
+.valOuv3{
     display: none;
     color:#93D706;
     font-size:1.2rem;
@@ -939,6 +973,14 @@ font-weight: bold;
     padding-left: 54px;
 }
 
+.valClik3{
+    display: none;
+    color:#13A20A;
+    font-size:1.2rem;
+    font-weight: bold;
+    padding-left: 54px;
+}
+
 
 #messag{
     font-size:1.1rem;
@@ -950,6 +992,9 @@ font-weight: bold;
     color:#6F85DA;
 }
 #nbrMail2{
+    color:#6F85DA;
+}
+#nbrMail3{
     color:#6F85DA;
 }
 .blbl,.blbl1{
@@ -1008,6 +1053,49 @@ font-weight: bold;
     font-weight: bold;
 }
 #blSp2{
+    display: none;
+    color:#FC0007;
+    font-weight: bold;
+}
+
+
+.blbl3{
+    display: none;
+    color:#000000;
+    font-weight: bold;
+}
+.blErr3{
+    display: none;
+    color:orange;
+    font-weight: bold;
+}
+.blDesa3{
+    display: none;
+    color:#1CC8FA;
+    font-weight: bold;
+}
+.blSp3{
+    display: none;
+    color:#FC0007;
+    font-weight: bold;
+}
+
+#blbl3{
+    display: none;
+    color:#000000;
+    font-weight: bold;
+}
+#blErr3{
+    display: none;
+    color:orange;
+    font-weight: bold;
+}
+#blDesa3{
+    display: none;
+    color:#1CC8FA;
+    font-weight: bold;
+}
+#blSp3{
     display: none;
     color:#FC0007;
     font-weight: bold;
@@ -1127,7 +1215,7 @@ section .row.filter div.now-create div.dropdown.clearable.filtres #dropdownDeliv
 
 .delivrerEmail{
 margin-left: 355px;
-margin-top: -34px;
+margin-top: -22px;
 margin-bottom: 22px;
 }
 .description{
@@ -1192,6 +1280,12 @@ margin-left: -11px;
     width: 100%;
 }
 .tableDetail2{
+    display: none;
+    border: 1px solid #CFCFCF;
+    width: 100%;
+}
+
+.tableDetail3{
     display: none;
     border: 1px solid #CFCFCF;
     width: 100%;
