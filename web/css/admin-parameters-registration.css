@@ -1644,7 +1644,7 @@ section .row.ending {
     border-color: #e5e5e5;
 }
 #abort-new-campaign-modal {/*second modal*/
-    z-index: 1052 !important;
+    z-index: 1061 !important;
 }
 .modal-backdrop.show~.modal-backdrop.show {/*second backdrop*/
     z-index: 1051 !important;
@@ -3161,3 +3161,1479 @@ section.with-bottom-space{
     width: 45px;
     cursor:pointer;
 }
+
+/**
+ * Création de liste de contact, dans création de campagne
+ */
+#create-contact-list-modal{
+    font-family: var(--police_light);
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575px) {
+    #create-contact-list-modal section .row.filter div.create button{
+        width:96%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-metric{
+        width:100%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-3{
+        width:37%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-1{
+        width:74%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        width:100%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        min-width: 25%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-action{
+        width: 100% !important;
+        position: normal;
+        /*right: 50px;
+        top: -17px;*/
+    }
+
+    #create-contact-list-modal section .row.list .campagne-metric{
+        padding-left:0!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-metric > div{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal section .row.filter div.next-create > div{
+        width:100%!important;
+    }
+
+    #create-contact-list-modal .list{
+        position:relative;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name-name{
+        margin:0!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name label > div{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal .dropdown-item{
+        text-transform: uppercase;
+    }
+
+    #create-contact-list-modal section .row.ending{
+        height:30px!important;
+    }
+
+    #create-contact-list-modal .modal-xl{
+        max-width:1000px;
+    }
+
+    #create-contact-list-modal.app-dialog .content-container{
+        padding:0 30px!important;
+    }
+
+    #create-contact-list-modal input.liste_name_input{
+        min-width: 50%;
+        border: 1px solid;
+        border-radius: 7px;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:87%;
+    }
+
+    #create-contact-list-modal input.liste_name_input_small{
+        min-width: 50%;
+        border: 1px solid grey;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+        text-align:right;
+
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+
+        background: #f9f9f9;
+    }
+
+    #create-contact-list-modal.modal p.form-line {
+        display: flex;
+        margin-bottom: 40px;
+        align-items: center;
+        flex-flow: row wrap;
+    }
+
+    #create-contact-list-modal.modal p > label {
+        min-width: 111px;
+    }
+
+    #create-contact-list-modal .sep-block-titre{
+        display:block;
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+    }
+
+    #create-contact-list-modal .separator{
+        margin-top:30px;
+    }
+
+    #create-contact-list-modal #dropdownMenuFiltreEditListContact,
+    #create-contact-list-modal #dropdownMenuFiltreCreerListContact{
+        width:80%!important;
+        border:0;
+        position:relative;
+        text-align:left;
+    }
+
+    #create-contact-list-modal .dropdown-menu,
+    #create-contact-list-modal .dropdown-menu > a,
+    #create-contact-list-modal  .dropdown-toggle {
+        font-size: 12px;
+        font-family: var(--police);
+        color: #404040;
+        background-color: #e5e5e5;
+        height: 35px;
+    }
+
+    #create-contact-list-modal .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
+    }
+
+    #create-contact-list-modal .dropdown.dossiers button,
+    #create-contact-list-modal .dropdown.filtres button,
+    #create-contact-list-modal .dropdown.dossiers .dropdown-menu,
+    #create-contact-list-modal .dropdown.filtres .dropdown-menu{
+        width:100%!important;
+    }
+
+    #create-contact-list-modal .dropdown-toggle::after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: .3em;
+        vertical-align: middle;
+        content: "\f107";
+        font-family: "FontAwesome";
+        font-size: 27px;
+        border: none !important;
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #404040;
+        -webkit-text-stroke: 1px #e5e5e5;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet tfoot{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet{
+        text-align:center;
+        border: 1px solid #CBCBCB!important;
+    }
+
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc,
+    #create-contact-list-modal table.dataTable thead .sorting_asc_disabled,
+    #create-contact-list-modal table.dataTable thead .sorting_desc_disabled{
+        background-position: 22px center !important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable thead td{
+        border:0!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-standards{
+        border-top:0!important;
+        border-right:0!important;
+        border-left:0!important;
+        font-size: 12px;
+        font-family: var(--police);
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-selection{
+        border-top:0!important;
+        border-left:0!important;
+        background:#f9f9f9;
+    }
+
+    #create-contact-list-modal .table-striped tbody tr:nth-of-type(2n+1){
+        background:white!important;
+    }
+
+    #create-contact-list-modal table.dataTable tbody tr{
+        border-bottom:1px solid #505050!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable th.entete-selection{
+        border-right: 1px solid #CBCBCB!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc{
+        vertical-align:middle!important;
+        text-align:left;
+    }
+
+    #create-contact-list-modal table.dataTable thead th{
+        padding-left:40px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th.entete-selection{
+        padding-left:19px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable tfoot th{
+        font-weight:normal!important;
+    }
+
+    #create-contact-list-modal div#ListUserContactMailjet_wrapper{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal input.input-search-list{
+        background: url('../../images/cloudsRewards/barre-recherche-loupe.png') no-repeat;
+        padding-left: 30px;
+        background-position: 8px center;
+    }
+
+    #create-contact-list-modal ul.pagination li.paginate_separator{
+        display: inline-block;
+        width: 2px;
+        background: #a7a7a7;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button,
+    #create-contact-list-modal .page-link{
+        padding:0!important;
+        border:0!important;
+        background:white!important;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+    #create-contact-list-modal .page-link:hover{
+        border:0!important;
+        background:white!important;
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-item.active .page-link{
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-link{
+        color:#a7a7a7!important;
+        font-family: var(--police)!important;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_paginate{
+        margin-top:70px;
+    }
+
+    #create-contact-list-modal ul.pagination{
+        text-align: center;
+        margin: 0 auto;
+        width: inherit;
+        display:inline-block;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_next{
+        margin-left:9px;
+    }
+
+    #create-contact-list-modal .separator-btn{
+        margin-top:20px;
+        height:20px;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767px) {
+    #create-contact-list-modal section .row.filter div.create{
+        padding:0;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-metric{
+        width:44%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-3{
+        width:37%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-1{
+        width:74%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        width:25%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        min-width: 25%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-action{
+        width: 20% !important;
+        position: absolute;
+        right: 25px;
+        top: -17px;
+    }
+
+    #create-contact-list-modal .list{
+        position:relative;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name-name{
+        margin:0!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name label > div{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal .dropdown-item{
+        text-transform: uppercase;
+    }
+
+    #create-contact-list-modal section .row.ending{
+        height:30px!important;
+    }
+
+    #create-contact-list-modal .modal-xl{
+        max-width:1000px;
+    }
+
+    #create-contact-list-modal.app-dialog .content-container{
+        padding:0 30px!important;
+    }
+
+    #create-contact-list-modal input.liste_name_input{
+        min-width: 50%;
+        border: 1px solid;
+        border-radius: 7px;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:90%;
+    }
+
+    #create-contact-list-modal input.liste_name_input_small{
+        min-width: 50%;
+        border: 1px solid grey;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+        text-align:right;
+
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+
+        background: #f9f9f9;
+    }
+
+    #create-contact-list-modal.modal p.form-line {
+        display: flex;
+        margin-bottom: 40px;
+        align-items: center;
+        flex-flow: row wrap;
+    }
+
+    #create-contact-list-modal.modal p > label {
+        min-width: 111px;
+    }
+
+    #create-contact-list-modal .sep-block-titre{
+        display:block;
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+    }
+
+    #create-contact-list-modal .separator{
+        margin-top:30px;
+    }
+
+    #create-contact-list-modal #dropdownMenuFiltreEditListContact,
+    #create-contact-list-modal #dropdownMenuFiltreCreerListContact{
+        width:80%!important;
+        border:0;
+        position:relative;
+        text-align:left;
+    }
+
+    #create-contact-list-modal .dropdown-menu,
+    #create-contact-list-modal .dropdown-menu > a,
+    #create-contact-list-modal .dropdown-toggle {
+        font-size: 12px;
+        font-family: var(--police);
+        color: #404040;
+        background-color: #e5e5e5;
+        height: 35px;
+    }
+
+    #create-contact-list-modal .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
+    }
+
+    #create-contact-list-modal .dropdown.dossiers button,
+    #create-contact-list-modal .dropdown.filtres button,
+    #create-contact-list-modal .dropdown.dossiers .dropdown-menu,
+    #create-contact-list-modal .dropdown.filtres .dropdown-menu{
+        width:80%!important;
+    }
+
+    #create-contact-list-modal .dropdown-toggle::after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: .3em;
+        vertical-align: middle;
+        content: "\f107";
+        font-family: "FontAwesome";
+        font-size: 27px;
+        border: none !important;
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #404040;
+        -webkit-text-stroke: 1px #e5e5e5;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet tfoot{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet{
+        text-align:center;
+        border: 1px solid #CBCBCB!important;
+    }
+
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc,
+    #create-contact-list-modal table.dataTable thead .sorting_asc_disabled,
+    #create-contact-list-modal table.dataTable thead .sorting_desc_disabled{
+        background-position: 22px center !important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable thead td{
+        border:0!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-standards{
+        border-top:0!important;
+        border-right:0!important;
+        border-left:0!important;
+        font-size: 12px;
+        font-family: var(--police);
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-selection{
+        border-top:0!important;
+        border-left:0!important;
+        background:#f9f9f9;
+    }
+
+    #create-contact-list-modal .table-striped tbody tr:nth-of-type(2n+1){
+        background:white!important;
+    }
+
+    #create-contact-list-modal table.dataTable tbody tr{
+        border-bottom:1px solid #505050!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable th.entete-selection{
+        border-right: 1px solid #CBCBCB!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc{
+        vertical-align:middle!important;
+        text-align:left;
+    }
+
+    #create-contact-list-modal table.dataTable thead th{
+        padding-left:40px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th.entete-selection{
+        padding-left:19px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable tfoot th{
+        font-weight:normal!important;
+    }
+
+    #create-contact-list-modal div#ListUserContactMailjet_wrapper{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal input.input-search-list{
+        background: url('../../images/cloudsRewards/barre-recherche-loupe.png') no-repeat;
+        padding-left: 30px;
+        background-position: 8px center;
+    }
+
+    #create-contact-list-modal ul.pagination li.paginate_separator{
+        display: inline-block;
+        width: 2px;
+        background: #a7a7a7;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button,
+    #create-contact-list-modal .page-link{
+        padding:0!important;
+        border:0!important;
+        background:white!important;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+    #create-contact-list-modal .page-link:hover{
+        border:0!important;
+        background:white!important;
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-item.active .page-link{
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-link{
+        color:#a7a7a7!important;
+        font-family: var(--police)!important;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_paginate{
+        margin-top:70px;
+    }
+
+    #create-contact-list-modal ul.pagination{
+        text-align: center;
+        margin: 0 auto;
+        width: inherit;
+        display:inline-block;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_next{
+        margin-left:9px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991px) {
+    #create-contact-list-modal section .row.filter div.create{
+        padding:0;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-metric{
+        width:44%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-3{
+        width:37%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-1{
+        width:74%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        width:25%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        min-width: 25%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-action{
+        width: 20% !important;
+        position: absolute;
+        right: 25px;
+        top: -17px;
+    }
+
+    #create-contact-list-modal .list{
+        position:relative;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name-name{
+        margin:0!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name label > div{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal .dropdown-item{
+        text-transform: uppercase;
+    }
+
+    #create-contact-list-modal section .row.ending{
+        height:30px!important;
+    }
+
+    #create-contact-list-modal .modal-xl{
+        max-width:1000px;
+    }
+
+    #create-contact-list-modal.app-dialog .content-container{
+        padding:0 30px!important;
+    }
+
+    #create-contact-list-modal input.liste_name_input{
+        min-width: 50%;
+        border: 1px solid;
+        border-radius: 7px;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+    }
+
+    #create-contact-list-modal input.liste_name_input_small{
+        min-width: 50%;
+        border: 1px solid grey;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+        text-align:right;
+
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+
+        background: #f9f9f9;
+    }
+
+    #create-contact-list-modal.modal p.form-line {
+        display: flex;
+        margin-bottom: 40px;
+        align-items: center;
+        flex-flow: row wrap;
+    }
+
+    #create-contact-list-modal.modal p > label {
+        min-width: 111px;
+    }
+
+    #create-contact-list-modal .sep-block-titre{
+        display:block;
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+    }
+
+    #create-contact-list-modal .separator{
+        margin-top:30px;
+    }
+
+    #create-contact-list-modal #dropdownMenuFiltreEditListContact,
+    #create-contact-list-modal #dropdownMenuFiltreCreerListContact{
+        width:80%!important;
+        border:0;
+        position:relative;
+        text-align:left;
+    }
+
+    #create-contact-list-modal .dropdown-menu,
+    #create-contact-list-modal .dropdown-menu > a,
+    #create-contact-list-modal .dropdown-toggle {
+        font-size: 12px;
+        font-family: var(--police);
+        color: #404040;
+        background-color: #e5e5e5;
+        height: 35px;
+    }
+
+    #create-contact-list-modal .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
+    }
+
+    #create-contact-list-modal .dropdown.dossiers button,
+    #create-contact-list-modal .dropdown.filtres button,
+    #create-contact-list-modal .dropdown.dossiers .dropdown-menu,
+    #create-contact-list-modal .dropdown.filtres .dropdown-menu{
+        width:80%!important;
+    }
+
+    #create-contact-list-modal .dropdown-toggle::after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: .3em;
+        vertical-align: middle;
+        content: "\f107";
+        font-family: "FontAwesome";
+        font-size: 27px;
+        border: none !important;
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #404040;
+        -webkit-text-stroke: 1px #e5e5e5;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet tfoot{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet{
+        text-align:center;
+        border: 1px solid #CBCBCB!important;
+    }
+
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc,
+    #create-contact-list-modal table.dataTable thead .sorting_asc_disabled,
+    #create-contact-list-modal table.dataTable thead .sorting_desc_disabled{
+        background-position: 22px center !important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable thead td{
+        border:0!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-standards{
+        border-top:0!important;
+        border-right:0!important;
+        border-left:0!important;
+        font-size: 12px;
+        font-family: var(--police);
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-selection{
+        border-top:0!important;
+        border-left:0!important;
+        background:#f9f9f9;
+    }
+
+    #create-contact-list-modal .table-striped tbody tr:nth-of-type(2n+1){
+        background:white!important;
+    }
+
+    #create-contact-list-modal table.dataTable tbody tr{
+        border-bottom:1px solid #505050!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable th.entete-selection{
+        border-right: 1px solid #CBCBCB!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc{
+        vertical-align:middle!important;
+        text-align:left;
+    }
+
+    #create-contact-list-modal table.dataTable thead th{
+        padding-left:40px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th.entete-selection{
+        padding-left:19px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable tfoot th{
+        font-weight:normal!important;
+    }
+
+    #create-contact-list-modal div#ListUserContactMailjet_wrapper{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal input.input-search-list{
+        background: url('../../images/cloudsRewards/barre-recherche-loupe.png') no-repeat;
+        padding-left: 30px;
+        background-position: 8px center;
+    }
+
+    #create-contact-list-modal ul.pagination li.paginate_separator{
+        display: inline-block;
+        width: 2px;
+        background: #a7a7a7;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button,
+    #create-contact-list-modal .page-link{
+        padding:0!important;
+        border:0!important;
+        background:white!important;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+    #create-contact-list-modal .page-link:hover{
+        border:0!important;
+        background:white!important;
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-item.active .page-link{
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-link{
+        color:#a7a7a7!important;
+        font-family: var(--police)!important;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_paginate{
+        margin-top:70px;
+    }
+
+    #create-contact-list-modal ul.pagination{
+        text-align: center;
+        margin: 0 auto;
+        width: inherit;
+        display:inline-block;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_next{
+        margin-left:9px;
+    }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    #create-contact-list-modal section .row.filter div.create{
+        padding:0;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-metric{
+        width:52%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-3{
+        width:37%!important;
+    }
+
+    #create-contact-list-modal .campagne-metric .metric-1{
+        width:74%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        width:30%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name{
+        min-width: 30%!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-action{
+        width: 20% !important;
+        position: absolute;
+        right: 15px;
+        top: -17px;
+    }
+
+    #create-contact-list-modal .list{
+        position:relative;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name-name{
+        margin:0!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name label > div{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal .dropdown-item{
+        text-transform: uppercase;
+    }
+
+    #create-contact-list-modal section .row.ending{
+        height:30px!important;
+    }
+
+    #create-contact-list-modal .modal-xl{
+        max-width:1000px;
+    }
+
+    #create-contact-list-modal.app-dialog .content-container{
+        padding:0 30px!important;
+    }
+
+    #create-contact-list-modal input.liste_name_input{
+        min-width: 50%;
+        border: 1px solid;
+        border-radius: 7px;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+    }
+
+    #create-contact-list-modal input.liste_name_input_small{
+        min-width: 50%;
+        border: 1px solid grey;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+        text-align:right;
+
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+
+        background: #f9f9f9;
+    }
+
+    #create-contact-list-modal.modal p.form-line {
+        display: flex;
+        margin-bottom: 40px;
+        align-items: center;
+        flex-flow: row wrap;
+    }
+
+    #create-contact-list-modal.modal p > label {
+        min-width: 111px;
+    }
+
+    #create-contact-list-modal .sep-block-titre{
+        display:block;
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+    }
+
+    #create-contact-list-modal .separator{
+        margin-top:30px;
+    }
+
+    #create-contact-list-modal #dropdownMenuFiltreEditListContact,
+    #create-contact-list-modal #dropdownMenuFiltreCreerListContact{
+        width:80%!important;
+        border:0;
+        position:relative;
+        text-align:left;
+    }
+
+    #create-contact-list-modal .dropdown-menu,
+    #create-contact-list-modal .dropdown-menu > a,
+    #create-contact-list-modal .dropdown-toggle {
+        font-size: 12px;
+        font-family: var(--police);
+        color: #404040;
+        background-color: #e5e5e5;
+        height: 35px;
+    }
+
+    #create-contact-list-modal .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
+    }
+
+    #create-contact-list-modal .dropdown.dossiers button,
+    #create-contact-list-modal .dropdown.filtres button,
+    #create-contact-list-modal .dropdown.dossiers .dropdown-menu,
+    #create-contact-list-modal .dropdown.filtres .dropdown-menu{
+        width:80%!important;
+    }
+
+    #create-contact-list-modal .dropdown-toggle::after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: .3em;
+        vertical-align: middle;
+        content: "\f107";
+        font-family: "FontAwesome";
+        font-size: 27px;
+        border: none !important;
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #404040;
+        -webkit-text-stroke: 1px #e5e5e5;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet tfoot{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet{
+        text-align:center;
+        border: 1px solid #CBCBCB!important;
+    }
+
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc,
+    #create-contact-list-modal table.dataTable thead .sorting_asc_disabled,
+    #create-contact-list-modal table.dataTable thead .sorting_desc_disabled{
+        background-position: 22px center !important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable thead td{
+        border:0!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-standards{
+        border-top:0!important;
+        border-right:0!important;
+        border-left:0!important;
+        font-size: 12px;
+        font-family: var(--police);
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-selection{
+        border-top:0!important;
+        border-left:0!important;
+        background:#f9f9f9;
+    }
+
+    #create-contact-list-modal .table-striped tbody tr:nth-of-type(2n+1){
+        background:white!important;
+    }
+
+    #create-contact-list-modal table.dataTable tbody tr{
+        border-bottom:1px solid #505050!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable th.entete-selection{
+        border-right: 1px solid #CBCBCB!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc{
+        vertical-align:middle!important;
+        text-align:left;
+    }
+
+    #create-contact-list-modal table.dataTable thead th{
+        padding-left:40px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th.entete-selection{
+        padding-left:19px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable tfoot th{
+        font-weight:normal!important;
+    }
+
+    #create-contact-list-modal div#ListUserContactMailjet_wrapper{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal input.input-search-list{
+        background: url('../../images/cloudsRewards/barre-recherche-loupe.png') no-repeat;
+        padding-left: 30px;
+        background-position: 8px center;
+    }
+
+    #create-contact-list-modal ul.pagination li.paginate_separator{
+        display: inline-block;
+        width: 2px;
+        background: #a7a7a7;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button,
+    #create-contact-list-modal .page-link{
+        padding:0!important;
+        border:0!important;
+        background:white!important;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+    #create-contact-list-modal .page-link:hover{
+        border:0!important;
+        background:white!important;
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-item.active .page-link{
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-link{
+        color:#a7a7a7!important;
+        font-family: var(--police)!important;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_paginate{
+        margin-top:70px;
+    }
+
+    #create-contact-list-modal ul.pagination{
+        text-align: center;
+        margin: 0 auto;
+        width: inherit;
+        display:inline-block;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_next{
+        margin-left:9px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    #create-contact-list-modal section .row.filter div.create{
+        padding:0!important;
+    }
+
+    #create-contact-list-modalsection .row.list .campagne-metric > div{
+        width:200px!important;
+    }
+
+    #create-contact-list-modalsection .row.list .campagne-name{
+        min-width: 30%!important;
+    }
+
+    #create-contact-list-modalsection .row.list .campagne-action{
+        width: calc(50% - 300px)!important;
+        position:absolute;
+        right:15px;
+    }
+
+    #create-contact-list-modal .list{
+        position:relative;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name-name{
+        margin:0!important;
+    }
+
+    #create-contact-list-modal section .row.list .campagne-name label > div{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal .dropdown-item{
+        text-transform: uppercase;
+    }
+
+    #create-contact-list-modal section .row.ending{
+        height:30px!important;
+    }
+
+    #create-contact-list-modal .modal-xl{
+        max-width:1000px;
+    }
+
+    #create-contact-list-modal.app-dialog .content-container{
+        padding:0 30px!important;
+    }
+
+    #create-contact-list-modal input.liste_name_input{
+        min-width: 50%;
+        border: 1px solid;
+        border-radius: 7px;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+    }
+
+    #create-contact-list-modal input.liste_name_input_small{
+        min-width: 50%;
+        border: 1px solid grey;
+        padding: 5px 10px;
+        color: var(--couleur_4);
+        width:93%;
+        text-align:right;
+
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+
+        background: #f9f9f9;
+    }
+
+    #create-contact-list-modal.modal p.form-line {
+        display: flex;
+        margin-bottom: 40px;
+        align-items: center;
+        flex-flow: row wrap;
+    }
+
+    #create-contact-list-modal.modal p > label {
+        min-width: 111px;
+    }
+
+    #create-contact-list-modal .sep-block-titre{
+        display:block;
+        font-size: 17px;
+        line-height: 19px;
+        font-family: var(--police_bold);
+        font-weight: bold;
+        color: var(--couleur_2);
+    }
+
+    #create-contact-list-modal .separator{
+        margin-top:30px;
+    }
+
+    #create-contact-list-modal #dropdownMenuFiltreEditListContact,
+    #create-contact-list-modal #dropdownMenuFiltreCreerListContact{
+        width:80%!important;
+        border:0;
+        position:relative;
+        text-align:left;
+    }
+
+    #create-contact-list-modal .dropdown-menu,
+    #create-contact-list-modal .dropdown-menu > a,
+    #create-contact-list-modal .dropdown-toggle {
+        font-size: 12px;
+        font-family: var(--police);
+        color: #404040;
+        background-color: #e5e5e5;
+        height: 35px;
+    }
+
+    #create-contact-list-modal .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
+    }
+
+    #create-contact-list-modal .dropdown.dossiers button,
+    #create-contact-list-modal .dropdown.filtres button,
+    #create-contact-list-modal .dropdown.dossiers .dropdown-menu,
+    #create-contact-list-modal .dropdown.filtres .dropdown-menu{
+        width:80%!important;
+    }
+
+    #create-contact-list-modal .dropdown-toggle::after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: .3em;
+        vertical-align: middle;
+        content: "\f107";
+        font-family: "FontAwesome";
+        font-size: 27px;
+        border: none !important;
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #404040;
+        -webkit-text-stroke: 1px #e5e5e5;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_wrapper #ListUserContactMailjet_filter{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet tfoot{
+        display:none;
+    }
+
+    #create-contact-list-modal table#ListUserContactMailjet{
+        text-align:center;
+        border: 1px solid #CBCBCB!important;
+    }
+
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc,
+    #create-contact-list-modal table.dataTable thead .sorting_asc_disabled,
+    #create-contact-list-modal table.dataTable thead .sorting_desc_disabled{
+        background-position: 22px center !important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable thead td{
+        border:0!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-standards{
+        border-top:0!important;
+        border-right:0!important;
+        border-left:0!important;
+        font-size: 12px;
+        font-family: var(--police);
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable td.ligne-selection{
+        border-top:0!important;
+        border-left:0!important;
+        background:#f9f9f9;
+    }
+
+    #create-contact-list-modal .table-striped tbody tr:nth-of-type(2n+1){
+        background:white!important;
+    }
+
+    #create-contact-list-modal table.dataTable tbody tr{
+        border-bottom:1px solid #505050!important;
+    }
+
+    #create-contact-list-modal table.dataTable,
+    #create-contact-list-modal table.dataTable th.entete-selection{
+        border-right: 1px solid #CBCBCB!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead .sorting,
+    #create-contact-list-modal table.dataTable thead .sorting_asc,
+    #create-contact-list-modal table.dataTable thead .sorting_desc{
+        vertical-align:middle!important;
+        text-align:left;
+    }
+
+    #create-contact-list-modal table.dataTable thead th{
+        padding-left:40px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th.entete-selection{
+        padding-left:19px!important;
+    }
+
+    #create-contact-list-modal table.dataTable thead th,
+    #create-contact-list-modal table.dataTable tfoot th{
+        font-weight:normal!important;
+    }
+
+    #create-contact-list-modal div#ListUserContactMailjet_wrapper{
+        padding:0!important;
+    }
+
+    #create-contact-list-modal input.input-search-list{
+        background: url('../../images/cloudsRewards/barre-recherche-loupe.png') no-repeat;
+        padding-left: 30px;
+        background-position: 8px center;
+    }
+
+    #create-contact-list-modal ul.pagination li.paginate_separator{
+        display: inline-block;
+        width: 2px;
+        background: #a7a7a7;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button,
+    #create-contact-list-modal .page-link{
+        padding:0!important;
+        border:0!important;
+        background:white!important;
+    }
+
+    #create-contact-list-modal .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+    #create-contact-list-modal .page-link:hover{
+        border:0!important;
+        background:white!important;
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-item.active .page-link{
+        color: var(--couleur_2)!important;
+    }
+
+    #create-contact-list-modal .page-link{
+        color:#a7a7a7!important;
+        font-family: var(--police)!important;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_paginate{
+        margin-top:70px;
+    }
+
+    #create-contact-list-modal ul.pagination{
+        text-align: center;
+        margin: 0 auto;
+        width: inherit;
+        display:inline-block;
+    }
+
+    #create-contact-list-modal #ListUserContactMailjet_next{
+        margin-left:9px;
+    }
+}
+
+#create-contact-list-modal table.dataTable tbody tr.list-desabonnes{
+    font-style: italic!important;
+    color: #a8a8a8!important;
+}
+
+/**
+ * FIN - Création de liste de contact, dans création de campagne
+ */

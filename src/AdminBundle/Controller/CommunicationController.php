@@ -404,6 +404,39 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * @Route("/emailing/campagne/creer-liste-contact", name="admin_communication_emailing_campaign_create_contact_list")
+     * @Method("POST")
+     */
+    public function emailingCampaignCreateContactList(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\ContactListDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $list_name = $request->get('ListName');
+        $user_ids = $request->get('UserId');
+        $arr_user_ids = explode('##_##', $user_ids);
+
+        $em = $this->getDoctrine()->getManager();
+        $users_list = array();
+        foreach ($arr_user_ids as $user_id) {
+            $users_list[] = $em->getRepository('UserBundle\Entity\User')->find($user_id);
+        }
+        $contact_list_handler = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $response = $contact_list_handler->addContactListReturningInfos($list_name, $users_list);
+        if (!empty($response)) {
+            return new JsonResponse($json_response_data_provider->contactListCreationSuccess(
+                $response['contact_list_infos']['ID'],
+                ''
+            ), 200);
+        } else {
+            return new JsonResponse($json_response_data_provider->contactListCreationError(), 200);
+        }
+    }
+
+    /**
      * @Route("/emailing/modeles-emails", name="admin_communication_emailing_templates")
      */
     public function emailingTemplatesAction()

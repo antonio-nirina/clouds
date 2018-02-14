@@ -1,6 +1,12 @@
 <?php
 namespace AdminBundle\Service\JsonResponseData;
 
+/**
+ * Data provider
+ *
+ * Provider giving basics structured content for Controller action JsonResponse response
+ * Used by Controller action called via Ajax
+ */
 class StandardDataProvider
 {
     const PAGE_NOT_FOUND_MESSAGE = 'Page non trouvée';
