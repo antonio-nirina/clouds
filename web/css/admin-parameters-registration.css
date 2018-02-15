@@ -4637,3 +4637,17 @@ section.with-bottom-space{
 /**
  * FIN - Création de liste de contact, dans création de campagne
  */
+
+/**
+ * création de modèle
+ */
+#create-template-dialog{
+    font-family: var(--police_light);
+}
+
+/**
+ * alerte, création de modèle, suppression de texte de footer obligatoire
+ */
+#alert-footer-element-dialog{
+    font-family: var(--police_light);
+}

@@ -198,6 +198,7 @@ class CommunicationController extends AdminController
         return $this->render('AdminBundle:Communication:emailing_campaign.html.twig', array(
             "list" => $campaign_data_list,
             'content_type_class' => new TemplateContentType(),
+            'template_model_class' => new TemplateModel(),
         ));
     }
 
