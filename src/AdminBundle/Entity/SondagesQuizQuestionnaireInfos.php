@@ -95,6 +95,30 @@ class SondagesQuizQuestionnaireInfos
         return $this->type_sondages_quiz;
     }
 	
+	/**
+     * Set titre_questionnaire
+     *
+     * @param string $titre_questionnaire
+     *
+     * @return SondagesQuizQuestionnaireInfos
+     */
+    public function setTitreQuestionnaire($titre_questionnaire)
+    {
+        $this->titre_questionnaire = $titre_questionnaire;
+
+        return $this;
+    }
+	
+	/**
+     * Get titre_questionnaire
+     *
+     * @return string
+     */
+    public function getTitreQuestionnaire()
+    {
+        return $this->titre_questionnaire;
+    }
+	
 	
 	/**
      * Set description_questionnaire

@@ -1,0 +1,45 @@
+{{ form_start(formQuestionnaires) }}
+								
+	<div class="row">
+		{% for child in formQuestionnaires.type_sondages_quiz %}
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<div class = "check-creation-sondage">
+				<p class = "check-creation-sondage-check">
+					{{ form_widget(child, {'attr': {'class': 'form-field-mandatory styled-checkbox'}}) }}
+					<label for="{{ child.vars.id }}"><span></span></label> 
+				</p>
+				<p class = "check-creation-sondage-libelle">
+					<span class = "libelle-mode">{{ form_label(child) }}</span>
+				</p>
+				<div style = "clear:both;"></div>
+			</div>
+			{{ form_errors(child) }}
+		</div>
+		{% endfor %}
+	</div>
+	
+	<div class = "row separator"></div>
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label class="champForm">
+				<span class="lib-form">titre du questionnaire</span>
+				{{ form_widget(formQuestionnaires.titre_questionnaire, {'attr': {'class': 'input-form-text'}}) }}
+				{{ form_errors(formQuestionnaires.titre_questionnaire) }}
+				<span class="delete-input"></span>
+			</label>
+		</div>
+	</div>
+	
+	<div class = "row separator"></div>
+	
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label class="champForm">
+				<span class="lib-form block editeur">texte de description</span>
+				{{ form_widget(formQuestionnaires.description_questionnaire, {'attr': {'class': 'large-textarea'}}) }}
+				{{ form_errors(formQuestionnaires.description_questionnaire) }}
+			</label>
+		</div>
+	</div>
+{{ form_end(formQuestionnaires) }}

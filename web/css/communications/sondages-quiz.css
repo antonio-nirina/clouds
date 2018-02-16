@@ -264,8 +264,32 @@ span.corbeil-input{
 	right: 36px;
 }
 
+.input-form-text-reponse-sondages{
+	float: right;
+    width: 70%;
+    border-radius: 5px;
+    background: none;
+    border: 0;
+    border: 1px solid #505050;
+    padding-left: 10px;
+    text-align: left;
+    margin-right: 100px;
+}
+
+.input-form-text-reponse-quiz{
+	float: right;
+    width: 70%;
+    border-radius: 5px;
+    background: none;
+    border: 0;
+    border: 1px solid #505050;
+    padding-left: 10px;
+    text-align: left;
+    margin-right: 100px;
+}
+
 .input-form-text-reponse {
-    float: right;
+	float: right;
     width: 70%;
     border-radius: 5px;
     background: none;
@@ -397,6 +421,28 @@ section .dropdown-menu {
 	text-transform:uppercase;
 }
 
+.styled-checkbox-large + label {
+    background: url('../../images/cloudsRewards/on-off-off1.png') no-repeat;
+    width: 49px;
+	height: 20px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+}
+
+.styled-checkbox-large:checked + label {
+    background: url('../../images/cloudsRewards/on-off1.png') no-repeat;
+    width: 49px;
+	height: 20px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor: pointer;
+}
+
+.hidden{
+	display:none;
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	.input-form-text{
@@ -422,6 +468,18 @@ section .dropdown-menu {
 	
 	.input-form-text-reponse{
 		float:none!important;
+		width:auto!important;
+		margin-bottom: 5px;
+	}
+	
+	.input-form-text-reponse-sondages{
+		float:none!important;
+		width:76%!important;
+		vertical-align:top;
+	}
+
+	.input-form-text-reponse-quiz{
+		float:none!important;
 		width:100%!important;
 		margin-bottom: 5px;
 	}
@@ -432,6 +490,11 @@ section .dropdown-menu {
 	
 	button.btn-valider{
 		margin-top:7px!important;
+	}
+	
+	span.content-champs-reponses{
+		display: inline-block;
+		width: 98%;
 	}
 }
 
@@ -464,6 +527,18 @@ section .dropdown-menu {
 		margin-bottom: 5px;
 	}
 	
+	.input-form-text-reponse-sondages{
+		float:none!important;
+		width:76%!important;
+		vertical-align:top;
+	}
+
+	.input-form-text-reponse-quiz{
+		float:none!important;
+		width:100%!important;
+		margin-bottom: 5px;
+	}
+	
 	.add-field-link{
 		display:inline-block!important;
 	}
@@ -474,6 +549,11 @@ section .dropdown-menu {
 	
 	div.action-btn{
 		width:68%!important;
+	}
+	
+	span.content-champs-reponses{
+		display: inline-block;
+		width: 98%;
 	}
 }
 
@@ -501,7 +581,24 @@ section .dropdown-menu {
 	}
 	
 	.input-form-text-reponse{
-		width:51%!important;
+		width:54%!important;
+		vertical-align:top;
+	}
+	
+	.input-form-text-reponse-sondages{
+		width:69%!important;
+		vertical-align:top;
+	}
+
+	.input-form-text-reponse-quiz{
+		width:54%!important;
+		vertical-align:top;
+	}
+	
+	span.content-champs-reponses{
+		float: right;
+		display: inline-block;
+		width: 72%;
 	}
 }
 
@@ -529,7 +626,24 @@ section .dropdown-menu {
 	}
 	
 	.input-form-text-reponse{
-		width:65%!important;
+		width:69%!important;
+		vertical-align:top;
+	}
+	
+	.input-form-text-reponse-sondages{
+		width:80%!important;
+		vertical-align:top;
+	}
+
+	.input-form-text-reponse-quiz{
+		width:69%!important;
+		vertical-align:top;
+	}
+	
+	span.content-champs-reponses{
+		float: right;
+		display: inline-block;
+		width: 80%;
 	}
 }
 
@@ -557,6 +671,23 @@ section .dropdown-menu {
 	}
 	
 	.input-form-text-reponse{
-		width:68%!important;
+		width:75%!important;
+		vertical-align:top;
+	}
+	
+	span.content-champs-reponses{
+		float: right;
+		display: inline-block;
+		width: 79%;
+	}
+	
+	.input-form-text-reponse-sondages{
+		width:86%!important;
+		vertical-align:top;
+	}
+
+	.input-form-text-reponse-quiz{
+		width:75%!important;
+		vertical-align:top;
 	}
 }

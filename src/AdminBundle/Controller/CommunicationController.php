@@ -26,7 +26,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Form\DuplicationForm;
 use AdminBundle\Form\SondagesQuizType;
+use AdminBundle\Form\SondagesQuizQuestionnaireInfosType;
 use AdminBundle\Entity\SondagesQuiz;
+use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
 
 use \Mailjet\Resources;
 
@@ -1271,11 +1273,14 @@ class CommunicationController extends AdminController
 			$IsSondagesQuiz = true;
 		}
 		
-		
+		//Formulaire d'ajout/edition sondages/quiz
 		$formSondagesQuiz = $this->createForm(SondagesQuizType::class, $SondagesQuiz, array(
             'action' => $this->generateUrl('admin_communication_sondage_quiz'),
             'method' => 'POST',
         ));
+		
+		$formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class);
+		
 		
 		$formSondagesQuiz->handleRequest($request);
 		if ($formSondagesQuiz->isSubmitted() && $formSondagesQuiz->isValid()) {
@@ -1301,10 +1306,53 @@ class CommunicationController extends AdminController
 
         return $this->render('AdminBundle:Communication:sondage_quiz.html.twig', array(
 			'formSondagesQuiz' => $formSondagesQuiz->createView(),
+			'formQuestionnaires' => $formQuestionnaires->createView(),
 			'IsBanniere' => $IsBanniere,
 			'BannierePath' => $BannierePath,
 			'IsSondagesQuiz' => $IsSondagesQuiz,
 			'program' => $program
+		));
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/formulaire-questionnaire-infos",
+     *     name="admin_communication_sondage_quiz_form_questionnaire_infos")
+     * 
+     */
+	public function FormulaireQuestionnaireInfosAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		//Recuperer l'infos SondagesQuiz
+		$SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+		if(!isset($SondagesQuizArray[0])){
+			return $this->redirectToRoute('admin_communication_sondage_quiz');
+		}
+		
+		//Formulaure questionnaires infos
+		$SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
+		$formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $SondagesQuizQuestionnaireInfos, array(
+            'action' => $this->generateUrl('admin_communication_sondage_quiz_form_questionnaire_infos'),
+            'method' => 'POST',
+        ));
+		
+		$formQuestionnaires->handleRequest($request);
+		if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
+			$SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
+			$SondagesQuizQuestionnaireInfosData->setDateCreation(new \DateTime());
+			$SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuizArray[0]);
+			$em->persist($SondagesQuizQuestionnaireInfosData);
+			$em->flush();
+			return $this->redirectToRoute('admin_communication_sondage_quiz');
+		}
+		
+		return $this->render('AdminBundle:Communication:formulaire_questionnaire_infos.html.twig', array(
+			'formQuestionnaires' => $formQuestionnaires->createView(),
 		));
 	}
 	
