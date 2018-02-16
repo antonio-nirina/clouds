@@ -341,20 +341,24 @@
                                     <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
                                 </div>
                                 <div class="content">
-                                    <div><h4>Suspendre la création d'une campagne</h4></div>
-                                    <div class="row btn-new-campaign-folder">
-                                        <label>Vous allez suspendre le processus de création d'une campagne. <br> Celle-ci va s'enregistrer dans la liste de vos campagnes, vous pourrrez ainsi l'éditer ultérieurement</label>
-                                    </div>                                
-                                    <div class="row centered">
-                                        <button class="btn-valider btn-abort-creation" data-dismiss="modal" data-toggle="modal" data-target="#new-campaign-modal">
-                                            suspendre
-                                        </button>
+                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="modal-body-container">
+                                        <div class="modal-title">Suspendre la création d'une campagne</div>
+                                        <div class="row btn-new-campaign-folder">
+                                            <label>Vous allez suspendre le processus de création d'une campagne. <br> Celle-ci va s'enregistrer dans la liste de vos campagnes, vous pourrrez ainsi l'éditer ultérieurement</label>
+                                        </div>
+                                        <div class="row centered">
+                                            <button class="btn-valider btn-abort-creation">
+                                                suspendre
+                                            </button>
+                                        </div>
+                                        <div class="add-campaign-folder-error"></div>
                                     </div>
-                                    <div class="add-campaign-folder-error"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- FIN - Modal suspendre création nouveau-->
 
                     <!-- modal - duplication campagne -->
                     <div id="duplicate-campaign-dialog" class="modal app-dialog duplication-dialog" tabindex="-1" role="dialog" data-backdrop="static">
@@ -463,6 +467,7 @@
                 <input type="hidden" name="create_contact_list_url" value = "{{ path("admin_communication_emailing_list_contact_creation") }}">
                 <input type="hidden" name="submit_create_contact_list_url" value = "{{ path("admin_communication_emailing_campaign_create_contact_list") }}">
                 <input type="hidden" name="template_model_text_and_image" value="{{ constant('TEXT_AND_IMAGE', template_model_class) }}">
+                <input type="hidden" name="campaign_draft_creation_mode_by_halt" value="{{ constant('BY_HALT', campaign_draft_creation_mode_class) }}">
                 <div class="hidden-image">
                     <div id="loading-image">
                         <img src="{{ asset("images/cloudsRewards/loading.gif") }}" />

@@ -4651,3 +4651,19 @@ section.with-bottom-space{
 #alert-footer-element-dialog{
     font-family: var(--police_light);
 }
+
+/**
+ * correction, alerte, suspension de création de campagne
+ */
+#abort-new-campaign-modal{
+    font-family: var(--police_light);
+}
+
+#abort-new-campaign-modal .modal-title{
+    color: var(--couleur_2);
+    font-size: 25px
+}
+
+#abort-new-campaign-modal .general-message{
+    text-align: center;
+}

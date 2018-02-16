@@ -45,6 +45,8 @@ class MailJetCampaign extends MailJetHandler
     );
     const DEFAULT_EDIT_MODE = 'tool2';
     const DEFAULT_LOCALE = 'fr_FR';
+    const DEFAULT_SUBJECT = '(Objet)';
+    const DEFAULT_TITLE = '(Campagne)';
 
     protected $campaign_draft_manager;
     protected $campaign_manager;
@@ -458,5 +460,68 @@ class MailJetCampaign extends MailJetHandler
         }
 
         return false;
+    }
+
+    /**
+     * Create campaign draft when halting campaign creation
+     *
+     * Create campaign draft when halting campaign creation
+     * Use provided datas, or use default datas when these formers are not yet defined/are still null
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return null|int
+     */
+    public function createCampaignDraftByHalt(CampaignDraftData $campaign_draft_data)
+    {
+        $sender = $this->mailjet_sender_handler->getDefault();
+        if (!is_null($sender)) {
+            $body = array(
+                'EditMode' => self::DEFAULT_EDIT_MODE,
+                'Locale' => self::DEFAULT_LOCALE,
+                'Sender' => $sender['ID'],
+                'SenderEmail' => $sender['Email'],
+                'Status' => self::CAMPAIGN_STATUS_DRAFT,
+                'Subject' => self::DEFAULT_SUBJECT,
+                'Title' => self::DEFAULT_TITLE,
+            );
+            if (!is_null($campaign_draft_data->getObject())) {
+                $body['Subject'] = $campaign_draft_data->getObject();
+            }
+            if (!is_null($campaign_draft_data->getName())) {
+                $body['Title'] = $campaign_draft_data->getName();
+            }
+            if (!is_null($campaign_draft_data->getTemplateId())) {
+                $body['TemplateID'] = $campaign_draft_data->getTemplateId();
+            }
+            $create_result = $this->mailjet->post(Resources::$Campaigndraft, array('body' => $body));
+            if (self::STATUS_CODE_CREATED == $create_result->getStatus()) {
+                if (!is_null($campaign_draft_data->getTemplateId())) {
+                    $template_content_result = $this
+                        ->mailjet
+                        ->get(Resources::$TemplateDetailcontent, array('id' => $campaign_draft_data->getTemplateId()));
+                    if (self::STATUS_CODE_SUCCESS == $template_content_result->getStatus()) {
+                        $content_body = array(
+                            'Text-part' => $template_content_result->getData()[0]['Text-part'],
+                            'Html-part' => $template_content_result->getData()[0]['Html-part'],
+                        );
+                        $set_content_result = $this
+                            ->mailjet
+                            ->post(
+                                Resources::$CampaigndraftDetailcontent,
+                                array('id' => $create_result->getData()[0]['ID'], 'body' => $content_body)
+                            );
+                        if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
+                            return $create_result->getData()[0]['ID'];
+                        }
+                    }
+                } else {
+                    return $create_result->getData()[0]['ID'];
+                }
+            }
+        }
+
+
+        return null;
     }
 }

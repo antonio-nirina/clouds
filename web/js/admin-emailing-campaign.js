@@ -247,6 +247,7 @@ $(document).ready(function() {
     const DEFAUTL_LIST_CHOICE_LABEL = 'CHOISIR UNE LISTE';
     $(document).on('click', '.list-choice .delete-input.delete-selection', function(){
         $(this).parents('.dropdown').find('button.dropdown-toggle').text(DEFAUTL_LIST_CHOICE_LABEL);
+        $(this).parents('.list-choice').find('select option[value=""]').prop('selected', true);
     });
 
 
@@ -1456,6 +1457,68 @@ $(document).ready(function() {
      * FIN
      * Paramétrages - Communication - Emailing - Campagnes
      * Création de nouvelle liste, dans création campagne
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suspension de création de campagne
+     * *********************************************************************************************
+     */
+    $(document).on('click', '#abort-new-campaign-modal .btn-abort-creation', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var create_campaign_url = $('input[name=new_campaign_url]').val();
+        var campaign_creation_by_halt_mode = $('input[name=campaign_draft_creation_mode_by_halt').val();
+        var data = {'creation_mode': campaign_creation_by_halt_mode};
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: create_campaign_url,
+            data: data,
+            success: function(data){
+                if(data['error']){
+                    $('#abort-new-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-new-campaign-modal').find('.error-message-container.general-message').text(data['error']);
+                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                } else {
+                    $('#abort-new-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    sendFilter();
+                }
+            },
+            statusCode: {
+                404: function(){
+                    $('#abort-new-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('#abort-new-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    $('#abort-new-campaign-modal').on('show.bs.modal', function(){
+        $(this).find('.modal-body-container').show();
+    });
+
+    $('#abort-new-campaign-modal').on('hidden.bs.modal', function(){
+        $(this).find('.error-message-container.general-message').text('');
+    });
+
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Suspension de création de campagne
      * *********************************************************************************************
      */
 });
