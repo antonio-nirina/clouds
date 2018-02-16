@@ -1057,13 +1057,28 @@ $(document).ready(function() {
 			dataType : 'html',
 			success: function(text){
 				$('#preview-template-dialog').find('.modal-body-container').html(text);
-				$('#preview-template-dialog').modal('show');
-				$('.chargementAjax').addClass('hidden');
-			}
+			},
+            statusCode: {
+			    404: function(){
+                    $('#preview-template-dialog').find('.error-message-container.general-message').text('Aperçu non disponible')
+                },
+                500: function(){
+                    $('#preview-template-dialog').find('.error-message-container.general-message').text('Aperçu non disponible')
+                }
+            },
+            complete: function(){
+                $('#preview-template-dialog').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
 		});
 		
 		return false;
 	});
+
+    $('#preview-template-dialog').on('hidden.bs.modal', function(){
+        $(this).find('.error-message-container.general-message').text('');
+        $('#preview-template-dialog').find('.modal-body-container').html('');
+    });
     /**
      * *********************************************************************************************
      * FIN
