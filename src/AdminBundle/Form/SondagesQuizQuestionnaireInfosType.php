@@ -34,6 +34,7 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
 				->add('titre_questionnaire', TextType::class)
 				->add('description_questionnaire', TextareaType::class)
 				->add('sondages_quiz_questions', CollectionType::class, array(
+					'label' => false,
 					'entry_type' => SondagesQuizQuestionsType::class,
 					'allow_add' => true,
 					'allow_delete' => true,
