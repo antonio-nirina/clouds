@@ -2060,6 +2060,10 @@ section .row.ending {
     padding: 0 5px;
 }
 /*-------campagnes---*/
+#new-campaign-modal {
+    font-family: var(--police_light);
+}
+
 #new-campaign-modal .hidden {
     display: none !important;
 }
@@ -4657,6 +4661,10 @@ section.with-bottom-space{
  */
 #abort-new-campaign-modal{
     font-family: var(--police_light);
+}
+
+#abort-new-campaign-modal .row label{
+    font-family: var(--police_light) !important;
 }
 
 #abort-new-campaign-modal .modal-title{
