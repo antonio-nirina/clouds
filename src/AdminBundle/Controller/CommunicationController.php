@@ -36,6 +36,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\Statistique\Common;
+use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
 
 /**
  * @Route("/admin/communication")
@@ -200,11 +201,14 @@ class CommunicationController extends AdminController
         return $this->render('AdminBundle:Communication:emailing_campaign.html.twig', array(
             "list" => $campaign_data_list,
             'content_type_class' => new TemplateContentType(),
+            'template_model_class' => new TemplateModel(),
+            'campaign_draft_creation_mode_class' => new CampaignDraftCreationMode(),
         ));
     }
 
     /**
-     * @Route("/emailing/campagne/new", name="admin_communication_emailing_compaign_new")
+     * @Route("/emailing/campagne/new",
+     * name="admin_communication_emailing_compaign_new"),
      * @Method("POST")
      */
     public function emailingCampaignNewAction(Request $request)
@@ -215,18 +219,49 @@ class CommunicationController extends AdminController
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
+        $creation_mode = $request->get('creation_mode');
+        if (is_null($creation_mode)) {
+            $creation_mode = CampaignDraftCreationMode::NORMAL;
+        }
+
+        if (!in_array($creation_mode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $validation_groups = array('normal_creation_mode');
+        if (CampaignDraftCreationMode::BY_HALT == $creation_mode) {
+            $validation_groups = array('Default');
+        }
+
         $campaign_draft_data = new CampaignDraftData();
         $campaign_draft_data->setProgrammedLaunchDate(new \DateTime('now'));
-        $campaign_draft_form = $this->createForm(CampaignDraftType::class, $campaign_draft_data);
+
+
+        $campaign_draft_form = $this->createForm(
+            CampaignDraftType::class,
+            $campaign_draft_data,
+            array('validation_groups' => $validation_groups)
+        );
+
         $campaign_draft_form->handleRequest($request);
         if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
             $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-            if ($campaign_handler->createAndProcess($campaign_draft_data)) {
-                $data = $json_response_data_provider->success();
-                return new JsonResponse($data, 200);
-            } else {
-                $data = $json_response_data_provider->campaignSendingError();
-                return new JsonResponse($data, 200);
+            if (CampaignDraftCreationMode::NORMAL == $creation_mode) {
+                if ($campaign_handler->createAndProcess($campaign_draft_data)) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->campaignSendingError();
+                    return new JsonResponse($data, 200);
+                }
+            } elseif (CampaignDraftCreationMode::BY_HALT == $creation_mode) {
+                if ($campaign_handler->createCampaignDraftByHalt($campaign_draft_data)) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->campaignDraftCreationError();
+                    return new JsonResponse($data, 200);
+                }
             }
         }
 
@@ -403,6 +438,39 @@ class CommunicationController extends AdminController
         }
 
         return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/emailing/campagne/creer-liste-contact", name="admin_communication_emailing_campaign_create_contact_list")
+     * @Method("POST")
+     */
+    public function emailingCampaignCreateContactList(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\ContactListDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $list_name = $request->get('ListName');
+        $user_ids = $request->get('UserId');
+        $arr_user_ids = explode('##_##', $user_ids);
+
+        $em = $this->getDoctrine()->getManager();
+        $users_list = array();
+        foreach ($arr_user_ids as $user_id) {
+            $users_list[] = $em->getRepository('UserBundle\Entity\User')->find($user_id);
+        }
+        $contact_list_handler = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $response = $contact_list_handler->addContactListReturningInfos($list_name, $users_list);
+        if (!empty($response)) {
+            return new JsonResponse($json_response_data_provider->contactListCreationSuccess(
+                $response['contact_list_infos']['ID'],
+                ''
+            ), 200);
+        } else {
+            return new JsonResponse($json_response_data_provider->contactListCreationError(), 200);
+        }
     }
 
     /**
@@ -728,26 +796,28 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
 
-	
-	/**
+
+    /**
      * @Route("/emailing/campagne/preview",name="admin_communication_emailing_campagne_preview_template")
      */
-	public function PreviewCampagneTplAction(Request $request){
-		$program = $this->container->get('admin.program')->getCurrent();
+    public function previewCampagneTplAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$UrlTpl = $request->get('urlTpl');
-			$Contents = file_get_contents($UrlTpl);
-			return new Response($Contents);
-		}
-		
-		return new Response('');
-	}
+
+        if ($request->isMethod('POST')) {
+            $UrlTpl = $request->get('urlTpl');
+            if (is_null($UrlTpl) || empty($UrlTpl)) {
+                return new Response('', 404);
+            }
+            $Contents = file_get_contents($UrlTpl);
+            return new Response($Contents);
+        }
+
+        return new Response('');
+    }
 
 
     /**
@@ -1446,27 +1516,28 @@ class CommunicationController extends AdminController
      */
     public function statistiqueshowAction(Request $request)
     {
-        $data=[];
-        $date=new \DateTime();
-        $now=$date->settime(0,0,0)->format("Y-m-d");
-        $filters=["lastactivityat"=>$now];
-        $mailjet=$this->get('mailjet.client');
+        $data = [];
+        $date = new \DateTime();
+        $now = $date->settime(0,0,0)->format("Y-m-d");
+        $filters = ["lastactivityat"=>$now];
+        $mailjet = $this->get('mailjet.client');
         $response = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);//call of ApiMailjet
-        $listsInfoCampaign=$response->getData();
-        $data=$this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); //call of service
-        $fromTo=$this->get('adminBundle.statistique')->getContactByCampaign();
+        $listsInfoCampaign = $response->getData();
+        $data = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign); //call of service
+        $fromTo = $this->get('adminBundle.statistique')->getContactByCampaign();
+        $send = !empty($fromTo)?$fromTo:[];
         return $this->render('AdminBundle:Communication:emailing_statistique_.html.twig',
         [
-            "total"=>$data["total"],
-            "delivre"=>$data["delivre"],
-            "ouvert"=>$data["ouvert"],
-            "cliquer"=>$data["cliquer"],
-            "bloque"=>$data["bloque"],
-            "spam"=>$data["spam"],
-            "desabo"=>$data["desabo"],
-            "erreur"=>$data["erreur"],
-            "fromSend"=>$fromTo["send"][0],
-            "mailTo"=>$fromTo["email"]
+            "total" => $data["res"]["total"],
+            "delivre" => $data["res"]["delivre"],
+            "ouvert" => $data["res"]["ouvert"],
+            "cliquer" => $data["res"]["cliquer"],
+            "bloque" => $data["res"]["bloque"],
+            "spam" => $data["res"]["spam"],
+            "desabo" => $data["res"]["desabo"],
+            "erreur" => $data["res"]["erreur"],
+            "fromSend" => $send,
+            "json" =>$data["json"]->getContent()
         ]);
     }
 
@@ -1476,32 +1547,49 @@ class CommunicationController extends AdminController
      */
     public function statistiqueFilterDateAction(Request $request)
     {
-        $filtre=$request->request->get('filter');
-        $mailjet=$this->get('mailjet.client');
-        $date = new \DateTime();
+        $filtre = $request->request->get('filter');
+        $mailjet = $this->get('mailjet.client');
         if ($filtre == "Yesterday") {
+            $date = new \DateTime();
             $date->modify('-1 day');
             $format= $date->format("Y-m-d");
             $yest = $date->settime(0,0,0)->getTimestamp();
-            $filters = ["fromts"=>(string)$yest];
-            $respons = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters]);
-            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
+            $filters = ["fromts" => (string)$yest];
+            $respons = $mailjet->get(Resources::$Campaignstatistics,['filters' => $filters]);
             $listsInfoCampaignYesterday = $respons->getData();
-            foreach ($listsInfoCampaignYesterday as $value) {
-                $dateFiter = new \DateTime($value["LastActivityAt"]);
-                $time= $dateFiter->format("Y-m-d");
-                if ($time == $format) {
-                    $listsInfoCampaign[] = $value;
+            if (!empty($listsInfoCampaignYesterday)) {
+               foreach ($listsInfoCampaignYesterday as $value) {
+                    $dateFiter = new \DateTime($value["LastActivityAt"]);
+                    $time= $dateFiter->format("Y-m-d");
+                    if ($time == $format) {
+                        $listsInfoCampaign[] = $value;
+                    }            
                 }
-               
             }
-            $info = $this->get('adminBundle.statistique')->getTraitement($listsInfoCampaign);
+            $listCampaigns = !empty($listsInfoCampaign)?$listsInfoCampaign:"";
+            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre); 
+            $info = $this->get('adminBundle.statistique')->getTraitement($listCampaigns);
             $data = [
                     "fromTo"=>$allContactSendCampagne,
-                    "info"=>$info
+                    "info"=>$info,
+                    "dataGraph"=>$listsInfoCampaignYesterday
                     ]; 
+        } elseif ($filtre == "last7days" ) {
+            $date = new \DateTime();
+            $last = $date->modify('-6 day');
+            $last7 = $date->settime(0,0,0)->getTimestamp();
+            $filters = ["fromts"=>(string)$last7];
+            $response7 = $mailjet->get(Resources::$Campaignstatistics,['filters'=>$filters])->getData();
+            $allContactSendCampagne7 = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
+            $info = $this->get('adminBundle.statistique')->getTraitement($response7);
+            $data = [
+                    "fromTo" => $allContactSendCampagne7,
+                    "info" => $info,
+                    "dataGraph"=>$response7
+                    ]; 
+
         }        
-        $response=new JsonResponse($data);
+        $response = new JsonResponse($data);
         return $response;
     }
 }

@@ -496,11 +496,22 @@ function OverridePagination(){
 	$('li#ListUserContactMailjet_previous').hide();
 }
 
-function AddSeparatorPaginate(){
+/*function AddSeparatorPaginate(){
 	$('li.paginate_button').each(function(i){
 		if(i > 0){
 			$('<li class = "paginate_separator"><span>&nbsp;</span></li>').insertAfter($(this));
 		}
 	});
 	$('li.paginate_separator').last().remove();
+}*/
+
+function AddSeparatorPaginate(){
+    $('li.paginate_button').each(function(i){
+        if(i > 0){
+            if(!$(this).next().hasClass('paginate_separator')){
+                $('<li class = "paginate_separator"><span>&nbsp;</span></li>').insertAfter($(this));
+            }
+        }
+    });
+    $('li.paginate_separator').last().remove();
 }

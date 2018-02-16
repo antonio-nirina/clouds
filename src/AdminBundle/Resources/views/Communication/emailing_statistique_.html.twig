@@ -118,15 +118,15 @@
                                     </a>
                                     <a class="dropdown-itemNo" href="#">
                                         {{"7 dernier jours"|upper}}
-                                        <span>Last 7 days</span>
+                                        <span>last7days</span>
                                     </a>
                                     <a class="dropdown-itemNo" href="#">
                                         {{"ce mois"|upper}}
-                                        <span>This month</span>
+                                        <span>thismonth</span>
                                     </a>
                                     <a class="dropdown-itemNo" href="#">
                                         {{"mois dernier"|upper}}
-                                        <span>last month</span>
+                                        <span>lastmonth</span>
                                     </a>
                                 </div>
                             </div>
@@ -211,17 +211,20 @@
                                         </a>
                                     </div>
                                 </div>
-                    </div>                   
-                        <div id="chartContainer"></div>
+                    </div>  
+                    <div class="graphique">
+                         <div id="container"></div>
+                    </div>                 
                         <div class="message">
-                        <h6 id="messag">Pendant cette période, vous envoyé <span id="nbrMail">{{total<10? 0~total:total}}</span> <span id="nbrMail2"></span>e-mails.</h6>
-                            <h6 id="messagSelect">Sélectionnez une autre période pour voir plus de statistiques.</h6>
-                        </div>
+                            <h6 id="messag">Pendant cette période, vous envoyé <span id="nbrMail">{{total<10? 0~total:total}}</span> <span id="nbrMail2"></span>e-mails.</h6><span id="nbrMail3"></span></h6>
+                                <h6 id="messagSelect">Sélectionnez une autre période pour voir plus de statistiques.</h6>
+                        </div>                   
                     <div class="row result">
                             <div class=" total">
                                 <div class="totalTitreVal">
                                     <p id="titreT">{{"total"|upper}}</p>
                                     <h4 class="valTot2"></h4>
+                                    <h4 class="valTot3"></h4>
                                     {% if total is not empty %}
                                         <h4 class="valTot">{{total<10? 0~total:total}}</h4>
                                     {% else %}
@@ -234,6 +237,7 @@
                                     <div class="delTitreVal">
                                         <p id="titreDel">{{"délivrés"|upper}}</p>
                                         <h4 class="valDel2"></h4>
+                                        <h4 class="valDel3"></h4>
                                         {% if delivre is not empty %}
                                             <h4 class="valDel">{{delivre<10?0~delivre:delivre}}</h4>
                                         {% else %}
@@ -246,6 +250,7 @@
                                     <div class="ouvTitreVal">
                                         <p id="titreOuv">{{"ouverts"|upper}}</p>
                                          <h4 class="valOuv2"></h4>
+                                          <h4 class="valOuv3"></h4>
                                         {% if ouvert is not empty %}
                                             <h4 class="valOuv">{{ouvert<10? 0~ouvert:ouvert}}</h4>
                                         {% else %}
@@ -258,6 +263,7 @@
                                     <div class="cliTitreVal">
                                         <p id="titreClik">{{"cliqués"|upper}}</p>
                                         <h4 class="valClik2"></h4>
+                                         <h4 class="valClik3"></h4>
                                         {% if cliquer is not empty %} 
                                             <h4 class="valClik">{{cliquer<10? 0~cliquer:cliquer}}</h4>
                                          {% else %}
@@ -270,33 +276,41 @@
                                     <div class="titreEtat">
                                         <p class="blbl">{{"bloqués"|upper}} </p>
                                         <p class="blbl2">{{"bloqués"|upper}} </p>
+                                        <p class="blbl3">{{"bloqués"|upper}} </p>
                                         <p class="blErr">{{"erreurs"|upper}}</p>
                                         <p class="blErr2">{{"erreurs"|upper}}</p>
+                                        <p class="blErr3">{{"erreurs"|upper}}</p>
                                         <p class="blDesa">{{"désabo."|upper}} </p>
                                         <p class="blDesa2">{{"désabo."|upper}} </p>
+                                        <p class="blDesa3">{{"désabo."|upper}} </p>
                                         <p class="blSp">{{"spam"|upper}} </p>
                                         <p class="blSp2">{{"spam"|upper}} </p>
+                                        <p class="blSp3">{{"spam"|upper}} </p>
                                     </div>
                                     <div class="valEtat">
                                         <p id="blbl2"></p>
+                                         <p id="blbl3"></p>
                                         {% if bloque is not empty %}
                                             <p class="blbl">{{bloque<10? 0~bloque:bloque}}</p>
                                         {% else %}
                                              <p class="blbl1"></p>
                                         {% endif %}
                                         <p id="blErr2"></p>
+                                        <p id="blErr3"></p>
                                         {% if erreur is not empty %} 
                                             <p class="blErr">{{erreur<10? 0~erreur:erreur}}</p>
                                         {% else %}
                                             <p class="blErr1"></p>
                                         {% endif %}
                                         <p id="blDesa2"></p>
+                                        <p id="blDesa3"></p>
                                         {% if desabo is not empty %} 
                                             <p class="blDesa">{{desabo<10? 0~desabo:desabo}}</p>
                                         {% else %}
                                             <p class="blDesa1">{{desabo<10? 0~desabo:desabo}}</p>
                                         {% endif %}
                                          <p id="blSp2"></p>
+                                         <p id="blSp3"></p>
                                         {% if spam is not empty %} 
                                             <p class="blSp">{{spam<10? 0~spam:spam}}</p>
                                         {% else %}
@@ -390,16 +404,20 @@
                                             <th class="a">à</th>
                                             <th class="dateDel">date</th>
                                         </thead>
-                                        <tbody>
-                                        {% if fromSend is not empty and mailTo is not empty %}
+                                        <tbody id="tableBody1">
+                                        {% if fromSend is not empty %}
+                                            {% for send in fromSend %}
                                                     <tr>
-                                                        <td>{{fromSend["sujet"]}}</td>
-                                                        <td class="de">{{fromSend["sender"]}}</td>
-                                                        {% for email in mailTo %}
-                                                            <td class="a">{{email}}</td>
-                                                        {% endfor %}
-                                                        <td class="dateDel">{{fromSend["date"]|date('d/m/Y')}}</td>
+                                                        <td>{{send["sujet"]}}</td>
+                                                        <td class="de">{{send["sender"]}}</td>
+                                                            <td class="a">{{send["emailTo"]}}</td>
+                                                        <td class="dateDel">{{send["date"]|date('d/m/Y')}}</td>
                                                     </tr>
+                                                {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td></td>
+                                            </tr>
                                         {% endif %}
                                         </tbody>
                                     </table>
@@ -412,7 +430,20 @@
                                             <th class="headA">à</th>
                                             <th class="headDate">date</th>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tableBody2">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div> 
+                                 <div class="tableDetail3 ">
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <th class="headSujet3">sujet</th>
+                                            <th  class="headDe3">de</th>
+                                            <th class="headA3">à</th>
+                                            <th class="headDate3">date</th>
+                                        </thead>
+                                        <tbody id="tableBody3">
                                             
                                         </tbody>
                                     </table>
@@ -448,6 +479,7 @@
                                      <p id="legendeErr">O</p><p>{{"erreurs"|upper}}</p>
                                 </div>
                             <input type="hidden" name="filterPeriode" value="{{path('admin_statistiques_filter')}}">
+                            <input type="hidden" name="dataNow" value="{{json}}">
                             </div>
                     </div> 
                 </div>
@@ -466,6 +498,7 @@
     <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
     <script src="{{ asset('js/admin-parameters-contents.js') }}"></script>            
     <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>  
     <script src="{{asset('js/statistique/admin-emailing-statistik.js')}}"></script>  
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>  
