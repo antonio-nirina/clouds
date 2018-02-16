@@ -136,7 +136,7 @@ if (data.length>0) {
     var n = data.length;
     var dat = new Date(data[n-1].LastActivityAt);
     var dat1= new Date(data[0].LastActivityAt);
-    var dat2 = new Date(dat1.getFullYear(),dat1.getMonth(), dat1.getDate(),dat1.getHours(),dat.getMinutes()-60) ;
+    var dat2 = new Date(dat1.getFullYear(),dat1.getMonth(), dat1.getDate(),dat1.getHours(),dat1.getMinutes()-60) ;
     var dat3 = new Date(dat.getFullYear(),dat.getMonth(), dat.getDate(),dat.getHours(),dat.getMinutes()+60) ;
     dataMin.push({
       "BlockedCount":0,
