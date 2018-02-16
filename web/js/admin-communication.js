@@ -781,6 +781,15 @@ $(document).ready(function(){
      */
     $(document).on('click', '.personalization-option', function(e){
         var personalization_value = $(this).attr('data-personalization-value');
+        switch(personalization_value){
+            case 'prénom':
+                personalization_value = 'pr&eacute;nom';
+                break;
+            case 'civilité':
+                personalization_value = 'civilit&eacute;';
+                break;
+        }
+
         var variable_personalization_value = '[[data:'+personalization_value+':]]';
         var main_text_content_id = $('#create-template-dialog .main-text-content').attr('id');
         if($(this).is(':checked')){

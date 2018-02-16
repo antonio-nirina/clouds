@@ -186,34 +186,25 @@
 				
 				<section class="fieldset inactive">
 					<div class="block-active-hover"></div>
+					
+					{{ form_start(formQuestionnaires) }}
+								
 					<div class="row">
+						{% for child in formQuestionnaires.type_sondages_quiz %}
 						<div class="col-lg-4 col-md-4 col-sm-4">
 							<div class = "check-creation-sondage">
 								<p class = "check-creation-sondage-check">
-									<input id="cl2-row51" class="form-field-mandatory styled-checkbox" name = "sondage_quiz" type="radio" checked = "checked">
-									<label for="cl2-row51"><span></span></label> 
+									{{ form_widget(child, {'attr': {'class': 'form-field-mandatory styled-checkbox choix-type-action'}}) }}
+									<label for="{{ child.vars.id }}"><span></span></label> 
 								</p>
 								<p class = "check-creation-sondage-libelle">
-									<span class = "libelle-mode">créer un sondage</span>
+									<span class = "libelle-mode">{{ form_label(child) }}</span>
 								</p>
 								<div style = "clear:both;"></div>
 							</div>
+							{{ form_errors(child) }}
 						</div>
-						
-						<div class="col-lg-4 col-md-4 col-sm-4">
-							<div class = "check-creation-quiz">
-								<p class = "check-creation-quiz-check">
-									<input id="cl2-row52" class="form-field-mandatory styled-checkbox" name = "sondage_quiz" type="radio">
-									<label for="cl2-row52"><span></span></label> 
-								</p>
-								<p class = "check-creation-quiz-libelle">
-									<span class = "libelle-mode">créer un quiz</span>
-								</p>
-								<div style = "clear:both;"></div>
-							</div>
-							
-							<div style = "clear:both;"></div>
-						</div>
+						{% endfor %}
 					</div>
 					
 					<div class = "row separator"></div>
@@ -222,7 +213,8 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<label class="champForm">
 								<span class="lib-form">titre du questionnaire</span>
-								<input class="input-form-text" name="titre_questionnaire" value="sondage du challenge 2017" placeholder="" type="text">
+								{{ form_widget(formQuestionnaires.titre_questionnaire, {'attr': {'class': 'input-form-text'}}) }}
+								{{ form_errors(formQuestionnaires.titre_questionnaire) }}
 								<span class="delete-input"></span>
 							</label>
 						</div>
@@ -234,7 +226,8 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<label class="champForm">
 								<span class="lib-form block editeur">texte de description</span>
-								<textarea id="id_description_sondage_quiz" name="text_description" class="large-textarea"></textarea>
+								{{ form_widget(formQuestionnaires.description_questionnaire, {'attr': {'class': 'large-textarea'}}) }}
+								{{ form_errors(formQuestionnaires.description_questionnaire) }}
 							</label>
 						</div>
 					</div>
@@ -242,15 +235,7 @@
 					<div class = "row separator"></div>
 					<div class = "row separator"></div>
 					
-					<div id = "question-emplacement-1" class = "question-emplacement"></div>
-					<div id = "question-emplacement-2" class = "question-emplacement"></div>
-					<div id = "question-emplacement-3" class = "question-emplacement"></div>
-					<div id = "question-emplacement-4" class = "question-emplacement"></div>
-					<div id = "question-emplacement-5" class = "question-emplacement"></div>
-					<div id = "question-emplacement-6" class = "question-emplacement"></div>
-					<div id = "question-emplacement-7" class = "question-emplacement"></div>
-					<div id = "question-emplacement-8" class = "question-emplacement"></div>
-					<div id = "question-emplacement-9" class = "question-emplacement"></div>
+					<div id="collectionQuestions" data-prototype-question="{% filter escape %} {{ include('AdminBundle:PartialPage/SiteFormField:questions-sondages-quiz.html.twig', { 'form': formQuestionnaires.sondages_quiz_questions.vars.prototype }) }} {% endfilter %}"></div>
 					
 					<div class = "row separator"></div>
 					
@@ -267,14 +252,15 @@
 					
 					<div class="row">
 						<div class="col-12 col-md-6" style="text-align:center;">
-							<button class="btn-valider valider submit-form" data-id="426">enregistrer</button>
+							<button id = "enregistrer-All-form" class="btn-valider valider submit-form" data-id="426" type = "button">enregistrer</button>
 						</div>
 						
 						<div class="col-12 col-md-6" style="text-align:center;">
-							<button class="btn-valider valider submit-form">publier</button>
+							<button id = "publier-All-form" class="btn-valider valider submit-form" type = "button">publier</button>
 						</div>
 					</div>
-					
+					{{ form_rest(formQuestionnaires) }}
+					{{ form_end(formQuestionnaires) }}
 				</section>
             </div>
         </div>
@@ -303,7 +289,7 @@
             <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>  
             <script>
                 $(document).ready(function(){
-                    CKEDITOR.replace( 'id_description_sondage_quiz', {
+                    CKEDITOR.replace( 'sondages_quiz_questionnaire_infos_description_questionnaire', {
                         language: 'fr',
                         uiColor: '#9AB8F3',
                         height: 150,

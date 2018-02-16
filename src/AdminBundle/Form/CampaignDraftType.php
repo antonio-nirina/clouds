@@ -65,6 +65,7 @@ class CampaignDraftType extends AbstractType
                 'choices' => $this->retrieveListList(),
                 'expanded' => false,
                 'multiple' => false,
+                'placeholder' => 'CHOISIR UNE LISTE',
             ))
             ->add('template_id', ChoiceType::class, array(
                 'choices' => $this->retrieveTemplateList(),

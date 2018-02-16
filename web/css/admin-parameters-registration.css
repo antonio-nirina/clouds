@@ -4637,3 +4637,33 @@ section.with-bottom-space{
 /**
  * FIN - Création de liste de contact, dans création de campagne
  */
+
+/**
+ * création de modèle
+ */
+#create-template-dialog{
+    font-family: var(--police_light);
+}
+
+/**
+ * alerte, création de modèle, suppression de texte de footer obligatoire
+ */
+#alert-footer-element-dialog{
+    font-family: var(--police_light);
+}
+
+/**
+ * correction, alerte, suspension de création de campagne
+ */
+#abort-new-campaign-modal{
+    font-family: var(--police_light);
+}
+
+#abort-new-campaign-modal .modal-title{
+    color: var(--couleur_2);
+    font-size: 25px
+}
+
+#abort-new-campaign-modal .general-message{
+    text-align: center;
+}

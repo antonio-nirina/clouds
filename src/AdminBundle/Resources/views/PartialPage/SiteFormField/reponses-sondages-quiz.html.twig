@@ -1,0 +1,28 @@
+<div id = "content-reponses-ligne-__opt_questions__-__reponses_num__" class = "content-reponses-ligne-__opt_questions__">
+	<div class="row">
+		<input class = "iterationReponsesForm" type = "hidden" name = "iterationReponsesForm" value = "0">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label class="champForm">
+				<span class="lib-form">reponse __reponses_num__</span>
+				<span class = "content-champs-reponses">
+					<span id = "choice-input-bonne-reponse-__opt_questions__-__opt_reponse__" class="choice-input-bonne-reponse" style = "display:none;">
+						{{ form_widget(formres.est_bonne_reponse, {'attr': {'class': 'input-form-text-reponse form-field-mandatory-large styled-checkbox-large hidden'}}) }}
+						<label for="{{ formres.est_bonne_reponse.vars.id }}"><span></span></label>
+					</span>
+					
+					{{ form_widget(formres.reponses, {'attr': {'class': 'input-form-text-reponse-sondages'}}) }}
+					{{ form_widget(formres.ordre, {'attr': {'class': 'input-form-text-reponse hidden'}}) }} 
+				</span>
+				<span id = "delete-input-reponse" class="delete-input-reponse"></span>
+				<span id = "corbeil-input-__opt_questions__-__reponses_num__" class="corbeil-input"></span>
+				<span class="trie-input">
+					<a id = "reorder-up-field-row-link-__opt_questions__-__reponses_num__" href="#" class="reorder-up-field-row-link"></a>
+					<a id = "reorder-down-field-row-link-__opt_questions__-__reponses_num__" href="#" class="reorder-down-field-row-link"></a>
+				</span>
+			</label>
+		</div>
+	</div>
+
+
+	<div class = "row separator"></div>
+</div>

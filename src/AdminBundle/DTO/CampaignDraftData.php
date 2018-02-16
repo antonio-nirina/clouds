@@ -9,29 +9,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CampaignDraftData
 {
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"normal_creation_mode"})
      */
     private $name;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"normal_creation_mode"})
      */
     private $object;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\NotNull()
+     * @Assert\NotBlank(groups={"normal_creation_mode"})
+     * @Assert\NotNull(groups={"normal_creation_mode"})
      */
     private $list_id;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\NotNull()
+     * @Assert\NotBlank(groups={"normal_creation_mode"})
+     * @Assert\NotNull(groups={"normal_creation_mode"})
      */
     private $template_id;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"normal_creation_mode"})
      */
     private $programmed_state;
 

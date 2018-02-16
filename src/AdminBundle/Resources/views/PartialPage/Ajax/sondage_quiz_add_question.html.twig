@@ -15,7 +15,7 @@
 		<div class="col-lg-12 col-md-12 col-sm-12">
 			<label class="champForm">
 				<span class="lib-form">votre question</span>
-				<input class="input-form-text" name="question[{{ IdQuestion }}]" value="" placeholder="Pourquoi avez vous ....?" type="text">
+				<input class="input-form-text" name="sondages_quiz_questionnaire_infos[sondages_quiz_questions][{{ IdQuestion }}][questions]" value="" placeholder="" type="text">
 				<span class="delete-input"></span>
 			</label>
 		</div>
@@ -27,7 +27,7 @@
 		<div class="col-lg-12 col-md-12 col-sm-12">
 			<label class="champForm">
 				<span class="lib-form">commentaire</span>
-				<textarea name="commentaire[{{ IdQuestion }}]" class="small-textarea"></textarea>
+				<textarea name="sondages_quiz_questionnaire_infos[sondages_quiz_questions][{{ IdQuestion }}][commentaire]" class="small-textarea"></textarea>
 			</label>
 		</div>
 	</div>
@@ -39,17 +39,18 @@
 			<label class="champForm">
 				<span class="lib-form">type de question</span>
 				<span class = "content-dropdown-toggle dropdown clearable filtres">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuActionTypeQuestion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+					<button class="btn btn-secondary dropdown-toggle dropdownMenuActionTypeQuestion" type="button" id="dropdownMenuActionTypeQuestion-{{ IdQuestion }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
 						CASE A COCHER
 					</button>
-					<div id = "dropdownMenuListeTypeUestion" class="dropdown-menu" aria-labelledby="dropdownMenuListeTypeUestion">
-						<a class="dropdown-item" href="#">
+					<input id = "TypeQuestionValue-{{ IdQuestion }}" type = "hidden" name = "sondages_quiz_questionnaire_infos[sondages_quiz_questions][{{ IdQuestion }}][type_question]">
+					<div id = "dropdownMenuListeTypeUestion-{{ IdQuestion }}" class="dropdown-menu dropdownMenuListeTypeUestion" aria-labelledby="dropdownMenuListeTypeUestion">
+						<a class="dropdown-item" data-id = "{{ IdQuestion }}" href="#">
 							choix multiples
 						</a>
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" data-id = "{{ IdQuestion }}" href="#">
 							échelle linéaire
 						</a>
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" data-id = "{{ IdQuestion }}" href="#">
 							tableau à choix multiples
 						</a>
 					</div>
@@ -87,7 +88,7 @@
 					<span class = "libelle-mode">réponse obligatoire</span>
 				</p>
 				<p class = "check-reponse-obligatoire-check">
-					<input id="reponse-obligatoire-{{ IdQuestion }}" class="form-field-mandatory styled-checkbox" name = "reponse_obligatoire" type="checkbox">
+					<input id="reponse-obligatoire-{{ IdQuestion }}" class="form-field-mandatory styled-checkbox" name = "sondages_quiz_questionnaire_infos[sondages_quiz_questions][{{ IdQuestion }}][est_reponse_obligatoire]" type="checkbox">
 					<label for="reponse-obligatoire-{{ IdQuestion }}"><span></span></label> 
 				</p>
 				<div style = "clear:both;"></div>

@@ -26,7 +26,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Form\DuplicationForm;
 use AdminBundle\Form\SondagesQuizType;
+use AdminBundle\Form\SondagesQuizQuestionnaireInfosType;
 use AdminBundle\Entity\SondagesQuiz;
+use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
 
 use \Mailjet\Resources;
 
@@ -34,6 +36,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\Statistique\Common;
+use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
 
 /**
  * @Route("/admin/communication")
@@ -198,11 +201,14 @@ class CommunicationController extends AdminController
         return $this->render('AdminBundle:Communication:emailing_campaign.html.twig', array(
             "list" => $campaign_data_list,
             'content_type_class' => new TemplateContentType(),
+            'template_model_class' => new TemplateModel(),
+            'campaign_draft_creation_mode_class' => new CampaignDraftCreationMode(),
         ));
     }
 
     /**
-     * @Route("/emailing/campagne/new", name="admin_communication_emailing_compaign_new")
+     * @Route("/emailing/campagne/new",
+     * name="admin_communication_emailing_compaign_new"),
      * @Method("POST")
      */
     public function emailingCampaignNewAction(Request $request)
@@ -213,18 +219,49 @@ class CommunicationController extends AdminController
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
+        $creation_mode = $request->get('creation_mode');
+        if (is_null($creation_mode)) {
+            $creation_mode = CampaignDraftCreationMode::NORMAL;
+        }
+
+        if (!in_array($creation_mode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $validation_groups = array('normal_creation_mode');
+        if (CampaignDraftCreationMode::BY_HALT == $creation_mode) {
+            $validation_groups = array('Default');
+        }
+
         $campaign_draft_data = new CampaignDraftData();
         $campaign_draft_data->setProgrammedLaunchDate(new \DateTime('now'));
-        $campaign_draft_form = $this->createForm(CampaignDraftType::class, $campaign_draft_data);
+
+
+        $campaign_draft_form = $this->createForm(
+            CampaignDraftType::class,
+            $campaign_draft_data,
+            array('validation_groups' => $validation_groups)
+        );
+
         $campaign_draft_form->handleRequest($request);
         if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
             $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-            if ($campaign_handler->createAndProcess($campaign_draft_data)) {
-                $data = $json_response_data_provider->success();
-                return new JsonResponse($data, 200);
-            } else {
-                $data = $json_response_data_provider->campaignSendingError();
-                return new JsonResponse($data, 200);
+            if (CampaignDraftCreationMode::NORMAL == $creation_mode) {
+                if ($campaign_handler->createAndProcess($campaign_draft_data)) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->campaignSendingError();
+                    return new JsonResponse($data, 200);
+                }
+            } elseif (CampaignDraftCreationMode::BY_HALT == $creation_mode) {
+                if ($campaign_handler->createCampaignDraftByHalt($campaign_draft_data)) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->campaignDraftCreationError();
+                    return new JsonResponse($data, 200);
+                }
             }
         }
 
@@ -759,26 +796,28 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
 
-	
-	/**
+
+    /**
      * @Route("/emailing/campagne/preview",name="admin_communication_emailing_campagne_preview_template")
      */
-	public function PreviewCampagneTplAction(Request $request){
-		$program = $this->container->get('admin.program')->getCurrent();
+    public function previewCampagneTplAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$UrlTpl = $request->get('urlTpl');
-			$Contents = file_get_contents($UrlTpl);
-			return new Response($Contents);
-		}
-		
-		return new Response('');
-	}
+
+        if ($request->isMethod('POST')) {
+            $UrlTpl = $request->get('urlTpl');
+            if (is_null($UrlTpl) || empty($UrlTpl)) {
+                return new Response('', 404);
+            }
+            $Contents = file_get_contents($UrlTpl);
+            return new Response($Contents);
+        }
+
+        return new Response('');
+    }
 
 
     /**
@@ -1304,11 +1343,14 @@ class CommunicationController extends AdminController
 			$IsSondagesQuiz = true;
 		}
 		
-		
+		//Formulaire d'ajout/edition sondages/quiz
 		$formSondagesQuiz = $this->createForm(SondagesQuizType::class, $SondagesQuiz, array(
             'action' => $this->generateUrl('admin_communication_sondage_quiz'),
             'method' => 'POST',
         ));
+		
+		$formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class);
+		
 		
 		$formSondagesQuiz->handleRequest($request);
 		if ($formSondagesQuiz->isSubmitted() && $formSondagesQuiz->isValid()) {
@@ -1334,10 +1376,53 @@ class CommunicationController extends AdminController
 
         return $this->render('AdminBundle:Communication:sondage_quiz.html.twig', array(
 			'formSondagesQuiz' => $formSondagesQuiz->createView(),
+			'formQuestionnaires' => $formQuestionnaires->createView(),
 			'IsBanniere' => $IsBanniere,
 			'BannierePath' => $BannierePath,
 			'IsSondagesQuiz' => $IsSondagesQuiz,
 			'program' => $program
+		));
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/formulaire-questionnaire-infos",
+     *     name="admin_communication_sondage_quiz_form_questionnaire_infos")
+     * 
+     */
+	public function FormulaireQuestionnaireInfosAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		//Recuperer l'infos SondagesQuiz
+		$SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+		if(!isset($SondagesQuizArray[0])){
+			return $this->redirectToRoute('admin_communication_sondage_quiz');
+		}
+		
+		//Formulaure questionnaires infos
+		$SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
+		$formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $SondagesQuizQuestionnaireInfos, array(
+            'action' => $this->generateUrl('admin_communication_sondage_quiz_form_questionnaire_infos'),
+            'method' => 'POST',
+        ));
+		
+		$formQuestionnaires->handleRequest($request);
+		if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
+			$SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
+			$SondagesQuizQuestionnaireInfosData->setDateCreation(new \DateTime());
+			$SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuizArray[0]);
+			$em->persist($SondagesQuizQuestionnaireInfosData);
+			$em->flush();
+			return $this->redirectToRoute('admin_communication_sondage_quiz');
+		}
+		
+		return $this->render('AdminBundle:Communication:formulaire_questionnaire_infos.html.twig', array(
+			'formQuestionnaires' => $formQuestionnaires->createView(),
 		));
 	}
 	
