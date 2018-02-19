@@ -2064,6 +2064,13 @@ section .row.ending {
     font-family: var(--police_light);
 }
 
+#new-campaign-modal .form-line input{
+    border: 1px solid;
+    border-radius: 7px;
+    padding: 5px 10px;
+    color: var(--couleur_4);
+}
+
 #new-campaign-modal .hidden {
     display: none !important;
 }
