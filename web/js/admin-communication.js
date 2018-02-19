@@ -1230,18 +1230,20 @@ $(document).ready(function(){
 
     $(document).on('click', '#create-template-dialog .close-modal', function(e){
         e.preventDefault();
-        transferTemplateNameInput();
-        var manip_mode = $('#create-template-dialog').find('input[name=manip_mode]').val();
-        if('edit' == manip_mode){
-            $('#save-template-on-close-dialog').find('.save').addClass('save-edit');
-            var template_id = $('input[name=template_id]').val();
-            var data_target_url = $('input[name=edit_template_url]').val();
-            data_target_url = data_target_url.replace(/__id__/, template_id);
-            $('#save-template-on-close-dialog').find('.save').attr('data-target-url', data_target_url);
-        } else if ('create' == manip_mode){
-            $('#save-template-on-close-dialog').find('.save').addClass('save-create');
+        if ('undefined' == typeof $(this).attr('data-dismiss')){
+            transferTemplateNameInput();
+            var manip_mode = $('#create-template-dialog').find('input[name=manip_mode]').val();
+            if('edit' == manip_mode){
+                $('#save-template-on-close-dialog').find('.save').addClass('save-edit');
+                var template_id = $('input[name=template_id]').val();
+                var data_target_url = $('input[name=edit_template_url]').val();
+                data_target_url = data_target_url.replace(/__id__/, template_id);
+                $('#save-template-on-close-dialog').find('.save').attr('data-target-url', data_target_url);
+            } else if ('create' == manip_mode){
+                $('#save-template-on-close-dialog').find('.save').addClass('save-create');
+            }
+            $('#save-template-on-close-dialog').modal('show');
         }
-        $('#save-template-on-close-dialog').modal('show');
     });
 
     $(document).on('click', '#save-template-on-close-dialog .cancel', function(){
@@ -1408,7 +1410,6 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var duplicate_template_url = $(this).attr('data-target-url');
-        console.log(duplicate_template_url);
         $('#duplicate-template-dialog form').ajaxSubmit({
             type: 'POST',
             url: duplicate_template_url,
@@ -1464,4 +1465,728 @@ $(document).ready(function(){
      * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Templates
+     * Création de campagne
+     * *********************************************************************************************
+     */
+    // création de campagne, appel formulaire
+    $(document).on('click', '.create-campaign-from-template', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var create_campaign_url = $("input[name=new_campaign_url").val();
+        var distant_template_id = $(this).attr('data-distant-template-id');
+        $.ajax({
+            type: 'POST',
+            url: create_campaign_url,
+            success: function(data){
+                $('#new-campaign-modal').find('.error-message-container.general-message').text('');
+                $('#new-campaign-modal').find(".modal-content .content").html(data.content);
+                activateCampaignConfirmationOnClose();
+                $('#create-tabs a.activated:last').tab('show');
+                showPrevious();
+                initCalendar();
+                initSelectChosen();
+                $('#new-campaign-modal').find('.template-choice input[value='+distant_template_id+']').prop('checked', true);
+            },
+            statusCode: {
+                404: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose();
+                },
+                500: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose()
+                }
+            },
+            complete: function(){
+                $('#new-campaign-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    $('#new-campaign-modal').on('hidden.bs.modal', function(){
+        $('#new-campaign-modal').find('.error-message-container.general-message').text('');
+        $('#new-campaign-modal').find(".modal-content .content").html('');
+        $('#new-campaign-modal').find('.previous').show();
+    });
+
+    // affichage de l'onglet precedent
+    $(document).on('click', "#new-campaign-modal .previous", function() {
+        if ($(this).hasClass('keep') && $('#create-tabs a.activated.active').hasClass("step-3")) {
+            $(this).removeClass('keep');
+            $('#new-campaign-modal').find('.modal-step-3.first').css('display','block');
+            $('#new-campaign-modal').find('.modal-step-3.second').css('display','none');
+        } else {
+            if ($('#create-tabs a.activated.active').hasClass("done")) {
+                $('#create-tabs a.activated.active').removeClass("done");
+            }
+            $('#create-tabs a.activated.active').removeClass("activated").prev('a').click();
+        }
+        showPrevious();
+    });
+
+    //bouttons de programmation
+    $(document).on("change", "input.programmed-state-input", function() {
+        if ($(this).val() =="false") {
+            $(".btn-end-step-4").css("display", "initial");
+            $(".btn-program-step-4").css("display", "none");
+            $(".select-date").css("display", "none");
+        } else {
+            $(".btn-end-step-4").css("display", "none");
+            $(".btn-program-step-4").css("display", "initial");
+            $(".select-date").css("display", "block");
+        }
+    });
+
+    // terminer une étape pour aller à l'autre
+    $(document).on('click', '.btn-end-step', function(e) {
+        e.preventDefault();
+        if (isDone()) {
+            clickNext();
+        }
+    });
+
+    //envoie ou programmation de campagne
+    $(document).on("click", ".btn-end-step.btn-end-step-4", function() {
+        $('.chargementAjax').removeClass('hidden');
+        var new_campaign_url = $('input[name=new_campaign_url]').val();
+        var current_end_step_button = $(this);
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: new_campaign_url,
+            success: function(data){
+                if(data['error']){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text(data['error']);
+                    $('#new-campaign-modal').find('.content').html(data['content']);
+                    $('#create-tabs a.activated:last').tab('show');
+                    showPrevious();
+                    initCalendar();
+                    initSelectChosen();
+                    setSelectedContactList();
+                    $('#new-campaign-modal').modal('show');
+                } else {
+                    var launch_date =  $("#new-campaign-modal").find('.date_launch_campaign').val();
+                    $("#new-campaign-modal").modal("hide");
+                    if('send' == current_end_step_button.attr('data-button-type')){
+                        setTimeout(function(data){
+                            $("#sent-campaign-modal").modal("show");
+                        },0);
+                    } else if ('program' == current_end_step_button.attr('data-button-type')){
+                        setTimeout(function(){
+                            setLaunchDateInModal(launch_date);
+                            $("#done-campaign-modal").modal("show");
+                        },0);
+                    }
+                }
+            },
+            statusCode:{
+                404: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').find('.content').html('');
+                },
+                500: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').find('.content').html('');
+                }
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    $('#new-campaign-modal').on('hidden.bs.modal', function(){
+        $('#new-campaign-modal').find('.error-message-container.general-message').text('');
+        $('#new-campaign-modal').find('content').html('');
+    });
+
+    // bouton suppression de contenu pour le nom et l'object de campagne
+    $(document).on('keyup', '.form-line input', function() {
+        if ($(this).val()) {
+            $(this).next('span').css('display', 'inline-block');
+        } else {
+            $(this).next('span').css('display', 'none');
+        }
+    })
+
+
+    // -------------------------------------------------------------------------------------
+    // partie liste de contact
+    // -------------------------------------------------------------------------------------
+
+    // selection liste de diffusion
+    $(document).on('click', '.list-choice .dropdown-menu .dropdown-item', function(e){
+        e.preventDefault();
+        var data_value = $(this).attr('data-value');
+        $(this).parents('.list-choice').find('.list-choice-select').find('option[value='+data_value+']').prop('selected', true);
+        $(this).parents('.dropdown').find('button.dropdown-toggle').text($(this).text());
+        $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
+    });
+
+    // annulation selection de liste de diffusion
+    const DEFAUTL_LIST_CHOICE_LABEL = 'CHOISIR UNE LISTE';
+    $(document).on('click', '.list-choice .delete-input.delete-selection', function(){
+        $(this).parents('.dropdown').find('button.dropdown-toggle').text(DEFAUTL_LIST_CHOICE_LABEL);
+        $(this).parents('.list-choice').find('select option[value=""]').prop('selected', true);
+    });
+
+    // -------------------------------------------------------------------------------------
+    // partie création de nouvelle liste de contact
+    // -------------------------------------------------------------------------------------
+    // création de nouvelle liste (appel popup de création)
+    $(document).on('click', '#new-campaign-modal .create-new-contact-list', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var create_contact_list_url = $('input[name=create_contact_list_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: create_contact_list_url,
+            success: function(data){
+                $('#create-contact-list-modal').find('.body-container').html('');
+                $('#create-contact-list-modal').find('.body-container').html(data);
+                $('#create-contact-list-modal').modal('show');
+
+                var table1 = $('#ListUserContactMailjet').DataTable({
+                    lengthChange: false,
+                    "info":     false,
+                    /*searching: false,*/
+                    "columnDefs": [ {
+                        "targets": 1,
+                        "orderable": false
+                    } ]
+                });
+
+                table1.buttons().container().appendTo( '#ListUserContactMailjet_wrapper .col-md-6:eq(0)' );
+
+                //Search engine
+                $('input.input-search-list').on('keyup', function(){
+                    table1.search(this.value).draw();
+                    //Modification libellé 'Previews && Next'
+                    OverridePagination();
+
+                    //Modifier conteneur pagination
+                    UpdateWidthPagination();
+
+                    //Décocher tous les contacts
+                    $('input.form-field-published').each(function(i){
+                        $(this).prop("checked", false);
+                    });
+
+                    //Ajouter separateur sur les boutons de pagination
+                    AddSeparatorPaginate();
+                });
+
+                //Menu filter table (manager/commercial/participant)
+                $('a.FiltreList').unbind().bind('click', function() {
+                    var searchTerm = $.trim($(this).html().toLowerCase());
+
+                    if (!searchTerm) {
+                        table1.draw();
+                        return;
+                    }
+                    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                        for (var i=0;i<data.length;i++) {
+                            if (data[i].toLowerCase() == searchTerm) return true;
+                        }
+                        return false;
+                    });
+                    table1.draw();
+                    $.fn.dataTable.ext.search.pop();
+
+                    //Modification libellé 'Previews && Next'
+                    OverridePagination();
+
+                    //Modifier conteneur pagination
+                    UpdateWidthPagination();
+
+                    //Décocher tous les contacts
+                    $('input.form-field-published').each(function(i){
+                        $(this).prop("checked", false);
+                    });
+
+                    //Ajouter separateur sur les boutons de pagination
+                    AddSeparatorPaginate();
+
+                    return false;
+                });
+
+                //Reset filtre
+                $('span#id-delete-input-filtre-creer-liste-contact').on('click', function(){
+                    table1.search('').columns().search('').draw();
+                    $('button#dropdownMenuFiltreCreerListContact').html('FILTRER PAR LISTE');
+                    $(this).hide();
+
+                    //Modification libellé 'Previews && Next'
+                    OverridePagination();
+
+                    //Modifier conteneur pagination
+                    UpdateWidthPagination();
+
+                    //Décocher tous les contacts
+                    $('input.form-field-published').each(function(i){
+                        $(this).prop("checked", false);
+                    });
+
+                    //Ajouter separateur sur les boutons de pagination
+                    AddSeparatorPaginate();
+
+                    return false;
+                });
+
+                //Modification libellé 'Previews && Next'
+                OverridePagination();
+
+                //Modifier conteneur pagination
+                UpdateWidthPagination();
+
+                //Décocher tous les contacts
+                $('input.form-field-published').each(function(i){
+                    $(this).prop("checked", false);
+                });
+
+                //Ajouter separateur sur les boutons de pagination
+                AddSeparatorPaginate();
+
+            },
+            statusCode: {
+                404: function(){
+                    $('#create-contact-list-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#create-contact-list-modal').find('.modal-body-container').hide();
+                    $('#create-contact-list-modal').modal('show');
+                },
+                500: function(){
+                    $('#create-contact-list-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#create-contact-list-modal').find('.modal-body-container').hide();
+                    $('#create-contact-list-modal').modal('show');
+                }
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    $('#create-contact-list-modal').on('hidden.bs.modal', function(){
+        $(this).find('.body-container').html('');
+        $(this).find('.error-message-container.general-message').html('');
+        $('#create-contact-list-modal').find('.modal-body-container').show();
+    });
+
+    // click sur checkbox, selection multiple
+    $(document).on('click', 'label.check-ligne', function(){
+        var DataId = $(this).attr('data-id');
+        $('input#cl1-'+DataId+'').click();
+    });
+
+    //Incremente/Decremente les nombres des contacts
+    $(document).on('click', 'input.contact-ajout', function(){
+        var NbreContactsEnCours = parseInt($('input#id_nbre_contacts_selectionner').val());
+        if($(this).is(':checked')){
+            NbreContactsEnCours++;
+        }else{
+            NbreContactsEnCours--;
+        }
+        $('input#id_nbre_contacts_selectionner').val(NbreContactsEnCours);
+    });
+
+    $(document).on('click', 'input#checkbox-publish-all', function(){
+        if($(this).is(':checked')){
+            $('input#id_nbre_contacts_selectionner').val(0);
+        }
+
+        if($(this).is(':checked')){
+            $('input.contact-ajout').each(function(i){
+                $(this).prop("checked", false);
+                $(this).click();
+            });
+        }else{
+            $('input.contact-ajout').each(function(i){
+                $(this).prop("checked", true);
+                $(this).click();
+            });
+        }
+    });
+
+    // click, trie dans dataTable
+    $(document).on('click', 'table#ListUserContactMailjet th', function(){
+        OverridePagination();
+        AddSeparatorPaginate();
+    });
+
+    // création de nouvelle liste (validation de création)
+    $(document).on('click', '#create-contact-list-modal #valider-creation-contact-list', function(e){
+        e.preventDefault();
+        //Verifier les champs obligatoires
+        var id_nom_contact_list = $.trim($('input#id_nom_contact_list').val());
+
+        if('' != id_nom_contact_list){
+            var cpt = 0;
+            var ListIdUser = [];
+            $('input.contact-ajout:checked').each(function(e){
+                ListIdUser.push($(this).val());
+                cpt++;
+            });
+
+            if(cpt > 0){
+                var ListIdUserAll = ListIdUser.join('##_##');
+                var UrlAddContactList = $('input[name=submit_create_contact_list_url]').val();
+                $('.chargementAjax').removeClass('hidden');
+                $.ajax({
+                    type: 'POST',
+                    url: UrlAddContactList,
+                    data : 'UserId='+ListIdUserAll+'&ListName='+id_nom_contact_list+'',
+                    success: function(data){
+                        if(data['error']){
+                            $('#create-contact-list-modal').find('.error-message-container.general-message').text(data['error']);
+                            $('#create-contact-list-modal').find('.modal-body-container').hide();
+                        } else {
+                            addNewContactListInChoiceList(data['id'], id_nom_contact_list);
+                            $('#create-contact-list-modal').modal('hide');
+                        }
+                    },
+                    complete: function(){
+                        $('.chargementAjax').addClass('hidden');
+                    }
+                });
+
+            } else {
+                alert('Veuillez selectionner les contacts à ajouter à la liste');
+            }
+        } else {
+            alert('Veuillez entrer la nom de la liste');
+        }
+    });
+
+
+    // -------------------------------------------------------------------------------------
+    // partie création de nouveau modèle, à partir de la création de campagne
+    // -------------------------------------------------------------------------------------
+
+    //création nouveau modèle, appel de formulaire
+    $(document).on('click', '#new-campaign-modal .create-new-template-link', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var template_model = $('input[name=template_model_text_and_image]').val();
+
+        if(null !== template_model){
+            var add_template_url = $('input[name=add_template_form_url]').val();
+            add_template_url = add_template_url+'/'+template_model;
+
+            $.ajax({
+                type: 'GET',
+                url: add_template_url,
+                success: function(data){
+                    $('#create-template-dialog').find('.modal-body-container').html(data.content);
+
+                    var validate_add_button = $('#create-template-dialog').find('.submit-button-container .validate-add');
+                    validate_add_button.removeClass('validate-add');
+                    validate_add_button.addClass('validate-add-from-campaign-creation');
+                },
+                statusCode: {
+                    404: function(data){
+                        var message = 'undefined' === typeof data.responseJSON ? 'Page non trouvée' : data.responseJSON.message;
+                        $('#create-template-dialog').find('.error-message-container.general-message').text(message);
+                        $('#create-template-dialog').find('.modal-body-container').html('');
+                        setTimeout(function(){
+                            $('#create-template-dialog').find('a.previous').show();
+                            $('#create-template-dialog').modal('show');
+                        }, 0);
+                    },
+                    500: function(){
+                        $('#preview-template-dialog').find('.error-message-container.general-message').text('Erreur interne');
+                        $('#preview-template-dialog').find('.modal-body-container').html('');
+                    }
+                },
+                complete: function(){
+                    $('#create-template-dialog').find('.previous').hide();
+                    $('#create-template-dialog').find('.close-modal').attr('data-dismiss', 'modal');
+                    $('#create-template-dialog').modal('show');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            });
+        }
+    });
+
+    $('#create-template-dialog').on('hidden.bs.modal', function(e){
+        $(this).find('.error-message-container.general-message').text('');
+        $(this).find('.modal-body-container').html('');
+    });
+
+    //validation de création de modèle
+    $(document).on('click', '#create-template-dialog button.btn-valider.validate.validate-add-from-campaign-creation', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var add_template_url = $('input[name=add_template_form_url]').val();
+        $('#create-template-dialog').find('.block-model-container').remove();
+
+        for (name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].updateElement();
+        }
+
+        $('#create-template-dialog form').ajaxSubmit({
+            type: 'POST',
+            url: add_template_url,
+            success: function(data){
+                if(data['error']){
+                    $('#create-template-dialog').find('.modal-body-container').html(data.content);
+                    $('#create-template-dialog').find('.btn-valider.save').trigger('click');
+                    installColorPicker();
+                    installWysiwyg();
+                    $('#instantaneous-preview-template-dialog').find('.modal-body-container').trigger('template-preview-modified');
+                } else {
+                    var new_template_id = data.id;
+                    var create_campaign_url = $("input[name=new_campaign_url").val();
+                    $.ajax({
+                        type: 'POST',
+                        url: create_campaign_url,
+                        success: function(data){
+                            var updated_structure = $(data.content);
+                            var update_form_structure = $(updated_structure[4]);
+                            $('#new-campaign-modal .template-lists ').replaceWith($(update_form_structure).find('.template-lists'));
+                            $('#new-campaign-modal').find('.template-lists input[value='+new_template_id+']').prop('checked', true);
+                            $('.step-3').addClass('done');
+                            clickNext();
+                            $('#create-template-dialog').modal('hide');
+                        },
+                        complete: function(){
+                            $('.chargementAjax').addClass('hidden');
+                        }
+                    });
+                }
+            },
+            statusCode: {
+                404: function(){
+                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur');
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-template-dialog').find('.error-message-container.general-message').text(message);
+                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    // ----------------------------------------------------------------------------------------------
+    // partie suspension de création de campagne
+    // ----------------------------------------------------------------------------------------------
+    $(document).on('click', '#abort-new-campaign-modal .btn-abort-creation', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var create_campaign_url = $('input[name=new_campaign_url]').val();
+        var campaign_creation_by_halt_mode = $('input[name=campaign_draft_creation_mode_by_halt').val();
+        var data = {'creation_mode': campaign_creation_by_halt_mode};
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: create_campaign_url,
+            data: data,
+            success: function(data){
+                if(data['error']){
+                    $('#abort-new-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-new-campaign-modal').find('.error-message-container.general-message').text(data['error']);
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                } else {
+                    $('#abort-new-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            },
+            statusCode: {
+                404: function(){
+                    $('#abort-new-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('#abort-new-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    $('#abort-new-campaign-modal').on('show.bs.modal', function(){
+        $(this).find('.modal-body-container').show();
+    });
+
+    $('#abort-new-campaign-modal').on('hidden.bs.modal', function(){
+        $(this).find('.error-message-container.general-message').text('');
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Templates
+     * Création de campagne
+     * *********************************************************************************************
+     */
 });
+
+function activateCampaignConfirmationOnClose(){
+    $('#new-campaign-modal').find('.close-modal').attr('data-toggle', 'modal');
+    $('#new-campaign-modal').find('.close-modal').removeAttr('data-dismiss');
+    $('#new-campaign-modal').find('.close-modal').attr('data-target', '#abort-new-campaign-modal');
+}
+
+function deactivateCampaignConfirmationOnClose(){
+    $('#new-campaign-modal').find('.close-modal').removeAttr('data-toggle');
+    $('#new-campaign-modal').find('.close-modal').attr('data-dismiss', 'modal');
+}
+
+function showPrevious() {
+    if ($('#create-tabs a:first-child').hasClass('active')) {
+        $('#new-campaign-modal .previous').css('display','none');
+    } else {
+        $('#new-campaign-modal .previous').css('display','initial');
+    }
+}
+
+function initCalendar() {
+    $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+    $('#calendar').datepicker({
+        minDate: new Date(),
+        altField: ".date_launch_campaign",
+        altFormat: "dd/mm/yy"
+    });
+}
+
+function initSelectChosen() {
+    $(".chosen-select").chosen({//hour selectable
+        disable_search: true,
+        width: "70px"
+    });
+}
+
+function isDone() {
+    if ($('#create-tabs a.activated.active').hasClass("step-1")) {
+        if ($(".campaign_name_input").val() && $(".campaign_object_input").val()) {
+            addDone();
+            return true;
+        } else {
+            removeDone();
+            alert("Veuillez completer les deux champs pour aller à l'étape suivante...");
+            return false;
+        }
+    }
+    if ($('#create-tabs a.activated.active').hasClass("step-2")) {
+        if($('#dropdownMenuListe').html().trim() == $('#dropdownMenuListe').attr("data-default")) {
+            removeDone();
+            alert("Veuillez sélectionner une liste ou créez-en une...");
+            return false;
+        } else {
+            addDone();
+            return true;
+        }
+    }
+    if ($('#create-tabs a.activated.active').hasClass("step-3")) {
+        // if ($('input[name=template_choice_option]:checked').val() || "undefined" != typeof $('input[name=template_choice_option]:checked').val() ) {
+        if ($('#new-campaign-modal .template-choice-container .template-choice-input:checked').length > 0) {
+            addDone();
+            return true;
+        } else {
+            removeDone();
+            alert("Veuillez sélectionner un template ou créez-en un...");
+            return false;
+        }
+    }
+}
+
+function addDone() {
+    if (! $('#create-tabs a.activated.active').hasClass("done")) {
+        $('#create-tabs a.activated.active').addClass("done");
+    }
+}
+
+function removeDone() {
+    if ($('#create-tabs a.activated.active').hasClass("done")) {
+        $('#create-tabs a.activated.active').removeClass("done");
+    }
+}
+
+function setSelectedContactList()
+{
+    var selected_choice = $('#new-campaign-modal').find('.list-choice .list-choice-select option:selected');
+    if(selected_choice.length == 1){
+        $('#new-campaign-modal').find('.list-choice button.dropdown-toggle').text(selected_choice.text());
+    }
+}
+
+function setLaunchDateInModal(launch_date)
+{
+    var fr_month_array = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    var arr_launch_date = launch_date.split('/');
+    var str_launch_date = arr_launch_date[0] + ' ' + fr_month_array[arr_launch_date[1]-1] + ' ' + arr_launch_date[2];
+    $('#done-campaign-modal').find('.date-envoi').text(str_launch_date);
+}
+
+function clickNext() {
+    var next = $('#create-tabs a.activated.active').next('a');
+    if (!next.hasClass("activated")) {
+        next.addClass("activated");
+    }
+    if (next.hasClass("step-4")) {
+        next.addClass("done");
+    }
+    next.click();
+    showPrevious();
+}
+
+/**
+ * fonctions relatives à la création de liste
+ */
+function OverridePagination(){
+    //Modification libellé pagination 'Next' => 'dernier'
+    $('li#ListUserContactMailjet_next a').html('dernier');
+
+    //Cacher le bouton 'Previews'
+    $('li#ListUserContactMailjet_previous').hide();
+}
+
+function UpdateWidthPagination(){
+    var LargeurTableData = $('div#ListUserContactMailjet_wrapper').width();
+    $('div#ListUserContactMailjet_paginate').css('width', ''+LargeurTableData+'px');
+}
+
+function AddSeparatorPaginate(){
+    $('li.paginate_button').each(function(i){
+        if(i > 0){
+            if(!$(this).next().hasClass('paginate_separator')){
+                $('<li class = "paginate_separator"><span>&nbsp;</span></li>').insertAfter($(this));
+            }
+        }
+    });
+    $('li.paginate_separator').last().remove();
+}
+
+function addNewContactListInChoiceList(id, name){
+    var new_contact_list_option = $('<option></option>');
+    new_contact_list_option.attr('value', id);
+    new_contact_list_option.text(name);
+    $('#new-campaign-modal').find('.list-choice .list-choice-select').append(new_contact_list_option);
+    new_contact_list_option.prop('selected', true);
+
+    var new_contact_list_dropdown_item = $('<a></a>');
+    new_contact_list_dropdown_item.addClass('dropdown-item')
+    new_contact_list_dropdown_item.attr('href','#');
+    new_contact_list_dropdown_item.attr('data-value', id);
+    new_contact_list_dropdown_item.text(name);
+    $('#new-campaign-modal').find('.list-choice .dropdown-menu').append(new_contact_list_dropdown_item);
+    $('#new-campaign-modal').find('.list-choice button.dropdown-toggle').text(name);
+}
+
+/**
+ * FIN - fonctions relatives à la création de liste
+ */

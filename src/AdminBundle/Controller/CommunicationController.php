@@ -494,6 +494,7 @@ class CommunicationController extends AdminController
             'template_data_list' => $template_data_list,
             'content_type_class' => new TemplateContentType(),
             'template_sorting_parameter_class' => new TemplateSortingParameter(),
+            'campaign_draft_creation_mode_class' => new CampaignDraftCreationMode(),
         ));
     }
 

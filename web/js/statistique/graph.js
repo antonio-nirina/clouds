@@ -1,6 +1,6 @@
 /******Graphique*****/
 
-    function add(H){
+function add(H){
         H.wrap(H.Tick.prototype, 'render', function (p, i, o, op) {
         p.call(this, i, o, op);
         const axis = this.axis;
@@ -32,98 +32,168 @@
     }
     });
 };
+function evaluateData(obj,array){
+    $.each(obj,function(index, val) {
+     return array.push(Object.values(val));
+    });
+}
+
+function evalObject(obj){
+  	var t = [];
+  
+	var v = obj.map(function(i,elem){
+	      return i.date;
+	});
+	for (var i = 0; i < v.length; i++) {
+	      if (v[i] == v[i+1]) {
+	        t.push(v[i]);
+	      }
+	}
+	
+	if (t.length != 0) {
+
+	  	var res = obj.reduce(function(mem,curr){
+			var found = mem.find(function(item){
+			return item.date === curr.date
+		});
+		if(found){
+			found.value = found.value + curr.value;
+		} else {
+			mem.push(curr);
+		}
+			return mem;
+		},[]);
+		return res;
+
+	} else {
+		return obj;
+	}
+
+}
+ Array.prototype.move = function(x, y){
+      this.splice(y, 0, this.splice(x, 1)[0]);
+      return this;
+  }
+  
 
 function createChart(data){
-  var deliv = [];
-  var open = [];
-  var click = [];
-  var desab = [];
-  var bloque = [];
-  var spa = [];
-  var erreu = [];
-  var read = [];
+	var deliv = [];
+	var open = [];
+	var click = [];
+	var desab = [];
+	var bloque = [];
+	var spa = [];
+	var erreu = [];
 
-  var delivre = [];
-  var opened = [];
-  var clicked = [];
-  var desabo = [];
-  var bloqued = [];
-  var spam = [];
-  var erreur = [];
+	var delivre = [];
+	var opened = [];
+	var clicked = [];
+	var desabo = [];
+	var bloqued = [];
+	var spam = [];
+	var erreur = [];
+	var dataMin = [];
+	var dataMax = [];
 
 var dateCurrent = data.length>0 ? data[0].LastActivityAt:data.LastActivityAt.date;
 var today = new Date(dateCurrent);
-var reading = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
 
-$.each(data, function(i, item) {
-  var date = new Date(item.LastActivityAt);
-  var  dateUTC = Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours());
-     deliv.push({
-      'date': dateUTC,
-      'delivre': item.DeliveredCount
-              });
-     open.push({
-      'date':dateUTC,
-      'open':item.OpenedCount
-     });
-     click.push({
-      'date':dateUTC,
-      'click':item.ClickedCount
-     });
-     desab.push({
-          'date':dateUTC,
-          'desabo':item.UnsubscribedCount
-     });
-     bloque.push({
-      'date':dateUTC,
-      'bloqued':item.BlockedCount
-     });
-     spa.push({
-      'date':dateUTC,
-      'spam':item.SpamComplaintCount
-     });
-     erreu.push({
-          'date':dateUTC,
-          'erreur':item.BouncedCount
-     });
-});
+if (data.length>0) {
+  
+    var n = data.length;
+    var dat = new Date(data[n-1].LastActivityAt);
+    var dat1= new Date(data[0].LastActivityAt);
+    var dat2 = new Date(dat1.getFullYear(),dat1.getMonth(), dat1.getDate(),dat1.getHours(),dat1.getMinutes()-60) ;
+    var dat3 = new Date(dat.getFullYear(),dat.getMonth(), dat.getDate(),dat.getHours(),dat.getMinutes()+60) ;
+    dataMin.push({
+      "BlockedCount":0,
+      "BouncedCount":0,
+      "ClickedCount":0,
+      "DeliveredCount":0,
+      "LastActivityAt":dat2.toISOString(),
+      "OpenedCount":0,
+      "SpamComplaintCount":0,
+      "UnsubscribedCount":0
+    });
+    dataMax.push({
+      "BlockedCount":0,
+      "BouncedCount":0,
+      "ClickedCount":0,
+      "DeliveredCount":0,
+      "LastActivityAt":dat3.toISOString(),
+      "OpenedCount":0,
+      "SpamComplaintCount":0,
+      "UnsubscribedCount":0
+    });
+    data.push(dataMin[0],dataMax[0]);
+    console.log(dat);
+    console.log(dat3);
+    data.move(n,0);
+    $.each(data, function(i, item) {
+        var date = new Date(item.LastActivityAt);         
+        var dateUTC = Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours());
+           deliv.push({
+            'date': dateUTC,
+            'value': item.DeliveredCount
+                    });
+           open.push({
+            'date':dateUTC,
+            'value':item.OpenedCount
+           });
+           click.push({
+            'date':dateUTC,
+            'value':item.ClickedCount
+           });
+           desab.push({
+            'date':dateUTC,
+            'value':item.UnsubscribedCount
+           });
+           bloque.push({
+            'date':dateUTC,
+            'value':item.BlockedCount
+           });
+           spa.push({
+            'date':dateUTC,
+            'value':item.SpamComplaintCount
+           });
+           erreu.push({
+            'date':dateUTC,
+            'value':item.BouncedCount
+           });
+              
+    });
+	console.log(deliv);
+	/*var res = deliv.reduce(function(mem,curr){
+	  var found = mem.find(function(item){
+	    return item.date === curr.date
+	  });
+	  if(found){
+	    found.delivre += curr.delivre;
+	  } else {
+	    mem.push(curr);
+	  }
+	  return mem;
+	},[]);*/
 
-$.each(deliv, function(index, val) {
-     delivre.push(Object.values(val));
-     
-});
-$.each(open, function(index, val) {
-     opened.push(Object.values(val));
-     
-});
+	var finalDeliv = evalObject(deliv);
+	var finalOpen = evalObject(open);
+	console.log(finalDeliv);
+	var finalClick = evalObject(click);
+	var finalDesab = evalObject(desab);
+	var finalErreur = evalObject(erreu);
+	var finalBloque = evalObject(bloque);
+	var finalSpam = evalObject(spa);
 
-$.each(click, function(index, val) {
-     clicked.push(Object.values(val));
-     
-});
+	evaluateData(finalDeliv,delivre);
+	//evaluateData(finalOpen,opened);
+	/*evaluateData(finalClick,clicked);
+	evaluateData(finalDesab,desabo);
+	evaluateData(finalBloque,bloqued);
+	evaluateData(finalSpam,spam);
+	evaluateData(finalErreur,erreur);*/
+}
 
-$.each(desab, function(index, val) {
-     desabo.push(Object.values(val));
-     
-});
-
-$.each(bloque, function(index, val) {
-     bloqued.push(Object.values(val));
-     
-});
-
-$.each(spa, function(index, val) {
-     spam.push(Object.values(val));
-     
-});
-
-$.each(erreu, function(index, val) {
-     erreur.push(Object.values(val));
-     
-});
-
-
-    var option =  {
+var option =  {
             xAxis: {
                 type: 'datetime',
                 tickInterval:1*3600*1000,                    
@@ -152,45 +222,44 @@ $.each(erreu, function(index, val) {
                         }
             },
           series: [
-           {
-            pointStart: reading, 
-            showInLegend: false, 
+          {
+              pointStart: Date.UTC(2018,02,02,0,0),
             marker: {
-            symbol: "square",
-            width: 16,
-            height: 16,
-            fillColor: '#87ceeb'
+              symbol: "square",
+              width: 16,
+              height: 16,
+              fillColor: '#87ceeb'
             },
             data: [
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),0),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),1),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),2),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),3),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),4),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),6),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),5),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),6),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),7),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),8),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),9),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),10),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),11),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),12),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),13),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),14),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),15),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),16),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),17),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),18),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),19),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),20),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),21),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),22),0],
-              [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),23),0]
-            ]
-          },  
-
-          /*{
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),0),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),1),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),2),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),3),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),4),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),6),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),5),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),6),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),7),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),8),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),9),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),10),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),11),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),12),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),13),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),14),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),15),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),16),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),17),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),18),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),19),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),20),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),21),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),22),0],
+            [Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(),23),0]
+            ],
+            showInLegend: false
+        },
+            {
             data: delivre,
             color:"#838383",
             showInLegend: false,
@@ -272,9 +341,10 @@ $.each(erreu, function(index, val) {
               height: 16,
               fillColor: 'orange'
             }
-          }*/
-        ]
-    };
+          }
+        
+    ]
+ };
 
     const H = Highcharts;
     add(H);
@@ -287,6 +357,7 @@ $(document).ready(function(){
 var url = $('input[name=filterPeriode]').val();
 var jsonNow = $('input[name=dataNow]').val();
   createChart(JSON.parse(jsonNow));
+console.log(JSON.parse(jsonNow));
 
 /**filtre sur periode aujord'hui hier last7 days...**/
   $(document).on('click','.clearable .dropdown-itemNo', function(e){

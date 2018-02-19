@@ -1448,8 +1448,6 @@ $(document).ready(function() {
                             $('#create-contact-list-modal').find('.error-message-container.general-message').text(data['error']);
                             $('#create-contact-list-modal').find('.modal-body-container').hide();
                         } else {
-                            console.log(data['id']);
-                            console.log(id_nom_contact_list);
                             addNewContactListInChoiceList(data['id'], id_nom_contact_list);
                             $('#create-contact-list-modal').modal('hide');
                         }
@@ -1495,11 +1493,11 @@ $(document).ready(function() {
                 if(data['error']){
                     $('#abort-new-campaign-modal').find('.modal-body-container').hide();
                     $('#abort-new-campaign-modal').find('.error-message-container.general-message').text(data['error']);
-                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');
                     $('.chargementAjax').addClass('hidden');
                 } else {
                     $('#abort-new-campaign-modal').modal('hide');
-                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');
                     sendFilter();
                 }
             },
@@ -1507,13 +1505,13 @@ $(document).ready(function() {
                 404: function(){
                     $('#abort-new-campaign-modal').find('.modal-body-container').hide();
                     $('#abort-new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
-                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');
                     $('.chargementAjax').addClass('hidden');
                 },
                 500: function(){
                     $('#abort-new-campaign-modal').find('.modal-body-container').hide();
                     $('#abort-new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
-                    $('#new-campaign-modal').modal('hide');$('#new-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');
                     $('.chargementAjax').addClass('hidden');
                 }
             }
@@ -1808,6 +1806,10 @@ function addNewContactListInChoiceList(id, name){
     $('#new-campaign-modal').find('.list-choice .dropdown-menu').append(new_contact_list_dropdown_item);
     $('#new-campaign-modal').find('.list-choice button.dropdown-toggle').text(name);
 }
+
+/**
+ * FIN - fonctions relatives à la création de liste
+ */
 
 function setInstantaneousPreview(current_create_template_dialog)
 {

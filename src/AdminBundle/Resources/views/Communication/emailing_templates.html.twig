@@ -4,9 +4,13 @@
     {% embed 'AdminBundle::header.html.twig' %}
         {% block stylesheets %}
             {{ parent() }}
-            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
             <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+            <link href="{{ asset("css/bootstrap/dataTables.bootstrap4.min.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/bootstrap/buttons.dataTables.min.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -107,7 +111,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                                 <a class="dropdown-item edit-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": template.getId}) }}">ÉDITER</a>
-                                                <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
+                                                <a class="dropdown-item create-campaign-from-template" href="#" data-distant-template-id="{{ template.distantTemplateId }}">CRÉER UNE CAMPAGNE</a>
                                                 <a class="dropdown-item preview-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_preview_template", {"template_id": template.getId}) }}">PRÉVISUALISER</a>
                                                 <a class="dropdown-item duplicate-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_duplicate_template", {"template_id": template.getId}) }}">DUPLIQUER</a>
                                                 <a class="dropdown-item delete-template" href="#" data-template-id="{{ template.getId }}" data-toggle="modal" data-target="#confirm-delete-template">SUPPRIMER</a>
@@ -325,6 +329,116 @@
                             </div>
                             <!-- FIN - dialog - duplication template -->
 
+                            <!-- Modal créer nouveau-->
+                            <div id="new-campaign-modal" class="modal bs-example-modal-lg app-dialog" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg big" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="previous"></a>
+                                            <a class="close-modal" data-target="#abort-new-campaign-modal" data-toggle="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="error-message-container centered-message general-message"></div>
+                                        <div class="content">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - Modal créer nouveau-->
+
+                            <!-- modal - créer liste des contacts -->
+                            <div id="create-contact-list-modal" class="app-dialog modal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="error-message-container centered-message general-message"></div>
+                                            <div class="modal-body-container">
+                                                <div class="content-container">
+                                                    <span class="dialog-title">créer une liste de contacts</span>
+                                                    <div class = "body-container"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - modal - créer liste des contacts -->
+
+                            <!-- Modal suspendre création nouveau-->
+                            <div id="abort-new-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg " role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="content">
+                                            <div class="error-message-container centered-message general-message"></div>
+                                            <div class="modal-body-container">
+                                                <div class="modal-title">Suspendre la création d'une campagne</div>
+                                                <div class="row btn-new-campaign-folder">
+                                                    <label>Vous allez suspendre le processus de création d'une campagne. <br> Celle-ci va s'enregistrer dans la liste de vos campagnes, vous pourrez ainsi l'éditer ultérieurement</label>
+                                                </div>
+                                                <div class="row centered">
+                                                    <button class="btn-valider btn-abort-creation">
+                                                        suspendre
+                                                    </button>
+                                                </div>
+                                                <div class="add-campaign-folder-error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - Modal suspendre création nouveau-->
+
+                            <!-- Modal création envoyé-->
+                            <div id="sent-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg big" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="content">
+                                            <div><h4>Envoyé !</h4></div>
+                                            <div>
+                                                <p>
+                                                    Votre campagne a été envoyée avec succès.
+                                                </p>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - Modal création envoyé-->
+
+                            <!-- Modal création programmé-->
+                            <div id="done-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg big" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                        </div>
+                                        <div class="content">
+                                            <div><h4>c'est parti !</h4></div>
+                                            <div>
+                                                <p>
+                                                    Votre campagne est programmée pour le <span class="date-envoi"></span>.
+                                                </p>
+                                                <p>
+                                                    Vous pourrez la retrouver, la modifier ou l'éditer dans la liste des campagnes.
+                                                </p>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- FIN - Modal création programmé-->
+
+
                             <input type="hidden" name="add_template_form_url" value="{{ path("admin_communication_emailing_templates_add_template") }}">
                             <input type="hidden" name="template_model_text_and_image" value="{{ constant('TEXT_AND_IMAGE', template_model_class) }}">
                             <input type="hidden" name="template_model_text_only" value="{{ constant('TEXT_ONLY', template_model_class) }}">
@@ -337,6 +451,10 @@
                             <input type="hidden" name="sort_template_list_url" value="{{ path("admin_communication_emailing_templates_sort", {"sorting_parameter": "__param__"}) }}">
                             <input type="hidden" name="edit_template_url" value="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": "__id__"}) }}">
                             <input type="hidden" name="duplicate_template_url" value="{{ path("admin_communication_emailing_templates_duplicate_template") }}">
+                            <input type="hidden" name="new_campaign_url" value="{{ path("admin_communication_emailing_compaign_new") }}">
+                            <input type="hidden" name="create_contact_list_url" value = "{{ path("admin_communication_emailing_list_contact_creation") }}">
+                            <input type="hidden" name="submit_create_contact_list_url" value = "{{ path("admin_communication_emailing_campaign_create_contact_list") }}">
+                            <input type="hidden" name="campaign_draft_creation_mode_by_halt" value="{{ constant('BY_HALT', campaign_draft_creation_mode_class) }}">
                         </div>
                     </div>
                 </section>
@@ -355,10 +473,17 @@
         {% block javascripts %}
             {{ parent() }}
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>
-            <script src="{{ asset("js/admin-communication.js") }}"></script>
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script> {# utile pour soumettre le forme par ajax #}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script> {# utile pour soumettre le formlaire par ajax #}
             <script src="{{ asset('js/bootstrap-multimodal/multimodal.min.js') }}"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+            <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+            <script src="{{ asset('js/jquery/jquery.dataTables.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap/dataTables.bootstrap4.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap-dataTable/dataTables.buttons.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap-dataTable/buttons.bootstrap4.min.js') }}"></script>
+            <script src="{{ asset("js/admin-communication.js") }}"></script>
         {% endblock %}
     {% endembed %}
 {% endblock %}

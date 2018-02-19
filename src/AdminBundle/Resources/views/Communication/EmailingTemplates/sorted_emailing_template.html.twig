@@ -23,7 +23,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                         <a class="dropdown-item edit-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_edit_template", {"template_id": template.getId}) }}">ÉDITER</a>
-                        <a class="dropdown-item" href="#">CRÉER UNE CAMPAGNE</a>
+                        <a class="dropdown-item create-campaign-from-template" href="#" data-distant-template-id="{{ template.distantTemplateId }}">CRÉER UNE CAMPAGNE</a>
                         <a class="dropdown-item preview-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_preview_template", {"template_id": template.getId}) }}">PRÉVISUALISER</a>
                         <a class="dropdown-item duplicate-template" href="#" data-target-url="{{ path("admin_communication_emailing_templates_duplicate_template", {"template_id": template.getId}) }}">DUPLIQUER</a>
                         <a class="dropdown-item delete-template" href="#" data-template-id="{{ template.getId }}" data-toggle="modal" data-target="#confirm-delete-template">SUPPRIMER</a>
