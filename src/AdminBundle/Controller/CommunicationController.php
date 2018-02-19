@@ -1428,6 +1428,30 @@ class CommunicationController extends AdminController
 		));
 	}
 	
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/delete-sondages-quiz",
+     *     name="admin_communication_sondage_quiz_delete")
+     * 
+     */
+    public function sondageQuizDeleteAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if($request->isMethod('POST')){
+			$id = $request->get('Id');
+			$QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
+			$em->remove($QuestionsInfosArray);
+			$em->flush();
+		}
+		return new Response('ok');
+	}
+	
 	/**
      * @Route(
      *     "/sondage-quiz/delete-banniere",
