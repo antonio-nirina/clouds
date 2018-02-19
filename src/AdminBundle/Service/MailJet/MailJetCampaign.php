@@ -15,6 +15,8 @@ use AdminBundle\Service\MailJet\MailJetHandler;
 use Mailjet\MailjetBundle\Model\CampaignDraft;
 use AdminBundle\DTO\CampaignDraftData;
 use AdminBundle\Service\MailJet\MailJetSender;
+use AdminBundle\Service\MailJet\MailjetContactList;
+use AdminBundle\Service\ArrayStructure\ArrayStructureHandler;
 
 class MailJetCampaign extends MailJetHandler
 {
@@ -51,18 +53,24 @@ class MailJetCampaign extends MailJetHandler
     protected $campaign_draft_manager;
     protected $campaign_manager;
     protected $mailjet_sender_handler;
+    protected $contact_list_handler;
+    protected $array_structure_handler;
     /*protected $mailjet;*/
 
     public function __construct(
         CampaignDraftManager $campaign_draft_manager,
         CampaignManager $campaign_manager,
         MailjetClient $mailjet,
-        MailJetSender $mailjet_sender_handler
+        MailJetSender $mailjet_sender_handler,
+        MailjetContactList $contact_list_handler,
+        ArrayStructureHandler $array_structure_handler
     ) {
         parent::__construct($mailjet);
         $this->campaign_draft_manager = $campaign_draft_manager;
         $this->campaign_manager = $campaign_manager;
         $this->mailjet_sender_handler = $mailjet_sender_handler;
+        $this->contact_list_handler = $contact_list_handler;
+        $this->array_structure_handler = $array_structure_handler;
     }
 
     public function getAll($data = null, $sort_by_created_at_desc = true)
@@ -80,32 +88,65 @@ class MailJetCampaign extends MailJetHandler
         return $all_campaigns;
     }
 
+    /**
+     * Get all campaign draft with associated data
+     *
+     * @param null $data
+     *
+     * @return array
+     */
     public function getAllWithData($data = null)
     {
         $campaign_draft_list = $this->getAll($data);
-        $campaing_overview_list = $this->getAllCampaignOverview();
+
+        $campaign_overview_list = $this->getAllCampaignOverview();
+        $indexed_campaign_overview_list = $this->array_structure_handler->redefineKeysBySpecifiedElementKey(
+            'ID',
+            $campaign_overview_list
+        );
+
         $sent_campaign_list = $this->getAllSentCampaign();
+        $indexed_sent_campaign_list = $this->array_structure_handler->redefineKeysBySpecifiedElementKey(
+            'NewsLetterID',
+            $sent_campaign_list
+        );
+
+        $contact_list_list =  $this->contact_list_handler->getAllList();
+        $indexed_contact_list_list = $this->array_structure_handler->redefineKeysBySpecifiedElementKey(
+            'ID',
+            $contact_list_list
+        );
 
         $campaign_data_list = array();
         foreach ($campaign_draft_list as $key => $campaign_draft) {
+            // setting campaign draft data
             $campaign_data_el['campaign_draft_data'] = $campaign_draft;
+
+            // setting campaign overview associated data, for sent campaign only
             $campaign_data_el['campaign_overview_data'] = null;
             if (self::CAMPAIGN_STATUS_SENT == $campaign_draft->getStatus()) {
                 $sent_campaign_id = null;
-                foreach ($sent_campaign_list as $sent_campaign) {
-                    if ($campaign_draft->getId() == $sent_campaign['NewsLetterID']) {
-                        $sent_campaign_id = $sent_campaign['ID'];
-                    }
+                if (array_key_exists($campaign_draft->getId(), $indexed_sent_campaign_list)) {
+                    $sent_campaign_id = $indexed_sent_campaign_list[$campaign_draft->getId()]['ID'];
                 }
-
                 if (!is_null($sent_campaign_id)) {
-                    foreach ($campaing_overview_list as $campaign_overview) {
-                        if ($campaign_overview['ID'] == $sent_campaign_id) {
-                            $campaign_data_el['campaign_overview_data'] = $campaign_overview;
-                        }
+                    if (array_key_exists($sent_campaign_id, $indexed_campaign_overview_list)) {
+                        $campaign_data_el['campaign_overview_data'] =
+                            $indexed_campaign_overview_list[$sent_campaign_id];
                     }
                 }
             }
+
+            // setting contact list associated data, when campaign draft contact list is defined
+            $campaign_data_el['contact_list_data'] = null;
+            if (!is_null($campaign_draft->getContactsListId())) {
+                if (array_key_exists($campaign_draft->getContactsListId(), $indexed_contact_list_list)) {
+                    $campaign_data_el['contact_list_data'] =
+                        $indexed_contact_list_list[$campaign_draft->getContactsListId()];
+                }
+            }
+
+            // adding element (which is an array) to array
             array_push($campaign_data_list, $campaign_data_el);
         }
 
