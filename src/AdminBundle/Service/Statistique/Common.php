@@ -195,16 +195,16 @@ class Common
         $filters = ["fromts"=>(string)$yest];
         $format= $date->format("Y-m-d");
         $campaigns = $this->mailjetClient->get(Resources::$Campaign,['filters' =>$filters])->getData();
+        dump($campaigns);
         if (!empty($campaigns)) {
             foreach ($campaigns as  $value) {
                $dateFiter = new \DateTime($value["CreatedAt"]);
                $time = $dateFiter->format("Y-m-d");
                if ($time === $format) {
-                    $res[] = $value; 
-                      
+                    $res[] = $value;                       
                }
             }
-            return $res;  
+            return !empty($res)? $res: "";  
         }
        return "";
                     

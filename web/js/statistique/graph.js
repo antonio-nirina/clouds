@@ -31,104 +31,106 @@ function add(H){
             }
     }
     });
-};
-function evaluateData(obj,array){
-    $.each(obj,function(index, val) {
-     return array.push(Object.values(val));
-    });
 }
 
 function evalObject(obj){
-  	var t = [];
-  
-	var v = obj.map(function(i,elem){
-	      return i.date;
-	});
-	for (var i = 0; i < v.length; i++) {
-	      if (v[i] == v[i+1]) {
-	        t.push(v[i]);
-	      }
-	}
-	
-	if (t.length != 0) {
+    var t = [];  
+    var v = obj.map(function(i,elem){
+          return i.date;
+    });
+    for (var i = 0; i < v.length; i++) {
+          if (v[i] == v[i+1]) {
+            t.push(v[i]);
+          }
+    }
+    
+    if (t.length != 0) {
+        var res = obj.reduce(function(mem,curr){
+            var found = mem.find(function(item){
+            return item.date === curr.date
+        });
+        if(found){
+            found.value = found.value + curr.value;
+        } else {
+            mem.push(curr);
+        }
+            return mem;
+        },[]);
+        return res;
 
-	  	var res = obj.reduce(function(mem,curr){
-			var found = mem.find(function(item){
-			return item.date === curr.date
-		});
-		if(found){
-			found.value = found.value + curr.value;
-		} else {
-			mem.push(curr);
-		}
-			return mem;
-		},[]);
-		return res;
-
-	} else {
-		return obj;
-	}
+    } else {
+        return obj;
+    }
 
 }
- Array.prototype.move = function(x, y){
-      this.splice(y, 0, this.splice(x, 1)[0]);
-      return this;
-  }
+
+ function evaluateData(obj,array){
   
+    $.each(obj,function(index, val) {
+        return array.push(Object.values(val));        
+    
+    });
+ }
 
 function createChart(data){
-	var deliv = [];
-	var open = [];
-	var click = [];
-	var desab = [];
-	var bloque = [];
-	var spa = [];
-	var erreu = [];
+  var deliv = [];
+  var open = [];
+  var click = [];
+  var desab = [];
+  var bloque = [];
+  var spa = [];
+  var erreu = [];
+  var reading = [];
 
-	var delivre = [];
-	var opened = [];
-	var clicked = [];
-	var desabo = [];
-	var bloqued = [];
-	var spam = [];
-	var erreur = [];
-	var dataMin = [];
-	var dataMax = [];
+  var delivre = [];
+  var opened = [];
+  var clicked = [];
+  var desabo = [];
+  var bloqued = [];
+  var spam = [];
+  var erreur = [];
 
 var dateCurrent = data.length>0 ? data[0].LastActivityAt:data.LastActivityAt.date;
 var today = new Date(dateCurrent);
 
 if (data.length>0) {
-  
-    var n = data.length;
-    var dat = new Date(data[n-1].LastActivityAt);
-    var dat1= new Date(data[0].LastActivityAt);
-    var dat2 = new Date(dat1.getFullYear(),dat1.getMonth(), dat1.getDate(),dat1.getHours(),dat1.getMinutes()-60) ;
-    var dat3 = new Date(dat.getFullYear(),dat.getMonth(), dat.getDate(),dat.getHours(),dat.getMinutes()+60) ;
-    dataMin.push({
-      "BlockedCount":0,
-      "BouncedCount":0,
-      "ClickedCount":0,
-      "DeliveredCount":0,
-      "LastActivityAt":dat2.toISOString(),
-      "OpenedCount":0,
-      "SpamComplaintCount":0,
-      "UnsubscribedCount":0
-    });
-    dataMax.push({
-      "BlockedCount":0,
-      "BouncedCount":0,
-      "ClickedCount":0,
-      "DeliveredCount":0,
-      "LastActivityAt":dat3.toISOString(),
-      "OpenedCount":0,
-      "SpamComplaintCount":0,
-      "UnsubscribedCount":0
-    });
-    data.push(dataMin[0],dataMax[0]);
-    console.log(dat);
-    console.log(dat3);
-    data.move(n,0);
+var p = [];
+
+var newData = data.map(function(val){
+    date = new Date(val.LastActivityAt);
+        p.push({
+            "BlockedCount":0,
+            "BouncedCount":0,
+            "ClickedCount":0,
+            "DeliveredCount":0,
+            "LastActivityAt":new Date(date.getFullYear(),date.getMonth(), date.getDate(),date.getHours(),date.getMinutes()+60).toISOString(),
+            "OpenedCount":0,
+            "SpamComplaintCount":0,
+            "UnsubscribedCount":0
+        });
+        p.push({
+            "BlockedCount":0,
+            "BouncedCount":0,
+            "ClickedCount":0,
+            "DeliveredCount":0,
+            "LastActivityAt":new Date(date.getFullYear(),date.getMonth(), date.getDate(),date.getHours(),date.getMinutes()-60).toISOString(),
+            "OpenedCount":0,
+            "SpamComplaintCount":0,
+            "UnsubscribedCount":0
+        });
+    
+    return data;
+});
+
+var teq = p.map(function(val){
+    data.push(val);   
+});
+data.sort(function(a,b){
+    date1 = new Date(b.LastActivityAt);
+    date2 = new Date(a.LastActivityAt);
+    return new Date(date1.getHours(),date1.getMinutes()) - new Date(date2.getHours(),date2.getMinutes());
+});
+
     $.each(data, function(i, item) {
         var date = new Date(item.LastActivityAt);         
         var dateUTC = Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours());
@@ -145,8 +147,8 @@ if (data.length>0) {
             'value':item.ClickedCount
            });
            desab.push({
-            'date':dateUTC,
-            'value':item.UnsubscribedCount
+                'date':dateUTC,
+                'value':item.UnsubscribedCount
            });
            bloque.push({
             'date':dateUTC,
@@ -157,41 +159,29 @@ if (data.length>0) {
             'value':item.SpamComplaintCount
            });
            erreu.push({
-            'date':dateUTC,
-            'value':item.BouncedCount
+                'date':dateUTC,
+                'value':item.BouncedCount
            });
               
     });
-	console.log(deliv);
-	/*var res = deliv.reduce(function(mem,curr){
-	  var found = mem.find(function(item){
-	    return item.date === curr.date
-	  });
-	  if(found){
-	    found.delivre += curr.delivre;
-	  } else {
-	    mem.push(curr);
-	  }
-	  return mem;
-	},[]);*/
 
-	var finalDeliv = evalObject(deliv);
-	var finalOpen = evalObject(open);
-	console.log(finalDeliv);
-	var finalClick = evalObject(click);
-	var finalDesab = evalObject(desab);
-	var finalErreur = evalObject(erreu);
-	var finalBloque = evalObject(bloque);
-	var finalSpam = evalObject(spa);
+    var aDeliv = evalObject(deliv);
+    var aOpen = evalObject(open);
+    var aClique = evalObject(click);
+    var aDesabo = evalObject(desab);
+    var aErreur = evalObject(erreu);
+    var aBloque = evalObject(bloque);
+    var aSpam = evalObject(spa);
 
-	evaluateData(finalDeliv,delivre);
-	//evaluateData(finalOpen,opened);
-	/*evaluateData(finalClick,clicked);
-	evaluateData(finalDesab,desabo);
-	evaluateData(finalBloque,bloqued);
-	evaluateData(finalSpam,spam);
-	evaluateData(finalErreur,erreur);*/
+    evaluateData(aDeliv,delivre);
+    evaluateData(aOpen,opened);
+    evaluateData(aClique,clicked);
+    evaluateData(aDesabo,desabo);
+    evaluateData(aBloque,bloqued);
+    evaluateData(aSpam,spam);
+    evaluateData(aErreur,erreur);
 }
+
 
 var option =  {
             xAxis: {
@@ -220,6 +210,13 @@ var option =  {
                         softThreshold:false
                     }
                         }
+            },
+            tooltip: {
+                formatter: function() {
+                    return  '<b>' + "Email delivred"+'</b><br/>' +
+                        Highcharts.dateFormat('%H:%M', new Date(this.x))
+                    + '-'+Highcharts.dateFormat('%H:%M', new Date(this.x))+' '+ this.y + ' email';
+                }
             },
           series: [
           {
@@ -370,8 +367,9 @@ console.log(JSON.parse(jsonNow));
         $(document).click();
     });
 
-    function sendChoice($periode=null){
-       var filter = $('.dropdown.filtres').find('button').hasClass('active');
+    function sendChoice($periode = "" ){
+        $('.chargementAjax').removeClass('hidden');
+        var filter = $('.dropdown.filtres').find('button').hasClass('active');
         var  data = {};
         if (filter) {
             data.status = $('.dropdown.filtres').find('button').find("span").html().trim();
@@ -396,7 +394,8 @@ console.log(JSON.parse(jsonNow));
                       success:function(dataY){
                         console.log(dataY);
                           //createChart(jsonNow);
-                            if (dataY.info!= {}){                             
+                            if (dataY.info!= {}){  
+                            //$('.chargementAjax').addClass('hidden');                           
                             $('.valTot3').css('display','none');
                             $('.valDel3').css('display','none');
                             $('.valOuv3').css('display','none');
@@ -474,6 +473,7 @@ console.log(JSON.parse(jsonNow));
                       console.log(dataLast7);
                       //createChart(jsonNow);
                       if (dataLast7!={}  && dataLast7.fromTo!= {}){
+                            //$('.chargementAjax').addClass('hidden');
                             $('.valTot').css('display','none');
                             $('.valTot2').css('display','none');
                             $('.valTot3').css('display','block');
@@ -537,10 +537,10 @@ console.log(JSON.parse(jsonNow));
                             $('#blSp3').html(dataLast7.info.res.spam);
                             $('#nbrMail3').html(dataLast7.info.res.total);
                             $('.tableDetail3').css('display','block');
-                              $.each(dataLast7.fromTo,function(i, value) {
+                            $.each(dataLast7.fromTo,function(i, value) {
                             $("<tr></tr>").appendTo('.table #tableBody3')
                               .append("<td>"+ value.sujet+"</td><td>"+ value.sender +"</td><td>"+value.emailTo+"</td><td>"+convertDate(value.date)+"</td>");
-                      
+                      $('.chargementAjax').removeClass('hidden');
                                });
                             } else {
                               $('.headSujet').css('width','23%');
