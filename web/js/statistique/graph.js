@@ -213,7 +213,7 @@ var option =  {
             },
             tooltip: {
                 formatter: function() {
-                    return  '<b>' + "Email delivred"+'</b><br/>' +
+                    return  '<b>' + "Email"+' '+this.series.name +'</b><br/>' +
                         Highcharts.dateFormat('%H:%M', new Date(this.x))
                     + '-'+Highcharts.dateFormat('%H:%M', new Date(this.x))+' '+ this.y + ' email';
                 }
@@ -256,8 +256,9 @@ var option =  {
             ],
             showInLegend: false
         },
-            {
+           {
             data: delivre,
+            name : 'delivred',
             color:"#838383",
             showInLegend: false,
             marker: {
@@ -270,6 +271,7 @@ var option =  {
           
           {
             data: opened,
+            name:'opened',
             color:"#9DE077",
             showInLegend: false,
             marker: {
@@ -282,6 +284,7 @@ var option =  {
 
           {
             data: clicked,
+            name:'Clicked',
             color:"#56A400",
             showInLegend: false,
             marker: {
@@ -294,6 +297,7 @@ var option =  {
 
           {
             data: desabo,
+            name:'unsub',
             color:"#1DC7FF",
             showInLegend: false,
             marker: {
@@ -306,6 +310,7 @@ var option =  {
 
           {
             data: bloqued,
+            name:'blocked',
             showInLegend: false,
             color:"black",
             marker: {
@@ -318,6 +323,7 @@ var option =  {
 
           {
             data: spam,
+            name:'spam',
             showInLegend: false,
             color:"red",
             marker: {
@@ -330,6 +336,7 @@ var option =  {
 
           {
             data: erreur,
+            name:'bounce',
             color:"orange",
             showInLegend: false,
             marker: {
@@ -394,8 +401,7 @@ console.log(JSON.parse(jsonNow));
                       success:function(dataY){
                         console.log(dataY);
                           //createChart(jsonNow);
-                            if (dataY.info!= {}){  
-                            //$('.chargementAjax').addClass('hidden');                           
+                            if (dataY.info!= {}){                             
                             $('.valTot3').css('display','none');
                             $('.valDel3').css('display','none');
                             $('.valOuv3').css('display','none');
@@ -459,7 +465,10 @@ console.log(JSON.parse(jsonNow));
                             } else {
                               $('.headSujet').css('width','23%');
                             }
-                      }
+                      },
+                    complete: function(){
+                        $('.chargementAjax').addClass('hidden');
+                    }
                  });
 
               break;
