@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\SondagesQuizQuestionnaireInfosRepository")
  * @ORM\Table(name="sondages_quiz_questionnaire_infos")
+ * @ORM\HasLifecycleCallbacks()
  */
 class SondagesQuizQuestionnaireInfos
 {
@@ -70,47 +71,47 @@ class SondagesQuizQuestionnaireInfos
     {
         return $this->id;
     }
-	
-	/**
-     * Set type_sondages_quiz
+
+    /**
+     * Set typeSondagesQuiz
      *
-     * @param string $type_sondages_quiz
+     * @param boolean $typeSondagesQuiz
      *
      * @return SondagesQuizQuestionnaireInfos
      */
-    public function setTypeSondagesQuiz($type_sondages_quiz)
+    public function setTypeSondagesQuiz($typeSondagesQuiz)
     {
-        $this->type_sondages_quiz = $type_sondages_quiz;
+        $this->type_sondages_quiz = $typeSondagesQuiz;
 
         return $this;
     }
-	
-	/**
-     * Get type_sondages_quiz
+
+    /**
+     * Get typeSondagesQuiz
      *
-     * @return string
+     * @return boolean
      */
     public function getTypeSondagesQuiz()
     {
         return $this->type_sondages_quiz;
     }
-	
-	/**
-     * Set titre_questionnaire
+
+    /**
+     * Set titreQuestionnaire
      *
-     * @param string $titre_questionnaire
+     * @param string $titreQuestionnaire
      *
      * @return SondagesQuizQuestionnaireInfos
      */
-    public function setTitreQuestionnaire($titre_questionnaire)
+    public function setTitreQuestionnaire($titreQuestionnaire)
     {
-        $this->titre_questionnaire = $titre_questionnaire;
+        $this->titre_questionnaire = $titreQuestionnaire;
 
         return $this;
     }
-	
-	/**
-     * Get titre_questionnaire
+
+    /**
+     * Get titreQuestionnaire
      *
      * @return string
      */
@@ -118,24 +119,23 @@ class SondagesQuizQuestionnaireInfos
     {
         return $this->titre_questionnaire;
     }
-	
-	
-	/**
-     * Set description_questionnaire
+
+    /**
+     * Set descriptionQuestionnaire
      *
-     * @param string $description_questionnaire
+     * @param string $descriptionQuestionnaire
      *
      * @return SondagesQuizQuestionnaireInfos
      */
-    public function setDescriptionQuestionnaire($description_questionnaire)
+    public function setDescriptionQuestionnaire($descriptionQuestionnaire)
     {
-        $this->description_questionnaire = $description_questionnaire;
+        $this->description_questionnaire = $descriptionQuestionnaire;
 
         return $this;
     }
-	
-	/**
-     * Get description_questionnaire
+
+    /**
+     * Get descriptionQuestionnaire
      *
      * @return string
      */
@@ -143,39 +143,45 @@ class SondagesQuizQuestionnaireInfos
     {
         return $this->description_questionnaire;
     }
-	
-	
-	/**
-     * Set date_creation
+
+    /**
+     * Set dateCreation
      *
-     * @param datetime $date_creation
+     * @param \DateTime $dateCreation
      *
      * @return SondagesQuizQuestionnaireInfos
      */
-    public function setDateCreation($date_creation)
+    public function setDateCreation($dateCreation)
     {
-        $this->date_creation = $date_creation;
+        $this->date_creation = $dateCreation;
 
         return $this;
     }
 
     /**
-     * Get date_creation
+     * Get dateCreation
      *
-     * @return SondagesQuiz
+     * @return \DateTime
      */
     public function getDateCreation()
     {
         return $this->date_creation;
     }
 	
-	
 	/**
+	* @ORM\PrePersist
+	*/
+	public function addDateCreation()
+	{
+		$this->setDateCreation(new \Datetime());
+	}
+
+    /**
      * Set sondagesQuiz
      *
      * @param \AdminBundle\Entity\SondagesQuiz $sondagesQuiz
      *
-     * @return SondagesQuiz
+     * @return SondagesQuizQuestionnaireInfos
      */
     public function setSondagesQuiz(\AdminBundle\Entity\SondagesQuiz $sondagesQuiz = null)
     {
@@ -193,29 +199,29 @@ class SondagesQuizQuestionnaireInfos
     {
         return $this->sondages_quiz;
     }
-	
-	/**
-     * Add sondagesQuizQuestions
+
+    /**
+     * Add sondagesQuizQuestion
      *
-     * @param \AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestions
+     * @param \AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestion
      *
-     * @return SondagesQuizQuestions
+     * @return SondagesQuizQuestionnaireInfos
      */
-    public function addSondagesQuizQuestions(\AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestions)
+    public function addSondagesQuizQuestion(\AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestion)
     {
-        $this->sondages_quiz_questions[] = $sondagesQuizQuestions;
+        $this->sondages_quiz_questions[] = $sondagesQuizQuestion;
 
         return $this;
     }
 
     /**
-     * Remove sondagesQuizQuestions
+     * Remove sondagesQuizQuestion
      *
-     * @param \AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestions
+     * @param \AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestion
      */
-    public function removeSondagesQuizQuestions(\AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestions)
+    public function removeSondagesQuizQuestion(\AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestion)
     {
-        $this->sondages_quiz_questions->removeElement($sondagesQuizQuestions);
+        $this->sondages_quiz_questions->removeElement($sondagesQuizQuestion);
     }
 
     /**

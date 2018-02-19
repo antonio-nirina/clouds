@@ -39,10 +39,8 @@ class SondagesQuizReponsesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getName()
     {
-        return 'adminbundle_sondagesquizreponses';
+        return 'sondages_quiz_reponses';
     }
-
-
 }

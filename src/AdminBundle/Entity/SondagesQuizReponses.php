@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\SondagesQuizReponsesRepository")
  * @ORM\Table(name="sondages_quiz_reponses")
+ * @ORM\HasLifecycleCallbacks()
  */
 class SondagesQuizReponses
 {
@@ -55,8 +56,8 @@ class SondagesQuizReponses
     {
         return $this->id;
     }
-	
-	/**
+
+    /**
      * Set reponses
      *
      * @param string $reponses
@@ -69,8 +70,8 @@ class SondagesQuizReponses
 
         return $this;
     }
-	
-	/**
+
+    /**
      * Get reponses
      *
      * @return string
@@ -79,35 +80,35 @@ class SondagesQuizReponses
     {
         return $this->reponses;
     }
-	
-	/**
-     * Set est_bonne_reponse
+
+    /**
+     * Set estBonneReponse
      *
-     * @param string $est_bonne_reponse
+     * @param boolean $estBonneReponse
      *
      * @return SondagesQuizReponses
      */
-    public function setEstBonneReponse($est_bonne_reponse)
+    public function setEstBonneReponse($estBonneReponse)
     {
-        $this->est_bonne_reponse = $est_bonne_reponse;
+        $this->est_bonne_reponse = $estBonneReponse;
 
         return $this;
     }
-	
-	/**
-     * Get est_bonne_reponse
+
+    /**
+     * Get estBonneReponse
      *
-     * @return string
+     * @return boolean
      */
     public function getEstBonneReponse()
     {
         return $this->est_bonne_reponse;
     }
-	
-	/**
+
+    /**
      * Set ordre
      *
-     * @param string $ordre
+     * @param integer $ordre
      *
      * @return SondagesQuizReponses
      */
@@ -117,63 +118,70 @@ class SondagesQuizReponses
 
         return $this;
     }
-	
-	/**
+
+    /**
      * Get ordre
      *
-     * @return string
+     * @return integer
      */
     public function getOrdre()
     {
         return $this->ordre;
     }
-	
-	/**
-     * Set sondages_quiz_questions
-     *
-     * @param string $sondages_quiz_questions
-     *
-     * @return SondagesQuizReponses
-     */
-    public function setSondagesQuizQuestions($sondages_quiz_questions)
-    {
-        $this->sondages_quiz_questions = $sondages_quiz_questions;
 
-        return $this;
-    }
-	
-	/**
-     * Get sondages_quiz_questions
+    /**
+     * Set dateCreation
      *
-     * @return string
-     */
-    public function getSondagesQuizQuestions()
-    {
-        return $this->sondages_quiz_questions;
-    }
-	
-	
-	/**
-     * Set date_creation
-     *
-     * @param datetime $date_creation
+     * @param \DateTime $dateCreation
      *
      * @return SondagesQuizReponses
      */
-    public function setDateCreation($date_creation)
+    public function setDateCreation($dateCreation)
     {
-        $this->date_creation = $date_creation;
+        $this->date_creation = $dateCreation;
 
         return $this;
     }
 
     /**
-     * Get date_creation
+     * Get dateCreation
      *
-     * @return datetime
+     * @return \DateTime
      */
     public function getDateCreation()
     {
         return $this->date_creation;
+    }
+	
+	/**
+	* @ORM\PrePersist
+	*/
+	public function addDateCreation()
+	{
+		$this->setDateCreation(new \Datetime());
+	}
+
+    /**
+     * Set sondagesQuizQuestions
+     *
+     * @param \AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestions
+     *
+     * @return SondagesQuizReponses
+     */
+    public function setSondagesQuizQuestions(\AdminBundle\Entity\SondagesQuizQuestions $sondagesQuizQuestions = null)
+    {
+        $this->sondages_quiz_questions = $sondagesQuizQuestions;
+
+        return $this;
+    }
+
+    /**
+     * Get sondagesQuizQuestions
+     *
+     * @return \AdminBundle\Entity\SondagesQuizQuestions
+     */
+    public function getSondagesQuizQuestions()
+    {
+        return $this->sondages_quiz_questions;
     }
 }

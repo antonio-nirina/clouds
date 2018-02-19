@@ -173,7 +173,7 @@
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="champForm" style="text-align:center;">
-									<button class="btn-valider valider submit-form" type = "submit">
+									<button class="btn-valider valider submit-form" name = "btn-submit-form-etape-1" type = "submit">
 										valider
 									</button>
 								</div>
@@ -252,16 +252,37 @@
 					
 					<div class="row">
 						<div class="col-12 col-md-6" style="text-align:center;">
-							<button id = "enregistrer-All-form" class="btn-valider valider submit-form" data-id="426" type = "button">enregistrer</button>
+							<button id = "enregistrer-All-form" class="btn-valider valider submit-form" data-id="426" name = "btn-enregistrer-sondages-quiz" type = "submit">enregistrer</button>
 						</div>
 						
 						<div class="col-12 col-md-6" style="text-align:center;">
-							<button id = "publier-All-form" class="btn-valider valider submit-form" type = "button">publier</button>
+							<button id = "publier-All-form" class="btn-valider valider submit-form" name = "btn-publier-sondages-quiz" type = "button">publier</button>
 						</div>
 					</div>
 					{{ form_rest(formQuestionnaires) }}
 					{{ form_end(formQuestionnaires) }}
 				</section>
+				
+				{% for QuestionsInfos in QuestionsInfosArray%}
+				<section class="fieldset inactive">
+					<div class="block-active-hover"></div>
+					<div class="row">
+                        <div class="col-12 col-sm-9 col-md-9">
+                            <h3 class="hidden-sm-down block-title">{{ QuestionsInfos.TitreQuestionnaire }}</h3>
+                            <h5 class="hidden-md-up block-title">{{ QuestionsInfos.TitreQuestionnaire }}</h5>
+                            <p class="date-info">créé le {{ QuestionsInfos.DateCreation | localizeddate('none', 'none', locale, null, "d MMMM yyyy") }}</p>
+
+                        </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="option-container">
+                                <a href="#" class="edit-post"></a>
+                                <a href="#" class="delete-post" data-edito-post-id="4" data-toggle="modal" data-target="#confirm-delete-dialog"></a>
+                                <a href="#" class="close-edit-post-form"></a>
+                            </div>
+                        </div>
+                    </div>
+				</section>
+				{% endfor %}
             </div>
         </div>
 
@@ -270,8 +291,6 @@
 		<p class = "chargementAjax hidden">
             <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
         </p>
-		<input id = "UrlAjoutQuestions" type = "hidden" name = "UrlAjoutQuestions" value = "{{ path("admin_communication_sondage_quiz_add_question") }}">
-		<input id = "UrlAjoutReponses" type = "hidden" name = "UrlAjoutReponses" value = "{{ path("admin_communication_sondage_quiz_add_reponses") }}">
 		<input id = "UrlDeleteBanniere" type = "hidden" name = "UrlDeleteBanniere" value = "{{ path("admin_communication_sondage_quiz_delete_banniere") }}">
     </main>
 
