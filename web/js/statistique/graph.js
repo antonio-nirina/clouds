@@ -1,6 +1,6 @@
 /******Graphique*****/
 
-  function add(H){
+function add(H){
         H.wrap(H.Tick.prototype, 'render', function (p, i, o, op) {
         p.call(this, i, o, op);
         const axis = this.axis;
@@ -32,71 +32,44 @@
     }
     });
 };
- function evaluateData(obj,array){
-  var a=[];
-  var b=[];
+function evaluateData(obj,array){
     $.each(obj,function(index, val) {
      return array.push(Object.values(val));
     });
- }
+}
 
-function evalObject(object){
-	    var t = [];
-	    var newDeliv = []; 
-	    var fDeliv = [];  
-	    var i = 0;
-	    var v = object.map(function(i,elem){
+function evalObject(obj){
+  	var t = [];
+  
+	var v = obj.map(function(i,elem){
 	      return i.date;
-	    });
-
-	    newDeliv = object.filter(function (a) {
-	        return !this[a.date] && (this[a.date] = true);
-	        }, Object.create(null));
-	    for (var i = 0; i < v.length; i++) {
+	});
+	for (var i = 0; i < v.length; i++) {
 	      if (v[i] == v[i+1]) {
 	        t.push(v[i]);
 	      }
-	    }
-	  if (t.length != 0) {
-	    var newDeliv2 = newDeliv.map(function(i,elem){
-	        if (t.length>1) {
-	            for (var j = 0; j < t.length; j++) {
-	                 if (i.date == t[j]) {
-	                    fDeliv.push({
-	                    "date":i.date,
-	                    "delivre":i.delivre+parseInt(t.length)
-	                });
-	           }
-	                return i.date == t[j];
-	            }
-	        } else {
-	           if (i.date == t[0]) {
-	            fDeliv.push({
-	                "date":i.date,
-	                "delivre":i.delivre+1
-	            });
-	           }
-	            return i.date == t[0];
-	        }
-	    });
+	}
+	
+	if (t.length != 0) {
 
-	    index = newDeliv2.findIndex(x => x == true);
-	    if (fDeliv.length>1) {
-	        for (var k = 0; k < fDeliv.length; k++) {
-	            newDeliv.splice(index,1,fDeliv[k]);
-	        }
-	    } else {
-	        newDeliv.splice(index,1,fDeliv[0]);
-	    }
+	  	var res = obj.reduce(function(mem,curr){
+			var found = mem.find(function(item){
+			return item.date === curr.date
+		});
+		if(found){
+			found.value = found.value + curr.value;
+		} else {
+			mem.push(curr);
+		}
+			return mem;
+		},[]);
+		return res;
 
-		return newDeliv;
-  } else {
-  	
-  	return object;
-  }
-    
+	} else {
+		return obj;
+	}
+
 }
-
  Array.prototype.move = function(x, y){
       this.splice(y, 0, this.splice(x, 1)[0]);
       return this;
@@ -104,30 +77,24 @@ function evalObject(object){
   
 
 function createChart(data){
-  var deliv = [];
-  var open = [];
-  var click = [];
-  var desab = [];
-  var bloque = [];
-  var spa = [];
-  var erreu = [];
-  var reading = [];
+	var deliv = [];
+	var open = [];
+	var click = [];
+	var desab = [];
+	var bloque = [];
+	var spa = [];
+	var erreu = [];
 
-  var delivre = [];
-  var opened = [];
-  var clicked = [];
-  var desabo = [];
-  var bloqued = [];
-  var spam = [];
-  var erreur = [];
-  var h  = [];
-  var t = [];
-  var min = 0;
-  var max = 0;
- var dataMin = [];
- var dataMax = [];
+	var delivre = [];
+	var opened = [];
+	var clicked = [];
+	var desabo = [];
+	var bloqued = [];
+	var spam = [];
+	var erreur = [];
+	var dataMin = [];
+	var dataMax = [];
 
- console.log(data);
 var dateCurrent = data.length>0 ? data[0].LastActivityAt:data.LastActivityAt.date;
 var today = new Date(dateCurrent);
 
@@ -167,52 +134,63 @@ if (data.length>0) {
         var dateUTC = Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours());
            deliv.push({
             'date': dateUTC,
-            'delivre': item.DeliveredCount
+            'value': item.DeliveredCount
                     });
            open.push({
             'date':dateUTC,
-            'open':item.OpenedCount
+            'value':item.OpenedCount
            });
            click.push({
             'date':dateUTC,
-            'click':item.ClickedCount
+            'value':item.ClickedCount
            });
            desab.push({
-                'date':dateUTC,
-                'desabo':item.UnsubscribedCount
+            'date':dateUTC,
+            'value':item.UnsubscribedCount
            });
            bloque.push({
             'date':dateUTC,
-            'bloqued':item.BlockedCount
+            'value':item.BlockedCount
            });
            spa.push({
             'date':dateUTC,
-            'spam':item.SpamComplaintCount
+            'value':item.SpamComplaintCount
            });
            erreu.push({
-                'date':dateUTC,
-                'erreur':item.BouncedCount
+            'date':dateUTC,
+            'value':item.BouncedCount
            });
               
     });
-console.log(deliv);
-    var finalDeliv = evalObject(deliv);
-    var finalOpen = evalObject(open);
-    console.log(finalDeliv);
-    /*var finalClick = evalObject(click);
-    var finalDesab = evalObject(desab);
-    var finalErreur = evalObject(erreu);
-    var finalBloque = evalObject(bloque);
-    var finalSpam = evalObject(spa);*/
+	console.log(deliv);
+	/*var res = deliv.reduce(function(mem,curr){
+	  var found = mem.find(function(item){
+	    return item.date === curr.date
+	  });
+	  if(found){
+	    found.delivre += curr.delivre;
+	  } else {
+	    mem.push(curr);
+	  }
+	  return mem;
+	},[]);*/
 
-    evaluateData(finalDeliv,delivre);
-    //evaluateData(finalOpen,opened);
-   
-    /*evaluateData(finalClick,clicked);
-    evaluateData(finalDesab,desabo);
-    evaluateData(finalBloque,bloqued);
-    evaluateData(finalSpam,spam);
-    evaluateData(finalErreur,erreur);*/
+	var finalDeliv = evalObject(deliv);
+	var finalOpen = evalObject(open);
+	console.log(finalDeliv);
+	var finalClick = evalObject(click);
+	var finalDesab = evalObject(desab);
+	var finalErreur = evalObject(erreu);
+	var finalBloque = evalObject(bloque);
+	var finalSpam = evalObject(spa);
+
+	evaluateData(finalDeliv,delivre);
+	//evaluateData(finalOpen,opened);
+	/*evaluateData(finalClick,clicked);
+	evaluateData(finalDesab,desabo);
+	evaluateData(finalBloque,bloqued);
+	evaluateData(finalSpam,spam);
+	evaluateData(finalErreur,erreur);*/
 }
 
 var option =  {
@@ -380,6 +358,7 @@ var url = $('input[name=filterPeriode]').val();
 var jsonNow = $('input[name=dataNow]').val();
   createChart(JSON.parse(jsonNow));
 console.log(JSON.parse(jsonNow));
+
 /**filtre sur periode aujord'hui hier last7 days...**/
   $(document).on('click','.clearable .dropdown-itemNo', function(e){
         e.preventDefault();
