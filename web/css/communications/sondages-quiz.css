@@ -484,6 +484,37 @@ p.legende-choix-sondages-quiz-check label{
 	font-size:14px!important;
 }
 
+.modal-content .modal-header {
+    border: none;
+	display: block;
+}
+
+.confirm-delete-dialog .text-container {
+    padding: 0 80px;
+    width: 100%;
+}
+
+.confirm-delete-dialog .modal-body-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.confirm-delete-dialog .modal-body-container {
+    padding-bottom: 40px !important;
+}
+
+.confirm-delete-dialog .confirm-dialog-title {
+    color: var(--couleur_2);
+    font-size: 25px;
+}
+
+.confirm-delete-dialog .message {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	.input-form-text{

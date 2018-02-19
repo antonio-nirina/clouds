@@ -285,6 +285,30 @@ $(document).ready(function(){
 		
 		return false;
 	});
+	
+	$(document).on('click', 'button.confirm-delete-quiz', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var Id = ArrayAttrId[3];
+		
+		
+		$('div#confirm-delete-dialog-'+Id+'').modal('hide');
+		$('.chargementAjax').removeClass('hidden');
+		var UriDeleteQuiz = $('input#UriDeleteQuiz').val();
+		setTimeout(function(){
+			$.ajax({
+				type : "POST",
+				url: UriDeleteQuiz,
+				data : 'Id='+Id+'',
+				success: function(reponse){
+					$('.chargementAjax').addClass('hidden');
+					location.reload();
+				}
+			});
+		}, 300);
+		return false;
+	});
 });
 
 //Ajouter des champs questions

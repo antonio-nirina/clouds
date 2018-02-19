@@ -276,12 +276,38 @@
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="option-container">
                                 <a href="#" class="edit-post"></a>
-                                <a href="#" class="delete-post" data-edito-post-id="4" data-toggle="modal" data-target="#confirm-delete-dialog"></a>
+                                <a href="#" class="delete-post" data-sondages-quiz-post-id="{{ QuestionsInfos.Id }}" data-toggle="modal" data-target="#confirm-delete-dialog-{{ QuestionsInfos.Id }}"></a>
                                 <a href="#" class="close-edit-post-form"></a>
                             </div>
                         </div>
                     </div>
 				</section>
+				
+				<!-- dialog - confirmation suppression sondages/quiz -->
+				<div id="confirm-delete-dialog-{{ QuestionsInfos.Id }}" class="modal fade confirm-delete-dialog" tabindex="-1" role="dialog">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+							</div>
+							<div class="modal-body">
+								<div class="modal-body-container">
+									<div class="text-container">
+										<span class="confirm-dialog-title">Suppression</span>
+										<p class="message">Êtes-vous sûr de vouloir supprimer définitivement ?</p>
+									</div>
+									<div>
+										<button id = "id-confirm-delete-{{ QuestionsInfos.Id }}" class ="btn-valider confirm-delete-quiz">
+											valider
+										</button>
+									</div>
+								</div>
+							</div>
+							<input type="hidden" name="edito_post_id" value="">
+						</div>
+					</div>
+				</div>
+				<!-- FIN - dialog - confirmation suppression sondages/quiz -->
 				{% endfor %}
             </div>
         </div>
@@ -292,6 +318,8 @@
             <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
         </p>
 		<input id = "UrlDeleteBanniere" type = "hidden" name = "UrlDeleteBanniere" value = "{{ path("admin_communication_sondage_quiz_delete_banniere") }}">
+		<input id = "UriDeleteQuiz" type = "hidden" name = "UriDeleteQuiz" value = "{{ path("admin_communication_sondage_quiz_delete") }}">
+		
     </main>
 
 {% endblock %}

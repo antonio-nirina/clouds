@@ -49,7 +49,7 @@ class SondagesQuizQuestionnaireInfos
     private $sondages_quiz;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", mappedBy="sondages_quiz_questionnaire_infos")
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", cascade={"remove"}, mappedBy="sondages_quiz_questionnaire_infos")
      */
     private $sondages_quiz_questions;
 	
