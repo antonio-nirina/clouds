@@ -56,7 +56,7 @@
 					</div>
 				</span>
 			</label>
-			{{ form_widget(form.type_question, {'attr': {'class': 'small-textarea hidden'}}) }}
+			{{ form_widget(form.type_question, {'attr': {'class': 'hidden'}}) }}
 		</div>
 	</div>
 	
@@ -79,7 +79,7 @@
 	<div class = "row separator"></div>
 	
 	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="col-lg-6 col-md-6 col-sm-6">
 			<div class = "check-reponse-obligatoire">
 				<p class = "check-reponse-obligatoire-libelle">
 					<span class = "libelle-mode">réponse obligatoire</span>
@@ -87,6 +87,18 @@
 				<p class = "check-reponse-obligatoire-check">
 					{{ form_widget(form.est_reponse_obligatoire, {'attr': {'class': 'form-field-mandatory styled-checkbox'}}) }}
 					<label for="{{ form.est_reponse_obligatoire.vars.id }}"><span></span></label> 
+				</p>
+				<div style = "clear:both;"></div>
+			</div>
+		</div>
+		
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			<div class = "legende-choix-sondages-quiz" style = "display:none;">
+				<p class = "legende-choix-sondages-quiz-check">
+					<label><span></span></label> 
+				</p>
+				<p class = "legende-choix-sondages-quiz-libelle">
+					<span class = "libelle-mode">activer pour la/les bonne(s) réponse(s)</span>
 				</p>
 				<div style = "clear:both;"></div>
 			</div>

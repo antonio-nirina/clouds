@@ -40,7 +40,9 @@ class SondagesQuizQuestionsType extends AbstractType
 					'prototype' => true,
 					'prototype_name' => '__opt_reponse__'
 				  ));
-    }/**
+    }
+	
+	/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -53,9 +55,8 @@ class SondagesQuizQuestionsType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getName()
     {
-        return 'adminbundle_sondagesquizquestions';
+        return 'sondages_quiz_questions';
     }
-
 }

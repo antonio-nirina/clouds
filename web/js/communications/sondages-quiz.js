@@ -74,49 +74,6 @@ $(document).ready(function(){
 		readURL(this);
 	});
 	
-	//Ajout des questions
-	/*
-	$(document).on('click', 'a.add-field-question', function(){
-		var ListQuestion = new Array;
-		$('div.question-emplacement').each(function(e){
-			var ContentQuestionaire = $.trim($(this).html());
-			if(ContentQuestionaire == ''){
-				ListQuestion.push(e);
-			}
-		});
-		
-		var IdQuestion = parseInt(ListQuestion[0])+1;
-		if(IdQuestion <= 9){
-			AjoutQuestion(IdQuestion);
-		}
-		return false;
-	});
-	*/
-	
-	//Ajout reponse 
-	/*
-	$(document).on('click', 'a.add-field-link-reponse', function(){
-		var IdAttr = $(this).attr('id');
-		var IdArray = new Array;
-		IdArray = IdAttr.split('-');
-		var IdQuestion = IdArray[4];
-		
-		var ListReponses = new Array;
-		$('div.reponses-emplacement-'+IdQuestion+'').each(function(e){
-			var ContentReponses = $.trim($(this).html());
-			if(ContentReponses == ''){
-				ListReponses.push(e);
-			}
-		});
-		
-		var IdReponses = parseInt(ListReponses[0])+1;
-		if(IdReponses <= 7){
-			AjoutReponses(IdQuestion, IdReponses);
-		}
-		return false;
-	});
-	*/
-	
 	//Trie des reponses 'up'
 	$(document).on('click', 'a.reorder-up-field-row-link', function(){
 		var AttrId = $(this).attr('id');
@@ -277,6 +234,10 @@ $(document).ready(function(){
 				}
 				//}
 			});
+			
+			$('div.legende-choix-sondages-quiz').each(function(p){
+				$(this).hide();
+			});
 		//Quiz
 		}else{
 			$('span.choice-input-bonne-reponse').each(function(i){
@@ -294,6 +255,10 @@ $(document).ready(function(){
 						$('input#sondages_quiz_questionnaire_infos_sondages_quiz_questions_'+IdQuestion+'_sondages_quiz_reponses_'+IdReponse+'_reponses').addClass('input-form-text-reponse-quiz');
 					}
 				//}
+			});
+			
+			$('div.legende-choix-sondages-quiz').each(function(p){
+				$(this).show();
 			});
 		}
 	});

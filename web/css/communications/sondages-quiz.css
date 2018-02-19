@@ -23,7 +23,7 @@ p.chargementAjax {
 }
 
 .fieldset {
-    padding: 20px 24px 50px 24px;
+    padding: 20px 24px 19px 24px;
 	margin-top: 10px;
 	margin-bottom: 30px;
 	position: relative;
@@ -441,6 +441,47 @@ section .dropdown-menu {
 
 .hidden{
 	display:none;
+}
+
+.option-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.option-container .edit-post {
+    background: url('../../images/cloudsRewards/edit.png') no-repeat;
+    height: 21px;
+    width: 25px;
+    display: inline-block;
+    margin: 0 30px 0 0;
+}
+
+.option-container .delete-post {
+    background: url('../../images/cloudsRewards/delete.png') no-repeat;
+    height: 21px;
+    width: 16px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    position: relative;
+    top: -1px;
+}
+
+p.legende-choix-sondages-quiz-check{
+	float:left;
+}
+
+p.legende-choix-sondages-quiz-check label{
+	background: url('../../images/cloudsRewards/on-off1.png') no-repeat;
+	width: 49px;
+	height: 20px;
+	display: inline-block;
+	margin: 5px 0 0 0;
+}
+
+.libelle-mode{
+	font-size:14px!important;
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
