@@ -55,19 +55,29 @@ $(document).ready(function() {
      * Filtres
      * *********************************************************************************************
      */
-    $(document).on('click','.filtres.dropdown .delete-input', function(){//annuler filtre
+	// -----------------------------------------------------------------------------------------------------------------
+    // partie filtre par statut de campagne
+	// -----------------------------------------------------------------------------------------------------------------
+    $(document).on('click','.campaign-state-filter.filtres.dropdown .delete-input', function(){//annuler filtre
         $(this).off('click');
         $(this).parent().find('button').html($(this).parent().find('button').removeClass('active').attr('data-default'));
         $(this).css({'visibility':'hidden','display':'inline-block'});
         setTimeout(sendFilter($(this)), 0);
     });
 
-    $(document).on('click','.filtres.clearable .dropdown-item', function(e){//activer filtre
+    $(document).on('click','.campaign-state-filter.filtres.clearable .dropdown-item', function(e){//activer filtre
         e.preventDefault();
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
         setTimeout(sendFilter($(this)), 0);
         resetCampaignCountBlock();
+    });
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // partie filtre par type (newsletter/emails auto
+    // -----------------------------------------------------------------------------------------------------------------
+    $(document).on('click','.campaign-type-filter.filtres.clearable .dropdown-item', function(e){//activer filtre
+        e.preventDefault();
     });
 
     /**
