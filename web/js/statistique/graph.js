@@ -34,33 +34,19 @@ function add(H){
 }
 
 function evalObject(obj){
-    var t = [];  
-    var v = obj.map(function(i,elem){
-          return i.date;
-    });
-    for (var i = 0; i < v.length; i++) {
-          if (v[i] == v[i+1]) {
-            t.push(v[i]);
-          }
-    }
-    
-    if (t.length != 0) {
-        var res = obj.reduce(function(mem,curr){
-            var found = mem.find(function(item){
-            return item.date === curr.date
-        });
-        if(found){
-            found.value = found.value + curr.value;
-        } else {
-            mem.push(curr);
-        }
-            return mem;
-        },[]);
-        return res;
 
+    var res = obj.reduce(function(mem,curr){
+        var found = mem.find(function(item){
+        return item.date === curr.date
+    });
+    if(found){
+        found.value = found.value + curr.value;
     } else {
-        return obj;
+        mem.push(curr);
     }
+        return mem;
+    },[]);
+    return res;
 
 }
 
@@ -128,7 +114,7 @@ var teq = p.map(function(val){
 data.sort(function(a,b){
     date1 = new Date(b.LastActivityAt);
     date2 = new Date(a.LastActivityAt);
-    return new Date(date1.getHours(),date1.getMinutes()) - new Date(date2.getHours(),date2.getMinutes());
+return Date.UTC(date1.getFullYear(),date1.getMonth(),date1.getDate(),date1.getHours()) - Date.UTC(date2.getFullYear(),date2.getMonth(),date2.getDate(),date2.getHours());
 });
 
     $.each(data, function(i, item) {
@@ -182,7 +168,6 @@ data.sort(function(a,b){
     evaluateData(aErreur,erreur);
 }
 
-
 var option =  {
             xAxis: {
                 type: 'datetime',
@@ -220,7 +205,6 @@ var option =  {
             },
           series: [
           {
-              pointStart: Date.UTC(2018,02,02,0,0),
             marker: {
               symbol: "square",
               width: 16,
