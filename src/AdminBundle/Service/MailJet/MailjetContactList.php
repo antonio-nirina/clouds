@@ -43,7 +43,7 @@ class MailjetContactList{
 	 
     public function getAllList()
     {
-        $response = $this->mailjet->get(Resources::$Contactslist);
+        $response = $this->mailjet->get(Resources::$Contactslist, ['filters' => ['Limit' => 0]]);
         if (!$response->success()) {
             $this->throwError("ContactsListManager:getAll() failed", $response);
         }

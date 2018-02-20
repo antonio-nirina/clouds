@@ -2090,6 +2090,14 @@ section .row.ending {
 #new-campaign-modal  .modal-step-3 .footer-text-option-label {
     max-width: 80%;
 }
+
+/**
+ * button suppression selection dropdown
+ */
+#new-campaign-modal .delete-input.delete-selection{
+    visibility: initial !important;
+}
+
 #done-campaign-modal .content, #done-campaign-modal .content h4 {
     text-align: center !important;
 }
@@ -4680,5 +4688,25 @@ section.with-bottom-space{
 }
 
 #abort-new-campaign-modal .general-message{
+    text-align: center;
+}
+
+/**
+ * alerte, suspension d'édition de campagne
+ */
+#abort-edit-campaign-modal{
+    font-family: var(--police_light);
+}
+
+#abort-edit-campaign-modal .row label{
+    font-family: var(--police_light) !important;
+}
+
+#abort-edit-campaign-modal .modal-title{
+    color: var(--couleur_2);
+    font-size: 25px
+}
+
+#abort-edit-campaign-modal .general-message{
     text-align: center;
 }

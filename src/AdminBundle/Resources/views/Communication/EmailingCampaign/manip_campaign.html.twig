@@ -39,9 +39,9 @@
             </p>
             <p class="form-line">
                 {#<label>renseignez l'objet de la campagne</label>#}
-                {{ form_label(campaign_draft_form.object, "renseignez l'objet de la campagne") }}
+                {{ form_label(campaign_draft_form.subject, "renseignez l'objet de la campagne") }}
                 {#<input type="text" value="" class="campaign_object_input">#}
-                {{ form_widget(campaign_draft_form.object, {"attr": {"class": "campaign_object_input"}}) }}
+                {{ form_widget(campaign_draft_form.subject, {"attr": {"class": "campaign_object_input"}}) }}
                 <span class="delete-input"></span>
             </p>
             <p>L'e-mail d'envoie de votre campagne sera : contact@monchallenge2017.sorewards.com</p>
@@ -60,8 +60,16 @@
                 <label>sélectionner une liste de diffusion</label>
                 <div class="list-choice">
                     <div class="dropdown clearable">
+                        {% set dropdown_toggle_text = "CHOISIR UNE LISTE" %}
+                        {% if "" != campaign_draft_form.list_id.vars.value %}
+                            {% for choice in campaign_draft_form.list_id.vars.choices  %}
+                                {% if campaign_draft_form.list_id.vars.value == choice.value %}
+                                    {% set dropdown_toggle_text = choice.label %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuListe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="CHOISIR UNE LISTE">
-                            CHOISIR UNE LISTE
+                            {{ dropdown_toggle_text }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuListe">
                             {% for choice in campaign_draft_form.list_id.vars.choices %}
@@ -70,7 +78,11 @@
                                 </a>
                             {% endfor %}
                         </div>
-                        <span class="delete-input delete-selection"></span>
+                        {% set delete_input_visibility = 'style=display:none' %}
+                        {% if campaign_draft_form.list_id.vars.value | trim is not empty %}
+                            {% set delete_input_visibility = '' %}
+                        {% endif %}
+                        <span class="delete-input delete-selection" {{ delete_input_visibility }}></span>
                     </div>
                     {{ form_widget(campaign_draft_form.list_id, {"attr": {"class": "hidden-select list-choice-select"}}) }}
                 </div>
@@ -171,15 +183,31 @@
                 </div>
             </div>
             <div class="row centered">
-                <button class="btn-valider btn-end-step btn-end-step-4" data-button-type="send">
+                {% if edit_mode is defined and true == edit_mode %}
+                <button class="btn-valider btn-end-step btn-end-step-4 edit-mode" data-button-type="send">
                     envoyer
                 </button>
-                <button class="btn-valider btn-end-step btn-end-step-4 btn-program-step-4" data-button-type="program">
+                <button class="btn-valider btn-end-step btn-end-step-4 btn-program-step-4 edit-mode" data-button-type="program">
                     programmer
                 </button>
+                {% else %}
+                <button class="btn-valider btn-end-step btn-end-step-4 create-mode" data-button-type="send">
+                    envoyer
+                </button>
+                <button class="btn-valider btn-end-step btn-end-step-4 btn-program-step-4 create-mode" data-button-type="program">
+                    programmer
+                </button>
+                {% endif %}
             </div>
         </div>
     </div>
+
+    {% if edit_mode is defined and true == edit_mode %}
+        {% set campaign_manipulication_mode_value = 'edit' %}
+    {% else %}
+        {% set campaign_manipulication_mode_value = 'create' %}
+    {% endif %}
+    <input type="hidden" name="campaign_manipulation_mode" value="{{ campaign_manipulication_mode_value }}">
     {{ form_end(campaign_draft_form) }}
 {% endif %}
 <div class="add-campaign-folder-error"></div>

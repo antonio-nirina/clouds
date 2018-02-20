@@ -2,6 +2,7 @@
     {% for campaign_data in list %}
         {% set campaign_draft_data = campaign_data['campaign_draft_data'] %}
         {% set overview = campaign_data['campaign_overview_data'] %}
+        {% set contact_list = campaign_data['contact_list_data'] %}
         <div class="row campaign-{{campaign_draft_data.id}}">
             <div class="campagne-name">
                 <input type="checkbox" class="styled-checkbox bigger" id="{{campaign_draft_data.id}}">
@@ -39,8 +40,8 @@
                     <span class="metric-value">
                         {#{{ (campaign_draft_data.recipients["recipient_count"] is defined)?campaign_draft_data.recipients["recipient_count"]:0 }}#}
                         {% set recipient_value = 0 %}
-                        {% if overview is not null %}
-                            {% set recipient_value = overview['ProcessedCount'] %}
+                        {% if contact_list is not null %}
+                            {% set recipient_value = contact_list['SubscriberCount'] %}
                         {% endif %}
                         {{ recipient_value }}
                     </span>
@@ -75,8 +76,11 @@
                         ACTIONS
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
-                        {% if archived_mode is not defined %}
+                        {% if archived_mode is not defined and campaign_draft_data.status == 2 %}
                         <a class="dropdown-item" href="#">STATISTIQUES</a>
+                        {% endif %}
+                        {% if campaign_draft_data.status == 0 or campaign_draft_data.status == 1 %}
+                            <a class="dropdown-item campaign-edit" href="#" data-target-url="{{ path("admin_communication_emailing_campaign_edit", {"campaign_draft_id": campaign_draft_data.id }) }}">ÉDITER</a>
                         {% endif %}
                         <a class="dropdown-item campaign-preview" data-url="{{ campaign_draft_data.url }}" style = "cursor:pointer;">APERÇU</a>
                         <a class="dropdown-item campaign-duplicate" href="#" data-campaign-draft-id="{{ campaign_draft_data.id }}">DUPLIQUER</a>
