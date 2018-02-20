@@ -453,7 +453,7 @@ class MailJetCampaign extends MailJetHandler
                 'Sender' => $sender['ID'],
                 'SenderEmail' => $sender['Email'],
                 'Status' => $status,
-                'Subject' => $campaign_draft_data->getObject(),
+                'Subject' => $campaign_draft_data->getSubject(),
                 'TemplateID' => $campaign_draft_data->getTemplateId(),
                 'Title' => $campaign_draft_data->getName()
             );
@@ -493,7 +493,7 @@ class MailJetCampaign extends MailJetHandler
     public function createAndSend(CampaignDraftData $campaign_draft_data)
     {
         $campaign_draft_id = $this->createCampaignDraft($campaign_draft_data);
-        if ($campaign_draft_id) {
+        if (!is_null($campaign_draft_id)) {
             $send_result = $this
                 ->mailjet
                 ->post(Resources::$CampaigndraftSend, array('id' => $campaign_draft_id));
@@ -515,7 +515,7 @@ class MailJetCampaign extends MailJetHandler
     public function createAndProgram(CampaignDraftData $campaign_draft_data)
     {
         $campaign_draft_id = $this->createCampaignDraft($campaign_draft_data, self::CAMPAIGN_STATUS_PROGRAMMED);
-        if ($campaign_draft_id) {
+        if (!is_null($campaign_draft_id)) {
             $schedule_body = array(
                 'Date' => $campaign_draft_data->getProgrammedLaunchDate()->format(\DateTime::RFC3339)
             );
@@ -554,8 +554,11 @@ class MailJetCampaign extends MailJetHandler
                 'Subject' => self::DEFAULT_SUBJECT,
                 'Title' => self::DEFAULT_TITLE,
             );
-            if (!is_null($campaign_draft_data->getObject())) {
-                $body['Subject'] = $campaign_draft_data->getObject();
+            if (!is_null($campaign_draft_data->getListId())) {
+                $body['ContactsListID'] = $campaign_draft_data->getListId();
+            }
+            if (!is_null($campaign_draft_data->getSubject())) {
+                $body['Subject'] = $campaign_draft_data->getSubject();
             }
             if (!is_null($campaign_draft_data->getName())) {
                 $body['Title'] = $campaign_draft_data->getName();
@@ -592,5 +595,160 @@ class MailJetCampaign extends MailJetHandler
 
 
         return null;
+    }
+
+    /**
+     * Find campaign draft data by id
+     *
+     * @param $campaign_draft_id
+     *
+     * @return null|CampaignDraftData|null
+     */
+    public function findCampaignDraftAsDTO($campaign_draft_id)
+    {
+        $result = $this->mailjet->get(Resources::$Campaigndraft, array('id' => $campaign_draft_id));
+        if (self::STATUS_CODE_SUCCESS == $result->getStatus()) {
+            $campaign_draft_data = new CampaignDraftData();
+            $campaign_draft_data->setId($result->getData()[0]['ID'])
+                ->setName($result->getData()[0]['Title'])
+                ->setSubject($result->getData()[0]['Subject'])
+                ->setListId(
+                    array_key_exists('ContactsListID', $result->getData()[0])
+                    ? $result->getData()[0]['ContactsListID']
+                    : null
+                )
+                ->setTemplateId(
+                    array_key_exists('TemplateID', $result->getData()[0])
+                    ? $result->getData()[0]['TemplateID']
+                    : null
+                )
+                ->setProgrammedState(self::CAMPAIGN_STATUS_PROGRAMMED == $result->getData()[0]['Status']);
+            if (self::CAMPAIGN_STATUS_PROGRAMMED == $result->getData()[0]['Status']) {
+                $result_schedule = $this->mailjet
+                    ->get(Resources::$CampaigndraftSchedule, array('id' => $campaign_draft_id));
+                if (self::STATUS_CODE_SUCCESS == $result_schedule->getStatus()) {
+                    $campaign_draft_data
+                        ->setProgrammedLaunchDate(new \DateTime($result_schedule->getData()[0]['Date']));
+                } else {
+                    return null;
+                }
+            }
+            return $campaign_draft_data;
+        }
+
+        return null;
+    }
+
+    /**
+     * Edit campaign data. Then send or program it.
+     *
+     *  @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editAndProcess(CampaignDraftData $campaign_draft_data)
+    {
+        if ('true' == $campaign_draft_data->getProgrammedState()) {
+            return $this->editAndProgram($campaign_draft_data);
+        } else {
+            return $this->editAndSend($campaign_draft_data);
+        }
+    }
+
+    /**
+     * Edit campaign draft then send it
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editAndSend(CampaignDraftData $campaign_draft_data)
+    {
+        if ($this->editCampaignDraft($campaign_draft_data) && !is_null($campaign_draft_data->getId())) {
+            $send_result = $this
+                ->mailjet
+                ->post(Resources::$CampaigndraftSend, array('id' => $campaign_draft_data->getId()));
+            if (self::STATUS_CODE_CREATED == $send_result->getStatus()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Edit campaign draft then program it
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editAndProgram(CampaignDraftData $campaign_draft_data)
+    {
+        if ($this->editCampaignDraft($campaign_draft_data) && !is_null($campaign_draft_data->getId())) {
+            $schedule_body = array(
+                'Date' => $campaign_draft_data->getProgrammedLaunchDate()->format(\DateTime::RFC3339)
+            );
+            $set_schedule_result = $this->mailjet->put(Resources::$CampaigndraftSchedule, array(
+                'id' => $campaign_draft_data->getId(),
+                'body' => $schedule_body
+            ));
+            if (self::STATUS_CODE_SUCCESS == $set_schedule_result->getStatus()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Edit campaign draft and update its content
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editCampaignDraft(CampaignDraftData $campaign_draft_data)
+    {
+        $sender = $this->mailjet_sender_handler->getDefault();
+        if (!is_null($sender)) {
+            $body = array(
+                'ContactsListID' => $campaign_draft_data->getListId(),
+                'Subject' => $campaign_draft_data->getSubject(),
+                'TemplateID' => $campaign_draft_data->getTemplateId(),
+                'Title' => $campaign_draft_data->getName(),
+                'Locale' => self::DEFAULT_LOCALE,
+                'Sender' => $sender['ID'],
+                'SenderEmail' => $sender['Email'],
+            );
+            $edit_result = $this->mailjet->put(Resources::$Campaigndraft, array(
+                'id' => $campaign_draft_data->getId(),
+                'body' => $body
+            ));
+            if (self::STATUS_CODE_SUCCESS == $edit_result->getStatus()
+                || self::STATUS_CODE_CONTENT_NOT_CHANGED == $edit_result->getStatus()
+            ) {
+                $template_content_result = $this
+                    ->mailjet
+                    ->get(Resources::$TemplateDetailcontent, array('id' => $campaign_draft_data->getTemplateId()));
+                if (self::STATUS_CODE_SUCCESS == $template_content_result->getStatus()) {
+                    $content_body = array(
+                        'Text-part' => $template_content_result->getData()[0]['Text-part'],
+                        'Html-part' => $template_content_result->getData()[0]['Html-part'],
+                    );
+                    $set_content_result = $this
+                        ->mailjet
+                        ->post(
+                            Resources::$CampaigndraftDetailcontent,
+                            array('id' => $campaign_draft_data->getId(), 'body' => $content_body)
+                        );
+                    if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

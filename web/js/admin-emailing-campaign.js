@@ -120,8 +120,8 @@ $(document).ready(function() {
 
 
 
-    //envoie ou programmation de campagne
-    $(document).on("click", ".btn-end-step.btn-end-step-4", function() {
+    // envoi ou programmation de campagne
+    $(document).on("click", ".btn-end-step.btn-end-step-4.create-mode", function() {
         $('.chargementAjax').removeClass('hidden');
         var new_campaign_url = $('input[name=new_campaign_url]').val();
         var current_end_step_button = $(this);
@@ -182,7 +182,7 @@ $(document).ready(function() {
         },0);
     });*/
 
-    // création de nouvelle campagne
+    // création de nouvelle campagne, appel de formulaire
     $('.create-campaign-button').on('click', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
@@ -1476,7 +1476,7 @@ $(document).ready(function() {
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Emailing - Campagnes
-     * Suspension de création de campagne
+     * Suspension de création de camcréation de campagne
      * *********************************************************************************************
      */
     $(document).on('click', '#abort-new-campaign-modal .btn-abort-creation', function(e){
@@ -1532,6 +1532,103 @@ $(document).ready(function() {
      * FIN
      * Paramétrages - Communication - Emailing - Campagnes
      * Suspension de création de campagne
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Edition de campagne
+     * *********************************************************************************************
+     */
+    // éditer campagne, appel de formulaire
+    $(document).on('click', '.campaign-edit', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(data){
+                $('#new-campaign-modal').find(".modal-content .content").html(data.content);
+                $('#new-campaign-modal').find('.btn-end-step.btn-end-step-4').attr('data-target-url', target_url);
+                $('#create-tabs a.activated:last').tab('show');
+                showPrevious();
+                initCalendar();
+                initSelectChosen();
+            },
+            statusCode: {
+                404: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose();
+                },
+                500: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose()
+                }
+            },
+            complete: function(){
+                $('#new-campaign-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    // envoi ou programmation de campagne, après l'édition
+    $(document).on('click', '.btn-end-step.btn-end-step-4.edit-mode', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        var current_end_step_button = $(this);
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: target_url,
+            success: function(data){
+                if(data['error']){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text(data['error']);
+                    $('#new-campaign-modal').find('.content').html(data['content']);
+                    $('#create-tabs a.activated:last').tab('show');
+                    showPrevious();
+                    initCalendar();
+                    initSelectChosen();
+                    setSelectedContactList();
+                } else {
+                    var launch_date =  $("#new-campaign-modal").find('.date_launch_campaign').val();
+                    $("#new-campaign-modal").modal("hide");
+                    if('send' == current_end_step_button.attr('data-button-type')){
+                        setTimeout(function(data){
+                            $("#sent-campaign-modal").modal("show");
+                        },0);
+                    } else {
+                        setTimeout(function(){
+                            setLaunchDateInModal(launch_date);
+                            $("#done-campaign-modal").modal("show");
+                        },0);
+                    }
+                }
+            },
+            statusCode:{
+                404: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').find('.content').html('');
+                },
+                500: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').find('.content').html('');
+                }
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Edition de campagne
      * *********************************************************************************************
      */
 });

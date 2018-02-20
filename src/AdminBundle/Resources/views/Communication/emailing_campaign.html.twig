@@ -203,7 +203,12 @@
                                             ACTIONS
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                            {% if campaign_draft_data.status == 2 %}
                                             <a class="dropdown-item" href="#">STATISTIQUES</a>
+                                            {% endif %}
+                                            {% if campaign_draft_data.status == 0 or campaign_draft_data.status == 1 %}
+                                                <a class="dropdown-item campaign-edit" href="#" data-target-url="{{ path("admin_communication_emailing_campaign_edit", {"campaign_draft_id": campaign_draft_data.id }) }}">ÉDITER</a>
+                                            {% endif %}
                                             <a id = "apercu_campagne" class="dropdown-item campaign-preview" data-url = "{{ campaign_draft_data.url }}" style = "cursor:pointer;">APERÇU</a>
                                             <a class="dropdown-item campaign-duplicate" href="#" data-campaign-draft-id="{{ campaign_draft_data.id }}">DUPLIQUER</a>
                                             {% if campaign_draft_data.status != 1 %}

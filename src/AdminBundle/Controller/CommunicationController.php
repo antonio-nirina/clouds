@@ -270,9 +270,59 @@ class CommunicationController extends AdminController
         $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
         $template_data_list = $template_list_data_handler->retrieveListDataIndexedById($template_list);
 
-        $view = $this->renderView('AdminBundle:Communication:emailing_campaign_new.html.twig', array(
+        $view = $this->renderView('AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig', array(
             'campaign_draft_form' => $campaign_draft_form->createView(),
             'template_data_list' => $template_data_list,
+        ));
+        $data = $json_response_data_provider->success();
+        if ($campaign_draft_form->isSubmitted() && !$campaign_draft_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $view;
+
+        return new JsonResponse($data, 200);
+    }
+
+    /**
+     * @Route("/emailing/campagne/editer/{campaign_draft_id}",
+     *  name="admin_communication_emailing_campaign_edit")
+     * @Method("POST")
+     */
+    public function emailingCampaignEditAction(Request $request, $campaign_draft_id)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\CampaignDataProvider');
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaign_draft_data = $campaign_handler->findCampaignDraftAsDTO($campaign_draft_id);
+        $campaign_draft_form = $this->createForm(
+            CampaignDraftType::class,
+            $campaign_draft_data
+        );
+        $campaign_draft_form->handleRequest($request);
+        if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
+            $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+            $res = $campaign_handler->editAndProcess($campaign_draft_data);
+            if ($res) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                $data = $json_response_data_provider->campaignSendingError();
+                return new JsonResponse($data, 200);
+            }
+        }
+
+        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $template_list = $template_manager->listSortedTemplate($program);
+        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $template_data_list = $template_list_data_handler->retrieveListDataIndexedById($template_list);
+        $view = $this->renderView('AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig', array(
+            'campaign_draft_form' => $campaign_draft_form->createView(),
+            'template_data_list' => $template_data_list,
+            'edit_mode' => true,
         ));
         $data = $json_response_data_provider->success();
         if ($campaign_draft_form->isSubmitted() && !$campaign_draft_form->isValid()) {

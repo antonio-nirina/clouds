@@ -2090,6 +2090,14 @@ section .row.ending {
 #new-campaign-modal  .modal-step-3 .footer-text-option-label {
     max-width: 80%;
 }
+
+/**
+ * button suppression selection dropdown
+ */
+#new-campaign-modal .delete-input.delete-selection{
+    visibility: initial !important;
+}
+
 #done-campaign-modal .content, #done-campaign-modal .content h4 {
     text-align: center !important;
 }
