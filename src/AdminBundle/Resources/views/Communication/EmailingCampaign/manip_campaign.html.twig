@@ -34,15 +34,23 @@
                 {#<label>renseignez le nom de la campagne</label>#}
                 {{ form_label(campaign_draft_form.name, "renseignez le nom de la campagne") }}
                 {#<input type="text" value="" class="campaign_name_input">#}
-                {{ form_widget(campaign_draft_form.name, {"attr": {"class": "campaign_name_input"}}) }}
-                <span class="delete-input"></span>
+                {{ form_widget(campaign_draft_form.name, {"attr": {"class": "campaign_name_input removable-content-input"}}) }}
+                {% set delete_input_visibility = 'style=display:none' %}
+                {% if campaign_draft_form.vars.value.name | trim is not empty %}
+                    {% set delete_input_visibility = '' %}
+                {% endif %}
+                <span class="delete-input" {{ delete_input_visibility }}></span>
             </p>
             <p class="form-line">
                 {#<label>renseignez l'objet de la campagne</label>#}
                 {{ form_label(campaign_draft_form.subject, "renseignez l'objet de la campagne") }}
                 {#<input type="text" value="" class="campaign_object_input">#}
-                {{ form_widget(campaign_draft_form.subject, {"attr": {"class": "campaign_object_input"}}) }}
-                <span class="delete-input"></span>
+                {{ form_widget(campaign_draft_form.subject, {"attr": {"class": "campaign_object_input removable-content-input"}}) }}
+                {% set delete_input_visibility = 'style=display:none' %}
+                {% if campaign_draft_form.vars.value.subject | trim is not empty %}
+                    {% set delete_input_visibility = '' %}
+                {% endif %}
+                <span class="delete-input" {{ delete_input_visibility }}></span>
             </p>
             <p>L'e-mail d'envoie de votre campagne sera : contact@monchallenge2017.sorewards.com</p>
             <p>

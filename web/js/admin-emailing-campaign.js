@@ -32,13 +32,13 @@ $(document).ready(function() {
         $(document).click();
     });
 
-    $(document).on('keyup', '.form-line input', function() {
+    /*$(document).on('keyup', '.form-line input', function() {
         if ($(this).val()) {
             $(this).next('span').css('display', 'inline-block');
         } else {
             $(this).next('span').css('display', 'none');
         }
-    })
+    })*/
 
 
     /**

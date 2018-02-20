@@ -1804,7 +1804,6 @@ section .row.ending {
 }
 .modal .tab-pane p.form-line .delete-input {
     top: 0;
-    display: none;
 }
 .modal .tab-pane p a.nous-contactez {
     text-decoration: underline !important;
