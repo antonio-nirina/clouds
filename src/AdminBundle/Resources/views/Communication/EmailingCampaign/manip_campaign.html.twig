@@ -201,6 +201,13 @@
             </div>
         </div>
     </div>
+
+    {% if edit_mode is defined and true == edit_mode %}
+        {% set campaign_manipulication_mode_value = 'edit' %}
+    {% else %}
+        {% set campaign_manipulication_mode_value = 'create' %}
+    {% endif %}
+    <input type="hidden" name="campaign_manipulation_mode" value="{{ campaign_manipulication_mode_value }}">
     {{ form_end(campaign_draft_form) }}
 {% endif %}
 <div class="add-campaign-folder-error"></div>

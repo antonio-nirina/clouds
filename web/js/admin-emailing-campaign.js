@@ -1476,9 +1476,12 @@ $(document).ready(function() {
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Emailing - Campagnes
-     * Suspension de création de camcréation de campagne
+     * Suspension de création ET édition de campagne
      * *********************************************************************************************
      */
+    // ---------------------------------------------------------------------------------------------
+    // partie création
+    // ---------------------------------------------------------------------------------------------
     $(document).on('click', '#abort-new-campaign-modal .btn-abort-creation', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
@@ -1526,12 +1529,68 @@ $(document).ready(function() {
         $(this).find('.error-message-container.general-message').text('');
     });
 
+    // ---------------------------------------------------------------------------------------------
+    // partie édition
+    // ---------------------------------------------------------------------------------------------
+    $(document).on('click', '#abort-edit-campaign-modal .btn-abort-edit', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $('#new-campaign-modal').find('.btn-end-step.btn-end-step-4').attr('data-target-url');
+        var campaign_creation_by_halt_mode = $('input[name=campaign_draft_creation_mode_by_halt').val();
+        var data = {'edit_mode': campaign_creation_by_halt_mode};
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: target_url,
+            data: data,
+            success: function(data){
+                if(data['error']){
+                    $('#abort-edit-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-edit-campaign-modal').find('.error-message-container.general-message').text(data['error']);
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                } else {
+                    $('#abort-edit-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');
+                    sendFilter();
+                }
+            },
+            statusCode: {
+                404: function(){
+                    $('#abort-edit-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-edit-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('#abort-edit-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-edit-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    // ---------------------------------------------------------------------------------------------
+    // partie commune à création et édition
+    // ---------------------------------------------------------------------------------------------
+    const ABORT_CAMPAIGN_CREATE_MODAL_ID = '#abort-new-campaign-modal';
+    const ABORT_CAMPAIGN_EDIT_MODAL_ID = '#abort-edit-campaign-modal';
+    $('#new-campaign-modal').on('shown.bs.modal', function(){
+        var campaign_manipulation_mode = $(this).find('form input[name=campaign_manipulation_mode]').val();
+        if ('create' == campaign_manipulation_mode) {
+            $(this).find('a.close-modal').attr('data-target', ABORT_CAMPAIGN_CREATE_MODAL_ID);
+        } else if  ('edit' == campaign_manipulation_mode) {
+            $(this).find('a.close-modal').attr('data-target', ABORT_CAMPAIGN_EDIT_MODAL_ID);
+        }
+    });
+
 
     /**
      * *********************************************************************************************
      * FIN
      * Paramétrages - Communication - Emailing - Campagnes
-     * Suspension de création de campagne
+     * Suspension de création ET édition de campagne
      * *********************************************************************************************
      */
 

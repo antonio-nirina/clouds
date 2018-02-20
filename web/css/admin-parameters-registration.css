@@ -4690,3 +4690,23 @@ section.with-bottom-space{
 #abort-new-campaign-modal .general-message{
     text-align: center;
 }
+
+/**
+ * alerte, suspension d'édition de campagne
+ */
+#abort-edit-campaign-modal{
+    font-family: var(--police_light);
+}
+
+#abort-edit-campaign-modal .row label{
+    font-family: var(--police_light) !important;
+}
+
+#abort-edit-campaign-modal .modal-title{
+    color: var(--couleur_2);
+    font-size: 25px
+}
+
+#abort-edit-campaign-modal .general-message{
+    text-align: center;
+}

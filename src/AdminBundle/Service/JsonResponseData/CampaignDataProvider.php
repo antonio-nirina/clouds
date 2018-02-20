@@ -11,6 +11,7 @@ class CampaignDataProvider extends StandardDataProvider
 {
     const CAMPAIGN_SENDING_ERROR = 'Erreur d\'envoi de campagne';
     const CAMPAIGN_DRAFT_CREATION_ERROR = 'Erreur de création de campagne';
+    const CAMPAIGN_DRAFT_EDIT_ERROR = 'Erreur d\'édition de campagne';
 
     /**
      * Give data when there is/are error(s) when sending campaign
@@ -30,5 +31,15 @@ class CampaignDataProvider extends StandardDataProvider
     public function campaignDraftCreationError()
     {
         return array('error' => self::CAMPAIGN_DRAFT_CREATION_ERROR);
+    }
+
+    /**
+     * Give data when there is/are error(s) when editing campaign draft
+     *
+     * @return array
+     */
+    public function campaignDraftEditError()
+    {
+        return array('error' => self::CAMPAIGN_DRAFT_EDIT_ERROR);
     }
 }

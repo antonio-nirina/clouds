@@ -255,7 +255,7 @@ class CommunicationController extends AdminController
                     return new JsonResponse($data, 200);
                 }
             } elseif (CampaignDraftCreationMode::BY_HALT == $creation_mode) {
-                if ($campaign_handler->createCampaignDraftByHalt($campaign_draft_data)) {
+                if (!is_null($campaign_handler->createCampaignDraftByHalt($campaign_draft_data))) {
                     $data = $json_response_data_provider->success();
                     return new JsonResponse($data, 200);
                 } else {
@@ -296,22 +296,45 @@ class CommunicationController extends AdminController
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
+        $edit_mode = $request->get('edit_mode');
+        if (is_null($edit_mode)) {
+            $edit_mode = CampaignDraftCreationMode::NORMAL;
+        }
+
+        if (!in_array($edit_mode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $validation_groups = array('normal_creation_mode');
+        if (CampaignDraftCreationMode::BY_HALT == $edit_mode) {
+            $validation_groups = array('Default');
+        }
+
         $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
         $campaign_draft_data = $campaign_handler->findCampaignDraftAsDTO($campaign_draft_id);
         $campaign_draft_form = $this->createForm(
             CampaignDraftType::class,
-            $campaign_draft_data
+            $campaign_draft_data,
+            array('validation_groups' => $validation_groups)
         );
         $campaign_draft_form->handleRequest($request);
         if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
-            $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-            $res = $campaign_handler->editAndProcess($campaign_draft_data);
-            if ($res) {
-                $data = $json_response_data_provider->success();
-                return new JsonResponse($data, 200);
-            } else {
-                $data = $json_response_data_provider->campaignSendingError();
-                return new JsonResponse($data, 200);
+            if (CampaignDraftCreationMode::NORMAL == $edit_mode) {
+                if ($campaign_handler->editAndProcess($campaign_draft_data)) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->campaignSendingError();
+                    return new JsonResponse($data, 200);
+                }
+            } elseif (CampaignDraftCreationMode::BY_HALT == $edit_mode) {
+                if ($campaign_handler->editCampaignDraft($campaign_draft_data)) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    $data = $json_response_data_provider->campaignDraftEditError();
+                    return new JsonResponse($data, 200);
+                }
             }
         }
 
