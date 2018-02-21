@@ -1,0 +1,60 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Parametrages:sidebar',{'active':0})) }}
+    {# {{ include("AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig") }} #}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription"></div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <section class="fieldset active">
+                    <div class="row">
+                        <div class="col-12 col-md-9">
+                            <h3 class="hidden-sm-down block-title">Visualisation des résultats de calcul de points</h3>
+                            <h5 class="hidden-md-up block-title">Visualisation des résultats de calcul de points</h5>
+                        </div>
+                    </div>
+                    <div class="row nav-tabs-container top-container">
+                        <div class="col-12">
+                            <table class="temporary-point-result-table">
+                                <thead>
+                                    <tr>
+                                        <th>Utilisateurs</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user_point_data in user_point_list %}
+                                    <tr>
+                                        <td>{{ user_point_data.programUser.appUser.firstname~' '~user_point_data.programUser.appUser.name }}</td>
+                                        <td>{{ user_point_data.points }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class = "row separator"></div>
+    </main>
+{% endblock %}
