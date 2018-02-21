@@ -21,6 +21,7 @@ class UserPointRepository extends \Doctrine\ORM\EntityRepository
         $qb->join('user_point.program_user', 'program_user')
             ->join('program_user.app_user', 'app_user')
             ->where($qb->expr()->eq('program_user.program', ':program'))
+            ->orderBy('user_point.date', 'DESC')
             ->setParameter('program', $program);
 
         return $qb->getQuery()->getResult();

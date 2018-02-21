@@ -38,6 +38,7 @@
                                     <tr>
                                         <th>Utilisateurs</th>
                                         <th>Points</th>
+                                        <th>Date import</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,6 +46,7 @@
                                     <tr>
                                         <td>{{ user_point_data.programUser.appUser.firstname~' '~user_point_data.programUser.appUser.name }}</td>
                                         <td>{{ user_point_data.points }}</td>
+                                        <td>{{ user_point_data.date | localizeddate('none', 'none', locale, null, "dd/MM/Y HH:mm ")}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
