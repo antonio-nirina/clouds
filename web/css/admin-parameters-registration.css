@@ -4714,3 +4714,8 @@ section.with-bottom-space{
 #abort-edit-campaign-modal .general-message{
     text-align: center;
 }
+
+.temporary-point-result-table{
+    width: 100%;
+    margin-top: 40px;
+}
