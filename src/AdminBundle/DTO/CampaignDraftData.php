@@ -8,6 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CampaignDraftData
 {
+    private $id;
+
     /**
      * @Assert\NotBlank(groups={"normal_creation_mode"})
      */
@@ -16,7 +18,7 @@ class CampaignDraftData
     /**
      * @Assert\NotBlank(groups={"normal_creation_mode"})
      */
-    private $object;
+    private $subject;
 
     /**
      * @Assert\NotBlank(groups={"normal_creation_mode"})
@@ -36,6 +38,30 @@ class CampaignDraftData
     private $programmed_state;
 
     private $programmed_launch_date;
+
+    /**
+     * Set id
+     *
+     * @param int $id
+     *
+     * @return CampaignDraftData
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return null|int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -62,27 +88,27 @@ class CampaignDraftData
     }
 
     /**
-     * Set object
+     * Set subject
      *
-     * @param $object
+     * @param $subject
      *
      * @return CampaignDraftData
      */
-    public function setObject($object)
+    public function setSubject($subject)
     {
-        $this->object = $object;
+        $this->subject = $subject;
 
         return $this;
     }
 
     /**
-     * Get object
+     * Get subject
      *
      * @return string
      */
-    public function getObject()
+    public function getSubject()
     {
-        return $this->object;
+        return $this->subject;
     }
 
     /**

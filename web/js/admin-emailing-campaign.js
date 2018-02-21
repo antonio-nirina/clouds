@@ -32,13 +32,13 @@ $(document).ready(function() {
         $(document).click();
     });
 
-    $(document).on('keyup', '.form-line input', function() {
+    /*$(document).on('keyup', '.form-line input', function() {
         if ($(this).val()) {
             $(this).next('span').css('display', 'inline-block');
         } else {
             $(this).next('span').css('display', 'none');
         }
-    })
+    })*/
 
 
     /**
@@ -55,19 +55,29 @@ $(document).ready(function() {
      * Filtres
      * *********************************************************************************************
      */
-    $(document).on('click','.filtres.dropdown .delete-input', function(){//annuler filtre
+	// -----------------------------------------------------------------------------------------------------------------
+    // partie filtre par statut de campagne
+	// -----------------------------------------------------------------------------------------------------------------
+    $(document).on('click','.campaign-state-filter.filtres.dropdown .delete-input', function(){//annuler filtre
         $(this).off('click');
         $(this).parent().find('button').html($(this).parent().find('button').removeClass('active').attr('data-default'));
         $(this).css({'visibility':'hidden','display':'inline-block'});
         setTimeout(sendFilter($(this)), 0);
     });
 
-    $(document).on('click','.filtres.clearable .dropdown-item', function(e){//activer filtre
+    $(document).on('click','.campaign-state-filter.filtres.clearable .dropdown-item', function(e){//activer filtre
         e.preventDefault();
         $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         $(this).parents('.dropdown').find('.delete-input').css({'visibility':'visible','display':'inline-block'});
         setTimeout(sendFilter($(this)), 0);
         resetCampaignCountBlock();
+    });
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // partie filtre par type (newsletter/emails auto
+    // -----------------------------------------------------------------------------------------------------------------
+    $(document).on('click','.campaign-type-filter.filtres.clearable .dropdown-item', function(e){//activer filtre
+        e.preventDefault();
     });
 
     /**
@@ -120,8 +130,8 @@ $(document).ready(function() {
 
 
 
-    //envoie ou programmation de campagne
-    $(document).on("click", ".btn-end-step.btn-end-step-4", function() {
+    // envoi ou programmation de campagne
+    $(document).on("click", ".btn-end-step.btn-end-step-4.create-mode", function() {
         $('.chargementAjax').removeClass('hidden');
         var new_campaign_url = $('input[name=new_campaign_url]').val();
         var current_end_step_button = $(this);
@@ -182,7 +192,7 @@ $(document).ready(function() {
         },0);
     });*/
 
-    // création de nouvelle campagne
+    // création de nouvelle campagne, appel de formulaire
     $('.create-campaign-button').on('click', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
@@ -1476,9 +1486,12 @@ $(document).ready(function() {
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Emailing - Campagnes
-     * Suspension de création de campagne
+     * Suspension de création ET édition de campagne
      * *********************************************************************************************
      */
+    // ---------------------------------------------------------------------------------------------
+    // partie création
+    // ---------------------------------------------------------------------------------------------
     $(document).on('click', '#abort-new-campaign-modal .btn-abort-creation', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
@@ -1526,12 +1539,165 @@ $(document).ready(function() {
         $(this).find('.error-message-container.general-message').text('');
     });
 
+    // ---------------------------------------------------------------------------------------------
+    // partie édition
+    // ---------------------------------------------------------------------------------------------
+    $(document).on('click', '#abort-edit-campaign-modal .btn-abort-edit', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $('#new-campaign-modal').find('.btn-end-step.btn-end-step-4').attr('data-target-url');
+        var campaign_creation_by_halt_mode = $('input[name=campaign_draft_creation_mode_by_halt').val();
+        var data = {'edit_mode': campaign_creation_by_halt_mode};
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: target_url,
+            data: data,
+            success: function(data){
+                if(data['error']){
+                    $('#abort-edit-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-edit-campaign-modal').find('.error-message-container.general-message').text(data['error']);
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                } else {
+                    $('#abort-edit-campaign-modal').modal('hide');
+                    $('#new-campaign-modal').modal('hide');
+                    sendFilter();
+                }
+            },
+            statusCode: {
+                404: function(){
+                    $('#abort-edit-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-edit-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                },
+                500: function(){
+                    $('#abort-edit-campaign-modal').find('.modal-body-container').hide();
+                    $('#abort-edit-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').modal('hide');
+                    $('.chargementAjax').addClass('hidden');
+                }
+            }
+        });
+    });
+
+    // ---------------------------------------------------------------------------------------------
+    // partie commune à création et édition
+    // ---------------------------------------------------------------------------------------------
+    const ABORT_CAMPAIGN_CREATE_MODAL_ID = '#abort-new-campaign-modal';
+    const ABORT_CAMPAIGN_EDIT_MODAL_ID = '#abort-edit-campaign-modal';
+    $('#new-campaign-modal').on('shown.bs.modal', function(){
+        var campaign_manipulation_mode = $(this).find('form input[name=campaign_manipulation_mode]').val();
+        if ('create' == campaign_manipulation_mode) {
+            $(this).find('a.close-modal').attr('data-target', ABORT_CAMPAIGN_CREATE_MODAL_ID);
+        } else if  ('edit' == campaign_manipulation_mode) {
+            $(this).find('a.close-modal').attr('data-target', ABORT_CAMPAIGN_EDIT_MODAL_ID);
+        }
+    });
+
 
     /**
      * *********************************************************************************************
      * FIN
      * Paramétrages - Communication - Emailing - Campagnes
-     * Suspension de création de campagne
+     * Suspension de création ET édition de campagne
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Edition de campagne
+     * *********************************************************************************************
+     */
+    // éditer campagne, appel de formulaire
+    $(document).on('click', '.campaign-edit', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(data){
+                $('#new-campaign-modal').find(".modal-content .content").html(data.content);
+                $('#new-campaign-modal').find('.btn-end-step.btn-end-step-4').attr('data-target-url', target_url);
+                $('#create-tabs a.activated:last').tab('show');
+                showPrevious();
+                initCalendar();
+                initSelectChosen();
+            },
+            statusCode: {
+                404: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose();
+                },
+                500: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').find('.previous').hide();
+                    deactivateCampaignConfirmationOnClose()
+                }
+            },
+            complete: function(){
+                $('#new-campaign-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    // envoi ou programmation de campagne, après l'édition
+    $(document).on('click', '.btn-end-step.btn-end-step-4.edit-mode', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        var current_end_step_button = $(this);
+        $('#new-campaign-modal form').ajaxSubmit({
+            type: 'POST',
+            url: target_url,
+            success: function(data){
+                if(data['error']){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text(data['error']);
+                    $('#new-campaign-modal').find('.content').html(data['content']);
+                    $('#create-tabs a.activated:last').tab('show');
+                    showPrevious();
+                    initCalendar();
+                    initSelectChosen();
+                    setSelectedContactList();
+                } else {
+                    var launch_date =  $("#new-campaign-modal").find('.date_launch_campaign').val();
+                    $("#new-campaign-modal").modal("hide");
+                    if('send' == current_end_step_button.attr('data-button-type')){
+                        setTimeout(function(data){
+                            $("#sent-campaign-modal").modal("show");
+                        },0);
+                    } else {
+                        setTimeout(function(){
+                            setLaunchDateInModal(launch_date);
+                            $("#done-campaign-modal").modal("show");
+                        },0);
+                    }
+                }
+            },
+            statusCode:{
+                404: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#new-campaign-modal').find('.content').html('');
+                },
+                500: function(){
+                    $('#new-campaign-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#new-campaign-modal').find('.content').html('');
+                }
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Emailing - Campagnes
+     * Edition de campagne
      * *********************************************************************************************
      */
 });

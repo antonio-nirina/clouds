@@ -60,7 +60,7 @@ class CampaignDraftType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class)
-            ->add('object', TextType::class)
+            ->add('subject', TextType::class)
             ->add('list_id', ChoiceType::class, array(
                 'choices' => $this->retrieveListList(),
                 'expanded' => false,

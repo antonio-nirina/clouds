@@ -478,12 +478,15 @@
                                 <div class="legendeErr">
                                      <p id="legendeErr">O</p><p>{{"erreurs"|upper}}</p>
                                 </div>
-                            <input type="hidden" name="filterPeriode" value="{{path('admin_statistiques_filter')}}">
-                            <input type="hidden" name="dataNow" value="{{json}}">
                             </div>
                     </div> 
                 </div>
         </section>
+        <input type="hidden" name="filterPeriode" value="{{path('admin_statistiques_filter')}}">
+        <input type="hidden" name="dataNow" value="{{json}}">
+        <p class = "chargementAjax hidden">
+            <!--<img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">-->
+        </p>
     </main>
 {% endblock %}
 

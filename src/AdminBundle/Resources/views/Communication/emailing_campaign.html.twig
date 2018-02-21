@@ -42,10 +42,10 @@
                                 <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_list_contact", { 'trie': 'recents' }) }}">liste des contacts </a>
                                 <span class = "bulle-aide"></span>
                             </li>
-                            <li class="nav-item-niv-3 form-inscription">
+                            {#<li class="nav-item-niv-3 form-inscription">
                                 <a class="nav-link-niv-3 menu-page" href="{{path('admin_communication_statistiques')}}">statistiques </a>
                                 <span class = "bulle-aide"></span>
-                            </li>
+                            </li>#}
                             <li class="nav-item-niv-3 form-inscription">
                                 <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_emailing_custom") }}">sur-mesures </a>
                                 <span class = "bulle-aide"></span>
@@ -73,7 +73,7 @@
                             </button>
                         </div>
                         <div class="next-create">                            
-                            <div class="dropdown clearable filtres">
+                            <div class="dropdown clearable filtres campaign-state-filter">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
                                     FILTRES
                                 </button>
@@ -93,6 +93,27 @@
                                     <a class="dropdown-item" href="#">
                                         EN ATTENTE
                                         <span>Draft</span>
+                                    </a>
+                                </div>
+                                <span class="delete-input"></span>
+                            </div>
+
+                            <div class="dropdown clearable filtres campaign-type-filter">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                    TYPE DE CAMPAGNE
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownTypeFilter">
+                                    <a class="dropdown-item" href="#">
+                                        TOUTES
+                                        <span>All</span>
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        NEWSLETTER
+                                        <span>Newsletter</span>
+                                    </a>
+                                    <a class="dropdown-item programmed-item" href="#">
+                                        E-MAILS AUTOMATIQUES
+                                        <span>Auto</span>
                                     </a>
                                 </div>
                                 <span class="delete-input"></span>
@@ -129,6 +150,7 @@
                         {% for campaign_data in list %}
                             {% set campaign_draft_data = campaign_data['campaign_draft_data'] %}
                             {% set overview = campaign_data['campaign_overview_data'] %}
+                            {% set contact_list = campaign_data['contact_list_data'] %}
                             <div class="row campaign-{{campaign_draft_data.id}}">
                                 <div class="campagne-name">
                                     <input type="checkbox" class="styled-checkbox bigger" id="{{campaign_draft_data.id}}">
@@ -166,8 +188,8 @@
                                         <span class="metric-value">
                                             {#{{ (campaign_draft_data.recipients["recipient_count"] is defined)?campaign_draft_data.recipients["recipient_count"]:0 }}#}
                                             {% set recipient_value = 0 %}
-                                            {% if overview is not null %}
-                                                {% set recipient_value = overview['ProcessedCount'] %}
+                                            {% if contact_list is not null %}
+                                                {% set recipient_value = contact_list['SubscriberCount'] %}
                                             {% endif %}
                                             {{ recipient_value }}
                                         </span>
@@ -202,7 +224,12 @@
                                             ACTIONS
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
+                                            {% if campaign_draft_data.status == 2 %}
                                             <a class="dropdown-item" href="#">STATISTIQUES</a>
+                                            {% endif %}
+                                            {% if campaign_draft_data.status == 0 or campaign_draft_data.status == 1 %}
+                                                <a class="dropdown-item campaign-edit" href="#" data-target-url="{{ path("admin_communication_emailing_campaign_edit", {"campaign_draft_id": campaign_draft_data.id }) }}">ÉDITER</a>
+                                            {% endif %}
                                             <a id = "apercu_campagne" class="dropdown-item campaign-preview" data-url = "{{ campaign_draft_data.url }}" style = "cursor:pointer;">APERÇU</a>
                                             <a class="dropdown-item campaign-duplicate" href="#" data-campaign-draft-id="{{ campaign_draft_data.id }}">DUPLIQUER</a>
                                             {% if campaign_draft_data.status != 1 %}
@@ -352,13 +379,38 @@
                                                 suspendre
                                             </button>
                                         </div>
-                                        <div class="add-campaign-folder-error"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- FIN - Modal suspendre création nouveau-->
+
+                    <!-- Modal suspendre édition campgne-->
+                    <div id="abort-edit-campaign-modal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="content">
+                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="modal-body-container">
+                                        <div class="modal-title">Suspendre l'édition de la campagne</div>
+                                        <div class="row btn-new-campaign-folder">
+                                            <label>Vous allez suspendre le processus d'édition de la campagne. <br> Celle-ci va s'enregistrer dans la liste de vos campagnes, vous pourrez ainsi l'éditer ultérieurement</label>
+                                        </div>
+                                        <div class="row centered">
+                                            <button class="btn-valider btn-abort-edit">
+                                                suspendre
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN - Modal suspendre édition campgne -->
 
                     <!-- modal - duplication campagne -->
                     <div id="duplicate-campaign-dialog" class="modal app-dialog duplication-dialog" tabindex="-1" role="dialog" data-backdrop="static">

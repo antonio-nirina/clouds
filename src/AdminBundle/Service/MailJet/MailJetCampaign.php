@@ -15,6 +15,8 @@ use AdminBundle\Service\MailJet\MailJetHandler;
 use Mailjet\MailjetBundle\Model\CampaignDraft;
 use AdminBundle\DTO\CampaignDraftData;
 use AdminBundle\Service\MailJet\MailJetSender;
+use AdminBundle\Service\MailJet\MailjetContactList;
+use AdminBundle\Service\ArrayStructure\ArrayStructureHandler;
 
 class MailJetCampaign extends MailJetHandler
 {
@@ -51,18 +53,24 @@ class MailJetCampaign extends MailJetHandler
     protected $campaign_draft_manager;
     protected $campaign_manager;
     protected $mailjet_sender_handler;
+    protected $contact_list_handler;
+    protected $array_structure_handler;
     /*protected $mailjet;*/
 
     public function __construct(
         CampaignDraftManager $campaign_draft_manager,
         CampaignManager $campaign_manager,
         MailjetClient $mailjet,
-        MailJetSender $mailjet_sender_handler
+        MailJetSender $mailjet_sender_handler,
+        MailjetContactList $contact_list_handler,
+        ArrayStructureHandler $array_structure_handler
     ) {
         parent::__construct($mailjet);
         $this->campaign_draft_manager = $campaign_draft_manager;
         $this->campaign_manager = $campaign_manager;
         $this->mailjet_sender_handler = $mailjet_sender_handler;
+        $this->contact_list_handler = $contact_list_handler;
+        $this->array_structure_handler = $array_structure_handler;
     }
 
     public function getAll($data = null, $sort_by_created_at_desc = true)
@@ -80,32 +88,65 @@ class MailJetCampaign extends MailJetHandler
         return $all_campaigns;
     }
 
+    /**
+     * Get all campaign draft with associated data
+     *
+     * @param null $data
+     *
+     * @return array
+     */
     public function getAllWithData($data = null)
     {
         $campaign_draft_list = $this->getAll($data);
-        $campaing_overview_list = $this->getAllCampaignOverview();
+
+        $campaign_overview_list = $this->getAllCampaignOverview();
+        $indexed_campaign_overview_list = $this->array_structure_handler->redefineKeysBySpecifiedElementKey(
+            'ID',
+            $campaign_overview_list
+        );
+
         $sent_campaign_list = $this->getAllSentCampaign();
+        $indexed_sent_campaign_list = $this->array_structure_handler->redefineKeysBySpecifiedElementKey(
+            'NewsLetterID',
+            $sent_campaign_list
+        );
+
+        $contact_list_list =  $this->contact_list_handler->getAllList();
+        $indexed_contact_list_list = $this->array_structure_handler->redefineKeysBySpecifiedElementKey(
+            'ID',
+            $contact_list_list
+        );
 
         $campaign_data_list = array();
         foreach ($campaign_draft_list as $key => $campaign_draft) {
+            // setting campaign draft data
             $campaign_data_el['campaign_draft_data'] = $campaign_draft;
+
+            // setting campaign overview associated data, for sent campaign only
             $campaign_data_el['campaign_overview_data'] = null;
             if (self::CAMPAIGN_STATUS_SENT == $campaign_draft->getStatus()) {
                 $sent_campaign_id = null;
-                foreach ($sent_campaign_list as $sent_campaign) {
-                    if ($campaign_draft->getId() == $sent_campaign['NewsLetterID']) {
-                        $sent_campaign_id = $sent_campaign['ID'];
-                    }
+                if (array_key_exists($campaign_draft->getId(), $indexed_sent_campaign_list)) {
+                    $sent_campaign_id = $indexed_sent_campaign_list[$campaign_draft->getId()]['ID'];
                 }
-
                 if (!is_null($sent_campaign_id)) {
-                    foreach ($campaing_overview_list as $campaign_overview) {
-                        if ($campaign_overview['ID'] == $sent_campaign_id) {
-                            $campaign_data_el['campaign_overview_data'] = $campaign_overview;
-                        }
+                    if (array_key_exists($sent_campaign_id, $indexed_campaign_overview_list)) {
+                        $campaign_data_el['campaign_overview_data'] =
+                            $indexed_campaign_overview_list[$sent_campaign_id];
                     }
                 }
             }
+
+            // setting contact list associated data, when campaign draft contact list is defined
+            $campaign_data_el['contact_list_data'] = null;
+            if (!is_null($campaign_draft->getContactsListId())) {
+                if (array_key_exists($campaign_draft->getContactsListId(), $indexed_contact_list_list)) {
+                    $campaign_data_el['contact_list_data'] =
+                        $indexed_contact_list_list[$campaign_draft->getContactsListId()];
+                }
+            }
+
+            // adding element (which is an array) to array
             array_push($campaign_data_list, $campaign_data_el);
         }
 
@@ -306,6 +347,9 @@ class MailJetCampaign extends MailJetHandler
     /**
      * Duplicate campaign draft
      *
+     * Duplicate campaign draft data
+     * And create campaign draft content from source content data
+     *
      * @param array $source_campaign_draft_data
      * @param string $campaign_draft_title
      *
@@ -313,16 +357,41 @@ class MailJetCampaign extends MailJetHandler
      */
     public function duplicateCampaignDraft(array $source_campaign_draft_data, $campaign_draft_title)
     {
+        $source_campaign_draft_id = $source_campaign_draft_data['ID'];
         unset($source_campaign_draft_data['CreatedAt']);
         unset($source_campaign_draft_data['Current']);
         unset($source_campaign_draft_data['ID']);
         unset($source_campaign_draft_data['ModifiedAt']);
         unset($source_campaign_draft_data['DeliveredAt']);
+        unset($source_campaign_draft_data['Url']);
+        $source_campaign_draft_data['IsStarred'] = false;
         $source_campaign_draft_data['Status'] = 0;
         $source_campaign_draft_data['Title'] = $campaign_draft_title;
+        $source_campaign_draft_data['Used'] = false;
         $result = $this->mailjet->post(Resources::$Campaigndraft, array('body' => $source_campaign_draft_data));
         if (in_array($result->getStatus(), self::STATUS_CODE_SUCCESS_LIST)) {
-            return $result->getData()[0]['ID'];
+            $result_source_campaign_draft_content = $this->mailjet->get(Resources::$CampaigndraftDetailcontent, array(
+                'id' => $source_campaign_draft_id,
+            ));
+            if (self::STATUS_CODE_SUCCESS == $result_source_campaign_draft_content->getStatus()) {
+                $source_campaign_draft_content = $result_source_campaign_draft_content->getData()[0];
+                $content_body = array(
+                    'Text-part' => $source_campaign_draft_content['Text-part'],
+                    'Html-part' => $source_campaign_draft_content['Html-part'],
+                );
+                $result_create_content = $this->mailjet->post(Resources::$CampaigndraftDetailcontent, array(
+                    'id' => $result->getData()[0]['ID'],
+                    'body' => $content_body,
+                ));
+                if (self::STATUS_CODE_CREATED == $result_create_content->getStatus()) {
+                    return $result->getData()[0]['ID'];
+                } else {
+                    $this->deleteCampaignDraftByIdList(array($result->getData()[0]['ID']));
+                }
+
+            } else {
+                $this->deleteCampaignDraftByIdList(array($result->getData()[0]['ID']));
+            }
         }
 
         return null;
@@ -384,7 +453,7 @@ class MailJetCampaign extends MailJetHandler
                 'Sender' => $sender['ID'],
                 'SenderEmail' => $sender['Email'],
                 'Status' => $status,
-                'Subject' => $campaign_draft_data->getObject(),
+                'Subject' => $campaign_draft_data->getSubject(),
                 'TemplateID' => $campaign_draft_data->getTemplateId(),
                 'Title' => $campaign_draft_data->getName()
             );
@@ -424,7 +493,7 @@ class MailJetCampaign extends MailJetHandler
     public function createAndSend(CampaignDraftData $campaign_draft_data)
     {
         $campaign_draft_id = $this->createCampaignDraft($campaign_draft_data);
-        if ($campaign_draft_id) {
+        if (!is_null($campaign_draft_id)) {
             $send_result = $this
                 ->mailjet
                 ->post(Resources::$CampaigndraftSend, array('id' => $campaign_draft_id));
@@ -446,7 +515,7 @@ class MailJetCampaign extends MailJetHandler
     public function createAndProgram(CampaignDraftData $campaign_draft_data)
     {
         $campaign_draft_id = $this->createCampaignDraft($campaign_draft_data, self::CAMPAIGN_STATUS_PROGRAMMED);
-        if ($campaign_draft_id) {
+        if (!is_null($campaign_draft_id)) {
             $schedule_body = array(
                 'Date' => $campaign_draft_data->getProgrammedLaunchDate()->format(\DateTime::RFC3339)
             );
@@ -485,8 +554,11 @@ class MailJetCampaign extends MailJetHandler
                 'Subject' => self::DEFAULT_SUBJECT,
                 'Title' => self::DEFAULT_TITLE,
             );
-            if (!is_null($campaign_draft_data->getObject())) {
-                $body['Subject'] = $campaign_draft_data->getObject();
+            if (!is_null($campaign_draft_data->getListId())) {
+                $body['ContactsListID'] = $campaign_draft_data->getListId();
+            }
+            if (!is_null($campaign_draft_data->getSubject())) {
+                $body['Subject'] = $campaign_draft_data->getSubject();
             }
             if (!is_null($campaign_draft_data->getName())) {
                 $body['Title'] = $campaign_draft_data->getName();
@@ -523,5 +595,217 @@ class MailJetCampaign extends MailJetHandler
 
 
         return null;
+    }
+
+    /**
+     * Find campaign draft data by id
+     *
+     * @param $campaign_draft_id
+     *
+     * @return null|CampaignDraftData|null
+     */
+    public function findCampaignDraftAsDTO($campaign_draft_id)
+    {
+        $result = $this->mailjet->get(Resources::$Campaigndraft, array('id' => $campaign_draft_id));
+        if (self::STATUS_CODE_SUCCESS == $result->getStatus()) {
+            $campaign_draft_data = new CampaignDraftData();
+            $campaign_draft_data->setId($result->getData()[0]['ID'])
+                ->setName($result->getData()[0]['Title'])
+                ->setSubject($result->getData()[0]['Subject'])
+                ->setListId(
+                    array_key_exists('ContactsListID', $result->getData()[0])
+                    ? $result->getData()[0]['ContactsListID']
+                    : null
+                )
+                ->setTemplateId(
+                    array_key_exists('TemplateID', $result->getData()[0])
+                    ? $result->getData()[0]['TemplateID']
+                    : null
+                )
+                ->setProgrammedState(self::CAMPAIGN_STATUS_PROGRAMMED == $result->getData()[0]['Status']);
+            if (self::CAMPAIGN_STATUS_PROGRAMMED == $result->getData()[0]['Status']) {
+                $result_schedule = $this->mailjet
+                    ->get(Resources::$CampaigndraftSchedule, array('id' => $campaign_draft_id));
+                if (self::STATUS_CODE_SUCCESS == $result_schedule->getStatus()) {
+                    $campaign_draft_data
+                        ->setProgrammedLaunchDate(new \DateTime($result_schedule->getData()[0]['Date']));
+                } else {
+                    return null;
+                }
+            }
+            return $campaign_draft_data;
+        }
+
+        return null;
+    }
+
+    /**
+     * Edit campaign data. Then send or program it.
+     *
+     *  @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editAndProcess(CampaignDraftData $campaign_draft_data)
+    {
+        if ('true' == $campaign_draft_data->getProgrammedState()) {
+            return $this->editAndProgram($campaign_draft_data);
+        } else {
+            return $this->editAndSend($campaign_draft_data);
+        }
+    }
+
+    /**
+     * Edit campaign draft then send it
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editAndSend(CampaignDraftData $campaign_draft_data)
+    {
+        if ($this->editCampaignDraft($campaign_draft_data) && !is_null($campaign_draft_data->getId())) {
+            $send_result = $this
+                ->mailjet
+                ->post(Resources::$CampaigndraftSend, array('id' => $campaign_draft_data->getId()));
+            if (self::STATUS_CODE_CREATED == $send_result->getStatus()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Edit campaign draft then program it
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editAndProgram(CampaignDraftData $campaign_draft_data)
+    {
+        if ($this->editCampaignDraft($campaign_draft_data) && !is_null($campaign_draft_data->getId())) {
+            $schedule_body = array(
+                'Date' => $campaign_draft_data->getProgrammedLaunchDate()->format(\DateTime::RFC3339)
+            );
+            $set_schedule_result = $this->mailjet->put(Resources::$CampaigndraftSchedule, array(
+                'id' => $campaign_draft_data->getId(),
+                'body' => $schedule_body
+            ));
+            if (self::STATUS_CODE_SUCCESS == $set_schedule_result->getStatus()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Edit campaign draft and update its content
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editCampaignDraft(CampaignDraftData $campaign_draft_data)
+    {
+        $sender = $this->mailjet_sender_handler->getDefault();
+        if (!is_null($sender)) {
+            $body = array(
+                'ContactsListID' => $campaign_draft_data->getListId(),
+                'Subject' => $campaign_draft_data->getSubject(),
+                'TemplateID' => $campaign_draft_data->getTemplateId(),
+                'Title' => $campaign_draft_data->getName(),
+                'Locale' => self::DEFAULT_LOCALE,
+                'Sender' => $sender['ID'],
+                'SenderEmail' => $sender['Email'],
+            );
+            $edit_result = $this->mailjet->put(Resources::$Campaigndraft, array(
+                'id' => $campaign_draft_data->getId(),
+                'body' => $body
+            ));
+            if (self::STATUS_CODE_SUCCESS == $edit_result->getStatus()
+                || self::STATUS_CODE_CONTENT_NOT_CHANGED == $edit_result->getStatus()
+            ) {
+                $template_content_result = $this
+                    ->mailjet
+                    ->get(Resources::$TemplateDetailcontent, array('id' => $campaign_draft_data->getTemplateId()));
+                if (self::STATUS_CODE_SUCCESS == $template_content_result->getStatus()) {
+                    $content_body = array(
+                        'Text-part' => $template_content_result->getData()[0]['Text-part'],
+                        'Html-part' => $template_content_result->getData()[0]['Html-part'],
+                    );
+                    $set_content_result = $this
+                        ->mailjet
+                        ->post(
+                            Resources::$CampaigndraftDetailcontent,
+                            array('id' => $campaign_draft_data->getId(), 'body' => $content_body)
+                        );
+                    if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Save campaign draft when halting campaign edit
+     *
+     * @param CampaignDraftData $campaign_draft_data
+     *
+     * @return bool
+     */
+    public function editCampaignDraftByHalt(CampaignDraftData $campaign_draft_data)
+    {
+        $sender = $this->mailjet_sender_handler->getDefault();
+        if (!is_null($sender)) {
+            $body = array(
+                'Locale' => self::DEFAULT_LOCALE,
+                'Sender' => $sender['ID'],
+                'SenderEmail' => $sender['Email'],
+            );
+            if (!is_null($campaign_draft_data->getListId())) {
+                $body['ContactsListID'] = $campaign_draft_data->getListId();
+            }
+            if (!is_null($campaign_draft_data->getSubject())) {
+                $body['Subject'] = $campaign_draft_data->getSubject();
+            }
+            if (!is_null($campaign_draft_data->getName())) {
+                $body['Title'] = $campaign_draft_data->getName();
+            }
+            if (!is_null($campaign_draft_data->getTemplateId())) {
+                $body['TemplateID'] = $campaign_draft_data->getTemplateId();
+            }
+            $edit_result = $this->mailjet->put(Resources::$Campaigndraft, array(
+                'id' => $campaign_draft_data->getId(),
+                'body' => $body
+            ));
+            if (self::STATUS_CODE_SUCCESS == $edit_result->getStatus()
+                || self::STATUS_CODE_CONTENT_NOT_CHANGED == $edit_result->getStatus()
+            ) {
+                $template_content_result = $this
+                    ->mailjet
+                    ->get(Resources::$TemplateDetailcontent, array('id' => $campaign_draft_data->getTemplateId()));
+                if (self::STATUS_CODE_SUCCESS == $template_content_result->getStatus()) {
+                    $content_body = array(
+                        'Text-part' => $template_content_result->getData()[0]['Text-part'],
+                        'Html-part' => $template_content_result->getData()[0]['Html-part'],
+                    );
+                    $set_content_result = $this
+                        ->mailjet
+                        ->post(
+                            Resources::$CampaigndraftDetailcontent,
+                            array('id' => $campaign_draft_data->getId(), 'body' => $content_body)
+                        );
+                    if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
+                        return true;
+                    }
+                }
+            }
+        }
     }
 }
