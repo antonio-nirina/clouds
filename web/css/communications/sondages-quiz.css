@@ -515,6 +515,67 @@ p.legende-choix-sondages-quiz-check label{
     margin-bottom: 50px !important;
 }
 
+.content-questionnaire-apercu{
+	border: 1px solid #CBCBCB;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.content-questionnaire-apercu h3,
+.content-questionnaire-apercu h5{
+	color: var(--couleur_4);
+	font-size: 14px;
+}
+
+.option-container-question{
+	position: absolute;
+	width: 100%;
+	right: 10px;
+	text-align: right;
+	letter-spacing: 15px;
+}
+
+.option-container-question .edit-post-questions {
+    background: url('../../images/cloudsRewards/edit.png') no-repeat;
+    height: 21px;
+    width: 25px;
+    display: inline-block;
+	cursor:pointer;
+}
+
+.option-container-question .delete-post-questions {
+    background: url('../../images/cloudsRewards/delete.png') no-repeat;
+    height: 21px;
+    width: 16px;
+    display: inline-block;
+    position: relative;
+	cursor:pointer;
+	top:-2px;
+}
+
+span.trie-post-questions{
+	width: 20px;
+	display: inline-block;
+}
+
+span.trie-post-questions a.reorder-up-field-row-link-question {
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../../images/cloudsRewards/arrow-up-overlay.png') no-repeat;
+    background-position: center;
+}
+
+span.trie-post-questions a.reorder-down-field-row-link-question {
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../../images/cloudsRewards/arrow-down-overlay.png') no-repeat;
+    background-position: center;
+}
+
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
 	.input-form-text{

@@ -364,24 +364,15 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	/*
-	$(document).on('click', '.edit-post', function(){
-		$('.chargementAjax').removeClass('hidden');
-		var Href = $(this).attr('href');
-		setTimeout(function(){
-			$.ajax({
-				type : "GET",
-				url: Href,
-				data : '',
-				success: function(reponse){
-					$('.chargementAjax').addClass('hidden');
-					$('div#edit-sondages-quiz').modal('show');
-				}
-			});
-		}, 300);
-		return false;
+	$(document).on('click', 'span.edit-post-questions', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var IdQuestion = ArrayAttrId[3];
+		
+		$('div#content-questionnaire-apercu-'+IdQuestion+'').hide();
+		$('div#content-questionnaire-'+IdQuestion+'').show();
 	});
-	*/
 });
 
 //Ajouter des champs questions
