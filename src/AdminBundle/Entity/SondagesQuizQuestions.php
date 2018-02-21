@@ -33,7 +33,7 @@ class SondagesQuizQuestions
     private $commentaire;
 	
 	/**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     private $type_question;
 	

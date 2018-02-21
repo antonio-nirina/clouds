@@ -24,10 +24,10 @@ class SondagesQuizQuestionsType extends AbstractType
 				->add('type_question', ChoiceType::class, array(
 					'choices'  => array(
 						'cases à cocher' => 1,
-						'échelle linéaire' => 2,
-						'tableau à choix mutltiples' => 3,
+						'choix multiples' => 2,
+						'échelle linéaire' => 3,
+						'tableau à choix mutltiples' => 4,
 					),
-					'data' => 1
 				))
 				->add('est_reponse_obligatoire', CheckboxType::class, array(
 					'label' => 'réponse obligatoire',

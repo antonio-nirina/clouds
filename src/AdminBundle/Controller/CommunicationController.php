@@ -1325,11 +1325,11 @@ class CommunicationController extends AdminController
 	
 	/**
      * @Route(
-     *     "/sondage-quiz/",
-     *     name="admin_communication_sondage_quiz")
-     * 
+     *     "/sondage-quiz/{id}",
+     *     name="admin_communication_sondage_quiz", defaults={"id"=null}),
+     *     requirements={"id": "\d*"}
      */
-    public function sondageQuizAction(Request $request){
+    public function sondageQuizAction($id, Request $request){
 		$program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
@@ -1369,7 +1369,12 @@ class CommunicationController extends AdminController
 		}
 		
 		//Formulaires questionnaires
-		$SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
+		if(!is_null($id)){
+			$SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
+		}else{
+			$SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
+		}
+		
 		$SondagesQuizQuestions = new SondagesQuizQuestions();
 		$SondagesQuizReponses = new SondagesQuizReponses();
 		$formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $SondagesQuizQuestionnaireInfos);
@@ -1378,6 +1383,11 @@ class CommunicationController extends AdminController
 		if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
 			$SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
 			$SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuiz);
+			if($request->get('btn-publier-sondages-quiz')){
+				$SondagesQuizQuestionnaireInfosData->setEstPublier(true);
+			}else{
+				$SondagesQuizQuestionnaireInfosData->setEstPublier(false);
+			}
 			$em->persist($SondagesQuizQuestionnaireInfosData);
 			foreach($SondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $Questions){
 				$Questions->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfosData);
@@ -1403,14 +1413,6 @@ class CommunicationController extends AdminController
 		$QuestionsInfosArray = array();
 		if(isset($SondagesQuizArray[0])){
 			$QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
-			/*
-			if(count($QuestionsInfosArray) > 0){
-				$QuestionsArray = $em->getRepository('AdminBundle:SondagesQuizQuestions')->findBySondagesQuizQuestionnaireInfos($QuestionsInfosArray[0]);
-				foreach($QuestionsArray as $Questions){
-					$ReponsesArray = $em->getRepository('AdminBundle:SondagesQuizReponses')->findBySondagesQuizReponses($Questions);
-				}
-			}
-			*/
 		}
 		
 
@@ -1421,9 +1423,6 @@ class CommunicationController extends AdminController
 			'BannierePath' => $BannierePath,
 			'IsSondagesQuiz' => $IsSondagesQuiz,
 			'program' => $program,
-			'SondagesQuizQuestions' => $SondagesQuizQuestions,
-			'SondagesQuizReponses' => $SondagesQuizReponses,
-			'SondagesQuizQuestionnaireInfos' => $SondagesQuizQuestionnaireInfos,
 			'QuestionsInfosArray' => $QuestionsInfosArray
 		));
 	}
@@ -1450,6 +1449,52 @@ class CommunicationController extends AdminController
 			$em->flush();
 		}
 		return new Response('ok');
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/delete-sondages-quiz/reponses",
+     *     name="admin_communication_sondage_quiz_delete_reponse")
+     * 
+     */
+    public function sondageQuizDeleteReponsesAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if($request->isMethod('POST')){
+			$id = $request->get('IdReponses');
+			$ReponsesInfos = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($id);
+			$em->remove($ReponsesInfos);
+			$em->flush();
+		}
+		return new Response('ok');
+	}
+	
+	/**
+     * @Route(
+     *     "/sondage-quiz/edit-sondages-quiz/{id}",
+     *     name="admin_communication_sondage_quiz_edit"),
+     *     requirements={"id": "\d+"}
+     */
+    public function sondageQuizEditAction($id){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		//Recuperer le questionnaire 
+		$QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
+		$formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $QuestionsInfosArray);
+		
+		return $this->render('AdminBundle:Communication:edit_sondage_quiz.html.twig',array(
+			'formQuestionnaires' => $formQuestionnaires->createView(),
+		));
 	}
 	
 	/**

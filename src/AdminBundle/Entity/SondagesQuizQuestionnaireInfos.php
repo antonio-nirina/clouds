@@ -23,7 +23,7 @@ class SondagesQuizQuestionnaireInfos
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     private $type_sondages_quiz;
 	
@@ -52,6 +52,11 @@ class SondagesQuizQuestionnaireInfos
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", cascade={"remove"}, mappedBy="sondages_quiz_questionnaire_infos")
      */
     private $sondages_quiz_questions;
+	
+	/**
+     * @ORM\Column(type="boolean")
+     */
+    private $est_publier;
 	
 	
 	/**
@@ -232,5 +237,29 @@ class SondagesQuizQuestionnaireInfos
     public function getSondagesQuizQuestions()
     {
         return $this->sondages_quiz_questions;
+    }
+	
+	/**
+     * Set estPublier
+     *
+     * @param boolean $estPublier
+     *
+     * @return SondagesQuizQuestionnaireInfos
+     */
+    public function setEstPublier($estPublier)
+    {
+        $this->est_publier = $estPublier;
+
+        return $this;
+    }
+
+    /**
+     * Get estPublier
+     *
+     * @return boolean
+     */
+    public function getEstPublier()
+    {
+        return $this->est_publier;
     }
 }

@@ -29,7 +29,6 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
 						'choices_as_values' => true,
 						'multiple' => false,
 						'expanded' => true,
-						'data' => '1'
 					))
 				->add('titre_questionnaire', TextType::class)
 				->add('description_questionnaire', TextareaType::class)
