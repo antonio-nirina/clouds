@@ -13,8 +13,10 @@
                 </div>
             </div>
             {% for gain in pps.gain %}
+                {% set month = loop.index %}
+                {% set date = month ~ "/1/2017" %}
                 <div class="column">                                
-                    <div class="head">{{ form_label(gain) }}</div>
+                    <div class="head">{{ date|localizeddate('none', 'none', locale, null, "MMMM")}}</div>
                     <div class="percent">
                         {{ form_widget(gain, {'attr': {"placeholder" : "%"}}) }}
                     </div>
