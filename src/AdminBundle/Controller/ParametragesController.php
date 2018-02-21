@@ -1968,4 +1968,23 @@ class ParametragesController extends AdminController
 			'Onglets' => $Onglets
 		));
     }
+
+    /**
+     * @Route("/temporaire/resultats-points")
+     */
+    public function pointResultAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $user_point_list = $em->getRepository('AdminBundle\Entity\UserPoint')
+            ->findAllWithUserDataByProgram($program);
+
+        return $this->render('AdminBundle:Parametrages:temp_point_result.html.twig', array(
+            'user_point_list' => $user_point_list,
+        ));
+    }
 }
