@@ -1692,4 +1692,17 @@ class CommunicationController extends AdminController
         $response = new JsonResponse($data);
         return $response;
     }
+
+    /**
+     * @Route("/actualites", name="admin_communication_news")
+     */
+    public function newsAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        return $this->render('AdminBundle:Communication:news.html.twig');
+    }
 }

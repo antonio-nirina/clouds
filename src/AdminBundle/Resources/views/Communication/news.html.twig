@@ -1,0 +1,261 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':2})) }}
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <div class="navbar" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3 single">
+                            <li class="nav-item-niv-3 single form-inscription">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">actualités </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset active">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-9 col-sm-12">
+                            <h3 class="hidden-sm-down block-title">Création / édition d'un post</h3>
+                            <h5 class="hidden-md-up block-title">Création / édition d'un post</h5>
+                            <p>celui-ci apparaîtra dans le fil d'actualité sur la homepage à date  de création</p>
+                            <button class="btn-valider create-news-button">créer une actualité</button>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-12">
+                            <div class="hidden-sm-down corner-circle-img img-post rounded-circle"></div>
+                        </div>
+                    </div>
+                    <div class="row filter news-filter">
+                        <div class="news-name-search-container filter-block-element-container">
+                            <input class="input-search-list news-name-search-input" placeholder="filtrer par nom">
+                        </div>
+                        <div class="send-state-filter-container filter-block-element-container">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-send-state-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    FILTRER PAR
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-send-state-filter">
+                                    <a class="dropdown-item" href="#">TOUS</a>
+                                    <a class="dropdown-item" href="#">PUBLIÉ</a>
+                                    <a class="dropdown-item" href="#">PROGRAMMÉ</a>
+                                    <a class="dropdown-item" href="#">EN ATTENTE</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-type-filter-container filter-block-element-container">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-post-type-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    TYPE DE POST
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-post-type-filter">
+                                    <a class="dropdown-item" href="#">TOUS</a>
+                                    <a class="dropdown-item" href="#">POST CLASSIQUE</a>
+                                    <a class="dropdown-item" href="#">POST AUTOMATIQUE</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archived-element-container filter-block-element-container">
+                            <a href="#" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
+                                archivées
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row filter selected-elements">
+                        <div class="elements-count">
+                            <div class="selected-count">
+                                <input class="selected-elements-input" type="text" value="post sélectionné" disabled>
+                                <span class="delete-input"></span>
+                            </div>
+                        </div>
+                        <div class="selected-elements-button-container">
+                            <div class="post-archive">
+                                <button class="btn-valider btn btn-primary selected-elements-button">
+                                    archiver
+                                </button>
+                            </div>
+                            <div class="post-delete">
+                                <button class="btn-valider btn btn-primary selected-elements-button">
+                                    supprimer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row list">
+                        <div class="row">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="post-checkbox-1" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="post-checkbox-1"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">Bonjour Bienvenue</span>
+                                        <span class="date published">Publié - le 02 février 2018 à 14:44</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">10</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    <span>Tous les participants</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        <a class="dropdown-item" href="#">APERÇU</a>
+                                        <a class="dropdown-item" href="#">ÉDITER</a>
+                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                        <a class="dropdown-item" href="#">DÉPUBLIER</a>
+                                        <a class="dropdown-item" href="#">ARCHIVER</a>
+                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="post-checkbox-2" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="post-checkbox-2"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">Actualité 1</span>
+                                        <span class="date programmed">Programmé - pour le 28 février 2018 à 14:44</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">0</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    <span>Directeur commercial</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        <a class="dropdown-item" href="#">APERÇU</a>
+                                        <a class="dropdown-item" href="#">ÉDITER</a>
+                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                        <a class="dropdown-item" href="#">DEPUBLIER</a>
+                                        <a class="dropdown-item" href="#">ARCHIVER</a>
+                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="post-checkbox-3" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="post-checkbox-3"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">Actualité 2</span>
+                                        <span class="date">En attente - modifié le 01 février 2018 à 14:44</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">0</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    <span>Commercial</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        <a class="dropdown-item" href="#">APERÇU</a>
+                                        <a class="dropdown-item" href="#">ÉDITER</a>
+                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                        <a class="dropdown-item" href="#">PUBLIER</a>
+                                        <a class="dropdown-item" href="#">ARCHIVER</a>
+                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="post-checkbox-4" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="post-checkbox-4"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/post-auto-icon.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">Edito commercial</span>
+                                        <span class="date published">Publié - le le 01 février 2018 à 14:44</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">5</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    <span>Commercial</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        <a class="dropdown-item" href="#">APERÇU</a>
+                                        <a class="dropdown-item" href="#">ÉDITER</a>
+                                        <a class="dropdown-item" href="#">DÉPUBLIER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-container">
+                        <ul class="post-pagination">
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li class="last"><a href="#">dernier</a></li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+{% endblock %}
