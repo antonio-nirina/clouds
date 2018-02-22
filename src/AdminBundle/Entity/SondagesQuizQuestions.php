@@ -58,6 +58,11 @@ class SondagesQuizQuestions
     private $sondages_quiz_reponses;
 	
 	/**
+     * @ORM\Column(type="integer")
+     */
+    private $ordre;
+	
+	/**
      * Constructor
      */
     public function __construct()
@@ -259,5 +264,29 @@ class SondagesQuizQuestions
     public function getSondagesQuizReponses()
     {
         return $this->sondages_quiz_reponses;
+    }
+	
+	/**
+     * Set ordre
+     *
+     * @param integer $ordre
+     *
+     * @return SondagesQuizQuestions
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    /**
+     * Get ordre
+     *
+     * @return integer
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
     }
 }

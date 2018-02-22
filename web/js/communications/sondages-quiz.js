@@ -373,16 +373,83 @@ $(document).ready(function(){
 		$('div#content-questionnaire-apercu-'+IdQuestion+'').hide();
 		$('div#content-questionnaire-'+IdQuestion+'').show();
 	});
+	
+	$(document).on('click', 'button.confirm-delete-question', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var IdQuestion = ArrayAttrId[4];
+		$('.chargementAjax').removeClass('hidden');
+		var UriDeleteQuestions = $('input#UriDeleteQuestions').val();
+		setTimeout(function(){
+			$.ajax({
+				type : "POST",
+				url: UriDeleteQuestions,
+				data : 'IdQuestion='+IdQuestion+'',
+				success: function(reponse){
+					$('.chargementAjax').addClass('hidden');
+					$('div#confirm-delete-question-dialog-'+IdQuestion+'').modal('hide');
+					location.reload();
+				}
+			});
+		}, 300);
+		return false;
+	});
+	
+	$(document).on('click', 'a.reorder-up-field-row-link-question', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var IdQuestion = ArrayAttrId[6];
+		
+		var Parents = $('div#content-block-question-'+IdQuestion+'');
+		var PrevElement = Parents.prev();
+		if(PrevElement.hasClass('content-block-question')){
+			Parents.insertBefore(PrevElement);
+			
+			var Ordres = Parents.find('input.ordre-questions').val();
+			Parents.find('input.ordre-questions').val(parseInt(Ordres)-1);
+			
+			var OrdresPrev = PrevElement.find('input.ordre-questions').val();
+			PrevElement.find('input.ordre-questions').val(parseInt(OrdresPrev)+1);
+		}
+		return false;
+	});
+	
+	$(document).on('click', 'a.reorder-down-field-row-link-question', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var IdQuestion = ArrayAttrId[6];
+		
+		var Parents = $('div#content-block-question-'+IdQuestion+'');
+		var NextElement = Parents.next();
+		if(NextElement.hasClass('content-block-question') && $.trim(NextElement.html()) != ''){
+			Parents.insertAfter(NextElement);
+			
+			var Ordres = Parents.find('input.ordre-questions').val();
+			Parents.find('input.ordre-questions').val(parseInt(Ordres)+1);
+			
+			var OrdresNext = NextElement.find('input.ordre-questions').val();
+			NextElement.find('input.ordre-questions').val(parseInt(OrdresNext)-1);
+		}
+		return false;
+	});
 });
 
 //Ajouter des champs questions
 function AjouterQuestionCollection(){
+	var NumeroQuestionEnCours = parseInt($('input#nbre_questions').val());
+	var NumeroQuestionSuivant = NumeroQuestionEnCours + 1;
 	
 	NbreQuestion++;
 	var $conteneur = $('div#collectionQuestions');
 	var IterationQuestion = $conteneur.find(':input').length;
 	var $questions_prototype = $($conteneur.attr('data-prototype-question').replace(/__name__label__/g, '').replace(/__opt_questions__/g, IterationQuestion).replace(/__question_num__/g, NbreQuestion));
 	$conteneur.append($questions_prototype);
+	
+	//Incrementer l'ordre des champs reponses
+	$('div#content-questionnaire-'+IterationQuestion+'').find('input.ordre-questions').val(NbreQuestion);
 	
 	AjouterReponsesCollection(IterationQuestion, '0');
 	IterationQuestion++;

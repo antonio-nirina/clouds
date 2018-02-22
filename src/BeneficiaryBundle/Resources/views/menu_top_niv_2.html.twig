@@ -19,6 +19,10 @@
 						
                         <li><a href = "" class = "menu-lib light">classement</a></li>
                         <li><a href = "" class = "menu-lib light">mes points</a></li>
+						
+						{% if IsSondagesQuiz %}
+							<li><a href = "{{ path('beneficiary_home_pages_sondages_quiz_slug', {'slug': ObjSondagesQuiz.Slug}) }}" class = "menu-lib light">{{ ObjSondagesQuiz.NomMenu }}</a></li>
+						{% endif %}
                     </ul>
                     <div class = "clearBoth"></div>
 

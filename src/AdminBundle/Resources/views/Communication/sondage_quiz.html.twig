@@ -240,173 +240,205 @@
 							{% set NbreQuestion = 0 %}
 							{% for ObjQuestions in formQuestionnaires.sondages_quiz_questions %}
 								{% set NumeroQuestion = NbreQuestion + 1 %}
-								<div class = "row separator"></div>
-								<div class="row">
-									<div class="col-8 col-lg-4 col-md-4 col-sm-4 col-xl-4 titre-section-sondage-quiz">
-										<span>QUESTION {{ NumeroQuestion }}<input class = "iterationQuestionForm" type = "hidden" name = "iterationQuestionForm" value = "0"></span>
-									</div>
-									
-									<div class="col-4 col-lg-8 col-md-8 col-sm-8 col-xl-8">
-										<div id = "ligne-separator-question-{{ NbreQuestion }}" class = "ligne-separator-question" style = "display:none;">&nbsp;</div>
-									</div>
-								</div>
 								
-								<div id = "content-questionnaire-apercu-{{ NbreQuestion }}" class = "content-questionnaire-apercu">
+								<div id = "content-block-question-{{ NbreQuestion }}" class = "content-block-question">
+									
+									<div class = "row separator"></div>
 									<div class="row">
-										<div class="col-12 col-sm-8 col-md-8">
-											<h3 class="hidden-sm-down block-title">{{ ObjQuestions.questions.vars.value }}</h3>
-											<h5 class="hidden-md-up block-title">{{ ObjQuestions.questions.vars.value }}</h5>
+										<div class="col-8 col-lg-4 col-md-4 col-sm-4 col-xl-4 titre-section-sondage-quiz">
+											<span>QUESTION {{ NumeroQuestion }}<input class = "iterationQuestionForm" type = "hidden" name = "iterationQuestionForm" value = "0"></span>
 										</div>
-										<div class="col-12 col-sm-4 col-md-4">
-											<div class="option-container-question">
-												<span id = "edit-post-questions-{{ NbreQuestion }}" class="edit-post-questions"></span>
-												<span class="delete-post-questions" ></span>
-												<span class="trie-post-questions">
-													<a id="reorder-up-field-row-link" href="#" class="reorder-up-field-row-link-question"></a>
-													<a id="reorder-down-field-row-link" href="#" class="reorder-down-field-row-link-question"></a>
-												</span>
+										
+										<div class="col-4 col-lg-8 col-md-8 col-sm-8 col-xl-8">
+											<div id = "ligne-separator-question-{{ NbreQuestion }}" class = "ligne-separator-question" style = "display:none;">&nbsp;</div>
+										</div>
+									</div>
+									
+									<div id = "content-questionnaire-apercu-{{ NbreQuestion }}" class = "content-questionnaire-apercu">
+									
+										<div class="row">
+											<div class="col-12 col-sm-8 col-md-8">
+												<h3 class="hidden-sm-down block-title">{{ ObjQuestions.questions.vars.value }}</h3>
+												<h5 class="hidden-md-up block-title">{{ ObjQuestions.questions.vars.value }}</h5>
 											</div>
-										</div>
-									</div>
-								</div>
-
-								<div id = "content-questionnaire-{{ NbreQuestion }}" class = "content-questionnaire"  style = "display:none;">
-									<div class = "row separator"></div>
-									
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<label class="champForm">
-												<span class="lib-form">votre question</span>
-												{{ form_widget(ObjQuestions.questions, {'attr': {'class': 'input-form-text'}}) }}
-												<span class="delete-input"></span>
-											</label>
-										</div>
-									</div>
-									
-									<div class = "row separator"></div>
-									
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<label class="champForm">
-												<span class="lib-form">commentaire</span>
-												{{ form_widget(ObjQuestions.commentaire, {'attr': {'class': 'small-textarea'}}) }}
-											</label>
-										</div>
-									</div>
-									
-									<div class = "row separator"></div>
-									
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<label class="champForm">
-												<span class="lib-form">type de question</span>
-												<span class = "content-dropdown-toggle dropdown clearable filtres">
-													<button class="btn btn-secondary dropdown-toggle dropdownMenuActionTypeQuestion" type="button" id="dropdownMenuActionTypeQuestion-{{ NbreQuestion }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-														cases à cocher
-													</button>
-													<div id = "dropdownMenuListeTypeUestion-{{ NbreQuestion }}" class="dropdown-menu dropdownMenuListeTypeUestion" aria-labelledby="dropdownMenuListeTypeUestion">
-														<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
-															cases à cocher
-														</a>
-														<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
-															choix multiples
-														</a>
-														<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
-															échelle linéaire
-														</a>
-														<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
-															tableau à choix mutltiples
-														</a>
-													</div>
-												</span>
-											</label>
-											{{ form_widget(ObjQuestions.type_question, {'attr': {'class': 'hidden'}}) }}
-										</div>
-									</div>
-									
-									<div class = "row separator"></div>
-									<div class = "row separator"></div>
-									
-									<input id = "nbre_reponses_par_questions_{{ NumeroQuestion }}" class = "nbre_reponses_par_questions" type = "hidden" value = "{{ ObjQuestions.sondages_quiz_reponses|length }}">
-									
-									<div id="collectionReponses-{{ NumeroQuestion }}" data-prototype-reponse="{% filter escape %} {{ include('AdminBundle:PartialPage/SiteFormField:reponses-sondages-quiz.html.twig', { 'formres': ObjQuestions.sondages_quiz_reponses.vars.prototype }) }} {% endfilter %}">
-										{# REPONSES #}
-											{% set NbreReponse = 0 %}
-											{% for ObjReponses in ObjQuestions.sondages_quiz_reponses %}
-												
-												{% set NumeroReponse = NbreReponse + 1 %}
-												<div id = "content-reponses-ligne-{{ NbreQuestion }}-{{ NbreReponse }}" class = "content-reponses-ligne-{{ NbreQuestion }}">
-													<div class="row">
-														<input class = "iterationReponsesForm" type = "hidden" name = "iterationReponsesForm" value = "0">
-														<div class="col-lg-12 col-md-12 col-sm-12">
-															<label class="champForm">
-																<span class="lib-form">reponse {{ NumeroReponse }}</span>
-																<span class = "content-champs-reponses">
-																	<span id = "choice-input-bonne-reponse-{{ NbreQuestion }}-{{ NbreReponse }}" class="choice-input-bonne-reponse" style = "display:none;">
-																		{{ form_widget(ObjReponses.est_bonne_reponse, {'attr': {'class': 'input-form-text-reponse form-field-mandatory-large styled-checkbox-large hidden'}}) }}
-																		<label for="{{ ObjReponses.est_bonne_reponse.vars.id }}"><span></span></label>
-																	</span>
-																	
-																	{{ form_widget(ObjReponses.reponses, {'attr': {'class': 'input-form-text-reponse-sondages input-switch-type'}}) }}
-																	{{ form_widget(ObjReponses.ordre, {'attr': {'class': 'input-form-text-reponse ordre-reponses hidden'}}) }} 
-																</span>
-																<span id = "delete-input-reponse" class="delete-input-reponse"></span>
-																<span id = "corbeil-input-{{ NbreQuestion }}-{{ NbreReponse }}" class="corbeil-input" data-reponse = "{{ ObjReponses.vars.value.id }}"></span>
-																<span class="trie-input">
-																	<a id = "reorder-up-field-row-link-{{ NbreQuestion }}-{{ NbreReponse }}" href="#" class="reorder-up-field-row-link"></a>
-																	<a id = "reorder-down-field-row-link-{{ NbreQuestion }}-{{ NbreReponse }}" href="#" class="reorder-down-field-row-link"></a>
-																</span>
-															</label>
-														</div>
-													</div>
-
-
-													<div class = "row separator"></div>
+											<div class="col-12 col-sm-4 col-md-4">
+												<div class="option-container-question">
+													<span id = "edit-post-questions-{{ NbreQuestion }}" class="edit-post-questions"></span>
+													<span class="delete-post-questions" data-toggle = "modal" data-target = "#confirm-delete-question-dialog-{{ ObjQuestions.vars.value.id }}"></span>
+													<span class="trie-post-questions">
+														<a id="reorder-up-field-row-link-question-{{ NbreQuestion }}" href="#" class="reorder-up-field-row-link-question"></a>
+														<a id="reorder-down-field-row-link-question-{{ NbreQuestion }}" href="#" class="reorder-down-field-row-link-question"></a>
+													</span>
 												</div>
-											{% set NbreReponse = NbreReponse + 1 %}
-											{% endfor %}
-										{# FIN REPONSES #}
-									</div>
-									
-									<div class = "row separator"></div>
-									<div class = "row separator"></div>
-									
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<a id = "add-field-link-reponse-{{ NumeroQuestion }}" class="add-field-link add add-field-link-reponse" data-type = "1" href="#">ajouter une reponse (<span class="custom-field-allowed-container">7</span> maximum)</a>
-										</div>
-									</div>
-									
-									<div class = "row separator"></div>
-									
-									<div class="row">
-										<div class="col-lg-6 col-md-6 col-sm-6">
-											<div class = "check-reponse-obligatoire">
-												<p class = "check-reponse-obligatoire-libelle">
-													<span class = "libelle-mode">réponse obligatoire</span>
-												</p>
-												<p class = "check-reponse-obligatoire-check">
-													{{ form_widget(ObjQuestions.est_reponse_obligatoire, {'attr': {'class': 'form-field-mandatory styled-checkbox'}}) }}
-													<label for="{{ ObjQuestions.est_reponse_obligatoire.vars.id }}"><span></span></label> 
-												</p>
-												<div style = "clear:both;"></div>
 											</div>
 										</div>
 										
-										<div class="col-lg-6 col-md-6 col-sm-6">
-											<div class = "legende-choix-sondages-quiz" style = "display:none;">
-												<p class = "legende-choix-sondages-quiz-check">
-													<label><span></span></label> 
-												</p>
-												<p class = "legende-choix-sondages-quiz-libelle">
-													<span class = "libelle-mode">activer pour la/les bonne(s) réponse(s)</span>
-												</p>
-												<div style = "clear:both;"></div>
+										<!-- dialog - confirmation suppression questionnaires -->
+										<div id="confirm-delete-question-dialog-{{ ObjQuestions.vars.value.id }}" class="modal fade confirm-delete-question-dialog" tabindex="-1" role="dialog">
+											<div class="modal-dialog modal-lg" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+													</div>
+													<div class="modal-body">
+														<div class="modal-body-container">
+															<div class="text-container">
+																<span class="confirm-dialog-title">Suppression</span>
+																<p class="message">Êtes-vous sûr de vouloir supprimer définitivement ?</p>
+															</div>
+															<div>
+																<button id = "id-confirm-delete-question-{{ ObjQuestions.vars.value.id }}" class ="btn-valider confirm-delete-question">
+																	valider
+																</button>
+															</div>
+														</div>
+													</div>
+													<input type="hidden" name="edito_post_id" value="">
+												</div>
 											</div>
 										</div>
+										<!-- FIN - dialog - confirmation suppression questionnaires -->
 									</div>
-									
-									<div class = "row separator"></div>
+
+									<div id = "content-questionnaire-{{ NbreQuestion }}" class = "content-questionnaire"  style = "display:none;">
+										<div class = "row separator"></div>
+										
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<label class="champForm">
+													<span class="lib-form">votre question</span>
+													{{ form_widget(ObjQuestions.questions, {'attr': {'class': 'input-form-text'}}) }}
+													<span class="delete-input"></span>
+												</label>
+											</div>
+										</div>
+										
+										<div class = "row separator"></div>
+										
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<label class="champForm">
+													<span class="lib-form">commentaire</span>
+													{{ form_widget(ObjQuestions.commentaire, {'attr': {'class': 'small-textarea'}}) }}
+												</label>
+											</div>
+										</div>
+										
+										<div class = "row separator"></div>
+										
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<label class="champForm">
+													<span class="lib-form">type de question</span>
+													<span class = "content-dropdown-toggle dropdown clearable filtres">
+														<button class="btn btn-secondary dropdown-toggle dropdownMenuActionTypeQuestion" type="button" id="dropdownMenuActionTypeQuestion-{{ NbreQuestion }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+															cases à cocher
+														</button>
+														<div id = "dropdownMenuListeTypeUestion-{{ NbreQuestion }}" class="dropdown-menu dropdownMenuListeTypeUestion" aria-labelledby="dropdownMenuListeTypeUestion">
+															<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
+																cases à cocher
+															</a>
+															<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
+																choix multiples
+															</a>
+															<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
+																échelle linéaire
+															</a>
+															<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
+																tableau à choix mutltiples
+															</a>
+														</div>
+													</span>
+												</label>
+												{{ form_widget(ObjQuestions.type_question, {'attr': {'class': 'hidden'}}) }}
+												{{ form_widget(ObjQuestions.ordre, {'attr': {'class': 'input-form-text-reponse ordre-questions hidden'}}) }}
+											</div>
+										</div>
+										
+										<div class = "row separator"></div>
+										<div class = "row separator"></div>
+										
+										<input id = "nbre_reponses_par_questions_{{ NumeroQuestion }}" class = "nbre_reponses_par_questions" type = "hidden" value = "{{ ObjQuestions.sondages_quiz_reponses|length }}">
+										
+										<div id="collectionReponses-{{ NumeroQuestion }}" data-prototype-reponse="{% filter escape %} {{ include('AdminBundle:PartialPage/SiteFormField:reponses-sondages-quiz.html.twig', { 'formres': ObjQuestions.sondages_quiz_reponses.vars.prototype }) }} {% endfilter %}">
+											{# REPONSES #}
+												{% set NbreReponse = 0 %}
+												{% for ObjReponses in ObjQuestions.sondages_quiz_reponses %}
+													
+													{% set NumeroReponse = NbreReponse + 1 %}
+													<div id = "content-reponses-ligne-{{ NbreQuestion }}-{{ NbreReponse }}" class = "content-reponses-ligne-{{ NbreQuestion }}">
+														<div class="row">
+															<input class = "iterationReponsesForm" type = "hidden" name = "iterationReponsesForm" value = "0">
+															<div class="col-lg-12 col-md-12 col-sm-12">
+																<label class="champForm">
+																	<span class="lib-form">reponse {{ NumeroReponse }}</span>
+																	<span class = "content-champs-reponses">
+																		<span id = "choice-input-bonne-reponse-{{ NbreQuestion }}-{{ NbreReponse }}" class="choice-input-bonne-reponse" style = "display:none;">
+																			{{ form_widget(ObjReponses.est_bonne_reponse, {'attr': {'class': 'input-form-text-reponse form-field-mandatory-large styled-checkbox-large hidden'}}) }}
+																			<label for="{{ ObjReponses.est_bonne_reponse.vars.id }}"><span></span></label>
+																		</span>
+																		
+																		{{ form_widget(ObjReponses.reponses, {'attr': {'class': 'input-form-text-reponse-sondages input-switch-type'}}) }}
+																		{{ form_widget(ObjReponses.ordre, {'attr': {'class': 'input-form-text-reponse ordre-reponses hidden'}}) }} 
+																	</span>
+																	<span id = "delete-input-reponse" class="delete-input-reponse"></span>
+																	<span id = "corbeil-input-{{ NbreQuestion }}-{{ NbreReponse }}" class="corbeil-input" data-reponse = "{{ ObjReponses.vars.value.id }}"></span>
+																	<span class="trie-input">
+																		<a id = "reorder-up-field-row-link-{{ NbreQuestion }}-{{ NbreReponse }}" href="#" class="reorder-up-field-row-link"></a>
+																		<a id = "reorder-down-field-row-link-{{ NbreQuestion }}-{{ NbreReponse }}" href="#" class="reorder-down-field-row-link"></a>
+																	</span>
+																</label>
+															</div>
+														</div>
+
+
+														<div class = "row separator"></div>
+													</div>
+												{% set NbreReponse = NbreReponse + 1 %}
+												{% endfor %}
+											{# FIN REPONSES #}
+										</div>
+										
+										<div class = "row separator"></div>
+										<div class = "row separator"></div>
+										
+										<div class="row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<a id = "add-field-link-reponse-{{ NumeroQuestion }}" class="add-field-link add add-field-link-reponse" data-type = "1" href="#">ajouter une reponse (<span class="custom-field-allowed-container">7</span> maximum)</a>
+											</div>
+										</div>
+										
+										<div class = "row separator"></div>
+										
+										<div class="row">
+											<div class="col-lg-6 col-md-6 col-sm-6">
+												<div class = "check-reponse-obligatoire">
+													<p class = "check-reponse-obligatoire-libelle">
+														<span class = "libelle-mode">réponse obligatoire</span>
+													</p>
+													<p class = "check-reponse-obligatoire-check">
+														{{ form_widget(ObjQuestions.est_reponse_obligatoire, {'attr': {'class': 'form-field-mandatory styled-checkbox'}}) }}
+														<label for="{{ ObjQuestions.est_reponse_obligatoire.vars.id }}"><span></span></label> 
+													</p>
+													<div style = "clear:both;"></div>
+												</div>
+											</div>
+											
+											<div class="col-lg-6 col-md-6 col-sm-6">
+												<div class = "legende-choix-sondages-quiz" style = "display:none;">
+													<p class = "legende-choix-sondages-quiz-check">
+														<label><span></span></label> 
+													</p>
+													<p class = "legende-choix-sondages-quiz-libelle">
+														<span class = "libelle-mode">activer pour la/les bonne(s) réponse(s)</span>
+													</p>
+													<div style = "clear:both;"></div>
+												</div>
+											</div>
+										</div>
+										
+										<div class = "row separator"></div>
+									</div>
 								</div>
 							{% set NbreQuestion = NbreQuestion + 1 %}
 							{% endfor %}
@@ -419,6 +451,7 @@
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<a class="add-field-link add add-field-question" href="#">ajouter une question (<span class="custom-field-allowed-container">9</span> maximum)</a>
+								<input id = "nbre_questions" type = "hidden" name = "nbre_questions" value = "{{ NbreQuestion }}">
 							</div>
 						</div>
 					</div>
@@ -512,6 +545,7 @@
 		<input id = "UrlDeleteBanniere" type = "hidden" name = "UrlDeleteBanniere" value = "{{ path("admin_communication_sondage_quiz_delete_banniere") }}">
 		<input id = "UriDeleteQuiz" type = "hidden" name = "UriDeleteQuiz" value = "{{ path("admin_communication_sondage_quiz_delete") }}">
 		<input id = "UriDeleteReponsesSondagesQuiz" type = "hidden" name = "UriDeleteReponsesSondagesQuiz" value = "{{ path("admin_communication_sondage_quiz_delete_reponse") }}">
+		<input id = "UriDeleteQuestions" type = "hidden" name = "UriDeleteQuestions" value = "{{ path("admin_communication_sondage_quiz_delete_questions") }}">
 		
     </main>
 

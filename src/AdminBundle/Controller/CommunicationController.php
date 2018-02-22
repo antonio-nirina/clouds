@@ -1549,6 +1549,29 @@ class CommunicationController extends AdminController
 	
 	/**
      * @Route(
+     *     "/sondage-quiz/delete-sondages-quiz/questions",
+     *     name="admin_communication_sondage_quiz_delete_questions")
+     * 
+     */
+    public function sondageQuizDeleteQuestionsAction(Request $request){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if($request->isMethod('POST')){
+			$id = $request->get('IdQuestion');
+			$QuestionsInfos = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($id);
+			$em->remove($QuestionsInfos);
+			$em->flush();
+		}
+		return new Response('ok');
+	}
+	
+	/**
+     * @Route(
      *     "/sondage-quiz/edit-sondages-quiz/{id}",
      *     name="admin_communication_sondage_quiz_edit"),
      *     requirements={"id": "\d+"}

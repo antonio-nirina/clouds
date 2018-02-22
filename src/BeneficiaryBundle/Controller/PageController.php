@@ -6,7 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+
 use AdminBundle\Entity\HomePageSlide;
+use AdminBundle\Entity\SondagesQuiz;
+use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
+use AdminBundle\Entity\SondagesQuizQuestions;
+use AdminBundle\Entity\SondagesQuizReponses;
 
 class PageController extends Controller
 {
@@ -110,9 +115,9 @@ class PageController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 		
+		//Pages standards
 		$em = $this->getDoctrine()->getManager();
 		$PageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
-		
 		$ListePages = array();
 		foreach($PageStandard as $Pages){
 			if($Pages->getStatusPage() == '1'){
@@ -122,9 +127,20 @@ class PageController extends Controller
 			}
 		}
 		
+		//Sondages/Quiz
+		$SondagesQuiz = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+		$IsSondagesQuiz = false;
+		$ObjSondagesQuiz = array();
+		if(isset($SondagesQuiz[0])){
+			$ObjSondagesQuiz = $SondagesQuiz[0];
+			$IsSondagesQuiz = true;
+		}
+		
 		
 		return $this->render('BeneficiaryBundle::menu_top_niv_2.html.twig', array(
-			'ListePages' => $ListePages
+			'ListePages' => $ListePages,
+			'IsSondagesQuiz' => $IsSondagesQuiz,
+			'ObjSondagesQuiz' => $ObjSondagesQuiz
 		));
     }
 	
@@ -189,6 +205,73 @@ class PageController extends Controller
             'table_network' => $table_network,
             'background_link' => $background_link,
 			'Pages' => $Pages
+        ));
+	}
+	
+	/**
+     * @Route(
+     *     "/pages/sondages-quiz/{slug}",
+     *     name="beneficiary_home_pages_sondages_quiz_slug")
+     */
+    public function AffichePagesSondagesQuizSlugAction($slug){
+		$program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+		
+		$table_network = $program->getSiteTableNetworkSetting();
+        $has_network = false;
+        if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
+            $has_network = true;
+        }
+		
+		$background_link = '';
+        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $background_link = $this->container->getParameter('background_path').'/'.$program->getId().'/'.$background;
+        }
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		//Sondages Quiz
+		$PagesSondagesQuiz = $em->getRepository('AdminBundle:SondagesQuiz')->findOneBy(array(
+           'slug' => $slug
+        ));
+		
+		//Sondages questionnaire infos
+		$PagesQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBy(
+			array('sondages_quiz' => $PagesSondagesQuiz)
+		);
+		
+		
+		//Sondages questions
+		$PagesReponses = array();
+		$PagesQuestions = array();
+		foreach($PagesQuestionnaireInfos as $QuestionnaireInfos){
+			$Questions = $em->getRepository('AdminBundle:SondagesQuizQuestions')->findBy(
+				array('sondages_quiz_questionnaire_infos' => $QuestionnaireInfos)
+			);
+			
+			foreach($Questions as $Questionsdata){
+				$Reponses = $em->getRepository('AdminBundle:SondagesQuizReponses')->findBy(
+					array('sondages_quiz_questions' => $Questionsdata)
+				);
+				$PagesReponses[$Questionsdata->getId()] = $Reponses;
+			}
+			$PagesQuestions[$QuestionnaireInfos->getId()] = $Questions;
+		}
+		
+		if(is_null($PagesSondagesQuiz)){
+			return $this->redirectToRoute('beneficiary_home');
+		}
+		
+		return $this->render('BeneficiaryBundle:Page:AfficheSondagesQuiz.html.twig', array(
+            'has_network' => $has_network,
+            'table_network' => $table_network,
+            'background_link' => $background_link,
+			'Pages' => $PagesSondagesQuiz,
+			'PagesQuestionnaireInfos' => $PagesQuestionnaireInfos,
+			'PagesQuestions' => $PagesQuestions,
+			'PagesReponses' => $PagesReponses
         ));
 	}
 	
