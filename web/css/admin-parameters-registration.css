@@ -4738,7 +4738,7 @@ section.with-bottom-space{
 }
 
 input.input-search-list {
-    background: #ffffff url('../../images/cloudsRewards/barre-recherche-loupe.png') no-repeat;
+    background: #ffffff url('../images/cloudsRewards/barre-recherche-loupe.png') no-repeat;
     background-position-x: 0%;
     background-position-y: 0%;
     padding-left: 35px;
