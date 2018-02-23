@@ -5,6 +5,7 @@ namespace UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
@@ -79,6 +80,11 @@ class User extends BaseUser
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="app_user")
      */
     protected $program_user;
+	
+	/**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="user")
+     */
+    private $resultats_sondages_quiz;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -157,6 +163,14 @@ class User extends BaseUser
      * @ORM\Column(type="array", nullable=true)
      */
     protected $customization;
+	
+	/**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->resultats_sondages_quiz = new ArrayCollection();
+    }
 
    
     /**
@@ -549,5 +563,39 @@ class User extends BaseUser
     public function getProEmail()
     {
         return $this->pro_email;
+    }
+	
+	/**
+     * Add resultatsSondagesQuiz
+     *
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
+     *
+     * @return ResultatsSondagesQuiz
+     */
+    public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    {
+        $this->resultats_sondages_quiz[] = $resultatsSondagesQuiz;
+
+        return $this;
+    }
+
+    /**
+     * Remove resultatsSondagesQuiz
+     *
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
+     */
+    public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    {
+        $this->resultats_sondages_quiz->removeElement($resultatsSondagesQuiz);
+    }
+
+    /**
+     * Get sondagesQuizQuestions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResultatsSondagesQuiz()
+    {
+        return $this->resultats_sondages_quiz;
     }
 }

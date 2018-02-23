@@ -220,6 +220,7 @@
 			
 			{% set CptQuestionnaireInfos = 1 %}
 			{% for QuestionnaireInfos in PagesQuestionnaireInfos %}
+				<form id = "SondagesQuiz-{{ QuestionnaireInfos.Id }}" name = "SondagesQuiz" method = "POST" action = "">
 				<div class="content-edito" style="background: white none repeat scroll 0% 0%; box-shadow: none;">
 					{% if CptQuestionnaireInfos == 1 %}
 						<p class="block-active-hover"></p>
@@ -233,11 +234,24 @@
 							<span class="lib-date-block-centre regular">Quiz - créer le {{ QuestionnaireInfos.DateCreation | localizeddate('none', 'none', locale, null, "d MMMM yyyy") }}</span>
 						</p>
 						
-						<p class = "lib-remplir-sondages-quiz">
-							<span class = "lib-remplir regular">à remplir</span>
-							<br>
-							<span id = "icone-edit-participant-{{ QuestionnaireInfos.Id }}" class = "lib-img icone-edit-participant"></span>
-						</p>
+						{% for k,v in Resultats %}
+							{% if k == QuestionnaireInfos.Id %}
+								{% if v is null %}
+									<p class = "lib-remplir-sondages-quiz">
+										<span class = "lib-remplir regular">à remplir</span>
+										<br>
+										<span id = "icone-edit-participant-{{ QuestionnaireInfos.Id }}" class = "lib-img icone-edit-participant"></span>
+									</p>
+								{% else %}
+									<p class = "lib-remplir-sondages-quiz">
+										<span class = "checked-reponse">
+											<input id = "{{ QuestionnaireInfos.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" checked = "checked">
+											<label for = "{{ QuestionnaireInfos.Id }}"><span></span></label>
+										</span>
+									</p>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
 						
 						<p style = "clear:both;"></p>
 
@@ -258,53 +272,17 @@
 						
 						<p class="descr-block-centre">{{ QuestionnaireInfos.DescriptionQuestionnaire|raw }}</p>
 						
-						{% for key,value in PagesQuestions %}
-							{% if key == QuestionnaireInfos.Id %}
-								{% set NumQuestion = 1 %}
-								{% for Questions in value %}
-									<p class = "libelle-questions">QUESTION {{ NumQuestion }}</p>
-									<p class = "libelle-questions-libelle">{{ Questions.Questions }}</p>
-									
-									<ul class = "liste-reponses">
-										{% for keys,values in PagesReponses %}
-											{% if keys == Questions.Id %}
-												{% if Questions.TypeQuestion == '1' %}
-												{# CASE A COCHER #}
-													{% for Reponses in values %}
-														<li>
-															<span class = "checked-reponse">
-																<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "question1">
-																<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
-															</span>
-															<span class = "text-reponses">{{ Reponses.Reponses }}</span>
-														</li>
-													{% endfor %}
-												{# FIN CASE A COCHER #}
-												{% elseif Questions.TypeQuestion == '2' %}
-												{# CHOIX MULTIPLE #}
-													{% for Reponses in values %}
-														<li>
-															<span class = "checked-reponse">
-																<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "checkbox" name = "question1">
-																<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
-															</span>
-															<span class = "text-reponses">{{ Reponses.Reponses }}</span>
-														</li>
-													{% endfor %}
-												{# FIN CHOIX MULTIPLE #}
-												{% endif %}
-												
-											{% endif %}
-										{% endfor %}
-									</ul>
-								{% set NumQuestion = NumQuestion + 1 %}
-								{% endfor %}
-							{% endif %}
-						{% endfor %}
+						{{ include('BeneficiaryBundle:PartialPage:champs-sondages-quiz.html.twig', { 'QuestionnaireInfos': QuestionnaireInfos, 'PagesQuestions': PagesQuestions, 'PagesReponses': PagesReponses }) }}
+						
+						<p style = "clear:both;margin-top: 47px;"></p>
+						
+						<p id = "submit-form-{{ QuestionnaireInfos.Id }}" class="mon-compte-btn submit-form-sondages-quiz light" style = "width: 26%;">
+							<span>envoyer mes réponses</span>
+						</p>
 					</div>
 					
 				</div>
-				
+				</form>
 				<div class = "content-sep-date-vide"></div>
 			{% set CptQuestionnaireInfos = CptQuestionnaireInfos + 1 %}
 			{% endfor %}

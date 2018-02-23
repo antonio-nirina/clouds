@@ -17,4 +17,13 @@ $(document).ready(function(){
 		$('div#content-block-detail-sondages-quiz-'+Id+'').hide();
 		$('div#content-block-resume-sondages-quiz-'+Id+'').show();
 	});
+	
+	$(document).on('click', 'p.submit-form-sondages-quiz', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var Id = ArrayAttrId[2];
+		$('form#SondagesQuiz-'+Id+'').submit();
+		return false;
+	});
 });

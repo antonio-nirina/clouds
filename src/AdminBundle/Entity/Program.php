@@ -148,6 +148,11 @@ class Program
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuiz", mappedBy="program")
      */
     private $sondages_quiz;
+	
+	/**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="program")
+     */
+    private $resultats_sondages_quiz;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\PointAttributionSetting", mappedBy="program")
@@ -176,6 +181,7 @@ class Program
         $this->site_form_settings = new ArrayCollection();
         $this->site_page_standard = new ArrayCollection();
         $this->sondages_quiz = new ArrayCollection();
+        $this->resultats_sondages_quiz = new ArrayCollection();
     }
 
     /**
@@ -927,5 +933,41 @@ class Program
     public function getSondagesQuiz()
     {
         return $this->sondages_quiz;
+    }
+	
+	
+	
+	/**
+     * Add resultatsSondagesQuiz
+     *
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
+     *
+     * @return ResultatsSondagesQuiz
+     */
+    public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    {
+        $this->resultats_sondages_quiz[] = $resultatsSondagesQuiz;
+
+        return $this;
+    }
+
+    /**
+     * Remove resultatsSondagesQuiz
+     *
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
+     */
+    public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    {
+        $this->resultats_sondages_quiz->removeElement($resultatsSondagesQuiz);
+    }
+
+    /**
+     * Get resultatsSondagesQuiz
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResultatsSondagesQuiz()
+    {
+        return $this->resultats_sondages_quiz;
     }
 }

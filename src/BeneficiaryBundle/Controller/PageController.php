@@ -12,6 +12,7 @@ use AdminBundle\Entity\SondagesQuiz;
 use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
 use AdminBundle\Entity\SondagesQuizQuestions;
 use AdminBundle\Entity\SondagesQuizReponses;
+use AdminBundle\Entity\ResultatsSondagesQuiz;
 
 class PageController extends Controller
 {
@@ -47,11 +48,9 @@ class PageController extends Controller
         }
                 
         $em = $this->getDoctrine()->getManager();
-        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')
-            ->findByHomePageDataOrdered($home_page_data);
+        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')->findByHomePageDataOrdered($home_page_data);
 
-        $home_page_post_list = $em->getRepository('AdminBundle\Entity\HomePagePost')
-            ->findBy(array('program' => $program), array('created_at' => 'DESC'));
+        $home_page_post_list = $em->getRepository('AdminBundle\Entity\HomePagePost')->findBy(array('program' => $program), array('created_at' => 'DESC'));
 
         return $this->render('BeneficiaryBundle:Page:home.html.twig', array(
             'editorial' => $editorial,
@@ -213,7 +212,7 @@ class PageController extends Controller
      *     "/pages/sondages-quiz/{slug}",
      *     name="beneficiary_home_pages_sondages_quiz_slug")
      */
-    public function AffichePagesSondagesQuizSlugAction($slug){
+    public function AffichePagesSondagesQuizSlugAction($slug, Request $request){
 		$program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
@@ -246,10 +245,15 @@ class PageController extends Controller
 		//Sondages questions
 		$PagesReponses = array();
 		$PagesQuestions = array();
+		$Resultats = array();
 		foreach($PagesQuestionnaireInfos as $QuestionnaireInfos){
 			$Questions = $em->getRepository('AdminBundle:SondagesQuizQuestions')->findBy(
 				array('sondages_quiz_questionnaire_infos' => $QuestionnaireInfos)
 			);
+			
+			$Resultats[$QuestionnaireInfos->getId()] = $em->getRepository('AdminBundle:ResultatsSondagesQuiz')->findOneBy(array(
+			   'sondages_quiz_questionnaire_infos' => $QuestionnaireInfos
+			));
 			
 			foreach($Questions as $Questionsdata){
 				$Reponses = $em->getRepository('AdminBundle:SondagesQuizReponses')->findBy(
@@ -264,6 +268,81 @@ class PageController extends Controller
 			return $this->redirectToRoute('beneficiary_home');
 		}
 		
+		//Sumbit sondages/quiz
+		if ($request->isMethod('POST')){
+			$PostReponses = $request->get('reponses');
+			foreach($PostReponses as $IdQuestInfos => $QuestionsInfos){
+				//Questionnaire Infos
+				$SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($IdQuestInfos);
+				foreach($QuestionsInfos as $TypeQuest => $ReponsesInfos){
+					
+					if($TypeQuest == "'tm'"){
+						
+						foreach($ReponsesInfos as $IdQuestionsTm => $IdReponsesTm){
+							//Reponses
+							foreach($IdReponsesTm as $IdRep => $Niveaux){
+								//Questions
+								$SondagesQuizQuestionsTm = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($IdQuestionsTm);
+								$SondagesQuizReponsesTm = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($IdRep);
+								
+								$ResultatsSondagesQuiz = new ResultatsSondagesQuiz();
+								$ResultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfos);
+								$ResultatsSondagesQuiz->setProgram($program);
+								$ResultatsSondagesQuiz->setSondagesQuiz($PagesSondagesQuiz);
+								$ResultatsSondagesQuiz->setSondagesQuizReponses($SondagesQuizReponsesTm);
+								$ResultatsSondagesQuiz->setSondagesQuizQuestions($SondagesQuizQuestionsTm);
+								$ResultatsSondagesQuiz->setEchelle($Niveaux);
+								$em->persist($ResultatsSondagesQuiz);
+							}
+						}
+					}elseif($TypeQuest == "'el'"){
+						foreach($ReponsesInfos as $IdQuestionsEl => $IdReponsesEl){
+							$SondagesQuizQuestionsEl = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($IdQuestionsEl);
+							$SondagesQuizReponsesEl = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($IdReponsesEl);
+							
+							$ResultatsSondagesQuiz = new ResultatsSondagesQuiz();
+							$ResultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfos);
+							$ResultatsSondagesQuiz->setProgram($program);
+							$ResultatsSondagesQuiz->setSondagesQuiz($PagesSondagesQuiz);
+							$ResultatsSondagesQuiz->setSondagesQuizQuestions($SondagesQuizQuestionsEl);
+							$ResultatsSondagesQuiz->setSondagesQuizReponses($SondagesQuizReponsesEl);
+							$em->persist($ResultatsSondagesQuiz);
+						}
+					}elseif($TypeQuest == "'ca'"){
+						foreach($ReponsesInfos as $IdQuestionsCa => $IdReponsesCa){
+							$SondagesQuizQuestionsCa = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($IdQuestionsCa);
+							$SondagesQuizReponsesCa = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($IdReponsesCa);
+							$ResultatsSondagesQuiz = new ResultatsSondagesQuiz();
+							$ResultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfos);
+							$ResultatsSondagesQuiz->setProgram($program);
+							$ResultatsSondagesQuiz->setSondagesQuiz($PagesSondagesQuiz);
+							$ResultatsSondagesQuiz->setSondagesQuizQuestions($SondagesQuizQuestionsCa);
+							$ResultatsSondagesQuiz->setSondagesQuizReponses($SondagesQuizReponsesCa);
+							$em->persist($ResultatsSondagesQuiz);
+						}
+					}elseif($TypeQuest == "'cm'"){
+						foreach($ReponsesInfos as $IdQuestionsCm => $IdReponsesCm){
+
+							foreach($IdReponsesCm as $IdRepCm){
+								$SondagesQuizQuestionsCm = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($IdQuestionsCm);
+								$SondagesQuizReponsesCm = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($IdRepCm);
+								$ResultatsSondagesQuiz = new ResultatsSondagesQuiz();
+								$ResultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfos);
+								$ResultatsSondagesQuiz->setProgram($program);
+								$ResultatsSondagesQuiz->setSondagesQuiz($PagesSondagesQuiz);
+								$ResultatsSondagesQuiz->setSondagesQuizQuestions($SondagesQuizQuestionsCm);
+								$ResultatsSondagesQuiz->setSondagesQuizReponses($SondagesQuizReponsesCm);
+								$em->persist($ResultatsSondagesQuiz);
+							}
+						}
+					}
+				}
+			}
+			
+			$em->flush();
+			return $this->redirectToRoute('beneficiary_home_pages_sondages_quiz_slug', array('slug' => $PagesSondagesQuiz->getSlug()));
+		}
+		
 		return $this->render('BeneficiaryBundle:Page:AfficheSondagesQuiz.html.twig', array(
             'has_network' => $has_network,
             'table_network' => $table_network,
@@ -271,7 +350,8 @@ class PageController extends Controller
 			'Pages' => $PagesSondagesQuiz,
 			'PagesQuestionnaireInfos' => $PagesQuestionnaireInfos,
 			'PagesQuestions' => $PagesQuestions,
-			'PagesReponses' => $PagesReponses
+			'PagesReponses' => $PagesReponses,
+			'Resultats' => $Resultats
         ));
 	}
 	

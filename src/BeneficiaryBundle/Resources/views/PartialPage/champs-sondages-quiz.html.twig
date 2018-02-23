@@ -1,0 +1,180 @@
+{% for key,value in PagesQuestions %}
+	{% if key == QuestionnaireInfos.Id %}
+		{% set NumQuestion = 1 %}
+		{% for Questions in value %}
+			<p class = "libelle-questions">
+				QUESTION {{ NumQuestion }}
+			</p>
+			<p class = "libelle-questions-libelle">
+				{{ Questions.Questions }}
+				{% if Questions.EstReponseObligatoire == '1' %}
+					*
+				{% endif %}
+			</p>
+			
+			<ul class = "liste-reponses">
+				{% for keys,values in PagesReponses %}
+					{% if keys == Questions.Id %}
+						{% if Questions.TypeQuestion == '1' %}
+						{# CASE A COCHER #}
+							{% for Reponses in values %}
+								<li>
+									<span class = "checked-reponse">
+										<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['ca'][{{ Questions.Id }}]" value = "{{Reponses.Id}}">
+										<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+									</span>
+									<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+									{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+										<span class = "pourcentage-reponse">3%</span>
+									{% endif %}
+								</li>
+							{% endfor %}
+						{# FIN CASE A COCHER #}
+						{% elseif Questions.TypeQuestion == '2' %}
+						{# CHOIX MULTIPLE #}
+							{% for Reponses in values %}
+								<li>
+									<span class = "checked-reponse">
+										<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "checkbox" name = "reponses[{{ QuestionnaireInfos.Id }}]['cm'][{{ Questions.Id }}][]" value = "{{Reponses.Id}}">
+										<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+									</span>
+									<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+									{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+										<span class = "pourcentage-reponse">3%</span>
+									{% endif %}
+								</li>
+							{% endfor %}
+						{# FIN CHOIX MULTIPLE #}
+						{% elseif Questions.TypeQuestion == '3' %}
+						{# ECHELE LINEAIRE #}
+							{% for Reponses in values %}
+								<li class = "echelle_lineaire">
+									<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+									<span class = "checked-reponse">
+										<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['el'][{{ Questions.Id }}]" value = "{{Reponses.Id}}">
+										<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+									</span>
+									{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+										<span class = "pourcentage-reponse">3%</span>
+									{% endif %}
+								</li>
+							{% endfor %}
+						{# FIN ECHELE LINEAIRE #}
+						{% elseif Questions.TypeQuestion == '4' %}
+						{# TABLEAUX A CHOIX MULTIPLE #}
+							<p class = "description_tableaux_choix_miltiple">1 = très insatisfait / 5 = très satisfait</p>
+							<table class = "tableaux_choix_miltiple">
+								<thead>
+									<tr>
+										<th></th>
+										<th>1</th>
+										<th>2</th>
+										<th>3</th>
+										<th>4</th>
+										<th>5</th>
+										<th>NSP</th>
+									</tr>
+								</thead>
+							{% for Reponses in values %}
+								<tr>
+									<td>{{ Reponses.Reponses }}</td>
+									<td>
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}-1" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "1">
+											<label for = "reponse-{{ Reponses.Id }}-1"><span></span></label>
+										</span>
+									</td>
+									
+									<td>
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}-2" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "2">
+											<label for = "reponse-{{ Reponses.Id }}-2"><span></span></label>
+										</span>
+									</td>
+									
+									<td>
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}-3" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "3">
+											<label for = "reponse-{{ Reponses.Id }}-3"><span></span></label>
+										</span>
+									</td>
+									
+									<td>
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}-4" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "4">
+											<label for = "reponse-{{ Reponses.Id }}-4"><span></span></label>
+										</span>
+									</td>
+									
+									<td>
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}-5" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "5">
+											<label for = "reponse-{{ Reponses.Id }}-5"><span></span></label>
+										</span>
+									</td>
+									
+									<td>
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}-nsp" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "6">
+											<label for = "reponse-{{ Reponses.Id }}-nsp"><span></span></label>
+										</span>
+									</td>
+								</tr>
+							{% endfor %}
+							</table>
+							
+							{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+							<table class = "tableaux_choix_miltiple table_sondages">
+								<thead>
+									<tr>
+										<th></th>
+										<th>1</th>
+										<th>2</th>
+										<th>3</th>
+										<th>4</th>
+										<th>5</th>
+										<th>NSP</th>
+									</tr>
+								</thead>
+								<tbody>
+							{% for Reponses in values %}
+								<tr>
+									<td>{{ Reponses.Reponses }}</td>
+									<td class = "pourc-tableaux">
+										3%
+									</td>
+									
+									<td class = "pourc-tableaux">
+										3%
+									</td>
+									
+									<td class = "pourc-tableaux">
+										3%
+									</td>
+									
+									<td class = "pourc-tableaux">
+										3%
+									</td>
+									
+									<td class = "pourc-tableaux">
+										3%
+									</td>
+									
+									<td class = "pourc-tableaux">
+										3%
+									</td>
+								</tr>
+							{% endfor %}
+								</tbody>
+							</table>
+							{% endif %}
+						{# FIN TABLEAUX A CHOIX MULTIPLE #}
+						{% endif %}
+						
+					{% endif %}
+				{% endfor %}
+			</ul>
+		{% set NumQuestion = NumQuestion + 1 %}
+		{% endfor %}
+	{% endif %}
+{% endfor %}

@@ -1230,7 +1230,9 @@ div.no-slide-image{
 }
 
 .liste-reponses li{
-	
+	color: var(--couleur_4);
+	font-size: 14px;
+	font-family: var(--police);
 }
 
 .hidden{
@@ -1239,7 +1241,6 @@ div.no-slide-image{
 
 .text-reponses{
 	vertical-align:middle;
-	font-size:14px;
 }
 
 span.lib-cacher::before {
@@ -1263,6 +1264,47 @@ span.lib-cacher::before {
 	font-size: 15px;
 	font-family: var(--police_bold);
 }
+
+ul.liste-reponses li.echelle_lineaire{
+	display: inline-block;
+	line-height: 20px;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+ul.liste-reponses li.echelle_lineaire span.text-reponses{
+	display:block;
+}
+
+ul.liste-reponses li.echelle_lineaire span.pourcentage-reponse{
+	display: block;
+	float: none;
+	margin-top: 5px;
+}
+
+table.tableaux_choix_miltiple{
+	width:100%;
+}
+
+table.tableaux_choix_miltiple thead{
+	font-size:14px;
+}
+
+p.description_tableaux_choix_miltiple{
+	font-size:14px;
+}
+
+.pourc-tableaux{
+	color: var(--couleur_2);
+	font-size: 15px;
+	font-family: var(--police_bold);
+}
+
+table.tableaux_choix_miltiple{margin-top:30px;}
+table.tableaux_choix_miltiple thead th{background: #f5f5f5}
+table.tableaux_choix_miltiple tbody tr:nth-child(even) {background: #f9f9f9}
+table.tableaux_choix_miltiple tbody tr:nth-child(odd) {background: #f5f5f5}
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {

@@ -62,6 +62,11 @@ class SondagesQuiz
      */
     private $sondages_quiz_questionnaire_infos;
 	
+	/**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="sondages_quiz")
+     */
+    private $resultats_sondages_quiz;
+	
 	
 	/**
      * Constructor
@@ -69,6 +74,7 @@ class SondagesQuiz
     public function __construct()
     {
         $this->sondages_quiz_questionnaire_infos = new ArrayCollection();
+        $this->resultats_sondages_quiz = new ArrayCollection();
     }
 
 
@@ -328,5 +334,41 @@ class SondagesQuiz
     public function getSondagesQuizQuestionnaireInfos()
     {
         return $this->sondages_quiz_questionnaire_infos;
+    }
+	
+	
+	
+	/**
+     * Add resultatsSondagesQuiz
+     *
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
+     *
+     * @return ResultatsSondagesQuiz
+     */
+    public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    {
+        $this->resultats_sondages_quiz[] = $resultatsSondagesQuiz;
+
+        return $this;
+    }
+
+    /**
+     * Remove resultatsSondagesQuiz
+     *
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $sondagesQuizQuestionnaireInfos
+     */
+    public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    {
+        $this->resultats_sondages_quiz->removeElement($resultatsSondagesQuiz);
+    }
+
+    /**
+     * Get resultatsSondagesQuiz
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResultatsSondagesQuiz()
+    {
+        return $this->resultats_sondages_quiz;
     }
 }
