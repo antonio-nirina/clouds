@@ -2185,15 +2185,15 @@ section .row.ending {
     margin-bottom: 20px;
 }
 
-#new-campaign-modal .programmed-state-container{
+.programmed-state-container{
     height: 25px;
 }
 
-#new-campaign-modal .programmed-state-container label{
+.programmed-state-container label{
     margin-left: 10px;
 }
 
-#new-campaign-modal .programmed-state-container label.text-label{
+.programmed-state-container label.text-label{
     position: relative;
     top: -6px;
 }
@@ -3171,6 +3171,10 @@ section.with-bottom-space{
 /**
  * style radio - type 2
  */
+.styled-radio-2{
+    display: none;
+}
+
 .styled-radio-2:checked + label{
     background: url('../images/cloudsRewards/on-off.png') no-repeat;
     height: 20px;
@@ -4974,4 +4978,261 @@ ul.post-pagination li.active a{
 
 ul.post-pagination li:not(.last)::after{
     content: "\00a0\00a0|\00a0\00a0";
+}
+
+/**
+ * Actualités, création / édition
+ */
+#create-edit-news-modal{
+    /*font-size: 14px;*/
+}
+
+.modal-dialog.semi-large-fixed{
+    width: 1024px;
+    max-width: 90%;
+}
+
+.modal-body-title{
+    width: 100%;
+    color: var(--couleur_2);
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#create-edit-news-modal .modal-body-title{
+    margin-top: -40px;
+}
+
+#create-edit-news-modal .modal-body{
+    padding: 25px;
+}
+
+.preview-news-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.preview-news-button{
+    color: #cfcfcf;
+}
+
+.preview-news-button::before{
+    content: '';
+    background-color: #cfcfcf;
+    -webkit-mask-image: url('../images/cloudsRewards/post-preview-icon.svg');
+    mask-image: url('../images/cloudsRewards/post-preview-icon.svg');
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.preview-news-button.active{
+    color: var(--couleur_1);
+    cursor: pointer;
+}
+
+.preview-news-button.active::before{
+    background-color: var(--couleur_1);
+}
+
+#create-edit-news-modal .form-row{
+    display: flex;
+    width: 100%;
+}
+
+#create-edit-news-modal .form-row.vertical-centered{
+    align-items: center;
+}
+
+#create-edit-news-modal .form-row.vertical{
+    flex-direction: column;
+}
+
+#create-edit-news-modal .form-row label{
+    margin-right: 15px;
+}
+
+#create-edit-news-modal .delete-input{
+    width: 26px;
+    height: 26px;
+}
+
+#create-edit-news-modal .large-input-text{
+    margin-left: 0;
+}
+
+.action-button-container{
+    width: 100%;
+    border: 1px solid #CBCBCB;
+    padding: 15px 10px;
+    margin-top: 20px;
+}
+
+#create-edit-news-modal .action-button-container .add{
+    line-height: 20px;
+    cursor: pointer;
+}
+
+#create-edit-news-modal .action-button-container .add::before{
+    position: relative;
+    cursor: pointer;
+}
+
+.action-button-block-container{
+    border: 1px solid #CBCBCB;
+    width: 100%;
+    padding: 20px 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.action-button-block-container .block-title{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #CBCBCB;
+    padding-bottom: 20px;
+    color: var(--couleur_2);
+    font-family: var(--police_bold);
+    margin-bottom: 20px;
+}
+
+.action-button-block-container .delete-block{
+    width: 25px;
+    height: 25px;
+    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    cursor:pointer;
+}
+
+.action-button-block-container .form-row .delete-input{
+    top: -1px;
+    min-width: 30px;
+}
+
+.action-button-block-container .action-button-preview{
+    align-self: flex-start;
+}
+
+#create-edit-news-modal .action-button-option-input{
+    min-width: 0;
+}
+
+#create-edit-news-modal .form-row-group-title{
+    display: inline-block;
+    font-family: var(--police_bold);
+    margin-top: 20px;
+}
+
+#create-edit-news-modal .action-button-block-container .form-row label.fixed-width{
+    width: 175px;
+    margin-right: 0;
+}
+
+#create-edit-news-modal .action-button-block-container .action-button-input{
+    border: 1px solid #636363;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    background-color: inherit;
+    text-align: left;
+}
+
+#create-edit-news-modal .action-button-block-container .action-button-input.semi-large{
+    width: 350px;
+    min-width: 0;
+}
+
+#create-edit-news-modal .action-button-block-container .action-button-input.large{
+    width: 730px;
+    min-width: 0;
+}
+
+#create-edit-news-modal .publish-program-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+#create-edit-news-modal .programmed-state-container{
+    display: flex;
+    margin: 20px 0;
+}
+
+#create-edit-news-modal .programmed-state-container label.text-label{
+    top: -5px;
+}
+
+#create-edit-news-modal .submit-block-container{
+    display: flex;
+}
+
+@media (max-width: 991px) {
+    .modal-dialog.semi-large-fixed{
+        width: initial;
+    }
+}
+
+@media (max-width: 767px) {
+    #create-edit-news-modal .delete-input{
+        width: 30px;
+    }
+}
+
+@media (max-width: 575px) {
+    .modal-dialog.semi-large-fixed{
+        max-width: 100%;
+    }
+
+    #create-edit-news-modal .delete-input{
+        width: 35px;
+    }
+
+    #create-edit-news-modal .large-input-text{
+        min-width: 0;
+    }
+
+    #create-edit-news-modal .vertical-xs{
+        flex-direction: column;
+    }
+
+    #create-edit-news-modal .publish-program-container{
+        flex-direction: column;
+    }
+
+    #create-edit-news-modal .submit-block-container{
+        flex-direction: column;
+    }
+
+    #create-edit-news-modal .submit-block-container .second-button{
+        margin-top: 20px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    #create-edit-news-modal .action-button-block-container .form-row label{
+        margin-right: 70px;
+    }
+
+    #create-edit-news-modal .action-button-block-container .action-button-color-option{
+        margin-right: 40px;
+    }
+}
+
+@media (min-width: 576px){
+    #create-edit-news-modal .submit-block-container .first-button{
+        margin-right: 40px;
+    }
+
+    #create-edit-news-modal .submit-block-container .second-button{
+        margin-left: 40px;
+    }
+
+    #create-edit-news-modal .submit-block-container{
+        margin-top: 20px;
+    }
 }
