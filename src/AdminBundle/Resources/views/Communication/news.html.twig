@@ -5,6 +5,8 @@
         {% block stylesheets %}
             {{ parent() }}
             <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
+            <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
             <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
         {% endblock %}
     {% endembed %}
@@ -337,7 +339,7 @@
                                         <div class="form-row">
                                             <label>qui verra ce post?</label>
                                             <div>
-                                                <div class="dropdown">
+                                                <div class="dropdown post-viewer-dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-news-viewer-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         TOUS LES PARTICIPANTS
                                                     </button>
@@ -345,23 +347,135 @@
                                                         <a class="dropdown-item" href="#">TOUS LES PARTICIPANTS</a>
                                                         <a class="dropdown-item" href="#">COMMERCIAL</a>
                                                         <a class="dropdown-item" href="#">DIRECTEUR COMMERCIAL</a>
-                                                        <a class="dropdown-item" href="#">PERSONNALISER</a>
+                                                        <a class="dropdown-item" href="#" class="customize-viewer">PERSONNALISER</a>
                                                     </div>
                                                     <span class="delete-input delete-selection"></span>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="post-viewer-selection-wrapper">
+                                            <div class="post-viewer-selection-container">
+                                                <span class="title">sélectionnez les contacts qui verront ce post</span>
+                                                <div class="post-viewer-filter-container">
+                                                    <div class="post-viewer-number-container">
+                                                        <span>nombre de contacts sélectionnés : </span>
+                                                        <input type="text" value="02">
+                                                    </div>
+                                                    <div class="post-viewer-data-search-container">
+                                                        <input type="text" class="input-search-list" placeholder="recherche par nom, prénom, e-mail...">
+                                                    </div>
+                                                    <div class="post-viewer-list-filter-container">
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-post-viewer-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                FILTRER PAR
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdown-post-viewer-filter">
+                                                                <a class="dropdown-item" href="#">OPTION</a>
+                                                                <a class="dropdown-item" href="#">OPTION</a>
+                                                                <a class="dropdown-item" href="#">OPTION</a>
+                                                                <a class="dropdown-item" href="#">OPTION</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="post-viewer-table-container">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <input id="check-all" type="checkbox" class="styled-checkbox">
+                                                                    <label for="check-all"></label>
+                                                                </th>
+                                                                <th class="post-viewer-data-head">prénom</th>
+                                                                <th class="post-viewer-data-head">nom</th>
+                                                                <th class="post-viewer-data-head">adresse e-mail</th>
+                                                                <th class="post-viewer-data-head">rôle</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <input id="viewer-1" type="checkbox" class="styled-checkbox">
+                                                                    <label for="viewer-1"></label>
+                                                                </td>
+                                                                <td>Martin</td>
+                                                                <td>Bourdais</td>
+                                                                <td>martin_bourdais@gmail.com</td>
+                                                                <td>commercial</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input id="viewer-2" type="checkbox" class="styled-checkbox">
+                                                                    <label for="viewer-2"></label>
+                                                                </td>
+                                                                <td>Martin</td>
+                                                                <td>Bourdais</td>
+                                                                <td>martin_bourdais@gmail.com</td>
+                                                                <td>commercial</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input id="viewer-3" type="checkbox" class="styled-checkbox">
+                                                                    <label for="viewer-3"></label>
+                                                                </td>
+                                                                <td>Martin</td>
+                                                                <td>Bourdais</td>
+                                                                <td>martin_bourdais@gmail.com</td>
+                                                                <td>commercial</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="button-container">
+                                                        <button class="btn-valider">valider les contacts</button>
+                                                    </div>
+                                                    <div class="pagination-container">
+                                                        <ul class="post-pagination">
+                                                            <li class="active"><a href="#">1</a></li>
+                                                            <li><a href="#">2</a></li>
+                                                            <li><a href="#">3</a></li>
+                                                            <li><a href="#">4</a></li>
+                                                            <li class="last"><a href="#">dernier</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="publish-program-container">
                                             <div class="programmed-state-container">
-                                                <input type="radio" id="send-now" class="styled-radio-2" name="news_program_state" checked>
+                                                <input type="radio" id="send-now" class="styled-radio-2 programmed-state-input" name="news_program_state" checked data-programmed-value="false">
                                                 <label for="send-now"></label>
                                                 <label for="send-now" class="text-label">publier maintenant</label>
                                             </div>
                                             <div>
                                                 <div class="programmed-state-container">
-                                                    <input type="radio" id="programmed" class="styled-radio-2" name="news_program_state">
+                                                    <input type="radio" id="programmed" class="styled-radio-2 programmed-state-input" name="news_program_state" data-programmed-value="true">
                                                     <label for="programmed"></label>
                                                     <label for="programmed" class="text-label">programmer la publication</label>
+                                                </div>
+                                                <div class="select-date">
+                                                    <p>choisissez le jour</p>
+                                                    <div>
+                                                        <input type="text" class="post-launch-date">
+                                                        <div id="calendar"></div>
+                                                    </div>
+                                                    <p>et l'heure</p>
+                                                    <div>
+                                                        <select class="chosen-select">
+                                                            <option>00</option>
+                                                            <option>01</option>
+                                                            <option>02</option>
+                                                            <option>03</option>
+                                                            <option>...</option>
+                                                        </select>
+                                                        <span class="between-hour">:</span>
+                                                        <select class="chosen-select">
+                                                            <option>00</option>
+                                                            <option>01</option>
+                                                            <option>02</option>
+                                                            <option>03</option>
+                                                            <option>...</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -390,6 +504,9 @@
             {{ parent() }}
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+            <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
             <script src="{{ asset("js/admin-communication-news.js") }}"></script>
         {% endblock %}
     {% endembed %}

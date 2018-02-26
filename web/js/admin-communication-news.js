@@ -8,10 +8,24 @@ $(document).ready(function(){
     $('#create-edit-news-modal').on('shown.bs.modal', function(){
         installWysiwyg();
         installColorPicker();
+        initCalendar();
+        initSelectChosen();
     });
 
+    // création actu, appel formulaire
     $('.create-news-button').on('click', function(){
         $('#create-edit-news-modal').modal('show');
+    });
+
+    //boutton de programmation
+    $(document).on('click', 'input.programmed-state-input', function() {
+        var data_programmed_value = $(this).attr('data-programmed-value');
+        console.log(data_programmed_value);
+        if('true' == data_programmed_value){
+            $('#create-edit-news-modal div.select-date').show();
+        } else if ('false' == data_programmed_value){
+            $('#create-edit-news-modal div.select-date').hide();
+        }
     });
 
     /**
@@ -60,4 +74,20 @@ function installColorPicker()
             });
         });
     }
+}
+
+function initCalendar() {
+    $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+    $('#calendar').datepicker({
+        minDate: new Date(),
+        altField: ".post-launch-date",
+        altFormat: "dd/mm/yy"
+    });
+}
+
+function initSelectChosen() {
+    $(".chosen-select").chosen({//hour selectable
+        disable_search: true,
+        width: "70px"
+    });
 }
