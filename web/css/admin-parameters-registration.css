@@ -2059,6 +2059,10 @@ section .row.ending {
     padding: 0 5px;
 }
 /*-------campagnes---*/
+#new-campaign-modal form .form-visibility-end + * {
+    display: none;
+}
+
 #new-campaign-modal {
     font-family: var(--police_light);
 }
