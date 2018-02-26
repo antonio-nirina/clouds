@@ -715,36 +715,48 @@ class MailJetCampaign extends MailJetHandler
             $body = array(
                 'ContactsListID' => $campaign_draft_data->getListId(),
                 'Subject' => $campaign_draft_data->getSubject(),
-                'TemplateID' => $campaign_draft_data->getTemplateId(),
                 'Title' => $campaign_draft_data->getName(),
                 'Locale' => self::DEFAULT_LOCALE,
                 'Sender' => $sender['ID'],
                 'SenderEmail' => $sender['Email'],
             );
+
+            if (!is_null($campaign_draft_data->getTemplateId())) {
+                $body['TemplateID'] = $campaign_draft_data->getTemplateId();
+            }
+
             $edit_result = $this->mailjet->put(Resources::$Campaigndraft, array(
                 'id' => $campaign_draft_data->getId(),
                 'body' => $body
             ));
+
             if (self::STATUS_CODE_SUCCESS == $edit_result->getStatus()
                 || self::STATUS_CODE_CONTENT_NOT_CHANGED == $edit_result->getStatus()
             ) {
-                $template_content_result = $this
-                    ->mailjet
-                    ->get(Resources::$TemplateDetailcontent, array('id' => $campaign_draft_data->getTemplateId()));
-                if (self::STATUS_CODE_SUCCESS == $template_content_result->getStatus()) {
-                    $content_body = array(
-                        'Text-part' => $template_content_result->getData()[0]['Text-part'],
-                        'Html-part' => $template_content_result->getData()[0]['Html-part'],
-                    );
-                    $set_content_result = $this
+                if (!is_null($campaign_draft_data->getTemplateId())) {
+                    $template_content_result = $this
                         ->mailjet
-                        ->post(
-                            Resources::$CampaigndraftDetailcontent,
-                            array('id' => $campaign_draft_data->getId(), 'body' => $content_body)
+                        ->get(
+                            Resources::$TemplateDetailcontent,
+                            array('id' => $campaign_draft_data->getTemplateId())
                         );
-                    if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
-                        return true;
+                    if (self::STATUS_CODE_SUCCESS == $template_content_result->getStatus()) {
+                        $content_body = array(
+                            'Text-part' => $template_content_result->getData()[0]['Text-part'],
+                            'Html-part' => $template_content_result->getData()[0]['Html-part'],
+                        );
+                        $set_content_result = $this
+                            ->mailjet
+                            ->post(
+                                Resources::$CampaigndraftDetailcontent,
+                                array('id' => $campaign_draft_data->getId(), 'body' => $content_body)
+                            );
+                        if (self::STATUS_CODE_CREATED == $set_content_result->getStatus()) {
+                            return true;
+                        }
                     }
+                } else {
+                    return true;
                 }
             }
         }
