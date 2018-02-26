@@ -171,7 +171,7 @@
                                             {% set pre = "" %}
                                             {% set class= "programmed" %}
                                         {% elseif campaign_draft_data.status == 0 or (campaign_draft_data.status == -1 and campaign_draft_data.deliveredAt is empty) %}
-                                            {% set date = campaign_draft_data.modifiedAt %}
+                                            {% set date = campaign_draft_data.modifiedAt is not empty ? campaign_draft_data.modifiedAt : campaign_draft_data.createdAt %}
                                             {% set status = "En attente" %}
                                             {% set pre = "modifié " %}
                                             {% set class= "wait" %}

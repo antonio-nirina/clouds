@@ -779,6 +779,7 @@ class MailJetCampaign extends MailJetHandler
                 'Locale' => self::DEFAULT_LOCALE,
                 'Sender' => $sender['ID'],
                 'SenderEmail' => $sender['Email'],
+                'ModifiedAt' => date_format(new \DateTime('now'), \DateTime::RFC3339),
             );
             if (!is_null($campaign_draft_data->getListId())) {
                 $body['ContactsListID'] = $campaign_draft_data->getListId();
