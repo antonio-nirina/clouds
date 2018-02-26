@@ -330,7 +330,7 @@ class CommunicationController extends AdminController
                     return new JsonResponse($data, 200);
                 }
             } elseif (CampaignDraftCreationMode::BY_HALT == $edit_mode) {
-                if ($campaign_handler->editCampaignDraft($campaign_draft_data)) {
+                if ($campaign_handler->editCampaignDraftByHalt($campaign_draft_data)) {
                     $data = $json_response_data_provider->success();
                     return new JsonResponse($data, 200);
                 } else {
