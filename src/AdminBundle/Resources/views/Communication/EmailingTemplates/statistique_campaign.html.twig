@@ -1,0 +1,221 @@
+<div class="content">
+    <span class="dialog-titlestat"><h4><span id="campagne">Campagne</span> <span id="sujet">{{sujet}}</span></h4></span>
+        <div class="form-element-container">
+            <div class="detail-info">
+                <div class="date"> <span id="date2">Date:</span> <span id="date"> {{date|date("d/m/Y")}}</span></div>
+                <div class="expediteur"><span id="exp2">Expediteur: </span><span id="expedit"> {{fromName}}  {{email}}</span></div>
+                <div class="liste-contact"><span id="cont2">liste-contact:</span> <span id="contact"> {{listContact}}</span></div>
+                <div class="email"><span id="email2">Modèle d'e-mail:</span> <span id="email"> {{name}}</span></div>
+                <div class="objet"><span id="obj2">Objet:</span><span id="objet"> {{sujet}}</span></div>
+            </div>
+                <div class="button-container">
+                    {% set exp = id %}
+                <a href="{{ path("admin_communication_emailing_campaign_exports",{'id':exp }) }}">
+                    <button class ="btn-valider export-statistique" data-target-url="#">
+                            export statistiques
+                    </button>
+                </a>
+                </div>
+        </div>
+    <div class="row result">
+        <div class=" total">
+            <div class="totalTitreVal">
+                <p id="titreT">{{"total"|upper}}</p>
+                    <h4 class="valTot">{{status["DeliveredCount"]}}</h4>
+                <p class="mailTot">e-mails</p>
+            </div>
+        </div>
+            <div class=" delivrer">
+                <div class="delTitreVal">
+                    <p id="titreDel">{{"délivrés"|upper}}</p>
+                     {% set delivre = status['DeliveredCount']/status['DeliveredCount']*100 %}
+                        <h4 class="valDel">{{delivre~' %'}}</h4>       
+                    <p class="mailDel">{{status['DeliveredCount']}}</p>
+                </div>                                   
+            </div>
+            <div class="ouvert" >
+                <div class="ouvTitreVal">
+                    <p id="titreOuv">{{"ouverts"|upper}}</p> 
+                    {% set ouvrer = status['OpenedCount']/status['DeliveredCount']*100 %}           
+                        <h4 class="valOuv">{{ouvrer~' %'}}</h4>
+                    <p class="mailOuv">{{status["OpenedCount"]}}</p> 
+                </div>             
+            </div>                                                                                              
+            <div class=" clique">
+                <div class="cliTitreVal">
+                    <p id="titreClik">{{"cliqués"|upper}}</p>
+                {% set clique = status['ClickedCount']/status['DeliveredCount']*100 %}
+                        <h4 class="valClik">{{clique~' %'}}</h4>
+                    <p class="mailClic">{{status['ClickedCount']}}</p>
+                </div>
+            </div>
+            <div class="bloque">
+                <div class="titreEtat">
+                    <p class="blbl">{{"bloqués"|upper}} </p>
+                    <p class="blErr">{{"erreurs"|upper}}</p>                   
+                    <p class="blDesa">{{"désabo."|upper}} </p>                   
+                    <p class="blSp">{{"spam"|upper}} </p> 
+                </div>
+                 <div class="valEtat">
+                 {% set bloque = status['BlockedCount']/status['DeliveredCount']*100 %}
+                    <p class="blbl">{{bloque~' %'}}</p>
+                 {% set erreur = status['BouncedCount']/status['DeliveredCount']*100 %}
+                    <p class="blErr">{{erreur~' %'}}</p>
+                 {% set desabo = status['UnsubscribedCount']/status['DeliveredCount']*100 %}
+                    <p class="blDesa">{{desabo~' %'}}</p>
+                 {% set spam = status['SpamComplaintCount']/status['DeliveredCount']*100 %}
+                    <p class="blSp">{{spam~' %' }}</p>
+                </div>                   
+            </div>
+           
+    </div>
+    <div class="titre-statut">Détails statistiques</div>
+    <div class="row filter2 hours2">
+        <div class="heure-create">                            
+            <div class="dropdown clearable filtres delivrerEmail">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDelivre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                {{"statut"|upper}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuFiltre">
+                    <a class="dropdown-it dropdownDel3" href="#">
+                        {{"tous"|upper}}
+                        <span>tous</span>
+                    </a>
+                    <a class="dropdown-it dropdownDel3" href="#">
+                        {{"délivrés"|upper}}
+                        <span>delivred</span>
+                    </a>
+                    <a class="dropdown-it dropdownDel2" href="#">
+                        {{"ouverts"|upper}}
+                        <span>opened</span>
+                    </a>
+                    <a class="dropdown-it dropdownDel3" href="#">
+                        {{"cliqués"|upper}}
+                        <span>clicked</span>
+                    </a>
+                    <a class="dropdown-it dropdownDel3" href="#">
+                        {{"erreur"|upper}}
+                        <span>bounce</span>
+                    </a>
+                    <a class="dropdown-it dropdownDel3" href="#">
+                        {{"spam"|upper}}
+                        <span>spam</span>
+                    </a>
+                    <a class=" dropdown-it dropdownDel3" href="#">
+                        {{"désabo."|upper}}
+                        <span>unsub</span>
+                    </a>
+                    <a class="dropdown-it dropdownDel3" href="#">
+                        {{"bloqués"|upper}}
+                        <span>blocked</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tableDetail">
+        <table class="table table-responsive table-bordered" >
+            <thead>
+                <th class="emaild" style="font-size:14px">e-mail</th>
+                <th class="deliv" style="color:#848484;font-weight:bold">{{"delivrés"|upper}}</th>
+                <th class="ouve" style="color:#97D600;font-weight:bold">{{"ouverts"|upper}}</th>
+                <th class="cliq" style="color:#14A400; font-weight:bold">{{"cliqués"|upper}}</th>
+                <th class="desa" style="color:#1DC7FF;font-weight:bold">{{"désabo"|upper}}</th>
+                <th class="bloq" style="color:#000000;font-weight:bold">{{"bloqués"|upper}}</th>
+                <th class="spamd" style="color:#FF0303;font-weight:bold">{{"spam"|upper}}</th>
+                <th class="erreurd" style="color:#FF9600;font-weight:bold">{{"erreurs"|upper}}</th>
+            </thead>
+            <tbody id="tableBody" >
+        {% for mail in emails %}               
+                <tr>
+                    <td class="emails-table">
+                        {{mail['emails']}}
+                    </td>
+                    <td>
+                        {% if  (mail['etat'] == "delivre" or  mail['etat'] == "click") or (mail['etat'] == "open") %}
+                            <span class="fa-stack fa-lg">
+                                <i id="delivre" class="fa fa-circle fa-stack-2x icon-background1"></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if (mail['etat'] == "open" or  mail['etat'] == "click") %}
+                            <span class="fa-stack fa-lg">
+                                <i id="opened " class="fa fa-circle fa-stack-2x icon-background2 "></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if mail['etat'] == "click" %}
+                           <span class="fa-stack fa-lg">
+                                <i id="clicked" class="fa fa-circle fa-stack-2x icon-background3 "></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                            {% if  mail['etat'] == "desabo" %}
+                                <span class="fa-stack fa-lg">
+                                    <i id="desabo" class="fa fa-circle fa-stack-2x icon-background4 "></i>
+                                </span>
+                            {% endif %}
+                    </td>
+                    <td>
+                        {% if  mail['etat'] == "bloque" %}
+                            <span class="fa-stack fa-lg">
+                                <i id="bloque" class="fa fa-circle fa-stack-2x icon-background5 "></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if  mail['etat'] == "spam" %}
+                           <span class="fa-stack fa-lg">
+                                <i id="spam" class="fa fa-circle fa-stack-2x icon-background6 "></i>
+                            </span>
+                        {% endif %}
+                     </td>
+                    <td>
+                        {% if  mail['etat'] == "erreur" %}
+                            <span class="fa-stack fa-lg">
+                                <i id="erreur" class="fa fa-circle fa-stack-2x icon-background7 "></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+         {% endfor %}
+            </tbody>
+        </table>
+    </div> 
+     <div class="tableDetail2">
+        <table class="table table-responsive table-bordered" >
+            <thead>
+                <th class="emaild" style="font-size:14px">e-mail</th>
+                <th class="deliv" style="color:#848484;font-weight:bold">{{"delivrés"|upper}}</th>
+                <th class="ouve" style="color:#97D600;font-weight:bold">{{"ouverts"|upper}}</th>
+                <th class="cliq" style="color:#14A400; font-weight:bold">{{"cliqués"|upper}}</th>
+                <th class="desa" style="color:#1DC7FF;font-weight:bold">{{"désabo"|upper}}</th>
+                <th class="bloq" style="color:#000000;font-weight:bold">{{"bloqués"|upper}}</th>
+                <th class="spamd" style="color:#FF0303;font-weight:bold">{{"spam"|upper}}</th>
+                <th class="erreurd" style="color:#FF9600;font-weight:bold">{{"erreurs"|upper}}</th>
+            </thead>
+            <tbody id="tableBody2">    
+            </tbody>
+        </table>
+    </div> 
+    <div class="navigation">
+        {{ knp_pagination_render(emails) }}         
+    </div>
+    <div class="button-csv">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            {% set val = id %}
+        <a href="{{ path("admin_communication_emailing_campaign_download",{'id':val }) }}">
+                <button class ="btn-valider btn-download">
+                    <span class="download"></span>
+                        télécharger la liste
+        </button>
+       </a>
+    </div>
+    </div>
+    <input type="hidden" name="data" value="{{data}}"> 
+    <input type="hidden" name="id" value="{{id}}"> 
+    <input type="hidden" name="url" value="{{path('admin_communication_emailing_campaign_filter')}}">
+</div>

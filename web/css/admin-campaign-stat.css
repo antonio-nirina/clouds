@@ -1,0 +1,1235 @@
+
+.modal-dialog{
+    max-width: 945px !important;
+    margin-left: 210px;
+    margin-top: 21px;
+}
+
+td.emails-table{
+    padding-right: 12.5rem !important;
+}
+
+#date2{
+    font-size: 15px;
+}
+#exp2{
+    font-size: 15px;
+}
+#cont2{
+    font-size: 15px;
+}
+#email2{
+ font-size: 15px;
+}
+#obj2{
+    font-size: 15px;
+}
+
+th{
+    background-color: white !important;
+}
+
+.tableDetail,.table{
+    display: inline-table;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    font-size: 12px !important;
+    position: relative;
+    top: 28px;
+    margin-top: 22px;
+}
+
+
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    margin-top: 51px;
+}
+
+#statistique-campaign-dialog,.content{
+    width: 100% !important;
+    padding-left: 0px !important;
+}
+
+
+.form-element-container{
+    background-color: #F9F9F9;
+    width: 103% !important;
+    display: block !important;
+    left: -13px;
+    top:;
+    padding-left: 32px;
+    padding-top: 28px;
+    position: relative;
+
+}
+
+#campagne{
+    color: #505050;
+    font-size: 22px!important;
+    font-family: var(--police)!important;
+}
+#sujet{
+    color: #7682DA;
+}
+
+.form-element-container .button-container{
+    display: inline-block;
+    position: relative;
+    left: 390px;
+    top: -69px;
+}
+
+
+.form-element-container .detail-info{
+    display: inline-block;
+    
+}
+
+ #date{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+#expedit{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+ #contact{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+ #email{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+ #objet{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+
+ .date{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+ .expediteur{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+ .liste-contact{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+ .email{
+    /*font-family: var(--police_bold);*/
+}
+
+ .objet{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+.result{
+width: 100%;
+left: 29px;
+position: relative;
+top: 54px;
+}
+
+
+.total{
+    background-color:#F9F9F9;
+    margin-right: 11px;
+    margin-left: -8px;
+    padding: 13px 29px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    margin-right: 5px;
+    margin-left: 6px;
+    padding: 13px 35px;
+}
+.ouvert{
+    background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: 15px;
+    padding: 13px 25px;
+}
+.clique{
+    background-color:#F9F9F9;
+    margin-right: 10px;
+    margin-left: 9px;
+    padding: 14px 37px;
+}
+.bloque{
+background-color:#F9F9F9;
+padding-top: 12px;
+padding: 17px 65px;
+margin-left: 6px;
+height: 166px;
+
+}
+
+.titreEtat{
+    position: relative;
+    left: -35px;
+    font-size: 16px;
+}
+
+#titreT{
+color: #6F85DA;
+font-weight: bold;
+position: relative;
+left: 10px;
+font-size: 16px;
+top: 0px;
+}
+
+
+/*.totalTitreVal {
+color:#6F85DA !important;
+font-size:1.2rem !important;
+font-weight: bold !important;
+padding-left: 26px !important;
+}*/
+
+#titreDel{
+position: relative;
+left: -13px;
+font-size: 14px;
+}
+
+.totalTitreVal,.valTot {
+color:#6F85DA !important;
+font-weight: bold !important;
+padding-left: 26px !important;
+font-size: 22px !important;
+position: relative;
+top: 0px;
+}
+.totalTitreVal,.mailTot{
+padding-left: 33px;
+color: #505050;
+position: relative;
+left: -21px;
+font-size: 16px !important;
+top: 7px;
+
+}
+.totalTitreVal{
+margin-left: -8px;
+margin-right: 10px;
+position: relative;
+left: 1px;
+font-size: 16px !important;
+}
+
+
+
+/***/
+.delTitreVal {
+font-weight: bold !important;
+padding-left: 26px !important;
+font-size: 16px !important;
+}
+
+.mailDel{
+color:#505050 !important;
+padding-left: 26px !important;
+font-size: 16px !important;
+position: relative;
+left: -11px;
+top:11px;
+}
+
+.delTitreVal,.valDel{
+position: relative;
+left: -2px;
+color: #838383 !important;
+font-size: 20px !important;
+font-weight: bold !important;
+/*font-family: var(--police_bold);*/
+top: 6px;
+
+}
+
+
+.mailOuv{
+font-weight: bold;
+padding-left: 35px !important;
+font-size: 16px !important;
+color: #505050;
+position: relative;
+left: 7px;
+top: 7px;
+}
+
+#titreOuv{
+color:#93D706;
+padding-left: 27px;
+border-top-width: 0px;
+border-top-style: solid;
+padding-top: 1px;
+font-weight: bold;
+font-size: 18px !important;
+position: relative;
+left: -13px;
+top: 2px;
+}
+#titreClik{
+    font-weight: bold;
+font-size: 16px !important;
+}
+
+.valOuv{
+    color:#93D706 !important;
+    font-weight: bold !important;
+    padding-left: 54px;
+    position: relative;
+    left: -20px;
+    font-size: 20px !important;
+    top: 4px;
+    /*font-family: var(--police_bold);*/
+}
+
+
+.ouvTitreVal {
+color:#6F85DA !important;
+font-weight: bold !important;
+padding-left: 0px !important;
+position: relative;
+left:1px;
+font-size: 16px !important;
+}
+
+
+
+
+.cliTitreVal,.valClik {
+ color:#14A400 !important;
+font-weight: bold !important;
+padding-left: 16px !important;
+font-size: 20px !important;
+}
+.mailClic{
+padding-left: 33px;
+position: relative;
+left: -10px;
+font-size: 16px !important;
+color: #505050;
+top: 7px;
+
+}
+.cliTitreVal{
+    position: relative;
+    color: #14A400 !important;
+    left: -10px;
+    font-size: 16px !important;
+}
+
+.valEtat{
+   position: relative;
+   left: 72px;
+    top: -127px;
+    font-size: 16px !important;
+}
+
+
+.blbl{
+    color:#000000;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blErr{
+    color:orange;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blDesa{
+    color:#1CC8FA;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blSp{
+    color:#FC0007;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+
+
+ .dropdown.show .dropdown-toggle {
+    visibility: hidden;
+    box-shadow: none;
+}
+.dropdown-menu {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+
+}
+
+.filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
+    display: none;
+}
+
+.dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+
+ .row.filter2 div.heure-create {
+    width: 31%;
+    /*display: flex;*/
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+    /*margin-left: 0px;*/
+    position: relative;
+    left: 13px;
+    top: 76px;
+}
+
+#dropdownDelivre, .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 19rem;
+    text-align: left;
+}
+
+.dropdown.clearable.filtres #dropdownDelivre{
+    min-width: 13rem;
+}
+
+ .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    /*height: 35px;*/
+    margin-left: 1px !important;
+}
+
+  .dropdown-menu > a{
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+ .dropdown-menu > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+
+
+  .dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+
+.delivrerEmail{
+margin-top: 29px;
+margin-bottom: 22px;
+}
+
+.dropdownMail1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;  
+    min-width: 15rem; 
+}
+
+.dropdownMail2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;  
+}
+.dropdownMail3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;  
+    min-width: 15rem; 
+}
+.dropdownDel1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;
+}
+.dropdownDel2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;
+}
+.dropdownDel3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;
+}
+.titre-statut{
+    color: #7682DA;
+    position: relative;
+    left: 5px;
+    font-weight: bold;
+    top: 95px;
+    margin-bottom: 11px;
+    margin-top: 24px;
+
+}
+
+.detail{
+    border: 1px solid #CFCFCF;
+    width: 100%;
+    margin-top: 70px;
+    font-size: 11px;
+    font-weight: bold;  
+    display: inline-table;
+}
+.download {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    background-position: 9px 21px;
+    margin-left: 4px;
+}
+
+.button-csv{
+ position: relative;
+left: -12px;
+top: 50px;
+margin-top: 74px;
+}
+
+button.btn-valider{
+min-width: 181px !important;
+}
+
+.icon-background1{
+    color: #838383;
+   
+}
+
+.icon-background2{
+   color: #97D600;
+   
+}
+.icon-background3{
+    color: #14A400;
+     
+}
+.icon-background4{
+    color: #39CBFF;
+    
+}
+.icon-background5{
+    color: #000000;
+    
+}
+.icon-background6{
+    color: #FF0000;
+    
+}
+.icon-background7{
+    color: #FF9600;
+    
+}
+
+
+
+
+
+
+
+
+@media (max-width: 575px)  {
+.modal-dialog{
+    max-width: 945px !important;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+    td.emails-table{
+        padding-right: 12.5rem !important;
+    }
+
+    #date2{
+        font-size: 15px;
+    }
+    #exp2{
+        font-size: 15px;
+    }
+    #cont2{
+        font-size: 15px;
+    }
+    #email2{
+     font-size: 15px;
+    }
+    #obj2{
+        font-size: 15px;
+    }
+
+    th{
+        background-color: white !important;
+    }
+
+    .tableDetail,.table{
+        display: inline-table;
+        border: 2px !important;
+        border-color: #CBCBCB;
+        font-size: 12px !important;
+        position: relative;
+        top: 28px;
+        margin-top: 22px;
+    }
+
+
+    .tableDetail2{
+        /*display: inline-table;*/
+        display: none;
+        border: 2px !important;
+        border-color: #CBCBCB;
+    }
+
+    #statistique-campaign-dialog,.content{
+        width: 100% !important;
+        padding-left: 0px !important;
+    }
+
+
+    .form-element-container{
+        background-color: #F9F9F9;
+        width: 103% !important;
+        display: block !important;
+        left: -13px;
+        top:;
+        padding-left: 32px;
+        padding-top: 28px;
+        position: relative;
+
+    }
+
+    #campagne{
+        color: #505050;
+        font-size: 22px!important;
+        font-family: var(--police)!important;
+    }
+    #sujet{
+        color: #7682DA;
+    }
+
+    .form-element-container .button-container{
+        display: inline-block;
+        position: relative;
+        left: -8px;
+        top: 4px;
+    }
+
+
+    .form-element-container .detail-info{
+        display: inline-block;
+        
+    }
+
+     #date{
+        font-size: 14px!important;
+        font-family: var(--police_bold);
+        color: #505050;
+    }
+
+    #expedit{
+        font-size: 14px!important;
+        font-family: var(--police_bold);
+        color: #505050;
+    }
+
+     #contact{
+        font-size: 14px!important;
+        font-family: var(--police_bold);
+        color: #505050;
+    }
+
+     #email{
+        font-size: 14px!important;
+        font-family: var(--police_bold);
+        color: #505050;
+    }
+
+     #objet{
+        font-size: 14px!important;
+        font-family: var(--police_bold);
+        color: #505050;
+    }
+
+
+     .date{
+        font-size: 14px!important;
+        /*font-family: var(--police_bold);*/
+    }
+
+     .expediteur{
+        font-size: 14px!important;
+        /*font-family: var(--police_bold);*/
+    }
+
+     .liste-contact{
+        font-size: 14px!important;
+        /*font-family: var(--police_bold);*/
+    }
+
+     .email{
+        /*font-family: var(--police_bold);*/
+    }
+
+     .objet{
+        font-size: 14px!important;
+        /*font-family: var(--police_bold);*/
+    }
+
+    .result{
+    width: 100%;
+    left: 29px;
+    position: relative;
+    top: 54px;
+    }
+
+
+    .total{
+        background-color:#F9F9F9;
+        margin-right: 11px;
+        margin-left: -8px;
+        padding: 13px 29px;
+    }
+    .delivrer{
+        background-color:#F9F9F9;
+        margin-right: 5px;
+        margin-left: 6px;
+        padding: 13px 38px;
+        position: relative;
+        top: -25px;
+        left: -14px;
+    }
+    .ouvert{
+        background-color:#F9F9F9;
+        margin-right: 10px;
+        margin-left: 15px;
+        padding: 13px 25px;
+    }
+    .clique{
+        background-color:#F9F9F9;
+        margin-right: 10px;
+        margin-left: 9px;
+        padding: 14px 37px;
+    }
+   .bloque{
+    background-color:#F9F9F9;
+    padding-top: 12px;
+    padding: 17px 65px;
+    margin-left: 6px;
+    height: 166px;
+    }
+
+    .titreEtat{
+        position: relative;
+        left: -35px;
+        font-size: 16px;
+    }
+
+    #titreT{
+    color: #6F85DA;
+    font-weight: bold;
+    position: relative;
+    left: 10px;
+    font-size: 16px;
+    top: 0px;
+    }
+
+
+    /*.totalTitreVal {
+    color:#6F85DA !important;
+    font-size:1.2rem !important;
+    font-weight: bold !important;
+    padding-left: 26px !important;
+    }*/
+
+    #titreDel{
+    position: relative;
+    left: -13px;
+    font-size: 14px;
+    }
+
+    .totalTitreVal,.valTot {
+    color:#6F85DA !important;
+    font-weight: bold !important;
+    padding-left: 26px !important;
+    font-size: 22px !important;
+    position: relative;
+    top: 0px;
+    }
+    .totalTitreVal,.mailTot{
+    padding-left: 33px;
+    color: #505050;
+    position: relative;
+    left: -21px;
+    font-size: 16px !important;
+    top: 7px;
+
+    }
+    .totalTitreVal{
+    margin-left: -8px;
+    margin-right: 10px;
+    position: relative;
+    left: 1px;
+    font-size: 16px !important;
+    }
+
+
+
+    /***/
+    .delTitreVal {
+    font-weight: bold !important;
+    padding-left: 26px !important;
+    font-size: 16px !important;
+    }
+
+    .mailDel{
+    color:#505050 !important;
+    padding-left: 26px !important;
+    font-size: 16px !important;
+    position: relative;
+    left: -11px;
+    top:11px;
+    }
+
+    .delTitreVal,.valDel{
+    position: relative;
+    left: -2px;
+    color: #A7A7A7 !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    /*font-family: var(--police_bold);*/
+    top: 6px;
+
+    }
+
+
+    .mailOuv{
+    font-weight: bold;
+    padding-left: 35px !important;
+    font-size: 16px !important;
+    color: #505050;
+    position: relative;
+    left: 7px;
+    top: 7px;
+    }
+
+    #titreOuv{
+    color:#93D706;
+    padding-left: 27px;
+    border-top-width: 0px;
+    border-top-style: solid;
+    padding-top: 1px;
+    font-weight: bold;
+    font-size: 18px !important;
+    position: relative;
+    left: -13px;
+    top: 2px;
+    }
+    #titreClik{
+        font-weight: bold;
+    font-size: 16px !important;
+    }
+
+    .valOuv{
+        color:#93D706 !important;
+        font-weight: bold !important;
+        padding-left: 54px;
+        position: relative;
+        left: -20px;
+        font-size: 20px !important;
+        top: 4px;
+        /*font-family: var(--police_bold);*/
+    }
+
+
+    .ouvTitreVal {
+    color:#6F85DA !important;
+    font-weight: bold !important;
+    padding-left: 0px !important;
+    position: relative;
+    left:1px;
+    font-size: 16px !important;
+    }
+
+
+
+
+    .cliTitreVal,.valClik {
+     color:#14A400 !important;
+    font-weight: bold !important;
+    padding-left: 16px !important;
+    font-size: 20px !important;
+    }
+    .mailClic{
+    padding-left: 33px;
+    position: relative;
+    left: -10px;
+    font-size: 16px !important;
+    color: #505050;
+    top: 7px;
+
+    }
+    .cliTitreVal{
+        position: relative;
+        color: #14A400 !important;
+        left: -10px;
+        font-size: 16px !important;
+    }
+
+    .valEtat{
+       position: relative;
+       left: -43px;
+        top: 18px;
+        font-size: 16px !important;
+    }
+
+
+    .blbl{
+        color:#000000;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+    .blErr{
+        color:orange;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+    .blDesa{
+        color:#1CC8FA;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+    .blSp{
+        color:#FC0007;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+
+
+     .dropdown.show .dropdown-toggle {
+        visibility: hidden;
+        box-shadow: none;
+    }
+    .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
+
+    }
+
+    .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
+        display: none;
+    }
+
+    .dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
+        font-size: 12px;
+        font-family: var(--police);
+        color: #404040;
+        background-color: #e5e5e5;
+        height: 35px;
+    }
+
+
+     .row.filter2 div.heure-create {
+        width: 31%;
+        /*display: flex;*/
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-content: center;
+        /*margin-left: 0px;*/
+        position: relative;
+        left: 13px;
+        top: 76px;
+    }
+
+    #dropdownDelivre, .dropdown-toggle.active {
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        min-width: 19rem;
+        text-align: left;
+    }
+
+    .dropdown.clearable.filtres #dropdownDelivre{
+        min-width: 13rem;
+    }
+
+     .dropdown-toggle {
+        font-size: 12px;
+        font-family: var(--police);
+        color: #404040;
+        background-color: #e5e5e5;
+        /*height: 35px;*/
+        margin-left: 1px !important;
+    }
+
+      .dropdown-menu > a{
+        box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+        padding: 8px 16px;
+    }
+     .dropdown-menu > a:hover {
+        background-color: white;
+        box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+    }
+
+
+      .dropdown-toggle::after {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: .3em;
+        vertical-align: middle;
+        content: "\f107";
+        font-family: "FontAwesome";
+        font-size: 27px;
+        border: none !important;
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #404040;
+        -webkit-text-stroke: 1px #e5e5e5;
+    }
+
+    .delivrerEmail{
+    margin-top: 29px;
+    margin-bottom: 22px;
+    }
+
+    .dropdownMail1{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 15rem; 
+    }
+
+    .dropdownMail2{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 15rem;  
+    }
+    .dropdownMail3{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0;  
+        min-width: 15rem; 
+    }
+    .dropdownDel1{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 15rem;
+    }
+    .dropdownDel2{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 15rem;
+    }
+    .dropdownDel3{
+        display: block;
+        /*width: 157%;*/
+        padding: 3px 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #292b2c;
+        text-align: inherit;
+        white-space: nowrap;
+        background: 0 0; 
+        min-width: 15rem;
+    }
+    .titre-statut{
+        color: #7682DA;
+        position: relative;
+        left: 5px;
+        font-weight: bold;
+        top: 95px;
+        margin-bottom: 11px;
+        margin-top: 24px;
+
+    }
+
+    .detail{
+        border: 1px solid #CFCFCF;
+        width: 100%;
+        margin-top: 70px;
+        font-size: 11px;
+        font-weight: bold;  
+        display: inline-table;
+    }
+    .download {
+        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+        background-position: 9px 21px;
+        margin-left: 4px;
+    }
+
+    .button-csv{
+     position: relative;
+    left: -12px;
+    top: 50px;
+    margin-top: 74px;
+    }
+
+    button.btn-valider{
+    min-width: 181px !important;
+    }
+
+    .icon-background1{
+        color: #838383;
+       
+    }
+
+    .icon-background2{
+       color: #97D600;
+       
+    }
+    .icon-background3{
+        color: #14A400;
+         
+    }
+    .icon-background4{
+        color: #39CBFF;
+        
+    }
+    .icon-background5{
+        color: #000000;
+        
+    }
+    .icon-background6{
+        color: #FF0000;
+        
+    }
+    .icon-background7{
+        color: #FF9600;
+        
+    }
+
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+@media (min-width: 1200px) {
+
+}
+
+
+
+
+

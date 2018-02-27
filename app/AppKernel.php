@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Krlove\AsyncServiceCallBundle\KrloveAsyncServiceCallBundle(),
             new Mailjet\MailjetBundle\MailjetBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
