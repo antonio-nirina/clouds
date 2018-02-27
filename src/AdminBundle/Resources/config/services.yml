@@ -76,3 +76,8 @@ services:
         class: AdminBundle\Form\CampaignDraftType
         autowire: true
         autoconfigure: true
+
+    AdminBundle\Form\NewsPostType:
+        class: AdminBundle\Form\NewsPostType
+        autowire: true
+        autoconfigure: true
