@@ -1,5 +1,6 @@
 {% for key,value in PagesQuestions %}
 	{% if key == QuestionnaireInfos.Id %}
+		
 		{% set NumQuestion = 1 %}
 		{% for Questions in value %}
 			<p class = "libelle-questions">
@@ -15,33 +16,103 @@
 			<ul class = "liste-reponses">
 				{% for keys,values in PagesReponses %}
 					{% if keys == Questions.Id %}
+						
 						{% if Questions.TypeQuestion == '1' %}
 						{# CASE A COCHER #}
 							{% for Reponses in values %}
 								<li>
+								{% if ShowBtn == false %}
+									{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+										{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+											{% for ResKey,ResVal in ValQuestRes %}
+												{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+													{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+														<span class = "checked-reponse">
+															<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['ca'][{{ Questions.Id }}]" value = "{{Reponses.Id}}" checked = "checked">
+															<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+														</span>
+														
+														<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+														{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+															<span class = "pourcentage-reponse">100%</span>
+														{% endif %}
+													{% else %}
+														<span class = "checked-reponse">
+															<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['ca'][{{ Questions.Id }}]" value = "{{Reponses.Id}}">
+															<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+														</span>
+														
+														<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+														{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+															<span class = "pourcentage-reponse">0%</span>
+														{% endif %}
+													{% endif %}
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+									{% endfor %}
+								{% else %}
 									<span class = "checked-reponse">
 										<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['ca'][{{ Questions.Id }}]" value = "{{Reponses.Id}}">
 										<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
 									</span>
+									
 									<span class = "text-reponses">{{ Reponses.Reponses }}</span>
 									{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
-										<span class = "pourcentage-reponse">3%</span>
+										<span class = "pourcentage-reponse">0%</span>
 									{% endif %}
+								{% endif %}
 								</li>
+								
 							{% endfor %}
 						{# FIN CASE A COCHER #}
 						{% elseif Questions.TypeQuestion == '2' %}
 						{# CHOIX MULTIPLE #}
 							{% for Reponses in values %}
 								<li>
+								{% if ShowBtn == false %}
+									{% set array = [] %}
+									{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+										{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+											{% for ResKey,ResVal in ValQuestRes %}
+												{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+													{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+														{% set array = array|merge({ (loop.index0): Reponses.Id}) %}
+													{% endif %}
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+									{% endfor %}
+									
+									{% if Reponses.Id in array %}
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "checkbox" name = "reponses[{{ QuestionnaireInfos.Id }}]['cm'][{{ Questions.Id }}][]" value = "{{Reponses.Id}}" checked = "checked">
+											<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+										</span>
+										<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+										{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+											<span class = "pourcentage-reponse">100%</span>
+										{% endif %}
+									{% else %}
+										<span class = "checked-reponse">
+											<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "checkbox" name = "reponses[{{ QuestionnaireInfos.Id }}]['cm'][{{ Questions.Id }}][]" value = "{{Reponses.Id}}">
+											<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+										</span>
+										<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+										{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+											<span class = "pourcentage-reponse">0%</span>
+										{% endif %}
+									{% endif %}
+								{% else %}
 									<span class = "checked-reponse">
 										<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "checkbox" name = "reponses[{{ QuestionnaireInfos.Id }}]['cm'][{{ Questions.Id }}][]" value = "{{Reponses.Id}}">
 										<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
 									</span>
 									<span class = "text-reponses">{{ Reponses.Reponses }}</span>
 									{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
-										<span class = "pourcentage-reponse">3%</span>
+										<span class = "pourcentage-reponse">0%</span>
 									{% endif %}
+								{% endif %}
 								</li>
 							{% endfor %}
 						{# FIN CHOIX MULTIPLE #}
@@ -49,14 +120,44 @@
 						{# ECHELE LINEAIRE #}
 							{% for Reponses in values %}
 								<li class = "echelle_lineaire">
+								{% if ShowBtn == false %}
+									{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+										{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+											{% for ResKey,ResVal in ValQuestRes %}
+												{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+													{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+														<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+														<span class = "checked-reponse">
+															<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['el'][{{ Questions.Id }}]" value = "{{Reponses.Id}}" checked = "checked">
+															<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+														</span>
+														{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+															<span class = "pourcentage-reponse">100%</span>
+														{% endif %}
+													{% else %}
+														<span class = "text-reponses">{{ Reponses.Reponses }}</span>
+														<span class = "checked-reponse">
+															<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['el'][{{ Questions.Id }}]" value = "{{Reponses.Id}}">
+															<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
+														</span>
+														{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
+															<span class = "pourcentage-reponse">0%</span>
+														{% endif %}
+													{% endif %}
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+									{% endfor %}
+								{% else %}
 									<span class = "text-reponses">{{ Reponses.Reponses }}</span>
 									<span class = "checked-reponse">
 										<input id = "reponse-{{ Reponses.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['el'][{{ Questions.Id }}]" value = "{{Reponses.Id}}">
 										<label for = "reponse-{{ Reponses.Id }}"><span></span></label>
 									</span>
 									{% if QuestionnaireInfos.TypeSondagesQuiz == '1' %}
-										<span class = "pourcentage-reponse">3%</span>
+										<span class = "pourcentage-reponse">0%</span>
 									{% endif %}
+								{% endif %}
 								</li>
 							{% endfor %}
 						{# FIN ECHELE LINEAIRE #}
@@ -79,45 +180,189 @@
 								<tr>
 									<td>{{ Reponses.Reponses }}</td>
 									<td>
+									{% if ShowBtn == false %}
+										{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+											{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+												{% for ResKey,ResVal in ValQuestRes %}
+													{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+														{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+															{% if ResVal.Echelle == '1' %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-1" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "1" checked = "checked">
+																	<label for = "reponse-{{ Reponses.Id }}-1"><span></span></label>
+																</span>
+															{% else %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-1" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "1">
+																	<label for = "reponse-{{ Reponses.Id }}-1"><span></span></label>
+																</span>
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									{% else %}
 										<span class = "checked-reponse">
 											<input id = "reponse-{{ Reponses.Id }}-1" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "1">
 											<label for = "reponse-{{ Reponses.Id }}-1"><span></span></label>
 										</span>
+									{% endif %}
 									</td>
 									
 									<td>
+									{% if ShowBtn == false %}
+										{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+											{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+												{% for ResKey,ResVal in ValQuestRes %}
+													{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+														{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+															{% if ResVal.Echelle == '2' %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-2" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "2" checked = "checked">
+																	<label for = "reponse-{{ Reponses.Id }}-2"><span></span></label>
+																</span>
+															{% else %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-2" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "2">
+																	<label for = "reponse-{{ Reponses.Id }}-2"><span></span></label>
+																</span>
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									{% else %}
 										<span class = "checked-reponse">
 											<input id = "reponse-{{ Reponses.Id }}-2" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "2">
 											<label for = "reponse-{{ Reponses.Id }}-2"><span></span></label>
 										</span>
+									{% endif %}
 									</td>
 									
 									<td>
+									{% if ShowBtn == false %}
+										{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+											{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+												{% for ResKey,ResVal in ValQuestRes %}
+													{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+														{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+															{% if ResVal.Echelle == '3' %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-3" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "3" checked = "checked">
+																	<label for = "reponse-{{ Reponses.Id }}-3"><span></span></label>
+																</span>
+															{% else %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-3" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "3">
+																	<label for = "reponse-{{ Reponses.Id }}-3"><span></span></label>
+																</span>
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									{% else %}
 										<span class = "checked-reponse">
 											<input id = "reponse-{{ Reponses.Id }}-3" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "3">
 											<label for = "reponse-{{ Reponses.Id }}-3"><span></span></label>
 										</span>
+									{% endif %}
 									</td>
 									
 									<td>
+									{% if ShowBtn == false %}
+										{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+											{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+												{% for ResKey,ResVal in ValQuestRes %}
+													{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+														{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+															{% if ResVal.Echelle == '4' %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-4" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "4" checked = "checked">
+																	<label for = "reponse-{{ Reponses.Id }}-4"><span></span></label>
+																</span>
+															{% else %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-4" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "4">
+																	<label for = "reponse-{{ Reponses.Id }}-4"><span></span></label>
+																</span>
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									{% else %}
 										<span class = "checked-reponse">
 											<input id = "reponse-{{ Reponses.Id }}-4" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "4">
 											<label for = "reponse-{{ Reponses.Id }}-4"><span></span></label>
 										</span>
+									{% endif %}
 									</td>
 									
 									<td>
+									{% if ShowBtn == false %}
+										{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+											{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+												{% for ResKey,ResVal in ValQuestRes %}
+													{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+														{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+															{% if ResVal.Echelle == '5' %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-5" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "5" checked = "checked">
+																	<label for = "reponse-{{ Reponses.Id }}-5"><span></span></label>
+																</span>
+															{% else %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-5" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "5">
+																	<label for = "reponse-{{ Reponses.Id }}-5"><span></span></label>
+																</span>
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									{% else %}
 										<span class = "checked-reponse">
 											<input id = "reponse-{{ Reponses.Id }}-5" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "5">
 											<label for = "reponse-{{ Reponses.Id }}-5"><span></span></label>
 										</span>
+									{% endif %}
 									</td>
 									
 									<td>
+									{% if ShowBtn == false %}
+										{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+											{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+												{% for ResKey,ResVal in ValQuestRes %}
+													{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+														{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+															{% if ResVal.Echelle == '6' %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-6" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "6" checked = "checked">
+																	<label for = "reponse-{{ Reponses.Id }}-6"><span></span></label>
+																</span>
+															{% else %}
+																<span class = "checked-reponse">
+																	<input id = "reponse-{{ Reponses.Id }}-6" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "6">
+																	<label for = "reponse-{{ Reponses.Id }}-6"><span></span></label>
+																</span>
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										{% endfor %}
+									{% else %}
 										<span class = "checked-reponse">
-											<input id = "reponse-{{ Reponses.Id }}-nsp" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "6">
-											<label for = "reponse-{{ Reponses.Id }}-nsp"><span></span></label>
+											<input id = "reponse-{{ Reponses.Id }}-6" class = "hidden form-field-mandatory styled-checkbox" type = "radio" name = "reponses[{{ QuestionnaireInfos.Id }}]['tm'][{{ Questions.Id }}][{{Reponses.Id}}]" value = "6">
+											<label for = "reponse-{{ Reponses.Id }}-6"><span></span></label>
 										</span>
+									{% endif %}
 									</td>
 								</tr>
 							{% endfor %}
@@ -141,27 +386,135 @@
 								<tr>
 									<td>{{ Reponses.Reponses }}</td>
 									<td class = "pourc-tableaux">
-										3%
+										{% if ShowBtn == false %}
+											{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+												{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+													{% for ResKey,ResVal in ValQuestRes %}
+														{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+															{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+																{% if ResVal.Echelle == '1' %}
+																	100%
+																{% else %}
+																	-
+																{% endif %}
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											-
+										{% endif %}
 									</td>
 									
 									<td class = "pourc-tableaux">
-										3%
+										{% if ShowBtn == false %}
+											{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+												{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+													{% for ResKey,ResVal in ValQuestRes %}
+														{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+															{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+																{% if ResVal.Echelle == '2' %}
+																	100%
+																{% else %}
+																	-
+																{% endif %}
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											-
+										{% endif %}
 									</td>
 									
 									<td class = "pourc-tableaux">
-										3%
+										{% if ShowBtn == false %}
+											{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+												{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+													{% for ResKey,ResVal in ValQuestRes %}
+														{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+															{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+																{% if ResVal.Echelle == '3' %}
+																	100%
+																{% else %}
+																	-
+																{% endif %}
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											-
+										{% endif %}
 									</td>
 									
 									<td class = "pourc-tableaux">
-										3%
+										{% if ShowBtn == false %}
+											{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+												{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+													{% for ResKey,ResVal in ValQuestRes %}
+														{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+															{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+																{% if ResVal.Echelle == '4' %}
+																	100%
+																{% else %}
+																	-
+																{% endif %}
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											-
+										{% endif %}
 									</td>
 									
 									<td class = "pourc-tableaux">
-										3%
+										{% if ShowBtn == false %}
+											{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+												{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+													{% for ResKey,ResVal in ValQuestRes %}
+														{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+															{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+																{% if ResVal.Echelle == '5' %}
+																	100%
+																{% else %}
+																	-
+																{% endif %}
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											-
+										{% endif %}
 									</td>
 									
 									<td class = "pourc-tableaux">
-										3%
+										{% if ShowBtn == false %}
+											{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
+												{% if KeyQuestInfosRes == QuestionnaireInfos.Id %}
+													{% for ResKey,ResVal in ValQuestRes %}
+														{% if ResVal.SondagesQuizQuestions.Id == Questions.Id %}
+															{% if ResVal.SondagesQuizReponses.Id == Reponses.Id %}
+																{% if ResVal.Echelle == '6' %}
+																	100%
+																{% else %}
+																	-
+																{% endif %}
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											-
+										{% endif %}
 									</td>
 								</tr>
 							{% endfor %}

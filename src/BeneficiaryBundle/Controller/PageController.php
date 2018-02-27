@@ -238,7 +238,7 @@ class PageController extends Controller
 		
 		//Sondages questionnaire infos
 		$PagesQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBy(
-			array('sondages_quiz' => $PagesSondagesQuiz)
+			array('sondages_quiz' => $PagesSondagesQuiz, 'est_publier' => '1')
 		);
 		
 		
@@ -248,16 +248,18 @@ class PageController extends Controller
 		$Resultats = array();
 		foreach($PagesQuestionnaireInfos as $QuestionnaireInfos){
 			$Questions = $em->getRepository('AdminBundle:SondagesQuizQuestions')->findBy(
-				array('sondages_quiz_questionnaire_infos' => $QuestionnaireInfos)
+				array('sondages_quiz_questionnaire_infos' => $QuestionnaireInfos),
+				array('ordre' => 'ASC')
 			);
 			
-			$Resultats[$QuestionnaireInfos->getId()] = $em->getRepository('AdminBundle:ResultatsSondagesQuiz')->findOneBy(array(
+			$Resultats[$QuestionnaireInfos->getId()] = $em->getRepository('AdminBundle:ResultatsSondagesQuiz')->findBy(array(
 			   'sondages_quiz_questionnaire_infos' => $QuestionnaireInfos
 			));
 			
 			foreach($Questions as $Questionsdata){
 				$Reponses = $em->getRepository('AdminBundle:SondagesQuizReponses')->findBy(
-					array('sondages_quiz_questions' => $Questionsdata)
+					array('sondages_quiz_questions' => $Questionsdata),
+					array('ordre' => 'ASC')
 				);
 				$PagesReponses[$Questionsdata->getId()] = $Reponses;
 			}

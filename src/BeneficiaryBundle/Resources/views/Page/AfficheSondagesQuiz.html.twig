@@ -230,19 +230,22 @@
 					
 					<div id = "content-block-resume-sondages-quiz-{{ QuestionnaireInfos.Id }}" class = "content-block-resume-sondages-quiz">
 						<p class="titre-block-centre">
-							<span class="lib-titre-block-centre light">{{ QuestionnaireInfos.TitreQuestionnaire }}</span>
+							<span id = "lib-titre-block-centre-{{ QuestionnaireInfos.Id }}" class="lib-titre-block-centre light">{{ QuestionnaireInfos.TitreQuestionnaire }}</span>
 							<span class="lib-date-block-centre regular">Quiz - créer le {{ QuestionnaireInfos.DateCreation | localizeddate('none', 'none', locale, null, "d MMMM yyyy") }}</span>
 						</p>
 						
+						{% set ShowBtn = true %}
 						{% for k,v in Resultats %}
 							{% if k == QuestionnaireInfos.Id %}
-								{% if v is null %}
+								{% if v|length == 0 %}
+									{% set ShowBtn = true %}
 									<p class = "lib-remplir-sondages-quiz">
 										<span class = "lib-remplir regular">à remplir</span>
 										<br>
 										<span id = "icone-edit-participant-{{ QuestionnaireInfos.Id }}" class = "lib-img icone-edit-participant"></span>
 									</p>
 								{% else %}
+									{% set ShowBtn = false %}
 									<p class = "lib-remplir-sondages-quiz">
 										<span class = "checked-reponse">
 											<input id = "{{ QuestionnaireInfos.Id }}" class = "hidden form-field-mandatory styled-checkbox" type = "radio" checked = "checked">
@@ -272,13 +275,15 @@
 						
 						<p class="descr-block-centre">{{ QuestionnaireInfos.DescriptionQuestionnaire|raw }}</p>
 						
-						{{ include('BeneficiaryBundle:PartialPage:champs-sondages-quiz.html.twig', { 'QuestionnaireInfos': QuestionnaireInfos, 'PagesQuestions': PagesQuestions, 'PagesReponses': PagesReponses }) }}
+						{{ include('BeneficiaryBundle:PartialPage:champs-sondages-quiz.html.twig', { 'QuestionnaireInfos': QuestionnaireInfos, 'PagesQuestions': PagesQuestions, 'PagesReponses': PagesReponses, 'Resultats': Resultats, 'ShowBtn': ShowBtn }) }}
 						
 						<p style = "clear:both;margin-top: 47px;"></p>
 						
-						<p id = "submit-form-{{ QuestionnaireInfos.Id }}" class="mon-compte-btn submit-form-sondages-quiz light" style = "width: 26%;">
-							<span>envoyer mes réponses</span>
-						</p>
+						{% if ShowBtn %}
+							<p id = "submit-form-{{ QuestionnaireInfos.Id }}" class="mon-compte-btn submit-form-sondages-quiz light" style = "width: 26%;">
+								<span>envoyer mes réponses</span>
+							</p>
+						{% endif %}
 					</div>
 					
 				</div>

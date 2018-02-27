@@ -9,6 +9,15 @@ $(document).ready(function(){
 		$('div#content-block-resume-sondages-quiz-'+Id+'').hide();
 	});
 	
+	$(document).on('click', 'span.lib-titre-block-centre', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var Id = ArrayAttrId[4];
+		$('div#content-block-detail-sondages-quiz-'+Id+'').show();
+		$('div#content-block-resume-sondages-quiz-'+Id+'').hide();
+	});
+	
 	$(document).on('click', 'span.lib-cacher', function(){
 		var AttrId = $(this).attr('id');
 		var ArrayAttrId = new Array;

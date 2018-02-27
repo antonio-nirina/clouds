@@ -1443,7 +1443,10 @@ class CommunicationController extends AdminController
 		
 		//Formulaires questionnaires
 		if(!is_null($id)){
-			$SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
+			//$SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
+			$SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findOneBy(array(
+			   'id' => $id
+			));
 		}else{
 			$SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
 		}
@@ -1456,7 +1459,7 @@ class CommunicationController extends AdminController
 		if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
 			$SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
 			$SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuiz);
-			if($request->get('btn-publier-sondages-quiz')){
+			if($request->get('btn-publier-sondages-quiz') !== null){
 				$SondagesQuizQuestionnaireInfosData->setEstPublier(true);
 			}else{
 				$SondagesQuizQuestionnaireInfosData->setEstPublier(false);
