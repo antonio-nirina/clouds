@@ -35,6 +35,24 @@ $(document).ready(function(){
      * Création - Edition actu
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
+     * *********************************************************************************************
+     */
+    $('#create-edit-news-modal').on('shown.bs.modal', function(){
+        $(document).off('focusin.modal');
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
+     * *********************************************************************************************
+     */
 });
 
 function installWysiwyg()
