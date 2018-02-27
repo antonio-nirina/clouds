@@ -321,13 +321,21 @@ class Common
         if (!empty($clickEvent) && !empty($openEvent) && !empty($bounced)) { 
             $result = array_merge($emailClicks,$resOpen,$emailBounced,$emailDel );
         }  elseif (!empty($clickEvent) && !empty($openEvent) && empty($bounced)) {
-        $result = !empty($resOpen)?array_merge($emailClicks,$resOpen,$emailDel):array_merge($emailClicks,$emailDel);
+            $check = array_diff($emails, $compClick);
+            if (!empty($resOpen) && !empty( $check )) {
+              $result =  array_merge($emailClicks,$resOpen,$emailDel);
+            } elseif (empty($resOpen) && !empty( $check )) {
+                $result = array_merge($emailClicks,$emailDel);
+            } elseif (empty($resOpen) && empty( $check )) {
+                $result = $emailClicks;
+            }
+        
         } elseif (empty($clickEvent) && !empty($openEvent) && empty($bounced)){
             $check = array_diff($emails, $compOpenNotClick);
             $result = empty($check)?$emailOpened: array_merge($emailOpened,$emailDel);
            
         } elseif (empty($clickEvent) && empty($openEvent) && !empty($bounced)){
-           $check = array_diff($emails, $compBounced);
+            $check = array_diff($emails, $compBounced);
             $result = empty($check)?$emailBounced:array_merge($emailBounced,$emailDel);
         } else {
             $result = $emailDel;
