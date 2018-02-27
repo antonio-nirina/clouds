@@ -1728,4 +1728,90 @@ class CommunicationController extends AdminController
 
         return $this->render('AdminBundle:Communication:news.html.twig');
     }
+
+    /**
+     * @Route("/emailing/campagne/statistique", name="admin_communication_emailing_campaign_statistique")
+     * @Method("POST")
+     */
+    public function emailingCampaignStatistiqueAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $id = $request->request->get("id")["campaign_id"];
+        $mailjet = $this->get('mailjet.client');
+        $filter = ["campaignid" => $id];
+        $campaigns = $mailjet->get(Resources::$Campaign,['filters' => $filter])->getData()[0];
+        $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($results["email"],$request->query->getInt('page', 1),10);
+        $view = $this->renderView(
+        'AdminBundle:Communication/EmailingTemplates:statistique_campaign.html.twig',
+        [
+            "date" => $campaigns["CreatedAt"],
+            "email" => $campaigns["FromEmail"],
+            "fromName" => $campaigns["FromName"],
+            "sujet" => $campaigns["Subject"],
+            "listContact" => $results["listContact"],
+            "status"=> $results["status"],
+            "emails" =>$pagination,
+            "name" => $results["template"],
+            "data" =>$results["data"],
+            "id" => $id
+        ]);
+        $data['content'] = $view;
+        return new JsonResponse($data, 200);
+    }
+
+    /**
+     * @Route("/emailing/campagne/statistique/export", name="admin_communication_emailing_campaign_exports")
+     * @Method({"POST","GET"})
+     */
+    public function emailingCampaignExportAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $id = $request->query->get("id");
+        $model = $this->get('AdminBundle\Service\ImportExport\RegistrationStat');
+        $model->setSiteFormSetting($id);
+        $response = $model->createResponse();
+        return $response;
+    }
+
+    /**
+     * @Route("/emailing/campagne/statistique/download", name="admin_communication_emailing_campaign_download")
+     * @Method({"POST","GET"})
+     */
+    public function emailingCampaignDownloadAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $id = $request->query->get("id");
+        $model = $this->get('AdminBundle\Service\ImportExport\RegistrationListe');
+        $model->setSiteFormSetting($id);
+        $response = $model->createResponse();
+        return $response;
+    }
+
+
+    /**
+     * @Route("/emailing/campagne/statistique/filter", name="admin_communication_emailing_campaign_filter")
+     * @Method("POST")
+     */
+    public function emailingCampaignStatistiqueFilterAction(Request $request)
+    {
+        $id = $request->request->get("id");
+        $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
+        $data = $results["data"];
+        $response = new JsonResponse($data);
+        return $response;       
+
+    }
 }

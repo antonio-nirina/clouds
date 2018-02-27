@@ -2006,5 +2006,34 @@ function createImagePreview(input, preview_container) {
     }
 }
 
-
+$(document).on('click', '.campaign-statistique', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var duplicate_campaign_url = $('input[name=statistique_campaign_url]').val(),
+        data = {};
+        data.campaign_id = $(this).attr('data-campaign');
+        var draft = $('input[name=valTemplate]').val();
+      
+        $.ajax({
+            type: 'POST',
+            url: duplicate_campaign_url,
+            data: {'id':data,'draft':draft},
+            success: function(data){
+                $('#statistique-campaign-dialog').find('.modal-body-container').html(data.content);
+                $('#statistique-campaign-dialog').find('.general-message').html('');
+            },
+            statusCode: {
+                404: function(){
+                    $('#statistique-campaign-dialog').find('.general-message').html('Page non trouvée');
+                },
+                500: function(){
+                    $('#statistique-campaign-dialog').find('.general-message').html('Erreur interne');
+                }
+            },
+            complete: function(){
+                $('#statistique-campaign-dialog').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
 

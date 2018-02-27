@@ -6,6 +6,7 @@
             {{ parent() }}
             <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
             <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+             <link href="{{ asset("css/admin-campaign-stat.css") }}" rel="stylesheet">
             <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
             <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
             <link href="{{ asset("css/bootstrap/dataTables.bootstrap4.min.css") }}" rel="stylesheet">
@@ -225,7 +226,9 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                             {% if campaign_draft_data.status == 2 %}
-                                            <a class="dropdown-item" href="#">STATISTIQUES</a>
+                                           {% if overview is not null %}
+                                            <a class="dropdown-item campaign-statistique" href="#" data-campaign = "{{overview['ID']}}">STATISTIQUES</a>
+                                            {% endif %}
                                             {% endif %}
                                             {% if campaign_draft_data.status == 0 or campaign_draft_data.status == 1 %}
                                                 <a class="dropdown-item campaign-edit" href="#" data-target-url="{{ path("admin_communication_emailing_campaign_edit", {"campaign_draft_id": campaign_draft_data.id }) }}">ÉDITER</a>
@@ -520,6 +523,9 @@
                 <input type="hidden" name="submit_create_contact_list_url" value = "{{ path("admin_communication_emailing_campaign_create_contact_list") }}">
                 <input type="hidden" name="template_model_text_and_image" value="{{ constant('TEXT_AND_IMAGE', template_model_class) }}">
                 <input type="hidden" name="campaign_draft_creation_mode_by_halt" value="{{ constant('BY_HALT', campaign_draft_creation_mode_class) }}">
+
+                <input type="hidden" name="statistique_campaign_url" value="{{ path("admin_communication_emailing_campaign_statistique") }}">
+
                 <div class="hidden-image">
                     <div id="loading-image">
                         <img src="{{ asset("images/cloudsRewards/loading.gif") }}" />
@@ -529,27 +535,44 @@
         </div>
 
         <div class = "row separator"></div>
-		
-		<p class = "chargementAjax hidden">
+        
+        <p class = "chargementAjax hidden">
             <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
         </p>
     </main>
-	
-	<!-- dialog - prévisulisation template-->
-	<div id="preview-template-dialog" class="app-dialog modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
-				</div>
-				<div class="modal-body">
-					<div class="error-message-container centered-message general-message"></div>
-					<div class="modal-body-container">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    
+    <!-- dialog - prévisulisation template-->
+    <div id="preview-template-dialog" class="app-dialog modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="error-message-container centered-message general-message"></div>
+                    <div class="modal-body-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--dialog - visualisation statistique-->
+    <div id="statistique-campaign-dialog" class="app-dialog modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="error-message-container centered-message general-message"></div>
+                    <div class="modal-body-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--fin statistique campagne -->
 
 {% endblock %}
 
@@ -570,6 +593,7 @@
             <script src="{{ asset('js/bootstrap-dataTable/dataTables.buttons.min.js') }}"></script>
             <script src="{{ asset('js/bootstrap-dataTable/buttons.bootstrap4.min.js') }}"></script>
             <script src="{{ asset('js/admin-emailing-campaign.js') }}"></script>
+            <script src="{{ asset('js/statistique/campaignStat.js') }}"></script>
         {% endblock %}
     {% endembed %}
 {% endblock %}
