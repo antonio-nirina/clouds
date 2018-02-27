@@ -209,10 +209,11 @@ class PageController extends Controller
 	
 	/**
      * @Route(
-     *     "/pages/sondages-quiz/{slug}",
-     *     name="beneficiary_home_pages_sondages_quiz_slug")
+     *     "/pages/sondages-quiz/{slug}/{id}",
+     *     name="beneficiary_home_pages_sondages_quiz_slug",
+	 *     defaults={"id"=null})
      */
-    public function AffichePagesSondagesQuizSlugAction($slug, Request $request){
+    public function AffichePagesSondagesQuizSlugAction($slug, $id, Request $request){
 		$program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
@@ -237,9 +238,15 @@ class PageController extends Controller
         ));
 		
 		//Sondages questionnaire infos
-		$PagesQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBy(
-			array('sondages_quiz' => $PagesSondagesQuiz, 'est_publier' => '1')
-		);
+		if(!is_null($id)){
+			$PagesQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBy(
+				array('sondages_quiz' => $PagesSondagesQuiz, 'est_publier' => '1', 'id' => $id)
+			);
+		}else{
+			$PagesQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBy(
+				array('sondages_quiz' => $PagesSondagesQuiz, 'est_publier' => '1')
+			);
+		}
 		
 		
 		//Sondages questions
@@ -342,7 +349,11 @@ class PageController extends Controller
 			}
 			
 			$em->flush();
-			return $this->redirectToRoute('beneficiary_home_pages_sondages_quiz_slug', array('slug' => $PagesSondagesQuiz->getSlug()));
+			if(!is_null($id)){
+				return $this->redirectToRoute('beneficiary_home_pages_sondages_quiz_slug', array('slug' => $PagesSondagesQuiz->getSlug(), 'id' => $id));
+			}else{
+				return $this->redirectToRoute('beneficiary_home_pages_sondages_quiz_slug', array('slug' => $PagesSondagesQuiz->getSlug()));
+			}
 		}
 		
 		return $this->render('BeneficiaryBundle:Page:AfficheSondagesQuiz.html.twig', array(
