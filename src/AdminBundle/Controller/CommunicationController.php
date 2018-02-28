@@ -1731,7 +1731,7 @@ class CommunicationController extends AdminController
 
     /**
      * @Route("/emailing/campagne/statistique", name="admin_communication_emailing_campaign_statistique")
-     * @Method("POST")
+     * @Method({"POST","GET"})
      */
     public function emailingCampaignStatistiqueAction(Request $request)
     {
@@ -1739,14 +1739,26 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-
-        $id = $request->request->get("id")["campaign_id"];
+        $type = $request->isMethod('POST');
+        if ($type) {
+            $id = $request->request->get("id")["campaign_id"];
+            $title = $request->request->get("id")["title"];
+        } else {
+            $id = $request->query->get("id");
+            $title = $request->query->get("title");
+        }
         $mailjet = $this->get('mailjet.client');
         $filter = ["campaignid" => $id];
         $campaigns = $mailjet->get(Resources::$Campaign,['filters' => $filter])->getData()[0];
         $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($results["email"],$request->query->getInt('page', 1),10);
+        $pagination = $paginator->paginate($results["email"],$request->query->getInt('page', 1),20,
+            [
+                "id"=> $id,
+                "title"=> $title,
+                "paramId"=>"id",
+                "paramTitle"=>"title"
+            ]);
         $view = $this->renderView(
         'AdminBundle:Communication/EmailingTemplates:statistique_campaign.html.twig',
         [
@@ -1759,6 +1771,7 @@ class CommunicationController extends AdminController
             "emails" =>$pagination,
             "name" => $results["template"],
             "data" =>$results["data"],
+            "title" =>$title,
             "id" => $id
         ]);
         $data['content'] = $view;

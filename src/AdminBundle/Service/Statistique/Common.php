@@ -230,123 +230,18 @@ class Common
                 $status[] = $value;
             }         
         }
-               
-        $list = $this->mailjetClient->get(Resources::$Contactslist)->getData();
-        foreach ($list as  $contact) {
-            if ($contact["ID"] === $campaigns["ListID"]) {
-               $vals[] = $contact;
-            }
-           
-        }
+        $vals = $this->mailjetClient->get(Resources::$Contactslist,['id'=>$campaigns["ListID"]])->getData()[0];
 
         $emailToCampaign = $this->mailjetClient->get(Resources::$Contact,['filters' => $filters])->getData();
         foreach ($emailToCampaign as  $conts) {
             $emails[] = $conts["Email"];
-        }
-
-        $clickEvent = $this->mailjetClient->get(Resources::$Clickstatistics,['filters' => $filter])->getData();
-        $openEvent =  $this->mailjetClient->get(Resources::$Openinformation,['filters' => $filter])->getData();
-        if (!empty($clickEvent)) {
-           foreach ($clickEvent as  $clicked) {
-             $emailClicks[] = [
-                "emails"=>$this->getContactById($clicked["ContactID"])["Email"],
-                "etat"=>"click"
-                ]; 
-            
-            }
-
-            foreach ($emailClicks as  $clik) {
-                $compClick[] = $clik["emails"];
-        
-            }
-             foreach ($openEvent as  $opened) {
-                $emailOpened[] = $this->getContactById($opened["ContactID"])["Email"]; 
-            }
-            $emailOpenClick = array_diff($emailOpened,$compClick);
-            foreach ($emailOpenClick as  $value) {
-                $resOpen[] = [
-                "emails"=>$value,
-                "etat" => "open"
-                ]; 
-            }
-                   
-        }
-
-        if (!empty($openEvent) && empty($clickEvent)) {
-            foreach ($openEvent as  $opened) {
-                $emailOpened[] = [
-                    "emails"=>$this->getContactById($opened["ContactID"])["Email"],
-                    "etat"=>"open"
-                    ]; 
-            }
-            foreach ($emailOpened as  $value) {
-                $compOpenNotClick[] = $value["emails"];
-        
-            }
-        }
-
-        $bounced = $this->mailjetClient->get(Resources::$Bouncestatistics,['filters' => $filter])->getdata();
-        if (!empty($bounced) && $bounced["IsBlocked"] == true) {
-           foreach ($bounced[0] as  $bounce) {
-             $emailBounced[] = [
-                        "emails"=>$this->getContactById($bounce["ContactID"])["Email"],
-                        "etat"=>"bloque"
-                        ];         
-            }
-
-            foreach ($emailBounced as  $value) {
-                $compBounced[] = $value["emails"];
-        
-            }            
         } 
-
-        if (!empty($clickEvent) && !empty($openEvent) && !empty($bounced)) {           
-            $newArray = array_diff($emails, $compClick,$emailOpenClick,$compBounced);
-        } elseif (!empty($clickEvent) && !empty($openEvent) && empty($bounced)) {
-            $check = array_diff($emails, $compClick,$emailOpenClick);
-            $newArray =  $newArray = empty($check)?$compClick:$check;
-        } elseif (empty($clickEvent) && !empty($openEvent) && empty($bounced)){
-            $check = array_diff($emails, $compOpenNotClick);
-            $newArray = empty($check)?$compOpenNotClick:$check;
-        } elseif (empty($clickEvent) && empty($openEvent) && !empty($bounced)){
-            $check = array_diff($emails, $compBounced);
-            $newArray = empty($check)?$compBounced:$check;
-        } else {
-            $newArray = $emails;
-        }
-        foreach ($newArray as  $value) {
-            $emailDel[] = ["emails"=>$value,"etat"=>"delivre"];
-        }
-
-        if (!empty($clickEvent) && !empty($openEvent) && !empty($bounced)) { 
-            $result = array_merge($emailClicks,$resOpen,$emailBounced,$emailDel );
-        }  elseif (!empty($clickEvent) && !empty($openEvent) && empty($bounced)) {
-            $check = array_diff($emails, $compClick);
-            if (!empty($resOpen) && !empty( $check )) {
-              $result =  array_merge($emailClicks,$resOpen,$emailDel);
-            } elseif (empty($resOpen) && !empty( $check )) {
-                $result = array_merge($emailClicks,$emailDel);
-            } elseif (empty($resOpen) && empty( $check )) {
-                $result = $emailClicks;
-            }
-        
-        } elseif (empty($clickEvent) && !empty($openEvent) && empty($bounced)){
-            $check = array_diff($emails, $compOpenNotClick);
-            $result = empty($check)?$emailOpened: array_merge($emailOpened,$emailDel);
-           
-        } elseif (empty($clickEvent) && empty($openEvent) && !empty($bounced)){
-            $check = array_diff($emails, $compBounced);
-            $result = empty($check)?$emailBounced:array_merge($emailBounced,$emailDel);
-        } else {
-            $result = $emailDel;
-        }
-
+        $result = $this->getStatusByEmail($id);
         $json = new JsonResponse($result);
         $data = $json->getContent(); 
-        $name = empty($vals[0]["Name"])?"":$vals[0]["Name"];
         $template = $this->getTempalte($id);
         $results = [
-            "listContact"=>$name,
+            "listContact"=> empty($vals["Name"])?"":$vals["Name"],
             "status"=>$status[0],
             "email"=>$result,
             "template" =>$template,
@@ -378,6 +273,17 @@ class Common
         return $response->getData()[0];
     }
 
-
+    public function getStatusByEmail($id)
+    {
+        $filters = ["campaign" => $id];
+        $messages = $this->mailjetClient->get(Resources::$Message,['filters' => $filters])->getData();
+        foreach ($messages as $key => $value) {
+            $res[] = [
+                "emails"=>$this->getContactById($value["ContactID"])["Email"],
+                "etat"=>$value["Status"]
+            ];
+        }
+        return $res;
+    }
 
 }

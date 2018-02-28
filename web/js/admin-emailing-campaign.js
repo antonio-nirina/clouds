@@ -2012,12 +2012,11 @@ $(document).on('click', '.campaign-statistique', function(e){
         var duplicate_campaign_url = $('input[name=statistique_campaign_url]').val(),
         data = {};
         data.campaign_id = $(this).attr('data-campaign');
-        var draft = $('input[name=valTemplate]').val();
-      
+        data.title = $(this).attr('data-title');
         $.ajax({
             type: 'POST',
             url: duplicate_campaign_url,
-            data: {'id':data,'draft':draft},
+            data: {'id':data},
             success: function(data){
                 $('#statistique-campaign-dialog').find('.modal-body-container').html(data.content);
                 $('#statistique-campaign-dialog').find('.general-message').html('');
