@@ -231,11 +231,6 @@ class Common
             }         
         }
         $vals = $this->mailjetClient->get(Resources::$Contactslist,['id'=>$campaigns["ListID"]])->getData()[0];
-
-        $emailToCampaign = $this->mailjetClient->get(Resources::$Contact,['filters' => $filters])->getData();
-        foreach ($emailToCampaign as  $conts) {
-            $emails[] = $conts["Email"];
-        } 
         $result = $this->getStatusByEmail($id);
         $json = new JsonResponse($result);
         $data = $json->getContent(); 
