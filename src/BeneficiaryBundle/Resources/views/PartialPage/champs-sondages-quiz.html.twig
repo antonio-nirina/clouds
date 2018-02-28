@@ -167,7 +167,7 @@
 							<table class = "tableaux_choix_miltiple">
 								<thead>
 									<tr>
-										<th></th>
+										<th class = "colonne_titre"></th>
 										<th>1</th>
 										<th>2</th>
 										<th>3</th>
@@ -178,7 +178,7 @@
 								</thead>
 							{% for Reponses in values %}
 								<tr>
-									<td>{{ Reponses.Reponses }}</td>
+									<td class = "colonne_titre">{{ Reponses.Reponses }}</td>
 									<td>
 									{% if ShowBtn == false %}
 										{% for KeyQuestInfosRes, ValQuestRes in Resultats %}
@@ -372,7 +372,7 @@
 							<table class = "tableaux_choix_miltiple table_sondages">
 								<thead>
 									<tr>
-										<th></th>
+										<th class = "colonne_titre"></th>
 										<th>1</th>
 										<th>2</th>
 										<th>3</th>
@@ -384,7 +384,7 @@
 								<tbody>
 							{% for Reponses in values %}
 								<tr>
-									<td>{{ Reponses.Reponses }}</td>
+									<td class = "colonne_titre">{{ Reponses.Reponses }}</td>
 									<td class = "pourc-tableaux">
 										{% if ShowBtn == false %}
 											{% for KeyQuestInfosRes, ValQuestRes in Resultats %}

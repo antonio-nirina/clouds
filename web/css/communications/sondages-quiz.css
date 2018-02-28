@@ -72,7 +72,23 @@ section div.ligne-separator::after {
 	top: -22px;
 	color: #404040;
 	-webkit-text-stroke: 1px #e5e5e5;
-	font-weight: bold;
+	cursor:pointer;
+}
+
+section div.ligne-separator-hide::after {
+    content: "\f106";
+	display: inline;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	font-family: "FontAwesome";
+	font-size: 27px;
+	border: none !important;
+	position: absolute;
+	right: 0;
+	top: -22px;
+	color: #404040;
+	-webkit-text-stroke: 1px #e5e5e5;
 	cursor:pointer;
 }
 
@@ -90,11 +106,28 @@ section div.ligne-separator-question::after{
 	top: -7px;
 	color: #404040;
 	-webkit-text-stroke: 1px #e5e5e5;
-	font-weight: bold;
 	cursor:pointer;
 }
 
-div.ligne-separator{
+section div.ligne-separator-question-hide::after{
+	display: inline;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	content: "\f106";
+	font-family: "FontAwesome";
+	font-size: 27px;
+	border: none !important;
+	position: absolute;
+	right: 0;
+	top: -7px;
+	color: #404040;
+	-webkit-text-stroke: 1px #e5e5e5;
+	cursor:pointer;
+}
+
+div.ligne-separator,
+div.ligne-separator-hide{
 	width: 96%;
 	height: 1px;
 	background: #CCCCCC;
@@ -103,7 +136,8 @@ div.ligne-separator{
 	vertical-align: middle;
 }
 
-div.ligne-separator-question{
+div.ligne-separator-question,
+div.ligne-separator-question-hide{
 	width: 96%;
 	position: relative;
 	display: inline-block;
