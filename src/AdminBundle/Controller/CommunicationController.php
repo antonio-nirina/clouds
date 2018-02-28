@@ -1755,7 +1755,7 @@ class CommunicationController extends AdminController
         $campaigns = $mailjet->get(Resources::$Campaign,['filters' => $filter])->getData()[0];
         $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($results["email"],$request->query->getInt('page', 1),20,
+        $pagination = $paginator->paginate($results["email"],$request->query->getInt('page', 1),50,
             [
                 "id"=> $id,
                 "title"=> $title,
@@ -1777,6 +1777,7 @@ class CommunicationController extends AdminController
             "title" =>$title,
             "id" => $id
         ]);
+        dump($view);
         $data['content'] = $view;
         return new JsonResponse($data, 200);
     }

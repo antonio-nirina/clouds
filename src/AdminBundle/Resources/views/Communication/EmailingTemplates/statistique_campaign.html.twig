@@ -28,15 +28,22 @@
             <div class=" delivrer">
                 <div class="delTitreVal">
                     <p id="titreDel">{{"délivrés"|upper}}</p>
-                     {% set delivre = status['DeliveredCount']/status['DeliveredCount']*100 %}
+                    {% set delivre = 0 %}
+                    {% if status['DeliveredCount'] > 0 %}
+                         {% set delivre = status['DeliveredCount']/status['DeliveredCount']*100 %}
+                    {% endif %}
                         <h4 class="valDel">{{delivre~' %'}}</h4>       
-                    <p class="mailDel">{{status['DeliveredCount']}}</p>
+                        <p class="mailDel">{{status['DeliveredCount']}}</p>
+
                 </div>                                   
             </div>
             <div class="ouvert" >
                 <div class="ouvTitreVal">
                     <p id="titreOuv">{{"ouverts"|upper}}</p> 
-                    {% set ouvrer = status['OpenedCount']/status['DeliveredCount']*100 %}           
+                    {% set ouvrer = 0 %}
+                    {% if status['DeliveredCount'] > 0 %}
+                        {% set ouvrer = status['OpenedCount']/status['DeliveredCount']*100 %} 
+                    {% endif %}          
                         <h4 class="valOuv">{{ouvrer~' %'}}</h4>
                     <p class="mailOuv">{{status["OpenedCount"]}}</p> 
                 </div>             
@@ -44,7 +51,10 @@
             <div class=" clique">
                 <div class="cliTitreVal">
                     <p id="titreClik">{{"cliqués"|upper}}</p>
+                {% set clique = 0 %}
+                    {% if status['DeliveredCount'] > 0 %}
                 {% set clique = status['ClickedCount']/status['DeliveredCount']*100 %}
+                {% endif %}
                         <h4 class="valClik">{{clique~' %'}}</h4>
                     <p class="mailClic">{{status['ClickedCount']}}</p>
                 </div>
@@ -57,13 +67,25 @@
                     <p class="blSp">{{"spam"|upper}} </p> 
                 </div>
                  <div class="valEtat">
-                 {% set bloque = status['BlockedCount']/status['DeliveredCount']*100 %}
+                {% set bloque = 0 %}
+                {% if status['DeliveredCount'] > 0 %}
+                    {% set bloque = status['BlockedCount']/status['DeliveredCount']*100 %}
+                {% endif %}
                     <p class="blbl">{{bloque~' %'}}</p>
-                 {% set erreur = status['BouncedCount']/status['DeliveredCount']*100 %}
+                {% set erreur = 0 %}
+                {% if status['DeliveredCount'] > 0 %}
+                    {% set erreur = status['BouncedCount']/status['DeliveredCount']*100 %}
+                {% endif %}
                     <p class="blErr">{{erreur~' %'}}</p>
-                 {% set desabo = status['UnsubscribedCount']/status['DeliveredCount']*100 %}
+                {% set desabo = 0 %}
+                {% if status['DeliveredCount'] > 0 %}
+                    {% set desabo = status['UnsubscribedCount']/status['DeliveredCount']*100 %}
+                {% endif %}
                     <p class="blDesa">{{desabo~' %'}}</p>
-                 {% set spam = status['SpamComplaintCount']/status['DeliveredCount']*100 %}
+                {% set spam = 0 %}
+                {% if status['DeliveredCount'] > 0 %}
+                    {% set spam = status['SpamComplaintCount']/status['DeliveredCount']*100 %}
+                {% endif %}
                     <p class="blSp">{{spam~' %' }}</p>
                 </div>                   
             </div>
@@ -134,49 +156,49 @@
                     <td>
                         {% if  (mail['etat'] == "sent" or  mail['etat'] == "clicked") or (mail['etat'] == "opened") %}
                             <span class="fa-stack fa-lg">
-                                <i id="delivre" class="fa fa-circle fa-stack-2x icon-background1"></i>
+                                <i id="delivre" class="fa fa-circle fa-stack-1x icon-background1"></i>
                             </span>
                         {% endif %}
                     </td>
                     <td>
                         {% if (mail['etat'] == "opened" or  mail['etat'] == "clicked") %}
                             <span class="fa-stack fa-lg">
-                                <i id="opened " class="fa fa-circle fa-stack-2x icon-background2 "></i>
+                                <i id="opened " class="fa fa-circle fa-stack-1x icon-background2 "></i>
                             </span>
                         {% endif %}
                     </td>
                     <td>
                         {% if mail['etat'] == "clicked" %}
                            <span class="fa-stack fa-lg">
-                                <i id="clicked" class="fa fa-circle fa-stack-2x icon-background3 "></i>
+                                <i id="clicked" class="fa fa-circle fa-stack-1x icon-background3 "></i>
                             </span>
                         {% endif %}
                     </td>
                     <td>
                             {% if  mail['etat'] == "unsub" %}
                                 <span class="fa-stack fa-lg">
-                                    <i id="desabo" class="fa fa-circle fa-stack-2x icon-background4 "></i>
+                                    <i id="desabo" class="fa fa-circle fa-stack-1x icon-background4 "></i>
                                 </span>
                             {% endif %}
                     </td>
                     <td>
                         {% if  mail['etat'] == "blocked" %}
                             <span class="fa-stack fa-lg">
-                                <i id="bloque" class="fa fa-circle fa-stack-2x icon-background5 "></i>
+                                <i id="bloque" class="fa fa-circle fa-stack-1x icon-background5 "></i>
                             </span>
                         {% endif %}
                     </td>
                     <td>
                         {% if  mail['etat'] == "spam" %}
                            <span class="fa-stack fa-lg">
-                                <i id="spam" class="fa fa-circle fa-stack-2x icon-background6 "></i>
+                                <i id="spam" class="fa fa-circle fa-stack-1x icon-background6 "></i>
                             </span>
                         {% endif %}
                      </td>
                     <td>
                         {% if  mail['etat'] == "bounce" %}
                             <span class="fa-stack fa-lg">
-                                <i id="erreur" class="fa fa-circle fa-stack-2x icon-background7 "></i>
+                                <i id="erreur" class="fa fa-circle fa-stack-1x icon-background7 "></i>
                             </span>
                         {% endif %}
                     </td>
@@ -215,7 +237,7 @@
        </a>
     </div>
     </div>
-    <input type="hidden" name="data" value="{{data}}"> 
-    <input type="hidden" name="id" value="{{id}}"> 
-    <input type="hidden" name="url" value="{{path('admin_communication_emailing_campaign_filter')}}">
+    <input type = "hidden" name ="data" value ="{{data}}"> 
+    <input type = "hidden" name ="id" value ="{{id}}"> 
+    <input type = "hidden" name ="url" value ="{{path('admin_communication_emailing_campaign_filter')}}">
 </div>
