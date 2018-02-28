@@ -1,10 +1,10 @@
 <div class="content">
-    <span class="dialog-titlestat"><h4><span id="campagne">Campagne</span> <span id="sujet">{{sujet}}</span></h4></span>
+    <span class="dialog-titlestat"><h4><span id="campagne">Campagne</span> <span id="sujet">{{title}}</span></h4></span>
         <div class="form-element-container">
             <div class="detail-info">
                 <div class="date"> <span id="date2">Date:</span> <span id="date"> {{date|date("d/m/Y")}}</span></div>
                 <div class="expediteur"><span id="exp2">Expediteur: </span><span id="expedit"> {{fromName}}  {{email}}</span></div>
-                <div class="liste-contact"><span id="cont2">liste-contact:</span> <span id="contact"> {{listContact}}</span></div>
+                <div class="liste-contact"><span id="cont2">Liste-contact:</span> <span id="contact"> {{listContact}}</span></div>
                 <div class="email"><span id="email2">Modèle d'e-mail:</span> <span id="email"> {{name}}</span></div>
                 <div class="objet"><span id="obj2">Objet:</span><span id="objet"> {{sujet}}</span></div>
             </div>
@@ -114,7 +114,7 @@
         </div>
     </div>
     <div class="tableDetail">
-        <table class="table table-responsive table-bordered" >
+        <table>
             <thead>
                 <th class="emaild" style="font-size:14px">e-mail</th>
                 <th class="deliv" style="color:#848484;font-weight:bold">{{"delivrés"|upper}}</th>
@@ -132,35 +132,35 @@
                         {{mail['emails']}}
                     </td>
                     <td>
-                        {% if  (mail['etat'] == "delivre" or  mail['etat'] == "click") or (mail['etat'] == "open") %}
+                        {% if  (mail['etat'] == "sent" or  mail['etat'] == "clicked") or (mail['etat'] == "opened") %}
                             <span class="fa-stack fa-lg">
                                 <i id="delivre" class="fa fa-circle fa-stack-2x icon-background1"></i>
                             </span>
                         {% endif %}
                     </td>
                     <td>
-                        {% if (mail['etat'] == "open" or  mail['etat'] == "click") %}
+                        {% if (mail['etat'] == "opened" or  mail['etat'] == "clicked") %}
                             <span class="fa-stack fa-lg">
                                 <i id="opened " class="fa fa-circle fa-stack-2x icon-background2 "></i>
                             </span>
                         {% endif %}
                     </td>
                     <td>
-                        {% if mail['etat'] == "click" %}
+                        {% if mail['etat'] == "clicked" %}
                            <span class="fa-stack fa-lg">
                                 <i id="clicked" class="fa fa-circle fa-stack-2x icon-background3 "></i>
                             </span>
                         {% endif %}
                     </td>
                     <td>
-                            {% if  mail['etat'] == "desabo" %}
+                            {% if  mail['etat'] == "unsub" %}
                                 <span class="fa-stack fa-lg">
                                     <i id="desabo" class="fa fa-circle fa-stack-2x icon-background4 "></i>
                                 </span>
                             {% endif %}
                     </td>
                     <td>
-                        {% if  mail['etat'] == "bloque" %}
+                        {% if  mail['etat'] == "blocked" %}
                             <span class="fa-stack fa-lg">
                                 <i id="bloque" class="fa fa-circle fa-stack-2x icon-background5 "></i>
                             </span>
@@ -174,7 +174,7 @@
                         {% endif %}
                      </td>
                     <td>
-                        {% if  mail['etat'] == "erreur" %}
+                        {% if  mail['etat'] == "bounce" %}
                             <span class="fa-stack fa-lg">
                                 <i id="erreur" class="fa fa-circle fa-stack-2x icon-background7 "></i>
                             </span>
@@ -186,7 +186,7 @@
         </table>
     </div> 
      <div class="tableDetail2">
-        <table class="table table-responsive table-bordered" >
+        <table class="table" >
             <thead>
                 <th class="emaild" style="font-size:14px">e-mail</th>
                 <th class="deliv" style="color:#848484;font-weight:bold">{{"delivrés"|upper}}</th>
@@ -200,7 +200,7 @@
             <tbody id="tableBody2">    
             </tbody>
         </table>
-    </div> 
+    </div>
     <div class="navigation">
         {{ knp_pagination_render(emails) }}         
     </div>

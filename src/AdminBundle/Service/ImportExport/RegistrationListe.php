@@ -112,8 +112,23 @@ class RegistrationListe
 
         if (!empty($field)) {
             foreach ($field["email"] as $value) {
+                if ($value["etat"] == "sent") {
+                    $val = "Délivrés";
+                } elseif ($value["etat"] == "opened") {
+                    $val = "Ouverts";
+                } elseif ($value["etat"] == "clicked") {
+                    $val = "Cliqués";
+                }  elseif ($value["etat"] == "bounce") {
+                    $val ="Erreur";
+                } elseif ($value["etat"] == "spam") {
+                    $val = "Spam";
+                } elseif ($value["etat"] == "unsub") {
+                    $val = "Désabonnés";
+                } elseif ($value["etat"] == "blocked") {
+                    $val = "Bloqués";
+                }
                 $this->php_excel_object->setActiveSheetIndex(0)
-                    ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $value["etat"]);
+                    ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $val);
                 $this->current_row++;
                 array_push($this->status, $value["etat"]);
             }

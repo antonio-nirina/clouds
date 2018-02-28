@@ -3,9 +3,6 @@ $(document).ready(function(){
 $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 $(document).on('click','.clearable .dropdown-it', function(e){
         e.preventDefault(); 
-        var donnee = $('input[name=data]').val(); 
-        var obj = JSON.parse(donnee);
-		console.log(obj)
         var a=$(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
         setTimeout(sendChoice($(this)), 0);
     });
@@ -42,25 +39,25 @@ $(document).on('click','.clearable .dropdown-it', function(e){
                         var span6 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-2x icon-background6 "></i></span></div>');
                         var span7 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-2x icon-background7 "></i></span></div>');
 						$.each(JSON.parse(data), function(index, val) {
-							if (val.etat == "delivre") {
+							if (val.etat == "sent") {
 							$("<tr></tr>").appendTo('.table #tableBody2')
 				            .append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "open") {
+							} else if (val.etat == "opened") {
 								$("<tr></tr>").appendTo('.table #tableBody2')
 		            			.append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span2.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "click") {
+							} else if (val.etat == "clicked") {
 								$("<tr></tr>").appendTo('.table #tableBody2')
 		            			.append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span2.html()+"</td><td>"+span3.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "desabo") {
+							} else if (val.etat == "unsub") {
 								$("<tr></tr>").appendTo('.table #tableBody2')
 		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span4.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "bloque") {
+							} else if (val.etat == "blocked") {
 								$("<tr></tr>").appendTo('.table #tableBody2')
 		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span5.html()+"</td><td>"+""+"</td><td>"+""+"</td>");
 							} else if (val.etat == "spam") {
 								$("<tr></tr>").appendTo('.table #tableBody2')
 		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span6.html()+"</td><td>"+""+"</td>");
-							} else if (val.etat == "erreur") {
+							} else if (val.etat == "bounce") {
 								$("<tr></tr>").appendTo('.table #tableBody2')
 		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span7.html()+"</td>");
 							}
@@ -76,7 +73,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 				case "delivred":
 				var newdata = [];
 	        	var res = obj.map(function(index, elem) {
-					if (index.etat == "delivre") {
+					if (index.etat == "sent") {
 						newdata.push(index);
 					}
 					return newdata;
@@ -94,7 +91,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 				case "opened":
 				var newdata = [];
 	        	var res = obj.map(function(index, elem) {
-					if (index.etat == "open") {
+					if (index.etat == "opened") {
 						newdata.push(index);
 					}
 					return newdata;
@@ -114,19 +111,18 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 				case "clicked":
 				var newdata = [];
 	        	var res = obj.map(function(index, elem) {
-					if (index.etat == "click") {
+					if (index.etat == "clicked") {
 						newdata.push(index);
 					}
 					return newdata;
 				});
-				console.log(newdata)
 				$('.tableDetail').css('display','none');                     
                 $('#tableBody').children('tr').remove();
                  $('#tableBody2').children('tr').remove();
                 $('.tableDetail2').css('display','block');  
-				var span1 = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-2x icon-background3 "></i></span></div>');
-				var span2 = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-2x icon-background2 "></i></span></div>');
-				var span3 = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-2x icon-background1 "></i></span></div>');
+				var span1 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-2x icon-background3 "></i></span></div>');
+				var span2 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-2x icon-background2 "></i></span></div>');
+				var span3 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-2x icon-background1 "></i></span></div>');
 				$.each(newdata, function(index, val) {
 					$("<tr></tr>").appendTo('.table #tableBody2')
 		            .append("<td>"+ val.emails+"</td><td>"+span3.html()+"</td><td>"+span2.html()+"</td><td>"+span1.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
@@ -135,7 +131,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 				case "bounce":
 				var newdata = [];
 	        	var res = obj.map(function(index, elem) {
-					if (index.etat == "erreur") {
+					if (index.etat == "bounce") {
 						newdata.push(index);
 					}
 					return newdata;
@@ -201,7 +197,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 				case "blocked":
 				var newdata = [];
 				var res = obj.map(function(index, elem) {
-					if (index.etat == "bloque") {
+					if (index.etat == "blocked") {
 						newdata.push(index);
 					}
 					return newdata;

@@ -227,7 +227,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuAction">
                                             {% if campaign_draft_data.status == 2 %}
                                            {% if overview is not null %}
-                                            <a class="dropdown-item campaign-statistique" href="#" data-campaign = "{{overview['ID']}}">STATISTIQUES</a>
+                                            <a class="dropdown-item campaign-statistique" href="#" data-campaign = "{{overview['ID']}}" data-title = "{{overview['Title']}}">STATISTIQUES</a>
                                             {% endif %}
                                             {% endif %}
                                             {% if campaign_draft_data.status == 0 or campaign_draft_data.status == 1 %}
