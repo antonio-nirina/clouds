@@ -131,6 +131,10 @@ $(document).ready(function(){
 		}
 	});
 	
+	if($('input#nbre_questions').val() == '0'){
+		AjouterQuestionCollection();
+	}
+	
 	//Activer/desactiver section 
 	$('section.fieldset').mouseover(function(){
 		$(this).removeClass('inactive');
@@ -240,8 +244,12 @@ $(document).ready(function(){
 	$(document).on('click', 'div#id-ligne-separator', function(){
 		if($('div.conteneur-menu-banniere-sondage-quiz').is(':visible')){
 			$('div.conteneur-menu-banniere-sondage-quiz').hide();
+			$('div#id-ligne-separator').removeClass('ligne-separator-hide');
+			$('div#id-ligne-separator').addClass('ligne-separator');
 		}else{
 			$('div.conteneur-menu-banniere-sondage-quiz').show();
+			$('div#id-ligne-separator').addClass('ligne-separator-hide');
+			$('div#id-ligne-separator').removeClass('ligne-separator');
 		}
 	});
 	
@@ -372,6 +380,22 @@ $(document).ready(function(){
 		
 		$('div#content-questionnaire-apercu-'+IdQuestion+'').hide();
 		$('div#content-questionnaire-'+IdQuestion+'').show();
+		$('div#ligne-separator-question-'+IdQuestion+'').show();
+	});
+	
+	$(document).on('click', 'div.ligne-separator-question-hide', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		var IdQuestion = ArrayAttrId[3];
+		
+		$('div#content-questionnaire-apercu-'+IdQuestion+'').show();
+		$('div#content-questionnaire-'+IdQuestion+'').hide();
+		$('div#ligne-separator-question-'+IdQuestion+'').hide();
+		
+		var InputQuestionSaisie = $('input#sondages_quiz_questionnaire_infos_sondages_quiz_questions_'+IdQuestion+'_questions').val();
+		$('h3#h3-block-title-'+IdQuestion+'').html(InputQuestionSaisie);
+		$('h5#h5-block-title-'+IdQuestion+'').html(InputQuestionSaisie);
 	});
 	
 	$(document).on('click', 'button.confirm-delete-question', function(){
@@ -433,6 +457,19 @@ $(document).ready(function(){
 			var OrdresNext = NextElement.find('input.ordre-questions').val();
 			NextElement.find('input.ordre-questions').val(parseInt(OrdresNext)-1);
 		}
+		return false;
+	});
+	
+	$(document).on('click', 'span.delete-input-reponse', function(){
+		var AttrId = $(this).attr('id');
+		var ArrayAttrId = new Array;
+		ArrayAttrId = AttrId.split('-');
+		
+		var IdQuestion = ArrayAttrId[3];
+		var IdReponse = ArrayAttrId[4];
+		
+		var Prevs = $(this).prev();
+		Prevs.find('input.input-form-text-reponse-quiz').val('');
 		return false;
 	});
 });

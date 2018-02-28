@@ -1299,12 +1299,15 @@ p.description_tableaux_choix_miltiple{
 	color: var(--couleur_2);
 	font-size: 15px;
 	font-family: var(--police_bold);
+	min-width:20px;
 }
 
-table.tableaux_choix_miltiple{margin-top:30px;}
-table.tableaux_choix_miltiple thead th{background: #f5f5f5}
+table.tableaux_choix_miltiple{margin-top:30px;text-align:center;}
+table.tableaux_choix_miltiple thead th{background: #f5f5f5;text-align:center!important;}
+table.tableaux_choix_miltiple .colonne_titre{background: #f5f5f5;text-align:left!important;}
 table.tableaux_choix_miltiple tbody tr:nth-child(even) {background: #f9f9f9}
 table.tableaux_choix_miltiple tbody tr:nth-child(odd) {background: #f5f5f5}
+table.tableaux_choix_miltiple tbody tr td{min-width:20px;}
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
@@ -2670,9 +2673,9 @@ textarea{
 .styled-checkbox:checked + label {
     background: url('../images/cloudsRewards/checkon.png') no-repeat;
     height: 25px;
-    width: 25px;
+    width: 2&px;
     display: inline-block;
-    margin: 5px 0 0 0;
+    /*margin: 5px 0 0 0;*/
     cursor: pointer;
 	vertical-align: middle;
 }
