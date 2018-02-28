@@ -50,6 +50,7 @@ class SondagesQuizQuestionnaireInfos
 	
 	/**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", cascade={"remove"}, mappedBy="sondages_quiz_questionnaire_infos")
+	 * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $sondages_quiz_questions;
 	

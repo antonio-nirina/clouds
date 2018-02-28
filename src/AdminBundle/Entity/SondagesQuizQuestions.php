@@ -54,6 +54,7 @@ class SondagesQuizQuestions
 	
 	/**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizReponses", cascade={"persist", "remove"}, mappedBy="sondages_quiz_questions")
+	 * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $sondages_quiz_reponses;
 	
