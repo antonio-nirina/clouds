@@ -19,7 +19,6 @@ class NewsPost
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
      */
     private $action_button_state;
 
@@ -59,7 +58,7 @@ class NewsPost
      * @var string $viewer_authorization_type       available value in AdminBundle\Component\Post\NewsPostAuthorizationType
      *
      * @ORM\Column(type="string", length=50)
-     * @Assert\Length(max=20)
+     * @Assert\Length(max=100)
      * @Assert\NotBlank()
      */
     private $viewer_authorization_type;
@@ -79,8 +78,9 @@ class NewsPost
     private $custom_authorized_viewer_list;
 
     /**
+     * @var boolean     hold state whether publication date is used or not (especially in manipulation form)
+     *
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
      */
     private $programmed_publication_state;
 
@@ -91,13 +91,11 @@ class NewsPost
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
      */
     private $archived_state;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
      */
     private $published_state;
 
@@ -105,6 +103,13 @@ class NewsPost
      * @ORM\Column(type="integer", nullable=true)
      */
     private $view_number;
+
+    /**
+     * @var boolean     hold programming state, to be used in chron task publishing post
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $programmed_in_progress_state;
 
     /**
      * Get id
@@ -474,5 +479,29 @@ class NewsPost
     public function getActionButtonTargetPage()
     {
         return $this->action_button_target_page;
+    }
+
+    /**
+     * Set programmedInProgressState
+     *
+     * @param boolean $programmedInProgressState
+     *
+     * @return NewsPost
+     */
+    public function setProgrammedInProgressState($programmedInProgressState)
+    {
+        $this->programmed_in_progress_state = $programmedInProgressState;
+
+        return $this;
+    }
+
+    /**
+     * Get programmedInProgressState
+     *
+     * @return boolean
+     */
+    public function getProgrammedInProgressState()
+    {
+        return $this->programmed_in_progress_state;
     }
 }

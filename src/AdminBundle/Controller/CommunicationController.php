@@ -31,6 +31,7 @@ use AdminBundle\Entity\SondagesQuiz;
 use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
 use AdminBundle\Entity\SondagesQuizQuestions;
 use AdminBundle\Entity\SondagesQuizReponses;
+use AdminBundle\Component\Post\NewsPostSubmissionType;
 
 use \Mailjet\Resources;
 
@@ -1726,6 +1727,46 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        return $this->render('AdminBundle:Communication:news.html.twig');
+        return $this->render('AdminBundle:Communication:news.html.twig', array(
+            'news_post_submission_type_class' => new NewsPostSubmissionType(),
+        ));
+    }
+
+    /**
+     * @Route("/actualites/creer", name="admin_communication_news_create")
+     */
+    public function createNewsAction(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
+        $news_post_form = $form_generator->generateForCreation($program, 'news_post_form');
+        $news_post_form->handleRequest($request);
+        if ($news_post_form->isSubmitted() && $news_post_form->isValid()) {
+            $submission_type = $request->get('submission_type');
+            $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+            if ($news_post_manager->create($news_post_form->getData(), $submission_type)) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+        }
+
+        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', array(
+            'news_post_form' => $news_post_form->createView(),
+            'news_post_submission_type_class' => new NewsPostSubmissionType(),
+        ));
+        $data = $json_response_data_provider->success();
+        if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
     }
 }

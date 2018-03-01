@@ -268,221 +268,6 @@
                                 <div class="modal-body">
                                     <div class="error-message-container centered-message general-message"></div>
                                     <div class="modal-body-container">
-                                        <span class="modal-body-title">Edition d'un nouveau post</span>
-                                        <div class="preview-news-button-container">
-                                            <span class="preview-news-button">voir le post</span>
-                                        </div>
-                                        <div class="preview-news-button-container">
-                                            <span class="preview-news-button active">voir le post</span>
-                                        </div>
-                                        <div class="form-row">
-                                            <label>titre</label>
-                                            <input type="text" class="large-input-text removable-content-input">
-                                            <span class="delete-input" style="display: none;"></span>
-                                        </div>
-                                        <div class="form-row vertical">
-                                            <label>texte</label>
-                                            <textarea class="large-textarea" id="news-text"></textarea>
-                                        </div>
-                                        <div class="action-button-container">
-                                            <a class="add">ajouter un bouton d'action</a>
-                                        </div>
-                                        <div class="action-button-block-container">
-                                            <div class="block-title">
-                                                <span>bouton d'action</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="form-row vertical-centered">
-                                                <label class="fixed-width">texte du bouton</label>
-                                                <input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large">
-                                                <span class="delete-input" {#style="display: none;"#}></span>
-                                            </div>
-                                            <div class="form-row vertical-xs">
-                                                <label>aspect du bouton</label>
-                                                <div class="vertical-xs">
-                                                    <div class="action-button-color-option">
-                                                        <span class="option-title">Couleur</span>
-                                                        <input type="text" class="color-value">
-                                                    </div>
-                                                    <div class="action-button-color-option">
-                                                        <span class="option-title">Couleur du texte</span>
-                                                        <input type="text" class="color-value">
-                                                    </div>
-                                                </div>
-                                                <div class="action-button-preview">
-                                                    mon bouton d'action
-                                                </div>
-                                            </div>
-                                            <span class="form-row-group-title">lien de redirection du bouton d'action</span>
-                                            <div class="form-row vertical-centered">
-                                                <label class="fixed-width">renseigner une url</label>
-                                                <input type="text" value="https://monliennderedirection.com/challenge" class="removable-content-input action-button-input large">
-                                                <span class="delete-input" {#style="display: none;"#}></span>
-                                            </div>
-                                            <div class="form-row vertical-xs">
-                                                <label>ou chercher une page du site</label>
-                                                <div>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            POINTER SUR
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
-                                                            <a class="dropdown-item" href="#">OPTION</a>
-                                                            <a class="dropdown-item" href="#">OPTION</a>
-                                                            <a class="dropdown-item" href="#">OPTION</a>
-                                                        </div>
-                                                        <span class="delete-input delete-selection"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <label>qui verra ce post?</label>
-                                            <div>
-                                                <div class="dropdown post-viewer-dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-news-viewer-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        TOUS LES PARTICIPANTS
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdown-news-viewer-group">
-                                                        <a class="dropdown-item" href="#">TOUS LES PARTICIPANTS</a>
-                                                        <a class="dropdown-item" href="#">COMMERCIAL</a>
-                                                        <a class="dropdown-item" href="#">DIRECTEUR COMMERCIAL</a>
-                                                        <a class="dropdown-item" href="#" class="customize-viewer">PERSONNALISER</a>
-                                                    </div>
-                                                    <span class="delete-input delete-selection"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="post-viewer-selection-wrapper">
-                                            <div class="post-viewer-selection-container">
-                                                <span class="title">sélectionnez les contacts qui verront ce post</span>
-                                                <div class="post-viewer-filter-container">
-                                                    <div class="post-viewer-number-container">
-                                                        <span>nombre de contacts sélectionnés : </span>
-                                                        <input type="text" value="02">
-                                                    </div>
-                                                    <div class="post-viewer-data-search-container">
-                                                        <input type="text" class="input-search-list" placeholder="recherche par nom, prénom, e-mail...">
-                                                    </div>
-                                                    <div class="post-viewer-list-filter-container">
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-post-viewer-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                FILTRER PAR
-                                                            </button>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdown-post-viewer-filter">
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="post-viewer-table-container">
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    <input id="check-all" type="checkbox" class="styled-checkbox">
-                                                                    <label for="check-all"></label>
-                                                                </th>
-                                                                <th class="post-viewer-data-head">prénom</th>
-                                                                <th class="post-viewer-data-head">nom</th>
-                                                                <th class="post-viewer-data-head">adresse e-mail</th>
-                                                                <th class="post-viewer-data-head">rôle</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="viewer-1" type="checkbox" class="styled-checkbox">
-                                                                    <label for="viewer-1"></label>
-                                                                </td>
-                                                                <td>Martin</td>
-                                                                <td>Bourdais</td>
-                                                                <td>martin_bourdais@gmail.com</td>
-                                                                <td>commercial</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="viewer-2" type="checkbox" class="styled-checkbox">
-                                                                    <label for="viewer-2"></label>
-                                                                </td>
-                                                                <td>Martin</td>
-                                                                <td>Bourdais</td>
-                                                                <td>martin_bourdais@gmail.com</td>
-                                                                <td>commercial</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="viewer-3" type="checkbox" class="styled-checkbox">
-                                                                    <label for="viewer-3"></label>
-                                                                </td>
-                                                                <td>Martin</td>
-                                                                <td>Bourdais</td>
-                                                                <td>martin_bourdais@gmail.com</td>
-                                                                <td>commercial</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="button-container">
-                                                        <button class="btn-valider">valider les contacts</button>
-                                                    </div>
-                                                    <div class="pagination-container">
-                                                        <ul class="post-pagination">
-                                                            <li class="active"><a href="#">1</a></li>
-                                                            <li><a href="#">2</a></li>
-                                                            <li><a href="#">3</a></li>
-                                                            <li><a href="#">4</a></li>
-                                                            <li class="last"><a href="#">dernier</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="publish-program-container">
-                                            <div class="programmed-state-container">
-                                                <input type="radio" id="send-now" class="styled-radio-2 programmed-state-input" name="news_program_state" checked data-programmed-value="false">
-                                                <label for="send-now"></label>
-                                                <label for="send-now" class="text-label">publier maintenant</label>
-                                            </div>
-                                            <div>
-                                                <div class="programmed-state-container">
-                                                    <input type="radio" id="programmed" class="styled-radio-2 programmed-state-input" name="news_program_state" data-programmed-value="true">
-                                                    <label for="programmed"></label>
-                                                    <label for="programmed" class="text-label">programmer la publication</label>
-                                                </div>
-                                                <div class="select-date">
-                                                    <p>choisissez le jour</p>
-                                                    <div>
-                                                        <input type="text" class="post-launch-date">
-                                                        <div id="calendar"></div>
-                                                    </div>
-                                                    <p>et l'heure</p>
-                                                    <div>
-                                                        <select class="chosen-select">
-                                                            <option>00</option>
-                                                            <option>01</option>
-                                                            <option>02</option>
-                                                            <option>03</option>
-                                                            <option>...</option>
-                                                        </select>
-                                                        <span class="between-hour">:</span>
-                                                        <select class="chosen-select">
-                                                            <option>00</option>
-                                                            <option>01</option>
-                                                            <option>02</option>
-                                                            <option>03</option>
-                                                            <option>...</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="submit-block-container">
-                                            <button class="btn-valider first-button">enregistrer</button>
-                                            <button class="btn-valider second-button">publier</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -492,16 +277,24 @@
                 </section>
             </div>
         </div>
+        <p class = "chargementAjax hidden">
+            <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+        </p>
     </main>
 
     <input type="hidden" name="ckeditor_config_general_path" value="{{ asset('ckeditor/custom/config-general.js') }}">
-
+    <input type="hidden" name="create_news_post_url" value="{{ path('admin_communication_news_create') }}">
+    <input type="hidden" name="submission_type_save" value="{{ constant('SAVE', news_post_submission_type_class) }}">
+    <input type="hidden" name="submission_type_publish" value="{{ constant('PUBLISH', news_post_submission_type_class) }}">
+    <input type="hidden" name="create_news_post_url" value="{{ path('admin_communication_news_create') }}">
+    <input type="hidden" name="news_post_list_url" value="{{ path('admin_communication_news') }}">
 
 {% endblock %}
 {% block footer %}
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

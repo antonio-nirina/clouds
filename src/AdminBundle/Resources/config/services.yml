@@ -81,3 +81,7 @@ services:
         class: AdminBundle\Form\NewsPostType
         autowire: true
         autoconfigure: true
+
+    AdminBundle\Manager\NewsPostManager:
+        class: AdminBundle\Manager\NewsPostManager
+        autowire: true

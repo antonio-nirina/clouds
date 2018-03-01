@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AdminBundle\Component\Post\NewsPostAuthorizationType;
 use AdminBundle\Manager\ProgramManager;
@@ -48,7 +49,7 @@ class NewsPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('home_page_post', HomePagePostType::class)
-            ->add('action_button_state', HiddenType::class)
+            ->add('action_button_state', CheckboxType::class)
             ->add('action_button_text', TextType::class)
             ->add('action_button_text_color', TextType::class)
             ->add('action_button_background_color', TextType::class)
@@ -145,11 +146,15 @@ class NewsPostType extends AbstractType
             array('program' => $program, 'active' => true)
         );
         if (!empty($role_list)) {
+            $i = 0;
             foreach ($role_list as $role) {
-                $authorization_values[$role->getName()] = NewsPostAuthorizationType::BY_ROLE;
+                $authorization_values[$role->getName()] = NewsPostAuthorizationType::BY_ROLE .'_'. $i;
+                $i++;
             }
         }
-        $authorization_values[self::AUTHORIZATION_CUSTOM_LABEL] = NewsPostAuthorizationType::CUSTOM_LIST;
+
+        // TODO - Uncomment this next line when custom list feature development is started
+        // $authorization_values[self::AUTHORIZATION_CUSTOM_LABEL] = NewsPostAuthorizationType::CUSTOM_LIST;
 
         return $authorization_values;
     }
