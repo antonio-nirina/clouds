@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * User role related to its RANK (for eg: Rank 2 <-> Marketing Director, Rank 3 <-> Regional Director)
+ *
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\RoleRepository")
  * @ORM\Table(name="role")
  */
@@ -20,7 +22,7 @@ class Role
     /**
      * @ORM\Column(type="string", length=255)
      * @assert\NotBlank(
-     * message="Veuillez entrez une dénomination pour un rang actif.")
+     * message="Veuillez entrer une dénomination pour un rang actif.")
      */
     private $name;
 

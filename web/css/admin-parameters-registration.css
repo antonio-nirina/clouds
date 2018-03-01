@@ -2059,7 +2059,7 @@ section .row.ending {
     padding: 0 5px;
 }
 /*-------campagnes---*/
-#new-campaign-modal form .form-visibility-end + * {
+form .form-visibility-end ~ * {
     display: none;
 }
 
@@ -4989,6 +4989,24 @@ ul.post-pagination li:not(.last)::after{
     content: "\00a0\00a0|\00a0\00a0";
 }
 
+/*----------------- pagination with jquery.paginate plugin ---------------------------*/
+.pagination-container .page-navigation a{
+    color: grey;
+}
+
+
+.pagination-container .page-navigation a:not([data-last=true])::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: grey;
+}
+
+.pagination-container .page-navigation a[data-selected=true]{
+    color: var(--couleur_2);
+    padding: 0;
+}
+
+
+
 /**
  * Actualités, création / édition
  */
@@ -5080,6 +5098,7 @@ ul.post-pagination li:not(.last)::after{
     border: 1px solid #CBCBCB;
     padding: 15px 10px;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #create-edit-news-modal .action-button-container .add{
@@ -5265,6 +5284,29 @@ ul.post-pagination li:not(.last)::after{
 
 .post-viewer-table-container table tr td:first-child{
     text-align: center;
+}
+
+.action-button-target-page-choice .dropdown{
+    width: 230px;
+}
+
+.viewer-authorization-type-choice .dropdown{
+    width: 250px;
+}
+
+.delete-select {
+    width: 25px;
+    height: 25px;
+    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    cursor:pointer;
+    position: relative;
+    top: 5px;
+    float: right;
+}
+
+.hidden-form-element{
+    display: none;
 }
 
 @media (max-width: 991px) {
