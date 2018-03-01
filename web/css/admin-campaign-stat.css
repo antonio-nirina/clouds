@@ -33,7 +33,7 @@ th{
     /*display: inline-table;*/
     border: 2px !important;
     /*border-color: #CBCBCB;*/
-    font-size: 12px !important;
+    font-size: 11px !important;
     position: relative;
     top: 28px;
     margin-top: 60px;
@@ -50,7 +50,7 @@ table {
 th, td {
     text-align: left;
     padding: 8px;
-     border: 1px solid #ddd;
+     border: 1px solid #CBCBCB ;
 }
 
 
@@ -61,7 +61,7 @@ th, td {
     border-color: #CBCBCB;
     margin-top: 80px;
     top: 35px;
-    font-size: 12px !important;
+    font-size: 11px !important;
     width: 100 !important%;
 }
 
@@ -80,6 +80,8 @@ th, td {
     padding-left: 32px;
     padding-top: 28px;
     position: relative;
+    line-height: 25px!important;
+    font-size: 15px;
 
 }
 
@@ -90,6 +92,7 @@ th, td {
 }
 #sujet{
     color: #7682DA;
+    font-family: var(--police_bold);
 }
 
 .form-element-container .button-container{
@@ -170,50 +173,59 @@ top: 54px;
 
 .total{
     background-color:#F9F9F9;
-    margin-right: 11px;
-    margin-left: -8px;
-    padding: 13px 29px;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: -5px;
 }
 .delivrer{
     background-color:#F9F9F9;
-    margin-right: 5px;
-    margin-left: 6px;
-    padding: 13px 35px;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 18px;
+    
 }
 .ouvert{
     background-color:#F9F9F9;
-    margin-right: 10px;
-    margin-left: 15px;
-    padding: 13px 25px;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 29px;
+    
 }
 .clique{
     background-color:#F9F9F9;
-    margin-right: 10px;
-    margin-left: 9px;
-    padding: 14px 37px;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 33px;
+    
 }
 .bloque{
 background-color:#F9F9F9;
-padding-top: 12px;
-padding: 17px 65px;
-margin-left: 6px;
+width: 18%;
 height: 166px;
+position: relative;
+left: 59px;
+
 
 }
 
 .titreEtat{
     position: relative;
-    left: -35px;
+    left: 20px;
     font-size: 16px;
+    top: 14px;
 }
 
 #titreT{
 color: #6F85DA;
-font-weight: bold;
+font-size: 14px !important;
 position: relative;
-left: 10px;
-font-size: 16px;
-top: 0px;
+left: 22px;
+top: 8px;
+font-weight: bold;
 }
 
 
@@ -226,24 +238,29 @@ padding-left: 26px !important;
 
 #titreDel{
 position: relative;
-left: -13px;
+left: 22px;
 font-size: 14px;
+font-weight: bold;
+margin-top: 11px;
 }
 
-.totalTitreVal,.valTot {
+.valTot {
 color:#6F85DA !important;
 font-weight: bold !important;
 padding-left: 26px !important;
-font-size: 22px !important;
+font-size: 25px !important;
 position: relative;
-top: 0px;
+top: 13px;
+left: 9px;
+
 }
 .totalTitreVal,.mailTot{
 padding-left: 33px;
 color: #505050;
 position: relative;
 left: -21px;
-font-size: 16px !important;
+font-size: 18px !important;
+font-family: "Lato-Regular";
 top: 7px;
 
 }
@@ -267,17 +284,18 @@ font-size: 16px !important;
 .mailDel{
 color:#505050 !important;
 padding-left: 26px !important;
-font-size: 16px !important;
+font-size: 18px !important;
+font-family: "Lato-Regular";
 position: relative;
-left: -11px;
-top:11px;
+left: 20px;
+top:2px;
 }
 
-.delTitreVal,.valDel{
+.valDel{
 position: relative;
-left: -2px;
+left: 21px;
 color: #838383 !important;
-font-size: 20px !important;
+font-size: 25px !important;
 font-weight: bold !important;
 /*font-family: var(--police_bold);*/
 top: 6px;
@@ -286,41 +304,38 @@ top: 6px;
 
 
 .mailOuv{
-font-weight: bold;
 padding-left: 35px !important;
-font-size: 16px !important;
 color: #505050;
 position: relative;
-left: 7px;
-top: 7px;
+left: 28px;
+top: 12px;
+font-size: 18px !important;
+font-family: "Lato-Regular";
 }
 
 #titreOuv{
 color:#93D706;
-padding-left: 27px;
-border-top-width: 0px;
-border-top-style: solid;
-padding-top: 1px;
 font-weight: bold;
-font-size: 18px !important;
+font-size: 14px !important;
 position: relative;
-left: -13px;
-top: 2px;
+left: 40px;
+top: 11px;
 }
 #titreClik{
-    font-weight: bold;
-font-size: 16px !important;
+font-weight: bold;
+font-size: 14px !important;
+position: relative;
+left: 54px;
+top: 9px;
 }
 
 .valOuv{
     color:#93D706 !important;
     font-weight: bold !important;
-    padding-left: 54px;
     position: relative;
-    left: -20px;
-    font-size: 20px !important;
-    top: 4px;
-    /*font-family: var(--police_bold);*/
+    left: 47px;
+    font-size: 25px !important;
+    top: 14px;
 }
 
 
@@ -336,19 +351,21 @@ font-size: 16px !important;
 
 
 
-.cliTitreVal,.valClik {
+.valClik {
  color:#14A400 !important;
 font-weight: bold !important;
-padding-left: 16px !important;
-font-size: 20px !important;
+font-size: 25px !important;
+position: relative;
+left: 62px;
+top: 12px;
 }
 .mailClic{
-padding-left: 33px;
 position: relative;
-left: -10px;
-font-size: 16px !important;
+left: 81px;
 color: #505050;
-top: 7px;
+top: 12px;
+font-size: 18px !important;
+font-family: "Lato-Regular";
 
 }
 .cliTitreVal{
@@ -360,9 +377,9 @@ top: 7px;
 
 .valEtat{
    position: relative;
-   left: 72px;
-    top: -127px;
-    font-size: 16px !important;
+   left: 128px;
+    top: -116px;
+    font-size: 14px !important;
 }
 
 
@@ -421,7 +438,7 @@ top: 7px;
     align-content: center;
     /*margin-left: 0px;*/
     position: relative;
-    left: 13px;
+    left: 17px;
     top: 76px;
 }
 
@@ -560,6 +577,8 @@ margin-bottom: 22px;
     top: 95px;
     margin-bottom: 11px;
     margin-top: 24px;
+    font-size: 15px;
+    font-weight: bold;
 
 }
 
@@ -579,8 +598,8 @@ margin-bottom: 22px;
 
 .button-csv{
  position: relative;
-left: -12px;
-top: -7px;
+left: -7px;
+top: -46px;
 margin-top: 74px;
 }
 
@@ -590,42 +609,789 @@ min-width: 181px !important;
 
 .icon-background1{
     color: #838383;
+    left: 14px !important;
    
 }
 
 .icon-background2{
    color: #97D600;
+   left: 14px !important;
    
 }
 .icon-background3{
     color: #14A400;
+    left: 14px !important;
      
 }
 .icon-background4{
     color: #39CBFF;
+    left: 14px !important;
     
 }
 .icon-background5{
     color: #000000;
+    left: 14px !important;
     
 }
 .icon-background6{
     color: #FF0000;
+    left: 14px !important;
     
 }
 .icon-background7{
     color: #FF9600;
+    left: 14px !important;
     
 }
+
+/***********Pagination***********/
 .navigation{
    position: relative;
     top: 43px;
     left: 307px;
 }
 
+.pagination > li > span{
+    border-color: white !important;
+    /*background-color: #FFFFFF !important;*/
+    left: 43px;
+    padding: 6px 1px !important;
+    color: #FCFCFC;
+
+}
+
+.pagination > li > a{
+    border-color: white !important;
+    /*background-color: #FFFFFF !important;*/
+    left: 43px;
+    padding: 6px 1px !important;
+    color: #FCFCFC;
+
+}
+
+ .pagination > li > a,.pagination > li > span:not(.last)::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    margin-left:0px; 
+    margin-right: 2px;
+    color: #838383;
+    font-size: 15px;
+}
+ .pagination > li > .page-link:not(.last)::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: #838383;
+ }
+
+.page-item.active .page-link{
+    color: #0275d8 !important;
+    background-color: #FFFFFF!important;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.page-link:focus, .page-link:hover{
+     background-color: #FFFFFF!important;
+}
+.pagination > li > .page-link{
+   font-weight: 100;
+}
+
+/******************************Responsive********************************************************/
+
+@media (min-width: 1200px) {
+      .modal-dialog{
+    max-width: 945px !important;
+    margin-left: 210px;
+    margin-top: 21px;
+}
+
+td.emails-table{
+    padding-right: 12.5rem !important;
+}
+
+#date2{
+    font-size: 15px;
+}
+#exp2{
+    font-size: 15px;
+}
+#cont2{
+    font-size: 15px;
+}
+#email2{
+ font-size: 15px;
+}
+#obj2{
+    font-size: 15px;
+}
+
+th{
+    background-color: white !important;
+}
+
+.tableDetail{
+    /*display: inline-table;*/
+    border: 2px !important;
+    /*border-color: #CBCBCB;*/
+    font-size: 11px !important;
+    position: relative;
+    top: 28px;
+    margin-top: 60px;
+    /*overflow-x:auto;*/
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    margin-top: 80px;
+    top: 35px;
+    font-size: 11px !important;
+    width: 100 !important%;
+}
+
+#statistique-campaign-dialog,.content{
+    width: 100% !important;
+    padding-left: 0px !important;
+}
+
+
+.form-element-container{
+    background-color: #F9F9F9;
+    width: 103% !important;
+    display: block !important;
+    left: -13px;
+    top:;
+    padding-left: 32px;
+    padding-top: 28px;
+    position: relative;
+    line-height: 25px!important;
+    font-size: 15px;
+
+}
+
+#campagne{
+    color: #505050;
+    font-size: 22px!important;
+    font-family: var(--police)!important;
+}
+#sujet{
+    color: #7682DA;
+    font-family: var(--police_bold);
+}
+
+.form-element-container .button-container{
+    display: inline-block;
+    position: relative;
+    left: 390px;
+    top: -69px;
+}
+
+
+.form-element-container .detail-info{
+    display: inline-block;
+    
+}
+
+ #date{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+#expedit{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+ #contact{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+ #email{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+ #objet{
+    font-size: 14px!important;
+    font-family: var(--police_bold);
+    color: #505050;
+}
+
+
+ .date{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+ .expediteur{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+ .liste-contact{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+ .email{
+    /*font-family: var(--police_bold);*/
+}
+
+ .objet{
+    font-size: 14px!important;
+    /*font-family: var(--police_bold);*/
+}
+
+.result{
+width: 100%;
+left: 29px;
+position: relative;
+top: 54px;
+}
+
+
+.total{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: -5px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 18px;
+    
+}
+.ouvert{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 29px;
+    
+}
+.clique{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 33px;
+    
+}
+.bloque{
+background-color:#F9F9F9;
+width: 18%;
+height: 166px;
+position: relative;
+left: 59px;
+
+
+}
+
+.titreEtat{
+    position: relative;
+    left: 20px;
+    font-size: 16px;
+    top: 14px;
+}
+
+#titreT{
+color: #6F85DA;
+font-size: 14px !important;
+position: relative;
+left: 22px;
+top: 8px;
+font-weight: bold;
+}
+
+
+/*.totalTitreVal {
+color:#6F85DA !important;
+font-size:1.2rem !important;
+font-weight: bold !important;
+padding-left: 26px !important;
+}*/
+
+#titreDel{
+position: relative;
+left: 22px;
+font-size: 14px;
+font-weight: bold;
+margin-top: 11px;
+}
+
+.valTot {
+color:#6F85DA !important;
+font-weight: bold !important;
+padding-left: 26px !important;
+font-size: 25px !important;
+position: relative;
+top: 13px;
+left: 9px;
+
+}
+.totalTitreVal,.mailTot{
+padding-left: 33px;
+color: #505050;
+position: relative;
+left: -21px;
+font-size: 18px !important;
+font-family: "Lato-Regular";
+top: 7px;
+
+}
+.totalTitreVal{
+margin-left: -8px;
+margin-right: 10px;
+position: relative;
+left: 1px;
+font-size: 16px !important;
+}
 
 
 
+/***/
+.delTitreVal {
+font-weight: bold !important;
+padding-left: 26px !important;
+font-size: 16px !important;
+}
+
+.mailDel{
+color:#505050 !important;
+padding-left: 26px !important;
+font-size: 18px !important;
+font-family: "Lato-Regular";
+position: relative;
+left: 20px;
+top:2px;
+}
+
+.valDel{
+position: relative;
+left: 21px;
+color: #838383 !important;
+font-size: 25px !important;
+font-weight: bold !important;
+/*font-family: var(--police_bold);*/
+top: 6px;
+
+}
+
+
+.mailOuv{
+padding-left: 35px !important;
+color: #505050;
+position: relative;
+left: 28px;
+top: 12px;
+font-size: 18px !important;
+font-family: "Lato-Regular";
+}
+
+#titreOuv{
+color:#93D706;
+font-weight: bold;
+font-size: 14px !important;
+position: relative;
+left: 40px;
+top: 11px;
+}
+#titreClik{
+font-weight: bold;
+font-size: 14px !important;
+position: relative;
+left: 54px;
+top: 9px;
+}
+
+.valOuv{
+    color:#93D706 !important;
+    font-weight: bold !important;
+    position: relative;
+    left: 47px;
+    font-size: 25px !important;
+    top: 14px;
+}
+
+
+.ouvTitreVal {
+color:#6F85DA !important;
+font-weight: bold !important;
+padding-left: 0px !important;
+position: relative;
+left:1px;
+font-size: 16px !important;
+}
+
+
+
+
+.valClik {
+ color:#14A400 !important;
+font-weight: bold !important;
+font-size: 25px !important;
+position: relative;
+left: 62px;
+top: 12px;
+}
+.mailClic{
+position: relative;
+left: 81px;
+color: #505050;
+top: 11px;
+font-size: 18px !important;
+font-family: "Lato-Regular";
+
+}
+.cliTitreVal{
+    position: relative;
+    color: #14A400 !important;
+    left: -10px;
+    font-size: 16px !important;
+}
+
+.valEtat{
+   position: relative;
+   left: 128px;
+    top: -116px;
+    font-size: 14px !important;
+}
+
+
+.blbl{
+    color:#000000;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blErr{
+    color:orange;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blDesa{
+    color:#1CC8FA;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blSp{
+    color:#FC0007;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+
+
+ .dropdown.show .dropdown-toggle {
+    visibility: hidden;
+    box-shadow: none;
+}
+.dropdown-menu {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+
+}
+
+.filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
+    display: none;
+}
+
+.dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+}
+
+
+ .row.filter2 div.heure-create {
+    width: 31%;
+    /*display: flex;*/
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+    /*margin-left: 0px;*/
+    position: relative;
+    left: 17px;
+    top: 76px;
+}
+
+#dropdownDelivre, .dropdown-toggle.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 19rem;
+    text-align: left;
+}
+
+.dropdown.clearable.filtres #dropdownDelivre{
+    min-width: 13rem;
+}
+
+ .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    /*height: 35px;*/
+    margin-left: 1px !important;
+}
+
+  .dropdown-menu > a{
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+ .dropdown-menu > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+
+
+  .dropdown-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+
+.delivrerEmail{
+margin-top: 29px;
+margin-bottom: 22px;
+}
+
+.dropdownMail1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;  
+    min-width: 15rem; 
+}
+
+.dropdownMail2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;  
+}
+.dropdownMail3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;  
+    min-width: 15rem; 
+}
+.dropdownDel1{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;
+}
+.dropdownDel2{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;
+}
+.dropdownDel3{
+    display: block;
+    /*width: 157%;*/
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0; 
+    min-width: 15rem;
+}
+.titre-statut{
+    color: #7682DA;
+    position: relative;
+    left: 5px;
+    font-weight: bold;
+    top: 95px;
+    margin-bottom: 11px;
+    margin-top: 24px;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.detail{
+    border: 1px solid #CFCFCF;
+    width: 100%;
+    margin-top: 70px;
+    font-size: 11px;
+    font-weight: bold;  
+    display: inline-table;
+}
+.download {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    background-position: 9px 21px;
+    margin-left: 4px;
+}
+
+.button-csv{
+ position: relative;
+left: -7px;
+top: -46px;
+margin-top: 74px;
+}
+
+button.btn-valider{
+min-width: 181px !important;
+}
+
+.icon-background1{
+    color: #838383;
+    left: 14px !important;
+   
+}
+
+.icon-background2{
+   color: #97D600;
+   left: 14px !important;
+   
+}
+.icon-background3{
+    color: #14A400;
+    left: 14px !important;
+     
+}
+.icon-background4{
+    color: #39CBFF;
+    left: 14px !important;
+    
+}
+.icon-background5{
+    color: #000000;
+    left: 14px !important;
+    
+}
+.icon-background6{
+    color: #FF0000;
+    left: 14px !important;
+    
+}
+.icon-background7{
+    color: #FF9600;
+    left: 14px !important;
+    
+}
+
+/***********Pagination***********/
+.navigation{
+   position: relative;
+    top: 43px;
+    left: 307px;
+}
+
+ li > a,.pagination > li > span{
+    /*border-color: white !important;*/
+    /*background-color: #FFFFFF !important;*/
+    left: 43px;
+    padding: 6px 1px !important;
+    color: #FCFCFC;
+
+}
+
+ .pagination > li > a,.pagination > li > span:not(.last)::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    margin-left:0px; 
+    margin-right: 2px;
+    color: #838383;
+    font-size: 15px;
+}
+ .pagination > li > .page-link:not(.last)::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: #838383;
+ }
+
+.page-item.active .page-link{
+    color: #0275d8 !important;
+    background-color: #FFFFFF!important;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.page-link:focus, .page-link:hover{
+     background-color: #FFFFFF!important;
+}
+.pagination > li > .page-link{
+   font-weight: 100;
+}
+
+
+}
+/*************************************Max1200********************************************/
+
+
+
+/************************************Min575****************************************************/
 
 
 
@@ -810,51 +1576,51 @@ min-width: 181px !important;
 
     .total{
         background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -39px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
+        width: 61%;
+        height: 166px;
         position: relative;
-        top: 20px;
-        left: -14px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
+        width: 61%;
+        height: 166px;
         position: relative;
-        top: 34px;
-        left: -19px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
+        width: 61%;
+        height: 166px;
         position: relative;
-        top: 49px;
-        left: -10px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
    .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 61%;
     height: 166px;
     position: relative;
-    top: 65px;
-    left: -10px;
+    left: 28px;
+    top: -18px
     }
 
     .titreEtat{
         position: relative;
-        left: -35px;
+        left: 13px;
         font-size: 16px;
     }
 
@@ -862,7 +1628,7 @@ min-width: 181px !important;
     color: #6F85DA;
     font-weight: bold;
     position: relative;
-    left: 10px;
+    left: 20px;
     font-size: 16px;
     top: 0px;
     }
@@ -889,7 +1655,7 @@ min-width: 181px !important;
     position: relative;
     top: 0px;
     }
-    .totalTitreVal,.mailTot{
+  .mailTot{
     padding-left: 33px;
     color: #505050;
     position: relative;
@@ -924,7 +1690,7 @@ min-width: 181px !important;
     top:11px;
     }
 
-    .delTitreVal,.valDel{
+ .valDel{
     position: relative;
     left: -2px;
     color: #A7A7A7 !important;
@@ -959,8 +1725,10 @@ min-width: 181px !important;
     top: 2px;
     }
     #titreClik{
-        font-weight: bold;
+    font-weight: bold;
     font-size: 16px !important;
+    position: relative;
+    left: 36px;
     }
 
     .valOuv{
@@ -987,16 +1755,18 @@ min-width: 181px !important;
 
 
 
-    .cliTitreVal,.valClik {
+   .valClik {
      color:#14A400 !important;
     font-weight: bold !important;
     padding-left: 16px !important;
     font-size: 20px !important;
+    position: relative;
+    left: 36px;
     }
     .mailClic{
     padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 27px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -1011,8 +1781,8 @@ min-width: 181px !important;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 94px;
+    top: -115px;
     font-size: 16px !important;
     }
 
@@ -1072,7 +1842,7 @@ min-width: 181px !important;
         align-content: center;
         /*margin-left: 0px;*/
         position: relative;
-        left: 19px;
+        left: 1px;
         top: 81px;
     }
 
@@ -1206,7 +1976,7 @@ min-width: 181px !important;
     .titre-statut{
         color: #7682DA;
         position: relative;
-        left: 24px;
+        left: 1px;
         font-weight: bold;
         top: 107px;
         margin-bottom: 11px;
@@ -1269,7 +2039,54 @@ min-width: 181px !important;
         
     }
 
+    .navigation{
+   position: relative;
+    top: 40px;
+    left: 37px;
 }
+
+ li > a,.pagination > li > span{
+    border-color: white !important;
+    /*background-color: #FFFFFF !important;*/
+    left: 43px;
+    padding: 6px 1px !important;
+    color: #FCFCFC;
+
+}
+
+ .pagination > li > a,.pagination > li > span:not(.last)::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    margin-left:0px; 
+    margin-right: 2px;
+    color: #838383;
+    font-size: 15px;
+}
+ .pagination > li > .page-link:not(.last)::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: #838383;
+ }
+
+.page-item.active .page-link{
+    color: #0275d8 !important;
+    background-color: #FFFFFF!important;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.page-link:focus, .page-link:hover{
+     background-color: #FFFFFF!important;
+}
+.pagination > li > .page-link{
+   font-weight: 100;
+}
+
+
+}
+
+
+/*****************************FIN**575***************************************************************/
+
+/**********************************458***574****************************************************/
 
 @media (min-width: 458px) and (max-width: 575px) {
     .modal-dialog{
@@ -1450,53 +2267,53 @@ min-width: 181px !important;
     }
 
 
-    .total{
+   .total{
         background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
+        width: 31%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -39px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
+        width: 51%;
+        height: 166px;
         position: relative;
-        top: -2px;
-        left: 22px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
+        width: 51%;
+        height: 166px;
         position: relative;
-        top: 34px;
-        left: -19px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
+        width: 51%;
+        height: 166px;
         position: relative;
-        top: 33px;
-        left: -2px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
    .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 51%;
     height: 166px;
     position: relative;
-    top: 65px;
-    left: -10px;
+    left: 28px;
+    top: -18px
     }
 
     .titreEtat{
         position: relative;
-        left: -35px;
+        left: 27px;
         font-size: 16px;
     }
 
@@ -1523,13 +2340,14 @@ min-width: 181px !important;
     font-size: 14px;
     }
 
-    .totalTitreVal,.valTot {
+.valTot {
     color:#6F85DA !important;
     font-weight: bold !important;
     padding-left: 26px !important;
     font-size: 22px !important;
     position: relative;
     top: 0px;
+        left: 29px;
     }
     .totalTitreVal,.mailTot{
     padding-left: 33px;
@@ -1562,7 +2380,7 @@ min-width: 181px !important;
     padding-left: 26px !important;
     font-size: 16px !important;
     position: relative;
-    left: -11px;
+    left: 29px;
     top:11px;
     }
 
@@ -1584,7 +2402,7 @@ min-width: 181px !important;
     font-size: 16px !important;
     color: #505050;
     position: relative;
-    left: 7px;
+    left: 29px;
     top: 7px;
     }
 
@@ -1638,7 +2456,7 @@ min-width: 181px !important;
     .mailClic{
     padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 29px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -1653,8 +2471,8 @@ min-width: 181px !important;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 131px;
+    top: -114px;
     font-size: 16px !important;
     }
 
@@ -1911,1295 +2729,11 @@ min-width: 181px !important;
         
     }
 }
-@media (min-width: 576px) and (max-width: 644px) {
-    .modal-dialog{
-        max-width: 945px !important;
-        margin-left: 0px;
-        margin-top: 0px;
-        }
 
-        td.emails-table{
-            padding-right: 12.5rem !important;
-        }
+/*******************************************************************************************************/
 
-        #date2{
-            font-size: 15px;
-        }
-        #exp2{
-            font-size: 15px;
-        }
-        #cont2{
-            font-size: 15px;
-        }
-        #email2{
-         font-size: 15px;
-        }
-        #obj2{
-            font-size: 15px;
-        }
+/**********************************************************************************************/
 
-        th{
-            background-color: white !important;
-        }
-
-        /*.tableDetail,.table{
-            display: inline-table;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            font-size: 12px !important;
-            position: relative;
-            top: 28px;
-            margin-top: 22px;
-        }*/
-
-        .tableDetail{
-        /*display: inline-table;*/
-        border: 2px !important;
-        /*border-color: #CBCBCB;*/
-        font-size: 12px !important;
-        position: relative;
-        top: -137px;
-        /*margin-top: 60px;*/
-        overflow-x:auto;
-        width: 100%;
-        }
-
-         table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: 1px solid #CBCBCB;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-             border: 1px solid #ddd;
-        }
-
-
-        .tableDetail2{
-            /*display: inline-table;*/
-            display: none;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            position: relative;
-            top: -121px;
-            font-size: 11px;
-            overflow-x:auto;
-            width: 100%;
-        }
-
-        #statistique-campaign-dialog,.content{
-            width: 100% !important;
-            padding-left: 0px !important;
-        }
-
-
-        .form-element-container{
-            background-color: #F9F9F9;
-            width: 103% !important;
-            display: block !important;
-            left: -13px;
-            top:;
-            padding-left: 32px;
-            padding-top: 28px;
-            position: relative;
-
-        }
-
-        #campagne{
-            color: #505050;
-            font-size: 22px!important;
-            font-family: var(--police)!important;
-        }
-        #sujet{
-            color: #7682DA;
-        }
-
-        .form-element-container .button-container{
-            display: inline-block;
-            position: relative;
-            left: 52px;
-            top: -69px;
-        }
-
-
-        .form-element-container .detail-info{
-            display: inline-block;
-            
-        }
-
-         #date{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-        #expedit{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-         #contact{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-         #email{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-         #objet{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-
-         .date{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-         .expediteur{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-         .liste-contact{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-         .email{
-            /*font-family: var(--police_bold);*/
-        }
-
-         .objet{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-        .result{
-        width: 100%;
-        left: 29px;
-        position: relative;
-        top: 54px;
-        }
-
-
-        .total{
-            background-color:#F9F9F9;
-            margin-right: 11px;
-            margin-left: -8px;
-            padding: 13px 29px;
-        }
-        .delivrer{
-            background-color:#F9F9F9;
-            margin-right: 5px;
-            margin-left: 6px;
-            padding: 13px 38px;
-            position: relative;
-            top: 1px;
-            left: -14px;
-        }
-        .ouvert{
-            background-color:#F9F9F9;
-            margin-right: 10px;
-            margin-left: 15px;
-            padding: 13px 29px;
-            position: relative;
-            top: -159px;
-            left: 332px;
-        }
-        .clique{
-            background-color:#F9F9F9;
-            margin-right: 10px;
-            margin-left: 9px;
-            padding: 14px 37px;
-            position: relative;
-            top: 22px;
-            left: -210px;
-        }
-       .bloque{
-        background-color:#F9F9F9;
-        padding-top: 12px;
-        padding: 17px 59px;
-        margin-left: 6px;
-        height: 166px;
-        position: relative;
-        top: -141px;
-        left: 181px
-        }
-
-        .titreEtat{
-            position: relative;
-            left: -35px;
-            font-size: 16px;
-        }
-
-        #titreT{
-        color: #6F85DA;
-        font-weight: bold;
-        position: relative;
-        left: 10px;
-        font-size: 16px;
-        top: 0px;
-        }
-
-
-        /*.totalTitreVal {
-        color:#6F85DA !important;
-        font-size:1.2rem !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        }*/
-
-        #titreDel{
-        position: relative;
-        left: -13px;
-        font-size: 14px;
-        }
-
-        .totalTitreVal,.valTot {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 22px !important;
-        position: relative;
-        top: 0px;
-        }
-        .totalTitreVal,.mailTot{
-        padding-left: 33px;
-        color: #505050;
-        position: relative;
-        left: -21px;
-        font-size: 16px !important;
-        top: 7px;
-
-        }
-        .totalTitreVal{
-        margin-left: -8px;
-        margin-right: 10px;
-        position: relative;
-        left: 1px;
-        font-size: 16px !important;
-        }
-
-
-
-        /***/
-        .delTitreVal {
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        }
-
-        .mailDel{
-        color:#505050 !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        position: relative;
-        left: -11px;
-        top:11px;
-        }
-
-        .delTitreVal,.valDel{
-        position: relative;
-        left: -2px;
-        color: #A7A7A7 !important;
-        font-size: 20px !important;
-        font-weight: bold !important;
-        /*font-family: var(--police_bold);*/
-        top: 6px;
-
-        }
-
-
-        .mailOuv{
-        font-weight: bold;
-        padding-left: 35px !important;
-        font-size: 16px !important;
-        color: #505050;
-        position: relative;
-        left: 7px;
-        top: 7px;
-        }
-
-        #titreOuv{
-        color:#93D706;
-        padding-left: 27px;
-        border-top-width: 0px;
-        border-top-style: solid;
-        padding-top: 1px;
-        font-weight: bold;
-        font-size: 18px !important;
-        position: relative;
-        left: -13px;
-        top: 2px;
-        }
-        #titreClik{
-            font-weight: bold;
-        font-size: 16px !important;
-        }
-
-        .valOuv{
-            color:#93D706 !important;
-            font-weight: bold !important;
-            padding-left: 54px;
-            position: relative;
-            left: -20px;
-            font-size: 20px !important;
-            top: 4px;
-            /*font-family: var(--police_bold);*/
-        }
-
-
-        .ouvTitreVal {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 0px !important;
-        position: relative;
-        left:1px;
-        font-size: 16px !important;
-        }
-
-
-
-
-        .cliTitreVal,.valClik {
-         color:#14A400 !important;
-        font-weight: bold !important;
-        padding-left: 16px !important;
-        font-size: 20px !important;
-        }
-        .mailClic{
-        padding-left: 33px;
-        position: relative;
-        left: -10px;
-        font-size: 16px !important;
-        color: #505050;
-        top: 7px;
-
-        }
-        .cliTitreVal{
-            position: relative;
-            color: #14A400 !important;
-            left: -10px;
-            font-size: 16px !important;
-        }
-
-        .valEtat{
-        position: relative;
-        left: 60px;
-        top: -128px;
-        font-size: 16px !important;
-        }
-
-
-        .blbl{
-            color:#000000;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blErr{
-            color:orange;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blDesa{
-            color:#1CC8FA;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blSp{
-            color:#FC0007;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-
-
-         .dropdown.show .dropdown-toggle {
-            visibility: hidden;
-            box-shadow: none;
-        }
-        .dropdown-menu {
-            border: 0;
-            margin: 0;
-            padding: 0;
-            top: 0;
-
-        }
-
-        .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
-            display: none;
-        }
-
-        .dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
-            font-size: 12px;
-            font-family: var(--police);
-            color: #404040;
-            background-color: #e5e5e5;
-            height: 35px;
-        }
-
-
-         .row.filter2 div.heure-create {
-            width: 31%;
-            /*display: flex;*/
-            flex-flow: row wrap;
-            justify-content: space-between;
-            align-content: center;
-            /*margin-left: 0px;*/
-            position: relative;
-            left: 19px;
-            top: -83px;
-        }
-
-        #dropdownDelivre, .dropdown-toggle.active {
-            border: 1px solid #e5e5e5;
-            border-radius: 5px;
-            cursor: pointer;
-            position: relative;
-            min-width: 19rem;
-            text-align: left;
-        }
-
-        .dropdown.clearable.filtres #dropdownDelivre{
-            min-width: 15rem;
-        }
-
-         .dropdown-toggle {
-            font-size: 12px;
-            font-family: var(--police);
-            color: #404040;
-            background-color: #e5e5e5;
-            /*height: 35px;*/
-            margin-left: 1px !important;
-        }
-
-          .dropdown-menu > a{
-            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
-            padding: 8px 16px;
-        }
-         .dropdown-menu > a:hover {
-            background-color: white;
-            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
-        }
-
-
-          .dropdown-toggle::after {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            margin-left: .3em;
-            vertical-align: middle;
-            content: "\f107";
-            font-family: "FontAwesome";
-            font-size: 27px;
-            border: none !important;
-            position: absolute;
-            right: 25px;
-            top: 0;
-            color: #404040;
-            -webkit-text-stroke: 1px #e5e5e5;
-        }
-
-        .delivrerEmail{
-        margin-top: 29px;
-        margin-bottom: 22px;
-        }
-
-        .dropdownMail1{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0;  
-            min-width: 15rem; 
-        }
-
-        .dropdownMail2{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;  
-        }
-        .dropdownMail3{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0;  
-            min-width: 15rem; 
-        }
-        .dropdownDel1{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;
-        }
-        .dropdownDel2{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;
-        }
-        .dropdownDel3{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;
-        }
-        .titre-statut{
-            color: #7682DA;
-            position: relative;
-            left: 24px;
-            font-weight: bold;
-            top: -69px;
-            margin-bottom: 11px;
-            margin-top: 24px;
-
-        }
-
-        .detail{
-            border: 1px solid #CFCFCF;
-            width: 100%;
-            margin-top: 70px;
-            font-size: 11px;
-            font-weight: bold;  
-            display: inline-table;
-        }
-        .download {
-            background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-            background-position: 2px 21px;
-            margin-left: 4px;
-        }
-
-        .button-csv{
-         position: relative;
-        left: -12px;
-        top: -166px;
-        margin-top: 74px;
-        }
-
-        button.btn-valider{
-        min-width: 181px !important;
-        }
-
-        .icon-background1{
-            color: #838383;
-           
-        }
-
-        .icon-background2{
-           color: #97D600;
-           
-        }
-        .icon-background3{
-            color: #14A400;
-             
-        }
-        .icon-background4{
-            color: #39CBFF;
-            
-        }
-        .icon-background5{
-            color: #000000;
-            
-        }
-        .icon-background6{
-            color: #FF0000;
-            
-        }
-        .icon-background7{
-            color: #FF9600;
-            
-        }
-}
-
-
-@media (min-width: 645px) and (max-width: 648px) {
-    .modal-dialog{
-        max-width: 945px !important;
-        margin-left: 0px;
-        margin-top: 0px;
-        }
-
-        td.emails-table{
-            padding-right: 12.5rem !important;
-        }
-
-        #date2{
-            font-size: 15px;
-        }
-        #exp2{
-            font-size: 15px;
-        }
-        #cont2{
-            font-size: 15px;
-        }
-        #email2{
-         font-size: 15px;
-        }
-        #obj2{
-            font-size: 15px;
-        }
-
-        th{
-            background-color: white !important;
-        }
-
-        /*.tableDetail,.table{
-            display: inline-table;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            font-size: 12px !important;
-            position: relative;
-            top: 28px;
-            margin-top: 22px;
-        }*/
-
-        .tableDetail{
-        /*display: inline-table;*/
-        border: 2px !important;
-        /*border-color: #CBCBCB;*/
-        font-size: 12px !important;
-        position: relative;
-        top: -31px;
-        /*margin-top: 60px;*/
-        overflow-x:auto;
-        width: 100%;
-        left: 16px;
-        }
-
-         table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: 1px solid #CBCBCB;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 8px;
-             border: 1px solid #ddd;
-        }
-
-
-        .tableDetail2{
-            /*display: inline-table;*/
-            display: none;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            position: relative;
-            top: -121px;
-            font-size: 11px;
-            overflow-x:auto;
-            width: 100%;
-        }
-
-        #statistique-campaign-dialog,.content{
-            width: 100% !important;
-            padding-left: 0px !important;
-        }
-
-
-        .form-element-container{
-            background-color: #F9F9F9;
-            width: 103% !important;
-            display: block !important;
-            left: -13px;
-            top:;
-            padding-left: 32px;
-            padding-top: 28px;
-            position: relative;
-
-        }
-
-        #campagne{
-            color: #505050;
-            font-size: 22px!important;
-            font-family: var(--police)!important;
-        }
-        #sujet{
-            color: #7682DA;
-        }
-
-        .form-element-container .button-container{
-            display: inline-block;
-            position: relative;
-            left: 129px;
-            top: -69px;
-        }
-
-
-        .form-element-container .detail-info{
-            display: inline-block;
-            
-        }
-
-         #date{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-        #expedit{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-         #contact{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-         #email{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-         #objet{
-            font-size: 14px!important;
-            font-family: var(--police_bold);
-            color: #505050;
-        }
-
-
-         .date{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-         .expediteur{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-         .liste-contact{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-         .email{
-            /*font-family: var(--police_bold);*/
-        }
-
-         .objet{
-            font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
-        }
-
-        .result{
-        width: 100%;
-        left: 29px;
-        position: relative;
-        top: 54px;
-        }
-
-
-        .total{
-            background-color:#F9F9F9;
-            margin-right: 11px;
-            margin-left: -8px;
-            padding: 13px 29px;
-        }
-        .delivrer{
-            background-color:#F9F9F9;
-            margin-right: 5px;
-            margin-left: 6px;
-            padding: 13px 38px;
-            position: relative;
-            top: 1px;
-            left: -14px;
-        }
-        .ouvert{
-            background-color:#F9F9F9;
-            margin-right: 10px;
-            margin-left: 15px;
-            padding: 13px 29px;
-            position: relative;
-            top: -159px;
-            left: 357px;
-        }
-        .clique{
-            background-color:#F9F9F9;
-            margin-right: 10px;
-            margin-left: 9px;
-            padding: 14px 37px;
-            position: relative;
-            top: 9px;
-            left: -210px;
-        }
-       .bloque{
-        background-color:#F9F9F9;
-        padding-top: 12px;
-        padding: 17px 59px;
-        margin-left: 6px;
-        height: 166px;
-        position: relative;
-        top: 10px;
-        left: -217px;
-        }
-
-        .titreEtat{
-            position: relative;
-            left: -35px;
-            font-size: 16px;
-        }
-
-        #titreT{
-        color: #6F85DA;
-        font-weight: bold;
-        position: relative;
-        left: 10px;
-        font-size: 16px;
-        top: 0px;
-        }
-
-
-        /*.totalTitreVal {
-        color:#6F85DA !important;
-        font-size:1.2rem !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        }*/
-
-        #titreDel{
-        position: relative;
-        left: -13px;
-        font-size: 14px;
-        }
-
-        .totalTitreVal,.valTot {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 22px !important;
-        position: relative;
-        top: 0px;
-        }
-        .totalTitreVal,.mailTot{
-        padding-left: 33px;
-        color: #505050;
-        position: relative;
-        left: -21px;
-        font-size: 16px !important;
-        top: 7px;
-
-        }
-        .totalTitreVal{
-        margin-left: -8px;
-        margin-right: 10px;
-        position: relative;
-        left: 1px;
-        font-size: 16px !important;
-        }
-
-
-
-        /***/
-        .delTitreVal {
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        }
-
-        .mailDel{
-        color:#505050 !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        position: relative;
-        left: -11px;
-        top:11px;
-        }
-
-        .delTitreVal,.valDel{
-        position: relative;
-        left: -2px;
-        color: #A7A7A7 !important;
-        font-size: 20px !important;
-        font-weight: bold !important;
-        /*font-family: var(--police_bold);*/
-        top: 6px;
-
-        }
-
-
-        .mailOuv{
-        font-weight: bold;
-        padding-left: 35px !important;
-        font-size: 16px !important;
-        color: #505050;
-        position: relative;
-        left: 7px;
-        top: 7px;
-        }
-
-        #titreOuv{
-        color:#93D706;
-        padding-left: 27px;
-        border-top-width: 0px;
-        border-top-style: solid;
-        padding-top: 1px;
-        font-weight: bold;
-        font-size: 18px !important;
-        position: relative;
-        left: -13px;
-        top: 2px;
-        }
-        #titreClik{
-            font-weight: bold;
-        font-size: 16px !important;
-        }
-
-        .valOuv{
-            color:#93D706 !important;
-            font-weight: bold !important;
-            padding-left: 54px;
-            position: relative;
-            left: -20px;
-            font-size: 20px !important;
-            top: 4px;
-            /*font-family: var(--police_bold);*/
-        }
-
-
-        .ouvTitreVal {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 0px !important;
-        position: relative;
-        left:1px;
-        font-size: 16px !important;
-        }
-
-
-
-
-        .cliTitreVal,.valClik {
-         color:#14A400 !important;
-        font-weight: bold !important;
-        padding-left: 16px !important;
-        font-size: 20px !important;
-        }
-        .mailClic{
-        padding-left: 33px;
-        position: relative;
-        left: -10px;
-        font-size: 16px !important;
-        color: #505050;
-        top: 7px;
-
-        }
-        .cliTitreVal{
-            position: relative;
-            color: #14A400 !important;
-            left: -10px;
-            font-size: 16px !important;
-        }
-
-        .valEtat{
-        position: relative;
-        left: 60px;
-        top: -128px;
-        font-size: 16px !important;
-        }
-
-
-        .blbl{
-            color:#000000;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blErr{
-            color:orange;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blDesa{
-            color:#1CC8FA;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blSp{
-            color:#FC0007;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-
-
-         .dropdown.show .dropdown-toggle {
-            visibility: hidden;
-            box-shadow: none;
-        }
-        .dropdown-menu {
-            border: 0;
-            margin: 0;
-            padding: 0;
-            top: 0;
-
-        }
-
-        .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
-            display: none;
-        }
-
-        .dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
-            font-size: 12px;
-            font-family: var(--police);
-            color: #404040;
-            background-color: #e5e5e5;
-            height: 35px;
-        }
-
-
-         .row.filter2 div.heure-create {
-            width: 31%;
-            /*display: flex;*/
-            flex-flow: row wrap;
-            justify-content: space-between;
-            align-content: center;
-            /*margin-left: 0px;*/
-            position: relative;
-            left: 19px;
-            top: 29px;
-        }
-
-        #dropdownDelivre, .dropdown-toggle.active {
-            border: 1px solid #e5e5e5;
-            border-radius: 5px;
-            cursor: pointer;
-            position: relative;
-            min-width: 19rem;
-            text-align: left;
-        }
-
-        .dropdown.clearable.filtres #dropdownDelivre{
-            min-width: 15rem;
-        }
-
-         .dropdown-toggle {
-            font-size: 12px;
-            font-family: var(--police);
-            color: #404040;
-            background-color: #e5e5e5;
-            /*height: 35px;*/
-            margin-left: 1px !important;
-        }
-
-          .dropdown-menu > a{
-            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
-            padding: 8px 16px;
-        }
-         .dropdown-menu > a:hover {
-            background-color: white;
-            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
-        }
-
-
-          .dropdown-toggle::after {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            margin-left: .3em;
-            vertical-align: middle;
-            content: "\f107";
-            font-family: "FontAwesome";
-            font-size: 27px;
-            border: none !important;
-            position: absolute;
-            right: 25px;
-            top: 0;
-            color: #404040;
-            -webkit-text-stroke: 1px #e5e5e5;
-        }
-
-        .delivrerEmail{
-        margin-top: 29px;
-        margin-bottom: 22px;
-        }
-
-        .dropdownMail1{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0;  
-            min-width: 15rem; 
-        }
-
-        .dropdownMail2{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;  
-        }
-        .dropdownMail3{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0;  
-            min-width: 15rem; 
-        }
-        .dropdownDel1{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;
-        }
-        .dropdownDel2{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;
-        }
-        .dropdownDel3{
-            display: block;
-            /*width: 157%;*/
-            padding: 3px 1.5rem;
-            clear: both;
-            font-weight: 400;
-            color: #292b2c;
-            text-align: inherit;
-            white-space: nowrap;
-            background: 0 0; 
-            min-width: 15rem;
-        }
-        .titre-statut{
-            color: #7682DA;
-            position: relative;
-            left: 24px;
-            font-weight: bold;
-            top: 60px;
-            margin-bottom: 11px;
-            margin-top: 24px;
-
-        }
-
-        .detail{
-            border: 1px solid #CFCFCF;
-            width: 100%;
-            margin-top: 70px;
-            font-size: 11px;
-            font-weight: bold;  
-            display: inline-table;
-        }
-        .download {
-            background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-            background-position: 2px 21px;
-            margin-left: 4px;
-        }
-
-        .button-csv{
-         position: relative;
-        left: -12px;
-        top: -38px;
-        margin-top: 74px;
-        }
-
-        button.btn-valider{
-        min-width: 181px !important;
-        }
-
-        .icon-background1{
-            color: #838383;
-           
-        }
-
-        .icon-background2{
-           color: #97D600;
-           
-        }
-        .icon-background3{
-            color: #14A400;
-             
-        }
-        .icon-background4{
-            color: #39CBFF;
-            
-        }
-        .icon-background5{
-            color: #000000;
-            
-        }
-        .icon-background6{
-            color: #FF0000;
-            
-        }
-        .icon-background7{
-            color: #FF9600;
-            
-        }
-}
 
 @media (min-width: 649px) and (max-width: 767px) {
          .modal-dialog{
@@ -3385,49 +2919,49 @@ min-width: 181px !important;
         }
 
 
-        .total{
-            background-color:#F9F9F9;
-            margin-right: 11px;
-            margin-left: -8px;
-            padding: 13px 29px;
-        }
-        .delivrer{
-            background-color:#F9F9F9;
-            margin-right: 5px;
-            margin-left: 6px;
-            padding: 13px 38px;
-            position: relative;
-            top: 1px;
-            left: -7px;
-        }
-        .ouvert{
-            background-color:#F9F9F9;
-            margin-right: 10px;
-            margin-left: 15px;
-            padding: 13px 29px;
-            position: relative;
-            top: -1px;
-            left: -17px;
-        }
-        .clique{
-            background-color:#F9F9F9;
-            margin-right: 10px;
-            margin-left: 9px;
-            padding: 14px 37px;
-            position: relative;
-            top: 9px;
-            left: -12px;
-        }
-       .bloque{
+       .total{
         background-color:#F9F9F9;
-        padding-top: 12px;
-        padding: 17px 59px;
-        margin-left: 6px;
+        width: 31%;
         height: 166px;
         position: relative;
-        top: 10px;
-        left: -10px;
-        }
+        left: 28px;
+        top: -39px;
+    }
+    .delivrer{
+        background-color:#F9F9F9;
+        width: 31%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
+    }
+    .ouvert{
+        background-color:#F9F9F9;
+        width: 31%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
+    }
+    .clique{
+        background-color:#F9F9F9;
+        width: 31%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
+    }
+   .bloque{
+    background-color:#F9F9F9;
+    width: 31%;
+    height: 166px;
+    position: relative;
+    left: 28px;
+    top: -18px
+    }
 
         .titreEtat{
             position: relative;
@@ -3846,6 +3380,11 @@ min-width: 181px !important;
             
         }
 }
+/****************************************************************************************/
+
+
+/*********************************************************************************/
+
 
 @media (min-width: 768px) and (max-width: 831px) {
     .modal-dialog{
@@ -4026,50 +3565,49 @@ min-width: 181px !important;
     }
 
 
-    .total{
+.total{
         background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
+        width: 31%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -39px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
+        width: 31%;
+        height: 166px;
         position: relative;
-        top: -2px;
-        left: 22px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
+        width: 31%;
+        height: 166px;
         position: relative;
-        top: -8px;
-        left: 72px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
+        width: 31%;
+        height: 166px;
         position: relative;
-        top: 33px;
-        left: -2px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
    .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 31%;
     height: 166px;
     position: relative;
-    top: 37px;
-    left: 17px;
+    left: 28px;
+    top: -18px
     }
-
     .titreEtat{
         position: relative;
         left: -35px;
@@ -4487,6 +4025,10 @@ min-width: 181px !important;
         
     }
 }
+/************************************************************************************/
+
+
+
 
 @media (min-width: 831px) and (max-width: 933px) {
 
@@ -4666,66 +4208,65 @@ min-width: 181px !important;
     position: relative;
     top: 54px;
     }
-
-
-    .total{
+.total{
         background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
+        width: 21%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -39px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
+        width: 21%;
+        height: 166px;
         position: relative;
-        top: -2px;
-        left: -4px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
+        width: 21%;
+        height: 166px;
         position: relative;
-       top: -2px;
-        left: -10px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
+        width: 21%;
+        height: 166px;
         position: relative;
-        top: 12px;
-        left: -6px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
    .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 21%;
     height: 166px;
     position: relative;
-    top: 9px;
-    left: -13px;
+    left: 28px;
+    top: -18px
     }
 
-    .titreEtat{
-        position: relative;
-        left: -35px;
-        font-size: 16px;
-    }
 
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
+.titreEtat{
     position: relative;
-    left: 10px;
+    left: -35px;
     font-size: 16px;
-    top: 0px;
-    }
+}
+
+#titreT{
+color: #6F85DA;
+font-weight: bold;
+position: relative;
+left: 10px;
+font-size: 16px;
+top: 0px;
+}
 
 
     /*.totalTitreVal {
@@ -4735,11 +4276,11 @@ min-width: 181px !important;
     padding-left: 26px !important;
     }*/
 
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
+#titreDel{
+position: relative;
+left: -13px;
+font-size: 14px;
+}
 
     .totalTitreVal,.valTot {
     color:#6F85DA !important;
@@ -5129,6 +4670,9 @@ min-width: 181px !important;
         
     }
 }
+/*********************************************************************************/
+
+
 
 @media (min-width: 934px) and (max-width: 991px) {
     .modal-dialog{
@@ -5309,48 +4853,48 @@ min-width: 181px !important;
     }
 
 
-    .total{
+  .total{
         background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
+        width: 21%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -39px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
+        width: 21%;
+        height: 166px;
         position: relative;
-        top: -2px;
-        left: -4px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
+        width: 21%;
+        height: 166px;
         position: relative;
-       top: -2px;
-        left: -10px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
+        width: 21%;
+        height: 166px;
         position: relative;
-        top: -2px;
-        left: 7px;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
    .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 21%;
     height: 166px;
     position: relative;
-    top: 9px;
-    left: -10px;
+    left: 28px;
+    top: -18px
     }
 
     .titreEtat{
@@ -5770,6 +5314,9 @@ min-width: 181px !important;
         
     }
 }
+/***********************************************************************************************/
+
+
 
 @media (min-width: 992px) and (max-width: 1000px) {
 
@@ -5952,54 +5499,45 @@ min-width: 181px !important;
 
 
     .total{
-        background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
-    }
-    .delivrer{
-        background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
-        position: relative;
-        top: -2px;
-        left: 22px;
-    }
-    .ouvert{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
-        position: relative;
-       top: -2px;
-        left: 13px;
-    }
-    .clique{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
-        position: relative;
-        top: -5px;
-        left: 12px;
-    }
-   .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 18%;
     height: 166px;
     position: relative;
-    top: -6px;
-    left: 12px;
-    }
+    left: -5px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 18px;
+    
+}
+.ouvert{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 29px;
+    
+}
+.clique{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 33px;
+    
+}
+.bloque{
+background-color:#F9F9F9;
+width: 18%;
+height: 166px;
+position: relative;
+left: 59px;
 
-    .titreEtat{
-        position: relative;
-        left: -35px;
-        font-size: 16px;
-    }
+
+}
 
     #titreT{
     color: #6F85DA;
@@ -6412,6 +5950,12 @@ min-width: 181px !important;
         
     }
 }
+
+/*****************************************************************************/
+
+
+
+
 @media (min-width: 1001px) and (max-width: 1090px) {
     .modal-dialog{
         max-width: 911px !important;
@@ -6592,50 +6136,46 @@ min-width: 181px !important;
     top: 54px;
     }
 
-
-    .total{
-        background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
-    }
-    .delivrer{
-        background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
-        position: relative;
-        top: -2px;
-        left: -15px;
-    }
-    .ouvert{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
-        position: relative;
-       top: -2px;
-        left: -30px;
-    }
-    .clique{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
-        position: relative;
-        top: -2px;
-        left: -45px;
-    }
-   .bloque{
+.total{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 18%;
     height: 166px;
     position: relative;
-    top: -168px;
-    left: 682px;
-    }
+    left: -5px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 18px;
+    
+}
+.ouvert{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 29px;
+    
+}
+.clique{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 33px;
+    
+}
+.bloque{
+background-color:#F9F9F9;
+width: 18%;
+height: 166px;
+position: relative;
+left: 59px;
+
+
+}
 
     .titreEtat{
         position: relative;
@@ -7054,6 +6594,8 @@ min-width: 181px !important;
         
     }
 }
+/**************************************************************************************/
+
 
 
 @media (min-width: 1091px) and (max-width: 1149px) {
@@ -7239,48 +6781,45 @@ min-width: 181px !important;
 
 
     .total{
-        background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
-    }
-    .delivrer{
-        background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
-        position: relative;
-        top: -2px;
-        left: -5px;
-    }
-    .ouvert{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
-        position: relative;
-       top: -2px;
-        left: -5px;
-    }
-    .clique{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
-        position: relative;
-        top: -2px;
-        left: -14px;
-    }
-   .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 18%;
     height: 166px;
     position: relative;
-    top: -4px;
-    left: -1px;
-    }
+    left: -5px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 18px;
+    
+}
+.ouvert{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 29px;
+    
+}
+.clique{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 33px;
+    
+}
+.bloque{
+background-color:#F9F9F9;
+width: 18%;
+height: 166px;
+position: relative;
+left: 59px;
+
+
+}
 
     .titreEtat{
         position: relative;
@@ -7699,6 +7238,10 @@ min-width: 181px !important;
         
     }
 }
+/**************************************************************************/
+
+
+
 
 @media (min-width: 1150px) and (max-width: 1199px) {
     .modal-dialog{
@@ -7880,50 +7423,46 @@ min-width: 181px !important;
     top: 54px;
     }
 
-
-    .total{
-        background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
-    }
-    .delivrer{
-        background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 38px;
-        position: relative;
-        top: -2px;
-        left: -5px;
-    }
-    .ouvert{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 29px;
-        position: relative;
-       top: -2px;
-        left: -5px;
-    }
-    .clique{
-        background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
-        position: relative;
-        top: -2px;
-        left: -14px;
-    }
-   .bloque{
+.total{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 59px;
-    margin-left: 6px;
+    width: 18%;
     height: 166px;
     position: relative;
-    top: -168px;
-    left: 725px;
-    }
+    left: -5px;
+}
+.delivrer{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 18px;
+    
+}
+.ouvert{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 29px;
+    
+}
+.clique{
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 33px;
+    
+}
+.bloque{
+background-color:#F9F9F9;
+width: 18%;
+height: 166px;
+position: relative;
+left: 59px;
+
+
+}
 
     .titreEtat{
         position: relative;
@@ -8343,626 +7882,1297 @@ min-width: 181px !important;
     }
 }
 
-@media (min-width: 1200px) {
-       .modal-dialog{
+
+
+@media (min-width: 645px) and (max-width: 648px) {
+    .modal-dialog{
         max-width: 945px !important;
-        margin-left: 210px;
-        margin-top: 21px;
-    }
+        margin-left: 0px;
+        margin-top: 0px;
+        }
 
-    td.emails-table{
-        padding-right: 12.5rem !important;
-    }
+        td.emails-table{
+            padding-right: 12.5rem !important;
+        }
 
-    #date2{
-        font-size: 15px;
-    }
-    #exp2{
-        font-size: 15px;
-    }
-    #cont2{
-        font-size: 15px;
-    }
-    #email2{
-     font-size: 15px;
-    }
-    #obj2{
-        font-size: 15px;
-    }
+        #date2{
+            font-size: 15px;
+        }
+        #exp2{
+            font-size: 15px;
+        }
+        #cont2{
+            font-size: 15px;
+        }
+        #email2{
+         font-size: 15px;
+        }
+        #obj2{
+            font-size: 15px;
+        }
 
-    th{
-        background-color: white !important;
-    }
+        th{
+            background-color: white !important;
+        }
 
-    .tableDetail{
+        /*.tableDetail,.table{
+            display: inline-table;
+            border: 2px !important;
+            border-color: #CBCBCB;
+            font-size: 12px !important;
+            position: relative;
+            top: 28px;
+            margin-top: 22px;
+        }*/
+
+        .tableDetail{
         /*display: inline-table;*/
         border: 2px !important;
         /*border-color: #CBCBCB;*/
         font-size: 12px !important;
         position: relative;
-        top: 28px;
-        margin-top: 60px;
-        /*overflow-x:auto;*/
-    }
-
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
+        top: -31px;
+        /*margin-top: 60px;*/
+        overflow-x:auto;
         width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+        left: 16px;
+        }
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+         table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #CBCBCB;
+        }
 
-
-    .tableDetail2{
-        /*display: inline-table;*/
-        display: none;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        margin-top: 80px;
-        top: 35px;
-        font-size: 12px !important;
-        width: 100 !important%;
-    }
-
-    #statistique-campaign-dialog,.content{
-        width: 100% !important;
-        padding-left: 0px !important;
-    }
+        th, td {
+            text-align: left;
+            padding: 8px;
+             border: 1px solid #ddd;
+        }
 
 
-    .form-element-container{
-        background-color: #F9F9F9;
-        width: 103% !important;
-        display: block !important;
-        left: -13px;
-        top:;
-        padding-left: 32px;
-        padding-top: 28px;
+        .tableDetail2{
+            /*display: inline-table;*/
+            display: none;
+            border: 2px !important;
+            border-color: #CBCBCB;
+            position: relative;
+            top: -121px;
+            font-size: 11px;
+            overflow-x:auto;
+            width: 100%;
+        }
+
+        #statistique-campaign-dialog,.content{
+            width: 100% !important;
+            padding-left: 0px !important;
+        }
+
+
+        .form-element-container{
+            background-color: #F9F9F9;
+            width: 103% !important;
+            display: block !important;
+            left: -13px;
+            top:;
+            padding-left: 32px;
+            padding-top: 28px;
+            position: relative;
+
+        }
+
+        #campagne{
+            color: #505050;
+            font-size: 22px!important;
+            font-family: var(--police)!important;
+        }
+        #sujet{
+            color: #7682DA;
+        }
+
+        .form-element-container .button-container{
+            display: inline-block;
+            position: relative;
+            left: 129px;
+            top: -69px;
+        }
+
+
+        .form-element-container .detail-info{
+            display: inline-block;
+            
+        }
+
+         #date{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+        #expedit{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+         #contact{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+         #email{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+         #objet{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+
+         .date{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+         .expediteur{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+         .liste-contact{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+         .email{
+            /*font-family: var(--police_bold);*/
+        }
+
+         .objet{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+        .result{
+        width: 100%;
+        left: 29px;
         position: relative;
-
-    }
-
-    #campagne{
-        color: #505050;
-        font-size: 22px!important;
-        font-family: var(--police)!important;
-    }
-    #sujet{
-        color: #7682DA;
-    }
-
-    .form-element-container .button-container{
-        display: inline-block;
-        position: relative;
-        left: 390px;
-        top: -69px;
-    }
+        top: 54px;
+        }
 
 
-    .form-element-container .detail-info{
-        display: inline-block;
-        
-    }
-
-     #date{
-        font-size: 14px!important;
-        font-family: var(--police_bold);
-        color: #505050;
-    }
-
-    #expedit{
-        font-size: 14px!important;
-        font-family: var(--police_bold);
-        color: #505050;
-    }
-
-     #contact{
-        font-size: 14px!important;
-        font-family: var(--police_bold);
-        color: #505050;
-    }
-
-     #email{
-        font-size: 14px!important;
-        font-family: var(--police_bold);
-        color: #505050;
-    }
-
-     #objet{
-        font-size: 14px!important;
-        font-family: var(--police_bold);
-        color: #505050;
-    }
-
-
-     .date{
-        font-size: 14px!important;
-        /*font-family: var(--police_bold);*/
-    }
-
-     .expediteur{
-        font-size: 14px!important;
-        /*font-family: var(--police_bold);*/
-    }
-
-     .liste-contact{
-        font-size: 14px!important;
-        /*font-family: var(--police_bold);*/
-    }
-
-     .email{
-        /*font-family: var(--police_bold);*/
-    }
-
-     .objet{
-        font-size: 14px!important;
-        /*font-family: var(--police_bold);*/
-    }
-
-    .result{
-    width: 100%;
-    left: 29px;
-    position: relative;
-    top: 54px;
-    }
-
-
-    .total{
+        .total{
         background-color:#F9F9F9;
-        margin-right: 11px;
-        margin-left: -8px;
-        padding: 13px 29px;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -39px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        margin-right: 5px;
-        margin-left: 6px;
-        padding: 13px 35px;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 15px;
-        padding: 13px 25px;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        margin-right: 10px;
-        margin-left: 9px;
-        padding: 14px 37px;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
     }
-    .bloque{
+   .bloque{
     background-color:#F9F9F9;
-    padding-top: 12px;
-    padding: 17px 65px;
-    margin-left: 6px;
+    width: 61%;
     height: 166px;
-
-    }
-
-    .titreEtat{
-        position: relative;
-        left: -35px;
-        font-size: 16px;
-    }
-
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
     position: relative;
-    left: 10px;
-    font-size: 16px;
-    top: 0px;
+    left: 28px;
+    top: -18px
     }
 
+        .titreEtat{
+            position: relative;
+            left: -35px;
+            font-size: 16px;
+        }
 
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:11px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: -2px;
-    color: #838383 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    padding-left: 27px;
-    border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: -13px;
-    top: 2px;
-    }
-    #titreClik{
+        #titreT{
+        color: #6F85DA;
         font-weight: bold;
-    font-size: 16px !important;
-    }
+        position: relative;
+        left: 10px;
+        font-size: 16px;
+        top: 0px;
+        }
 
-    .valOuv{
-        color:#93D706 !important;
+
+        /*.totalTitreVal {
+        color:#6F85DA !important;
+        font-size:1.2rem !important;
         font-weight: bold !important;
-        padding-left: 54px;
+        padding-left: 26px !important;
+        }*/
+
+        #titreDel{
         position: relative;
-        left: -20px;
+        left: -13px;
+        font-size: 14px;
+        }
+
+        .totalTitreVal,.valTot {
+        color:#6F85DA !important;
+        font-weight: bold !important;
+        padding-left: 26px !important;
+        font-size: 22px !important;
+        position: relative;
+        top: 0px;
+        }
+        .totalTitreVal,.mailTot{
+        padding-left: 33px;
+        color: #505050;
+        position: relative;
+        left: -21px;
+        font-size: 16px !important;
+        top: 7px;
+
+        }
+        .totalTitreVal{
+        margin-left: -8px;
+        margin-right: 10px;
+        position: relative;
+        left: 1px;
+        font-size: 16px !important;
+        }
+
+
+
+        /***/
+        .delTitreVal {
+        font-weight: bold !important;
+        padding-left: 26px !important;
+        font-size: 16px !important;
+        }
+
+        .mailDel{
+        color:#505050 !important;
+        padding-left: 26px !important;
+        font-size: 16px !important;
+        position: relative;
+        left: -11px;
+        top:11px;
+        }
+
+        .delTitreVal,.valDel{
+        position: relative;
+        left: -2px;
+        color: #A7A7A7 !important;
         font-size: 20px !important;
-        top: 4px;
+        font-weight: bold !important;
         /*font-family: var(--police_bold);*/
-    }
+        top: 6px;
+
+        }
 
 
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-    .cliTitreVal,.valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    padding-left: 16px !important;
-    font-size: 20px !important;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: -10px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
+        .mailOuv{
+        font-weight: bold;
+        padding-left: 35px !important;
+        font-size: 16px !important;
+        color: #505050;
         position: relative;
-        color: #14A400 !important;
+        left: 7px;
+        top: 7px;
+        }
+
+        #titreOuv{
+        color:#93D706;
+        padding-left: 27px;
+        border-top-width: 0px;
+        border-top-style: solid;
+        padding-top: 1px;
+        font-weight: bold;
+        font-size: 18px !important;
+        position: relative;
+        left: -13px;
+        top: 2px;
+        }
+        #titreClik{
+            font-weight: bold;
+        font-size: 16px !important;
+        }
+
+        .valOuv{
+            color:#93D706 !important;
+            font-weight: bold !important;
+            padding-left: 54px;
+            position: relative;
+            left: -20px;
+            font-size: 20px !important;
+            top: 4px;
+            /*font-family: var(--police_bold);*/
+        }
+
+
+        .ouvTitreVal {
+        color:#6F85DA !important;
+        font-weight: bold !important;
+        padding-left: 0px !important;
+        position: relative;
+        left:1px;
+        font-size: 16px !important;
+        }
+
+
+
+
+        .cliTitreVal,.valClik {
+         color:#14A400 !important;
+        font-weight: bold !important;
+        padding-left: 16px !important;
+        font-size: 20px !important;
+        }
+        .mailClic{
+        padding-left: 33px;
+        position: relative;
         left: -10px;
         font-size: 16px !important;
-    }
+        color: #505050;
+        top: 7px;
 
-    .valEtat{
-       position: relative;
-       left: 72px;
-        top: -127px;
+        }
+        .cliTitreVal{
+            position: relative;
+            color: #14A400 !important;
+            left: -10px;
+            font-size: 16px !important;
+        }
+
+        .valEtat{
+        position: relative;
+        left: 60px;
+        top: -128px;
         font-size: 16px !important;
-    }
+        }
 
 
-    .blbl{
-        color:#000000;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
-    .blErr{
-        color:orange;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
-    .blDesa{
-        color:#1CC8FA;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
-    .blSp{
-        color:#FC0007;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
+        .blbl{
+            color:#000000;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
+        .blErr{
+            color:orange;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
+        .blDesa{
+            color:#1CC8FA;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
+        .blSp{
+            color:#FC0007;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
 
 
-     .dropdown.show .dropdown-toggle {
-        visibility: hidden;
-        box-shadow: none;
-    }
-    .dropdown-menu {
-        border: 0;
-        margin: 0;
-        padding: 0;
-        top: 0;
+         .dropdown.show .dropdown-toggle {
+            visibility: hidden;
+            box-shadow: none;
+        }
+        .dropdown-menu {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            top: 0;
 
-    }
+        }
 
-    .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
-        display: none;
-    }
+        .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
+            display: none;
+        }
 
-    .dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
-        font-size: 12px;
-        font-family: var(--police);
-        color: #404040;
-        background-color: #e5e5e5;
-        height: 35px;
-    }
-
-
-     .row.filter2 div.heure-create {
-        width: 31%;
-        /*display: flex;*/
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-content: center;
-        /*margin-left: 0px;*/
-        position: relative;
-        left: 13px;
-        top: 76px;
-    }
-
-    #dropdownDelivre, .dropdown-toggle.active {
-        border: 1px solid #e5e5e5;
-        border-radius: 5px;
-        cursor: pointer;
-        position: relative;
-        min-width: 19rem;
-        text-align: left;
-    }
-
-    .dropdown.clearable.filtres #dropdownDelivre{
-        min-width: 13rem;
-    }
-
-     .dropdown-toggle {
-        font-size: 12px;
-        font-family: var(--police);
-        color: #404040;
-        background-color: #e5e5e5;
-        /*height: 35px;*/
-        margin-left: 1px !important;
-    }
-
-      .dropdown-menu > a{
-        box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
-        padding: 8px 16px;
-    }
-     .dropdown-menu > a:hover {
-        background-color: white;
-        box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
-    }
+        .dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
+            font-size: 12px;
+            font-family: var(--police);
+            color: #404040;
+            background-color: #e5e5e5;
+            height: 35px;
+        }
 
 
-      .dropdown-toggle::after {
-        display: inline-block;
-        width: 0;
-        height: 0;
-        margin-left: .3em;
-        vertical-align: middle;
-        content: "\f107";
-        font-family: "FontAwesome";
-        font-size: 27px;
-        border: none !important;
-        position: absolute;
-        right: 25px;
-        top: 0;
-        color: #404040;
-        -webkit-text-stroke: 1px #e5e5e5;
-    }
+         .row.filter2 div.heure-create {
+            width: 31%;
+            /*display: flex;*/
+            flex-flow: row wrap;
+            justify-content: space-between;
+            align-content: center;
+            /*margin-left: 0px;*/
+            position: relative;
+            left: 19px;
+            top: 29px;
+        }
 
-    .delivrerEmail{
-    margin-top: 29px;
-    margin-bottom: 22px;
-    }
+        #dropdownDelivre, .dropdown-toggle.active {
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            min-width: 19rem;
+            text-align: left;
+        }
 
-    .dropdownMail1{
-        display: block;
-        /*width: 157%;*/
-        padding: 3px 1.5rem;
-        clear: both;
-        font-weight: 400;
-        color: #292b2c;
-        text-align: inherit;
-        white-space: nowrap;
-        background: 0 0;  
-        min-width: 15rem; 
-    }
+        .dropdown.clearable.filtres #dropdownDelivre{
+            min-width: 15rem;
+        }
 
-    .dropdownMail2{
-        display: block;
-        /*width: 157%;*/
-        padding: 3px 1.5rem;
-        clear: both;
-        font-weight: 400;
-        color: #292b2c;
-        text-align: inherit;
-        white-space: nowrap;
-        background: 0 0; 
-        min-width: 15rem;  
-    }
-    .dropdownMail3{
-        display: block;
-        /*width: 157%;*/
-        padding: 3px 1.5rem;
-        clear: both;
-        font-weight: 400;
-        color: #292b2c;
-        text-align: inherit;
-        white-space: nowrap;
-        background: 0 0;  
-        min-width: 15rem; 
-    }
-    .dropdownDel1{
-        display: block;
-        /*width: 157%;*/
-        padding: 3px 1.5rem;
-        clear: both;
-        font-weight: 400;
-        color: #292b2c;
-        text-align: inherit;
-        white-space: nowrap;
-        background: 0 0; 
-        min-width: 15rem;
-    }
-    .dropdownDel2{
-        display: block;
-        /*width: 157%;*/
-        padding: 3px 1.5rem;
-        clear: both;
-        font-weight: 400;
-        color: #292b2c;
-        text-align: inherit;
-        white-space: nowrap;
-        background: 0 0; 
-        min-width: 15rem;
-    }
-    .dropdownDel3{
-        display: block;
-        /*width: 157%;*/
-        padding: 3px 1.5rem;
-        clear: both;
-        font-weight: 400;
-        color: #292b2c;
-        text-align: inherit;
-        white-space: nowrap;
-        background: 0 0; 
-        min-width: 15rem;
-    }
-    .titre-statut{
-        color: #7682DA;
-        position: relative;
-        left: 5px;
-        font-weight: bold;
-        top: 95px;
-        margin-bottom: 11px;
-        margin-top: 24px;
+         .dropdown-toggle {
+            font-size: 12px;
+            font-family: var(--police);
+            color: #404040;
+            background-color: #e5e5e5;
+            /*height: 35px;*/
+            margin-left: 1px !important;
+        }
 
-    }
+          .dropdown-menu > a{
+            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+            padding: 8px 16px;
+        }
+         .dropdown-menu > a:hover {
+            background-color: white;
+            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+        }
 
-    .detail{
-        border: 1px solid #CFCFCF;
-        width: 100%;
-        margin-top: 70px;
-        font-size: 11px;
-        font-weight: bold;  
-        display: inline-table;
-    }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 9px 21px;
-        margin-left: 4px;
-    }
 
-    .button-csv{
-     position: relative;
-    left: -12px;
-    top: -7px;
-    margin-top: 74px;
-    }
+          .dropdown-toggle::after {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: .3em;
+            vertical-align: middle;
+            content: "\f107";
+            font-family: "FontAwesome";
+            font-size: 27px;
+            border: none !important;
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #404040;
+            -webkit-text-stroke: 1px #e5e5e5;
+        }
 
-    button.btn-valider{
-    min-width: 181px !important;
-    }
+        .delivrerEmail{
+        margin-top: 29px;
+        margin-bottom: 22px;
+        }
 
-    .icon-background1{
-        color: #838383;
-       
-    }
+        .dropdownMail1{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;  
+            min-width: 15rem; 
+        }
 
-    .icon-background2{
-       color: #97D600;
-       
-    }
-    .icon-background3{
-        color: #14A400;
-         
-    }
-    .icon-background4{
-        color: #39CBFF;
-        
-    }
-    .icon-background5{
-        color: #000000;
-        
-    }
-    .icon-background6{
-        color: #FF0000;
-        
-    }
-    .icon-background7{
-        color: #FF9600;
-        
-    }
+        .dropdownMail2{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;  
+        }
+        .dropdownMail3{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;  
+            min-width: 15rem; 
+        }
+        .dropdownDel1{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;
+        }
+        .dropdownDel2{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;
+        }
+        .dropdownDel3{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;
+        }
+        .titre-statut{
+            color: #7682DA;
+            position: relative;
+            left: 24px;
+            font-weight: bold;
+            top: 60px;
+            margin-bottom: 11px;
+            margin-top: 24px;
+
+        }
+
+        .detail{
+            border: 1px solid #CFCFCF;
+            width: 100%;
+            margin-top: 70px;
+            font-size: 11px;
+            font-weight: bold;  
+            display: inline-table;
+        }
+        .download {
+            background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+            background-position: 2px 21px;
+            margin-left: 4px;
+        }
+
+        .button-csv{
+         position: relative;
+        left: -12px;
+        top: -38px;
+        margin-top: 74px;
+        }
+
+        button.btn-valider{
+        min-width: 181px !important;
+        }
+
+        .icon-background1{
+            color: #838383;
+           
+        }
+
+        .icon-background2{
+           color: #97D600;
+           
+        }
+        .icon-background3{
+            color: #14A400;
+             
+        }
+        .icon-background4{
+            color: #39CBFF;
+            
+        }
+        .icon-background5{
+            color: #000000;
+            
+        }
+        .icon-background6{
+            color: #FF0000;
+            
+        }
+        .icon-background7{
+            color: #FF9600;
+            
+        }
 }
 
 
+/*************************************************/
 
+
+@media (min-width: 576px) and (max-width: 644px) {
+    .modal-dialog{
+        max-width: 945px !important;
+        margin-left: 0px;
+        margin-top: 0px;
+        }
+
+        td.emails-table{
+            padding-right: 12.5rem !important;
+        }
+
+        #date2{
+            font-size: 15px;
+        }
+        #exp2{
+            font-size: 15px;
+        }
+        #cont2{
+            font-size: 15px;
+        }
+        #email2{
+         font-size: 15px;
+        }
+        #obj2{
+            font-size: 15px;
+        }
+
+        th{
+            background-color: white !important;
+        }
+
+        /*.tableDetail,.table{
+            display: inline-table;
+            border: 2px !important;
+            border-color: #CBCBCB;
+            font-size: 12px !important;
+            position: relative;
+            top: 28px;
+            margin-top: 22px;
+        }*/
+
+        .tableDetail{
+        /*display: inline-table;*/
+        border: 2px !important;
+        /*border-color: #CBCBCB;*/
+        font-size: 12px !important;
+        position: relative;
+        top: -137px;
+        /*margin-top: 60px;*/
+        overflow-x:auto;
+        width: 100%;
+        }
+
+         table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #CBCBCB;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+             border: 1px solid #ddd;
+        }
+
+
+        .tableDetail2{
+            /*display: inline-table;*/
+            display: none;
+            border: 2px !important;
+            border-color: #CBCBCB;
+            position: relative;
+            top: -121px;
+            font-size: 11px;
+            overflow-x:auto;
+            width: 100%;
+        }
+
+        #statistique-campaign-dialog,.content{
+            width: 100% !important;
+            padding-left: 0px !important;
+        }
+
+
+        .form-element-container{
+            background-color: #F9F9F9;
+            width: 103% !important;
+            display: block !important;
+            left: -13px;
+            top:;
+            padding-left: 32px;
+            padding-top: 28px;
+            position: relative;
+
+        }
+
+        #campagne{
+            color: #505050;
+            font-size: 22px!important;
+            font-family: var(--police)!important;
+        }
+        #sujet{
+            color: #7682DA;
+        }
+
+        .form-element-container .button-container{
+            display: inline-block;
+            position: relative;
+            left: 52px;
+            top: -69px;
+        }
+
+
+        .form-element-container .detail-info{
+            display: inline-block;
+            
+        }
+
+         #date{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+        #expedit{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+         #contact{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+         #email{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+         #objet{
+            font-size: 14px!important;
+            font-family: var(--police_bold);
+            color: #505050;
+        }
+
+
+         .date{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+         .expediteur{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+         .liste-contact{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+         .email{
+            /*font-family: var(--police_bold);*/
+        }
+
+         .objet{
+            font-size: 14px!important;
+            /*font-family: var(--police_bold);*/
+        }
+
+        .result{
+        width: 100%;
+        left: 29px;
+        position: relative;
+        top: 54px;
+        }
+
+
+        .total{
+        background-color:#F9F9F9;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -39px;
+    }
+    .delivrer{
+        background-color:#F9F9F9;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
+    }
+    .ouvert{
+        background-color:#F9F9F9;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
+    }
+    .clique{
+        background-color:#F9F9F9;
+        width: 61%;
+        height: 166px;
+        position: relative;
+        left: 28px;
+        top: -18px;
+        margin-bottom: 10px;
+    }
+   .bloque{
+    background-color:#F9F9F9;
+    width: 61%;
+    height: 166px;
+    position: relative;
+    left: 28px;
+    top: -18px
+    }
+
+        .titreEtat{
+            position: relative;
+            left: -35px;
+            font-size: 16px;
+        }
+
+        #titreT{
+        color: #6F85DA;
+        font-weight: bold;
+        position: relative;
+        left: 10px;
+        font-size: 16px;
+        top: 0px;
+        }
+
+
+        /*.totalTitreVal {
+        color:#6F85DA !important;
+        font-size:1.2rem !important;
+        font-weight: bold !important;
+        padding-left: 26px !important;
+        }*/
+
+        #titreDel{
+        position: relative;
+        left: -13px;
+        font-size: 14px;
+        }
+
+        .totalTitreVal,.valTot {
+        color:#6F85DA !important;
+        font-weight: bold !important;
+        padding-left: 26px !important;
+        font-size: 22px !important;
+        position: relative;
+        top: 0px;
+        }
+        .totalTitreVal,.mailTot{
+        padding-left: 33px;
+        color: #505050;
+        position: relative;
+        left: -21px;
+        font-size: 16px !important;
+        top: 7px;
+
+        }
+        .totalTitreVal{
+        margin-left: -8px;
+        margin-right: 10px;
+        position: relative;
+        left: 1px;
+        font-size: 16px !important;
+        }
+
+
+
+        /***/
+        .delTitreVal {
+        font-weight: bold !important;
+        padding-left: 26px !important;
+        font-size: 16px !important;
+        }
+
+        .mailDel{
+        color:#505050 !important;
+        padding-left: 26px !important;
+        font-size: 16px !important;
+        position: relative;
+        left: -11px;
+        top:11px;
+        }
+
+        .delTitreVal,.valDel{
+        position: relative;
+        left: -2px;
+        color: #A7A7A7 !important;
+        font-size: 20px !important;
+        font-weight: bold !important;
+        /*font-family: var(--police_bold);*/
+        top: 6px;
+
+        }
+
+
+        .mailOuv{
+        font-weight: bold;
+        padding-left: 35px !important;
+        font-size: 16px !important;
+        color: #505050;
+        position: relative;
+        left: 7px;
+        top: 7px;
+        }
+
+        #titreOuv{
+        color:#93D706;
+        padding-left: 27px;
+        border-top-width: 0px;
+        border-top-style: solid;
+        padding-top: 1px;
+        font-weight: bold;
+        font-size: 18px !important;
+        position: relative;
+        left: -13px;
+        top: 2px;
+        }
+        #titreClik{
+            font-weight: bold;
+        font-size: 16px !important;
+        }
+
+        .valOuv{
+            color:#93D706 !important;
+            font-weight: bold !important;
+            padding-left: 54px;
+            position: relative;
+            left: -20px;
+            font-size: 20px !important;
+            top: 4px;
+            /*font-family: var(--police_bold);*/
+        }
+
+
+        .ouvTitreVal {
+        color:#6F85DA !important;
+        font-weight: bold !important;
+        padding-left: 0px !important;
+        position: relative;
+        left:1px;
+        font-size: 16px !important;
+        }
+
+
+
+
+        .cliTitreVal,.valClik {
+         color:#14A400 !important;
+        font-weight: bold !important;
+        padding-left: 16px !important;
+        font-size: 20px !important;
+        }
+        .mailClic{
+        padding-left: 33px;
+        position: relative;
+        left: -10px;
+        font-size: 16px !important;
+        color: #505050;
+        top: 7px;
+
+        }
+        .cliTitreVal{
+            position: relative;
+            color: #14A400 !important;
+            left: -10px;
+            font-size: 16px !important;
+        }
+
+        .valEtat{
+        position: relative;
+        left: 60px;
+        top: -128px;
+        font-size: 16px !important;
+        }
+
+
+        .blbl{
+            color:#000000;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
+        .blErr{
+            color:orange;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
+        .blDesa{
+            color:#1CC8FA;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
+        .blSp{
+            color:#FC0007;
+            font-weight: bold;
+            font-size: 11px !important;
+        }
+
+
+         .dropdown.show .dropdown-toggle {
+            visibility: hidden;
+            box-shadow: none;
+        }
+        .dropdown-menu {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            top: 0;
+
+        }
+
+        .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
+            display: none;
+        }
+
+        .dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
+            font-size: 12px;
+            font-family: var(--police);
+            color: #404040;
+            background-color: #e5e5e5;
+            height: 35px;
+        }
+
+
+         .row.filter2 div.heure-create {
+            width: 31%;
+            /*display: flex;*/
+            flex-flow: row wrap;
+            justify-content: space-between;
+            align-content: center;
+            /*margin-left: 0px;*/
+            position: relative;
+            left: 19px;
+            top: -83px;
+        }
+
+        #dropdownDelivre, .dropdown-toggle.active {
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            min-width: 19rem;
+            text-align: left;
+        }
+
+        .dropdown.clearable.filtres #dropdownDelivre{
+            min-width: 15rem;
+        }
+
+         .dropdown-toggle {
+            font-size: 12px;
+            font-family: var(--police);
+            color: #404040;
+            background-color: #e5e5e5;
+            /*height: 35px;*/
+            margin-left: 1px !important;
+        }
+
+          .dropdown-menu > a{
+            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+            padding: 8px 16px;
+        }
+         .dropdown-menu > a:hover {
+            background-color: white;
+            box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+        }
+
+
+          .dropdown-toggle::after {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: .3em;
+            vertical-align: middle;
+            content: "\f107";
+            font-family: "FontAwesome";
+            font-size: 27px;
+            border: none !important;
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #404040;
+            -webkit-text-stroke: 1px #e5e5e5;
+        }
+
+        .delivrerEmail{
+        margin-top: 29px;
+        margin-bottom: 22px;
+        }
+
+        .dropdownMail1{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;  
+            min-width: 15rem; 
+        }
+
+        .dropdownMail2{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;  
+        }
+        .dropdownMail3{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0;  
+            min-width: 15rem; 
+        }
+        .dropdownDel1{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;
+        }
+        .dropdownDel2{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;
+        }
+        .dropdownDel3{
+            display: block;
+            /*width: 157%;*/
+            padding: 3px 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: #292b2c;
+            text-align: inherit;
+            white-space: nowrap;
+            background: 0 0; 
+            min-width: 15rem;
+        }
+        .titre-statut{
+            color: #7682DA;
+            position: relative;
+            left: 24px;
+            font-weight: bold;
+            top: -69px;
+            margin-bottom: 11px;
+            margin-top: 24px;
+
+        }
+
+        .detail{
+            border: 1px solid #CFCFCF;
+            width: 100%;
+            margin-top: 70px;
+            font-size: 11px;
+            font-weight: bold;  
+            display: inline-table;
+        }
+        .download {
+            background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+            background-position: 2px 21px;
+            margin-left: 4px;
+        }
+
+        .button-csv{
+         position: relative;
+        left: -12px;
+        top: -166px;
+        margin-top: 74px;
+        }
+
+        button.btn-valider{
+        min-width: 181px !important;
+        }
+
+        .icon-background1{
+            color: #838383;
+           
+        }
+
+        .icon-background2{
+           color: #97D600;
+           
+        }
+        .icon-background3{
+            color: #14A400;
+             
+        }
+        .icon-background4{
+            color: #39CBFF;
+            
+        }
+        .icon-background5{
+            color: #000000;
+            
+        }
+        .icon-background6{
+            color: #FF0000;
+            
+        }
+        .icon-background7{
+            color: #FF9600;
+            
+        }
+}
