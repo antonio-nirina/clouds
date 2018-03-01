@@ -1506,7 +1506,7 @@ class CommunicationController extends AdminController
 	
 	/**
      * @Route(
-     *     "/sondage-quiz/delete-sondages-quiz",
+     *     "/sondage-quiz/delete-sondages-quiz/sondages-quiz",
      *     name="admin_communication_sondage_quiz_delete")
      * 
      */

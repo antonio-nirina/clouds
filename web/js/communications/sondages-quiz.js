@@ -140,10 +140,12 @@ $(document).ready(function(){
 		$(this).removeClass('inactive');
 		$(this).addClass('active');
 		$(this).find('div.block-active-hover').show();
+		$('.cke_wysiwyg_frame').contents().find('body').css('background-color', 'white');
 	}).mouseout(function(){
 		$(this).removeClass('active');
 		$(this).addClass('inactive');
 		$(this).find('div.block-active-hover').hide();
+		$('.cke_wysiwyg_frame').contents().find('body').css('background-color', '#F5F5F5');
 	});
 	
 	//Simuler click input file
@@ -238,6 +240,8 @@ $(document).ready(function(){
 			var NumeroRepEnSuivant = NumeroRepEnCours - 1;
 			$('input#nbre_reponses_par_questions_'+IdQuestions+'').val(NumeroRepEnSuivant);
 		}
+		
+		return false;
 	});
 	
 	//Afficher/cacher section 1
@@ -358,6 +362,7 @@ $(document).ready(function(){
 		$('div#confirm-delete-dialog-'+Id+'').modal('hide');
 		$('.chargementAjax').removeClass('hidden');
 		var UriDeleteQuiz = $('input#UriDeleteQuiz').val();
+		var UriSondagesQuiz = $('input#UriSondagesQuiz').val();
 		setTimeout(function(){
 			$.ajax({
 				type : "POST",
@@ -365,7 +370,7 @@ $(document).ready(function(){
 				data : 'Id='+Id+'',
 				success: function(reponse){
 					$('.chargementAjax').addClass('hidden');
-					location.reload();
+					document.location.href = UriSondagesQuiz;
 				}
 			});
 		}, 300);

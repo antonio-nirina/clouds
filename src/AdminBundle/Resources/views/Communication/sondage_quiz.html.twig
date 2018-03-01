@@ -546,6 +546,7 @@
 		<input id = "UriDeleteQuiz" type = "hidden" name = "UriDeleteQuiz" value = "{{ path("admin_communication_sondage_quiz_delete") }}">
 		<input id = "UriDeleteReponsesSondagesQuiz" type = "hidden" name = "UriDeleteReponsesSondagesQuiz" value = "{{ path("admin_communication_sondage_quiz_delete_reponse") }}">
 		<input id = "UriDeleteQuestions" type = "hidden" name = "UriDeleteQuestions" value = "{{ path("admin_communication_sondage_quiz_delete_questions") }}">
+		<input id = "UriSondagesQuiz" type = "hidden" name = "UriSondagesQuiz" value = "{{ path("admin_communication_sondage_quiz") }}">
 		
     </main>
 
@@ -557,7 +558,7 @@
             {{ parent() }}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
-            <script src="{{ asset('ckeditor-uploader/ckeditor.js') }}"></script>                     
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
             <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>  
@@ -568,12 +569,12 @@
                         uiColor: '#9AB8F3',
                         height: 150,
                         width: 600,
-                        customConfig: "{{ asset('ckeditor-uploader/custom/config-general.js') }}",
+                        customConfig: "{{ asset('ckeditor/custom/config-general.js') }}",
                     });
 
                     CKEDITOR.on("instanceReady", function(){
                         $('.cke_wysiwyg_frame').contents().find('body').css(
-                            'background-color', 'white'
+                            'background-color', '#F5F5F5'
                         )
                     });
                 });

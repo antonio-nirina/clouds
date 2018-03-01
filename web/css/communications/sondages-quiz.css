@@ -1,3 +1,11 @@
+.cke_wysiwyg_frame html{
+	background-color:#F5F5F5!important;
+}
+
+.cke_wysiwyg_frame html:hover{
+	background-color:white!important;
+}
+
 p.chargementAjax.hidden {
     display: none;
 }
