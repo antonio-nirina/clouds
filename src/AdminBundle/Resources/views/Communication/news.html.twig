@@ -78,7 +78,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row filter selected-elements">
+                    {#<div class="row filter selected-elements">
                         <div class="elements-count">
                             <div class="selected-count">
                                 <input class="selected-elements-input" type="text" value="post sélectionné" disabled>
@@ -97,9 +97,85 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div>#}
                     <div class="row list">
+                        {% if news_post_list is defined and news_post_list is not empty %}
+                            {% for news_post in news_post_list %}
                         <div class="row">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="{{ news_post.getId }}" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="{{ news_post.getId }}"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">{{ news_post.homePagePost.title }}</span>
+                                        {% set post_state_text = '' %}
+                                        {% set date_prefix = 'le ' %}
+                                        {% set date = '' %}
+                                        {% set class= '' %}
+
+                                        {% if true == news_post.publishedState %}
+                                            {% set post_state_text = 'Publié' %}
+                                            {% set date = news_post.publicationDatetime %}
+                                            {% set class= 'published' %}
+                                        {% endif %}
+                                        {% if true == news_post.programmedInProgressState %}
+                                            {% set post_state_text = 'Programmé' %}
+                                            {% set date_prefix = 'pour le ' %}
+                                            {% set date = news_post.programmedPublicationDatetime %}
+                                            {% set class= "programmed" %}
+                                        {% endif %}
+                                        {% if false == news_post.programmedInProgressState and false == news_post.publishedState %}
+                                            {% set post_state_text = 'En attente' %}
+                                            {% set date_prefix = 'modifié le ' %}
+                                            {% set date = news_post.homePagePost.lastEdit %}
+                                            {% set class= "wait" %}
+                                        {% endif %}
+                                        <span class="date {{ class }}">{{ post_state_text }} - {{ date_prefix }}{{ date | localizeddate('none', 'none', locale, null, "d MMMM Y 'à' HH:mm") }}</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">{{ news_post.viewNumber }}</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    {% set authorization_all = constant('ALL', news_post_authorization_type_class) %}
+                                    {% set authorization_by_role = constant('BY_ROLE', news_post_authorization_type_class)  %}
+                                    {% set viewer_text = '' %}
+                                    {% if authorization_all == news_post.viewerAuthorizationType %}
+                                        {% set viewer_text = 'Tous les participants' %}
+                                    {% endif %}
+                                    {% if news_post.viewerAuthorizationType matches '{^'~authorization_by_role~'_[0-9]+$}' %}
+                                        {% set viewer_text = news_post.authorizedViewerRole %}
+                                    {% endif %}
+                                    <span>{{ viewer_text }}</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        <a class="dropdown-item" href="#">APERÇU</a>
+                                        <a class="dropdown-item" href="#">ÉDITER</a>
+                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                        {% if true == news_post.publishedState %}
+                                        <a class="dropdown-item" href="#">DÉPUBLIER</a>
+                                        {% else %}
+                                        <a class="dropdown-item" href="#">PUBLIER</a>
+                                        {% endif %}
+                                        <a class="dropdown-item" href="#">ARCHIVER</a>
+                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            {% endfor %}
+                        {% endif %}
+                        {#<div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
                                     <div>
@@ -136,7 +212,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
@@ -174,7 +249,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
@@ -212,7 +286,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
@@ -246,9 +319,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>#}
                     </div>
-                    <div class="pagination-container">
+                    {#<div class="pagination-container">
                         <ul class="post-pagination">
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
@@ -256,7 +329,7 @@
                             <li><a href="#">4</a></li>
                             <li class="last"><a href="#">dernier</a></li>
                         </ul>
-                    </div>
+                    </div>#}
 
                     <!-- Modal créer / éditer actu -->
                     <div id="create-edit-news-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">

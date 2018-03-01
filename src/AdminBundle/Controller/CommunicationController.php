@@ -40,6 +40,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\Statistique\Common;
 use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
+use AdminBundle\Component\Post\NewsPostAuthorizationType;
 
 /**
  * @Route("/admin/communication")
@@ -1727,8 +1728,13 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_list = $news_post_manager->findAll($program, $archived_state = false);
+
         return $this->render('AdminBundle:Communication:news.html.twig', array(
             'news_post_submission_type_class' => new NewsPostSubmissionType(),
+            'news_post_authorization_type_class' => new NewsPostAuthorizationType(),
+            'news_post_list' => $news_post_list,
         ));
     }
 

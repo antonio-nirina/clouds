@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AdminBundle\Repository\NewsPostRepository")
  * @ORM\Table(name="news_post")
  */
 class NewsPost
@@ -110,6 +110,13 @@ class NewsPost
      * @ORM\Column(type="boolean")
      */
     private $programmed_in_progress_state;
+
+    /**
+     * @var datetime    hole publicatio datetime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $publication_datetime;
 
     /**
      * Get id
@@ -503,5 +510,29 @@ class NewsPost
     public function getProgrammedInProgressState()
     {
         return $this->programmed_in_progress_state;
+    }
+
+    /**
+     * Set publicationDatetime
+     *
+     * @param \DateTime $publicationDatetime
+     *
+     * @return NewsPost
+     */
+    public function setPublicationDatetime($publicationDatetime)
+    {
+        $this->publication_datetime = $publicationDatetime;
+
+        return $this;
+    }
+
+    /**
+     * Get publicationDatetime
+     *
+     * @return \DateTime
+     */
+    public function getPublicationDatetime()
+    {
+        return $this->publication_datetime;
     }
 }

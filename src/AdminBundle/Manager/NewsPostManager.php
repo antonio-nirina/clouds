@@ -4,6 +4,7 @@ namespace AdminBundle\Manager;
 use AdminBundle\Component\Post\NewsPostSubmissionType;
 use AdminBundle\Entity\NewsPost;
 use Doctrine\ORM\EntityManager;
+use AdminBundle\Entity\Program;
 
 /**
  * Handle news post data manipulation (CRUD)
@@ -75,7 +76,8 @@ class NewsPostManager
     public function prepareForPublish(NewsPost $news_post)
     {
         if (false == $news_post->getProgrammedPublicationState()) {
-            $news_post->setPublishedState(true);
+            $news_post->setPublishedState(true)
+                ->setPublicationDatetime(new \DateTime('now'));
         } else {
             $news_post->setProgrammedInProgressState(true);
         }
@@ -89,5 +91,11 @@ class NewsPostManager
     public function flush()
     {
         $this->em->flush();
+    }
+
+    public function findAll(Program $program, $archived_state)
+    {
+        return $this->em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findAllByProgram($program, $archived_state);
     }
 }
