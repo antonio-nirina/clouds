@@ -1,13 +1,15 @@
-$(document).ready(function(){
+
 
 $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 	
-$(document).on('click','.clearable .dropdown-it', function(e){
-        e.preventDefault(); 
+	$(document).on('click','.clearable .dropdown-it', function(e){
+	        e.preventDefault(); 
 
-        var a=$(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
-        setTimeout(sendChoice($(this)), 0);
-    });
+	        var a=$(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
+	        setTimeout(sendChoice($(this)), 0);
+	});
+
+});
 
 	function sendChoice(){
 		var filter = $('.dropdown.filtres').find('button').hasClass('active');
@@ -29,11 +31,12 @@ $(document).on('click','.clearable .dropdown-it', function(e){
                     data:{'id': id},
                     dataType: 'json',
                     success:function(data){
+                    	$('.navigation').css('display','none');
                         $('.tableDetail').css('display','none');                     
 		                $('#tableBody').children('tr').remove();
 		                $('#tableBody2').children('tr').remove();
 		                $('.tableDetail2').css('display','block'); 
-                        var span1 = $('<div><span class="fa-stack fa-lg">< i class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
+                        var span1 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
                         var span2 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background2 "></i></span></div>');
                         var span3 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background3 "></i></span></div>');
                         var span4 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background4 "></i></span></div>');
@@ -80,6 +83,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 					}
 					return newdata;
 				});
+				$('.navigation').css('display','none');
 				$('.tableDetail').css('display','none');                     
                 $('#tableBody').children('tr').remove();
                 $('#tableBody2').children('tr').remove();
@@ -98,6 +102,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 					}
 					return newdata;
 				});
+				$('.navigation').css('display','none');
 				$('.tableDetail').css('display','none');                     
                $('.tableDetail').css('display','none');                     
                 $('#tableBody').children('tr').remove();
@@ -118,6 +123,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 					}
 					return newdata;
 				});
+				$('.navigation').css('display','none');
 				$('.tableDetail').css('display','none');                     
                 $('#tableBody').children('tr').remove();
                  $('#tableBody2').children('tr').remove();
@@ -139,6 +145,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 					return newdata;
 				});
 				if (newdata.etat != "undefined") {
+					$('.navigation').css('display','none');
 					$('.tableDetail').css('display','none');                     
 	                $('#tableBody').children('tr').remove();
 	                 $('#tableBody2').children('tr').remove();
@@ -149,6 +156,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 			            .append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span.html()+"</td>");
 					});
 				} else {
+					$('.navigation').css('display','none');
 					$('.tableDetail').css('display','none');                     
 	                $('#tableBody').children('tr').remove();
 	                 $('#tableBody2').children('tr').remove();
@@ -166,6 +174,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 					}
 					return newdata;
 				});
+				$('.navigation').css('display','none');
 				$('.tableDetail').css('display','none');                     
                 $('#tableBody').children('tr').remove();
                  $('#tableBody2').children('tr').remove();
@@ -185,7 +194,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 					}
 					return newdata;
 				});
-
+				$('.navigation').css('display','none');
 				$('.tableDetail').css('display','none');                     
                 $('#tableBody').children('tr').remove();
                  $('#tableBody2').children('tr').remove();
@@ -204,6 +213,7 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 					}
 					return newdata;
 				});
+				$('.navigation').css('display','none');
 				$('.tableDetail').css('display','none');                     
                 $('#tableBody').children('tr').remove();
                  $('#tableBody2').children('tr').remove();
@@ -218,12 +228,12 @@ $(document).on('click','.clearable .dropdown-it', function(e){
 			}	        	
 	}
 
-	});
-
-	$(document).on('click','.page-link',function(){
+	$(document).on('click','.page-link',function(e){
+		e.preventDefault(); 
         var url = $(this).attr('href');
+        console.log(url)
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: url,
             success: function(data){
             	console.log(data)
@@ -237,11 +247,13 @@ $(document).on('click','.clearable .dropdown-it', function(e){
                 500: function(){
                     $('#statistique-campaign-dialog').find('.general-message').html('Erreur interne');
                 }
-            },
+            },complete: function(){
+                $('#statistique-campaign-dialog').modal('show');
+            }
             
         });
 
-    });
+    });	
 
-});
+
 

@@ -1742,20 +1742,17 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        $type = $request->isMethod('POST');
-        if ($type) {
-            $id = $request->request->get("id")["campaign_id"];
-            $title = $request->request->get("id")["title"];
-        } else {
-            $id = $request->query->get("id");
-            $title = $request->query->get("title");
-        }
+        $typeId = $request->request->get("id")["campaign_id"];
+        $typeTitle = $request->request->get("id")["title"];
+        $id = !empty($typeId)?$typeId:$request->query->get("id");   
+        $title = !empty($typeTitle)?$typeTitle:$request->query->get("title");
+
         $mailjet = $this->get('mailjet.client');
         $filter = ["campaignid" => $id];
         $campaigns = $mailjet->get(Resources::$Campaign,['filters' => $filter])->getData()[0];
         $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
         $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($results["email"],$request->query->getInt('page', 1),50,
+        $pagination = $paginator->paginate($results["email"],$request->query->getInt('page', 1),5,
             [
                 "id"=> $id,
                 "title"=> $title,
@@ -1777,7 +1774,6 @@ class CommunicationController extends AdminController
             "title" =>$title,
             "id" => $id
         ]);
-        dump($view);
         $data['content'] = $view;
         return new JsonResponse($data, 200);
     }
