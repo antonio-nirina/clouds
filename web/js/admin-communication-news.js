@@ -202,6 +202,21 @@ $(document).ready(function(){
      * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Activation de pagination au chargement de la page de liste de post
+     * *********************************************************************************************
+     */
+    setPagination();
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Activation de pagination au chargement de la page de liste de post
+     * *********************************************************************************************
+     */
 });
 
 function installWysiwyg()
@@ -256,5 +271,17 @@ function initSelectChosen() {
     $(".chosen-select").chosen({//hour selectable
         disable_search: true,
         width: "70px"
+    });
+}
+
+function setPagination(){
+    $('#news-post-list').paginate({
+        limit: 5,
+        childrenSelector: '.row.news-post-element',
+        previous: false,
+        first: false,
+        next: false,
+        lastText: 'dernier',
+        navigationWrapper: $('.pagination-container')
     });
 }

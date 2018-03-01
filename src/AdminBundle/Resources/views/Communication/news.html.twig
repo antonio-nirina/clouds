@@ -98,10 +98,10 @@
                             </div>
                         </div>
                     </div>#}
-                    <div class="row list">
+                    <div class="row list news-post-list" id="news-post-list">
                         {% if news_post_list is defined and news_post_list is not empty %}
                             {% for news_post in news_post_list %}
-                        <div class="row">
+                        <div class="row news-post-element">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
                                     <div>
@@ -330,6 +330,8 @@
                             <li class="last"><a href="#">dernier</a></li>
                         </ul>
                     </div>#}
+                    <div class="pagination-container">
+                    </div>
 
                     <!-- Modal créer / éditer actu -->
                     <div id="create-edit-news-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
@@ -373,6 +375,7 @@
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
             <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+            <script src="{{ asset('js/jquery-paginate/jquery-paginate.min.js') }}"></script>
             <script src="{{ asset("js/admin-communication-news.js") }}"></script>
         {% endblock %}
     {% endembed %}

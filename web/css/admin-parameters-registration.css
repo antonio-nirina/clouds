@@ -4989,6 +4989,24 @@ ul.post-pagination li:not(.last)::after{
     content: "\00a0\00a0|\00a0\00a0";
 }
 
+/*----------------- pagination with jquery.paginate plugin ---------------------------*/
+.pagination-container .page-navigation a{
+    color: grey;
+}
+
+
+.pagination-container .page-navigation a:not([data-last=true])::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: grey;
+}
+
+.pagination-container .page-navigation a[data-selected=true]{
+    color: var(--couleur_2);
+    padding: 0;
+}
+
+
+
 /**
  * Actualités, création / édition
  */
