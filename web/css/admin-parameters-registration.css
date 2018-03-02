@@ -1477,7 +1477,7 @@ a.blue-anchor{
 }
 
 section .row.filter {
-    margin: -0 -24px;
+    margin: -20px -23px 0px;
     padding: 25px 23px;
     background-color: #F9F9F9;
 }
@@ -5338,6 +5338,11 @@ ul.post-pagination li:not(.last)::after{
 .row.filter.selected-elements{
     background-color: #F5F5F5;
     border-top: 1px solid #CDCDCD;
+}
+
+.section .row.filter.news-filter,
+.section .row.filter.selected-elements{
+    margin: 0 -24px;
 }
 
 @media (max-width: 991px) {
