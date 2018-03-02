@@ -18,14 +18,28 @@
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
-                    <div class="navbar" id="collapsingNavbarFormInscription">
-                        <ul class="navbar-nav content-menu-niv-3 single">
-                            <li class="nav-item-niv-3 single form-inscription">
-                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">actualités </a>
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">publications </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">publications </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">publications d'accueil </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                         </ul>
                     </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
                 </nav>
             </div>
         </div>
@@ -34,10 +48,10 @@
                 <section class="fieldset active">
                     <div class="row">
                         <div class="col-lg-10 col-md-9 col-sm-12">
-                            <h3 class="hidden-sm-down block-title">Création / édition d'un post</h3>
-                            <h5 class="hidden-md-up block-title">Création / édition d'un post</h5>
-                            <p>celui-ci apparaîtra dans le fil d'actualité sur la homepage à date  de création</p>
-                            <button class="btn-valider create-news-button">créer une actualité</button>
+                            <h3 class="hidden-sm-down block-title">Création et édition de publications</h3>
+                            <h5 class="hidden-md-up block-title">Création et édition de publications</h5>
+                            <p>Les publications s'afficheront dans le fil d'actualité du participant de manière instantanée ou programmée.</p>
+                            <button class="btn-valider create-news-button">créer une nouvelle publication</button>
                         </div>
                         <div class="col-lg-2 col-md-3 col-sm-12">
                             <div class="hidden-sm-down corner-circle-img img-post rounded-circle"></div>
@@ -60,25 +74,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="post-type-filter-container filter-block-element-container">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-post-type-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    TYPE DE POST
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown-post-type-filter">
-                                    <a class="dropdown-item" href="#">TOUS</a>
-                                    <a class="dropdown-item" href="#">POST CLASSIQUE</a>
-                                    <a class="dropdown-item" href="#">POST AUTOMATIQUE</a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="archived-element-container filter-block-element-container">
                             <a href="#" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
                                 archivées
                             </a>
                         </div>
                     </div>
-                    {#<div class="row filter selected-elements">
+                    <div class="row filter selected-elements">
                         <div class="elements-count">
                             <div class="selected-count">
                                 <input class="selected-elements-input" type="text" value="post sélectionné" disabled>
@@ -86,18 +88,22 @@
                             </div>
                         </div>
                         <div class="selected-elements-button-container">
-                            <div class="post-archive">
-                                <button class="btn-valider btn btn-primary selected-elements-button">
-                                    archiver
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-element-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ACTIONS
                                 </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-selected-element-action">
+                                    <a class="dropdown-item" href="#">ARCHIVER</a>
+                                    <a class="dropdown-item" href="#">SUPPRIMER</a>
+                                </div>
                             </div>
-                            <div class="post-delete">
-                                <button class="btn-valider btn btn-primary selected-elements-button">
-                                    supprimer
+                            <div class="button-container">
+                                <button class="btn-valider">
+                                    valider
                                 </button>
                             </div>
                         </div>
-                    </div>#}
+                    </div>
                     <div class="row list news-post-list" id="news-post-list">
                         {% if news_post_list is defined and news_post_list is not empty %}
                             {% for news_post in news_post_list %}
