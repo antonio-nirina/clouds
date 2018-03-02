@@ -5340,6 +5340,20 @@ ul.post-pagination li:not(.last)::after{
     border-top: 1px solid #CDCDCD;
 }
 
+.dropdown .dropdown-menu .dropdown-item,
+.dropdown button.dropdown-toggle{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown .dropdown-menu .dropdown-item.sub-level{
+    padding-left: 25px;
+}
+
+.dropdown .dropdown-menu .dropdown-item.sub-level::before{
+    content: '>\00a0';
+}
+
 section .row.filter.news-filter,
 section .row.filter.selected-elements{
     margin: 0 -24px;

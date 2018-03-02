@@ -105,6 +105,8 @@ class NewsPostType extends AbstractType
         if (empty($program)) {
             throw new NoRelatedProgramException();
         }
+
+        // put standard pages in options
         $page_list = $this->em->getRepository('AdminBundle\Entity\SitePagesStandardSetting')->findBy(
             array('program' => $program, 'status_page' => true)
         );
@@ -115,6 +117,8 @@ class NewsPostType extends AbstractType
             }
 
         }
+
+        // put survey and quiz page and questinnaires in options
         $survey_and_quiz = $this->em->getRepository('AdminBundle\Entity\SondagesQuiz')
             ->findOneBy(array('program' => $program));
         if (!is_null($survey_and_quiz)) {
@@ -123,9 +127,24 @@ class NewsPostType extends AbstractType
                     'beneficiary_home_pages_sondages_quiz_slug',
                     array('slug' => $survey_and_quiz->getSlug())
                 );
+            $survey_and_quiz_questionnaire_list = $this->em
+                ->getRepository('AdminBundle\Entity\SondagesQuizQuestionnaireInfos')
+                ->findBy(
+                    array('sondages_quiz' => $survey_and_quiz)
+                );
+            if (!empty($survey_and_quiz_questionnaire_list)) {
+                foreach ($survey_and_quiz_questionnaire_list as $survey_and_quiz_questionnaire) {
+                    $target_list[$survey_and_quiz_questionnaire->getTitreQuestionnaire()]
+                        = $this->url_generator->generate(
+                            'beneficiary_home_pages_sondages_quiz_slug',
+                            array(
+                               'slug' => $survey_and_quiz->getSlug(),
+                               'id' => $survey_and_quiz_questionnaire->getId()
+                            )
+                        );
+                }
+            }
         }
-
-        // TODO - Add specific survey/quiz page(s) when this part is OK
 
         return $target_list;
     }
