@@ -1477,7 +1477,7 @@ a.blue-anchor{
 }
 
 section .row.filter {
-    margin: -20px -23px 0px;
+    margin: -0 -24px;
     padding: 25px 23px;
     background-color: #F9F9F9;
 }
@@ -4821,7 +4821,6 @@ input.input-search-list {
 
 .selected-elements-button-container{
     display: flex;
-    justify-content: space-evenly;
     flex-grow: 2;
     margin: 5px 0 5px 0;
 }
@@ -4885,7 +4884,7 @@ input.input-search-list {
 }
 
 .elements-count{
-    margin: 5px 0 5px 0;
+    margin: 5px 33px 5px 0;
 }
 
 .post-infos-container .title{
@@ -4907,6 +4906,12 @@ input.input-search-list {
     color: #FEAD0D;
 }
 
+.selected-elements-button-container .button-container{
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 379px) {
     .selected-elements-button-container{
         flex-direction: column;
@@ -4918,6 +4923,10 @@ input.input-search-list {
 
     .news-name-search-input{
         width: 200px;
+    }
+
+    .elements-count{
+        margin-right: 0;
     }
 }
 
@@ -4959,6 +4968,23 @@ input.input-search-list {
         margin: auto;
         margin-top: 10px;
         width: 100%;
+    }
+
+    .selected-elements-button-container{
+        flex-direction: column;
+    }
+
+    .selected-elements-button-container .dropdown{
+        align-self: flex-start;
+    }
+
+    .selected-elements-button-container .button-container{
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+
+    .selected-count .delete-input{
+        margin-left: 4px;
     }
 }
 
@@ -5133,7 +5159,7 @@ ul.post-pagination li:not(.last)::after{
 .action-button-block-container .delete-block{
     width: 25px;
     height: 25px;
-    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    background: url('../images/cloudsRewards/delete.png') center center no-repeat;
     cursor:pointer;
 }
 
@@ -5309,6 +5335,11 @@ ul.post-pagination li:not(.last)::after{
     display: none;
 }
 
+.row.filter.selected-elements{
+    background-color: #F5F5F5;
+    border-top: 1px solid #CDCDCD;
+}
+
 @media (max-width: 991px) {
     .modal-dialog.semi-large-fixed{
         width: initial;
@@ -5388,5 +5419,15 @@ ul.post-pagination li:not(.last)::after{
 
     #create-edit-news-modal .submit-block-container{
         margin-top: 20px;
+    }
+}
+
+@media (min-width: 992px){
+    .archived-element-container{
+        flex-grow: 2;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        margin-right: 25px;
     }
 }

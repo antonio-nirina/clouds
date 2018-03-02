@@ -57,7 +57,9 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/edito", name="admin_communication_editorial")
+     * disabled action
+     * route: /edito
+     * name: admin_communication_editorial
      */
     public function editorialAction(Request $request)
     {
@@ -110,10 +112,10 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route(
-     *     "/edito/suppression/{id}",
-     *     name="admin_communication_editorial_delete"),
-     *     requirements={"id": "\d+"}
+     * disabled action
+     * route: /edito/suppression/{id}
+     * name: admin_communication_editorial_delete
+     * requirements: {"id": "\d+"}
      */
     public function deleteEditorialAction($id)
     {
