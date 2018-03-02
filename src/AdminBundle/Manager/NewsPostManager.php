@@ -35,7 +35,6 @@ class NewsPostManager
         if (!in_array($submission_type, NewsPostSubmissionType::VALID_SUBMISSION_TYPE)) {
             return false;
         }
-//        $news_post->setProgrammedPublicationState('true' == $news_post->getProgrammedPublicationState());
         $news_post = $this->resetPropertiesIfNecessary($news_post);
         if (NewsPostSubmissionType::SAVE == $submission_type) {
             $news_post = $this->prepareForSave($news_post);
@@ -64,6 +63,25 @@ class NewsPostManager
     {
         $news_post->setPublishedState(false)
             ->setProgrammedInProgressState(false);
+        return $news_post;
+    }
+
+    /**
+     * Prepare news post data for saving, in post edit
+     *
+     * @param NewsPost $news_post
+     *
+     * @return NewsPost
+     */
+    public function prepareEditForSave(NewsPost $news_post)
+    {
+        if (true == $news_post->getProgrammedInProgressState()
+            && false == $news_post->getProgrammedPublicationState()
+        ) {
+            $news_post->setPublishedState(true)
+                ->setProgrammedInProgressState(false);
+        }
+
         return $news_post;
     }
 
@@ -125,11 +143,13 @@ class NewsPostManager
         if (!in_array($submission_type, NewsPostSubmissionType::VALID_SUBMISSION_TYPE)) {
             return false;
         }
-//        $news_post->setProgrammedPublicationState('true' == $news_post->getProgrammedPublicationState());
         $news_post = $this->resetPropertiesIfNecessary($news_post);
-        if (NewsPostSubmissionType::PUBLISH == $submission_type) {
+        if (NewsPostSubmissionType::SAVE == $submission_type) {
+            $this->prepareEditForSave($news_post);
+        } elseif (NewsPostSubmissionType::PUBLISH == $submission_type) {
             $this->prepareForPublish($news_post);
         }
+
         if ($flush) {
             $this->flush();
         }
