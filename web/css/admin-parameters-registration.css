@@ -5340,8 +5340,8 @@ ul.post-pagination li:not(.last)::after{
     border-top: 1px solid #CDCDCD;
 }
 
-.section .row.filter.news-filter,
-.section .row.filter.selected-elements{
+section .row.filter.news-filter,
+section .row.filter.selected-elements{
     margin: 0 -24px;
 }
 
