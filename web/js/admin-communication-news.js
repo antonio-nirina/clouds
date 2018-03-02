@@ -50,10 +50,18 @@ $(document).ready(function(){
     $(document).on('click', '#create-edit-news-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
+        for (name in CKEDITOR.instances) {
+            CKEDITOR.instances[name].updateElement();
+        }
         var submission_type = $(this).attr('data-submission-type');
         var data = {'submission_type': submission_type};
-        var target_url = $('input[name=create_news_post_url]').val();
-        console.log(target_url);
+        var target_url = '';
+        if ('create' == $(this).attr('data-manip-type')) {
+            target_url = $('input[name=create_news_post_url]').val();
+        } else if ('edit' == $(this).attr('data-manip-type')) {
+            target_url = $(this).attr('data-target-url');
+        }
+
         $('#create-edit-news-modal form').ajaxSubmit({
             type: 'POST',
             url: target_url,
@@ -168,14 +176,52 @@ $(document).ready(function(){
     // mise à jour de donnée de formulaire : authorization_viewer_role
     $(document).on('click', '#create-edit-news-modal .viewer-authorization-type-choice .dropdown .dropdown-item', function(){
         $('#create-edit-news-modal').find('.authorized-viewer-role-input').val($(this).text());
-    })
+    });
 
     $(document).on('click', '#create-edit-news-modal .viewer-authorization-type-choice .delete-select', function(){
         var toggle_button = $('#create-edit-news-modal').find('.viewer-authorization-type-choice button.toggle-button');
         console.log(toggle_button);
         $('#create-edit-news-modal').find('.authorized-viewer-role-input').val(toggle_button.attr('data-default-button-text'));
-    })
+    });
 
+    // ------------------------------------------------------------------------------------------------------------------
+    // PARTIE EDITION POST/ACTU
+    // ------------------------------------------------------------------------------------------------------------------
+    // édition actu, appel de formulaire
+    $(document).on('click', '.edit-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var edit_news_post_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'GET',
+            url: edit_news_post_url,
+            success: function(data){
+                $('#create-edit-news-modal').find('.modal-body-container').html(data.content);
+                installWysiwyg();
+                installColorPicker();
+                initCalendar();
+                initSelectChosen();
+            },
+            statusCode: {
+                404: function(data){
+                    $('#create-edit-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#create-edit-news-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#create-edit-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-edit-news-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#create-edit-news-modal').modal('show');
+                setTimeout(function(){
+                    $('.chargementAjax').addClass('hidden');
+                }, 1050);
+            }
+        });
+    });
 
     /**
      * *********************************************************************************************

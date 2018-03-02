@@ -1879,11 +1879,16 @@ section .row.ending {
     margin-bottom: 35px; 
     flex-flow: row wrap;
 }
-.btn-program-step-4, .select-date {
+.btn-program-step-4,
+.select-date {
     display: none;
 }
 .select-date {
     margin-top: 25px;
+}
+
+.select-date.visible{
+    display: initial;
 }
 /*---------calendar---------*/
 ..ui-widget-content {
@@ -5350,7 +5355,7 @@ ul.post-pagination li:not(.last)::after{
     padding-left: 25px;
 }
 
-.dropdown .dropdown-menu .dropdown-item.sub-level::before{
+.action-button-target-page-choice .dropdown .dropdown-menu .dropdown-item::before{
     content: '>\00a0';
 }
 

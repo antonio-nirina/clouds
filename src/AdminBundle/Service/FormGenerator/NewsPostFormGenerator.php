@@ -91,4 +91,23 @@ class NewsPostFormGenerator
 
         return $news_post;
     }
+
+    /**
+     * Generate form for news post edit
+     *
+     * @param NewsPost $news_post
+     * @param string $form_name
+     *
+     * @return FormInterface
+     */
+    public function generateForEdit(NewsPost $news_post, $form_name = 'edit_news_post_form')
+    {
+        $form = $this->form_factory->createNamed(
+            $form_name,
+            NewsPostType::class,
+            $news_post
+        );
+
+        return $form;
+    }
 }

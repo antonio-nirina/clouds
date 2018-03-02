@@ -1782,6 +1782,53 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * @Route("/actualites/editer/{id}", requirements={"id": "\d+"}, name="admin_communication_news_edit")
+     */
+    public function editNewsAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
+        $news_post_form = $form_generator->generateForEdit($news_post, 'news_post_form');
+        $news_post_form->handleRequest($request);
+        if ($news_post_form->isSubmitted() && $news_post_form->isValid()) {
+            $submission_type = $request->get('submission_type');
+            $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+            if ($news_post_manager->edit($news_post_form->getData(), $submission_type)) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+        }
+
+        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', array(
+            'news_post_form' => $news_post_form->createView(),
+            'news_post_submission_type_class' => new NewsPostSubmissionType(),
+            'edit_mode' => true,
+        ));
+        $data = $json_response_data_provider->success();
+        if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
+
+    }
+
+    /**
      * @Route("/emailing/campagne/statistique", name="admin_communication_emailing_campaign_statistique")
      * @Method({"POST","GET"})
      */

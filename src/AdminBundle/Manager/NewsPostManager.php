@@ -25,7 +25,8 @@ class NewsPostManager
      * Save or Publish depending on submission type
      *
      * @param NewsPost $news_post
-     * @param $submission_type
+     * @param string $submission_type
+     * @param boolean $flush
      *
      * @return boolean
      */
@@ -34,8 +35,8 @@ class NewsPostManager
         if (!in_array($submission_type, NewsPostSubmissionType::VALID_SUBMISSION_TYPE)) {
             return false;
         }
-
-        $news_post->setProgrammedPublicationState('true' == $news_post->getProgrammedPublicationState());
+//        $news_post->setProgrammedPublicationState('true' == $news_post->getProgrammedPublicationState());
+        $news_post = $this->resetPropertiesIfNecessary($news_post);
         if (NewsPostSubmissionType::SAVE == $submission_type) {
             $news_post = $this->prepareForSave($news_post);
         } elseif (NewsPostSubmissionType::PUBLISH == $submission_type) {
@@ -53,7 +54,7 @@ class NewsPostManager
     }
 
     /**
-     * Prepare news post data for saving
+     * Prepare news post data for saving, in post creation
      *
      * @param NewsPost $news_post
      *
@@ -62,12 +63,12 @@ class NewsPostManager
     public function prepareForSave(NewsPost $news_post)
     {
         $news_post->setPublishedState(false)
-            ->setProgrammedPublicationState(false);
+            ->setProgrammedInProgressState(false);
         return $news_post;
     }
 
     /**
-     * Prepare news post data for publishing
+     * Prepare news post data for publishing, in post creation and edit
      *
      * @param NewsPost $news_post
      *
@@ -93,9 +94,72 @@ class NewsPostManager
         $this->em->flush();
     }
 
+    /**
+     * Return all news post related to a program, with specified archived state
+     *
+     * @param Program $program
+     * @param $archived_state
+     *
+     * @return array
+     */
     public function findAll(Program $program, $archived_state)
     {
         return $this->em->getRepository('AdminBundle\Entity\NewsPost')
             ->findAllByProgram($program, $archived_state);
+    }
+
+    /**
+     * Edit news post
+     *
+     * Edit news post
+     * Save or Publish depending on submission type
+     *
+     * @param NewsPost $news_post
+     * @param string $submission_type
+     * @param boolean $flush
+     *
+     * @return boolean
+     */
+    public function edit(NewsPost $news_post, $submission_type, $flush = true)
+    {
+        if (!in_array($submission_type, NewsPostSubmissionType::VALID_SUBMISSION_TYPE)) {
+            return false;
+        }
+//        $news_post->setProgrammedPublicationState('true' == $news_post->getProgrammedPublicationState());
+        $news_post = $this->resetPropertiesIfNecessary($news_post);
+        if (NewsPostSubmissionType::PUBLISH == $submission_type) {
+            $this->prepareForPublish($news_post);
+        }
+        if ($flush) {
+            $this->flush();
+        }
+
+        return true;
+    }
+
+    /**
+     * Reset some news post properties depending on other properties state
+     *
+     * @param $news_post
+     *
+     * @return NewsPost
+     */
+    public function resetPropertiesIfNecessary($news_post)
+    {
+        // if action button state is false, reset action button properties
+        if (false == $news_post->getActionButtonState()) {
+            $news_post->setActionButtonText('mon bouton d\'action')
+                ->setActionButtonTextColor('#ffffff')
+                ->setActionButtonBackgroundColor('#ff0000')
+                ->setActionButtonTargetPage(null)
+                ->setActionButtonTargetUrl(null);
+        }
+
+        // if programmed publication datetime state is false, reset programmed publication datetime
+        if (false == $news_post->getProgrammedPublicationState()) {
+            $news_post->setProgrammedPublicationDatetime(null);
+        }
+
+        return $news_post;
     }
 }

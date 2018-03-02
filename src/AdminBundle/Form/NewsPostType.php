@@ -65,8 +65,8 @@ class NewsPostType extends AbstractType
             ->add('custom_authorized_viewer_list', HiddenType::class)
             ->add('programmed_publication_state', ChoiceType::class, array(
                 'choices' => array(
-                    'false' => 'false',
-                    'true' => 'true',
+                    'false' => false,
+                    'true' => true,
                 ),
                 'expanded' => true,
                 'multiple' => false,

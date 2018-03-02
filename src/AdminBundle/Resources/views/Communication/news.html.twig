@@ -166,7 +166,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-action">
                                         <a class="dropdown-item" href="#">APERÇU</a>
-                                        <a class="dropdown-item" href="#">ÉDITER</a>
+                                        <a class="dropdown-item edit-news-post" href="#" data-target-url="{{ path('admin_communication_news_edit', {'id': news_post.getId}) }}">ÉDITER</a>
                                         <a class="dropdown-item" href="#">DUPLIQUER</a>
                                         {% if true == news_post.publishedState %}
                                         <a class="dropdown-item" href="#">DÉPUBLIER</a>
