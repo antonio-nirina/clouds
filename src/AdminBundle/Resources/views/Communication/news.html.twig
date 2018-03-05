@@ -169,9 +169,9 @@
                                         <a class="dropdown-item edit-news-post" href="#" data-target-url="{{ path('admin_communication_news_edit', {'id': news_post.getId}) }}">ÉDITER</a>
                                         <a class="dropdown-item duplicate-news-post" href="#" data-target-url="{{ path('admin_communication_news_duplicate', {'id': news_post.getId}) }}">DUPLIQUER</a>
                                         {% if true == news_post.publishedState %}
-                                        <a class="dropdown-item" href="#">DÉPUBLIER</a>
+                                        <a class="dropdown-item unpublish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_unpublish', {'id': news_post.getId}) }}">DÉPUBLIER</a>
                                         {% else %}
-                                        <a class="dropdown-item" href="#">PUBLIER</a>
+                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_publish', {'id': news_post.getId}) }}">PUBLIER</a>
                                         {% endif %}
                                         <a class="dropdown-item" href="#">ARCHIVER</a>
                                         <a class="dropdown-item" href="#">SUPPRIMER</a>

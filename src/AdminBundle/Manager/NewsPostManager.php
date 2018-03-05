@@ -263,4 +263,27 @@ class NewsPostManager
 
         return $home_page_post_copy;
     }
+
+    /**
+     * Publish OR Unpublish news post
+     *
+     * @param NewsPost $news_post
+     * @param $state
+     * @param $flush
+     *
+     * @param bool $flush
+     */
+    public function definePublishedState(NewsPost $news_post, $state, $flush = true)
+    {
+        $news_post->setPublishedState($state);
+        if (true == $state) {
+            $news_post->setProgrammedInProgressState(false);
+        }
+
+        if ($flush) {
+            $this->flush();
+        }
+
+        return;
+    }
 }

@@ -267,7 +267,7 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Actualités
-     * Duplidation de publication
+     * Duplication de publication
      * *********************************************************************************************
      */
     // duplication, appel de formulaire
@@ -352,7 +352,36 @@ $(document).ready(function(){
      * *********************************************************************************************
      * FIN
      * Paramétrages - Communication - Actualités
-     * Duplidation de publication
+     * Duplication de publication
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Publication / Dépublication
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.publish-unpublish-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(){
+                window.location.replace($('input[name=news_post_list_url]').val());
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Publication / Dépublication
      * *********************************************************************************************
      */
 });

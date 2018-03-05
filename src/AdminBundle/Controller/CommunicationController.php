@@ -1875,7 +1875,43 @@ class CommunicationController extends AdminController
         return new JsonResponse($data, 200);
     }
 
+    /**
+     * @Route("/actualites/publier/{id}/{state}",
+     * defaults={"state"=true},
+     * requirements={"id": "\d+"},
+     * name="admin_communication_news_publish")
+     */
+    public function publishNewsAction(Request $request, $id, $state)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
 
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_manager->definePublishedState($news_post, $state);
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/actualites/depublier/{id}", requirements={"id": "\d+"}, name="admin_communication_news_unpublish")
+     */
+    public function unpublishNewsAction(Request $request, $id)
+    {
+        return $this->forward('AdminBundle:Communication:publishNews', array(
+            'id' => $id,
+            'state' => false,
+        ));
+    }
 
     /**
      * @Route("/emailing/campagne/statistique", name="admin_communication_emailing_campaign_statistique")
