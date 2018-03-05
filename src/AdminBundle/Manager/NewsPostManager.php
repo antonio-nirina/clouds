@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use AdminBundle\Entity\Program;
 use Gedmo\Tree\Strategy\ORM\Nested;
 use AdminBundle\Entity\HomePagePost;
+use AdminBundle\Component\GroupAction\GroupActionType;
 
 /**
  * Handle news post data manipulation (CRUD)
@@ -323,6 +324,31 @@ class NewsPostManager
         if ($flush) {
             $this->flush();
         }
+
+        return;
+    }
+
+    /**
+     * Process action on news post group (Archive or Delete)
+     *
+     * @param array $news_post_id_list
+     * @param $group_action_type
+     * @param Program $program
+     */
+    public function processGroupAction(array $news_post_id_list, $group_action_type, Program $program)
+    {
+        foreach ($news_post_id_list as $news_post_id) {
+            $news_post = $this->em->getRepository('AdminBundle\Entity\NewsPost')
+                ->findOneByIdAndProgram($news_post_id, $program);
+            if (!is_null($news_post)) {
+                if (GroupActionType::DELETE == $group_action_type) {
+                    $this->delete($news_post, false);
+                } elseif (GroupActionType::ARCHIVE == $group_action_type) {
+                    $this->defineArchivedState($news_post, true, false);
+                }
+            }
+        }
+        $this->flush();
 
         return;
     }

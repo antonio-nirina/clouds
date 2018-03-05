@@ -41,6 +41,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\Statistique\Common;
 use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
 use AdminBundle\Component\Post\NewsPostAuthorizationType;
+use AdminBundle\Component\GroupAction\GroupActionType;
 
 /**
  * @Route("/admin/communication")
@@ -1957,6 +1958,37 @@ class CommunicationController extends AdminController
 
         $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
         $news_post_manager->delete($news_post);
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/actualites/action-de-groupe", name="admin_communication_news_group_action")
+     */
+    public function processGroupActionNewsAction(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $str_news_post_id_list = $request->get('news_post_id_list');
+        $grouped_action_type = $request->get('grouped_action_type');
+
+        if (is_null($str_news_post_id_list)
+            || is_null($grouped_action_type)
+            || !in_array($grouped_action_type, GroupActionType::NEWS_POST_VALID_GROUP_ACTION)
+        ) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_manager->processGroupAction(
+            explode(',', $str_news_post_id_list),
+            $grouped_action_type,
+            $program
+        );
 
         return new JsonResponse($json_response_data_provider->success(), 200);
     }

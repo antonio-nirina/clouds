@@ -89,16 +89,16 @@
                         </div>
                         <div class="selected-elements-button-container">
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-element-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-element-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
                                     ACTIONS
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-selected-element-action">
-                                    <a class="dropdown-item" href="#">ARCHIVER</a>
-                                    <a class="dropdown-item" href="#">SUPPRIMER</a>
+                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="archive">ARCHIVER</a>
+                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="delete">SUPPRIMER</a>
                                 </div>
                             </div>
                             <div class="button-container">
-                                <button class="btn-valider">
+                                <button class="btn-valider" data-target-url="{{ path('admin_communication_news_group_action') }}">
                                     valider
                                 </button>
                             </div>

@@ -468,6 +468,7 @@ $(document).ready(function(){
             $('.selected-elements .selected-count .delete-input').css('display','block');
         } else {
             $('.selected-elements').css('display',"none");
+            $('.selected-elements').trigger('hide-block');
         }
     });
 
@@ -476,8 +477,44 @@ $(document).ready(function(){
             $(this).prop('checked', false);
         });
         $('.selected-elements').css('display',"none");
+        $('.selected-elements').trigger('hide-block');
     });
 
+    // Selection de type d'action de groupe
+    $(document).on('click', '.grouped-action-choice', function(e){
+        e.preventDefault();
+        var selected_element_container = $(this).parents('.selected-elements-button-container');
+        selected_element_container.find('button.dropdown-toggle').text($(this).text());
+        selected_element_container.find('.button-container .btn-valider').attr('data-grouped-action', $(this).attr('data-grouped-action'));
+    });
+
+    $(document).on('hide-block', '.selected-elements', function(){
+        var dropdown_toggle_button = $(this).find('.selected-elements-button-container').find('.dropdown').find('button.dropdown-toggle');
+        dropdown_toggle_button.text(dropdown_toggle_button.attr('data-default-text'));
+        $(this).find('.selected-elements-button-container').find('.button-container .btn-valider').attr('data-grouped-action', '');
+    });
+
+    // soumission action de groupe
+    $(document).on('click', '.selected-elements .selected-elements-button-container .btn-valider', function(e){
+        e.preventDefault();
+        if ('undefined' !== typeof $(this).attr('data-grouped-action') && '' != $(this).attr('data-grouped-action')){
+            $('.chargementAjax').removeClass('hidden');
+            var arr_checked = getChecked();
+            var str_checked = arr_checked.join(',');
+            var data = {'news_post_id_list': str_checked, 'grouped_action_type': $(this).attr('data-grouped-action')};
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('data-target-url'),
+                data: data,
+                success: function(){
+                    window.location.replace($('input[name=news_post_list_url]').val());
+                },
+                complete: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            });
+        }
+    });
     /**
      * *********************************************************************************************
      * FIN
