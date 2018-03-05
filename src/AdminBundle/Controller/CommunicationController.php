@@ -830,7 +830,7 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
 
-    /**f
+    /**
      * @Route(
      *     "/emailling/modeles-emails/previsulisation-modele/{template_id}",
      *     name="admin_communication_emailing_templates_preview_template",
