@@ -174,7 +174,7 @@
                                         <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_publish', {'id': news_post.getId}) }}">PUBLIER</a>
                                         {% endif %}
                                         <a class="dropdown-item archive-news-post" href="#" data-target-url="{{ path('admin_communication_news_archive', {'id': news_post.getId}) }}">ARCHIVER</a>
-                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
+                                        <a class="dropdown-item delete-news-post" href="#" data-target-url="{{ path('admin_communication_news_delete', {'id': news_post.getId}) }}">SUPPRIMER</a>
                                     </div>
                                 </div>
                             </div>
@@ -372,6 +372,33 @@
                         </div>
                     </div>
                     <!-- modal - duplication actu -->
+
+                    <!-- modal - confirmation suppression actu -->
+                    <div id="confirm-delete-news-modal" class="modal confirm-delete-dialog" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="text-container">
+                                            <span class="confirm-dialog-title">Suppression</span>
+                                            <p class="message">Êtes-vous sûr de vouloir supprimer définitivement cette publication ?</p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider confirm-delete">
+                                                valider
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="template_id" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN - modal - confirmation suppression actu -->
+
                 </section>
             </div>
         </div>

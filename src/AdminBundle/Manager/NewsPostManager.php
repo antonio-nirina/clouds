@@ -302,4 +302,28 @@ class NewsPostManager
 
         return;
     }
+
+    /**
+     * Delete news post
+     *
+     * @param NewsPost $news_post
+     * @param boolean $flush
+     */
+    public function delete(NewsPost $news_post, $flush = true)
+    {
+        $home_page_post = $news_post->getHomePagePost();
+        $program = $home_page_post->getProgram();
+        $news_post->setHomePagePost(null);
+        $home_page_post->setNewsPost(null);
+        $program->removeHomePagePost($home_page_post);
+
+        $this->em->remove($home_page_post);
+        $this->em->remove($news_post);
+
+        if ($flush) {
+            $this->flush();
+        }
+
+        return;
+    }
 }

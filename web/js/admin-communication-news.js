@@ -384,7 +384,53 @@ $(document).ready(function(){
      * Publication / Dépublication
      * *********************************************************************************************
      */
+
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Archivage, dans Actions
+     * *********************************************************************************************
+     */
     $(document).on('click', '.archive-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(){
+                window.location.replace($('input[name=news_post_list_url]').val());
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Archivage, dans Actions
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Suppression, avec confirmation
+     * *********************************************************************************************
+     */
+    // appel de popup de confirmation
+    $(document).on('click', '.delete-news-post', function(e){
+        e.preventDefault();
+        var target_url = $(this).attr('data-target-url');
+        $('#confirm-delete-news-modal').find('.confirm-delete').attr('data-target-url', target_url);
+        $('#confirm-delete-news-modal').modal('show');
+    });
+
+    // suppression
+    $(document).on('click', '#confirm-delete-news-modal .confirm-delete', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
@@ -403,15 +449,7 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Actualités
-     * Archivage, dans Actions
-     * *********************************************************************************************
-     */
-
-    /**
-     * *********************************************************************************************
-     * FIN
-     * Paramétrages - Communication - Actualités
-     * Archivage, dans Actions
+     * Suppression, avec confirmation
      * *********************************************************************************************
      */
 });
