@@ -452,6 +452,39 @@ $(document).ready(function(){
      * Suppression, avec confirmation
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Actions de groupe
+     * *********************************************************************************************
+     */
+    $(document).on('change', '.post-data-container .styled-checkbox', function(){
+        var checked = getChecked();
+        var text = (checked.length == 1)?checked.length+" publication sélectionnée":((checked.length > 1)?checked.length+" publications sélectionnées":"");
+        $(".selected-elements .selected-count input").val(text);
+        if (checked.length > 0) {
+            $('.selected-elements').css('display',"flex");
+            $('.selected-elements .selected-count .delete-input').css('display','block');
+        } else {
+            $('.selected-elements').css('display',"none");
+        }
+    });
+
+    $(document).on('click', '.selected-elements .selected-count .delete-input', function(){
+        $('.post-data-container .styled-checkbox').each(function(){
+            $(this).prop('checked', false);
+        });
+        $('.selected-elements').css('display',"none");
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Actions de groupe
+     * *********************************************************************************************
+     */
 });
 
 function installWysiwyg()
@@ -519,4 +552,14 @@ function setPagination(){
         lastText: 'dernier',
         navigationWrapper: $('.pagination-container')
     });
+}
+
+function getChecked() {
+    var checked = [];
+    $(".post-data-container .styled-checkbox").each(function() {
+        if ($(this).is(':checked')) {
+            checked.push($(this).attr('id'));
+        }
+    });
+    return checked;
 }
