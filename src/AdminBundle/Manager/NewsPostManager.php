@@ -270,8 +270,6 @@ class NewsPostManager
      * @param NewsPost $news_post
      * @param $state
      * @param $flush
-     *
-     * @param bool $flush
      */
     public function definePublishedState(NewsPost $news_post, $state, $flush = true)
     {
@@ -279,6 +277,24 @@ class NewsPostManager
         if (true == $state) {
             $news_post->setProgrammedInProgressState(false);
         }
+
+        if ($flush) {
+            $this->flush();
+        }
+
+        return;
+    }
+
+    /**
+     * Archive OR Restore news post
+     *
+     * @param NewsPost $news_post
+     * @param boolean $state
+     * @param $flush
+     */
+    public function defineArchivedState(NewsPost $news_post, $state, $flush = true)
+    {
+        $news_post->setArchivedState(true);
 
         if ($flush) {
             $this->flush();

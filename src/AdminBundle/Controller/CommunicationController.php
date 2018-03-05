@@ -830,7 +830,7 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
 
-    /**
+    /**f
      * @Route(
      *     "/emailling/modeles-emails/previsulisation-modele/{template_id}",
      *     name="admin_communication_emailing_templates_preview_template",
@@ -1911,6 +1911,30 @@ class CommunicationController extends AdminController
             'id' => $id,
             'state' => false,
         ));
+    }
+
+    /**
+     * @Route("/actualites/archiver/{id}", name="admin_communication_news_archive")
+     */
+    public function archiveNewsAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_manager->defineArchivedState($news_post, true);
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
     /**

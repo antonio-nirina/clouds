@@ -384,6 +384,36 @@ $(document).ready(function(){
      * Publication / Dépublication
      * *********************************************************************************************
      */
+    $(document).on('click', '.archive-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(){
+                window.location.replace($('input[name=news_post_list_url]').val());
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Archivage, dans Actions
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Archivage, dans Actions
+     * *********************************************************************************************
+     */
 });
 
 function installWysiwyg()

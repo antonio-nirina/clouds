@@ -173,7 +173,7 @@
                                         {% else %}
                                         <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_publish', {'id': news_post.getId}) }}">PUBLIER</a>
                                         {% endif %}
-                                        <a class="dropdown-item" href="#">ARCHIVER</a>
+                                        <a class="dropdown-item archive-news-post" href="#" data-target-url="{{ path('admin_communication_news_archive', {'id': news_post.getId}) }}">ARCHIVER</a>
                                         <a class="dropdown-item" href="#">SUPPRIMER</a>
                                     </div>
                                 </div>
