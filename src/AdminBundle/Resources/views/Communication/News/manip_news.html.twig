@@ -26,6 +26,9 @@
         {% endif %}
         <span class="delete-input" {{ delete_input_visibility }}></span>
     </div>
+    <div class="form-row error-message-container">
+        {{ form_errors(news_post_form.home_page_post.title) }}
+    </div>
     <div class="form-row vertical">
         {#<label>texte</label>#}
         {{ form_label(news_post_form.home_page_post.content, 'texte') }}

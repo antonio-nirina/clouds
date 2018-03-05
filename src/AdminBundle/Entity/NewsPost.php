@@ -51,6 +51,7 @@ class NewsPost
 
     /**
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\HomePagePost", mappedBy="news_post")
+     * @Assert\Valid()
      */
     private $home_page_post;
 
@@ -112,7 +113,7 @@ class NewsPost
     private $programmed_in_progress_state;
 
     /**
-     * @var datetime    hole publicatio datetime
+     * @var datetime    hold publication datetime
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -534,5 +535,17 @@ class NewsPost
     public function getPublicationDatetime()
     {
         return $this->publication_datetime;
+    }
+
+    /**
+     * Set id to null. Used in duplication process
+     *
+     * @return NewsPost
+     */
+    public function setIdToNull()
+    {
+        $this->id = null;
+
+        return $this;
     }
 }

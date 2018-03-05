@@ -1829,6 +1829,55 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * @Route("/actualites/dupliquer/{id}", requirements={"id": "\d+"}, name="admin_communication_news_duplicate")
+     */
+    public function duplicateNewsAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
+        $news_post_duplication_form = $form_generator->generateForDuplication($news_post, 'duplicate_news_post_form');
+        $news_post_duplication_form->handleRequest($request);
+        if ($news_post_duplication_form->isSubmitted() && $news_post_duplication_form->isValid()) {
+            if ($news_post->getId() == $news_post_duplication_form->getData()->getDuplicationSourceId()) {
+                $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+                if ($news_post_manager->duplicate($news_post, $news_post_duplication_form->getData()->getName())) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+                }
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+        }
+
+        $content = $this->renderView('AdminBundle:Communication/News:duplicate_news.html.twig', array(
+            'duplicate_news_post_form' => $news_post_duplication_form->createView()
+        ));
+        $data = $json_response_data_provider->success();
+        if ($news_post_duplication_form->isSubmitted() && !$news_post_duplication_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
+    }
+
+
+
+    /**
      * @Route("/emailing/campagne/statistique", name="admin_communication_emailing_campaign_statistique")
      * @Method({"POST","GET"})
      */

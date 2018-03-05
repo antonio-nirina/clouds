@@ -167,7 +167,7 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdown-action">
                                         <a class="dropdown-item" href="#">APERÇU</a>
                                         <a class="dropdown-item edit-news-post" href="#" data-target-url="{{ path('admin_communication_news_edit', {'id': news_post.getId}) }}">ÉDITER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
+                                        <a class="dropdown-item duplicate-news-post" href="#" data-target-url="{{ path('admin_communication_news_duplicate', {'id': news_post.getId}) }}">DUPLIQUER</a>
                                         {% if true == news_post.publishedState %}
                                         <a class="dropdown-item" href="#">DÉPUBLIER</a>
                                         {% else %}
@@ -355,6 +355,23 @@
                         </div>
                     </div>
                     <!-- FIN - Modal créer / éditer actu-->
+
+                    <!-- modal - duplication actu -->
+                    <div id="duplicate-news-modal" class="modal app-dialog duplication-dialog" tabindex="-1" role="dialog" data-backdrop="static">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close" style="display: none"></a>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="modal-body-container"></div>
+                                </div>
+                                <input type="hidden" name="template_id" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal - duplication actu -->
                 </section>
             </div>
         </div>

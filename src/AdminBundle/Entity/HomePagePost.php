@@ -21,6 +21,7 @@ class HomePagePost
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank(groups={"news_post"})
      */
     private $title;
 
@@ -281,5 +282,17 @@ class HomePagePost
     public function getNewsPost()
     {
         return $this->news_post;
+    }
+
+    /**
+     * Set id to null. Used in duplication process
+     *
+     * @return NewsPost
+     */
+    public function setIdToNull()
+    {
+        $this->id = null;
+
+        return $this;
     }
 }

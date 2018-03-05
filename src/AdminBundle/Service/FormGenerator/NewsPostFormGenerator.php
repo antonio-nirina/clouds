@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormInterface;
 use AdminBundle\Form\NewsPostType;
 use AdminBundle\Component\Post\PostType;
 use AdminBundle\Entity\Program;
+use AdminBundle\Form\DuplicationForm;
+use AdminBundle\DTO\DuplicationData;
 
 /**
  * Generate form when manipulating news post (create/edit) with initial underlying objects (for creation)
@@ -36,7 +38,8 @@ class NewsPostFormGenerator
         $form = $this->form_factory->createNamed(
             $form_name,
             NewsPostType::class,
-            $news_post
+            $news_post,
+            array('validation_groups' => 'news_post')
         );
 
         return $form;
@@ -105,9 +108,34 @@ class NewsPostFormGenerator
         $form = $this->form_factory->createNamed(
             $form_name,
             NewsPostType::class,
-            $news_post
+            $news_post,
+            array('validation_groups' => 'news_post')
         );
 
         return $form;
     }
+
+    /**
+     * Generate form for news post duplication
+     *
+     * @param NewsPost $news_post
+     * @param string $form_name
+     *
+     * @return FormInterface
+     */
+    public function generateForDuplication(NewsPost $news_post, $form_name = 'duplicate_news_post_form')
+    {
+        $duplication_data = new DuplicationData();
+        $duplication_data->setName($news_post->getHomePagePost()->getTitle())
+            ->setDuplicationSourceId($news_post->getId());
+        $form = $this->form_factory->createNamed(
+            $form_name,
+            DuplicationForm::class,
+            $duplication_data
+        );
+
+        return $form;
+    }
+
+
 }

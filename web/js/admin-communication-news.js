@@ -263,6 +263,98 @@ $(document).ready(function(){
      * Activation de pagination au chargement de la page de liste de post
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Duplidation de publication
+     * *********************************************************************************************
+     */
+    // duplication, appel de formulaire
+    $(document).on('click', '.duplicate-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(data){
+                $('#duplicate-news-modal').find('.modal-body-container').html(data.content);
+                $('#duplicate-news-modal').find('.general-message').html('');
+            },
+            statusCode: {
+                404: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#duplicate-news-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+
+        });
+    });
+
+    // duplication, annulation
+    $(document).on('click', '#duplicate-news-modal .cancel', function(e){
+        e.preventDefault();
+        $('#duplicate-news-modal').find('.modal-body-container').html('');
+        $('#duplicate-news-modal').find('.error-message-container.general-message').text('');
+        $('#duplicate-news-modal').modal('hide');
+    });
+
+    // duplication, soumission
+    $(document).on('click', '#duplicate-news-modal .save.save-duplication', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var duplicate_template_url = $(this).attr('data-target-url');
+        $('#duplicate-news-modal form').ajaxSubmit({
+            type: 'POST',
+            url: duplicate_template_url,
+            success: function(data){
+                if(data['error']){
+                    $('#duplicate-news-modal').find('.modal-body-container').html(data.content);
+                    $('#duplicate-news-modal').find('.general-message').html('');
+                } else {
+                    window.location.replace($('input[name=news_post_list_url]').val());
+                }
+            },
+            error: function(){
+                $('#duplicate-template-dialog').find('.close-modal').show();
+            },
+            statusCode: {
+                404: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+
+                },
+                500: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Duplidation de publication
+     * *********************************************************************************************
+     */
 });
 
 function installWysiwyg()
