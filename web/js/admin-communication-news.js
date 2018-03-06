@@ -516,6 +516,48 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Actualités
+     * Prévisualisation
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.preview-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'GET',
+            url: target_url,
+            success: function(data){
+                $('#preview-news-modal').find('.modal-body-container').html(data.content);
+            },
+            statusCode: {
+                404: function(data){
+                    $('#preview-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#preview-news-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#preview-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#preview-news-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#preview-news-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Prévisualisation
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
      * Actions de groupe
      * *********************************************************************************************
      */

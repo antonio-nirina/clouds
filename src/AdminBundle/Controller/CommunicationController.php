@@ -2018,6 +2018,32 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * @Route("/actualites/previsualisation/{id}", requirements={"id": "\d+"}, name="admin_communication_news_preview")
+     */
+    public function previewNewsAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $data = $json_response_data_provider->success();
+        $data['content'] = $this->renderView('AdminBundle:Communication/News:preview_news.html.twig', array(
+            'news_post' => $news_post
+        ));
+
+        return new JsonResponse($data, 200);
+    }
+
+    /**
      * @Route("/emailing/campagne/statistique", name="admin_communication_emailing_campaign_statistique")
      * @Method({"POST","GET"})
      */

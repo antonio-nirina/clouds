@@ -1,0 +1,38 @@
+<div class = "content-edito">
+    <p class = "block-active-hover"></p>
+    <p class = "titre-block-centre">
+        <span class = "lib-titre-block-centre light">{{ news_post.homePagePost.title }}</span>
+        {% set date = null %}
+        {% if true == news_post.publishedState %}
+            {% set date = news_post.publicationDatetime %}
+        {% endif %}
+        {% if true == news_post.programmedInProgressState %}
+            {% set date = news_post.programmedPublicationDatetime %}
+        {% endif %}
+        {% if false == news_post.programmedInProgressState and false == news_post.publishedState %}
+            {% set date = news_post.homePagePost.lastEdit %}
+        {% endif %}
+        <span class = "lib-date-block-centre regular">{{ date | localizeddate('none', 'none', locale, null, "d MMMM - H'h'mm") }}</span>
+        <span class = "lib-date-block-centre-large bold">{#Loren ipsum dolor sit amet, consectetur adipiscing elit#}</span>
+    </p>
+    <p class = "img-titre-block-centre hidden-xs-down">
+        <img src = "{{ asset('bundles/beneficiary/images/cloudsRewards/edito.png') }}" width = "107" height = "107" class = "img-fluid">
+    </p>
+    <div class = "descr-block-centre">
+        {{ news_post.homePagePost.content | raw }}
+    </div>
+    {% if true == news_post.actionButtonState %}
+        {% if news_post.actionButtonTargetPage is not empty %}
+            {% set target = news_post.actionButtonTargetPage  %}
+        {% elseif news_post.actionButtonTargetUrl is not empty %}
+            {% set target = news_post.actionButtonTargetUrl  %}
+        {% else %}
+            {% set target = '#' %}
+        {% endif %}
+    <div class="button-container">
+        <a class="action-button-preview" href="{{ target }}" {{ target == '#' ? '' : 'target=_blank' }} style="background-color: {{ news_post.actionButtonBackgroundColor }}; color: {{ news_post.actionButtonTextColor }}">
+            {{ news_post.actionButtonText }}
+        </a>
+    </div>
+    {% endif %}
+</div>
