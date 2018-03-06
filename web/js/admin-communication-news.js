@@ -547,11 +547,49 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#preview-news-modal').on('hidden.bs.modal', function(){
+        $(this).find('.error-message-container.general-message').text('');
+    });
     /**
      * *********************************************************************************************
      * FIN
      * Paramétrages - Communication - Actualités
      * Prévisualisation
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Prévisualisation, dans création/édition
+     * *********************************************************************************************
+     */
+    $(document).on('input', '#create-edit-news-modal .news-post-title-input', function(){
+        if ('' != $(this).val()) {
+            $('#create-edit-news-modal').find('.preview-news-button').addClass('active');
+        } else {
+            $('#create-edit-news-modal').find('.preview-news-button').removeClass('active');
+        }
+    });
+
+    $(document).on('click', '#create-edit-news-modal .delete-news-post-title-input', function(){
+        $('#create-edit-news-modal').find('.preview-news-button').removeClass('active');
+    });
+
+    $(document).on('click', '#create-edit-news-modal .preview-news-button.active', function(e){
+        e.preventDefault();
+        updateTitle();
+        updateContent();
+        updateActionButton();
+        updateDate();$('#instantaneous-preview-news-modal').modal('show');
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Prévisualisation, dans création/édition
      * *********************************************************************************************
      */
 
@@ -706,4 +744,59 @@ function getChecked() {
         }
     });
     return checked;
+}
+
+// instantaneous preview functions
+function updateTitle()
+{
+    var title = $('#create-edit-news-modal').find('form .news-post-title-input').val();
+    $('#instantaneous-preview-news-modal').find('.lib-titre-block-centre').text(title);
+}
+
+function updateDate()
+{
+    var date = $('#create-edit-news-modal').find('input[name=instantaneous_preview_date]').val();
+    $('#instantaneous-preview-news-modal').find('.lib-date-block-centre').text(date);
+}
+
+function updateContent()
+{
+    var content_textarea = $('#create-edit-news-modal').find('.news-post-content-textarea');
+    var content_textarea_id = content_textarea.attr('id');
+    var content = CKEDITOR.instances[content_textarea_id].getData();
+    $('#instantaneous-preview-news-modal').find('.descr-block-centre').html(content);
+}
+
+function updateActionButton()
+{
+    var action_button_block_container = $('#create-edit-news-modal').find('.action-button-block-container');
+    var button_container = $('#instantaneous-preview-news-modal').find('.button-container');
+    if (action_button_block_container.is(':visible')) {
+        var action_button_text = action_button_block_container.find('.action-button-text-input').val();
+        var action_button_bg_color = action_button_block_container.find('.color-value.action-button-background-color').val();
+        var action_button_text_color = action_button_block_container.find('.color-value.action-button-text-color').val();
+        var action_button_target_url = action_button_block_container.find('.action-button-target-url-input').val();
+        var action_button_target_page = action_button_block_container.find('.action-button-target-page-select')
+            .find('option:selected').val();
+
+        var button = button_container.find('.action-button-preview');
+        button.text(action_button_text);
+        button.css({
+            'background-color': action_button_bg_color,
+            'color': action_button_text_color
+        });
+        if('' != action_button_target_page.trim()){
+            button.attr('href', action_button_target_page);
+            button.attr('target', '_blank');
+        } else if ('' != action_button_target_url){
+            button.attr('href', action_button_target_url);
+            button.attr('target', '_blank');
+        } else{
+            button.attr('href', '#');
+            button.attr('target', '');
+        }
+        button_container.show();
+    } else {
+        button_container.hide();
+    }
 }

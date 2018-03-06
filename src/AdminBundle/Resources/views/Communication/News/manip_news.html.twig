@@ -1,6 +1,21 @@
+{% set preview_news_button_class = '' %}
+{% set instantaneous_preview_date_value = "now" | localizeddate('none', 'none', locale, null, "d MMMM - HH'h'mm") %}
 {% if edit_mode is defined and true == edit_mode %}
     {% set manipulation_title = 'Édition de publication' %}
     {% set data_manip_type = 'edit' %}
+    {% set preview_news_button_class = 'active' %}
+
+    {% if news_post_form is defined %}
+        {% if true == news_post_form.vars.value.publishedState %}
+            {% set instantaneous_preview_date_value = news_post_form.vars.value.publicationDatetime | localizeddate('none', 'none', locale, null, "d MMMM - HH'h'mm") %}
+        {% endif %}
+        {% if true == news_post_form.vars.value.programmedInProgressState %}
+            {% set instantaneous_preview_date_value = news_post_form.vars.value.programmedPublicationDatetime | localizeddate('none', 'none', locale, null, "d MMMM - HH'h'mm")%}
+        {% endif %}
+        {% if false == news_post_form.vars.value.programmedInProgressState and false == news_post_form.vars.value.publishedState %}
+            {% set instantaneous_preview_date_value = news_post_form.home_page_post.vars.value.lastEdit | localizeddate('none', 'none', locale, null, "d MMMM - HH'h'mm") %}
+        {% endif %}
+    {% endif %}
 {% else %}
     {% set manipulation_title = 'Édition d\'une nouvelle publication' %}
     {% set data_manip_type = 'create' %}
@@ -10,7 +25,8 @@
 {% if news_post_form is defined %}
     {{ form_start(news_post_form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="preview-news-button-container">
-        <span class="preview-news-button">voir le post</span>
+
+        <span class="preview-news-button {{ preview_news_button_class }}">voir le post</span>
     </div>
     {#<div class="preview-news-button-container">
         <span class="preview-news-button active">voir le post</span>
@@ -19,12 +35,12 @@
         {#<label>titre</label>#}
         {{ form_label(news_post_form.home_page_post.title, 'titre') }}
         {#<input type="text" class="large-input-text removable-content-input">#}
-        {{ form_widget(news_post_form.home_page_post.title, {'attr': {'class': 'large-input-text removable-content-input'}}) }}
+        {{ form_widget(news_post_form.home_page_post.title, {'attr': {'class': 'large-input-text removable-content-input news-post-title-input'}}) }}
         {% set delete_input_visibility = 'style=display:none' %}
         {% if news_post_form.home_page_post.vars.value.title | trim is not empty %}
             {% set delete_input_visibility = '' %}
         {% endif %}
-        <span class="delete-input" {{ delete_input_visibility }}></span>
+        <span class="delete-input delete-news-post-title-input" {{ delete_input_visibility }}></span>
     </div>
     <div class="form-row error-message-container">
         {{ form_errors(news_post_form.home_page_post.title) }}
@@ -33,16 +49,19 @@
         {#<label>texte</label>#}
         {{ form_label(news_post_form.home_page_post.content, 'texte') }}
         {#<textarea class="large-textarea" id="news-text"></textarea>#}
-        {{ form_widget(news_post_form.home_page_post.content, {'attr': {'class': 'large-textarea'}}) }}
+        {{ form_widget(news_post_form.home_page_post.content, {'attr': {'class': 'large-textarea news-post-content-textarea'}}) }}
     </div>
 
     {{ form_widget(news_post_form.action_button_state, {'attr': {'class': 'action-button-state-input hidden-form-element'}}) }}
 
-    {% if false == news_post_form.vars.value.actionButtonState %}
-    <div class="action-button-container">
+    {% set block_visibility = '' %}
+    {% if true == news_post_form.vars.value.actionButtonState %}
+        {% set block_visibility = 'style=display:none;' %}
+    {% endif %}
+    <div class="action-button-container" {{ block_visibility }}>
         <a class="add">ajouter un bouton d'action</a>
     </div>
-    {% endif %}
+
 
     {% set action_button_block_container_visibility = 'style=display:none' %}
     {% if true == news_post_form.vars.value.actionButtonState %}
@@ -87,7 +106,7 @@
             {#<label class="fixed-width">renseigner une url</label>#}
             {{ form_label(news_post_form.action_button_target_url, 'renseigner une url', {'label_attr': {'class': 'fixed-width'}}) }}
             {#<input type="text" value="https://monliennderedirection.com/challenge" class="removable-content-input action-button-input large">#}
-            {{ form_widget(news_post_form.action_button_target_url, {'attr': {'class': 'removable-content-input action-button-input large'}}) }}
+            {{ form_widget(news_post_form.action_button_target_url, {'attr': {'class': 'removable-content-input action-button-input large action-button-target-url-input'}}) }}
             {% set delete_input_visibility = 'style=display:none' %}
             {% if news_post_form.vars.value.actionButtonTargetUrl | trim is not empty %}
                 {% set delete_input_visibility = '' %}
@@ -296,6 +315,7 @@
         <button class="btn-valider second-button publish" data-manip-type="{{ data_manip_type }}" data-submission-type="{{ constant('PUBLISH', news_post_submission_type_class) }}" data-target-url="{{ news_post_form.vars.value.id is not null ? path('admin_communication_news_edit', {'id': news_post_form.vars.value.id}) : '' }}">publier</button>
         {% endif %}
     </div>
+    <input type="hidden" name="instantaneous_preview_date" value="{{ instantaneous_preview_date_value }}">
     <div class="form-visibility-end"></div>
     {{ form_end(news_post_form) }}
 {% endif %}
