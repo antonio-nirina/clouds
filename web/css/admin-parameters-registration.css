@@ -4742,7 +4742,8 @@ section.with-bottom-space{
 }
 
 
-.btn-valider.create-news-button{
+.btn-valider.create-news-button,
+.btn-valider.restore-news-button{
     margin-top: 30px !important;
 }
 

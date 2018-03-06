@@ -434,11 +434,16 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
+        if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        } else {
+            var redirection_url = $('input[name=news_post_list_url]').val();
+        }
         $.ajax({
             type: 'POST',
             url: target_url,
             success: function(){
-                window.location.replace($('input[name=news_post_list_url]').val());
+                window.location.replace(redirection_url);
             },
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
@@ -450,6 +455,61 @@ $(document).ready(function(){
      * *********************************************************************************************
      * Paramétrages - Communication - Actualités
      * Suppression, avec confirmation
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
+     * Restauration
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.restore-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(){
+                window.location.replace(redirection_url);
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    // restauration par groupe par bouton
+    // soumission action de groupe
+    $(document).on('click', '.restore-news-button', function(e){
+        e.preventDefault();
+        var arr_checked = getChecked();
+        if (arr_checked.length > 0) {
+            $('.chargementAjax').removeClass('hidden');
+            var str_checked = arr_checked.join(',');
+            var data = {'news_post_id_list': str_checked, 'grouped_action_type': 'restore'};
+            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('data-target-url'),
+                data: data,
+                success: function(){
+                    window.location.replace(redirection_url);
+                },
+                complete: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            });
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Restauration
      * *********************************************************************************************
      */
 
@@ -502,12 +562,17 @@ $(document).ready(function(){
             var arr_checked = getChecked();
             var str_checked = arr_checked.join(',');
             var data = {'news_post_id_list': str_checked, 'grouped_action_type': $(this).attr('data-grouped-action')};
+            if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            } else {
+                var redirection_url = $('input[name=news_post_list_url]').val();
+            }
             $.ajax({
                 type: 'POST',
                 url: $(this).attr('data-target-url'),
                 data: data,
                 success: function(){
-                    window.location.replace($('input[name=news_post_list_url]').val());
+                    window.location.replace(redirection_url);
                 },
                 complete: function(){
                     $('.chargementAjax').addClass('hidden');

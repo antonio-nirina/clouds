@@ -295,7 +295,7 @@ class NewsPostManager
      */
     public function defineArchivedState(NewsPost $news_post, $state, $flush = true)
     {
-        $news_post->setArchivedState(true);
+        $news_post->setArchivedState($state);
 
         if ($flush) {
             $this->flush();
@@ -329,7 +329,7 @@ class NewsPostManager
     }
 
     /**
-     * Process action on news post group (Archive or Delete)
+     * Process action on news post group (Archive or Delete or Restore)
      *
      * @param array $news_post_id_list
      * @param $group_action_type
@@ -345,6 +345,8 @@ class NewsPostManager
                     $this->delete($news_post, false);
                 } elseif (GroupActionType::ARCHIVE == $group_action_type) {
                     $this->defineArchivedState($news_post, true, false);
+                } elseif (GroupActionType::RESTORE == $group_action_type) {
+                    $this->defineArchivedState($news_post, false, false);
                 }
             }
         }

@@ -51,7 +51,11 @@
                             <h3 class="hidden-sm-down block-title">Création et édition de publications</h3>
                             <h5 class="hidden-md-up block-title">Création et édition de publications</h5>
                             <p>Les publications s'afficheront dans le fil d'actualité du participant de manière instantanée ou programmée.</p>
+                            {% if archived_state is defined and true == archived_state %}
+                            <button class="btn-valider restore-news-button" data-target-url="{{ path('admin_communication_news_group_action') }}">réstaurer publication</button>
+                            {% else %}
                             <button class="btn-valider create-news-button">créer une nouvelle publication</button>
+                            {% endif %}
                         </div>
                         <div class="col-lg-2 col-md-3 col-sm-12">
                             <div class="hidden-sm-down corner-circle-img img-post rounded-circle"></div>
@@ -75,7 +79,7 @@
                             </div>
                         </div>
                         <div class="archived-element-container filter-block-element-container">
-                            <a href="#" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
+                            <a href="{{ path('admin_communication_news_archived') }}" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
                                 archivées
                             </a>
                         </div>
@@ -93,7 +97,11 @@
                                     ACTIONS
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-selected-element-action">
+                                    {% if archived_state is defined and true == archived_state %}
+                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="restore">RESTAURER</a>
+                                    {% else %}
                                     <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="archive">ARCHIVER</a>
+                                    {% endif %}
                                     <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="delete">SUPPRIMER</a>
                                 </div>
                             </div>
@@ -165,15 +173,32 @@
                                         ACTIONS
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        {% if archived_state is not defined %}
                                         <a class="dropdown-item" href="#">APERÇU</a>
-                                        <a class="dropdown-item edit-news-post" href="#" data-target-url="{{ path('admin_communication_news_edit', {'id': news_post.getId}) }}">ÉDITER</a>
-                                        <a class="dropdown-item duplicate-news-post" href="#" data-target-url="{{ path('admin_communication_news_duplicate', {'id': news_post.getId}) }}">DUPLIQUER</a>
-                                        {% if true == news_post.publishedState %}
-                                        <a class="dropdown-item unpublish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_unpublish', {'id': news_post.getId}) }}">DÉPUBLIER</a>
-                                        {% else %}
-                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_publish', {'id': news_post.getId}) }}">PUBLIER</a>
                                         {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                        <a class="dropdown-item edit-news-post" href="#" data-target-url="{{ path('admin_communication_news_edit', {'id': news_post.getId}) }}">ÉDITER</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                        <a class="dropdown-item duplicate-news-post" href="#" data-target-url="{{ path('admin_communication_news_duplicate', {'id': news_post.getId}) }}">DUPLIQUER</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                            {% if true == news_post.publishedState %}
+                                        <a class="dropdown-item unpublish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_unpublish', {'id': news_post.getId}) }}">DÉPUBLIER</a>
+                                            {% else %}
+                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_publish', {'id': news_post.getId}) }}">PUBLIER</a>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if archived_state is defined and true == archived_state %}
+                                        <a class="dropdown-item restore-news-post" href="#" data-target-url="{{ path('admin_communication_news_restore', {'id': news_post.getId}) }}">RESTAURER</a>
+                                        {% else %}
                                         <a class="dropdown-item archive-news-post" href="#" data-target-url="{{ path('admin_communication_news_archive', {'id': news_post.getId}) }}">ARCHIVER</a>
+                                        {% endif %}
+
                                         <a class="dropdown-item delete-news-post" href="#" data-target-url="{{ path('admin_communication_news_delete', {'id': news_post.getId}) }}">SUPPRIMER</a>
                                     </div>
                                 </div>
@@ -413,6 +438,11 @@
     <input type="hidden" name="submission_type_publish" value="{{ constant('PUBLISH', news_post_submission_type_class) }}">
     <input type="hidden" name="create_news_post_url" value="{{ path('admin_communication_news_create') }}">
     <input type="hidden" name="news_post_list_url" value="{{ path('admin_communication_news') }}">
+    <input type="hidden" name="archived_news_post_list_url" value="{{ path('admin_communication_news_archived') }}">
+
+    {% if archived_state is defined and true == archived_state %}
+    <input type="hidden" name="archived_state" value="true">
+    {% endif %}
 
 {% endblock %}
 {% block footer %}

@@ -1725,9 +1725,9 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/actualites", name="admin_communication_news")
+     * @Route("/actualites/liste/{archived_state}", defaults={"archived_state"=false}, name="admin_communication_news")
      */
-    public function newsAction()
+    public function newsAction(Request $request, $archived_state)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
@@ -1735,13 +1735,26 @@ class CommunicationController extends AdminController
         }
 
         $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
-        $news_post_list = $news_post_manager->findAll($program, $archived_state = false);
+        $news_post_list = $news_post_manager->findAll($program, $archived_state);
 
-        return $this->render('AdminBundle:Communication:news.html.twig', array(
+        $view_options = array(
             'news_post_submission_type_class' => new NewsPostSubmissionType(),
             'news_post_authorization_type_class' => new NewsPostAuthorizationType(),
             'news_post_list' => $news_post_list,
-        ));
+        );
+        if (true == $archived_state) {
+            $view_options['archived_state'] = true;
+        }
+
+        return $this->render('AdminBundle:Communication:news.html.twig', $view_options);
+    }
+
+    /**
+     * @Route("/actualites-archivees/liste", name="admin_communication_news_archived")
+     */
+    public function archivedNewsAction()
+    {
+        return $this->forward('AdminBundle:Communication:news', array('archived_state' => true));
     }
 
     /**
@@ -1915,9 +1928,9 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/actualites/archiver/{id}", name="admin_communication_news_archive")
+     * @Route("/actualites/archiver/{id}/{archived_state}", defaults={"archived_state"=true}, name="admin_communication_news_archive")
      */
-    public function archiveNewsAction(Request $request, $id)
+    public function archiveNewsAction(Request $request, $id, $archived_state)
     {
         $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
@@ -1933,9 +1946,20 @@ class CommunicationController extends AdminController
         }
 
         $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
-        $news_post_manager->defineArchivedState($news_post, true);
+        $news_post_manager->defineArchivedState($news_post, $archived_state);
 
         return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/actualites-archivees/restaurer/{id}", name="admin_communication_news_restore")
+     */
+    public function restoreNewsAction(Request $request, $id)
+    {
+        return $this->forward('AdminBundle:Communication:archiveNews', array(
+            'id' => $id,
+            'archived_state' => false,
+        ));
     }
 
     /**
