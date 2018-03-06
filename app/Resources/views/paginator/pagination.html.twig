@@ -63,8 +63,8 @@
                     <a class="page-link last" rel="next" href="{{ path(route, query|merge({(pageParameterName): next,(paramId):id,(paramTitle):title})) }}">dernier</a>
                 </li>
             {% else %}
-                <li  class="page-item disabled last">
-                    <span class="page-link">dernier</span>
+                <li  class="page-item disabled ">
+                    <span class="page-link last">dernier</span>
                 </li>
             {% endif %}
         </ul>

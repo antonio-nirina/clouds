@@ -1,0 +1,309 @@
+
+<style type="text/css">
+    table{
+        width: 100%;
+    }
+    
+    td{
+        width: 100%;
+    }
+
+  
+table,.table1{
+    line-height: 6mm;
+}
+
+#titre{
+    color: #7682DA;
+   font-weight: bold;
+}
+.titreT{
+    color: #7682DA;
+}
+
+.total{
+    width: 20%;
+    height: 140px;
+    text-align: left;
+    background-color: #F9F9F9;
+    text-align: center;
+    padding-top: -10px;
+}
+.delivrer{
+     width: 19%;
+     background-color: #F9F9F9;
+     text-align: center;
+     height: 140px;
+      padding-top: -10px;
+}
+.ouvert{
+   width: 19%; 
+   background-color: #F9F9F9;
+   text-align: center;
+   height: 140px;
+    padding-top: -10px;
+}
+.clique{
+    width: 19%; 
+    background-color: #F9F9F9;
+    text-align: center;
+    height: 100px;
+     padding-top: -10px;
+}
+.bloque{
+   width: 20%; 
+   background-color: #F9F9F9; 
+   text-align: left;
+   line-height: 100mm;
+   height: 140px;
+
+}
+
+.header{
+   margin-left: -10px; 
+   height: 100px;
+   width: 100%;
+   padding-left: 20px;
+   line-height: 8mm;
+   padding-top: 0px;
+}
+
+#titreEtat{
+    padding-top: -10px;
+    padding-bottom:4px;
+}
+
+.blErr{
+     padding-bottom:4px;
+}
+
+.blDesa{
+    padding-bottom:4px;
+}
+.blSpam{
+   /*text-align: left; */
+}
+
+#valBlock{
+    margin-left: 20px;
+}
+
+#erreur{
+    margin-left: 20px; 
+}
+#desabo{
+    margin-left: 20px; 
+}
+#spam{
+     margin-left: 43px; 
+}
+#camp{
+     padding-left: 20px; 
+     color: #505050;
+     font-size: 22px;
+     font-weight: bold;
+}
+
+.titreDel{
+    color: #838383;
+}
+
+.valOuv{
+    color:#93D706;
+}
+
+.valClik{
+    color:#14A400;
+}
+
+.titreEtat{
+     color:#000000;
+} 
+.blErr{
+    color:orange;
+} 
+.blDesa{
+     color:#1CC8FA;
+} 
+.blSpam{
+    color:#FC0007;
+}
+
+.mailTot{
+     padding-top: -28px;
+     font-weight: bold;
+     color: #505050;
+}
+
+    
+</style>
+
+<page>
+    <table>
+        <tr>
+            <td id="camp"><h4>Campagne <span id="titre">{{title}}</span></h4></td>
+        </tr>
+    </table>
+    <table>
+         <tr>
+             <td>&nbsp;</td>
+        </tr>
+    </table>
+    <table class="table1">
+        <tr>
+            <td class="header">
+                <span id="date">Date: {{date|date("d/m/Y")}}</span><br>
+                <span id="exp2">Expediteur: {{fromName}}  {{email}}</span><br>
+                <span  class="liste-contact"> Liste-contact: {{listContact}}</span><br>
+                <span class="email">Modèle d'e-mail: {{name}}</span> <br>
+                <span class="objet">Objet: {{sujet}}</span><br>
+            </td>
+        </tr>
+    </table>
+    <table>
+         <tr>
+             <td>&nbsp;</td>
+        </tr>
+         <tr>
+             <td>&nbsp;</td>
+        </tr>
+         <tr>
+             <td>&nbsp;</td>
+        </tr>
+        <tr>
+             <td>&nbsp;</td>
+        </tr>
+        <tr>
+             <td>&nbsp;</td>
+        </tr>
+        <tr>
+             <td>&nbsp;</td>
+        </tr>
+        <tr>
+             <td>&nbsp;</td>
+        </tr>
+        <tr>
+             <td>&nbsp;</td>
+        </tr>
+         <tr>
+             <td>&nbsp;</td>
+        </tr>
+         <tr>
+             <td>&nbsp;</td>
+        </tr>
+         <tr>
+             <td>&nbsp;</td>
+        </tr>
+    </table>
+        <table>
+            <tr>
+                <td class="total">
+                    <table >
+                        <tr>
+                             <td class="titreT">{{"total"|upper}}</td>
+                        </tr>
+                            {% if status["ProcessedCount"] > 0 %}
+                                {% set val = status["ProcessedCount"]%} 
+                       
+                            {% set val = status["ProcessedCount"]%} 
+                            {% else %}
+                                {% set val = 0 %}  
+                            {% endif %}
+                        <tr>
+                            <td class="titreT"><h4>{{val}}</h4></td>
+                        </tr>
+                        <tr>
+                             <td class="mailTot"><p>e-mails</p></td>  
+                        </tr> 
+                     </table> 
+                </td>
+                <td class="delivrer">
+                    <table >
+                        <tr>
+                            <td class="titreDel">{{"délivrés"|upper}}</td>
+                        </tr>
+                            {% set delivre = 0 %}
+                            {% if status['ProcessedCount'] > 0 %}
+                                {% set delivre = status['DeliveredCount'] / status['ProcessedCount']*100 %}
+                            {% endif %}
+                         <tr>
+                            <td class="titreDel"><h4>{{delivre~' %'}}</h4></td>
+                        </tr>
+                        <tr>
+                             <td class="mailTot"><p>{{status['DeliveredCount']}}</p></td>  
+                        </tr> 
+                    </table>                   
+                </td>
+                <td class="ouvert">
+                    <table >
+                        <tr>
+                            <td class="valOuv">{{"ouverts"|upper}}</td>
+                        </tr>
+                            {% set ouvrer = 0 %}
+                            {% if status['ProcessedCount'] > 0 %}
+                                {% set ouvrer = status['OpenedCount'] /status['ProcessedCount']*100 %} 
+                            {%  endif %}
+                         <tr>
+                             <td class="valOuv"><h4>{{ouvrer~' %'}}</h4></td>
+                        </tr>
+                        <tr>
+                             <td class="mailTot"><p>{{status["OpenedCount"]}}</p></td>  
+                        </tr>  
+
+                    </table>
+                    
+                </td>
+                <td class="clique">
+                    <table >
+                        <tr>
+                            <td class="valClik">{{"cliqués"|upper}}</td>
+                        </tr>
+                        {% set clique = 0 %}
+                            {% if status['ProcessedCount'] > 0 %}
+                                {% set clique = status['ClickedCount'] / status['ProcessedCount']*100 %}
+                        {% endif %}
+                         <tr>
+                            <td class="valClik"><h4>{{clique~' %'}}</h4></td>
+                        </tr>
+                         <tr>
+                            <td class="mailTot"><p>{{status['ClickedCount']}}</p></td>  
+                        </tr>  
+                    </table>                      
+                </td>
+                <td class="bloque"> 
+                    <table>
+                        <tr>
+                            {% set bloque = 0 %}
+                            {% if status['ProcessedCount'] > 0 %}
+                                {% set bloque = status['BlockedCount'] / status['ProcessedCount']*100 %}
+                            {% endif %}
+                         <td id="titreEtat">{{"bloqués"|upper}} <span id="valBlock">{{bloque~' %'}}</span></td>                           
+                        </tr>
+                        <tr>
+                            {% set erreur = 0 %}
+                            {% if status['ProcessedCount'] > 0 %}
+                                {% set erreur = status['BouncedCount'] / status['ProcessedCount']*100 %}
+                            {% endif %}
+                            <td class="blErr">{{"erreurs"|upper}} <span id="erreur">{{erreur~' %'}}</span></td>
+                        </tr>
+                        <tr>
+                            {% set desabo = 0 %}
+                            {% if status['ProcessedCount'] > 0 %}
+                                {% set desabo = status['UnsubscribedCount'] / status['ProcessedCount']*100 %}
+                            {% endif %}
+                            <td class="blDesa">{{"désabo."|upper}} <span id="desabo">{{desabo~' %'}}</span></td>
+                        </tr>
+                        <tr>
+                            {% set spam = 0 %}
+                        {% if status['ProcessedCount'] > 0 %}
+                            {% set spam = status['SpamComplaintCount'] / status['ProcessedCount']*100%}
+                        {% endif %}
+                        <td class="blSpam">{{"spam"|upper}} <span id="spam">{{spam~' %' }}</span></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>             
+        </table>   
+</page>
+
+

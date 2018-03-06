@@ -40,6 +40,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\Statistique\Common;
 use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
 
+
 /**
  * @Route("/admin/communication")
  */
@@ -1778,43 +1779,7 @@ class CommunicationController extends AdminController
         return new JsonResponse($data, 200);
     }
 
-    /**
-     * @Route("/emailing/campagne/statistique/export", name="admin_communication_emailing_campaign_exports")
-     * @Method({"POST","GET"})
-     */
-    public function emailingCampaignExportAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-        $id = $request->query->get("id");
-        $model = $this->get('AdminBundle\Service\ImportExport\RegistrationStat');
-        $model->setSiteFormSetting($id);
-        $response = $model->createResponse();
-        return $response;
-    }
-
-    /**
-     * @Route("/emailing/campagne/statistique/download", name="admin_communication_emailing_campaign_download")
-     * @Method({"POST","GET"})
-     */
-    public function emailingCampaignDownloadAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        $id = $request->query->get("id");
-        $model = $this->get('AdminBundle\Service\ImportExport\RegistrationListe');
-        $model->setSiteFormSetting($id);
-        $response = $model->createResponse();
-        return $response;
-    }
-
-
-    /**
+     /**
      * @Route("/emailing/campagne/statistique/filter", name="admin_communication_emailing_campaign_filter")
      * @Method("POST")
      */
@@ -1827,4 +1792,78 @@ class CommunicationController extends AdminController
         return $response;       
 
     }
+
+    /**
+     * @Route(
+     * "/emailing/campagne/statistique/download",
+     *  name="admin_communication_emailing_campaign_download",
+     *  options = { "expose" = true }  
+     * )
+     *  
+     * @Method({"POST","GET"})
+     */
+    public function emailingCampaignDownloadAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $id = $request->query->get("id");
+        $status = $request->query->get("status");
+        $objPHPExcel = $this->get("adminBundle.excel")->generateExcel($id,$status);       
+        $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $dispositionHeader = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'CloudRewards.xls'
+        );
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+        $response->headers->set('Content-Disposition', $dispositionHeader);
+
+        return $response; 
+        
+    }
+
+    /**
+     * @Route("/emailing/campagne/statistique/export", name="admin_communication_emailing_campaign_exports",
+     * options = { "expose" = true })  
+     * @Method({"POST","GET"})
+     */
+    public function emailingCampaignExportAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $mailjet = $this->get('mailjet.client');
+        $id = $request->query->get("id");
+
+        $filter = ["campaignid" => $id];
+        $title = $request->query->get("title");
+        $campaigns = $mailjet->get(Resources::$Campaign,['filters' => $filter])->getData()[0];
+        $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
+        $html = $this->renderView('pdf/template.html.twig',[
+            "date" => $campaigns["CreatedAt"],
+            "email" => $campaigns["FromEmail"],
+            "fromName" => $campaigns["FromName"],
+            "sujet" => $campaigns["Subject"],
+            "listContact" => $results["listContact"],
+            "status"=> $results["status"],
+            "emails" =>$results["email"],
+            "name" => $results["template"],
+            "data" =>$results["data"],
+            "title" =>$title
+        ]);
+        $a_date = new \DateTime();
+        $filename ='export_statistique'.$a_date->format('dmY');
+        $html2pdf = $this->get('html2pdf_factory')->create();
+        $html2pdf->pdf->SetDisplayMode('fullpage');
+        $html2pdf->writeHTML($html);
+        $html2pdf->pdf->Output($filename.'.pdf');
+    }
+
 }

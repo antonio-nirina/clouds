@@ -76,3 +76,9 @@ services:
         class: AdminBundle\Form\CampaignDraftType
         autowire: true
         autoconfigure: true
+
+    adminBundle.excel:
+        class: AdminBundle\Service\Statistique\ExcelManager
+        #arguments: ["@mailjet.client"]
+        autowire: true
+     

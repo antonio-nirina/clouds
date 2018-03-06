@@ -28,6 +28,8 @@ class AppKernel extends Kernel
             new Mailjet\MailjetBundle\MailjetBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -9,19 +9,21 @@
                 <div class="objet"><span id="obj2">Objet:</span><span id="objet"> {{sujet}}</span></div>
             </div>
                 <div class="button-container">
-                    {% set exp = id %}
-                <a href="{{ path("admin_communication_emailing_campaign_exports",{'id':exp }) }}">
                     <button class ="btn-valider export-statistique" data-target-url="#">
                             export statistiques
                     </button>
-                </a>
                 </div>
         </div>
     <div class="row result">
         <div class=" total">
             <div class="totalTitreVal">
                 <p id="titreT">{{"total"|upper}}</p>
-                    <h4 class="valTot">{{status["DeliveredCount"]}}</h4>
+                {% if status["ProcessedCount"] > 0 %}
+                {% set val = status["ProcessedCount"] %} 
+                {% else %}
+                {% set val = 0 %}  
+                {% endif %}    
+                    <h4 class="valTot">{{val}}</h4>
                 <p class="mailTot">e-mails</p>
             </div>
         </div>
@@ -29,8 +31,8 @@
                 <div class="delTitreVal">
                     <p id="titreDel">{{"délivrés"|upper}}</p>
                     {% set delivre = 0 %}
-                    {% if status['DeliveredCount'] > 0 %}
-                         {% set delivre = status['DeliveredCount']/status['DeliveredCount']*100 %}
+                    {% if status['ProcessedCount'] > 0 %}
+                         {% set delivre = status['DeliveredCount'] / status['ProcessedCount']*100 %}
                     {% endif %}
                         <h4 class="valDel">{{delivre~' %'}}</h4>       
                         <p class="mailDel">{{status['DeliveredCount']}}</p>
@@ -41,8 +43,8 @@
                 <div class="ouvTitreVal">
                     <p id="titreOuv">{{"ouverts"|upper}}</p> 
                     {% set ouvrer = 0 %}
-                    {% if status['DeliveredCount'] > 0 %}
-                        {% set ouvrer = status['OpenedCount']/status['DeliveredCount']*100 %} 
+                    {% if status['ProcessedCount'] > 0 %}
+                        {% set ouvrer = status['OpenedCount'] / status['ProcessedCount']*100 %} 
                     {% endif %}          
                         <h4 class="valOuv">{{ouvrer~' %'}}</h4>
                     <p class="mailOuv">{{status["OpenedCount"]}}</p> 
@@ -52,8 +54,8 @@
                 <div class="cliTitreVal">
                     <p id="titreClik">{{"cliqués"|upper}}</p>
                 {% set clique = 0 %}
-                    {% if status['DeliveredCount'] > 0 %}
-                {% set clique = status['ClickedCount']/status['DeliveredCount']*100 %}
+                    {% if status['ProcessedCount'] > 0 %}
+                {% set clique = status['ClickedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
                         <h4 class="valClik">{{clique~' %'}}</h4>
                     <p class="mailClic">{{status['ClickedCount']}}</p>
@@ -68,23 +70,23 @@
                 </div>
                  <div class="valEtat">
                 {% set bloque = 0 %}
-                {% if status['DeliveredCount'] > 0 %}
-                    {% set bloque = status['BlockedCount']/status['DeliveredCount']*100 %}
+                {% if status['ProcessedCount'] > 0 %}
+                    {% set bloque = status['BlockedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
                     <p class="blbl">{{bloque~' %'}}</p>
                 {% set erreur = 0 %}
-                {% if status['DeliveredCount'] > 0 %}
-                    {% set erreur = status['BouncedCount']/status['DeliveredCount']*100 %}
+                {% if status['ProcessedCount'] > 0 %}
+                    {% set erreur = status['BouncedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
                     <p class="blErr">{{erreur~' %'}}</p>
                 {% set desabo = 0 %}
-                {% if status['DeliveredCount'] > 0 %}
-                    {% set desabo = status['UnsubscribedCount']/status['DeliveredCount']*100 %}
+                {% if status['ProcessedCount'] > 0 %}
+                    {% set desabo = status['UnsubscribedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
                     <p class="blDesa">{{desabo~' %'}}</p>
                 {% set spam = 0 %}
-                {% if status['DeliveredCount'] > 0 %}
-                    {% set spam = status['SpamComplaintCount']/status['DeliveredCount']*100 %}
+                {% if status['ProcessedCount'] > 0 %}
+                    {% set spam = status['SpamComplaintCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
                     <p class="blSp">{{spam~' %' }}</p>
                 </div>                   
@@ -226,17 +228,23 @@
     <div class="navigation">
         {{ knp_pagination_render(emails) }}         
     </div>
-    <div class="button-csv">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            {% set val = id %}
-        <a href="{{ path("admin_communication_emailing_campaign_download",{'id':val }) }}">
-                <button class ="btn-valider btn-download">
+        <div class="button-csv">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <button class ="btn-valider liste btn-download_csv">
                     <span class="download"></span>
                         télécharger la liste
-        </button>
-       </a>
-    </div>
-    </div>
+                </button>
+            </div>
+        </div>
+        <div class="button-excel">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
+                <button class ="btn-valider liste btn-download1">
+                    <span class="download"></span>
+                        télécharger la liste
+                </button>
+            </div>
+        </div>
+    <input type = "hidden" name ="titre" value ="{{title}}">
     <input type = "hidden" name ="data" value ="{{data}}"> 
     <input type = "hidden" name ="id" value ="{{id}}"> 
     <input type = "hidden" name ="url" value ="{{path('admin_communication_emailing_campaign_filter')}}">

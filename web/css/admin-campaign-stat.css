@@ -1,8 +1,8 @@
 
 .modal-dialog{
-    max-width: 945px !important;
-    margin-left: 210px;
-    margin-top: 21px;
+    max-width: 927px !important;
+    margin-left: 222px;
+    margin-top: 142px;
 }
 
 td.emails-table{
@@ -33,7 +33,7 @@ th{
     /*display: inline-table;*/
     border: 2px !important;
     /*border-color: #CBCBCB;*/
-    font-size: 11px !important;
+    font-size: 12px !important;
     position: relative;
     top: 28px;
     margin-top: 60px;
@@ -89,10 +89,14 @@ th, td {
     color: #505050;
     font-size: 22px!important;
     font-family: var(--police)!important;
+    position: relative;
+    left: 27px;
 }
 #sujet{
     color: #7682DA;
     font-family: var(--police_bold);
+    position: relative;
+    left: 30px;
 }
 
 .form-element-container .button-container{
@@ -293,7 +297,7 @@ top:2px;
 
 .valDel{
 position: relative;
-left: 21px;
+left: 19px;
 color: #838383 !important;
 font-size: 25px !important;
 font-weight: bold !important;
@@ -603,7 +607,19 @@ top: -46px;
 margin-top: 74px;
 }
 
-button.btn-valider{
+.button-excel{
+    display: none;
+    position: relative;
+    left: -7px;
+    top: -46px;
+    margin-top: 74px;
+}
+
+/*button.btn-valider{
+min-width: 181px !important;
+}*/
+
+button.liste{
 min-width: 181px !important;
 }
 
@@ -698,10 +714,10 @@ min-width: 181px !important;
 /******************************Responsive********************************************************/
 
 @media (min-width: 1200px) {
-      .modal-dialog{
-    max-width: 945px !important;
-    margin-left: 210px;
-    margin-top: 21px;
+  .modal-dialog{
+    max-width: 927px !important;
+    margin-left: 222px;
+    margin-top: 142px;
 }
 
 td.emails-table{
@@ -732,7 +748,7 @@ th{
     /*display: inline-table;*/
     border: 2px !important;
     /*border-color: #CBCBCB;*/
-    font-size: 11px !important;
+    font-size: 12px !important;
     position: relative;
     top: 28px;
     margin-top: 60px;
@@ -788,10 +804,14 @@ th, td {
     color: #505050;
     font-size: 22px!important;
     font-family: var(--police)!important;
+    position: relative;
+    left: 27px;
 }
 #sujet{
     color: #7682DA;
     font-family: var(--police_bold);
+    position: relative;
+    left: 30px;
 }
 
 .form-element-container .button-container{
@@ -992,7 +1012,7 @@ top:2px;
 
 .valDel{
 position: relative;
-left: 21px;
+left: 19px;
 color: #838383 !important;
 font-size: 25px !important;
 font-weight: bold !important;
@@ -1062,7 +1082,7 @@ top: 12px;
 position: relative;
 left: 81px;
 color: #505050;
-top: 11px;
+top: 12px;
 font-size: 18px !important;
 font-family: "Lato-Regular";
 
@@ -1302,7 +1322,15 @@ top: -46px;
 margin-top: 74px;
 }
 
-button.btn-valider{
+.button-excel{
+    display: none;
+    position: relative;
+    left: -7px;
+    top: -46px;
+    margin-top: 74px;
+}
+
+button.liste{
 min-width: 181px !important;
 }
 
@@ -1350,8 +1378,17 @@ min-width: 181px !important;
     left: 307px;
 }
 
- li > a,.pagination > li > span{
-    /*border-color: white !important;*/
+.pagination > li > span{
+    border-color: white !important;
+    /*background-color: #FFFFFF !important;*/
+    left: 43px;
+    padding: 6px 1px !important;
+    color: #FCFCFC;
+
+}
+
+.pagination > li > a{
+    border-color: white !important;
     /*background-color: #FFFFFF !important;*/
     left: 43px;
     padding: 6px 1px !important;
@@ -1384,7 +1421,6 @@ min-width: 181px !important;
 .pagination > li > .page-link{
    font-weight: 100;
 }
-
 
 }
 /*************************************Max1200********************************************/
@@ -1998,16 +2034,24 @@ min-width: 181px !important;
         margin-left: 4px;
     }
 
-    .button-csv{
+.button-csv{
      position: relative;
     left: -12px;
     top: -18px;
     margin-top: 74px;
-    }
+}
 
-    button.btn-valider{
+.button-excel{
+    display: none;
+    position: relative;
+    left: -7px;
+    top: -46px;
+    margin-top: 74px;
+}
+
+    button.liste{
     min-width: 181px !important;
-    }
+}
 
     .icon-background1{
         color: #838383;
@@ -2269,7 +2313,7 @@ min-width: 181px !important;
 
    .total{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 51%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -2694,11 +2738,17 @@ min-width: 181px !important;
     top: -18px;
     margin-top: 74px;
     }
+.button-excel{
+    display: none;
+    position: relative;
+    left: -7px;
+    top: -46px;
+    margin-top: 74px;
+}
 
-    button.btn-valider{
+    button.liste{
     min-width: 181px !important;
     }
-
     .icon-background1{
         color: #838383;
        
@@ -2921,7 +2971,7 @@ min-width: 181px !important;
 
        .total{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 27%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -2929,25 +2979,25 @@ min-width: 181px !important;
     }
     .delivrer{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 27%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: 48px;
+        top: -38px;
         margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 27%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: 78px;
+        top: -39px;
         margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 27%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -2956,16 +3006,16 @@ min-width: 181px !important;
     }
    .bloque{
     background-color:#F9F9F9;
-    width: 31%;
+    width: 27%;
     height: 166px;
     position: relative;
-    left: 28px;
+    left: 111px;
     top: -18px
     }
 
         .titreEtat{
             position: relative;
-            left: -35px;
+            left: 15px;
             font-size: 16px;
         }
 
@@ -3072,6 +3122,8 @@ min-width: 181px !important;
         #titreClik{
             font-weight: bold;
         font-size: 16px !important;
+        position: relative;
+        left: 37px;
         }
 
         .valOuv{
@@ -3101,13 +3153,11 @@ min-width: 181px !important;
         .cliTitreVal,.valClik {
          color:#14A400 !important;
         font-weight: bold !important;
-        padding-left: 16px !important;
         font-size: 20px !important;
         }
         .mailClic{
-        padding-left: 33px;
         position: relative;
-        left: -10px;
+        left: 69px;
         font-size: 16px !important;
         color: #505050;
         top: 7px;
@@ -3122,8 +3172,8 @@ min-width: 181px !important;
 
         .valEtat{
         position: relative;
-        left: 60px;
-        top: -128px;
+        left: 110px;
+        top: -116px;
         font-size: 16px !important;
         }
 
@@ -3339,46 +3389,52 @@ min-width: 181px !important;
             margin-left: 4px;
         }
 
-        .button-csv{
-         position: relative;
-        left: -12px;
-        top: -38px;
-        margin-top: 74px;
-        }
+.button-csv{
+     position: relative;
+    left: -12px;
+    top: -38px;
+    margin-top: 74px;
+}
+.button-excel{
+    display: none;
+    position: relative;
+    left: -12px;
+    top: -38px;
+    margin-top: 74px;
+}
+button.liste{
+min-width: 181px !important;
+}
 
-        button.btn-valider{
-        min-width: 181px !important;
-        }
+    .icon-background1{
+        color: #838383;
+       
+    }
 
-        .icon-background1{
-            color: #838383;
-           
-        }
-
-        .icon-background2{
-           color: #97D600;
-           
-        }
-        .icon-background3{
-            color: #14A400;
-             
-        }
-        .icon-background4{
-            color: #39CBFF;
-            
-        }
-        .icon-background5{
-            color: #000000;
-            
-        }
-        .icon-background6{
-            color: #FF0000;
-            
-        }
-        .icon-background7{
-            color: #FF9600;
-            
-        }
+    .icon-background2{
+       color: #97D600;
+       
+    }
+    .icon-background3{
+        color: #14A400;
+         
+    }
+    .icon-background4{
+        color: #39CBFF;
+        
+    }
+    .icon-background5{
+        color: #000000;
+        
+    }
+    .icon-background6{
+        color: #FF0000;
+        
+    }
+    .icon-background7{
+        color: #FF9600;
+        
+    }
 }
 /****************************************************************************************/
 
@@ -3567,7 +3623,7 @@ min-width: 181px !important;
 
 .total{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 26%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -3575,25 +3631,25 @@ min-width: 181px !important;
     }
     .delivrer{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 26%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: 56px;
+        top: -40px;
         margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 26%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: 68px;
+        top: -39px;
         margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        width: 31%;
+        width: 26%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -3602,15 +3658,15 @@ min-width: 181px !important;
     }
    .bloque{
     background-color:#F9F9F9;
-    width: 31%;
+    width: 26%;
     height: 166px;
     position: relative;
-    left: 28px;
+    left: 67px;
     top: -18px
     }
     .titreEtat{
         position: relative;
-        left: -35px;
+        left: 15px;
         font-size: 16px;
     }
 
@@ -3694,25 +3750,21 @@ min-width: 181px !important;
 
     .mailOuv{
     font-weight: bold;
-    padding-left: 35px !important;
     font-size: 16px !important;
     color: #505050;
     position: relative;
-    left: 7px;
+    left: 18px;
     top: 7px;
     }
 
     #titreOuv{
     color:#93D706;
-    padding-left: 27px;
     border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
     font-weight: bold;
     font-size: 18px !important;
     position: relative;
-    left: -13px;
-    top: 2px;
+    left: 25px;
+    top: 14px;
     }
     #titreClik{
         font-weight: bold;
@@ -3722,9 +3774,8 @@ min-width: 181px !important;
     .valOuv{
         color:#93D706 !important;
         font-weight: bold !important;
-        padding-left: 54px;
         position: relative;
-        left: -20px;
+        left: 41px;
         font-size: 20px !important;
         top: 4px;
         /*font-family: var(--police_bold);*/
@@ -3750,9 +3801,8 @@ min-width: 181px !important;
     font-size: 20px !important;
     }
     .mailClic{
-    padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 66px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -3767,8 +3817,8 @@ min-width: 181px !important;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 112px;
+    top: -116px;
     font-size: 16px !important;
     }
 
@@ -3984,16 +4034,23 @@ min-width: 181px !important;
         margin-left: 4px;
     }
 
-    .button-csv{
+.button-csv{
      position: relative;
     left: -12px;
     top: -18px;
     margin-top: 74px;
-    }
+}
+.button-excel{
+     position: relative;
+    left: -12px;
+    top: -18px;
+    margin-top: 74px;
+    display: none;
+}
 
-    button.btn-valider{
-    min-width: 181px !important;
-    }
+button.liste{
+min-width: 181px !important;
+}
 
     .icon-background1{
         color: #838383;
@@ -4210,33 +4267,33 @@ min-width: 181px !important;
     }
 .total{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -39px;
+        left: -13px;
+        top: -14px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: -2px;
+        top: -14px;
         margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
-        left: 28px;
+        left: 2px;
         top: -18px;
         margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -4245,17 +4302,17 @@ min-width: 181px !important;
     }
    .bloque{
     background-color:#F9F9F9;
-    width: 21%;
+    width: 25%;
     height: 166px;
     position: relative;
-    left: 28px;
-    top: -18px
+    left: -7px;
+    top: 0px
     }
 
 
 .titreEtat{
     position: relative;
-    left: -35px;
+    left: 14px;
     font-size: 16px;
 }
 
@@ -4344,34 +4401,33 @@ font-size: 14px;
     color: #505050;
     position: relative;
     left: 7px;
-    top: 7px;
+    top: 18px;
     }
 
     #titreOuv{
     color:#93D706;
-    padding-left: 27px;
     border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
     font-weight: bold;
     font-size: 18px !important;
     position: relative;
-    left: -13px;
-    top: 2px;
+    left: 24px;
+    top: 13px;
     }
     #titreClik{
-        font-weight: bold;
+    font-weight: bold;
     font-size: 16px !important;
+    position: relative;
+    left: 33px;
+    top: 14px;
     }
 
     .valOuv{
         color:#93D706 !important;
         font-weight: bold !important;
-        padding-left: 54px;
         position: relative;
-        left: -20px;
+        left: 33px;
         font-size: 20px !important;
-        top: 4px;
+        top: 15px;
         /*font-family: var(--police_bold);*/
     }
 
@@ -4388,16 +4444,18 @@ font-size: 14px;
 
 
 
-    .cliTitreVal,.valClik {
+   .valClik {
      color:#14A400 !important;
     font-weight: bold !important;
-    padding-left: 16px !important;
     font-size: 20px !important;
+    position: relative;
+    left: 55px;
+    top: 14px;
     }
     .mailClic{
     padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 25px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -4412,8 +4470,8 @@ font-size: 14px;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 99px;
+    top: -117px;
     font-size: 16px !important;
     }
 
@@ -4636,9 +4694,17 @@ font-size: 14px;
     margin-top: 74px;
     }
 
-    button.btn-valider{
-    min-width: 181px !important;
-    }
+.button-excel{
+     position: relative;
+    left: -12px;
+    top: -18px;
+    margin-top: 74px;
+    display: none;
+}
+
+   button.liste{
+min-width: 181px !important;
+}
 
     .icon-background1{
         color: #838383;
@@ -4855,33 +4921,33 @@ font-size: 14px;
 
   .total{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -39px;
+        left: -13px;
+        top: -14px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: -2px;
+        top: -14px;
         margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
-        left: 28px;
+        left: 6px;
         top: -18px;
         margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        width: 21%;
+        width: 25%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -4890,26 +4956,27 @@ font-size: 14px;
     }
    .bloque{
     background-color:#F9F9F9;
-    width: 21%;
+    width: 25%;
     height: 166px;
     position: relative;
-    left: 28px;
-    top: -18px
+    left: -7px;
+    top: 0px
     }
 
-    .titreEtat{
-        position: relative;
-        left: -35px;
-        font-size: 16px;
-    }
+
+.titreEtat{
+    position: relative;
+    left: 14px;
+    font-size: 16px;
+}
 
     #titreT{
     color: #6F85DA;
     font-weight: bold;
     position: relative;
-    left: 10px;
+    left: 35px;
     font-size: 16px;
-    top: 0px;
+    top: 15px;
     }
 
 
@@ -4929,16 +4996,16 @@ font-size: 14px;
     .totalTitreVal,.valTot {
     color:#6F85DA !important;
     font-weight: bold !important;
-    padding-left: 26px !important;
     font-size: 22px !important;
     position: relative;
-    top: 0px;
+    top: 10px;
+    left: 22px
     }
     .totalTitreVal,.mailTot{
     padding-left: 33px;
     color: #505050;
     position: relative;
-    left: -21px;
+    left: 31px;
     font-size: 16px !important;
     top: 7px;
 
@@ -4993,15 +5060,12 @@ font-size: 14px;
 
     #titreOuv{
     color:#93D706;
-    padding-left: 27px;
     border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
     font-weight: bold;
     font-size: 18px !important;
     position: relative;
-    left: -13px;
-    top: 2px;
+    left: 35px;
+    top: 17px;
     }
     #titreClik{
         font-weight: bold;
@@ -5011,11 +5075,10 @@ font-size: 14px;
     .valOuv{
         color:#93D706 !important;
         font-weight: bold !important;
-        padding-left: 54px;
         position: relative;
-        left: -20px;
+        left: 48px;
         font-size: 20px !important;
-        top: 4px;
+        top: 13px;
         /*font-family: var(--police_bold);*/
     }
 
@@ -5056,8 +5119,8 @@ font-size: 14px;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 119px;
+    top: -116px;
     font-size: 16px !important;
     }
 
@@ -5273,16 +5336,23 @@ font-size: 14px;
         margin-left: 4px;
     }
 
-    .button-csv{
+.button-csv{
      position: relative;
     left: -12px;
     top: -18px;
     margin-top: 74px;
-    }
+ }
 
-    button.btn-valider{
-    min-width: 181px !important;
-    }
+ .button-excel{
+     position: relative;
+    left: -12px;
+    top: -18px;
+    margin-top: 74px;
+    display: none;
+ }
+button.liste{
+min-width: 181px !important;
+}
 
     .icon-background1{
         color: #838383;
@@ -5642,6 +5712,9 @@ left: 59px;
     #titreClik{
         font-weight: bold;
     font-size: 16px !important;
+    position: relative;
+    left: 54px;
+    top: 9px;
     }
 
     .valOuv{
@@ -5671,13 +5744,11 @@ left: 59px;
     .cliTitreVal,.valClik {
      color:#14A400 !important;
     font-weight: bold !important;
-    padding-left: 16px !important;
     font-size: 20px !important;
     }
     .mailClic{
-    padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 64px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -5692,8 +5763,8 @@ left: 59px;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 122px;
+    top: -116px;
     font-size: 16px !important;
     }
 
@@ -5912,13 +5983,20 @@ left: 59px;
     .button-csv{
      position: relative;
     left: -12px;
-    top: -140px;
+    top: -63px;
     margin-top: 74px;
     }
 
-    button.btn-valider{
-    min-width: 181px !important;
-    }
+.button-excel{
+     position: relative;
+    left: -12px;
+    top: -63px;
+    margin-top: 74px;
+    display: none;
+}
+button.liste{
+min-width: 181px !important;
+}
 
     .icon-background1{
         color: #838383;
@@ -5960,7 +6038,7 @@ left: 59px;
     .modal-dialog{
         max-width: 911px !important;
         margin-left: 103px;
-        margin-top: 26px;
+        margin-top: 133px;
     }
 
     td.emails-table{
@@ -6003,7 +6081,7 @@ left: 59px;
     /*border-color: #CBCBCB;*/
     font-size: 12px !important;
     position: relative;
-    top: -149px;
+    top: -16px;
     margin-top: 60px;
     overflow-x:auto;
     width: 100%;
@@ -6031,7 +6109,7 @@ left: 59px;
         overflow-x:auto;
         width: 100%;
         position: relative;
-        top: -169px;
+        top: -16px;
     }
 
     #statistique-campaign-dialog,.content{
@@ -6179,7 +6257,7 @@ left: 59px;
 
     .titreEtat{
         position: relative;
-        left: -35px;
+        left: 16px;
         font-size: 16px;
     }
 
@@ -6336,8 +6414,8 @@ left: 59px;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 105px;
+    top: -118px;
     font-size: 16px !important;
     }
 
@@ -6398,7 +6476,7 @@ left: 59px;
         /*margin-left: 0px;*/
         position: relative;
         left: 19px;
-        top: -111px;
+        top: 22px;
     }
 
     #dropdownDelivre, .dropdown-toggle.active {
@@ -6531,11 +6609,10 @@ left: 59px;
     .titre-statut{
         color: #7682DA;
         position: relative;
-        left: 24px;
+        left: 6px;
         font-weight: bold;
-        top: -97px;
-        margin-bottom: 11px;
-        margin-top: 24px;
+        top: 49px;
+       
 
     }
 
@@ -6556,13 +6633,20 @@ left: 59px;
     .button-csv{
      position: relative;
     left: -12px;
-    top: -169px;
+    top: -89px;
     margin-top: 74px;
     }
-
-    button.btn-valider{
-    min-width: 181px !important;
+.button-excel{
+     position: relative;
+    left: -12px;
+    top: -89px;
+    margin-top: 74px;
+    display: none;
     }
+
+    button.liste{
+min-width: 181px !important;
+}
 
     .icon-background1{
         color: #838383;
@@ -6600,9 +6684,9 @@ left: 59px;
 
 @media (min-width: 1091px) and (max-width: 1149px) {
     .modal-dialog{
-        max-width: 945px !important;
-        margin-left: 114px;
-        margin-top: 26px;
+        max-width: 781px !important;
+        margin-left: 207px;
+        margin-top: 138px
     }
 
 
@@ -6707,7 +6791,7 @@ left: 59px;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 378px;
+        left: 277px;
         top: -69px;
     }
 
@@ -6823,7 +6907,7 @@ left: 59px;
 
     .titreEtat{
         position: relative;
-        left: -35px;
+        left: 12px;
         font-size: 16px;
     }
 
@@ -6890,7 +6974,7 @@ left: 59px;
     font-size: 16px !important;
     position: relative;
     left: -11px;
-    top:11px;
+    top:-3px;
     }
 
     .delTitreVal,.valDel{
@@ -6917,29 +7001,28 @@ left: 59px;
 
     #titreOuv{
     color:#93D706;
-    padding-left: 27px;
     border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
     font-weight: bold;
     font-size: 18px !important;
     position: relative;
-    left: -13px;
-    top: 2px;
+    left: 25px;
+    top: 14px;
     }
     #titreClik{
         font-weight: bold;
     font-size: 16px !important;
+    position: relative;
+    left: 16px;
+    top: 4px;
     }
 
     .valOuv{
         color:#93D706 !important;
         font-weight: bold !important;
-        padding-left: 54px;
         position: relative;
-        left: -20px;
+        left: 33px;
         font-size: 20px !important;
-        top: 4px;
+        top: 15px;
         /*font-family: var(--police_bold);*/
     }
 
@@ -6956,16 +7039,18 @@ left: 59px;
 
 
 
-    .cliTitreVal,.valClik {
+    .valClik {
      color:#14A400 !important;
     font-weight: bold !important;
-    padding-left: 16px !important;
     font-size: 20px !important;
+    position: relative;
+    left: 29px;
+    top: 9px;
     }
     .mailClic{
     padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 13px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -6980,8 +7065,8 @@ left: 59px;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 94px;
+    top: -117px;
     font-size: 16px !important;
     }
 
@@ -7204,9 +7289,17 @@ left: 59px;
     margin-top: 74px;
     }
 
-    button.btn-valider{
-    min-width: 181px !important;
-    }
+ .button-excel{
+     position: relative;
+    left: -12px;
+    top: -41px;
+    margin-top: 74px;
+    display: none;
+}
+
+    button.liste{
+min-width: 181px !important;
+}
 
     .icon-background1{
         color: #838383;
@@ -7245,9 +7338,9 @@ left: 59px;
 
 @media (min-width: 1150px) and (max-width: 1199px) {
     .modal-dialog{
-    max-width: 945px !important;
-    margin-left: 163px;
-    margin-top: 26px;
+    max-width: 859px !important;
+    margin-left: 218px;
+    margin-top: 138px;
     }
 
     td.emails-table{
@@ -7290,7 +7383,7 @@ left: 59px;
     /*border-color: #CBCBCB;*/
     font-size: 12px !important;
     position: relative;
-    top: -149px;
+    top: -11px;
     margin-top: 60px;
     overflow-x:auto;
     width: 100%;
@@ -7351,7 +7444,7 @@ left: 59px;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 378px;
+        left: 329px;
         top: -69px;
     }
 
@@ -7466,7 +7559,7 @@ left: 59px;
 
     .titreEtat{
         position: relative;
-        left: -35px;
+        left: 13px;
         font-size: 16px;
     }
 
@@ -7533,7 +7626,7 @@ left: 59px;
     font-size: 16px !important;
     position: relative;
     left: -11px;
-    top:11px;
+    top:-2px;
     }
 
     .delTitreVal,.valDel{
@@ -7571,8 +7664,10 @@ left: 59px;
     top: 2px;
     }
     #titreClik{
-        font-weight: bold;
+    font-weight: bold;
     font-size: 16px !important;
+    position: relative;
+    left: 21px;
     }
 
     .valOuv{
@@ -7599,16 +7694,18 @@ left: 59px;
 
 
 
-    .cliTitreVal,.valClik {
+ .valClik {
      color:#14A400 !important;
     font-weight: bold !important;
     padding-left: 16px !important;
     font-size: 20px !important;
+    position: relative;
+    left: 46px;
     }
     .mailClic{
     padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 23px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -7623,8 +7720,8 @@ left: 59px;
 
     .valEtat{
     position: relative;
-    left: 60px;
-    top: -128px;
+    left: 101px;
+    top: -117px;
     font-size: 16px !important;
     }
 
@@ -7685,7 +7782,7 @@ left: 59px;
         /*margin-left: 0px;*/
         position: relative;
         left: 19px;
-        top: -111px;
+        top: -24px;
     }
 
     #dropdownDelivre, .dropdown-toggle.active {
@@ -7818,12 +7915,10 @@ left: 59px;
     .titre-statut{
         color: #7682DA;
         position: relative;
-        left: 24px;
+        left: 4px;
         font-weight: bold;
-        top: -97px;
-        margin-bottom: 11px;
-        margin-top: 24px;
-
+        top: 50px;
+        
     }
 
     .detail{
@@ -7843,13 +7938,19 @@ left: 59px;
     .button-csv{
      position: relative;
     left: -12px;
-    top: -140px;
-    margin-top: 74px;
+    top: -71px;
     }
 
-    button.btn-valider{
-    min-width: 181px !important;
-    }
+ .button-excel{
+     position: relative;
+    left: -12px;
+    top: -71px;
+    display: none;
+}
+
+    button.liste{
+min-width: 181px !important;
+}
 
     .icon-background1{
         color: #838383;
@@ -8069,7 +8170,7 @@ left: 59px;
 
         .total{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 27%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -8077,25 +8178,25 @@ left: 59px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 27%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: 37px;
+        top: -40px;
         margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 27%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: 49px;
+        top: -39px;
         margin-bottom: 10px;
     }
     .clique{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 27%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -8104,16 +8205,16 @@ left: 59px;
     }
    .bloque{
     background-color:#F9F9F9;
-    width: 61%;
+    width: 27%;
     height: 166px;
     position: relative;
-    left: 28px;
+    left: 49px;
     top: -18px
     }
 
         .titreEtat{
             position: relative;
-            left: -35px;
+            left: 16px;
             font-size: 16px;
         }
 
@@ -8140,7 +8241,7 @@ left: 59px;
         font-size: 14px;
         }
 
-        .totalTitreVal,.valTot {
+      .valTot {
         color:#6F85DA !important;
         font-weight: bold !important;
         padding-left: 26px !important;
@@ -8148,7 +8249,7 @@ left: 59px;
         position: relative;
         top: 0px;
         }
-        .totalTitreVal,.mailTot{
+   .mailTot{
         padding-left: 33px;
         color: #505050;
         position: relative;
@@ -8183,7 +8284,7 @@ left: 59px;
         top:11px;
         }
 
-        .delTitreVal,.valDel{
+     .valDel{
         position: relative;
         left: -2px;
         color: #A7A7A7 !important;
@@ -8218,8 +8319,10 @@ left: 59px;
         top: 2px;
         }
         #titreClik{
-            font-weight: bold;
+        font-weight: bold;
         font-size: 16px !important;
+        position: relative;
+        left: 24px;
         }
 
         .valOuv{
@@ -8246,11 +8349,13 @@ left: 59px;
 
 
 
-        .cliTitreVal,.valClik {
-         color:#14A400 !important;
+     .valClik {
+        color:#14A400 !important;
         font-weight: bold !important;
         padding-left: 16px !important;
         font-size: 20px !important;
+        position: relative;
+        left: 24px;
         }
         .mailClic{
         padding-left: 33px;
@@ -8259,6 +8364,8 @@ left: 59px;
         font-size: 16px !important;
         color: #505050;
         top: 7px;
+        position: relative;
+        left: 24px;
 
         }
         .cliTitreVal{
@@ -8270,8 +8377,8 @@ left: 59px;
 
         .valEtat{
         position: relative;
-        left: 60px;
-        top: -128px;
+        left: 100px;
+        top: -116px;
         font-size: 16px !important;
         }
 
@@ -8494,9 +8601,17 @@ left: 59px;
         margin-top: 74px;
         }
 
-        button.btn-valider{
-        min-width: 181px !important;
-        }
+ .button-excel{
+     position: relative;
+    left: -12px;
+    top: -38px;
+    margin-top: 74px;
+    display: none;
+}
+
+       button.liste{
+min-width: 181px !important;
+}
 
         .icon-background1{
             color: #838383;
@@ -8580,7 +8695,7 @@ left: 59px;
         /*border-color: #CBCBCB;*/
         font-size: 12px !important;
         position: relative;
-        top: -137px;
+        top: 21px;
         /*margin-top: 60px;*/
         overflow-x:auto;
         width: 100%;
@@ -8717,7 +8832,7 @@ left: 59px;
 
         .total{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 41%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -8725,16 +8840,16 @@ left: 59px;
     }
     .delivrer{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 41%;
         height: 166px;
         position: relative;
-        left: 28px;
-        top: -18px;
+        left: 55px;
+        top: -41px;
         margin-bottom: 10px;
     }
     .ouvert{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 41%;
         height: 166px;
         position: relative;
         left: 28px;
@@ -8743,16 +8858,16 @@ left: 59px;
     }
     .clique{
         background-color:#F9F9F9;
-        width: 61%;
+        width: 41%;
         height: 166px;
         position: relative;
-        left: 28px;
+        left: 62px;
         top: -18px;
         margin-bottom: 10px;
     }
    .bloque{
     background-color:#F9F9F9;
-    width: 61%;
+    width: 41%;
     height: 166px;
     position: relative;
     left: 28px;
@@ -8761,7 +8876,7 @@ left: 59px;
 
         .titreEtat{
             position: relative;
-            left: -35px;
+            left: 21px;
             font-size: 16px;
         }
 
@@ -8903,7 +9018,7 @@ left: 59px;
         .mailClic{
         padding-left: 33px;
         position: relative;
-        left: -10px;
+        left: 49px;
         font-size: 16px !important;
         color: #505050;
         top: 7px;
@@ -8918,8 +9033,8 @@ left: 59px;
 
         .valEtat{
         position: relative;
-        left: 60px;
-        top: -128px;
+        left: 135px;
+        top: -115px;
         font-size: 16px !important;
         }
 
@@ -8980,7 +9095,7 @@ left: 59px;
             /*margin-left: 0px;*/
             position: relative;
             left: 19px;
-            top: -83px;
+            top: 58px;
         }
 
         #dropdownDelivre, .dropdown-toggle.active {
@@ -9115,7 +9230,7 @@ left: 59px;
             position: relative;
             left: 24px;
             font-weight: bold;
-            top: -69px;
+            top: 78px;
             margin-bottom: 11px;
             margin-top: 24px;
 
@@ -9135,16 +9250,24 @@ left: 59px;
             margin-left: 4px;
         }
 
-        .button-csv{
+    .button-csv{
          position: relative;
         left: -12px;
-        top: -166px;
+        top: -33px;
         margin-top: 74px;
-        }
+    }
 
-        button.btn-valider{
-        min-width: 181px !important;
-        }
+     .button-excel{
+         position: relative;
+        left: -12px;
+        top: -33px;
+        margin-top: 74px;
+        display: none;
+    }
+
+        button.liste{
+min-width: 181px !important;
+}
 
         .icon-background1{
             color: #838383;

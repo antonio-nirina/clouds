@@ -186,3 +186,14 @@ knp_paginator:
         pagination: 'paginator/pagination.html.twig'                                    
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template                                
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+
+ensepar_html2pdf:
+    orientation: P
+    format: A4
+    lang: fr
+    unicode: true
+    encoding: UTF-8
+    margin: [10,15,10,15]
+
+
+

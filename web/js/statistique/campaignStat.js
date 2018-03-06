@@ -9,6 +9,21 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 	        setTimeout(sendChoice($(this)), 0);
 	});
 
+	$(".btn-download_csv").on("click",function(e){
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var route = Routing.generate('admin_communication_emailing_campaign_download',{"id":id});
+        window.location.href = route;
+     });
+
+	$(".export-statistique").on("click",function(e){
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var titre = $('input[name=titre]').val();
+        var route = Routing.generate("admin_communication_emailing_campaign_exports",{'id':id,'title':titre });
+        window.location.href = route;
+     });
+
 });
 
 	function sendChoice(){
@@ -17,11 +32,18 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 		var url = $('input[name=url]').val();
 		var id = $('input[name=id]').val();
 		var obj = JSON.parse(donnee);
-		console.log(obj)
 	        var  data = {};
 	        if (filter) {
 	            data.status = $('.dropdown.filtres').find('button').find("span").html().trim();
 	        }
+        $(".button-csv").css('display','none');    
+        $(".button-excel").css('display','block');                      
+        $(".btn-download1").on("click",function(e){
+	        e.preventDefault(); 
+	            var id = $('input[name=id]').val();
+	            var route = Routing.generate('admin_communication_emailing_campaign_download',{"id":id,"status":data.status});
+	            window.location.href = route;
+        });
 	        switch (data.status) {
 	        	case "tous":
 	        	$('.chargementAjax').removeClass('hidden');
@@ -231,7 +253,7 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 	$(document).on('click','.page-link',function(e){
 		e.preventDefault(); 
         var url = $(this).attr('href');
-        console.log(url)
+        $('.chargementAjax').removeClass('hidden');
         $.ajax({
             type: 'GET',
             url: url,
@@ -249,6 +271,7 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
                 }
             },complete: function(){
                 $('#statistique-campaign-dialog').modal('show');
+                $('.chargementAjax').addClass('hidden');
             }
             
         });
