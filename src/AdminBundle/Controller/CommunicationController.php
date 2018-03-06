@@ -31,6 +31,7 @@ use AdminBundle\Entity\SondagesQuiz;
 use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
 use AdminBundle\Entity\SondagesQuizQuestions;
 use AdminBundle\Entity\SondagesQuizReponses;
+use AdminBundle\Component\Post\NewsPostSubmissionType;
 
 use \Mailjet\Resources;
 
@@ -39,6 +40,8 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use AdminBundle\Service\Statistique\Common;
 use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
+use AdminBundle\Component\Post\NewsPostAuthorizationType;
+use AdminBundle\Component\GroupAction\GroupActionType;
 
 
 /**
@@ -56,7 +59,9 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/edito", name="admin_communication_editorial")
+     * disabled action
+     * route: /edito
+     * name: admin_communication_editorial
      */
     public function editorialAction(Request $request)
     {
@@ -109,10 +114,10 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route(
-     *     "/edito/suppression/{id}",
-     *     name="admin_communication_editorial_delete"),
-     *     requirements={"id": "\d+"}
+     * disabled action
+     * route: /edito/suppression/{id}
+     * name: admin_communication_editorial_delete
+     * requirements: {"id": "\d+"}
      */
     public function deleteEditorialAction($id)
     {
@@ -1507,7 +1512,7 @@ class CommunicationController extends AdminController
 	
 	/**
      * @Route(
-     *     "/sondage-quiz/delete-sondages-quiz",
+     *     "/sondage-quiz/delete-sondages-quiz/sondages-quiz",
      *     name="admin_communication_sondage_quiz_delete")
      * 
      */
@@ -1599,7 +1604,7 @@ class CommunicationController extends AdminController
 	
 	/**
      * @Route(
-     *     "/sondage-quiz/delete-banniere",
+     *     "/sondage-quiz/delete-banniere/banniere",
      *     name="admin_communication_sondage_quiz_delete_banniere")
      * 
      */
@@ -1721,16 +1726,296 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/actualites", name="admin_communication_news")
+     * @Route("/actualites/liste/{archived_state}", defaults={"archived_state"=false}, name="admin_communication_news")
      */
-    public function newsAction()
+    public function newsAction(Request $request, $archived_state)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        return $this->render('AdminBundle:Communication:news.html.twig');
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_list = $news_post_manager->findAll($program, $archived_state);
+
+        $view_options = array(
+            'news_post_submission_type_class' => new NewsPostSubmissionType(),
+            'news_post_authorization_type_class' => new NewsPostAuthorizationType(),
+            'news_post_list' => $news_post_list,
+        );
+        if (true == $archived_state) {
+            $view_options['archived_state'] = true;
+        }
+
+        return $this->render('AdminBundle:Communication:news.html.twig', $view_options);
+    }
+
+    /**
+     * @Route("/actualites-archivees/liste", name="admin_communication_news_archived")
+     */
+    public function archivedNewsAction()
+    {
+        return $this->forward('AdminBundle:Communication:news', array('archived_state' => true));
+    }
+
+    /**
+     * @Route("/actualites/creer", name="admin_communication_news_create")
+     */
+    public function createNewsAction(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
+        $news_post_form = $form_generator->generateForCreation($program, 'news_post_form');
+        $news_post_form->handleRequest($request);
+        if ($news_post_form->isSubmitted() && $news_post_form->isValid()) {
+            $submission_type = $request->get('submission_type');
+            $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+            if ($news_post_manager->create($news_post_form->getData(), $submission_type)) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+        }
+
+        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', array(
+            'news_post_form' => $news_post_form->createView(),
+            'news_post_submission_type_class' => new NewsPostSubmissionType(),
+        ));
+        $data = $json_response_data_provider->success();
+        if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
+    }
+
+    /**
+     * @Route("/actualites/editer/{id}", requirements={"id": "\d+"}, name="admin_communication_news_edit")
+     */
+    public function editNewsAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
+        $news_post_form = $form_generator->generateForEdit($news_post, 'news_post_form');
+        $news_post_form->handleRequest($request);
+        if ($news_post_form->isSubmitted() && $news_post_form->isValid()) {
+            $submission_type = $request->get('submission_type');
+            $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+            if ($news_post_manager->edit($news_post_form->getData(), $submission_type)) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+        }
+
+        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', array(
+            'news_post_form' => $news_post_form->createView(),
+            'news_post_submission_type_class' => new NewsPostSubmissionType(),
+            'edit_mode' => true,
+        ));
+        $data = $json_response_data_provider->success();
+        if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
+
+    }
+
+    /**
+     * @Route("/actualites/dupliquer/{id}", requirements={"id": "\d+"}, name="admin_communication_news_duplicate")
+     */
+    public function duplicateNewsAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
+        $news_post_duplication_form = $form_generator->generateForDuplication($news_post, 'duplicate_news_post_form');
+        $news_post_duplication_form->handleRequest($request);
+        if ($news_post_duplication_form->isSubmitted() && $news_post_duplication_form->isValid()) {
+            if ($news_post->getId() == $news_post_duplication_form->getData()->getDuplicationSourceId()) {
+                $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+                if ($news_post_manager->duplicate($news_post, $news_post_duplication_form->getData()->getName())) {
+                    $data = $json_response_data_provider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+                }
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+        }
+
+        $content = $this->renderView('AdminBundle:Communication/News:duplicate_news.html.twig', array(
+            'duplicate_news_post_form' => $news_post_duplication_form->createView()
+        ));
+        $data = $json_response_data_provider->success();
+        if ($news_post_duplication_form->isSubmitted() && !$news_post_duplication_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
+    }
+
+    /**
+     * @Route("/actualites/publier/{id}/{state}",
+     * defaults={"state"=true},
+     * requirements={"id": "\d+"},
+     * name="admin_communication_news_publish")
+     */
+    public function publishNewsAction(Request $request, $id, $state)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_manager->definePublishedState($news_post, $state);
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/actualites/depublier/{id}", requirements={"id": "\d+"}, name="admin_communication_news_unpublish")
+     */
+    public function unpublishNewsAction(Request $request, $id)
+    {
+        return $this->forward('AdminBundle:Communication:publishNews', array(
+            'id' => $id,
+            'state' => false,
+        ));
+    }
+
+    /**
+     * @Route("/actualites/archiver/{id}/{archived_state}", defaults={"archived_state"=true}, name="admin_communication_news_archive")
+     */
+    public function archiveNewsAction(Request $request, $id, $archived_state)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_manager->defineArchivedState($news_post, $archived_state);
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/actualites-archivees/restaurer/{id}", name="admin_communication_news_restore")
+     */
+    public function restoreNewsAction(Request $request, $id)
+    {
+        return $this->forward('AdminBundle:Communication:archiveNews', array(
+            'id' => $id,
+            'archived_state' => false,
+        ));
+    }
+
+    /**
+     * @Route("/actualites/supprimer/{id}", name="admin_communication_news_delete")
+     */
+    public function deleteNewsAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findOneByIdAndProgram($id, $program);
+        if (is_null($news_post)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_manager->delete($news_post);
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/actualites/action-de-groupe", name="admin_communication_news_group_action")
+     */
+    public function processGroupActionNewsAction(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $str_news_post_id_list = $request->get('news_post_id_list');
+        $grouped_action_type = $request->get('grouped_action_type');
+
+        if (is_null($str_news_post_id_list)
+            || is_null($grouped_action_type)
+            || !in_array($grouped_action_type, GroupActionType::NEWS_POST_VALID_GROUP_ACTION)
+        ) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_manager->processGroupAction(
+            explode(',', $str_news_post_id_list),
+            $grouped_action_type,
+            $program
+        );
+
+        return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
     /**

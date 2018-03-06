@@ -79,6 +79,13 @@ services:
 
     adminBundle.excel:
         class: AdminBundle\Service\Statistique\ExcelManager
-        #arguments: ["@mailjet.client"]
         autowire: true
      
+    AdminBundle\Form\NewsPostType:
+        class: AdminBundle\Form\NewsPostType
+        autowire: true
+        autoconfigure: true
+
+    AdminBundle\Manager\NewsPostManager:
+        class: AdminBundle\Manager\NewsPostManager
+        autowire: true

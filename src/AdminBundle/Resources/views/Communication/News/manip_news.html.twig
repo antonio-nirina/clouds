@@ -1,0 +1,301 @@
+{% if edit_mode is defined and true == edit_mode %}
+    {% set manipulation_title = 'Édition de publication' %}
+    {% set data_manip_type = 'edit' %}
+{% else %}
+    {% set manipulation_title = 'Édition d\'une nouvelle publication' %}
+    {% set data_manip_type = 'create' %}
+{% endif %}
+
+<span class="modal-body-title">{{ manipulation_title }}</span>
+{% if news_post_form is defined %}
+    {{ form_start(news_post_form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="preview-news-button-container">
+        <span class="preview-news-button">voir le post</span>
+    </div>
+    {#<div class="preview-news-button-container">
+        <span class="preview-news-button active">voir le post</span>
+    </div>#}
+    <div class="form-row">
+        {#<label>titre</label>#}
+        {{ form_label(news_post_form.home_page_post.title, 'titre') }}
+        {#<input type="text" class="large-input-text removable-content-input">#}
+        {{ form_widget(news_post_form.home_page_post.title, {'attr': {'class': 'large-input-text removable-content-input'}}) }}
+        {% set delete_input_visibility = 'style=display:none' %}
+        {% if news_post_form.home_page_post.vars.value.title | trim is not empty %}
+            {% set delete_input_visibility = '' %}
+        {% endif %}
+        <span class="delete-input" {{ delete_input_visibility }}></span>
+    </div>
+    <div class="form-row error-message-container">
+        {{ form_errors(news_post_form.home_page_post.title) }}
+    </div>
+    <div class="form-row vertical">
+        {#<label>texte</label>#}
+        {{ form_label(news_post_form.home_page_post.content, 'texte') }}
+        {#<textarea class="large-textarea" id="news-text"></textarea>#}
+        {{ form_widget(news_post_form.home_page_post.content, {'attr': {'class': 'large-textarea'}}) }}
+    </div>
+
+    {{ form_widget(news_post_form.action_button_state, {'attr': {'class': 'action-button-state-input hidden-form-element'}}) }}
+
+    {% if false == news_post_form.vars.value.actionButtonState %}
+    <div class="action-button-container">
+        <a class="add">ajouter un bouton d'action</a>
+    </div>
+    {% endif %}
+
+    {% set action_button_block_container_visibility = 'style=display:none' %}
+    {% if true == news_post_form.vars.value.actionButtonState %}
+        {% set action_button_block_container_visibility = '' %}
+    {% endif %}
+    <div class="action-button-block-container" {{ action_button_block_container_visibility }}>
+        <div class="block-title">
+            <span>bouton d'action</span>
+            <span class="delete-block"></span>
+        </div>
+        <div class="form-row vertical-centered">
+            {#<label class="fixed-width">texte du bouton</label>#}
+            {{ form_label(news_post_form.action_button_text, 'texte du bouton', {'label_attr': {'class': 'fixed-width'}}) }}
+            {#<input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large">#}
+            {{ form_widget(news_post_form.action_button_text, {'attr': {'class': 'removable-content-input action-button-input semi-large action-button-text-input'}}) }}
+            {% set delete_input_visibility = 'style=display:none' %}
+            {% if news_post_form.vars.value.actionButtonText | trim is not empty %}
+                {% set delete_input_visibility = '' %}
+            {% endif %}
+            <span class="delete-input delete-action-button-text" {{ delete_input_visibility }}></span>
+        </div>
+        <div class="form-row vertical-xs">
+            <label>aspect du bouton</label>
+            <div class="vertical-xs">
+                <div class="action-button-color-option">
+                    <span class="option-title">Couleur</span>
+                    {#<input type="text" class="color-value">#}
+                    {{ form_widget(news_post_form.action_button_background_color, {'attr': {'class': 'color-value action-button-background-color'}}) }}
+                </div>
+                <div class="action-button-color-option">
+                    <span class="option-title">Couleur du texte</span>
+                    {#<input type="text" class="color-value">#}
+                    {{ form_widget(news_post_form.action_button_text_color, {'attr': {'class': 'color-value action-button-text-color'}}) }}
+                </div>
+            </div>
+            <div class="action-button-preview" style="background-color: {{ news_post_form.vars.value.actionButtonBackgroundColor }}; color: {{ news_post_form.vars.value.actionButtonTextColor }}">
+                {{ news_post_form.vars.value.actionButtonText }}
+            </div>
+        </div>
+        <span class="form-row-group-title">lien de redirection du bouton d'action</span>
+        <div class="form-row vertical-centered">
+            {#<label class="fixed-width">renseigner une url</label>#}
+            {{ form_label(news_post_form.action_button_target_url, 'renseigner une url', {'label_attr': {'class': 'fixed-width'}}) }}
+            {#<input type="text" value="https://monliennderedirection.com/challenge" class="removable-content-input action-button-input large">#}
+            {{ form_widget(news_post_form.action_button_target_url, {'attr': {'class': 'removable-content-input action-button-input large'}}) }}
+            {% set delete_input_visibility = 'style=display:none' %}
+            {% if news_post_form.vars.value.actionButtonTargetUrl | trim is not empty %}
+                {% set delete_input_visibility = '' %}
+            {% endif %}
+            <span class="delete-input" {{ delete_input_visibility }}></span>
+        </div>
+        <div class="form-row vertical-xs">
+            {#<label>ou chercher une page du site</label>#}
+            {{ form_label(news_post_form.action_button_target_page, 'ou chercher une page du site') }}
+            <div class="action-button-target-page-choice styled-choice-select">
+                <div class="dropdown clearable">
+                    {% set dropdown_toggle_text = 'POINTER SUR' %}
+                    {% if "" != news_post_form.action_button_target_page.vars.value %}
+                        {% for choice in news_post_form.action_button_target_page.vars.choices  %}
+                            {% if news_post_form.action_button_target_page.vars.value == choice.value %}
+                                {% set dropdown_toggle_text = choice.label %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="POINTER SUR">
+                        {{ dropdown_toggle_text }}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
+                        {% set previous_choice = null %}
+                        {% for choice in news_post_form.action_button_target_page.vars.choices %}
+                            {% set additional_class = '' %}
+                            {% if previous_choice is not null and choice.value matches '{'~previous_choice.value~'/[0-9]+$}' %}
+                                {% set additional_class = 'sub-level' %}
+                            {% endif %}
+                        <a class="dropdown-item {{ additional_class }}" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
+                            {% set previous_choice = choice %}
+                        {% endfor %}
+                    </div>
+                    {% set delete_input_visibility = 'style=display:none' %}
+                    {% if news_post_form.action_button_target_page.vars.value | trim is not empty %}
+                        {% set delete_input_visibility = '' %}
+                    {% endif %}
+                    <span class="delete-select" {{ delete_input_visibility }}></span>
+                </div>
+                {{ form_widget(news_post_form.action_button_target_page, {'attr': {'class': 'hidden-select action-button-target-page-select'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row vertical-xs">
+        {#<label>qui verra ce post?</label>#}
+        {{ form_label(news_post_form.viewer_authorization_type, 'qui verra ce post?') }}
+        <div class="styled-choice-select viewer-authorization-type-choice">
+            <div class="dropdown post-viewer-dropdown clearable">
+                {% set dropdown_toggle_text = 'TOUS LES PARTICIPANTS' %}
+                {% if "" != news_post_form.viewer_authorization_type.vars.value %}
+                    {% for choice in news_post_form.viewer_authorization_type.vars.choices  %}
+                        {% if news_post_form.viewer_authorization_type.vars.value == choice.value %}
+                            {% set dropdown_toggle_text = choice.label %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-news-viewer-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="TOUS LES PARTICIPANTS">
+                    {{ dropdown_toggle_text }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdown-news-viewer-group">
+                    {% for choice in news_post_form.viewer_authorization_type.vars.choices %}
+                        <a class="dropdown-item" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
+                    {% endfor %}
+                </div>
+                {% set delete_input_visibility = 'style=display:none' %}
+                {% if news_post_form.viewer_authorization_type.vars.value | trim is not empty %}
+                    {% set delete_input_visibility = '' %}
+                {% endif %}
+                <span class="delete-select" {{ delete_input_visibility }}></span>
+            </div>
+            {{ form_widget(news_post_form.viewer_authorization_type, {'attr': {'class': 'hidden-select viewer-authorization-type-select'}}) }}
+        </div>
+    </div>
+
+    {{ form_widget(news_post_form.authorized_viewer_role, {'attr': {'class': 'authorized-viewer-role-input'}}) }}
+
+    <div class="post-viewer-selection-wrapper" style="display: none;">
+        <div class="post-viewer-selection-container">
+            <span class="title">sélectionnez les contacts qui verront ce post</span>
+            <div class="post-viewer-filter-container">
+                <div class="post-viewer-number-container">
+                    <span>nombre de contacts sélectionnés : </span>
+                    <input type="text" value="02">
+                </div>
+                <div class="post-viewer-data-search-container">
+                    <input type="text" class="input-search-list" placeholder="recherche par nom, prénom, e-mail...">
+                </div>
+                <div class="post-viewer-list-filter-container">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-post-viewer-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            FILTRER PAR
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-post-viewer-filter">
+                            <a class="dropdown-item" href="#">OPTION</a>
+                            <a class="dropdown-item" href="#">OPTION</a>
+                            <a class="dropdown-item" href="#">OPTION</a>
+                            <a class="dropdown-item" href="#">OPTION</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-viewer-table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>
+                            <input id="check-all" type="checkbox" class="styled-checkbox">
+                            <label for="check-all"></label>
+                        </th>
+                        <th class="post-viewer-data-head">prénom</th>
+                        <th class="post-viewer-data-head">nom</th>
+                        <th class="post-viewer-data-head">adresse e-mail</th>
+                        <th class="post-viewer-data-head">rôle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input id="viewer-1" type="checkbox" class="styled-checkbox">
+                            <label for="viewer-1"></label>
+                        </td>
+                        <td>Martin</td>
+                        <td>Bourdais</td>
+                        <td>martin_bourdais@gmail.com</td>
+                        <td>commercial</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="viewer-2" type="checkbox" class="styled-checkbox">
+                            <label for="viewer-2"></label>
+                        </td>
+                        <td>Martin</td>
+                        <td>Bourdais</td>
+                        <td>martin_bourdais@gmail.com</td>
+                        <td>commercial</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="viewer-3" type="checkbox" class="styled-checkbox">
+                            <label for="viewer-3"></label>
+                        </td>
+                        <td>Martin</td>
+                        <td>Bourdais</td>
+                        <td>martin_bourdais@gmail.com</td>
+                        <td>commercial</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="button-container">
+                    <button class="btn-valider">valider les contacts</button>
+                </div>
+                <div class="pagination-container">
+                    <ul class="post-pagination">
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li class="last"><a href="#">dernier</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--s-->
+    {#{{ form_widget(news_post_form.programmed_publication_state) }}#}
+    <div class="publish-program-container">
+        {% set additional_visibility_class = '' %}
+        {% if true == news_post_form.vars.value.programmedPublicationState %}
+            {% set additional_visibility_class = 'visible' %}
+        {% endif %}
+        <div class="programmed-state-container">
+            {#<input type="radio" id="send-now" class="styled-radio-2 programmed-state-input" name="news_program_state" checked data-programmed-value="false">#}
+            {{ form_widget(news_post_form.programmed_publication_state[0], {'attr': {'class': 'styled-radio-2 programmed-state-input', 'data-programmed-value': 'false'}}) }}
+            <label for="{{ news_post_form.programmed_publication_state[0].vars.id }}"></label>
+            {#<label for="send-now" class="text-label">publier maintenant</label>#}
+            {{ form_label(news_post_form.programmed_publication_state[0], 'publier maintenant', {'label_attr': {'class': 'text-label'}}) }}
+        </div>
+        <div>
+            <div class="programmed-state-container">
+                {#<input type="radio" id="programmed" class="styled-radio-2 programmed-state-input" name="news_program_state" data-programmed-value="true">#}
+                {{ form_widget(news_post_form.programmed_publication_state[1], {'attr': {'class': 'styled-radio-2 programmed-state-input', 'data-programmed-value': 'true'}}) }}
+                <label for="{{ news_post_form.programmed_publication_state[1].vars.id }}"></label>
+                {#<label for="programmed" class="text-label">programmer la publication</label>#}
+                {{ form_label(news_post_form.programmed_publication_state[1], 'programmer la publication', {'label_attr': {'class': 'text-label'}}) }}
+            </div>
+            <div class="select-date {{ additional_visibility_class }}">
+                <p>choisissez le jour</p>
+                <div>
+                    {#<input type="text" class="post-launch-date">#}
+                    {{ form_widget(news_post_form.programmed_publication_datetime.date, {'attr': {'class': 'post-launch-date'}}) }}
+                    <div id="calendar"></div>
+                </div>
+                <p>et l'heure</p>
+                <div>
+                    {{ form_widget(news_post_form.programmed_publication_datetime.time.hour, {'attr': {'class': 'chosen-select'}}) }}
+                    <span class="between-hour">:</span>
+                    {{ form_widget(news_post_form.programmed_publication_datetime.time.minute, {'attr': {'class': 'chosen-select'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--e-->
+    <div class="submit-block-container">
+        <button class="btn-valider first-button save" data-manip-type="{{ data_manip_type }}" data-submission-type="{{ constant('SAVE', news_post_submission_type_class) }}" data-target-url="{{ news_post_form.vars.value.id is not null ? path('admin_communication_news_edit', {'id': news_post_form.vars.value.id}) : '' }}">enregistrer</button>
+        {% if false == news_post_form.vars.value.programmedInProgressState and false == news_post_form.vars.value.publishedState %}
+        <button class="btn-valider second-button publish" data-manip-type="{{ data_manip_type }}" data-submission-type="{{ constant('PUBLISH', news_post_submission_type_class) }}" data-target-url="{{ news_post_form.vars.value.id is not null ? path('admin_communication_news_edit', {'id': news_post_form.vars.value.id}) : '' }}">publier</button>
+        {% endif %}
+    </div>
+    <div class="form-visibility-end"></div>
+    {{ form_end(news_post_form) }}
+{% endif %}

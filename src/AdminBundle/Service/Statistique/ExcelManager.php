@@ -194,6 +194,8 @@ class ExcelManager
 	                ->setCellValue('A'.$row, $item["emails"]);
 	            $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($style_ouverts);
 	            $objPHPExcel->getActiveSheet()->getCell('C'.$row)->setValue("x");
+	            $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getAlignment()->applyFromArray(
+    			array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
           	} elseif ($item["etat"] == "sent") {
           		$objPHPExcel->setActiveSheetIndex(0)
 	                ->setCellValue('A'.$row, $item["emails"]);

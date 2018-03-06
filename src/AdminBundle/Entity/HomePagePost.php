@@ -21,6 +21,7 @@ class HomePagePost
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank(groups={"news_post"})
      */
     private $title;
 
@@ -57,6 +58,11 @@ class HomePagePost
      * @Assert\Length(max=50)
      */
     private $post_type;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\NewsPost", inversedBy="home_page_post")
+     */
+    private $news_post;
     
     /**
      * Constructor
@@ -252,5 +258,41 @@ class HomePagePost
     public function getPostType()
     {
         return $this->post_type;
+    }
+
+    /**
+     * Set newsPost
+     *
+     * @param \AdminBundle\Entity\NewsPost $newsPost
+     *
+     * @return HomePagePost
+     */
+    public function setNewsPost(\AdminBundle\Entity\NewsPost $newsPost = null)
+    {
+        $this->news_post = $newsPost;
+
+        return $this;
+    }
+
+    /**
+     * Get newsPost
+     *
+     * @return \AdminBundle\Entity\NewsPost
+     */
+    public function getNewsPost()
+    {
+        return $this->news_post;
+    }
+
+    /**
+     * Set id to null. Used in duplication process
+     *
+     * @return NewsPost
+     */
+    public function setIdToNull()
+    {
+        $this->id = null;
+
+        return $this;
     }
 }

@@ -18,14 +18,28 @@
         <div class = "row">
             <div class = "col-12 col-md-12 sous-menu-main">
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
-                    <div class="navbar" id="collapsingNavbarFormInscription">
-                        <ul class="navbar-nav content-menu-niv-3 single">
-                            <li class="nav-item-niv-3 single form-inscription">
-                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">actualités </a>
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">publications </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">publications </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">publications d'accueil </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                         </ul>
                     </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
                 </nav>
             </div>
         </div>
@@ -34,10 +48,14 @@
                 <section class="fieldset active">
                     <div class="row">
                         <div class="col-lg-10 col-md-9 col-sm-12">
-                            <h3 class="hidden-sm-down block-title">Création / édition d'un post</h3>
-                            <h5 class="hidden-md-up block-title">Création / édition d'un post</h5>
-                            <p>celui-ci apparaîtra dans le fil d'actualité sur la homepage à date  de création</p>
-                            <button class="btn-valider create-news-button">créer une actualité</button>
+                            <h3 class="hidden-sm-down block-title">Création et édition de publications</h3>
+                            <h5 class="hidden-md-up block-title">Création et édition de publications</h5>
+                            <p>Les publications s'afficheront dans le fil d'actualité du participant de manière instantanée ou programmée.</p>
+                            {% if archived_state is defined and true == archived_state %}
+                            <button class="btn-valider restore-news-button" data-target-url="{{ path('admin_communication_news_group_action') }}">réstaurer publication</button>
+                            {% else %}
+                            <button class="btn-valider create-news-button">créer une nouvelle publication</button>
+                            {% endif %}
                         </div>
                         <div class="col-lg-2 col-md-3 col-sm-12">
                             <div class="hidden-sm-down corner-circle-img img-post rounded-circle"></div>
@@ -60,25 +78,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="post-type-filter-container filter-block-element-container">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-post-type-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    TYPE DE POST
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown-post-type-filter">
-                                    <a class="dropdown-item" href="#">TOUS</a>
-                                    <a class="dropdown-item" href="#">POST CLASSIQUE</a>
-                                    <a class="dropdown-item" href="#">POST AUTOMATIQUE</a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="archived-element-container filter-block-element-container">
-                            <a href="#" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
+                            <a href="{{ path('admin_communication_news_archived') }}" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
                                 archivées
                             </a>
                         </div>
                     </div>
-                    <div class="row filter selected-elements">
+                    <div class="row filter selected-elements" style="display: none;">
                         <div class="elements-count">
                             <div class="selected-count">
                                 <input class="selected-elements-input" type="text" value="post sélectionné" disabled>
@@ -86,20 +92,121 @@
                             </div>
                         </div>
                         <div class="selected-elements-button-container">
-                            <div class="post-archive">
-                                <button class="btn-valider btn btn-primary selected-elements-button">
-                                    archiver
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-element-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
+                                    ACTIONS
                                 </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-selected-element-action">
+                                    {% if archived_state is defined and true == archived_state %}
+                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="restore">RESTAURER</a>
+                                    {% else %}
+                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="archive">ARCHIVER</a>
+                                    {% endif %}
+                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="delete">SUPPRIMER</a>
+                                </div>
                             </div>
-                            <div class="post-delete">
-                                <button class="btn-valider btn btn-primary selected-elements-button">
-                                    supprimer
+                            <div class="button-container">
+                                <button class="btn-valider" data-target-url="{{ path('admin_communication_news_group_action') }}">
+                                    valider
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="row list">
-                        <div class="row">
+                    <div class="row list news-post-list" id="news-post-list">
+                        {% if news_post_list is defined and news_post_list is not empty %}
+                            {% for news_post in news_post_list %}
+                        <div class="row news-post-element">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="{{ news_post.getId }}" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="{{ news_post.getId }}"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">{{ news_post.homePagePost.title }}</span>
+                                        {% set post_state_text = '' %}
+                                        {% set date_prefix = 'le ' %}
+                                        {% set date = '' %}
+                                        {% set class= '' %}
+
+                                        {% if true == news_post.publishedState %}
+                                            {% set post_state_text = 'Publié' %}
+                                            {% set date = news_post.publicationDatetime %}
+                                            {% set class= 'published' %}
+                                        {% endif %}
+                                        {% if true == news_post.programmedInProgressState %}
+                                            {% set post_state_text = 'Programmé' %}
+                                            {% set date_prefix = 'pour le ' %}
+                                            {% set date = news_post.programmedPublicationDatetime %}
+                                            {% set class= "programmed" %}
+                                        {% endif %}
+                                        {% if false == news_post.programmedInProgressState and false == news_post.publishedState %}
+                                            {% set post_state_text = 'En attente' %}
+                                            {% set date_prefix = 'modifié le ' %}
+                                            {% set date = news_post.homePagePost.lastEdit %}
+                                            {% set class= "wait" %}
+                                        {% endif %}
+                                        <span class="date {{ class }}">{{ post_state_text }} - {{ date_prefix }}{{ date | localizeddate('none', 'none', locale, null, "d MMMM Y 'à' HH:mm") }}</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">{{ news_post.viewNumber }}</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    {% set authorization_all = constant('ALL', news_post_authorization_type_class) %}
+                                    {% set authorization_by_role = constant('BY_ROLE', news_post_authorization_type_class)  %}
+                                    {% set viewer_text = '' %}
+                                    {% if authorization_all == news_post.viewerAuthorizationType %}
+                                        {% set viewer_text = 'Tous les participants' %}
+                                    {% endif %}
+                                    {% if news_post.viewerAuthorizationType matches '{^'~authorization_by_role~'_[0-9]+$}' %}
+                                        {% set viewer_text = news_post.authorizedViewerRole %}
+                                    {% endif %}
+                                    <span>{{ viewer_text }}</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        {% if archived_state is not defined %}
+                                        <a class="dropdown-item" href="#">APERÇU</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                        <a class="dropdown-item edit-news-post" href="#" data-target-url="{{ path('admin_communication_news_edit', {'id': news_post.getId}) }}">ÉDITER</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                        <a class="dropdown-item duplicate-news-post" href="#" data-target-url="{{ path('admin_communication_news_duplicate', {'id': news_post.getId}) }}">DUPLIQUER</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                            {% if true == news_post.publishedState %}
+                                        <a class="dropdown-item unpublish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_unpublish', {'id': news_post.getId}) }}">DÉPUBLIER</a>
+                                            {% else %}
+                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="{{ path('admin_communication_news_publish', {'id': news_post.getId}) }}">PUBLIER</a>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if archived_state is defined and true == archived_state %}
+                                        <a class="dropdown-item restore-news-post" href="#" data-target-url="{{ path('admin_communication_news_restore', {'id': news_post.getId}) }}">RESTAURER</a>
+                                        {% else %}
+                                        <a class="dropdown-item archive-news-post" href="#" data-target-url="{{ path('admin_communication_news_archive', {'id': news_post.getId}) }}">ARCHIVER</a>
+                                        {% endif %}
+
+                                        <a class="dropdown-item delete-news-post" href="#" data-target-url="{{ path('admin_communication_news_delete', {'id': news_post.getId}) }}">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            {% endfor %}
+                        {% endif %}
+                        {#<div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
                                     <div>
@@ -136,7 +243,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
@@ -174,7 +280,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
@@ -212,7 +317,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
@@ -246,9 +350,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>#}
                     </div>
-                    <div class="pagination-container">
+                    {#<div class="pagination-container">
                         <ul class="post-pagination">
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
@@ -256,6 +360,8 @@
                             <li><a href="#">4</a></li>
                             <li class="last"><a href="#">dernier</a></li>
                         </ul>
+                    </div>#}
+                    <div class="pagination-container">
                     </div>
 
                     <!-- Modal créer / éditer actu -->
@@ -268,245 +374,88 @@
                                 <div class="modal-body">
                                     <div class="error-message-container centered-message general-message"></div>
                                     <div class="modal-body-container">
-                                        <span class="modal-body-title">Edition d'un nouveau post</span>
-                                        <div class="preview-news-button-container">
-                                            <span class="preview-news-button">voir le post</span>
-                                        </div>
-                                        <div class="preview-news-button-container">
-                                            <span class="preview-news-button active">voir le post</span>
-                                        </div>
-                                        <div class="form-row">
-                                            <label>titre</label>
-                                            <input type="text" class="large-input-text removable-content-input">
-                                            <span class="delete-input" style="display: none;"></span>
-                                        </div>
-                                        <div class="form-row vertical">
-                                            <label>texte</label>
-                                            <textarea class="large-textarea" id="news-text"></textarea>
-                                        </div>
-                                        <div class="action-button-container">
-                                            <a class="add">ajouter un bouton d'action</a>
-                                        </div>
-                                        <div class="action-button-block-container">
-                                            <div class="block-title">
-                                                <span>bouton d'action</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="form-row vertical-centered">
-                                                <label class="fixed-width">texte du bouton</label>
-                                                <input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large">
-                                                <span class="delete-input" {#style="display: none;"#}></span>
-                                            </div>
-                                            <div class="form-row vertical-xs">
-                                                <label>aspect du bouton</label>
-                                                <div class="vertical-xs">
-                                                    <div class="action-button-color-option">
-                                                        <span class="option-title">Couleur</span>
-                                                        <input type="text" class="color-value">
-                                                    </div>
-                                                    <div class="action-button-color-option">
-                                                        <span class="option-title">Couleur du texte</span>
-                                                        <input type="text" class="color-value">
-                                                    </div>
-                                                </div>
-                                                <div class="action-button-preview">
-                                                    mon bouton d'action
-                                                </div>
-                                            </div>
-                                            <span class="form-row-group-title">lien de redirection du bouton d'action</span>
-                                            <div class="form-row vertical-centered">
-                                                <label class="fixed-width">renseigner une url</label>
-                                                <input type="text" value="https://monliennderedirection.com/challenge" class="removable-content-input action-button-input large">
-                                                <span class="delete-input" {#style="display: none;"#}></span>
-                                            </div>
-                                            <div class="form-row vertical-xs">
-                                                <label>ou chercher une page du site</label>
-                                                <div>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            POINTER SUR
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
-                                                            <a class="dropdown-item" href="#">OPTION</a>
-                                                            <a class="dropdown-item" href="#">OPTION</a>
-                                                            <a class="dropdown-item" href="#">OPTION</a>
-                                                        </div>
-                                                        <span class="delete-input delete-selection"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <label>qui verra ce post?</label>
-                                            <div>
-                                                <div class="dropdown post-viewer-dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-news-viewer-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        TOUS LES PARTICIPANTS
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdown-news-viewer-group">
-                                                        <a class="dropdown-item" href="#">TOUS LES PARTICIPANTS</a>
-                                                        <a class="dropdown-item" href="#">COMMERCIAL</a>
-                                                        <a class="dropdown-item" href="#">DIRECTEUR COMMERCIAL</a>
-                                                        <a class="dropdown-item" href="#" class="customize-viewer">PERSONNALISER</a>
-                                                    </div>
-                                                    <span class="delete-input delete-selection"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="post-viewer-selection-wrapper">
-                                            <div class="post-viewer-selection-container">
-                                                <span class="title">sélectionnez les contacts qui verront ce post</span>
-                                                <div class="post-viewer-filter-container">
-                                                    <div class="post-viewer-number-container">
-                                                        <span>nombre de contacts sélectionnés : </span>
-                                                        <input type="text" value="02">
-                                                    </div>
-                                                    <div class="post-viewer-data-search-container">
-                                                        <input type="text" class="input-search-list" placeholder="recherche par nom, prénom, e-mail...">
-                                                    </div>
-                                                    <div class="post-viewer-list-filter-container">
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-post-viewer-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                FILTRER PAR
-                                                            </button>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdown-post-viewer-filter">
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                                <a class="dropdown-item" href="#">OPTION</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="post-viewer-table-container">
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    <input id="check-all" type="checkbox" class="styled-checkbox">
-                                                                    <label for="check-all"></label>
-                                                                </th>
-                                                                <th class="post-viewer-data-head">prénom</th>
-                                                                <th class="post-viewer-data-head">nom</th>
-                                                                <th class="post-viewer-data-head">adresse e-mail</th>
-                                                                <th class="post-viewer-data-head">rôle</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="viewer-1" type="checkbox" class="styled-checkbox">
-                                                                    <label for="viewer-1"></label>
-                                                                </td>
-                                                                <td>Martin</td>
-                                                                <td>Bourdais</td>
-                                                                <td>martin_bourdais@gmail.com</td>
-                                                                <td>commercial</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="viewer-2" type="checkbox" class="styled-checkbox">
-                                                                    <label for="viewer-2"></label>
-                                                                </td>
-                                                                <td>Martin</td>
-                                                                <td>Bourdais</td>
-                                                                <td>martin_bourdais@gmail.com</td>
-                                                                <td>commercial</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input id="viewer-3" type="checkbox" class="styled-checkbox">
-                                                                    <label for="viewer-3"></label>
-                                                                </td>
-                                                                <td>Martin</td>
-                                                                <td>Bourdais</td>
-                                                                <td>martin_bourdais@gmail.com</td>
-                                                                <td>commercial</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="button-container">
-                                                        <button class="btn-valider">valider les contacts</button>
-                                                    </div>
-                                                    <div class="pagination-container">
-                                                        <ul class="post-pagination">
-                                                            <li class="active"><a href="#">1</a></li>
-                                                            <li><a href="#">2</a></li>
-                                                            <li><a href="#">3</a></li>
-                                                            <li><a href="#">4</a></li>
-                                                            <li class="last"><a href="#">dernier</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="publish-program-container">
-                                            <div class="programmed-state-container">
-                                                <input type="radio" id="send-now" class="styled-radio-2 programmed-state-input" name="news_program_state" checked data-programmed-value="false">
-                                                <label for="send-now"></label>
-                                                <label for="send-now" class="text-label">publier maintenant</label>
-                                            </div>
-                                            <div>
-                                                <div class="programmed-state-container">
-                                                    <input type="radio" id="programmed" class="styled-radio-2 programmed-state-input" name="news_program_state" data-programmed-value="true">
-                                                    <label for="programmed"></label>
-                                                    <label for="programmed" class="text-label">programmer la publication</label>
-                                                </div>
-                                                <div class="select-date">
-                                                    <p>choisissez le jour</p>
-                                                    <div>
-                                                        <input type="text" class="post-launch-date">
-                                                        <div id="calendar"></div>
-                                                    </div>
-                                                    <p>et l'heure</p>
-                                                    <div>
-                                                        <select class="chosen-select">
-                                                            <option>00</option>
-                                                            <option>01</option>
-                                                            <option>02</option>
-                                                            <option>03</option>
-                                                            <option>...</option>
-                                                        </select>
-                                                        <span class="between-hour">:</span>
-                                                        <select class="chosen-select">
-                                                            <option>00</option>
-                                                            <option>01</option>
-                                                            <option>02</option>
-                                                            <option>03</option>
-                                                            <option>...</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="submit-block-container">
-                                            <button class="btn-valider first-button">enregistrer</button>
-                                            <button class="btn-valider second-button">publier</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- FIN - Modal créer / éditer actu-->
+
+                    <!-- modal - duplication actu -->
+                    <div id="duplicate-news-modal" class="modal app-dialog duplication-dialog" tabindex="-1" role="dialog" data-backdrop="static">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close" style="display: none"></a>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="modal-body-container"></div>
+                                </div>
+                                <input type="hidden" name="template_id" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal - duplication actu -->
+
+                    <!-- modal - confirmation suppression actu -->
+                    <div id="confirm-delete-news-modal" class="modal confirm-delete-dialog" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-body-container">
+                                        <div class="text-container">
+                                            <span class="confirm-dialog-title">Suppression</span>
+                                            <p class="message">Êtes-vous sûr de vouloir supprimer définitivement cette publication ?</p>
+                                        </div>
+                                        <div>
+                                            <button class ="btn-valider confirm-delete">
+                                                valider
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="template_id" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN - modal - confirmation suppression actu -->
+
                 </section>
             </div>
         </div>
+        <p class = "chargementAjax hidden">
+            <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+        </p>
     </main>
 
     <input type="hidden" name="ckeditor_config_general_path" value="{{ asset('ckeditor/custom/config-general.js') }}">
+    <input type="hidden" name="create_news_post_url" value="{{ path('admin_communication_news_create') }}">
+    <input type="hidden" name="submission_type_save" value="{{ constant('SAVE', news_post_submission_type_class) }}">
+    <input type="hidden" name="submission_type_publish" value="{{ constant('PUBLISH', news_post_submission_type_class) }}">
+    <input type="hidden" name="create_news_post_url" value="{{ path('admin_communication_news_create') }}">
+    <input type="hidden" name="news_post_list_url" value="{{ path('admin_communication_news') }}">
+    <input type="hidden" name="archived_news_post_list_url" value="{{ path('admin_communication_news_archived') }}">
 
+    {% if archived_state is defined and true == archived_state %}
+    <input type="hidden" name="archived_state" value="true">
+    {% endif %}
 
 {% endblock %}
 {% block footer %}
     {% embed 'AdminBundle::footer.html.twig' %}
         {% block javascripts %}
             {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
             <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
             <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+            <script src="{{ asset('js/jquery-paginate/jquery-paginate.min.js') }}"></script>
             <script src="{{ asset("js/admin-communication-news.js") }}"></script>
         {% endblock %}
     {% endembed %}

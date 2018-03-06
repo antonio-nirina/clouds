@@ -1879,11 +1879,16 @@ section .row.ending {
     margin-bottom: 35px; 
     flex-flow: row wrap;
 }
-.btn-program-step-4, .select-date {
+.btn-program-step-4,
+.select-date {
     display: none;
 }
 .select-date {
     margin-top: 25px;
+}
+
+.select-date.visible{
+    display: initial;
 }
 /*---------calendar---------*/
 ..ui-widget-content {
@@ -2059,7 +2064,7 @@ section .row.ending {
     padding: 0 5px;
 }
 /*-------campagnes---*/
-#new-campaign-modal form .form-visibility-end + * {
+form .form-visibility-end ~ * {
     display: none;
 }
 
@@ -4737,7 +4742,8 @@ section.with-bottom-space{
 }
 
 
-.btn-valider.create-news-button{
+.btn-valider.create-news-button,
+.btn-valider.restore-news-button{
     margin-top: 30px !important;
 }
 
@@ -4821,7 +4827,6 @@ input.input-search-list {
 
 .selected-elements-button-container{
     display: flex;
-    justify-content: space-evenly;
     flex-grow: 2;
     margin: 5px 0 5px 0;
 }
@@ -4885,7 +4890,7 @@ input.input-search-list {
 }
 
 .elements-count{
-    margin: 5px 0 5px 0;
+    margin: 5px 33px 5px 0;
 }
 
 .post-infos-container .title{
@@ -4907,6 +4912,12 @@ input.input-search-list {
     color: #FEAD0D;
 }
 
+.selected-elements-button-container .button-container{
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 379px) {
     .selected-elements-button-container{
         flex-direction: column;
@@ -4918,6 +4929,10 @@ input.input-search-list {
 
     .news-name-search-input{
         width: 200px;
+    }
+
+    .elements-count{
+        margin-right: 0;
     }
 }
 
@@ -4960,6 +4975,23 @@ input.input-search-list {
         margin-top: 10px;
         width: 100%;
     }
+
+    .selected-elements-button-container{
+        flex-direction: column;
+    }
+
+    .selected-elements-button-container .dropdown{
+        align-self: flex-start;
+    }
+
+    .selected-elements-button-container .button-container{
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+
+    .selected-count .delete-input{
+        margin-left: 4px;
+    }
 }
 
 @media (max-width: 991px) {
@@ -4988,6 +5020,24 @@ ul.post-pagination li.active a{
 ul.post-pagination li:not(.last)::after{
     content: "\00a0\00a0|\00a0\00a0";
 }
+
+/*----------------- pagination with jquery.paginate plugin ---------------------------*/
+.pagination-container .page-navigation a{
+    color: grey;
+}
+
+
+.pagination-container .page-navigation a:not([data-last=true])::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: grey;
+}
+
+.pagination-container .page-navigation a[data-selected=true]{
+    color: var(--couleur_2);
+    padding: 0;
+}
+
+
 
 /**
  * Actualités, création / édition
@@ -5080,6 +5130,7 @@ ul.post-pagination li:not(.last)::after{
     border: 1px solid #CBCBCB;
     padding: 15px 10px;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #create-edit-news-modal .action-button-container .add{
@@ -5114,7 +5165,7 @@ ul.post-pagination li:not(.last)::after{
 .action-button-block-container .delete-block{
     width: 25px;
     height: 25px;
-    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    background: url('../images/cloudsRewards/delete.png') center center no-repeat;
     cursor:pointer;
 }
 
@@ -5267,6 +5318,53 @@ ul.post-pagination li:not(.last)::after{
     text-align: center;
 }
 
+.action-button-target-page-choice .dropdown{
+    width: 230px;
+}
+
+.viewer-authorization-type-choice .dropdown{
+    width: 250px;
+}
+
+.delete-select {
+    width: 25px;
+    height: 25px;
+    background: url('../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    cursor:pointer;
+    position: relative;
+    top: 5px;
+    float: right;
+}
+
+.hidden-form-element{
+    display: none;
+}
+
+.row.filter.selected-elements{
+    background-color: #F5F5F5;
+    border-top: 1px solid #CDCDCD;
+}
+
+.dropdown .dropdown-menu .dropdown-item,
+.dropdown button.dropdown-toggle{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown .dropdown-menu .dropdown-item.sub-level{
+    padding-left: 25px;
+}
+
+.action-button-target-page-choice .dropdown .dropdown-menu .dropdown-item::before{
+    content: '>\00a0';
+}
+
+section .row.filter.news-filter,
+section .row.filter.selected-elements{
+    margin: 0 -24px;
+}
+
 @media (max-width: 991px) {
     .modal-dialog.semi-large-fixed{
         width: initial;
@@ -5346,5 +5444,15 @@ ul.post-pagination li:not(.last)::after{
 
     #create-edit-news-modal .submit-block-container{
         margin-top: 20px;
+    }
+}
+
+@media (min-width: 992px){
+    .archived-element-container{
+        flex-grow: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-right: 25px;
     }
 }
