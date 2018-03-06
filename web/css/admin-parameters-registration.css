@@ -5456,3 +5456,86 @@ section .row.filter.selected-elements{
         margin-right: 25px;
     }
 }
+
+/**
+ * Aperçu publication actualités
+ */
+#instantaneous-preview-news-modal .modal-body,
+#preview-news-modal .modal-body{
+    background-color: var(--couleur_6);
+}
+
+#instantaneous-preview-news-modal .content-edito,
+#preview-news-modal .content-edito{
+    padding: 10px 30px;
+    position: relative;
+    background-color: white;
+    width: 100%;
+}
+
+#instantaneous-preview-news-modal .content-edito:hover,
+#preview-news-modal .content-edito:hover{
+    box-shadow: grey 1px 1px 2px ;
+}
+
+#instantaneous-preview-news-modal .content-edito p.block-active-hover,
+#preview-news-modal .content-edito p.block-active-hover{
+    display: none;
+    position: absolute;
+    height: 2px;
+    background: var(--couleur_2);
+    width: 100%;
+}
+
+#instantaneous-preview-news-modal .content-edito:hover p.block-active-hover,
+#preview-news-modal .content-edito:hover p.block-active-hover{
+    display: block;
+}
+
+#instantaneous-preview-news-modal .content-edito .titre-block-centre,
+#preview-news-modal .content-edito .titre-block-centre{
+    float: left;
+    font-family: var(--police_light);
+}
+
+#instantaneous-preview-news-modal .content-edito .titre-block-centre .lib-titre-block-centre,
+#preview-news-modal .content-edito .titre-block-centre .lib-titre-block-centre{
+    color: var(--couleur_2);
+    display: block;
+    font-size: 25px;
+    font-family: var(--police_light);
+    line-height: 1.15;
+}
+
+#instantaneous-preview-news-modal .content-edito .titre-block-centre .lib-date-block-centre,
+#preview-news-modal .content-edito .titre-block-centre .lib-date-block-centre{
+    color: #808080;
+    display: block;
+    font-size: 12px;
+    font-family: var(--police);
+}
+
+#instantaneous-preview-news-modal .content-edito .img-titre-block-centre,
+#preview-news-modal .content-edito .img-titre-block-centre{
+    float: right;
+}
+
+#instantaneous-preview-news-modal .content-edito .descr-block-centre,
+#preview-news-modal .content-edito .descr-block-centre{
+    clear: both;
+}
+
+#instantaneous-preview-news-modal .content-edito .descr-block-centre p,
+#preview-news-modal .content-edito .descr-block-centre p{
+    color: var(--couleur_4);
+    font-size: 14px;
+    line-height: 1.8em;
+    font-family: var(--police);
+}
+
+#instantaneous-preview-news-modal .content-edito .button-container,
+#preview-news-modal .content-edito .button-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
