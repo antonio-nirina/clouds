@@ -256,12 +256,14 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
     $(document).ready(function(){
+        $('.jplist-no-results').css('display', 'none');
         $('.chargementAjax').removeClass('hidden');
         $('.main-section').jplist({
             itemsBox: '.news-post-list',
             itemPath: '.news-post-element',
             panelPath: '.control-panel'
         });
+        $('.jplist-no-results').css('display', 'initial');
         $('.chargementAjax').addClass('hidden');
     });
     /**
