@@ -718,11 +718,15 @@ function installColorPicker()
 
 function initCalendar() {
     $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+    var date = $('.post-launch-date').val();
     $('#calendar').datepicker({
         minDate: new Date(),
         altField: ".post-launch-date",
         altFormat: "dd/mm/yy"
     });
+    if ('' != date.trim()) {
+        $('#calendar').datepicker('setDate', date);
+    }
 }
 
 function initSelectChosen() {
