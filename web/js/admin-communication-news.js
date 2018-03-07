@@ -1,7 +1,7 @@
 $(document).ready(function(){
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Activation de pagination, barre recherche, filtre au chargement de la page de liste de post
      * *********************************************************************************************
      */
@@ -18,13 +18,13 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Activation de pagination, barre recherche, filtre au chargement de la page de liste de post
      * *********************************************************************************************
      */
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Création - Edition actu
      * *********************************************************************************************
      */
@@ -249,14 +249,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Création - Edition actu
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
      * *********************************************************************************************
      */
@@ -267,14 +267,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Duplication de publication
      * *********************************************************************************************
      */
@@ -359,14 +359,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Duplication de publication
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Publication / Dépublication
      * *********************************************************************************************
      */
@@ -388,7 +388,7 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Publication / Dépublication
      * *********************************************************************************************
      */
@@ -396,7 +396,7 @@ $(document).ready(function(){
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Archivage, dans Actions
      * *********************************************************************************************
      */
@@ -418,14 +418,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Archivage, dans Actions
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Suppression, avec confirmation
      * *********************************************************************************************
      */
@@ -461,14 +461,14 @@ $(document).ready(function(){
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Suppression, avec confirmation
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Restauration
      * *********************************************************************************************
      */
@@ -516,14 +516,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Restauration
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Prévisualisation
      * *********************************************************************************************
      */
@@ -562,14 +562,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Prévisualisation
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Prévisualisation, dans création/édition
      * *********************************************************************************************
      */
@@ -596,14 +596,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Prévisualisation, dans création/édition
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Actions de groupe
      * *********************************************************************************************
      */
@@ -671,10 +671,34 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Actions de groupe
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Communication - Actualités
+     * Incrémentation - Décrémentation nombre éléments de liste selectionnés
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.news-post-list .post-data-container .styled-checkbox', function(){
+        if($(this).is(':checked')){
+            checked.push($(this).attr('id'));
+        } else {
+            checked.splice(checked.indexOf($(this).attr('id')), 1);
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - Actualités
+     * Incrémentation - Décrémentation nombre éléments de liste selectionnés
+     * *********************************************************************************************
+     */
+
+
 });
 
 function installWysiwyg()
@@ -736,13 +760,14 @@ function initSelectChosen() {
     });
 }
 
+var checked = [];
 function getChecked() {
-    var checked = [];
+    /*var checked = [];
     $(".post-data-container .styled-checkbox").each(function() {
         if ($(this).is(':checked')) {
             checked.push($(this).attr('id'));
         }
-    });
+    });*/
     return checked;
 }
 
