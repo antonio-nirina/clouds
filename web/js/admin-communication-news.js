@@ -2,6 +2,29 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * Paramétrages - Communication - Actualités
+     * Activation de pagination, barre recherche, filtre au chargement de la page de liste de post
+     * *********************************************************************************************
+     */
+    $(document).ready(function(){
+        $('.chargementAjax').removeClass('hidden');
+        $('.main-section').jplist({
+            itemsBox: '.news-post-list',
+            itemPath: '.news-post-element',
+            panelPath: '.control-panel'
+        });
+        $('.jplist-no-results').removeClass('hidden-block');
+        $('.chargementAjax').addClass('hidden');
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Paramétrages - Communication - Actualités
+     * Activation de pagination, barre recherche, filtre au chargement de la page de liste de post
+     * *********************************************************************************************
+     */
+    /**
+     * *********************************************************************************************
+     * Paramétrages - Communication - Actualités
      * Création - Edition actu
      * *********************************************************************************************
      */
@@ -246,31 +269,6 @@ $(document).ready(function(){
      * FIN
      * Paramétrages - Communication - Actualités
      * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
-     * *********************************************************************************************
-     */
-
-    /**
-     * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
-     * Activation de pagination au chargement de la page de liste de post
-     * *********************************************************************************************
-     */
-    $(document).ready(function(){
-        $('.jplist-no-results').css('display', 'none');
-        $('.chargementAjax').removeClass('hidden');
-        $('.main-section').jplist({
-            itemsBox: '.news-post-list',
-            itemPath: '.news-post-element',
-            panelPath: '.control-panel'
-        });
-        $('.jplist-no-results').css('display', 'initial');
-        $('.chargementAjax').addClass('hidden');
-    });
-    /**
-     * *********************************************************************************************
-     * FIN
-     * Paramétrages - Communication - Actualités
-     * Activation de pagination au chargement de la page de liste de post
      * *********************************************************************************************
      */
 

@@ -5646,3 +5646,7 @@ section .row.filter.selected-elements{
     content: "\00a0\00a0|\00a0\00a0";
     color: grey;
 }
+
+.hidden-block{
+    display: none !important;
+}
