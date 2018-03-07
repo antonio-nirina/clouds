@@ -256,11 +256,13 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
     $(document).ready(function(){
+        $('.chargementAjax').removeClass('hidden');
         $('.main-section').jplist({
             itemsBox: '.news-post-list',
             itemPath: '.news-post-element',
             panelPath: '.control-panel'
         });
+        $('.chargementAjax').addClass('hidden');
     });
     /**
      * *********************************************************************************************
