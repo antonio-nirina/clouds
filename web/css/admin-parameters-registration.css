@@ -5021,24 +5021,6 @@ ul.post-pagination li:not(.last)::after{
     content: "\00a0\00a0|\00a0\00a0";
 }
 
-/*----------------- pagination with jquery.paginate plugin ---------------------------*/
-.pagination-container .page-navigation a{
-    color: grey;
-}
-
-
-.pagination-container .page-navigation a:not([data-last=true])::after{
-    content: "\00a0\00a0|\00a0\00a0";
-    color: grey;
-}
-
-.pagination-container .page-navigation a[data-selected=true]{
-    color: var(--couleur_2);
-    padding: 0;
-}
-
-
-
 /**
  * Actualités, création / édition
  */
@@ -5538,4 +5520,129 @@ section .row.filter.selected-elements{
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+
+/*-------------------------------- mise en forme jplist ---------------------------------------------*/
+.jplist-hidden{
+    display: none !important;
+}
+
+.jplist-no-results{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px 20px;
+}
+
+.jplist-prev{
+    display: none;
+}
+
+.jplist-next{
+    display: none;
+}
+
+.jplist-drop-down ul{
+    display: none;
+}
+
+.jplist-drop-down.status-filter-drop-down{
+    width: 160px;
+    position: relative;
+}
+
+.jplist-drop-down.status-filter-drop-down .jplist-dd-panel::after{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .3em;
+    vertical-align: middle;
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 25px;
+    top: -3px;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+}
+
+.jplist-drop-down.status-filter-drop-down .jplist-dd-panel{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+    padding: .5rem 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.jplist-drop-down.status-filter-drop-down ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.jplist-drop-down.status-filter-drop-down ul li{
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 35px;
+    padding: .5rem 1rem;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+}
+
+.jplist-drop-down.status-filter-drop-down ul li:hover{
+    background-color: white;
+    cursor: pointer;
+}
+
+.control-panel.pagination-container .jplist-pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.control-panel.pagination-container .jplist-pagination button{
+    background: none;
+    color: grey;
+    font-family: var(--police_light);
+    border: none;
+    padding: 0;
+}
+
+.control-panel.pagination-container .jplist-pagination button:hover{
+    cursor: pointer;
+}
+
+.control-panel.pagination-container .jplist-pagination .jplist-pagingmid button.jplist-current{
+    color: var(--couleur_2);
+}
+
+.control-panel.pagination-container .jplist-pagination .jplist-pagingmid button:not(:last-child)::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: grey;
+}
+
+.control-panel.pagination-container .jplist-pagination .jplist-pagingnext button::before{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: grey;
+}
+
+.control-panel.pagination-container .jplist-pagination .jplist-pagingprev button::after{
+    content: "\00a0\00a0|\00a0\00a0";
+    color: grey;
 }

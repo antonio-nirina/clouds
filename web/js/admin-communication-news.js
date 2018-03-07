@@ -255,7 +255,13 @@ $(document).ready(function(){
      * Activation de pagination au chargement de la page de liste de post
      * *********************************************************************************************
      */
-    setPagination();
+    $(document).ready(function(){
+        $('.main-section').jplist({
+            itemsBox: '.news-post-list',
+            itemPath: '.news-post-element',
+            panelPath: '.control-panel'
+        });
+    });
     /**
      * *********************************************************************************************
      * FIN
@@ -721,18 +727,6 @@ function initSelectChosen() {
     $(".chosen-select").chosen({//hour selectable
         disable_search: true,
         width: "70px"
-    });
-}
-
-function setPagination(){
-    $('#news-post-list').paginate({
-        limit: 5,
-        childrenSelector: '.row.news-post-element',
-        previous: false,
-        first: false,
-        next: false,
-        lastText: 'dernier',
-        navigationWrapper: $('.pagination-container')
     });
 }
 

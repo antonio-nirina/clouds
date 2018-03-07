@@ -8,6 +8,10 @@
             <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
             <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
             <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            <!-- jplist -->
+            <link href="{{ asset("jplist/css/jplist.core.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.textbox-filter.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.checkbox-dropdown.min.css") }}">
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -45,7 +49,7 @@
         </div>
         <div class = "row">
             <div class = "col-12 col-md-12">
-                <section class="fieldset active">
+                <section class="fieldset active main-section">
                     <div class="row">
                         <div class="col-lg-10 col-md-9 col-sm-12">
                             <h3 class="hidden-sm-down block-title">Création et édition de publications</h3>
@@ -61,21 +65,18 @@
                             <div class="hidden-sm-down corner-circle-img img-post rounded-circle"></div>
                         </div>
                     </div>
-                    <div class="row filter news-filter">
+                    <div class="row filter news-filter control-panel">
                         <div class="news-name-search-container filter-block-element-container">
-                            <input class="input-search-list news-name-search-input" placeholder="filtrer par nom">
+                            <input class="input-search-list news-name-search-input" placeholder="filtrer par nom" data-path=".title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter">
                         </div>
                         <div class="send-state-filter-container filter-block-element-container">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-send-state-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    FILTRER PAR
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown-send-state-filter">
-                                    <a class="dropdown-item" href="#">TOUS</a>
-                                    <a class="dropdown-item" href="#">PUBLIÉ</a>
-                                    <a class="dropdown-item" href="#">PROGRAMMÉ</a>
-                                    <a class="dropdown-item" href="#">EN ATTENTE</a>
-                                </div>
+                            <div class="jplist-drop-down status-filter-drop-down" data-control-type="filter-drop-down" data-control-name="status-filter" data-control-action="filter">
+                                <ul>
+                                    <li><span data-path="default">TOUS</span></li>
+                                    <li><span data-path=".published">PUBLIÉ</span></li>
+                                    <li><span data-path=".programmed">PROGRAMMÉ</span></li>
+                                    <li><span data-path=".wait">EN ATTENTE</span></li>
+                                </ul>
                             </div>
                         </div>
                         <div class="archived-element-container filter-block-element-container">
@@ -115,7 +116,29 @@
                     <div class="row list news-post-list" id="news-post-list">
                         {% if news_post_list is defined and news_post_list is not empty %}
                             {% for news_post in news_post_list %}
-                        <div class="row news-post-element">
+                                {% set post_state_text = '' %}
+                                {% set date_prefix = 'le ' %}
+                                {% set date = '' %}
+                                {% set class= '' %}
+
+                                {% if true == news_post.publishedState %}
+                                    {% set post_state_text = 'Publié' %}
+                                    {% set date = news_post.publicationDatetime %}
+                                    {% set class= 'published' %}
+                                {% endif %}
+                                {% if true == news_post.programmedInProgressState %}
+                                    {% set post_state_text = 'Programmé' %}
+                                    {% set date_prefix = 'pour le ' %}
+                                    {% set date = news_post.programmedPublicationDatetime %}
+                                    {% set class= "programmed" %}
+                                {% endif %}
+                                {% if false == news_post.programmedInProgressState and false == news_post.publishedState %}
+                                    {% set post_state_text = 'En attente' %}
+                                    {% set date_prefix = 'modifié le ' %}
+                                    {% set date = news_post.homePagePost.lastEdit %}
+                                    {% set class= "wait" %}
+                                {% endif %}
+                        <div class="row news-post-element {{ class }}" data-status="{{ class }}">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
                                     <div>
@@ -125,28 +148,6 @@
                                     <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
                                     <div class="post-infos-container">
                                         <span class="title">{{ news_post.homePagePost.title }}</span>
-                                        {% set post_state_text = '' %}
-                                        {% set date_prefix = 'le ' %}
-                                        {% set date = '' %}
-                                        {% set class= '' %}
-
-                                        {% if true == news_post.publishedState %}
-                                            {% set post_state_text = 'Publié' %}
-                                            {% set date = news_post.publicationDatetime %}
-                                            {% set class= 'published' %}
-                                        {% endif %}
-                                        {% if true == news_post.programmedInProgressState %}
-                                            {% set post_state_text = 'Programmé' %}
-                                            {% set date_prefix = 'pour le ' %}
-                                            {% set date = news_post.programmedPublicationDatetime %}
-                                            {% set class= "programmed" %}
-                                        {% endif %}
-                                        {% if false == news_post.programmedInProgressState and false == news_post.publishedState %}
-                                            {% set post_state_text = 'En attente' %}
-                                            {% set date_prefix = 'modifié le ' %}
-                                            {% set date = news_post.homePagePost.lastEdit %}
-                                            {% set class= "wait" %}
-                                        {% endif %}
                                         <span class="date {{ class }}">{{ post_state_text }} - {{ date_prefix }}{{ date | localizeddate('none', 'none', locale, null, "d MMMM Y 'à' HH:mm") }}</span>
                                     </div>
                                 </div>
@@ -206,152 +207,14 @@
                         </div>
                             {% endfor %}
                         {% endif %}
-                        {#<div class="row">
-                            <div class="col-12 col-lg-9 post-characteristics-container">
-                                <div class="post-data-container">
-                                    <div>
-                                        <input id="post-checkbox-1" type="checkbox" class="styled-checkbox bigger">
-                                        <label for="post-checkbox-1"></label>
-                                    </div>
-                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
-                                    <div class="post-infos-container">
-                                        <span class="title">Bonjour Bienvenue</span>
-                                        <span class="date published">Publié - le 02 février 2018 à 14:44</span>
-                                    </div>
-                                </div>
-                                <div class="view-number-container">
-                                    <span class="number">10</span>
-                                    <span>vues</span>
-                                </div>
-                                <div class="viewer-container">
-                                    <span>Tous les participants</span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 post-actions-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
-                                        <a class="dropdown-item" href="#">APERÇU</a>
-                                        <a class="dropdown-item" href="#">ÉDITER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
-                                        <a class="dropdown-item" href="#">DÉPUBLIER</a>
-                                        <a class="dropdown-item" href="#">ARCHIVER</a>
-                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-lg-9 post-characteristics-container">
-                                <div class="post-data-container">
-                                    <div>
-                                        <input id="post-checkbox-2" type="checkbox" class="styled-checkbox bigger">
-                                        <label for="post-checkbox-2"></label>
-                                    </div>
-                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
-                                    <div class="post-infos-container">
-                                        <span class="title">Actualité 1</span>
-                                        <span class="date programmed">Programmé - pour le 28 février 2018 à 14:44</span>
-                                    </div>
-                                </div>
-                                <div class="view-number-container">
-                                    <span class="number">0</span>
-                                    <span>vues</span>
-                                </div>
-                                <div class="viewer-container">
-                                    <span>Directeur commercial</span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 post-actions-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
-                                        <a class="dropdown-item" href="#">APERÇU</a>
-                                        <a class="dropdown-item" href="#">ÉDITER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
-                                        <a class="dropdown-item" href="#">DEPUBLIER</a>
-                                        <a class="dropdown-item" href="#">ARCHIVER</a>
-                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-lg-9 post-characteristics-container">
-                                <div class="post-data-container">
-                                    <div>
-                                        <input id="post-checkbox-3" type="checkbox" class="styled-checkbox bigger">
-                                        <label for="post-checkbox-3"></label>
-                                    </div>
-                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
-                                    <div class="post-infos-container">
-                                        <span class="title">Actualité 2</span>
-                                        <span class="date">En attente - modifié le 01 février 2018 à 14:44</span>
-                                    </div>
-                                </div>
-                                <div class="view-number-container">
-                                    <span class="number">0</span>
-                                    <span>vues</span>
-                                </div>
-                                <div class="viewer-container">
-                                    <span>Commercial</span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 post-actions-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
-                                        <a class="dropdown-item" href="#">APERÇU</a>
-                                        <a class="dropdown-item" href="#">ÉDITER</a>
-                                        <a class="dropdown-item" href="#">DUPLIQUER</a>
-                                        <a class="dropdown-item" href="#">PUBLIER</a>
-                                        <a class="dropdown-item" href="#">ARCHIVER</a>
-                                        <a class="dropdown-item" href="#">SUPPRIMER</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-lg-9 post-characteristics-container">
-                                <div class="post-data-container">
-                                    <div>
-                                        <input id="post-checkbox-4" type="checkbox" class="styled-checkbox bigger">
-                                        <label for="post-checkbox-4"></label>
-                                    </div>
-                                    <img src="{{ asset("images/cloudsRewards/post-auto-icon.png") }}">
-                                    <div class="post-infos-container">
-                                        <span class="title">Edito commercial</span>
-                                        <span class="date published">Publié - le le 01 février 2018 à 14:44</span>
-                                    </div>
-                                </div>
-                                <div class="view-number-container">
-                                    <span class="number">5</span>
-                                    <span>vues</span>
-                                </div>
-                                <div class="viewer-container">
-                                    <span>Commercial</span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 post-actions-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
-                                        <a class="dropdown-item" href="#">APERÇU</a>
-                                        <a class="dropdown-item" href="#">ÉDITER</a>
-                                        <a class="dropdown-item" href="#">DÉPUBLIER</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>#}
                     </div>
+                    <div class="jplist-no-results">
+                        <p>Aucun résultat</p>
+                    </div>
+                    <div class="control-panel pagination-container">
+                        <div class="jplist-pagination" data-control-type="pagination" data-control-name="paging" data-control-action="paging" data-items-per-page="5" data-first="premier" data-last="dernier"></div>
+                    </div>
+
                     {#<div class="pagination-container">
                         <ul class="post-pagination">
                             <li class="active"><a href="#">1</a></li>
@@ -361,8 +224,6 @@
                             <li class="last"><a href="#">dernier</a></li>
                         </ul>
                     </div>#}
-                    <div class="pagination-container">
-                    </div>
 
                     <!-- Modal créer / éditer actu -->
                     <div id="create-edit-news-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
@@ -505,8 +366,13 @@
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
             <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
-            <script src="{{ asset('js/jquery-paginate/jquery-paginate.min.js') }}"></script>
             <script src="{{ asset('js/bootstrap-multimodal/multimodal.min.js') }}"></script>
+            <!-- jplist library -->
+            <script src="{{ asset('jplist/js/jplist.core.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.sort-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.pagination-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.textbox-filter.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.filter-dropdown-bundle.min.js') }}"></script>
             <script src="{{ asset("js/admin-communication-news.js") }}"></script>
         {% endblock %}
     {% endembed %}
