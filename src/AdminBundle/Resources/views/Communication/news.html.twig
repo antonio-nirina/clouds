@@ -21,11 +21,13 @@
     {% set main_sub_menu_url = path("admin_communication_news", {'post_type_label': constant('WELCOMING', post_type_label_class)}) %}
     {% set main_section_title = 'Création et édition de publications d\'accueil' %}
     {% set main_section_description = 'La publication d\'accueil est une publication qui s\'affichera automatiquement dans le fil d\'actualité du participant lors de sa 1<sup>ère</sup> connexion sur la plateform. C\'est un message d\'accueil sur la plateforme.' %}
+    {% set archived_post_path = path('admin_communication_news_archived', {'post_type_label': constant('WELCOMING', post_type_label_class)}) %}
 {% else %}
     {% set main_sub_menu_label = 'publications' %}
     {% set main_sub_menu_url = path("admin_communication_news") %}
     {% set main_section_title = 'Création et édition de publications' %}
     {% set main_section_description = 'Les publications s\'afficheront dans le fil d\'actualité du participant de manière instantanée ou programmée.' %}
+    {% set archived_post_path = path('admin_communication_news_archived') %}
 {% endif %}
 
 {% block main %}
@@ -94,7 +96,7 @@
                             </div>
                         </div>
                         <div class="archived-element-container filter-block-element-container">
-                            <a href="{{ path('admin_communication_news_archived') }}" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
+                            <a href="{{ archived_post_path }}" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
                                 archivées
                             </a>
                         </div>
@@ -365,6 +367,7 @@
     <input type="hidden" name="news_post_list_url" value="{{ path('admin_communication_news') }}">
     <input type="hidden" name="welcoming_news_post_list_url" value="{{ path('admin_communication_news', {'post_type_label': constant('WELCOMING', post_type_label_class)}) }}">
     <input type="hidden" name="archived_news_post_list_url" value="{{ path('admin_communication_news_archived') }}">
+    <input type="hidden" name="archived_welcoming_news_post_list_url" value="{{ path('admin_communication_news_archived', {'post_type_label': constant('WELCOMING', post_type_label_class)}) }}">
     <input type="hidden" name="standard_post_type_label" value="{{ constant('STANDARD', post_type_label_class) }}">
     <input type="hidden" name="welcoming_post_type_label" value="{{ constant('WELCOMING', post_type_label_class) }}">
 

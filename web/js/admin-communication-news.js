@@ -71,7 +71,7 @@ $(document).ready(function(){
         $(this).find('.error-message-container.general-message').text('');
     });
 
-    // création actu, soumission de création
+    // création ET édition actu, soumission de création
     $(document).on('click', '#create-edit-news-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
@@ -223,9 +223,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var edit_news_post_url = $(this).attr('data-target-url');
+        var data = addPostTypeLabelInAjaxData({});
         $.ajax({
             type: 'GET',
             url: edit_news_post_url,
+            data: data,
             success: function(data){
                 $('#create-edit-news-modal').find('.modal-body-container').html(data.content);
                 installWysiwyg();
@@ -331,6 +333,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var duplicate_template_url = $(this).attr('data-target-url');
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
         $('#duplicate-news-modal form').ajaxSubmit({
             type: 'POST',
             url: duplicate_template_url,
@@ -339,7 +346,7 @@ $(document).ready(function(){
                     $('#duplicate-news-modal').find('.modal-body-container').html(data.content);
                     $('#duplicate-news-modal').find('.general-message').html('');
                 } else {
-                    window.location.replace($('input[name=news_post_list_url]').val());
+                    window.location.replace(redirect_target);
                 }
             },
             error: function(){
@@ -382,11 +389,16 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
         $.ajax({
             type: 'POST',
             url: target_url,
             success: function(){
-                window.location.replace($('input[name=news_post_list_url]').val());
+                window.location.replace(redirect_target);
             },
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
@@ -412,11 +424,16 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
         $.ajax({
             type: 'POST',
             url: target_url,
             success: function(){
-                window.location.replace($('input[name=news_post_list_url]').val());
+                window.location.replace(redirect_target);
             },
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
@@ -450,11 +467,20 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
-        if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
-            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+            } else {
+                var redirection_url = $('input[name=welcoming_news_post_list_url]').val();
+            }
         } else {
-            var redirection_url = $('input[name=news_post_list_url]').val();
+            if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            } else {
+                var redirection_url = $('input[name=news_post_list_url]').val();
+            }
         }
+
         $.ajax({
             type: 'POST',
             url: target_url,
@@ -484,7 +510,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
-        var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+        } else {
+            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        }
         $.ajax({
             type: 'POST',
             url: target_url,
@@ -506,7 +536,11 @@ $(document).ready(function(){
             $('.chargementAjax').removeClass('hidden');
             var str_checked = arr_checked.join(',');
             var data = {'news_post_id_list': str_checked, 'grouped_action_type': 'restore'};
-            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+                var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+            } else {
+                var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            }
             $.ajax({
                 type: 'POST',
                 url: $(this).attr('data-target-url'),
@@ -658,10 +692,18 @@ $(document).ready(function(){
             var arr_checked = getChecked();
             var str_checked = arr_checked.join(',');
             var data = {'news_post_id_list': str_checked, 'grouped_action_type': $(this).attr('data-grouped-action')};
-            if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
-                var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+                if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                    var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+                } else {
+                    var redirection_url = $('input[name=welcoming_news_post_list_url]').val();
+                }
             } else {
-                var redirection_url = $('input[name=news_post_list_url]').val();
+                if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                    var redirection_url = $('input[name=archived_news_post_list_url]').val();
+                } else {
+                    var redirection_url = $('input[name=news_post_list_url]').val();
+                }
             }
             $.ajax({
                 type: 'POST',

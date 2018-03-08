@@ -108,15 +108,21 @@ class NewsPostFormGenerator
      * Generate form for news post edit
      *
      * @param NewsPost $news_post
+     * @param string $post_type
      * @param string $form_name
      *
      * @return FormInterface
      */
-    public function generateForEdit(NewsPost $news_post, $form_name = 'edit_news_post_form')
+    public function generateForEdit(NewsPost $news_post, $post_type, $form_name = 'edit_news_post_form')
     {
+        if (PostType::WELCOMING_NEWS_POST == $post_type) {
+            $form_class = WelcomingNewsPostType::class;
+        } else {
+            $form_class = NewsPostType::class;
+        }
         $form = $this->form_factory->createNamed(
             $form_name,
-            NewsPostType::class,
+            $form_class,
             $news_post,
             array('validation_groups' => 'news_post')
         );

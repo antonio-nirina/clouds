@@ -79,11 +79,13 @@ class NewsPostManager
      */
     public function prepareEditForSave(NewsPost $news_post)
     {
-        if (true == $news_post->getProgrammedInProgressState()
-            && false == $news_post->getProgrammedPublicationState()
-        ) {
-            $news_post->setPublishedState(true)
-                ->setProgrammedInProgressState(false);
+        if (PostType::NEWS_POST == $news_post->getHomePagePost()->getPostType()) {
+            if (true == $news_post->getProgrammedInProgressState()
+                && false == $news_post->getProgrammedPublicationState()
+            ) {
+                $news_post->setPublishedState(true)
+                    ->setProgrammedInProgressState(false);
+            }
         }
 
         return $news_post;
@@ -186,8 +188,10 @@ class NewsPostManager
         }
 
         // if programmed publication datetime state is false, reset programmed publication datetime
-        if (false == $news_post->getProgrammedPublicationState()) {
-            $news_post->setProgrammedPublicationDatetime(null);
+        if (PostType::NEWS_POST == $news_post->getHomePagePost()->getPostType()) {
+            if (false == $news_post->getProgrammedPublicationState()) {
+                $news_post->setProgrammedPublicationDatetime(null);
+            }
         }
 
         return $news_post;

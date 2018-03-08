@@ -1779,11 +1779,20 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/actualites-archivees/liste", name="admin_communication_news_archived")
+     * @Route(
+     *     "/actualites-archivees/liste/{post_type_label}",
+     *     defaults={
+     *          "post_type_label"=AdminBundle\Component\Post\NewsPostTypeLabel::STANDARD
+     *     },
+     *     name="admin_communication_news_archived"
+     * )
      */
-    public function archivedNewsAction()
+    public function archivedNewsAction(Request $request, $post_type_label)
     {
-        return $this->forward('AdminBundle:Communication:news', array('archived_state' => true));
+        return $this->forward('AdminBundle:Communication:news', array(
+            'archived_state' => true,
+            'post_type_label' => $post_type_label,
+        ));
     }
 
     /**
@@ -1858,8 +1867,20 @@ class CommunicationController extends AdminController
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
+        $post_type_label = $request->get('news_post_type_label');
+        if (is_null($post_type_label)
+            || !in_array($post_type_label, NewsPostTypeLabel::VALID_NEWS_POST_TYPE_LABEL)
+        ) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
         $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
-        $news_post_form = $form_generator->generateForEdit($news_post, 'news_post_form');
+        $news_post_data_linker = $this->get('AdminBundle\Service\DataLinker\NewsPostDataLinker');
+        $news_post_form = $form_generator->generateForEdit(
+            $news_post,
+            $news_post_data_linker->linkTypeLabelToType($post_type_label),
+            'news_post_form'
+        );
         $news_post_form->handleRequest($request);
         if ($news_post_form->isSubmitted() && $news_post_form->isValid()) {
             $submission_type = $request->get('submission_type');
@@ -1872,11 +1893,15 @@ class CommunicationController extends AdminController
             }
         }
 
-        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', array(
+        $content_option = array(
             'news_post_form' => $news_post_form->createView(),
             'news_post_submission_type_class' => new NewsPostSubmissionType(),
             'edit_mode' => true,
-        ));
+        );
+        if (NewsPostTypeLabel::WELCOMING == $post_type_label) {
+            $content_option['welcoming_news_post_type'] = true;
+        }
+        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', $content_option);
         $data = $json_response_data_provider->success();
         if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
             $data = $json_response_data_provider->formError();
