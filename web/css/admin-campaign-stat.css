@@ -1,5 +1,5 @@
 
-.modal-dialog{
+.modal-stat{
     max-width: 927px !important;
     margin-left: 222px;
     margin-top: 142px;
@@ -25,9 +25,9 @@ td.emails-table{
     font-size: 15px;
 }
 
-th{
+/*th{
     background-color: white !important;
-}
+}*/
 
 .tableDetail{
     /*display: inline-table;*/
@@ -40,19 +40,33 @@ th{
     /*overflow-x:auto;*/
 }
 
-table {
+.table-stat {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
 }
 
-th, td {
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
 }
 
+
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 .tableDetail2{
     /*display: inline-table;*/
@@ -62,8 +76,19 @@ th, td {
     margin-top: 80px;
     top: 35px;
     font-size: 11px !important;
-    width: 100 !important%;
+    width: 100% !important;
 }
+
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    margin-top: 80px;
+    top: 35px;
+    font-size: 11px !important;
+    width: 100% !important;
+}
+
 
 #statistique-campaign-dialog,.content{
     width: 100% !important;
@@ -714,7 +739,7 @@ min-width: 181px !important;
 /******************************Responsive********************************************************/
 
 @media (min-width: 1200px) {
-  .modal-dialog{
+  .modal-stat{
     max-width: 927px !important;
     margin-left: 222px;
     margin-top: 142px;
@@ -755,14 +780,30 @@ th{
     /*overflow-x:auto;*/
 }
 
-table {
+
+.table-stat {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
 }
 
-th, td {
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.table-stat,th, td {
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
@@ -777,7 +818,16 @@ th, td {
     margin-top: 80px;
     top: 35px;
     font-size: 11px !important;
-    width: 100 !important%;
+    width: 100% !important;
+}
+.tableEmpty3{
+     display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    margin-top: 80px;
+    top: 35px;
+    font-size: 11px !important;
+    width: 100% !important;
 }
 
 #statistique-campaign-dialog,.content{
@@ -1432,7 +1482,7 @@ min-width: 181px !important;
 
 
 @media (max-width: 575px)  {
-.modal-dialog{
+.modal-stat{
     max-width: 945px !important;
     margin-left: 0px;
     margin-top: 0px;
@@ -1458,9 +1508,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -1484,18 +1534,35 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+    
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
 
 
     .tableDetail2{
@@ -1506,6 +1573,14 @@ min-width: 181px !important;
         overflow-x:auto;
         width: 100%;
     }
+
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -2133,7 +2208,7 @@ min-width: 181px !important;
 /**********************************458***574****************************************************/
 
 @media (min-width: 458px) and (max-width: 575px) {
-    .modal-dialog{
+    .modal-stat{
     max-width: 945px !important;
     margin-left: 0px;
     margin-top: 0px;
@@ -2159,9 +2234,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -2185,18 +2260,35 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+    
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
 
 
     .tableDetail2{
@@ -2207,6 +2299,13 @@ min-width: 181px !important;
         overflow-x:auto;
         width: 100%;
     }
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -2786,7 +2885,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 649px) and (max-width: 767px) {
-         .modal-dialog{
+         .modal-stat{
         max-width: 945px !important;
         margin-left: 0px;
         margin-top: 0px;
@@ -2812,9 +2911,9 @@ min-width: 181px !important;
             font-size: 15px;
         }
 
-        th{
+        /*th{
             background-color: white !important;
-        }
+        }*/
 
         /*.tableDetail,.table{
             display: inline-table;
@@ -2839,32 +2938,60 @@ min-width: 181px !important;
         left: 16px;
         }
 
-         table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: 1px solid #CBCBCB;
-        }
+        
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-        th, td {
-            text-align: left;
-            padding: 8px;
-             border: 1px solid #ddd;
-        }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
-        .tableDetail2{
-            /*display: inline-table;*/
-            display: none;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            position: relative;
-            top: -35px;
-            font-size: 11px;
-            overflow-x:auto;
-            width: 100%;
-            left: 16px;
-        }
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    position: relative;
+    font-size: 11px;
+    overflow-x:auto;
+    width: 100%;
+    left: 16px;
+    top: -35px;
+}
+
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    position: relative;
+    font-size: 11px;
+    overflow-x:auto;
+    width: 100%;
+    left: 16px;
+    top: -35px;
+}
 
         #statistique-campaign-dialog,.content{
             width: 100% !important;
@@ -3443,7 +3570,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 768px) and (max-width: 831px) {
-    .modal-dialog{
+    .modal-stat{
     max-width: 945px !important;
     margin-left: 0px;
     margin-top: 0px;
@@ -3469,9 +3596,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -3495,28 +3622,53 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+    
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
-    .tableDetail2{
-        /*display: inline-table;*/
-        display: none;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        overflow-x:auto;
-        width: 100%;
-    }
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+}
+
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -4089,7 +4241,7 @@ min-width: 181px !important;
 
 @media (min-width: 831px) and (max-width: 933px) {
 
- .modal-dialog{
+ .modal-stat{
     max-width: 887px !important;
     margin-left: 103px;
     margin-top: 0px;
@@ -4115,9 +4267,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -4141,18 +4293,35 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+   
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
 
 
     .tableDetail2{
@@ -4163,6 +4332,14 @@ min-width: 181px !important;
         overflow-x:auto;
         width: 100%;
     }
+
+.tableEmpty3{
+   display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -4741,7 +4918,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 934px) and (max-width: 991px) {
-    .modal-dialog{
+    .modal-stat{
     max-width: 887px !important;
     margin-left: 103px;
     margin-top: 0px;
@@ -4767,9 +4944,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -4793,18 +4970,34 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+    
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
     .tableDetail2{
@@ -4815,6 +5008,14 @@ min-width: 181px !important;
         overflow-x:auto;
         width: 100%;
     }
+
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -5390,7 +5591,7 @@ min-width: 181px !important;
 
 @media (min-width: 992px) and (max-width: 1000px) {
 
- .modal-dialog{
+ .modal-stat{
     max-width: 988px !important;
     margin-left: 0px;
     margin-top: 0px;
@@ -5416,9 +5617,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -5442,28 +5643,53 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+    
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
-    .tableDetail2{
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.tableDetail2{
         /*display: inline-table;*/
         display: none;
         border: 2px !important;
         border-color: #CBCBCB;
         overflow-x:auto;
         width: 100%;
-    }
+}
+
+.tableEmpty3{
+     display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -6035,7 +6261,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 1001px) and (max-width: 1090px) {
-    .modal-dialog{
+    .modal-stat{
         max-width: 911px !important;
         margin-left: 103px;
         margin-top: 133px;
@@ -6061,9 +6287,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -6087,30 +6313,57 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+    
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
-    .tableDetail2{
-        /*display: inline-table;*/
-        display: none;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        overflow-x:auto;
-        width: 100%;
-        position: relative;
-        top: -16px;
-    }
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+    position: relative;
+    top: -16px;
+}
+
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+    position: relative;
+    top: -16px;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -6683,7 +6936,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 1091px) and (max-width: 1149px) {
-    .modal-dialog{
+    .modal-stat{
         max-width: 781px !important;
         margin-left: 207px;
         margin-top: 138px
@@ -6710,9 +6963,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -6736,21 +6989,38 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+    
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
-    .tableDetail2{
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.tableDetail2{
         /*display: inline-table;*/
         display: none;
         border: 2px !important;
@@ -6758,8 +7028,17 @@ min-width: 181px !important;
         overflow-x:auto;
         width: 100%;
         position: relative;
-        top: -169px;
-    }
+        top: -23px;
+}
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+    position: relative;
+    top: -23px;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -7337,7 +7616,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 1150px) and (max-width: 1199px) {
-    .modal-dialog{
+    .modal-stat{
     max-width: 859px !important;
     margin-left: 218px;
     margin-top: 138px;
@@ -7363,9 +7642,9 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    th{
+    /*th{
         background-color: white !important;
-    }
+    }*/
 
     /*.tableDetail,.table{
         display: inline-table;
@@ -7389,18 +7668,35 @@ min-width: 181px !important;
     width: 100%;
     }
 
-     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid #CBCBCB;
-    }
+     
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-    th, td {
-        text-align: left;
-        padding: 8px;
-         border: 1px solid #ddd;
-    }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
 
 
     .tableDetail2{
@@ -7411,8 +7707,18 @@ min-width: 181px !important;
         overflow-x:auto;
         width: 100%;
         position: relative;
-        top: -169px;
+        top: -100px;
     }
+
+.tableEmpty3{
+     display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    overflow-x:auto;
+    width: 100%;
+    position: relative;
+    top: -100px;
+}
 
     #statistique-campaign-dialog,.content{
         width: 100% !important;
@@ -7986,7 +8292,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 645px) and (max-width: 648px) {
-    .modal-dialog{
+    .modal-stat{
         max-width: 945px !important;
         margin-left: 0px;
         margin-top: 0px;
@@ -8012,9 +8318,9 @@ min-width: 181px !important;
             font-size: 15px;
         }
 
-        th{
+        /*th{
             background-color: white !important;
-        }
+        }*/
 
         /*.tableDetail,.table{
             display: inline-table;
@@ -8039,31 +8345,59 @@ min-width: 181px !important;
         left: 16px;
         }
 
-         table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: 1px solid #CBCBCB;
-        }
+        
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-        th, td {
-            text-align: left;
-            padding: 8px;
-             border: 1px solid #ddd;
-        }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
-        .tableDetail2{
-            /*display: inline-table;*/
-            display: none;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            position: relative;
-            top: -121px;
-            font-size: 11px;
-            overflow-x:auto;
-            width: 100%;
-        }
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+    .tableDetail2{
+        /*display: inline-table;*/
+        display: none;
+        border: 2px !important;
+        border-color: #CBCBCB;
+        position: relative;
+        top: -121px;
+        font-size: 11px;
+        overflow-x:auto;
+        width: 100%;
+    }
+
+.tableEmpty3{
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    position: relative;
+    top: -121px;
+    font-size: 11px;
+    overflow-x:auto;
+    width: 100%;
+}
 
         #statistique-campaign-dialog,.content{
             width: 100% !important;
@@ -8649,7 +8983,7 @@ min-width: 181px !important;
 
 
 @media (min-width: 576px) and (max-width: 644px) {
-    .modal-dialog{
+    .modal-stat{
         max-width: 945px !important;
         margin-left: 0px;
         margin-top: 0px;
@@ -8675,9 +9009,9 @@ min-width: 181px !important;
             font-size: 15px;
         }
 
-        th{
+        /*th{
             background-color: white !important;
-        }
+        }*/
 
         /*.tableDetail,.table{
             display: inline-table;
@@ -8701,31 +9035,61 @@ min-width: 181px !important;
         width: 100%;
         }
 
-         table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: 1px solid #CBCBCB;
-        }
+        
+.table-stat {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
 
-        th, td {
-            text-align: left;
-            padding: 8px;
-             border: 1px solid #ddd;
-        }
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #CBCBCB;
+}
+
+.table,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
 
 
-        .tableDetail2{
-            /*display: inline-table;*/
-            display: none;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            position: relative;
-            top: -121px;
-            font-size: 11px;
-            overflow-x:auto;
-            width: 100%;
-        }
+
+.table-stat,th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+}
+
+
+
+    .tableDetail2{
+        /*display: inline-table;*/
+        display: none;
+        border: 2px !important;
+        border-color: #CBCBCB;
+        position: relative;
+        top: -12px;
+        left: 17px;
+        font-size: 11px;
+        overflow-x:auto;
+        width: 100%;
+    }
+
+.tableEmpty3{
+   display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    position: relative;
+    top: -12px;
+    left: 17px;
+    font-size: 11px;
+    overflow-x:auto;
+    width: 100%;
+}
 
         #statistique-campaign-dialog,.content{
             width: 100% !important;

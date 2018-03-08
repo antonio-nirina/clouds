@@ -58,6 +58,7 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 		                $('#tableBody').children('tr').remove();
 		                $('#tableBody2').children('tr').remove();
 		                $('.tableDetail2').css('display','block'); 
+		                $('.tableEmpty3').css('display','none'); 
                         var span1 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
                         var span2 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background2 "></i></span></div>');
                         var span3 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background3 "></i></span></div>');
@@ -105,16 +106,26 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					}
 					return newdata;
 				});
-				$('.navigation').css('display','none');
-				$('.tableDetail').css('display','none');                     
-                $('#tableBody').children('tr').remove();
-                $('#tableBody2').children('tr').remove();
-                $('.tableDetail2').css('display','block');  
-				var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
-				$.each(newdata, function(index, val) {
-					$("<tr></tr>").appendTo('.table #tableBody2')
-		            .append("<td>"+ val.emails+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-				});
+				if (newdata.length > 0 ) {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','block');  
+	                $('.tableEmpty3').css('display','none'); 
+					var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
+					$.each(newdata, function(index, val) {
+						$("<tr></tr>").appendTo('.table #tableBody2')
+			            .append("<td>"+ val.emails+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+					});
+				} else {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','none');
+	                $('.tableEmpty3').css('display','block');  
+				}
 				break;			
 				case "opened":
 				var newdata = [];
@@ -124,18 +135,30 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					}
 					return newdata;
 				});
-				$('.navigation').css('display','none');
-				$('.tableDetail').css('display','none');                     
-               $('.tableDetail').css('display','none');                     
-                $('#tableBody').children('tr').remove();
-                $('#tableBody2').children('tr').remove();
-                $('.tableDetail2').css('display','block');
-                var span1 = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');  
-				var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background2 "></i></span></div>');
-				$.each(newdata, function(index, val) {
-					$("<tr></tr>").appendTo('.table #tableBody2')
-		            .append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-				});
+	        	if (newdata.length > 0 ) {
+		        	$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','block');
+	                $('.tableEmpty3').css('display','none'); 
+	                var span1 = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');  
+					var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background2 "></i></span></div>');
+					$.each(newdata, function(index, val) {
+						$("<tr></tr>").appendTo('.table #tableBody2')
+			            .append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+					});
+	        	} else {
+	        		$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','none');
+	                $('.tableEmpty3').css('display','block');
+	        	}
+				
 				break;
 				case "clicked":
 				var newdata = [];
@@ -145,18 +168,30 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					}
 					return newdata;
 				});
-				$('.navigation').css('display','none');
-				$('.tableDetail').css('display','none');                     
-                $('#tableBody').children('tr').remove();
-                 $('#tableBody2').children('tr').remove();
-                $('.tableDetail2').css('display','block');  
-				var span1 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-1x icon-background3 "></i></span></div>');
-				var span2 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-1x icon-background2 "></i></span></div>');
-				var span3 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
-				$.each(newdata, function(index, val) {
-					$("<tr></tr>").appendTo('.table #tableBody2')
-		            .append("<td>"+ val.emails+"</td><td>"+span3.html()+"</td><td>"+span2.html()+"</td><td>"+span1.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-				});
+				if (newdata.length > 0) {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                 $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','block'); 
+	                $('.tableEmpty3').css('display','none');  
+					var span1 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-1x icon-background3 "></i></span></div>');
+					var span2 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-1x icon-background2 "></i></span></div>');
+					var span3 = $('<div><span class="fa-stack fa-lg"><i  class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
+					$.each(newdata, function(index, val) {
+						$("<tr></tr>").appendTo('.table #tableBody2')
+			            .append("<td>"+ val.emails+"</td><td>"+span3.html()+"</td><td>"+span2.html()+"</td><td>"+span1.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+					});
+
+				} else {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','none');
+	                $('.tableEmpty3').css('display','block');  
+				}
+				
 				break;
 				case "bounce":
 				var newdata = [];
@@ -166,12 +201,13 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					}
 					return newdata;
 				});
-				if (newdata.etat != "undefined") {
+				if (newdata.length > 0) {
 					$('.navigation').css('display','none');
 					$('.tableDetail').css('display','none');                     
 	                $('#tableBody').children('tr').remove();
 	                 $('#tableBody2').children('tr').remove();
-	                $('.tableDetail2').css('display','block');  
+	                $('.tableDetail2').css('display','block');
+	                 $('.tableEmpty3').css('display','none');   
 					var span = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background7"></i></span></div>');
 					$.each(newdata, function(index, val) {
 						$("<tr></tr>").appendTo('.table #tableBody2')
@@ -181,10 +217,9 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					$('.navigation').css('display','none');
 					$('.tableDetail').css('display','none');                     
 	                $('#tableBody').children('tr').remove();
-	                 $('#tableBody2').children('tr').remove();
-	                $('.tableDetail2').css('display','block');
-					$("<tr></tr>").appendTo('.table #tableBody2')
-			            .append("<td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','none');
+	                $('.tableEmpty3').css('display','block');  
 				}
 				
 				break;
@@ -196,17 +231,26 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					}
 					return newdata;
 				});
-				$('.navigation').css('display','none');
-				$('.tableDetail').css('display','none');                     
-                $('#tableBody').children('tr').remove();
-                 $('#tableBody2').children('tr').remove();
-                $('.tableDetail2').css('display','block');  
-				var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background6 "></i></span></div>');
-				$.each(newdata, function(index, val) {
-					$("<tr></tr>").appendTo('.table #tableBody2')
-		            .append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span.html()+"</td><td>"+""+"</td>");
-				});
-
+				if (newdata.length > 0) {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','block'); 
+	                $('.tableEmpty3').css('display','none');  
+					var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background6 "></i></span></div>');
+					$.each(newdata, function(index, val) {
+						$("<tr></tr>").appendTo('.table #tableBody2')
+			            .append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span.html()+"</td><td>"+""+"</td>");
+					});
+				} else {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','none');
+	                $('.tableEmpty3').css('display','block');  
+				}
 				break;
 				case "unsub":
 				var newdata = [];
@@ -216,16 +260,27 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					}
 					return newdata;
 				});
-				$('.navigation').css('display','none');
-				$('.tableDetail').css('display','none');                     
-                $('#tableBody').children('tr').remove();
-                 $('#tableBody2').children('tr').remove();
-                $('.tableDetail2').css('display','block');  
-				var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background4 "></i></span></div>');
-				$.each(newdata, function(index, val) {
-					$("<tr></tr>").appendTo('.table #tableBody2')
-		            .append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-				});	        	
+				if (newdata.length > 0) {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','block'); 
+	                $('.tableEmpty3').css('display','none');  
+					var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background4 "></i></span></div>');
+					$.each(newdata, function(index, val) {
+						$("<tr></tr>").appendTo('.table #tableBody2')
+			            .append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+					});	  
+				} else {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','none');
+	                $('.tableEmpty3').css('display','block');  
+				}
+				      	
 				break;
 				case "blocked":
 				var newdata = [];
@@ -235,18 +290,27 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					}
 					return newdata;
 				});
-				$('.navigation').css('display','none');
-				$('.tableDetail').css('display','none');                     
-                $('#tableBody').children('tr').remove();
-                 $('#tableBody2').children('tr').remove();
-                $('.tableDetail2').css('display','block');  
-				var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background5 "></i></span></div>');
-				$.each(newdata, function(index, val) {
-					$("<tr></tr>").appendTo('.table #tableBody2')
-		            .append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td>");
-				});
-				break;
-	        	
+				if (newdata.length >  0 ) {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','block');  
+	                $('.tableEmpty3').css('display','none'); 
+					var span = $('<div><span class="fa-stack fa-lg"><i id="erreur" class="fa fa-circle fa-stack-1x icon-background5 "></i></span></div>');
+					$.each(newdata, function(index, val) {
+						$("<tr></tr>").appendTo('.table #tableBody2')
+			            .append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span.html()+"</td><td>"+""+"</td><td>"+""+"</td>");
+					});
+				} else {
+					$('.navigation').css('display','none');
+					$('.tableDetail').css('display','none');                     
+	                $('#tableBody').children('tr').remove();
+	                $('#tableBody2').children('tr').remove();
+	                $('.tableDetail2').css('display','none');
+	                $('.tableEmpty3').css('display','block');  
+				}				
+				break;	        	
 			}	        	
 	}
 
