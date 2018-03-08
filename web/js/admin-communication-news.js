@@ -1,7 +1,30 @@
 $(document).ready(function(){
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
+     * Activation de pagination, barre recherche, filtre au chargement de la page de liste de post
+     * *********************************************************************************************
+     */
+    $(document).ready(function(){
+        $('.chargementAjax').removeClass('hidden');
+        $('.main-section').jplist({
+            itemsBox: '.news-post-list',
+            itemPath: '.news-post-element',
+            panelPath: '.control-panel'
+        });
+        $('.jplist-no-results').removeClass('hidden-block');
+        $('.chargementAjax').addClass('hidden');
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - Actualités
+     * Activation de pagination, barre recherche, filtre au chargement de la page de liste de post
+     * *********************************************************************************************
+     */
+    /**
+     * *********************************************************************************************
+     * Communication - Actualités
      * Création - Edition actu
      * *********************************************************************************************
      */
@@ -226,14 +249,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Création - Edition actu
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
      * *********************************************************************************************
      */
@@ -244,29 +267,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Activation des champs du plugin de création de lien dans wysiwyg ckeditor
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
-     * Activation de pagination au chargement de la page de liste de post
-     * *********************************************************************************************
-     */
-    setPagination();
-    /**
-     * *********************************************************************************************
-     * FIN
-     * Paramétrages - Communication - Actualités
-     * Activation de pagination au chargement de la page de liste de post
-     * *********************************************************************************************
-     */
-
-    /**
-     * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Duplication de publication
      * *********************************************************************************************
      */
@@ -351,14 +359,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Duplication de publication
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Publication / Dépublication
      * *********************************************************************************************
      */
@@ -380,7 +388,7 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Publication / Dépublication
      * *********************************************************************************************
      */
@@ -388,7 +396,7 @@ $(document).ready(function(){
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Archivage, dans Actions
      * *********************************************************************************************
      */
@@ -410,14 +418,14 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Archivage, dans Actions
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Suppression, avec confirmation
      * *********************************************************************************************
      */
@@ -453,14 +461,14 @@ $(document).ready(function(){
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Suppression, avec confirmation
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Restauration
      * *********************************************************************************************
      */
@@ -508,14 +516,94 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Restauration
      * *********************************************************************************************
      */
 
     /**
      * *********************************************************************************************
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
+     * Prévisualisation
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.preview-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'GET',
+            url: target_url,
+            success: function(data){
+                $('#preview-news-modal').find('.modal-body-container').html(data.content);
+            },
+            statusCode: {
+                404: function(data){
+                    $('#preview-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#preview-news-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#preview-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#preview-news-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#preview-news-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    $('#preview-news-modal').on('hidden.bs.modal', function(){
+        $(this).find('.error-message-container.general-message').text('');
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - Actualités
+     * Prévisualisation
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - Actualités
+     * Prévisualisation, dans création/édition
+     * *********************************************************************************************
+     */
+    $(document).on('input', '#create-edit-news-modal .news-post-title-input', function(){
+        if ('' != $(this).val()) {
+            $('#create-edit-news-modal').find('.preview-news-button').addClass('active');
+        } else {
+            $('#create-edit-news-modal').find('.preview-news-button').removeClass('active');
+        }
+    });
+
+    $(document).on('click', '#create-edit-news-modal .delete-news-post-title-input', function(){
+        $('#create-edit-news-modal').find('.preview-news-button').removeClass('active');
+    });
+
+    $(document).on('click', '#create-edit-news-modal .preview-news-button.active', function(e){
+        e.preventDefault();
+        updateTitle();
+        updateContent();
+        updateActionButton();
+        updateDate();$('#instantaneous-preview-news-modal').modal('show');
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - Actualités
+     * Prévisualisation, dans création/édition
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - Actualités
      * Actions de groupe
      * *********************************************************************************************
      */
@@ -583,10 +671,34 @@ $(document).ready(function(){
     /**
      * *********************************************************************************************
      * FIN
-     * Paramétrages - Communication - Actualités
+     * Communication - Actualités
      * Actions de groupe
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Communication - Actualités
+     * Incrémentation - Décrémentation nombre éléments de liste selectionnés
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.news-post-list .post-data-container .styled-checkbox', function(){
+        if($(this).is(':checked')){
+            checked.push($(this).attr('id'));
+        } else {
+            checked.splice(checked.indexOf($(this).attr('id')), 1);
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - Actualités
+     * Incrémentation - Décrémentation nombre éléments de liste selectionnés
+     * *********************************************************************************************
+     */
+
+
 });
 
 function installWysiwyg()
@@ -630,11 +742,15 @@ function installColorPicker()
 
 function initCalendar() {
     $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+    var date = $('.post-launch-date').val();
     $('#calendar').datepicker({
         minDate: new Date(),
         altField: ".post-launch-date",
         altFormat: "dd/mm/yy"
     });
+    if ('' != date.trim()) {
+        $('#calendar').datepicker('setDate', date);
+    }
 }
 
 function initSelectChosen() {
@@ -644,24 +760,68 @@ function initSelectChosen() {
     });
 }
 
-function setPagination(){
-    $('#news-post-list').paginate({
-        limit: 5,
-        childrenSelector: '.row.news-post-element',
-        previous: false,
-        first: false,
-        next: false,
-        lastText: 'dernier',
-        navigationWrapper: $('.pagination-container')
-    });
-}
-
+var checked = [];
 function getChecked() {
-    var checked = [];
+    /*var checked = [];
     $(".post-data-container .styled-checkbox").each(function() {
         if ($(this).is(':checked')) {
             checked.push($(this).attr('id'));
         }
-    });
+    });*/
     return checked;
+}
+
+// instantaneous preview functions
+function updateTitle()
+{
+    var title = $('#create-edit-news-modal').find('form .news-post-title-input').val();
+    $('#instantaneous-preview-news-modal').find('.lib-titre-block-centre').text(title);
+}
+
+function updateDate()
+{
+    var date = $('#create-edit-news-modal').find('input[name=instantaneous_preview_date]').val();
+    $('#instantaneous-preview-news-modal').find('.lib-date-block-centre').text(date);
+}
+
+function updateContent()
+{
+    var content_textarea = $('#create-edit-news-modal').find('.news-post-content-textarea');
+    var content_textarea_id = content_textarea.attr('id');
+    var content = CKEDITOR.instances[content_textarea_id].getData();
+    $('#instantaneous-preview-news-modal').find('.descr-block-centre').html(content);
+}
+
+function updateActionButton()
+{
+    var action_button_block_container = $('#create-edit-news-modal').find('.action-button-block-container');
+    var button_container = $('#instantaneous-preview-news-modal').find('.button-container');
+    if (action_button_block_container.is(':visible')) {
+        var action_button_text = action_button_block_container.find('.action-button-text-input').val();
+        var action_button_bg_color = action_button_block_container.find('.color-value.action-button-background-color').val();
+        var action_button_text_color = action_button_block_container.find('.color-value.action-button-text-color').val();
+        var action_button_target_url = action_button_block_container.find('.action-button-target-url-input').val();
+        var action_button_target_page = action_button_block_container.find('.action-button-target-page-select')
+            .find('option:selected').val();
+
+        var button = button_container.find('.action-button-preview');
+        button.text(action_button_text);
+        button.css({
+            'background-color': action_button_bg_color,
+            'color': action_button_text_color
+        });
+        if('' != action_button_target_page.trim()){
+            button.attr('href', action_button_target_page);
+            button.attr('target', '_blank');
+        } else if ('' != action_button_target_url){
+            button.attr('href', action_button_target_url);
+            button.attr('target', '_blank');
+        } else{
+            button.attr('href', '#');
+            button.attr('target', '');
+        }
+        button_container.show();
+    } else {
+        button_container.hide();
+    }
 }
