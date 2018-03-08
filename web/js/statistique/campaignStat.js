@@ -131,7 +131,7 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 				case "opened":
 				var newdata = [];
 	        	var res = obj.map(function(index, elem) {
-					if (index.etat == "opened") {
+					if (index.etat == "opened" || index.etat == "clicked") {
 						newdata.push(index);
 					}
 					return newdata;

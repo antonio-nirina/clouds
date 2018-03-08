@@ -30,7 +30,7 @@ class ExcelManager
 	    	$objPHPExcel = $this->allTraitement($result);
 	    } elseif (!empty($status) && $status == "delivred") {
 	    	foreach ($result as  $del) {
-	    		if ($del["etat"] == "sent" ) {
+	    		if ($del["etat"] == "sent" || $del["etat"] == "opened" || $del["etat"] == "clicked" ) {
 	    			$res [] = $del;
 	    		} 
 	    	}
@@ -38,7 +38,7 @@ class ExcelManager
 	    	$objPHPExcel = $this->allTraitement($data);
 	    } elseif (!empty($status) && $status == "opened") {
 	    	foreach ($result as  $del) {
-	    		if ($del["etat"] == "opened" ) {
+	    		if ($del["etat"] == "opened" || $del["etat"] == "clicked") {
 	    			$res [] = $del;
 	    		} 
 	    	}	    	
@@ -196,6 +196,11 @@ class ExcelManager
 	            $objPHPExcel->getActiveSheet()->getCell('C'.$row)->setValue("x");
 	            $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getAlignment()->applyFromArray(
     			array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+
+    			$objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($style_delivre);
+	           	$objPHPExcel->getActiveSheet()->getCell('B'.$row)->setValue("x");
+	           	$objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->applyFromArray(
+    			array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
           	} elseif ($item["etat"] == "sent") {
           		$objPHPExcel->setActiveSheetIndex(0)
 	                ->setCellValue('A'.$row, $item["emails"]);
@@ -209,6 +214,16 @@ class ExcelManager
 	            $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->applyFromArray($style_clique);
 	            $objPHPExcel->getActiveSheet()->getCell('D'.$row)->setValue("x");
 	            $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->getAlignment()->applyFromArray(
+    			array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+
+	            $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($style_ouverts);
+	            $objPHPExcel->getActiveSheet()->getCell('C'.$row)->setValue("x");
+	            $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getAlignment()->applyFromArray(
+    			array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+
+    			$objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($style_delivre);
+	           	$objPHPExcel->getActiveSheet()->getCell('B'.$row)->setValue("x");
+	           	$objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->applyFromArray(
     			array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
           	} elseif ($item["etat"] == "unsub") {
           		$objPHPExcel->setActiveSheetIndex(0)
