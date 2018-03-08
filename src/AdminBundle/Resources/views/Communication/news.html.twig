@@ -22,12 +22,14 @@
     {% set main_section_title = 'Création et édition de publications d\'accueil' %}
     {% set main_section_description = 'La publication d\'accueil est une publication qui s\'affichera automatiquement dans le fil d\'actualité du participant lors de sa 1<sup>ère</sup> connexion sur la plateform. C\'est un message d\'accueil sur la plateforme.' %}
     {% set archived_post_path = path('admin_communication_news_archived', {'post_type_label': constant('WELCOMING', post_type_label_class)}) %}
+    {% set post_element_icon = asset("images/cloudsRewards/post-auto-icon.png") %}
 {% else %}
     {% set main_sub_menu_label = 'publications' %}
     {% set main_sub_menu_url = path("admin_communication_news") %}
     {% set main_section_title = 'Création et édition de publications' %}
     {% set main_section_description = 'Les publications s\'afficheront dans le fil d\'actualité du participant de manière instantanée ou programmée.' %}
     {% set archived_post_path = path('admin_communication_news_archived') %}
+    {% set post_element_icon = asset("images/cloudsRewards/post-icon.png") %}
 {% endif %}
 
 {% block main %}
@@ -161,7 +163,7 @@
                                         <input id="{{ news_post.getId }}" type="checkbox" class="styled-checkbox bigger">
                                         <label for="{{ news_post.getId }}"></label>
                                     </div>
-                                    <img src="{{ asset("images/cloudsRewards/post-icon.png") }}">
+                                    <img src="{{ post_element_icon }}">
                                     <div class="post-infos-container">
                                         <span class="title">{{ news_post.homePagePost.title }}</span>
                                         <span class="date {{ class }}">{{ post_state_text }} - {{ date_prefix }}{{ date | localizeddate('none', 'none', locale, null, "d MMMM Y 'à' HH:mm") }}</span>
