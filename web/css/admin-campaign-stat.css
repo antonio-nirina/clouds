@@ -126,9 +126,12 @@ td.emails-table{
 
 .form-element-container .button-container{
     display: inline-block;
-    position: relative;
-    left: 390px;
-    top: -69px;
+    /*position: relative;
+    left: 335px;/*390*/
+    /*top: -69px;*/
+    position: absolute;
+    left: 687px;
+    top: 28px;
 }
 
 
@@ -866,9 +869,12 @@ th{
 
 .form-element-container .button-container{
     display: inline-block;
-    position: relative;
-    left: 390px;
-    top: -69px;
+    position: absolute;
+    /*position: relative;
+    left: 335px;/*390*/
+    /*top: -69px;*/
+    left: 687px;
+    top: 28px;
 }
 
 
@@ -3023,7 +3029,7 @@ min-width: 181px !important;
         .form-element-container .button-container{
             display: inline-block;
             position: relative;
-            left: 129px;
+            left: 50px;
             top: -69px;
         }
 
@@ -3700,7 +3706,7 @@ min-width: 181px !important;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 223px;
+        left: 132px;
         top: -69px;
     }
 
@@ -4371,7 +4377,7 @@ min-width: 181px !important;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 223px;
+        left: 132px;
         top: -69px;
     }
 
@@ -6395,7 +6401,7 @@ min-width: 181px !important;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 378px;
+        left: 234px;
         top: -69px;
     }
 
@@ -7070,7 +7076,7 @@ min-width: 181px !important;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 277px;
+        left: 120px;
         top: -69px;
     }
 
@@ -7750,7 +7756,7 @@ min-width: 181px !important;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 329px;
+        left: 150px;
         top: -69px;
     }
 
@@ -8429,7 +8435,7 @@ min-width: 181px !important;
         .form-element-container .button-container{
             display: inline-block;
             position: relative;
-            left: 129px;
+            left: 24px;
             top: -69px;
         }
 

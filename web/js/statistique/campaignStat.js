@@ -53,7 +53,7 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
                     data:{'id': id},
                     dataType: 'json',
                     success:function(data){
-                    	$('.navigation').css('display','none');
+                    	$('.navigation').css('display','block');
                         $('.tableDetail').css('display','none');                     
 		                $('#tableBody').children('tr').remove();
 		                $('#tableBody2').children('tr').remove();
@@ -101,12 +101,13 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 				case "delivred":
 				var newdata = [];
 	        	var res = obj.map(function(index, elem) {
-					if (index.etat == "sent") {
+					if (index.etat == "sent" || index.etat == "clicked" || index.etat == "opened" ) {
 						newdata.push(index);
 					}
 					return newdata;
 				});
 				if (newdata.length > 0 ) {
+					console.log(newdata)
 					$('.navigation').css('display','none');
 					$('.tableDetail').css('display','none');                     
 	                $('#tableBody').children('tr').remove();
