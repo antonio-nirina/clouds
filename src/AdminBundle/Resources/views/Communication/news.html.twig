@@ -16,6 +16,18 @@
     {% endembed %}
 {% endblock %}
 
+{% if welcoming_news_post_type is defined and true == welcoming_news_post_type %}
+    {% set main_sub_menu_label = 'publications d\'accueil' %}
+    {% set main_sub_menu_url = path("admin_communication_news", {'post_type_label': constant('WELCOMING', post_type_label_class)}) %}
+    {% set main_section_title = 'Création et édition de publications d\'accueil' %}
+    {% set main_section_description = 'La publication d\'accueil est une publication qui s\'affichera automatiquement dans le fil d\'actualité du participant lors de sa 1<sup>ère</sup> connexion sur la plateform. C\'est un message d\'accueil sur la plateforme.' %}
+{% else %}
+    {% set main_sub_menu_label = 'publications' %}
+    {% set main_sub_menu_url = path("admin_communication_news") %}
+    {% set main_section_title = 'Création et édition de publications' %}
+    {% set main_section_description = 'Les publications s\'afficheront dans le fil d\'actualité du participant de manière instantanée ou programmée.' %}
+{% endif %}
+
 {% block main %}
     {{ render(controller('AdminBundle:Communication:sidebar',{'active':2})) }}
     <main class="col-md-9  offset-md-1 float-left main">
@@ -24,18 +36,18 @@
                 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
                     <ul class="content-menu-niv-3 hidden-lg-up">
                         <li class="nav-item-niv-3 form-inscription">
-                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">publications </a>
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ main_sub_menu_url }}">{{ main_sub_menu_label }} </a>
                             <span class = "bulle-aide"></span>
                         </li>
                     </ul>
                     <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
                         <ul class="navbar-nav content-menu-niv-3">
-                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
-                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_news") }}">publications </a>
+                            <li class="nav-item-niv-3 form-inscription {{ welcoming_news_post_type is defined and true == welcoming_news_post_type ? '' : 'hidden-md-down' }}">
+                                <a class="nav-link-niv-3 {{ welcoming_news_post_type is defined and true == welcoming_news_post_type ? 'menu-page' : 'menu-page-active' }}" href="{{ path("admin_communication_news") }}">publications </a>
                                 <span class = "bulle-aide"></span>
                             </li>
-                            <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page" href="#">publications d'accueil </a>
+                            <li class="nav-item-niv-3 form-inscription {{ welcoming_news_post_type is defined and true == welcoming_news_post_type ? 'hidden-md-down' : '' }}">
+                                <a class="nav-link-niv-3 {{ welcoming_news_post_type is defined and true == welcoming_news_post_type ? 'menu-page-active' : 'menu-page' }}" href="{{ path("admin_communication_news", {'post_type_label': constant('WELCOMING', post_type_label_class)}) }}">publications d'accueil </a>
                                 <span class = "bulle-aide"></span>
                             </li>
                         </ul>
@@ -52,9 +64,9 @@
                 <section class="fieldset active main-section">
                     <div class="row">
                         <div class="col-lg-10 col-md-9 col-sm-12">
-                            <h3 class="hidden-sm-down block-title">Création et édition de publications</h3>
-                            <h5 class="hidden-md-up block-title">Création et édition de publications</h5>
-                            <p>Les publications s'afficheront dans le fil d'actualité du participant de manière instantanée ou programmée.</p>
+                            <h3 class="hidden-sm-down block-title">{{ main_section_title }}</h3>
+                            <h5 class="hidden-md-up block-title">{{ main_section_title }}</h5>
+                            <p>{{ main_section_description | raw }}</p>
                             {% if archived_state is defined and true == archived_state %}
                             <button class="btn-valider restore-news-button" data-target-url="{{ path('admin_communication_news_group_action') }}">réstaurer publication</button>
                             {% else %}
@@ -74,7 +86,9 @@
                                 <ul>
                                     <li><span data-path="default">TOUS</span></li>
                                     <li><span data-path=".published">PUBLIÉ</span></li>
+                                    {% if welcoming_news_post_type is not defined %}
                                     <li><span data-path=".programmed">PROGRAMMÉ</span></li>
+                                    {% endif %}
                                     <li><span data-path=".wait">EN ATTENTE</span></li>
                                 </ul>
                             </div>
@@ -349,10 +363,17 @@
     <input type="hidden" name="submission_type_publish" value="{{ constant('PUBLISH', news_post_submission_type_class) }}">
     <input type="hidden" name="create_news_post_url" value="{{ path('admin_communication_news_create') }}">
     <input type="hidden" name="news_post_list_url" value="{{ path('admin_communication_news') }}">
+    <input type="hidden" name="welcoming_news_post_list_url" value="{{ path('admin_communication_news', {'post_type_label': constant('WELCOMING', post_type_label_class)}) }}">
     <input type="hidden" name="archived_news_post_list_url" value="{{ path('admin_communication_news_archived') }}">
+    <input type="hidden" name="standard_post_type_label" value="{{ constant('STANDARD', post_type_label_class) }}">
+    <input type="hidden" name="welcoming_post_type_label" value="{{ constant('WELCOMING', post_type_label_class) }}">
 
     {% if archived_state is defined and true == archived_state %}
     <input type="hidden" name="archived_state" value="true">
+    {% endif %}
+
+    {% if welcoming_news_post_type is defined and true == welcoming_news_post_type %}
+    <input type="hidden" name="welcoming_news_post_type" value="true">
     {% endif %}
 
 {% endblock %}

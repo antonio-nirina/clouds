@@ -42,7 +42,7 @@ use AdminBundle\Service\Statistique\Common;
 use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
 use AdminBundle\Component\Post\NewsPostAuthorizationType;
 use AdminBundle\Component\GroupAction\GroupActionType;
-
+use AdminBundle\Component\Post\NewsPostTypeLabel;
 
 /**
  * @Route("/admin/communication")
@@ -1674,6 +1674,59 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * News post list controller
+     *
+     * @param Request $request
+     * @param string $post_type_label         news post type : standard or welcoming post (from NewsPostTypeLabel constant)
+     * @param boolean $archived_state
+     *
+     * @return Response
+     *
+     * @Route(
+     *     "/actualites/liste/{post_type_label}/{archived_state}",
+     *     defaults={
+     *          "post_type_label"=AdminBundle\Component\Post\NewsPostTypeLabel::STANDARD,
+     *          "archived_state"=false
+     *     },
+     *     name="admin_communication_news"
+     * )
+     */
+    public function newsAction(Request $request, $post_type_label, $archived_state)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        if (!in_array($post_type_label, NewsPostTypeLabel::VALID_NEWS_POST_TYPE_LABEL)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
+        $news_post_data_linker = $this->get('AdminBundle\Service\DataLinker\NewsPostDataLinker');
+        $news_post_list = $news_post_manager->findAll(
+            $program,
+            $news_post_data_linker->linkTypeLabelToType($post_type_label),
+            $archived_state
+        );
+
+        $view_options = array(
+            'news_post_submission_type_class' => new NewsPostSubmissionType(),
+            'news_post_authorization_type_class' => new NewsPostAuthorizationType(),
+            'news_post_list' => $news_post_list,
+            'post_type_label_class' =>  new NewsPostTypeLabel(),
+        );
+        if (true == $archived_state) {
+            $view_options['archived_state'] = true;
+        }
+        if (NewsPostTypeLabel::WELCOMING == $post_type_label) {
+            $view_options['welcoming_news_post_type'] = true;
+        }
+
+        return $this->render('AdminBundle:Communication:news.html.twig', $view_options);
+    }
+
+    /**
      * @Route("/emailing/statistiques/filter/date", name="admin_statistiques_filter")
      * @Method({"POST"})
      */
@@ -1695,17 +1748,17 @@ class CommunicationController extends AdminController
                     $time= $dateFiter->format("Y-m-d");
                     if ($time == $format) {
                         $listsInfoCampaign[] = $value;
-                    }            
+                    }
                 }
             }
             $listCampaigns = !empty($listsInfoCampaign)?$listsInfoCampaign:"";
-            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre); 
+            $allContactSendCampagne = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
             $info = $this->get('adminBundle.statistique')->getTraitement($listCampaigns);
             $data = [
                     "fromTo"=>$allContactSendCampagne,
                     "info"=>$info,
                     "dataGraph"=>$listsInfoCampaignYesterday
-                    ]; 
+                    ];
         } elseif ($filtre == "last7days" ) {
             $date = new \DateTime();
             $last = $date->modify('-6 day');
@@ -1718,36 +1771,11 @@ class CommunicationController extends AdminController
                     "fromTo" => $allContactSendCampagne7,
                     "info" => $info,
                     "dataGraph"=>$response7
-                    ]; 
+                    ];
 
-        }        
+        }
         $response = new JsonResponse($data);
         return $response;
-    }
-
-    /**
-     * @Route("/actualites/liste/{archived_state}", defaults={"archived_state"=false}, name="admin_communication_news")
-     */
-    public function newsAction(Request $request, $archived_state)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
-        $news_post_list = $news_post_manager->findAll($program, $archived_state);
-
-        $view_options = array(
-            'news_post_submission_type_class' => new NewsPostSubmissionType(),
-            'news_post_authorization_type_class' => new NewsPostAuthorizationType(),
-            'news_post_list' => $news_post_list,
-        );
-        if (true == $archived_state) {
-            $view_options['archived_state'] = true;
-        }
-
-        return $this->render('AdminBundle:Communication:news.html.twig', $view_options);
     }
 
     /**
@@ -1769,8 +1797,20 @@ class CommunicationController extends AdminController
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
+        $post_type_label = $request->get('news_post_type_label');
+        if (is_null($post_type_label)
+            || !in_array($post_type_label, NewsPostTypeLabel::VALID_NEWS_POST_TYPE_LABEL)
+        ) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
         $form_generator = $this->get('AdminBundle\Service\FormGenerator\NewsPostFormGenerator');
-        $news_post_form = $form_generator->generateForCreation($program, 'news_post_form');
+        $news_post_data_linker = $this->get('AdminBundle\Service\DataLinker\NewsPostDataLinker');
+        $news_post_form = $form_generator->generateForCreation(
+            $program,
+            $news_post_data_linker->linkTypeLabelToType($post_type_label),
+            'news_post_form'
+        );
         $news_post_form->handleRequest($request);
         if ($news_post_form->isSubmitted() && $news_post_form->isValid()) {
             $submission_type = $request->get('submission_type');
@@ -1783,10 +1823,14 @@ class CommunicationController extends AdminController
             }
         }
 
-        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', array(
+        $content_option = array(
             'news_post_form' => $news_post_form->createView(),
             'news_post_submission_type_class' => new NewsPostSubmissionType(),
-        ));
+        );
+        if (NewsPostTypeLabel::WELCOMING == $post_type_label) {
+            $content_option['welcoming_news_post_type'] = true;
+        }
+        $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', $content_option);
         $data = $json_response_data_provider->success();
         if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
             $data = $json_response_data_provider->formError();

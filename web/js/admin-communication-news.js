@@ -33,9 +33,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var create_news_post_url = $('input[name=create_news_post_url]').val();
+        var data = addPostTypeLabelInAjaxData({});
         $.ajax({
             type: 'GET',
             url: create_news_post_url,
+            data: data,
             success: function(data){
                 $('#create-edit-news-modal').find('.modal-body-container').html(data.content);
                 installWysiwyg();
@@ -84,6 +86,12 @@ $(document).ready(function(){
         } else if ('edit' == $(this).attr('data-manip-type')) {
             target_url = $(this).attr('data-target-url');
         }
+        data = addPostTypeLabelInAjaxData(data);
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
 
         $('#create-edit-news-modal form').ajaxSubmit({
             type: 'POST',
@@ -97,18 +105,18 @@ $(document).ready(function(){
                     initCalendar();
                     initSelectChosen();
                 } else {
-                    window.location.replace($('input[name=news_post_list_url]').val());
+                    window.location.replace(redirect_target);
                 }
             },
             statusCode: {
                 404: function(){
-                    $('#create-template-dialog').find('.error-message-container.general-message').text('Contenu non trouvé');
-                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('#create-edit-news-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#create-edit-news-modal').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 },
                 500: function(){
-                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur interne');
-                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('#create-edit-news-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#create-edit-news-modal').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 }
             },
@@ -741,15 +749,19 @@ function installColorPicker()
 }
 
 function initCalendar() {
-    $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
-    var date = $('.post-launch-date').val();
-    $('#calendar').datepicker({
-        minDate: new Date(),
-        altField: ".post-launch-date",
-        altFormat: "dd/mm/yy"
-    });
-    if ('' != date.trim()) {
-        $('#calendar').datepicker('setDate', date);
+    if ('undefined' != typeof $('#calendar')) {
+        $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+        var date = $('.post-launch-date').val();
+        $('#calendar').datepicker({
+            minDate: new Date(),
+            altField: ".post-launch-date",
+            altFormat: "dd/mm/yy"
+        });
+        if ('undefined' != typeof date) {
+            if ('' != date.trim()) {
+                $('#calendar').datepicker('setDate', date);
+            }
+        }
     }
 }
 
@@ -824,4 +836,18 @@ function updateActionButton()
     } else {
         button_container.hide();
     }
+}
+// fin- instantaneous preview functions
+
+
+function addPostTypeLabelInAjaxData(existing_data)
+{
+    var news_post_type_label_data = {};
+    if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+        news_post_type_label_data = {'news_post_type_label': $('input[name=welcoming_post_type_label]').val()}
+    } else {
+        news_post_type_label_data = {'news_post_type_label': $('input[name=standard_post_type_label]').val()}
+    }
+    var merged_data = $.extend({}, existing_data, news_post_type_label_data);
+    return merged_data;
 }

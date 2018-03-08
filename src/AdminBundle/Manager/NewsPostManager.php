@@ -2,6 +2,7 @@
 namespace AdminBundle\Manager;
 
 use AdminBundle\Component\Post\NewsPostSubmissionType;
+use AdminBundle\Component\Post\PostType;
 use AdminBundle\Entity\NewsPost;
 use Doctrine\ORM\EntityManager;
 use AdminBundle\Entity\Program;
@@ -97,11 +98,16 @@ class NewsPostManager
      */
     public function prepareForPublish(NewsPost $news_post)
     {
-        if (false == $news_post->getProgrammedPublicationState()) {
+        if (PostType::NEWS_POST == $news_post->getHomePagePost()->getPostType()) {
+            if (false == $news_post->getProgrammedPublicationState()) {
+                $news_post->setPublishedState(true)
+                    ->setPublicationDatetime(new \DateTime('now'));
+            } else {
+                $news_post->setProgrammedInProgressState(true);
+            }
+        } elseif (PostType::WELCOMING_NEWS_POST == $news_post->getHomePagePost()->getPostType()) {
             $news_post->setPublishedState(true)
                 ->setPublicationDatetime(new \DateTime('now'));
-        } else {
-            $news_post->setProgrammedInProgressState(true);
         }
 
         return $news_post;
@@ -119,14 +125,15 @@ class NewsPostManager
      * Return all news post related to a program, with specified archived state
      *
      * @param Program $program
+     * @param string $news_post_type    whether standard or welcoming news post
      * @param $archived_state
      *
      * @return array
      */
-    public function findAll(Program $program, $archived_state)
+    public function findAll(Program $program, $news_post_type, $archived_state)
     {
         return $this->em->getRepository('AdminBundle\Entity\NewsPost')
-            ->findAllByProgram($program, $archived_state);
+            ->findAllByProgram($program, $news_post_type, $archived_state);
     }
 
     /**
