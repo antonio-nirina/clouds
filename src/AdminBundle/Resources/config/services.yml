@@ -89,3 +89,8 @@ services:
     AdminBundle\Manager\NewsPostManager:
         class: AdminBundle\Manager\NewsPostManager
         autowire: true
+
+    AdminBundle\Form\WelcomingNewsPostType:
+            class: AdminBundle\Form\WelcomingNewsPostType
+            autowire: true
+            autoconfigure: true

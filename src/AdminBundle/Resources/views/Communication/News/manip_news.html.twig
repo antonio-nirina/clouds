@@ -1,7 +1,22 @@
 {% set preview_news_button_class = '' %}
 {% set instantaneous_preview_date_value = "now" | localizeddate('none', 'none', locale, null, "d MMMM - HH'h'mm") %}
+{% set manipulation_title = '' %}
+
+{% if welcoming_news_post_type is defined and true == welcoming_news_post_type %}
+    {% if edit_mode is defined and true == edit_mode %}
+        {% set manipulation_title = 'Édition de publication d\'accueil' %}
+    {% else %}
+        {% set manipulation_title = 'Édition d\'une nouvelle publication d\'accueil' %}
+    {% endif %}
+{% else %}
+    {% if edit_mode is defined and true == edit_mode %}
+        {% set manipulation_title = 'Édition de publication' %}
+    {% else %}
+        {% set manipulation_title = 'Édition d\'une nouvelle publication' %}
+    {% endif %}
+{% endif %}
+
 {% if edit_mode is defined and true == edit_mode %}
-    {% set manipulation_title = 'Édition de publication' %}
     {% set data_manip_type = 'edit' %}
 
     {% if news_post_form is defined %}
@@ -20,7 +35,6 @@
         {% endif %}
     {% endif %}
 {% else %}
-    {% set manipulation_title = 'Édition d\'une nouvelle publication' %}
     {% set data_manip_type = 'create' %}
 {% endif %}
 
@@ -272,6 +286,8 @@
             </div>
         </div>
     </div>
+
+    {% if welcoming_news_post_type is not defined %}
     <!--s-->
     {#{{ form_widget(news_post_form.programmed_publication_state) }}#}
     <div class="publish-program-container">
@@ -311,6 +327,9 @@
         </div>
     </div>
     <!--e-->
+    {% endif %}
+
+
     <div class="submit-block-container">
         <button class="btn-valider first-button save" data-manip-type="{{ data_manip_type }}" data-submission-type="{{ constant('SAVE', news_post_submission_type_class) }}" data-target-url="{{ news_post_form.vars.value.id is not null ? path('admin_communication_news_edit', {'id': news_post_form.vars.value.id}) : '' }}">enregistrer</button>
         {% if false == news_post_form.vars.value.programmedInProgressState and false == news_post_form.vars.value.publishedState %}
