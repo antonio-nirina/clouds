@@ -33,9 +33,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var create_news_post_url = $('input[name=create_news_post_url]').val();
+        var data = addPostTypeLabelInAjaxData({});
         $.ajax({
             type: 'GET',
             url: create_news_post_url,
+            data: data,
             success: function(data){
                 $('#create-edit-news-modal').find('.modal-body-container').html(data.content);
                 installWysiwyg();
@@ -69,7 +71,7 @@ $(document).ready(function(){
         $(this).find('.error-message-container.general-message').text('');
     });
 
-    // création actu, soumission de création
+    // création ET édition actu, soumission de création
     $(document).on('click', '#create-edit-news-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
@@ -84,6 +86,12 @@ $(document).ready(function(){
         } else if ('edit' == $(this).attr('data-manip-type')) {
             target_url = $(this).attr('data-target-url');
         }
+        data = addPostTypeLabelInAjaxData(data);
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
 
         $('#create-edit-news-modal form').ajaxSubmit({
             type: 'POST',
@@ -97,18 +105,18 @@ $(document).ready(function(){
                     initCalendar();
                     initSelectChosen();
                 } else {
-                    window.location.replace($('input[name=news_post_list_url]').val());
+                    window.location.replace(redirect_target);
                 }
             },
             statusCode: {
                 404: function(){
-                    $('#create-template-dialog').find('.error-message-container.general-message').text('Contenu non trouvé');
-                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('#create-edit-news-modal').find('.error-message-container.general-message').text('Contenu non trouvé');
+                    $('#create-edit-news-modal').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 },
                 500: function(){
-                    $('#create-template-dialog').find('.error-message-container.general-message').text('Erreur interne');
-                    $('#create-template-dialog').find('.modal-body-container').html('');
+                    $('#create-edit-news-modal').find('.error-message-container.general-message').text('Erreur interne');
+                    $('#create-edit-news-modal').find('.modal-body-container').html('');
                     $('.chargementAjax').addClass('hidden');
                 }
             },
@@ -215,9 +223,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var edit_news_post_url = $(this).attr('data-target-url');
+        var data = addPostTypeLabelInAjaxData({});
         $.ajax({
             type: 'GET',
             url: edit_news_post_url,
+            data: data,
             success: function(data){
                 $('#create-edit-news-modal').find('.modal-body-container').html(data.content);
                 installWysiwyg();
@@ -323,6 +333,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var duplicate_template_url = $(this).attr('data-target-url');
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
         $('#duplicate-news-modal form').ajaxSubmit({
             type: 'POST',
             url: duplicate_template_url,
@@ -331,7 +346,7 @@ $(document).ready(function(){
                     $('#duplicate-news-modal').find('.modal-body-container').html(data.content);
                     $('#duplicate-news-modal').find('.general-message').html('');
                 } else {
-                    window.location.replace($('input[name=news_post_list_url]').val());
+                    window.location.replace(redirect_target);
                 }
             },
             error: function(){
@@ -374,11 +389,16 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
         $.ajax({
             type: 'POST',
             url: target_url,
             success: function(){
-                window.location.replace($('input[name=news_post_list_url]').val());
+                window.location.replace(redirect_target);
             },
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
@@ -404,11 +424,16 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirect_target = $('input[name=welcoming_news_post_list_url]').val();
+        } else {
+            var redirect_target = $('input[name=news_post_list_url]').val();
+        }
         $.ajax({
             type: 'POST',
             url: target_url,
             success: function(){
-                window.location.replace($('input[name=news_post_list_url]').val());
+                window.location.replace(redirect_target);
             },
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
@@ -442,11 +467,20 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
-        if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
-            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+            } else {
+                var redirection_url = $('input[name=welcoming_news_post_list_url]').val();
+            }
         } else {
-            var redirection_url = $('input[name=news_post_list_url]').val();
+            if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            } else {
+                var redirection_url = $('input[name=news_post_list_url]').val();
+            }
         }
+
         $.ajax({
             type: 'POST',
             url: target_url,
@@ -476,7 +510,11 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var target_url = $(this).attr('data-target-url');
-        var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+            var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+        } else {
+            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+        }
         $.ajax({
             type: 'POST',
             url: target_url,
@@ -498,7 +536,11 @@ $(document).ready(function(){
             $('.chargementAjax').removeClass('hidden');
             var str_checked = arr_checked.join(',');
             var data = {'news_post_id_list': str_checked, 'grouped_action_type': 'restore'};
-            var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+                var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+            } else {
+                var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            }
             $.ajax({
                 type: 'POST',
                 url: $(this).attr('data-target-url'),
@@ -650,10 +692,18 @@ $(document).ready(function(){
             var arr_checked = getChecked();
             var str_checked = arr_checked.join(',');
             var data = {'news_post_id_list': str_checked, 'grouped_action_type': $(this).attr('data-grouped-action')};
-            if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
-                var redirection_url = $('input[name=archived_news_post_list_url]').val();
+            if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+                if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                    var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+                } else {
+                    var redirection_url = $('input[name=welcoming_news_post_list_url]').val();
+                }
             } else {
-                var redirection_url = $('input[name=news_post_list_url]').val();
+                if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                    var redirection_url = $('input[name=archived_news_post_list_url]').val();
+                } else {
+                    var redirection_url = $('input[name=news_post_list_url]').val();
+                }
             }
             $.ajax({
                 type: 'POST',
@@ -741,15 +791,19 @@ function installColorPicker()
 }
 
 function initCalendar() {
-    $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
-    var date = $('.post-launch-date').val();
-    $('#calendar').datepicker({
-        minDate: new Date(),
-        altField: ".post-launch-date",
-        altFormat: "dd/mm/yy"
-    });
-    if ('' != date.trim()) {
-        $('#calendar').datepicker('setDate', date);
+    if ('undefined' != typeof $('#calendar')) {
+        $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);//langue datepicker
+        var date = $('.post-launch-date').val();
+        $('#calendar').datepicker({
+            minDate: new Date(),
+            altField: ".post-launch-date",
+            altFormat: "dd/mm/yy"
+        });
+        if ('undefined' != typeof date) {
+            if ('' != date.trim()) {
+                $('#calendar').datepicker('setDate', date);
+            }
+        }
     }
 }
 
@@ -824,4 +878,18 @@ function updateActionButton()
     } else {
         button_container.hide();
     }
+}
+// fin- instantaneous preview functions
+
+
+function addPostTypeLabelInAjaxData(existing_data)
+{
+    var news_post_type_label_data = {};
+    if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+        news_post_type_label_data = {'news_post_type_label': $('input[name=welcoming_post_type_label]').val()}
+    } else {
+        news_post_type_label_data = {'news_post_type_label': $('input[name=standard_post_type_label]').val()}
+    }
+    var merged_data = $.extend({}, existing_data, news_post_type_label_data);
+    return merged_data;
 }

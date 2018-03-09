@@ -3,6 +3,7 @@ namespace AdminBundle\Service\FormGenerator;
 
 use AdminBundle\Entity\NewsPost;
 use AdminBundle\Entity\HomePagePost;
+use AdminBundle\Form\WelcomingNewsPostType;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use AdminBundle\Form\NewsPostType;
@@ -27,17 +28,24 @@ class NewsPostFormGenerator
      * Generate form for news post creation
      *
      * @param Program $program
+     * @param string $post_type     takes value from PostType constant
      * @param string $form_name
      *
      * @return FormInterface
      */
-    public function generateForCreation(Program $program, $form_name = 'create_news_post_form')
+    public function generateForCreation(Program $program, $post_type, $form_name = 'create_news_post_form')
     {
-        $home_page_post = $this->initHomePagePostForCreation($program);
+        $home_page_post = $this->initHomePagePostForCreation($program, $post_type);
         $news_post = $this->initNewsPostForCreation($home_page_post);
+        if (PostType::WELCOMING_NEWS_POST == $post_type) {
+            $form_class = WelcomingNewsPostType::class;
+        } else {
+            $form_class = NewsPostType::class;
+        }
+
         $form = $this->form_factory->createNamed(
             $form_name,
-            NewsPostType::class,
+            $form_class,
             $news_post,
             array('validation_groups' => 'news_post')
         );
@@ -52,14 +60,15 @@ class NewsPostFormGenerator
      * As home page opst when creation new news post
      *
      * @param Program $program
+     * @param string $post_type
      *
      * @return HomePagePost
      */
-    private function initHomePagePostForCreation(Program $program)
+    private function initHomePagePostForCreation(Program $program, $post_type)
     {
         $home_page_post = new HomePagePost();
         $home_page_post->setProgram($program)
-            ->setPostType(PostType::NEWS_POST);
+            ->setPostType($post_type);
         $program->addHomePagePost($home_page_post);
 
         return $home_page_post;
@@ -99,15 +108,21 @@ class NewsPostFormGenerator
      * Generate form for news post edit
      *
      * @param NewsPost $news_post
+     * @param string $post_type
      * @param string $form_name
      *
      * @return FormInterface
      */
-    public function generateForEdit(NewsPost $news_post, $form_name = 'edit_news_post_form')
+    public function generateForEdit(NewsPost $news_post, $post_type, $form_name = 'edit_news_post_form')
     {
+        if (PostType::WELCOMING_NEWS_POST == $post_type) {
+            $form_class = WelcomingNewsPostType::class;
+        } else {
+            $form_class = NewsPostType::class;
+        }
         $form = $this->form_factory->createNamed(
             $form_name,
-            NewsPostType::class,
+            $form_class,
             $news_post,
             array('validation_groups' => 'news_post')
         );
