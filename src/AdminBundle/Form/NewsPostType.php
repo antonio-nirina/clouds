@@ -79,7 +79,7 @@ class NewsPostType extends AbstractType
                 'html5' => false,
                 'date_format'=>'dd/MM/yyyy',
                 'input' => 'datetime',
-                'model_timezone' => $this->container->getParameter('app_time_zone'),
+                /*'model_timezone' => $this->container->getParameter('app_time_zone'),*/
             ));
     }
 
@@ -136,12 +136,12 @@ class NewsPostType extends AbstractType
                 foreach ($survey_and_quiz_questionnaire_list as $survey_and_quiz_questionnaire) {
                     $target_list[$survey_and_quiz_questionnaire->getTitreQuestionnaire()]
                         = $this->url_generator->generate(
-                            'beneficiary_home_pages_sondages_quiz_slug',
-                            array(
-                               'slug' => $survey_and_quiz->getSlug(),
-                               'id' => $survey_and_quiz_questionnaire->getId()
-                            )
-                        );
+                        'beneficiary_home_pages_sondages_quiz_slug',
+                        array(
+                            'slug' => $survey_and_quiz->getSlug(),
+                            'id' => $survey_and_quiz_questionnaire->getId()
+                        )
+                    );
                 }
             }
         }
