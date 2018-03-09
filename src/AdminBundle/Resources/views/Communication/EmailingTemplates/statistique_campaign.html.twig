@@ -34,8 +34,8 @@
                     {% if status['ProcessedCount'] > 0 %}
                          {% set delivre = status['DeliveredCount'] / status['ProcessedCount']*100 %}
                     {% endif %}
-                        <h4 class="valDel">{{delivre~' %'}}</h4>       
-                        <p class="mailDel">{{status['DeliveredCount']}}</p>
+                        <h4 class="valDel">{{status['DeliveredCount']}}</h4>       
+                        <p class="mailDel">{{delivre~' %'}}</p>
 
                 </div>                                   
             </div>
@@ -46,8 +46,8 @@
                     {% if status['ProcessedCount'] > 0 %}
                         {% set ouvrer = status['OpenedCount'] / status['ProcessedCount']*100 %} 
                     {% endif %}          
-                        <h4 class="valOuv">{{ouvrer~' %'}}</h4>
-                    <p class="mailOuv">{{status["OpenedCount"]}}</p> 
+                        <h4 class="valOuv">{{status["OpenedCount"]}}</h4>
+                    <p class="mailOuv">{{ouvrer~' %'}}</p> 
                 </div>             
             </div>                                                                                              
             <div class=" clique">
@@ -57,8 +57,8 @@
                     {% if status['ProcessedCount'] > 0 %}
                 {% set clique = status['ClickedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
-                        <h4 class="valClik">{{clique~' %'}}</h4>
-                    <p class="mailClic">{{status['ClickedCount']}}</p>
+                        <h4 class="valClik">{{status['ClickedCount']}}</h4>
+                    <p class="mailClic">{{clique~' %'}}</p>
                 </div>
             </div>
             <div class="bloque">
@@ -257,7 +257,7 @@
         <div class="button-csv">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <button class ="btn-valider liste btn-download_csv">
-                    <span class="download"></span>
+                    <span class="download_liste"></span>
                         télécharger la liste
                 </button>
             </div>
@@ -265,7 +265,7 @@
         <div class="button-excel">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
                 <button class ="btn-valider liste btn-download1">
-                    <span class="download"></span>
+                    <span class="download_liste"></span>
                         télécharger la liste
                 </button>
             </div>

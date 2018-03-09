@@ -227,10 +227,10 @@ table,.table1{
                                 {% set delivre = status['DeliveredCount'] / status['ProcessedCount']*100 %}
                             {% endif %}
                          <tr>
-                            <td class="titreDel"><h4>{{delivre~' %'}}</h4></td>
+                            <td class="titreDel"><h4>{{status['DeliveredCount']}}</h4></td>
                         </tr>
                         <tr>
-                             <td class="mailTot"><p>{{status['DeliveredCount']}}</p></td>  
+                             <td class="mailTot"><p>{{delivre~' %'}}</p></td>  
                         </tr> 
                     </table>                   
                 </td>
@@ -244,10 +244,10 @@ table,.table1{
                                 {% set ouvrer = status['OpenedCount'] /status['ProcessedCount']*100 %} 
                             {%  endif %}
                          <tr>
-                             <td class="valOuv"><h4>{{ouvrer~' %'}}</h4></td>
+                             <td class="valOuv"><h4>{{status["OpenedCount"]}}</h4></td>
                         </tr>
                         <tr>
-                             <td class="mailTot"><p>{{status["OpenedCount"]}}</p></td>  
+                             <td class="mailTot"><p>{{ouvrer~' %'}}</p></td>  
                         </tr>  
 
                     </table>
@@ -263,10 +263,10 @@ table,.table1{
                                 {% set clique = status['ClickedCount'] / status['ProcessedCount']*100 %}
                         {% endif %}
                          <tr>
-                            <td class="valClik"><h4>{{clique~' %'}}</h4></td>
+                            <td class="valClik"><h4>{{status['ClickedCount']}}</h4></td>
                         </tr>
                          <tr>
-                            <td class="mailTot"><p>{{status['ClickedCount']}}</p></td>  
+                            <td class="mailTot"><p>{{clique~' %'}}</p></td>  
                         </tr>  
                     </table>                      
                 </td>

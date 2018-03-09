@@ -1,8 +1,13 @@
 
 .modal-stat{
-    max-width: 927px !important;
+    /*max-width: 927px !important;
     margin-left: 222px;
-    margin-top: 142px;
+    margin-top: 142px;*/
+    max-width: 918px !important;
+    margin-left: auto;
+    margin-right: auto;
+    left: 46px;
+    top: 166px;
 }
 
 td.emails-table{
@@ -38,6 +43,9 @@ td.emails-table{
     top: 28px;
     margin-top: 60px;
     /*overflow-x:auto;*/
+
+
+
 }
 
 .table-stat {
@@ -45,6 +53,7 @@ td.emails-table{
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
+    
 }
 
 .table {
@@ -52,12 +61,14 @@ td.emails-table{
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
+    
 }
 
 .table,th, td {
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -66,6 +77,7 @@ td.emails-table{
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 .tableDetail2{
@@ -223,7 +235,7 @@ top: 54px;
     width: 18%;
     height: 166px;
     position: relative;
-    left: 29px;
+    left: 20px;
     
 }
 .clique{
@@ -231,7 +243,7 @@ top: 54px;
     width: 18%;
     height: 166px;
     position: relative;
-    left: 33px;
+    left: 23px;
     
 }
 .bloque{
@@ -239,7 +251,7 @@ background-color:#F9F9F9;
 width: 18%;
 height: 166px;
 position: relative;
-left: 59px;
+left: 47px;
 
 
 }
@@ -274,6 +286,7 @@ left: 22px;
 font-size: 14px;
 font-weight: bold;
 margin-top: 11px;
+color: #838383
 }
 
 .valTot {
@@ -318,14 +331,17 @@ color:#505050 !important;
 padding-left: 26px !important;
 font-size: 18px !important;
 font-family: "Lato-Regular";
-position: relative;
+/*position: relative;
 left: 20px;
-top:2px;
+top:2px;*/
+position: absolute;
+left: 40px;
+top: 106px;
 }
 
 .valDel{
 position: relative;
-left: 19px;
+left: 52px;
 color: #838383 !important;
 font-size: 25px !important;
 font-weight: bold !important;
@@ -339,8 +355,8 @@ top: 6px;
 padding-left: 35px !important;
 color: #505050;
 position: relative;
-left: 28px;
-top: 12px;
+left: 40px;
+top: 106px;
 font-size: 18px !important;
 font-family: "Lato-Regular";
 }
@@ -365,7 +381,7 @@ top: 9px;
     color:#93D706 !important;
     font-weight: bold !important;
     position: relative;
-    left: 47px;
+    left: 61px;
     font-size: 25px !important;
     top: 14px;
 }
@@ -388,16 +404,20 @@ font-size: 16px !important;
 font-weight: bold !important;
 font-size: 25px !important;
 position: relative;
-left: 62px;
+left: 75px;
 top: 12px;
 }
 .mailClic{
-position: relative;
-left: 81px;
 color: #505050;
 top: 12px;
 font-size: 18px !important;
 font-family: "Lato-Regular";
+/*position: relative;
+left: 81px;*/
+position: absolute;
+left: 78px;
+top: 106px;
+font-weight: bold;
 
 }
 .cliTitreVal{
@@ -622,10 +642,11 @@ margin-bottom: 22px;
     font-weight: bold;  
     display: inline-table;
 }
-.download {
+.download_liste {
     background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-    background-position: 9px 21px;
-    margin-left: 4px;
+    position: relative;
+    left: -4px;
+    padding: 12px;
 }
 
 .button-csv{
@@ -743,9 +764,14 @@ min-width: 181px !important;
 
 @media (min-width: 1200px) {
   .modal-stat{
-    max-width: 927px !important;
+    /*max-width: 927px !important;
     margin-left: 222px;
-    margin-top: 142px;
+    margin-top: 142px;*/
+    max-width: 918px !important;
+    margin-left: auto;
+    margin-right: auto;
+    left: 46px;
+    top: 166px;
 }
 
 td.emails-table{
@@ -768,9 +794,9 @@ td.emails-table{
     font-size: 15px;
 }
 
-th{
+/*th{
     background-color: white !important;
-}
+}*/
 
 .tableDetail{
     /*display: inline-table;*/
@@ -789,6 +815,7 @@ th{
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
+    
 }
 
 .table {
@@ -801,7 +828,9 @@ th{
 .table,th, td {
     text-align: left;
     padding: 8px;
-     border: 1px solid #CBCBCB ;
+    border: 1px solid #CBCBCB ;
+    font-family: "Lato-Regular";
+
 }
 
 
@@ -809,7 +838,8 @@ th{
 .table-stat,th, td {
     text-align: left;
     padding: 8px;
-     border: 1px solid #CBCBCB ;
+    border: 1px solid #CBCBCB ;
+    font-family: "Lato-Regular";
 }
 
 
@@ -966,7 +996,7 @@ top: 54px;
     width: 18%;
     height: 166px;
     position: relative;
-    left: 29px;
+    left: 20px;
     
 }
 .clique{
@@ -974,7 +1004,7 @@ top: 54px;
     width: 18%;
     height: 166px;
     position: relative;
-    left: 33px;
+    left: 23px;
     
 }
 .bloque{
@@ -982,7 +1012,7 @@ background-color:#F9F9F9;
 width: 18%;
 height: 166px;
 position: relative;
-left: 59px;
+left: 47px;
 
 
 }
@@ -1017,6 +1047,7 @@ left: 22px;
 font-size: 14px;
 font-weight: bold;
 margin-top: 11px;
+color: #838383
 }
 
 .valTot {
@@ -1061,14 +1092,17 @@ color:#505050 !important;
 padding-left: 26px !important;
 font-size: 18px !important;
 font-family: "Lato-Regular";
-position: relative;
+/*position: relative;
 left: 20px;
-top:2px;
+top:2px;*/
+position: absolute;
+left: 40px;
+top: 106px;
 }
 
 .valDel{
 position: relative;
-left: 19px;
+left: 52px;
 color: #838383 !important;
 font-size: 25px !important;
 font-weight: bold !important;
@@ -1108,7 +1142,7 @@ top: 9px;
     color:#93D706 !important;
     font-weight: bold !important;
     position: relative;
-    left: 47px;
+    left: 61px;
     font-size: 25px !important;
     top: 14px;
 }
@@ -1131,16 +1165,22 @@ font-size: 16px !important;
 font-weight: bold !important;
 font-size: 25px !important;
 position: relative;
-left: 62px;
+left: 75px;
 top: 12px;
 }
 .mailClic{
-position: relative;
-left: 81px;
 color: #505050;
 top: 12px;
 font-size: 18px !important;
 font-family: "Lato-Regular";
+/*
+position: relative;
+left: 81px;
+*/
+position: absolute;
+left: 78px;
+top: 106px;
+font-weight: bold;
 
 }
 .cliTitreVal{
@@ -1365,10 +1405,11 @@ margin-bottom: 22px;
     font-weight: bold;  
     display: inline-table;
 }
-.download {
+.download_liste {
     background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-    background-position: 9px 21px;
-    margin-left: 4px;
+    position: relative;
+    left: -4px;
+    padding: 12px;
 }
 
 .button-csv{
@@ -1489,9 +1530,11 @@ min-width: 181px !important;
 
 @media (max-width: 575px)  {
 .modal-stat{
-    max-width: 945px !important;
-    margin-left: 0px;
-    margin-top: 0px;
+    max-width: 364px !important;
+    margin-left: auto;
+    margin-right: auto;
+    left: 20px;
+    top: 84px;
 }
 
     td.emails-table{
@@ -1546,6 +1589,7 @@ min-width: 181px !important;
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
+
 }
 
 .table {
@@ -1559,6 +1603,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -1567,6 +1612,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -1809,7 +1855,7 @@ min-width: 181px !important;
 
  .valDel{
     position: relative;
-    left: -2px;
+    left: 24px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -1851,9 +1897,8 @@ min-width: 181px !important;
     .valOuv{
         color:#93D706 !important;
         font-weight: bold !important;
-        padding-left: 54px;
         position: relative;
-        left: -20px;
+        left: 43px;
         font-size: 20px !important;
         top: 4px;
         /*font-family: var(--police_bold);*/
@@ -1875,10 +1920,9 @@ min-width: 181px !important;
    .valClik {
      color:#14A400 !important;
     font-weight: bold !important;
-    padding-left: 16px !important;
     font-size: 20px !important;
     position: relative;
-    left: 36px;
+    left: 57px;
     }
     .mailClic{
     padding-left: 33px;
@@ -2109,11 +2153,12 @@ min-width: 181px !important;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 15px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
 .button-csv{
      position: relative;
@@ -2215,9 +2260,11 @@ min-width: 181px !important;
 
 @media (min-width: 458px) and (max-width: 575px) {
     .modal-stat{
-    max-width: 945px !important;
-    margin-left: 0px;
-    margin-top: 0px;
+    max-width: 484px !important;
+    margin-left: auto;
+    margin-right: auto;
+    left: 20px;
+    top: 96px;
     }
 
     td.emails-table{
@@ -2272,6 +2319,7 @@ min-width: 181px !important;
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
+
 }
 
 .table {
@@ -2285,6 +2333,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -2293,6 +2342,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -2470,7 +2520,7 @@ min-width: 181px !important;
     color: #6F85DA;
     font-weight: bold;
     position: relative;
-    left: 10px;
+    left: 39px;
     font-size: 16px;
     top: 0px;
     }
@@ -2485,7 +2535,7 @@ min-width: 181px !important;
 
     #titreDel{
     position: relative;
-    left: -13px;
+    left: 22px;
     font-size: 14px;
     }
 
@@ -2502,7 +2552,7 @@ min-width: 181px !important;
     padding-left: 33px;
     color: #505050;
     position: relative;
-    left: -21px;
+    left: 6px;
     font-size: 16px !important;
     top: 7px;
 
@@ -2533,9 +2583,9 @@ min-width: 181px !important;
     top:11px;
     }
 
-    .delTitreVal,.valDel{
+  .valDel{
     position: relative;
-    left: -2px;
+    left: 33px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -2557,14 +2607,10 @@ min-width: 181px !important;
 
     #titreOuv{
     color:#93D706;
-    padding-left: 27px;
-    border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
     font-weight: bold;
     font-size: 18px !important;
     position: relative;
-    left: -13px;
+    left: 17px;
     top: 2px;
     }
     #titreClik{
@@ -2575,9 +2621,8 @@ min-width: 181px !important;
     .valOuv{
         color:#93D706 !important;
         font-weight: bold !important;
-        padding-left: 54px;
         position: relative;
-        left: -20px;
+        left: 60px;
         font-size: 20px !important;
         top: 4px;
         /*font-family: var(--police_bold);*/
@@ -2831,11 +2876,12 @@ min-width: 181px !important;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 15px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
     .button-csv{
      position: relative;
@@ -2891,11 +2937,13 @@ min-width: 181px !important;
 
 
 @media (min-width: 649px) and (max-width: 767px) {
-         .modal-stat{
-        max-width: 945px !important;
-        margin-left: 0px;
-        margin-top: 0px;
-        }
+.modal-stat{
+max-width: 670px !important;
+margin-left: auto;
+margin-right: auto;
+left: 20px;
+top: 186px;
+}
 
         td.emails-table{
             padding-right: 12.5rem !important;
@@ -2963,6 +3011,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -2971,6 +3020,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -3220,7 +3270,7 @@ min-width: 181px !important;
 
         .delTitreVal,.valDel{
         position: relative;
-        left: -2px;
+        left: 18px;
         color: #A7A7A7 !important;
         font-size: 20px !important;
         font-weight: bold !important;
@@ -3516,11 +3566,12 @@ min-width: 181px !important;
             font-weight: bold;  
             display: inline-table;
         }
-        .download {
-            background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-            background-position: 2px 21px;
-            margin-left: 4px;
-        }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
 .button-csv{
      position: relative;
@@ -3577,9 +3628,11 @@ min-width: 181px !important;
 
 @media (min-width: 768px) and (max-width: 831px) {
     .modal-stat{
-    max-width: 945px !important;
-    margin-left: 0px;
-    margin-top: 0px;
+    max-width: 589px !important;
+    margin-left: auto;
+    margin-right: auto;
+    left: 61px;
+    top: 166px;
     }
 
     td.emails-table{
@@ -3647,6 +3700,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -3655,6 +3709,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -3706,7 +3761,7 @@ min-width: 181px !important;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 132px;
+        left: 32px;
         top: -69px;
     }
 
@@ -3896,7 +3951,7 @@ min-width: 181px !important;
 
     .delTitreVal,.valDel{
     position: relative;
-    left: -2px;
+    left: 18px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -4186,11 +4241,12 @@ min-width: 181px !important;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 15px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
 .button-csv{
      position: relative;
@@ -4248,9 +4304,11 @@ min-width: 181px !important;
 @media (min-width: 831px) and (max-width: 933px) {
 
  .modal-stat{
-    max-width: 887px !important;
-    margin-left: 103px;
-    margin-top: 0px;
+    max-width: 646px !important;
+    margin-left: auto;
+    margin-right: auto;
+    left: 61px;
+    top: 166px;
     }
 
     td.emails-table{
@@ -4318,6 +4376,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -4326,6 +4385,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -4567,7 +4627,7 @@ font-size: 14px;
 
     .delTitreVal,.valDel{
     position: relative;
-    left: -2px;
+    left: 18px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -4864,11 +4924,12 @@ font-size: 14px;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 15px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
     .button-csv{
      position: relative;
@@ -4925,9 +4986,11 @@ min-width: 181px !important;
 
 @media (min-width: 934px) and (max-width: 991px) {
     .modal-stat{
-    max-width: 887px !important;
-    margin-left: 103px;
-    margin-top: 0px;
+       max-width: 687px !important;
+        margin-left: auto;
+        margin-right: auto;
+        left: 61px;
+        top: 166px;
     }
 
     td.emails-table{
@@ -4995,6 +5058,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -5003,6 +5067,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -5053,7 +5118,7 @@ min-width: 181px !important;
     .form-element-container .button-container{
         display: inline-block;
         position: relative;
-        left: 223px;
+        left: 87px;
         top: -69px;
     }
 
@@ -5245,7 +5310,7 @@ min-width: 181px !important;
 
     .delTitreVal,.valDel{
     position: relative;
-    left: -2px;
+    left: 18px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -5305,13 +5370,12 @@ min-width: 181px !important;
     .cliTitreVal,.valClik {
      color:#14A400 !important;
     font-weight: bold !important;
-    padding-left: 16px !important;
     font-size: 20px !important;
     }
     .mailClic{
     padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 29px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -5537,11 +5601,12 @@ min-width: 181px !important;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 15px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
 .button-csv{
      position: relative;
@@ -5668,6 +5733,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -5676,6 +5742,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -5909,7 +5976,7 @@ left: 59px;
 
     .delTitreVal,.valDel{
     position: relative;
-    left: -2px;
+    left: 18px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -6206,11 +6273,12 @@ left: 59px;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 22px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
     .button-csv{
      position: relative;
@@ -6268,9 +6336,11 @@ min-width: 181px !important;
 
 @media (min-width: 1001px) and (max-width: 1090px) {
     .modal-stat{
-        max-width: 911px !important;
-        margin-left: 103px;
-        margin-top: 133px;
+        max-width: 765px !important;
+        margin-left: auto;
+        margin-right: auto;
+        left: 50px;
+        top: 166px;
     }
 
     td.emails-table{
@@ -6338,6 +6408,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -6346,6 +6417,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -6588,7 +6660,7 @@ left: 59px;
 
     .delTitreVal,.valDel{
     position: relative;
-    left: -2px;
+    left: 18px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -6652,13 +6724,12 @@ left: 59px;
     .cliTitreVal,.valClik {
      color:#14A400 !important;
     font-weight: bold !important;
-    padding-left: 16px !important;
     font-size: 20px !important;
     }
     .mailClic{
     padding-left: 33px;
     position: relative;
-    left: -10px;
+    left: 29px;
     font-size: 16px !important;
     color: #505050;
     top: 7px;
@@ -6883,11 +6954,12 @@ left: 59px;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 22px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
     .button-csv{
      position: relative;
@@ -6943,9 +7015,11 @@ min-width: 181px !important;
 
 @media (min-width: 1091px) and (max-width: 1149px) {
     .modal-stat{
-        max-width: 781px !important;
-        margin-left: 207px;
-        margin-top: 138px
+       max-width: 799px !important;
+        margin-left: auto;
+        margin-right: auto;
+        left: 50px;
+        top: 166px;
     }
 
 
@@ -7014,6 +7088,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -7022,6 +7097,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -7264,7 +7340,7 @@ left: 59px;
 
     .delTitreVal,.valDel{
     position: relative;
-    left: -2px;
+    left: 18px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -7561,11 +7637,12 @@ left: 59px;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 22px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
     .button-csv{
      position: relative;
@@ -7623,9 +7700,11 @@ min-width: 181px !important;
 
 @media (min-width: 1150px) and (max-width: 1199px) {
     .modal-stat{
-    max-width: 859px !important;
-    margin-left: 218px;
-    margin-top: 138px;
+    max-width: 829px !important;
+    margin-left: auto;
+    margin-right: auto;
+    left: 53px;
+    top: 113px;
     }
 
     td.emails-table{
@@ -7693,6 +7772,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -7701,6 +7781,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -7943,7 +8024,7 @@ left: 59px;
 
     .delTitreVal,.valDel{
     position: relative;
-    left: -2px;
+    left: 18px;
     color: #A7A7A7 !important;
     font-size: 20px !important;
     font-weight: bold !important;
@@ -8241,11 +8322,12 @@ left: 59px;
         font-weight: bold;  
         display: inline-table;
     }
-    .download {
-        background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-        background-position: 2px 22px;
-        margin-left: 4px;
-    }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
     .button-csv{
      position: relative;
@@ -8370,6 +8452,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -8378,6 +8461,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -8928,11 +9012,12 @@ min-width: 181px !important;
             font-weight: bold;  
             display: inline-table;
         }
-        .download {
-            background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-            background-position: 2px 21px;
-            margin-left: 4px;
-        }
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
 
         .button-csv{
          position: relative;
@@ -8990,9 +9075,11 @@ min-width: 181px !important;
 
 @media (min-width: 576px) and (max-width: 644px) {
     .modal-stat{
-        max-width: 945px !important;
-        margin-left: 0px;
-        margin-top: 0px;
+        max-width: 566px !important;
+        margin-left: auto;
+        margin-right: auto;
+        left: 20px;
+        top: 64px;
         }
 
         td.emails-table{
@@ -9060,6 +9147,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -9068,6 +9156,7 @@ min-width: 181px !important;
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -9318,7 +9407,7 @@ min-width: 181px !important;
 
         .delTitreVal,.valDel{
         position: relative;
-        left: -2px;
+        left: 18px;
         color: #A7A7A7 !important;
         font-size: 20px !important;
         font-weight: bold !important;
@@ -9614,12 +9703,12 @@ min-width: 181px !important;
             font-weight: bold;  
             display: inline-table;
         }
-        .download {
-            background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
-            background-position: 2px 21px;
-            margin-left: 4px;
-        }
-
+.download_liste {
+    background: url('../images/cloudsRewards/download-btn.png') left no-repeat; 
+    position: relative;
+    left: -4px;
+    padding: 12px;
+}
     .button-csv{
          position: relative;
         left: -12px;
