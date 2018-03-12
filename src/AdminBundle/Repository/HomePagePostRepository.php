@@ -31,11 +31,13 @@ class HomePagePostRepository extends EntityRepository
                     $qb->expr()->eq('post.post_type', ':welcoming_news_post_type')
                 )
             )
+            ->andWhere($qb->expr()->eq('news_post.archived_state', ':archived_state'))
             ->setParameters(array(
                 'program' => $program,
                 'published_state' => true,
                 'news_post_type' =>  PostType::NEWS_POST,
-                'welcoming_news_post_type' => PostType::WELCOMING_NEWS_POST
+                'welcoming_news_post_type' => PostType::WELCOMING_NEWS_POST,
+                'archived_state' => false
             ));
 
         return $qb->getQuery()->getResult();
