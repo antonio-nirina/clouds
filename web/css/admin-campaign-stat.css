@@ -825,9 +825,12 @@ td.emails-table{
     border: 2px !important;
     border-color: #CBCBCB;
     margin-top: 80px;
-    top: 35px;
     font-size: 11px !important;
-    width: 100% !important;
+    width: 100% !important;   
+    position: relative;
+    top: -1px;
+    left: 6px
+
 }
 
 .table3  th, td {
