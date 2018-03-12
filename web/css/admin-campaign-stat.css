@@ -803,7 +803,7 @@ td.emails-table{
     
 }
 
-.table,th, td {
+.table th, td {
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
@@ -812,7 +812,7 @@ td.emails-table{
 
 
 
-.table-stat,th, td {
+.table-stat th, td {
     text-align: left;
     padding: 8px;
      border: 1px solid #CBCBCB ;
@@ -828,6 +828,13 @@ td.emails-table{
     top: 35px;
     font-size: 11px !important;
     width: 100% !important;
+}
+
+.table3  th, td {
+    text-align: left;
+    padding: 8px;
+     border: 1px solid #CBCBCB ;
+    font-family: "Lato-Regular";
 }
 
 
