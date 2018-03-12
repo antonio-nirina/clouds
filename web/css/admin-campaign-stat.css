@@ -44,9 +44,19 @@ td.emails-table{
     margin-top: 60px;
     /*overflow-x:auto;*/
 
-
-
 }
+
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    /*border-color: #CBCBCB;*/
+    margin-top: 80px;
+    top: 35px;
+    font-size: 12px !important;
+    width: 100% !important;
+}
+
 
 .table-stat {
     border-collapse: collapse;
@@ -80,16 +90,6 @@ td.emails-table{
      font-family: "Lato-Regular";
 }
 
-.tableDetail2{
-    /*display: inline-table;*/
-    display: none;
-    border: 2px !important;
-    border-color: #CBCBCB;
-    margin-top: 80px;
-    top: 35px;
-    font-size: 11px !important;
-    width: 100% !important;
-}
 
 .tableEmpty3{
     display: none;
@@ -208,10 +208,10 @@ td.emails-table{
 }
 
 .result{
-width: 100%;
-left: 29px;
-position: relative;
-top: 54px;
+    width: 100%;
+    left: 38px;
+    position: relative;
+    top: 54px;
 }
 
 
@@ -221,6 +221,8 @@ top: 54px;
     height: 166px;
     position: relative;
     left: -5px;
+    text-align: center!important;
+    padding-top: 10px;
 }
 .delivrer{
     background-color:#F9F9F9;
@@ -228,7 +230,8 @@ top: 54px;
     height: 166px;
     position: relative;
     left: 18px;
-    
+    text-align: center!important;
+    padding-top: 10px;
 }
 .ouvert{
     background-color:#F9F9F9;
@@ -236,7 +239,8 @@ top: 54px;
     height: 166px;
     position: relative;
     left: 20px;
-    
+    text-align: center!important;
+    padding-top: 10px;
 }
 .clique{
     background-color:#F9F9F9;
@@ -244,15 +248,16 @@ top: 54px;
     height: 166px;
     position: relative;
     left: 23px;
-    
+    text-align: center!important;
+    padding-top: 10px;
 }
 .bloque{
-background-color:#F9F9F9;
-width: 18%;
-height: 166px;
-position: relative;
-left: 47px;
-
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 47px;
+    line-height: 22px;
 
 }
 
@@ -264,173 +269,84 @@ left: 47px;
 }
 
 #titreT{
-color: #6F85DA;
-font-size: 14px !important;
-position: relative;
-left: 22px;
-top: 8px;
-font-weight: bold;
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
 }
 
-
-/*.totalTitreVal {
-color:#6F85DA !important;
-font-size:1.2rem !important;
-font-weight: bold !important;
-padding-left: 26px !important;
-}*/
-
-#titreDel{
-position: relative;
-left: 22px;
-font-size: 14px;
-font-weight: bold;
-margin-top: 11px;
-color: #838383
-}
-
-.valTot {
-color:#6F85DA !important;
-font-weight: bold !important;
-padding-left: 26px !important;
-font-size: 25px !important;
-position: relative;
-top: 13px;
-left: 9px;
-
-}
-.totalTitreVal,.mailTot{
-padding-left: 33px;
-color: #505050;
-position: relative;
-left: -21px;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-top: 7px;
-
-}
-.totalTitreVal{
-margin-left: -8px;
-margin-right: 10px;
-position: relative;
-left: 1px;
-font-size: 16px !important;
-}
-
-
-
-/***/
-.delTitreVal {
-font-weight: bold !important;
-padding-left: 26px !important;
-font-size: 16px !important;
-}
-
-.mailDel{
-color:#505050 !important;
-padding-left: 26px !important;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-/*position: relative;
-left: 20px;
-top:2px;*/
-position: absolute;
-left: 40px;
-top: 106px;
-}
-
-.valDel{
-position: relative;
-left: 52px;
-color: #838383 !important;
-font-size: 25px !important;
-font-weight: bold !important;
-/*font-family: var(--police_bold);*/
-top: 6px;
-
-}
-
-
-.mailOuv{
-padding-left: 35px !important;
-color: #505050;
-position: relative;
-left: 40px;
-top: 106px;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-}
-
-#titreOuv{
-color:#93D706;
-font-weight: bold;
-font-size: 14px !important;
-position: relative;
-left: 40px;
-top: 11px;
-}
-#titreClik{
-font-weight: bold;
-font-size: 14px !important;
-position: relative;
-left: 54px;
-top: 9px;
-}
-
-.valOuv{
-    color:#93D706 !important;
-    font-weight: bold !important;
-    position: relative;
-    left: 61px;
+.valTot{
+    color: #6F85DA;
     font-size: 25px !important;
-    top: 14px;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
 }
 
-
-.ouvTitreVal {
-color:#6F85DA !important;
-font-weight: bold !important;
-padding-left: 0px !important;
-position: relative;
-left:1px;
-font-size: 16px !important;
-}
-
-
-
-
-.valClik {
- color:#14A400 !important;
-font-weight: bold !important;
-font-size: 25px !important;
-position: relative;
-left: 75px;
-top: 12px;
-}
-.mailClic{
-color: #505050;
-top: 12px;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-/*position: relative;
-left: 81px;*/
-position: absolute;
-left: 78px;
-top: 106px;
-font-weight: bold;
-
-}
-.cliTitreVal{
-    position: relative;
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
     color: #14A400 !important;
-    left: -10px;
-    font-size: 16px !important;
-}
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 .valEtat{
    position: relative;
-   left: 128px;
-    top: -116px;
+   left: 121px;
+    top: -138px;
     font-size: 14px !important;
 }
 
@@ -668,6 +584,7 @@ margin-top: 74px;
 min-width: 181px !important;
 }*/
 
+
 button.liste{
 min-width: 181px !important;
 }
@@ -729,7 +646,7 @@ min-width: 181px !important;
     border-color: white !important;
     /*background-color: #FFFFFF !important;*/
     left: 43px;
-    padding: 6px 1px !important;
+    padding: 6px 0px !important;
     color: #FCFCFC;
 
 }
@@ -759,11 +676,59 @@ min-width: 181px !important;
 .pagination > li > .page-link{
    font-weight: 100;
 }
+/*=======================Pagination JS=================================================================*/
+#container-page{
+    display: none;
+}
+
+#container-page{
+    position: relative;
+    top: 5px;
+    left: 307px;
+}
+#container-page,ul{
+    list-style-type: none;
+    display : flex;
+    
+}
+
+
+#container-page,ul li{
+padding-left:0.3em;
+font-family: "lato-Regular";
+color: grey;
+}
+
+#container-page,ul li,a{
+text-decoration: none;
+color: grey;
+}
+
+#container-page ul > li:not(.J-paginationjs-next)::after{
+content: "\00a0\00a0|\00a0\00a0";
+color: grey;
+
+}
+
+#container-page ul li:last-child:after
+{
+  content: '';
+}
+
+#container-page,ul li,.active{
+    color: #0275d8;
+   
+}
+
+/*===============================================================================================*/
+
 
 /******************************Responsive********************************************************/
 
 @media (min-width: 1200px) {
-  .modal-stat{
+
+
+.modal-stat{
     /*max-width: 927px !important;
     margin-left: 222px;
     margin-top: 142px;*/
@@ -807,6 +772,18 @@ td.emails-table{
     top: 28px;
     margin-top: 60px;
     /*overflow-x:auto;*/
+
+}
+
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    /*border-color: #CBCBCB;*/
+    margin-top: 80px;
+    top: 35px;
+    font-size: 12px !important;
+    width: 100% !important;
 }
 
 
@@ -823,14 +800,14 @@ td.emails-table{
     border-spacing: 0;
     width: 100%;
     border: 1px solid #CBCBCB;
+    
 }
 
 .table,th, td {
     text-align: left;
     padding: 8px;
-    border: 1px solid #CBCBCB ;
-    font-family: "Lato-Regular";
-
+     border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
@@ -838,13 +815,12 @@ td.emails-table{
 .table-stat,th, td {
     text-align: left;
     padding: 8px;
-    border: 1px solid #CBCBCB ;
-    font-family: "Lato-Regular";
+     border: 1px solid #CBCBCB ;
+     font-family: "Lato-Regular";
 }
 
 
-.tableDetail2{
-    /*display: inline-table;*/
+.tableEmpty3{
     display: none;
     border: 2px !important;
     border-color: #CBCBCB;
@@ -853,15 +829,7 @@ td.emails-table{
     font-size: 11px !important;
     width: 100% !important;
 }
-.tableEmpty3{
-     display: none;
-    border: 2px !important;
-    border-color: #CBCBCB;
-    margin-top: 80px;
-    top: 35px;
-    font-size: 11px !important;
-    width: 100% !important;
-}
+
 
 #statistique-campaign-dialog,.content{
     width: 100% !important;
@@ -899,10 +867,10 @@ td.emails-table{
 
 .form-element-container .button-container{
     display: inline-block;
-    position: absolute;
     /*position: relative;
     left: 335px;/*390*/
     /*top: -69px;*/
+    position: absolute;
     left: 687px;
     top: 28px;
 }
@@ -969,10 +937,10 @@ td.emails-table{
 }
 
 .result{
-width: 100%;
-left: 29px;
-position: relative;
-top: 54px;
+    width: 100%;
+    left: 38px;
+    position: relative;
+    top: 54px;
 }
 
 
@@ -982,6 +950,8 @@ top: 54px;
     height: 166px;
     position: relative;
     left: -5px;
+    text-align: center!important;
+    padding-top: 10px;
 }
 .delivrer{
     background-color:#F9F9F9;
@@ -989,7 +959,8 @@ top: 54px;
     height: 166px;
     position: relative;
     left: 18px;
-    
+    text-align: center!important;
+    padding-top: 10px;
 }
 .ouvert{
     background-color:#F9F9F9;
@@ -997,7 +968,8 @@ top: 54px;
     height: 166px;
     position: relative;
     left: 20px;
-    
+    text-align: center!important;
+    padding-top: 10px;
 }
 .clique{
     background-color:#F9F9F9;
@@ -1005,15 +977,16 @@ top: 54px;
     height: 166px;
     position: relative;
     left: 23px;
-    
+    text-align: center!important;
+    padding-top: 10px;
 }
 .bloque{
-background-color:#F9F9F9;
-width: 18%;
-height: 166px;
-position: relative;
-left: 47px;
-
+    background-color:#F9F9F9;
+    width: 18%;
+    height: 166px;
+    position: relative;
+    left: 47px;
+    line-height: 22px;
 
 }
 
@@ -1025,175 +998,84 @@ left: 47px;
 }
 
 #titreT{
-color: #6F85DA;
-font-size: 14px !important;
-position: relative;
-left: 22px;
-top: 8px;
-font-weight: bold;
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
 }
 
-
-/*.totalTitreVal {
-color:#6F85DA !important;
-font-size:1.2rem !important;
-font-weight: bold !important;
-padding-left: 26px !important;
-}*/
-
-#titreDel{
-position: relative;
-left: 22px;
-font-size: 14px;
-font-weight: bold;
-margin-top: 11px;
-color: #838383
-}
-
-.valTot {
-color:#6F85DA !important;
-font-weight: bold !important;
-padding-left: 26px !important;
-font-size: 25px !important;
-position: relative;
-top: 13px;
-left: 9px;
-
-}
-.totalTitreVal,.mailTot{
-padding-left: 33px;
-color: #505050;
-position: relative;
-left: -21px;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-top: 7px;
-
-}
-.totalTitreVal{
-margin-left: -8px;
-margin-right: 10px;
-position: relative;
-left: 1px;
-font-size: 16px !important;
-}
-
-
-
-/***/
-.delTitreVal {
-font-weight: bold !important;
-padding-left: 26px !important;
-font-size: 16px !important;
-}
-
-.mailDel{
-color:#505050 !important;
-padding-left: 26px !important;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-/*position: relative;
-left: 20px;
-top:2px;*/
-position: absolute;
-left: 40px;
-top: 106px;
-}
-
-.valDel{
-position: relative;
-left: 52px;
-color: #838383 !important;
-font-size: 25px !important;
-font-weight: bold !important;
-/*font-family: var(--police_bold);*/
-top: 6px;
-
-}
-
-
-.mailOuv{
-padding-left: 35px !important;
-color: #505050;
-position: relative;
-left: 28px;
-top: 12px;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-}
-
-#titreOuv{
-color:#93D706;
-font-weight: bold;
-font-size: 14px !important;
-position: relative;
-left: 40px;
-top: 11px;
-}
-#titreClik{
-font-weight: bold;
-font-size: 14px !important;
-position: relative;
-left: 54px;
-top: 9px;
-}
-
-.valOuv{
-    color:#93D706 !important;
-    font-weight: bold !important;
-    position: relative;
-    left: 61px;
+.valTot{
+    color: #6F85DA;
     font-size: 25px !important;
-    top: 14px;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
 }
 
-
-.ouvTitreVal {
-color:#6F85DA !important;
-font-weight: bold !important;
-padding-left: 0px !important;
-position: relative;
-left:1px;
-font-size: 16px !important;
-}
-
-
-
-
-.valClik {
- color:#14A400 !important;
-font-weight: bold !important;
-font-size: 25px !important;
-position: relative;
-left: 75px;
-top: 12px;
-}
-.mailClic{
-color: #505050;
-top: 12px;
-font-size: 18px !important;
-font-family: "Lato-Regular";
-/*
-position: relative;
-left: 81px;
-*/
-position: absolute;
-left: 78px;
-top: 106px;
-font-weight: bold;
-
-}
-.cliTitreVal{
-    position: relative;
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
     color: #14A400 !important;
-    left: -10px;
-    font-size: 16px !important;
-}
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 .valEtat{
    position: relative;
-   left: 128px;
-    top: -116px;
+   left: 121px;
+    top: -138px;
     font-size: 14px !important;
 }
 
@@ -1427,6 +1309,11 @@ margin-top: 74px;
     margin-top: 74px;
 }
 
+/*button.btn-valider{
+min-width: 181px !important;
+}*/
+
+
 button.liste{
 min-width: 181px !important;
 }
@@ -1487,8 +1374,8 @@ min-width: 181px !important;
 .pagination > li > a{
     border-color: white !important;
     /*background-color: #FFFFFF !important;*/
-    left: 43px;
-    padding: 6px 1px !important;
+    left: 40px;
+    padding: 6px 0px !important;
     color: #FCFCFC;
 
 }
@@ -1518,14 +1405,54 @@ min-width: 181px !important;
 .pagination > li > .page-link{
    font-weight: 100;
 }
+/*=======================Pagination JS=================================================================*/
+#container-page{
+    display: none;
+}
+
+#container-page{
+    position: relative;
+    top: 5px;
+    left: 307px;
+}
+#container-page,ul{
+    list-style-type: none;
+    display : flex;
+    
+}
+
+
+#container-page,ul li{
+padding-left:0.3em;
+font-family: "lato-Regular";
+color: grey;
+}
+
+#container-page,ul li,a{
+text-decoration: none;
+color: grey;
+}
+
+#container-page ul > li:not(.J-paginationjs-next)::after{
+content: "\00a0\00a0|\00a0\00a0";
+color: grey;
 
 }
-/*************************************Max1200********************************************/
+
+#container-page ul li:last-child:after
+{
+  content: '';
+}
+
+#container-page,ul li,.active{
+    color: #0275d8;
+   
+}
+
+}
 
 
-
-/************************************Min575****************************************************/
-
+/************************************Min575***************************************************************/
 
 
 @media (max-width: 575px)  {
@@ -1557,21 +1484,7 @@ min-width: 181px !important;
         font-size: 15px;
     }
 
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
-
-    .tableDetail{
+.tableDetail{
     /*display: inline-table;*/
     border: 2px !important;
     /*border-color: #CBCBCB;*/
@@ -1581,7 +1494,7 @@ min-width: 181px !important;
     margin-top: 60px;
     overflow-x:auto;
     width: 100%;
-    }
+}
 
     
 .table-stat {
@@ -1729,12 +1642,12 @@ min-width: 181px !important;
         /*font-family: var(--police_bold);*/
     }
 
-    .result{
+.result{
     width: 100%;
     left: 29px;
     position: relative;
     top: 54px;
-    }
+}
 
 
     .total{
@@ -1744,6 +1657,7 @@ min-width: 181px !important;
         position: relative;
         left: 28px;
         top: -39px;
+        text-align: center;
     }
     .delivrer{
         background-color:#F9F9F9;
@@ -1753,6 +1667,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -1762,6 +1677,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -1771,181 +1687,105 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
-   .bloque{
+.bloque{
     background-color:#F9F9F9;
     width: 61%;
     height: 166px;
     position: relative;
     left: 28px;
     top: -18px
-    }
+}
 
-    .titreEtat{
-        position: relative;
-        left: 13px;
-        font-size: 16px;
-    }
-
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
-    position: relative;
-    left: 20px;
-    font-size: 16px;
-    top: 0px;
-    }
-
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-  .mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:11px;
-    }
-
- .valDel{
-    position: relative;
-    left: 24px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    padding-left: 27px;
-    border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: -13px;
-    top: 2px;
-    }
-    #titreClik{
-    font-weight: bold;
-    font-size: 16px !important;
-    position: relative;
-    left: 36px;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        position: relative;
-        left: 43px;
-        font-size: 20px !important;
-        top: 4px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-   .valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    font-size: 20px !important;
-    position: relative;
-    left: 57px;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: 27px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+.valEtat{
     position: relative;
     left: 94px;
-    top: -115px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
+
+.titreEtat{
+    position: relative;
+    left: 13px;
+    font-size: 16px;
+}
+
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 
     .blbl{
@@ -2209,47 +2049,16 @@ min-width: 181px !important;
         
     }
 
-    .navigation{
-   position: relative;
-    top: 40px;
+#container-page{
+    position: relative;
+    top: 5px;
     left: 37px;
 }
-
- li > a,.pagination > li > span{
-    border-color: white !important;
-    /*background-color: #FFFFFF !important;*/
-    left: 43px;
-    padding: 6px 1px !important;
-    color: #FCFCFC;
-
+.navigation{
+   position: relative;
+    top: 43px;
+    left: 37px;
 }
-
- .pagination > li > a,.pagination > li > span:not(.last)::after{
-    content: "\00a0\00a0|\00a0\00a0";
-    margin-left:0px; 
-    margin-right: 2px;
-    color: #838383;
-    font-size: 15px;
-}
- .pagination > li > .page-link:not(.last)::after{
-    content: "\00a0\00a0|\00a0\00a0";
-    color: #838383;
- }
-
-.page-item.active .page-link{
-    color: #0275d8 !important;
-    background-color: #FFFFFF!important;
-    font-size: 15px;
-    font-weight: 100;
-}
-
-.page-link:focus, .page-link:hover{
-     background-color: #FFFFFF!important;
-}
-.pagination > li > .page-link{
-   font-weight: 100;
-}
-
 
 }
 
@@ -2286,20 +2095,6 @@ min-width: 181px !important;
     #obj2{
         font-size: 15px;
     }
-
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
 
     .tableDetail{
     /*display: inline-table;*/
@@ -2473,6 +2268,7 @@ min-width: 181px !important;
         position: relative;
         left: 28px;
         top: -39px;
+        text-align: center;
     }
     .delivrer{
         background-color:#F9F9F9;
@@ -2482,6 +2278,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -2491,6 +2288,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -2500,6 +2298,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
    .bloque{
     background-color:#F9F9F9;
@@ -2516,161 +2315,92 @@ min-width: 181px !important;
         font-size: 16px;
     }
 
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
-    position: relative;
-    left: 39px;
-    font-size: 16px;
-    top: 0px;
-    }
-
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: 22px;
-    font-size: 14px;
-    }
-
-.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-        left: 29px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: 6px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: 29px;
-    top:11px;
-    }
-
-  .valDel{
-    position: relative;
-    left: 33px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 29px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: 17px;
-    top: 2px;
-    }
-    #titreClik{
-        font-weight: bold;
-    font-size: 16px !important;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        position: relative;
-        left: 60px;
-        font-size: 20px !important;
-        top: 4px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-    .cliTitreVal,.valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    padding-left: 16px !important;
-    font-size: 20px !important;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: 29px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+.valEtat{
     position: relative;
     left: 131px;
-    top: -114px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
 
 
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
+
+
+      
     .blbl{
         color:#000000;
         font-weight: bold;
@@ -2931,10 +2661,10 @@ min-width: 181px !important;
     }
 }
 
-/*******************************************************************************************************/
+/************************************************************************************************************/
 
-/**********************************************************************************************/
 
+/***********************************************************************************************************/
 
 @media (min-width: 649px) and (max-width: 767px) {
 .modal-stat{
@@ -2964,20 +2694,6 @@ top: 186px;
         #obj2{
             font-size: 15px;
         }
-
-        /*th{
-            background-color: white !important;
-        }*/
-
-        /*.tableDetail,.table{
-            display: inline-table;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            font-size: 12px !important;
-            position: relative;
-            top: 28px;
-            margin-top: 22px;
-        }*/
 
         .tableDetail{
         /*display: inline-table;*/
@@ -3159,6 +2875,7 @@ top: 186px;
         position: relative;
         left: 28px;
         top: -39px;
+        text-align: center;
     }
     .delivrer{
         background-color:#F9F9F9;
@@ -3168,6 +2885,7 @@ top: 186px;
         left: 48px;
         top: -38px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -3177,6 +2895,7 @@ top: 186px;
         left: 78px;
         top: -39px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -3186,6 +2905,7 @@ top: 186px;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
    .bloque{
     background-color:#F9F9F9;
@@ -3196,204 +2916,128 @@ top: 186px;
     top: -18px
     }
 
-        .titreEtat{
-            position: relative;
-            left: 15px;
-            font-size: 16px;
-        }
-
-        #titreT{
-        color: #6F85DA;
-        font-weight: bold;
+    .titreEtat{
         position: relative;
-        left: 10px;
+        left: 15px;
         font-size: 16px;
-        top: 0px;
-        }
+    }
+
+.valEtat{
+    position: relative;
+    left: 110px;
+    top: -138px;
+    font-size: 16px !important;
+}
 
 
-        /*.totalTitreVal {
-        color:#6F85DA !important;
-        font-size:1.2rem !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        }*/
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
 
-        #titreDel{
-        position: relative;
-        left: -13px;
-        font-size: 14px;
-        }
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
 
-        .totalTitreVal,.valTot {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 22px !important;
-        position: relative;
-        top: 0px;
-        }
-        .totalTitreVal,.mailTot{
-        padding-left: 33px;
-        color: #505050;
-        position: relative;
-        left: -21px;
-        font-size: 16px !important;
-        top: 7px;
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
-        }
-        .totalTitreVal{
-        margin-left: -8px;
-        margin-right: 10px;
-        position: relative;
-        left: 1px;
-        font-size: 16px !important;
-        }
-
-
-
-        /***/
-        .delTitreVal {
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        }
-
-        .mailDel{
-        color:#505050 !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        position: relative;
-        left: -11px;
-        top:11px;
-        }
-
-        .delTitreVal,.valDel{
-        position: relative;
-        left: 18px;
-        color: #A7A7A7 !important;
-        font-size: 20px !important;
-        font-weight: bold !important;
-        /*font-family: var(--police_bold);*/
-        top: 6px;
-
-        }
-
-
-        .mailOuv{
+    .blbl{
+        color:#000000;
         font-weight: bold;
-        padding-left: 35px !important;
-        font-size: 16px !important;
-        color: #505050;
-        position: relative;
-        left: 7px;
-        top: 7px;
-        }
-
-        #titreOuv{
-        color:#93D706;
-        padding-left: 27px;
-        border-top-width: 0px;
-        border-top-style: solid;
-        padding-top: 1px;
+        font-size: 11px !important;
+    }
+    .blErr{
+        color:orange;
         font-weight: bold;
-        font-size: 18px !important;
-        position: relative;
-        left: -13px;
-        top: 2px;
-        }
-        #titreClik{
-            font-weight: bold;
-        font-size: 16px !important;
-        position: relative;
-        left: 37px;
-        }
-
-        .valOuv{
-            color:#93D706 !important;
-            font-weight: bold !important;
-            padding-left: 54px;
-            position: relative;
-            left: -20px;
-            font-size: 20px !important;
-            top: 4px;
-            /*font-family: var(--police_bold);*/
-        }
+        font-size: 11px !important;
+    }
+    .blDesa{
+        color:#1CC8FA;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+    .blSp{
+        color:#FC0007;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
 
 
-        .ouvTitreVal {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 0px !important;
-        position: relative;
-        left:1px;
-        font-size: 16px !important;
-        }
+     .dropdown.show .dropdown-toggle {
+        visibility: hidden;
+        box-shadow: none;
+    }
+    .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
 
-
-
-
-        .cliTitreVal,.valClik {
-         color:#14A400 !important;
-        font-weight: bold !important;
-        font-size: 20px !important;
-        }
-        .mailClic{
-        position: relative;
-        left: 69px;
-        font-size: 16px !important;
-        color: #505050;
-        top: 7px;
-
-        }
-        .cliTitreVal{
-            position: relative;
-            color: #14A400 !important;
-            left: -10px;
-            font-size: 16px !important;
-        }
-
-        .valEtat{
-        position: relative;
-        left: 110px;
-        top: -116px;
-        font-size: 16px !important;
-        }
-
-
-        .blbl{
-            color:#000000;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blErr{
-            color:orange;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blDesa{
-            color:#1CC8FA;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blSp{
-            color:#FC0007;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-
-
-         .dropdown.show .dropdown-toggle {
-            visibility: hidden;
-            box-shadow: none;
-        }
-        .dropdown-menu {
-            border: 0;
-            margin: 0;
-            padding: 0;
-            top: 0;
-
-        }
+    }
 
         .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
             display: none;
@@ -3620,10 +3264,10 @@ min-width: 181px !important;
         
     }
 }
-/****************************************************************************************/
+/***************************************************************************************************************/
 
 
-/*********************************************************************************/
+/***********************************************************************************************************/
 
 
 @media (min-width: 768px) and (max-width: 831px) {
@@ -3654,20 +3298,6 @@ min-width: 181px !important;
     #obj2{
         font-size: 15px;
     }
-
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
 
     .tableDetail{
     /*display: inline-table;*/
@@ -3841,6 +3471,7 @@ min-width: 181px !important;
         position: relative;
         left: 28px;
         top: -39px;
+        text-align: center;
     }
     .delivrer{
         background-color:#F9F9F9;
@@ -3850,6 +3481,7 @@ min-width: 181px !important;
         left: 56px;
         top: -40px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -3859,6 +3491,7 @@ min-width: 181px !important;
         left: 68px;
         top: -39px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -3868,6 +3501,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
    .bloque{
     background-color:#F9F9F9;
@@ -3883,157 +3517,88 @@ min-width: 181px !important;
         font-size: 16px;
     }
 
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
-    position: relative;
-    left: 10px;
-    font-size: 16px;
-    top: 0px;
-    }
-
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:11px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: 18px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 18px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    border-top-width: 0px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: 25px;
-    top: 14px;
-    }
-    #titreClik{
-        font-weight: bold;
-    font-size: 16px !important;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        position: relative;
-        left: 41px;
-        font-size: 20px !important;
-        top: 4px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-    .cliTitreVal,.valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    padding-left: 16px !important;
-    font-size: 20px !important;
-    }
-    .mailClic{
-    position: relative;
-    left: 66px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+ .valEtat{
     position: relative;
     left: 112px;
-    top: -116px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
+
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 
     .blbl{
@@ -4296,9 +3861,10 @@ min-width: 181px !important;
         
     }
 }
-/************************************************************************************/
+/********************************************************************************************************************/
 
 
+/***********************************************************************************************************/
 
 
 @media (min-width: 831px) and (max-width: 933px) {
@@ -4330,20 +3896,6 @@ min-width: 181px !important;
     #obj2{
         font-size: 15px;
     }
-
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
 
     .tableDetail{
     /*display: inline-table;*/
@@ -4515,6 +4067,7 @@ min-width: 181px !important;
         position: relative;
         left: -13px;
         top: -14px;
+        text-align: center;
     }
     .delivrer{
         background-color:#F9F9F9;
@@ -4524,6 +4077,7 @@ min-width: 181px !important;
         left: -2px;
         top: -14px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -4533,6 +4087,7 @@ min-width: 181px !important;
         left: 2px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -4542,6 +4097,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
    .bloque{
     background-color:#F9F9F9;
@@ -4549,7 +4105,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: -7px;
-    top: 0px
+    top: 0px;
     }
 
 
@@ -4559,199 +4115,125 @@ min-width: 181px !important;
     font-size: 16px;
 }
 
-#titreT{
-color: #6F85DA;
-font-weight: bold;
-position: relative;
-left: 10px;
-font-size: 16px;
-top: 0px;
-}
-
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-#titreDel{
-position: relative;
-left: -13px;
-font-size: 14px;
-}
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:11px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: 18px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 18px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    border-top-width: 0px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: 24px;
-    top: 13px;
-    }
-    #titreClik{
-    font-weight: bold;
-    font-size: 16px !important;
-    position: relative;
-    left: 33px;
-    top: 14px;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        position: relative;
-        left: 33px;
-        font-size: 20px !important;
-        top: 15px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-   .valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    font-size: 20px !important;
-    position: relative;
-    left: 55px;
-    top: 14px;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: 25px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+.valEtat{
     position: relative;
     left: 99px;
-    top: -117px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
 
 
-    .blbl{
-        color:#000000;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
-    .blErr{
-        color:orange;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
-    .blDesa{
-        color:#1CC8FA;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
-    .blSp{
-        color:#FC0007;
-        font-weight: bold;
-        font-size: 11px !important;
-    }
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 
-     .dropdown.show .dropdown-toggle {
-        visibility: hidden;
-        box-shadow: none;
-    }
-    .dropdown-menu {
-        border: 0;
-        margin: 0;
-        padding: 0;
-        top: 0;
 
-    }
+.blbl{
+    color:#000000;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blErr{
+    color:orange;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blDesa{
+    color:#1CC8FA;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+.blSp{
+    color:#FC0007;
+    font-weight: bold;
+    font-size: 11px !important;
+}
+
+
+ .dropdown.show .dropdown-toggle {
+    visibility: hidden;
+    box-shadow: none;
+}
+.dropdown-menu {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+
+}
 
     .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
         display: none;
@@ -4980,8 +4462,10 @@ min-width: 181px !important;
         
     }
 }
-/*********************************************************************************/
+/*************************************************************************************************************/
 
+
+/************************************************************************************************************/
 
 
 @media (min-width: 934px) and (max-width: 991px) {
@@ -5012,20 +4496,6 @@ min-width: 181px !important;
     #obj2{
         font-size: 15px;
     }
-
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
 
     .tableDetail{
     /*display: inline-table;*/
@@ -5198,6 +4668,7 @@ min-width: 181px !important;
         position: relative;
         left: -13px;
         top: -14px;
+        text-align: center;
     }
     .delivrer{
         background-color:#F9F9F9;
@@ -5207,6 +4678,7 @@ min-width: 181px !important;
         left: -2px;
         top: -14px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -5216,6 +4688,7 @@ min-width: 181px !important;
         left: 6px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -5225,6 +4698,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
    .bloque{
     background-color:#F9F9F9;
@@ -5232,7 +4706,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: -7px;
-    top: 0px
+    top: 0px;
     }
 
 
@@ -5242,158 +4716,88 @@ min-width: 181px !important;
     font-size: 16px;
 }
 
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
-    position: relative;
-    left: 35px;
-    font-size: 16px;
-    top: 15px;
-    }
-
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 10px;
-    left: 22px
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: 31px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:11px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: 18px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    border-top-width: 0px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: 35px;
-    top: 17px;
-    }
-    #titreClik{
-        font-weight: bold;
-    font-size: 16px !important;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        position: relative;
-        left: 48px;
-        font-size: 20px !important;
-        top: 13px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-    .cliTitreVal,.valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    font-size: 20px !important;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: 29px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+ .valEtat{
     position: relative;
     left: 119px;
-    top: -116px;
+    top: -138px;
     font-size: 16px !important;
-    }
+ }
+
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 
     .blbl{
@@ -5656,7 +5060,8 @@ min-width: 181px !important;
         
     }
 }
-/***********************************************************************************************/
+
+/******************************************************************************************************************/
 
 
 
@@ -5687,20 +5092,6 @@ min-width: 181px !important;
     #obj2{
         font-size: 15px;
     }
-
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
 
     .tableDetail{
     /*display: inline-table;*/
@@ -5873,6 +5264,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: -5px;
+    text-align: center;
 }
 .delivrer{
     background-color:#F9F9F9;
@@ -5880,6 +5272,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 18px;
+    text-align: center;
     
 }
 .ouvert{
@@ -5888,6 +5281,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 29px;
+    text-align: center;
     
 }
 .clique{
@@ -5896,6 +5290,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 33px;
+    text-align: center;
     
 }
 .bloque{
@@ -5908,164 +5303,89 @@ left: 59px;
 
 }
 
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
-    position: relative;
-    left: 10px;
-    font-size: 16px;
-    top: 0px;
-    }
-
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:11px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: 18px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    padding-left: 27px;
-    border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: -13px;
-    top: 2px;
-    }
-    #titreClik{
-        font-weight: bold;
-    font-size: 16px !important;
-    position: relative;
-    left: 54px;
-    top: 9px;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        padding-left: 54px;
-        position: relative;
-        left: -20px;
-        font-size: 20px !important;
-        top: 4px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-    .cliTitreVal,.valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    font-size: 20px !important;
-    }
-    .mailClic{
-    position: relative;
-    left: 64px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+ .valEtat{
     position: relative;
     left: 122px;
-    top: -116px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
+
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
+
 
 
     .blbl{
@@ -6328,10 +5648,7 @@ min-width: 181px !important;
         
     }
 }
-
-/*****************************************************************************/
-
-
+/************************************************************************************************************/
 
 
 @media (min-width: 1001px) and (max-width: 1090px) {
@@ -6551,6 +5868,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: -5px;
+    text-align: center;
 }
 .delivrer{
     background-color:#F9F9F9;
@@ -6558,6 +5876,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 18px;
+    text-align: center;
     
 }
 .ouvert{
@@ -6566,6 +5885,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 29px;
+    text-align: center;
     
 }
 .clique{
@@ -6574,6 +5894,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 33px;
+    text-align: center;
     
 }
 .bloque{
@@ -6583,7 +5904,6 @@ height: 166px;
 position: relative;
 left: 59px;
 
-
 }
 
     .titreEtat{
@@ -6592,163 +5912,88 @@ left: 59px;
         font-size: 16px;
     }
 
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
-    position: relative;
-    left: 10px;
-    font-size: 16px;
-    top: 0px;
-    }
-
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:11px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: 18px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    padding-left: 27px;
-    border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: -13px;
-    top: 2px;
-    }
-    #titreClik{
-        font-weight: bold;
-    font-size: 16px !important;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        padding-left: 54px;
-        position: relative;
-        left: -20px;
-        font-size: 20px !important;
-        top: 4px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-    .cliTitreVal,.valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    font-size: 20px !important;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: 29px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+.valEtat{
     position: relative;
     left: 105px;
-    top: -118px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
 
+ 
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
     .blbl{
         color:#000000;
@@ -7009,8 +6254,11 @@ min-width: 181px !important;
         
     }
 }
-/**************************************************************************************/
 
+/*******************************************************************************************************/
+
+
+/**************************************************************************************/
 
 
 @media (min-width: 1091px) and (max-width: 1149px) {
@@ -7042,20 +6290,6 @@ min-width: 181px !important;
     #obj2{
         font-size: 15px;
     }
-
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
 
     .tableDetail{
     /*display: inline-table;*/
@@ -7225,12 +6459,13 @@ min-width: 181px !important;
     }
 
 
-    .total{
+.total{
     background-color:#F9F9F9;
     width: 18%;
     height: 166px;
     position: relative;
     left: -5px;
+    text-align: center;
 }
 .delivrer{
     background-color:#F9F9F9;
@@ -7238,6 +6473,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 18px;
+    text-align: center;
     
 }
 .ouvert{
@@ -7246,6 +6482,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 29px;
+    text-align: center;
     
 }
 .clique{
@@ -7254,6 +6491,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 33px;
+    text-align: center;
     
 }
 .bloque{
@@ -7266,171 +6504,94 @@ left: 59px;
 
 }
 
-    .titreEtat{
-        position: relative;
-        left: 12px;
-        font-size: 16px;
-    }
-
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
+.titreEtat{
     position: relative;
-    left: 10px;
+    left: 12px;
     font-size: 16px;
-    top: 0px;
-    }
+}
 
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:-3px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: 18px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    border-top-width: 0px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: 25px;
-    top: 14px;
-    }
-    #titreClik{
-        font-weight: bold;
-    font-size: 16px !important;
-    position: relative;
-    left: 16px;
-    top: 4px;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        position: relative;
-        left: 33px;
-        font-size: 20px !important;
-        top: 15px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
-    .valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    font-size: 20px !important;
-    position: relative;
-    left: 29px;
-    top: 9px;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: 13px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+.valEtat{
     position: relative;
     left: 94px;
-    top: -117px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
 
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
     .blbl{
         color:#000000;
@@ -7693,10 +6854,11 @@ min-width: 181px !important;
         
     }
 }
-/**************************************************************************/
+
+/****************************************************************************************************/
 
 
-
+/**********************************************************************************************/
 
 @media (min-width: 1150px) and (max-width: 1199px) {
     .modal-stat{
@@ -7726,20 +6888,6 @@ min-width: 181px !important;
     #obj2{
         font-size: 15px;
     }
-
-    /*th{
-        background-color: white !important;
-    }*/
-
-    /*.tableDetail,.table{
-        display: inline-table;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        font-size: 12px !important;
-        position: relative;
-        top: 28px;
-        margin-top: 22px;
-    }*/
 
     .tableDetail{
     /*display: inline-table;*/
@@ -7915,6 +7063,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: -5px;
+    text-align: center;
 }
 .delivrer{
     background-color:#F9F9F9;
@@ -7922,6 +7071,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 18px;
+    text-align: center;
     
 }
 .ouvert{
@@ -7930,6 +7080,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 29px;
+    text-align: center;
     
 }
 .clique{
@@ -7938,6 +7089,7 @@ min-width: 181px !important;
     height: 166px;
     position: relative;
     left: 33px;
+    text-align: center;
     
 }
 .bloque{
@@ -7950,173 +7102,94 @@ left: 59px;
 
 }
 
-    .titreEtat{
-        position: relative;
-        left: 13px;
-        font-size: 16px;
-    }
-
-    #titreT{
-    color: #6F85DA;
-    font-weight: bold;
+.titreEtat{
     position: relative;
-    left: 10px;
+    left: 13px;
     font-size: 16px;
-    top: 0px;
-    }
+}
 
-
-    /*.totalTitreVal {
-    color:#6F85DA !important;
-    font-size:1.2rem !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    }*/
-
-    #titreDel{
-    position: relative;
-    left: -13px;
-    font-size: 14px;
-    }
-
-    .totalTitreVal,.valTot {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 22px !important;
-    position: relative;
-    top: 0px;
-    }
-    .totalTitreVal,.mailTot{
-    padding-left: 33px;
-    color: #505050;
-    position: relative;
-    left: -21px;
-    font-size: 16px !important;
-    top: 7px;
-
-    }
-    .totalTitreVal{
-    margin-left: -8px;
-    margin-right: 10px;
-    position: relative;
-    left: 1px;
-    font-size: 16px !important;
-    }
-
-
-
-    /***/
-    .delTitreVal {
-    font-weight: bold !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    }
-
-    .mailDel{
-    color:#505050 !important;
-    padding-left: 26px !important;
-    font-size: 16px !important;
-    position: relative;
-    left: -11px;
-    top:-2px;
-    }
-
-    .delTitreVal,.valDel{
-    position: relative;
-    left: 18px;
-    color: #A7A7A7 !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    /*font-family: var(--police_bold);*/
-    top: 6px;
-
-    }
-
-
-    .mailOuv{
-    font-weight: bold;
-    padding-left: 35px !important;
-    font-size: 16px !important;
-    color: #505050;
-    position: relative;
-    left: 7px;
-    top: 7px;
-    }
-
-    #titreOuv{
-    color:#93D706;
-    padding-left: 27px;
-    border-top-width: 0px;
-    border-top-style: solid;
-    padding-top: 1px;
-    font-weight: bold;
-    font-size: 18px !important;
-    position: relative;
-    left: -13px;
-    top: 2px;
-    }
-    #titreClik{
-    font-weight: bold;
-    font-size: 16px !important;
-    position: relative;
-    left: 21px;
-    }
-
-    .valOuv{
-        color:#93D706 !important;
-        font-weight: bold !important;
-        padding-left: 54px;
-        position: relative;
-        left: -20px;
-        font-size: 20px !important;
-        top: 4px;
-        /*font-family: var(--police_bold);*/
-    }
-
-
-    .ouvTitreVal {
-    color:#6F85DA !important;
-    font-weight: bold !important;
-    padding-left: 0px !important;
-    position: relative;
-    left:1px;
-    font-size: 16px !important;
-    }
-
-
-
-
- .valClik {
-     color:#14A400 !important;
-    font-weight: bold !important;
-    padding-left: 16px !important;
-    font-size: 20px !important;
-    position: relative;
-    left: 46px;
-    }
-    .mailClic{
-    padding-left: 33px;
-    position: relative;
-    left: 23px;
-    font-size: 16px !important;
-    color: #505050;
-    top: 7px;
-
-    }
-    .cliTitreVal{
-        position: relative;
-        color: #14A400 !important;
-        left: -10px;
-        font-size: 16px !important;
-    }
-
-    .valEtat{
+.valEtat{
     position: relative;
     left: 101px;
-    top: -117px;
+    top: -138px;
     font-size: 16px !important;
-    }
+}
+
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 
     .blbl{
@@ -8376,7 +7449,7 @@ min-width: 181px !important;
         
     }
 }
-
+/*******************************************************************************************************************/
 
 
 @media (min-width: 645px) and (max-width: 648px) {
@@ -8592,13 +7665,14 @@ min-width: 181px !important;
         }
 
 
-        .total{
+.total{
         background-color:#F9F9F9;
         width: 27%;
         height: 166px;
         position: relative;
         left: 28px;
         top: -39px;
+        text-align: center;
     }
     .delivrer{
         background-color:#F9F9F9;
@@ -8608,6 +7682,7 @@ min-width: 181px !important;
         left: 37px;
         top: -40px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -8617,6 +7692,7 @@ min-width: 181px !important;
         left: 49px;
         top: -39px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -8626,6 +7702,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
    .bloque{
     background-color:#F9F9F9;
@@ -8636,210 +7713,130 @@ min-width: 181px !important;
     top: -18px
     }
 
-        .titreEtat{
-            position: relative;
-            left: 16px;
-            font-size: 16px;
-        }
-
-        #titreT{
-        color: #6F85DA;
-        font-weight: bold;
+    .titreEtat{
         position: relative;
-        left: 10px;
+        left: 16px;
         font-size: 16px;
-        top: 0px;
-        }
+    }
 
-
-        /*.totalTitreVal {
-        color:#6F85DA !important;
-        font-size:1.2rem !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        }*/
-
-        #titreDel{
-        position: relative;
-        left: -13px;
-        font-size: 14px;
-        }
-
-      .valTot {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 22px !important;
-        position: relative;
-        top: 0px;
-        }
-   .mailTot{
-        padding-left: 33px;
-        color: #505050;
-        position: relative;
-        left: -21px;
-        font-size: 16px !important;
-        top: 7px;
-
-        }
-        .totalTitreVal{
-        margin-left: -8px;
-        margin-right: 10px;
-        position: relative;
-        left: 1px;
-        font-size: 16px !important;
-        }
-
-
-
-        /***/
-        .delTitreVal {
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        }
-
-        .mailDel{
-        color:#505050 !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        position: relative;
-        left: -11px;
-        top:11px;
-        }
-
-     .valDel{
-        position: relative;
-        left: -2px;
-        color: #A7A7A7 !important;
-        font-size: 20px !important;
-        font-weight: bold !important;
-        /*font-family: var(--police_bold);*/
-        top: 6px;
-
-        }
-
-
-        .mailOuv{
-        font-weight: bold;
-        padding-left: 35px !important;
-        font-size: 16px !important;
-        color: #505050;
-        position: relative;
-        left: 7px;
-        top: 7px;
-        }
-
-        #titreOuv{
-        color:#93D706;
-        padding-left: 27px;
-        border-top-width: 0px;
-        border-top-style: solid;
-        padding-top: 1px;
-        font-weight: bold;
-        font-size: 18px !important;
-        position: relative;
-        left: -13px;
-        top: 2px;
-        }
-        #titreClik{
-        font-weight: bold;
-        font-size: 16px !important;
-        position: relative;
-        left: 24px;
-        }
-
-        .valOuv{
-            color:#93D706 !important;
-            font-weight: bold !important;
-            padding-left: 54px;
-            position: relative;
-            left: -20px;
-            font-size: 20px !important;
-            top: 4px;
-            /*font-family: var(--police_bold);*/
-        }
-
-
-        .ouvTitreVal {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 0px !important;
-        position: relative;
-        left:1px;
-        font-size: 16px !important;
-        }
-
-
-
-
-     .valClik {
-        color:#14A400 !important;
-        font-weight: bold !important;
-        padding-left: 16px !important;
-        font-size: 20px !important;
-        position: relative;
-        left: 24px;
-        }
-        .mailClic{
-        padding-left: 33px;
-        position: relative;
-        left: -10px;
-        font-size: 16px !important;
-        color: #505050;
-        top: 7px;
-        position: relative;
-        left: 24px;
-
-        }
-        .cliTitreVal{
-            position: relative;
-            color: #14A400 !important;
-            left: -10px;
-            font-size: 16px !important;
-        }
-
-        .valEtat{
+    .valEtat{
         position: relative;
         left: 100px;
-        top: -116px;
+        top: -138px;
         font-size: 16px !important;
-        }
+    }
 
 
-        .blbl{
-            color:#000000;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blErr{
-            color:orange;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blDesa{
-            color:#1CC8FA;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
-        .blSp{
-            color:#FC0007;
-            font-weight: bold;
-            font-size: 11px !important;
-        }
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 
-         .dropdown.show .dropdown-toggle {
-            visibility: hidden;
-            box-shadow: none;
-        }
-        .dropdown-menu {
-            border: 0;
-            margin: 0;
-            padding: 0;
-            top: 0;
 
-        }
+    .blbl{
+        color:#000000;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+    .blErr{
+        color:orange;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+    .blDesa{
+        color:#1CC8FA;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+    .blSp{
+        color:#FC0007;
+        font-weight: bold;
+        font-size: 11px !important;
+    }
+
+
+     .dropdown.show .dropdown-toggle {
+        visibility: hidden;
+        box-shadow: none;
+    }
+    .dropdown-menu {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        top: 0;
+
+    }
 
         .filter2 .dropdown .dropdown-menu > a > span, .filter2 .dropdown button > span {
             display: none;
@@ -9069,8 +8066,7 @@ min-width: 181px !important;
         }
 }
 
-
-/*************************************************/
+/************************************************************************************************************/
 
 
 @media (min-width: 576px) and (max-width: 644px) {
@@ -9102,21 +8098,7 @@ min-width: 181px !important;
             font-size: 15px;
         }
 
-        /*th{
-            background-color: white !important;
-        }*/
-
-        /*.tableDetail,.table{
-            display: inline-table;
-            border: 2px !important;
-            border-color: #CBCBCB;
-            font-size: 12px !important;
-            position: relative;
-            top: 28px;
-            margin-top: 22px;
-        }*/
-
-        .tableDetail{
+.tableDetail{
         /*display: inline-table;*/
         border: 2px !important;
         /*border-color: #CBCBCB;*/
@@ -9126,7 +8108,7 @@ min-width: 181px !important;
         /*margin-top: 60px;*/
         overflow-x:auto;
         width: 100%;
-        }
+    }
 
         
 .table-stat {
@@ -9161,18 +8143,18 @@ min-width: 181px !important;
 
 
 
-    .tableDetail2{
-        /*display: inline-table;*/
-        display: none;
-        border: 2px !important;
-        border-color: #CBCBCB;
-        position: relative;
-        top: -12px;
-        left: 17px;
-        font-size: 11px;
-        overflow-x:auto;
-        width: 100%;
-    }
+.tableDetail2{
+    /*display: inline-table;*/
+    display: none;
+    border: 2px !important;
+    border-color: #CBCBCB;
+    position: relative;
+    top: -12px;
+    left: 17px;
+    font-size: 11px;
+    overflow-x:auto;
+    width: 100%;
+}
 
 .tableEmpty3{
    display: none;
@@ -9278,7 +8260,6 @@ min-width: 181px !important;
 
          .objet{
             font-size: 14px!important;
-            /*font-family: var(--police_bold);*/
         }
 
         .result{
@@ -9289,14 +8270,15 @@ min-width: 181px !important;
         }
 
 
-        .total{
-        background-color:#F9F9F9;
-        width: 41%;
-        height: 166px;
-        position: relative;
-        left: 28px;
-        top: -39px;
-    }
+.total{
+    background-color:#F9F9F9;
+    width: 41%;
+    height: 166px;
+    position: relative;
+    left: 28px;
+    top: -39px;
+    text-align: center;
+}
     .delivrer{
         background-color:#F9F9F9;
         width: 41%;
@@ -9305,6 +8287,7 @@ min-width: 181px !important;
         left: 55px;
         top: -41px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .ouvert{
         background-color:#F9F9F9;
@@ -9314,6 +8297,7 @@ min-width: 181px !important;
         left: 28px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
     .clique{
         background-color:#F9F9F9;
@@ -9323,6 +8307,7 @@ min-width: 181px !important;
         left: 62px;
         top: -18px;
         margin-bottom: 10px;
+        text-align: center;
     }
    .bloque{
     background-color:#F9F9F9;
@@ -9333,169 +8318,93 @@ min-width: 181px !important;
     top: -18px
     }
 
-        .titreEtat{
-            position: relative;
-            left: 21px;
-            font-size: 16px;
-        }
-
-        #titreT{
-        color: #6F85DA;
-        font-weight: bold;
+    .titreEtat{
         position: relative;
-        left: 10px;
+        left: 21px;
         font-size: 16px;
-        top: 0px;
-        }
+    }
 
-
-        /*.totalTitreVal {
-        color:#6F85DA !important;
-        font-size:1.2rem !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        }*/
-
-        #titreDel{
-        position: relative;
-        left: -13px;
-        font-size: 14px;
-        }
-
-        .totalTitreVal,.valTot {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 22px !important;
-        position: relative;
-        top: 0px;
-        }
-        .totalTitreVal,.mailTot{
-        padding-left: 33px;
-        color: #505050;
-        position: relative;
-        left: -21px;
-        font-size: 16px !important;
-        top: 7px;
-
-        }
-        .totalTitreVal{
-        margin-left: -8px;
-        margin-right: 10px;
-        position: relative;
-        left: 1px;
-        font-size: 16px !important;
-        }
-
-
-
-        /***/
-        .delTitreVal {
-        font-weight: bold !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        }
-
-        .mailDel{
-        color:#505050 !important;
-        padding-left: 26px !important;
-        font-size: 16px !important;
-        position: relative;
-        left: -11px;
-        top:11px;
-        }
-
-        .delTitreVal,.valDel{
-        position: relative;
-        left: 18px;
-        color: #A7A7A7 !important;
-        font-size: 20px !important;
-        font-weight: bold !important;
-        /*font-family: var(--police_bold);*/
-        top: 6px;
-
-        }
-
-
-        .mailOuv{
-        font-weight: bold;
-        padding-left: 35px !important;
-        font-size: 16px !important;
-        color: #505050;
-        position: relative;
-        left: 7px;
-        top: 7px;
-        }
-
-        #titreOuv{
-        color:#93D706;
-        padding-left: 27px;
-        border-top-width: 0px;
-        border-top-style: solid;
-        padding-top: 1px;
-        font-weight: bold;
-        font-size: 18px !important;
-        position: relative;
-        left: -13px;
-        top: 2px;
-        }
-        #titreClik{
-            font-weight: bold;
-        font-size: 16px !important;
-        }
-
-        .valOuv{
-            color:#93D706 !important;
-            font-weight: bold !important;
-            padding-left: 54px;
-            position: relative;
-            left: -20px;
-            font-size: 20px !important;
-            top: 4px;
-            /*font-family: var(--police_bold);*/
-        }
-
-
-        .ouvTitreVal {
-        color:#6F85DA !important;
-        font-weight: bold !important;
-        padding-left: 0px !important;
-        position: relative;
-        left:1px;
-        font-size: 16px !important;
-        }
-
-
-
-
-        .cliTitreVal,.valClik {
-         color:#14A400 !important;
-        font-weight: bold !important;
-        padding-left: 16px !important;
-        font-size: 20px !important;
-        }
-        .mailClic{
-        padding-left: 33px;
-        position: relative;
-        left: 49px;
-        font-size: 16px !important;
-        color: #505050;
-        top: 7px;
-
-        }
-        .cliTitreVal{
-            position: relative;
-            color: #14A400 !important;
-            left: -10px;
-            font-size: 16px !important;
-        }
-
-        .valEtat{
+    .valEtat{
         position: relative;
         left: 135px;
-        top: -115px;
+        top: -138px;
         font-size: 16px !important;
-        }
+    }
+
+#titreT{
+    color: #6F85DA;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+
+.valTot{
+    color: #6F85DA;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    text-align: center!important;
+    padding-top: 4px !important;
+}
+.mailTot{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    font-weight: bold;
+}
+#titreDel{
+font-size: 14px !important;
+    font-weight: bold;
+    color: #838383;
+}
+     
+.valDel{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color: #838383 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+}
+.mailDel{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+}
+
+ #titreOuv{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:#93D706;
+ }   
+ .valOuv {
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#93D706 !important; 
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailOuv {
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+ }
+ #titreClik{
+    font-size: 14px !important;
+    font-weight: bold;
+    color: #14A400 !important;
+ } 
+ .valClik{
+    font-size: 25px !important;
+    font-weight: bold !important;
+    color:#14A400 !important;
+     text-align: center!important;
+     padding-top: 4px !important;
+ }
+ .mailClic{
+    font-size: 14px;
+    font-family: "Lato-Regular";
+    color: #505050;
+    font-weight: bold;
+  }
 
 
         .blbl{
@@ -9758,3 +8667,9 @@ min-width: 181px !important;
             
         }
 }
+
+/********************************************************************************************************/
+
+
+
+

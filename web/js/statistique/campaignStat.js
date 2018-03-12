@@ -53,44 +53,82 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
                     data:{'id': id},
                     dataType: 'json',
                     success:function(data){
-                    	$('.navigation').css('display','block');
+                    	$('.navigation').css('display','none');
                         $('.tableDetail').css('display','none');                     
 		                $('#tableBody').children('tr').remove();
 		                $('#tableBody2').children('tr').remove();
 		                $('.tableDetail2').css('display','block'); 
 		                $('.tableEmpty3').css('display','none'); 
-                        var span1 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
+
+		                var span1 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background1 "></i></span></div>');
                         var span2 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background2 "></i></span></div>');
                         var span3 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background3 "></i></span></div>');
                         var span4 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background4 "></i></span></div>');
                         var span5 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background5 "></i></span></div>');
                         var span6 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background6 "></i></span></div>');
                         var span7 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background7 "></i></span></div>');
-						$.each(JSON.parse(data), function(index, val) {
-							if (val.etat == "sent") {
-							$("<tr></tr>").appendTo('.table #tableBody2')
-				            .append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "opened") {
-								$("<tr></tr>").appendTo('.table #tableBody2')
-		            			.append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span2.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "clicked") {
-								$("<tr></tr>").appendTo('.table #tableBody2')
-		            			.append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span2.html()+"</td><td>"+span3.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "unsub") {
-								$("<tr></tr>").appendTo('.table #tableBody2')
-		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span4.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "blocked") {
-								$("<tr></tr>").appendTo('.table #tableBody2')
-		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span5.html()+"</td><td>"+""+"</td><td>"+""+"</td>");
-							} else if (val.etat == "spam") {
-								$("<tr></tr>").appendTo('.table #tableBody2')
-		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span6.html()+"</td><td>"+""+"</td>");
-							} else if (val.etat == "bounce") {
-								$("<tr></tr>").appendTo('.table #tableBody2')
-		            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span7.html()+"</td>");
+		                console.log(JSON.parse(data).length)
+		                if (JSON.parse(data).length > 10) {
+		                	$("#container-page").css("display","block");
+		                	 $('#container-page').pagination({
+						        pageSize: 5,
+						        showPrevious: false,
+						        nextText:"dernier",
+						        dataSource: JSON.parse(data) ,
+						        callback: function(obj, pagination) {
+						            var html = template(obj);
+						            $('#tableBody2').html(html);
+						        }
+						    });
+						    function template(obj) {
+							    var html = '';
+							    $.each(obj, function(index, item){
+							    	if (item.etat == "sent") {
+							    		html += '<tr><td>'+ item.emails +'</td><td>'+span1.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td></tr>";
+							    	} else if (item.etat == "opened") {
+							    		html += '<tr><td>'+ item.emails +'</td><td>'+span1.html()+"</td><td>"+span2.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td></tr>";
+							    	} else if (item.etat == "clicked") {
+							    		html += '<tr><td>'+ item.emails +'</td><td>'+span1.html()+"</td><td>"+span2.html()+"</td><td>"+span3.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td></tr>";
+							    	} else if (item.etat == "unsub") {
+							    		html += '<tr><td>'+ item.emails +'</td><td>'+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span4.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td></tr>";
+							    	} else if (item.etat == "blocked") {
+							    		html += '<tr><td>'+ item.emails +'</td><td>'+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span5.html()+"</td><td>"+""+"</td><td>"+""+"</td></tr>";
+							    	} else if (item.etat == "spam") {
+							    		html += '<tr><td>'+ item.emails +'</td><td>'+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span6.html()+"</td><td>"+""+"</td></tr>";
+							    	} else if (item.etat == "bounce") {
+							    		html += '<tr><td>'+ item.emails +'</td><td>'+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span7.html()+"</td></tr>";
+							    	}
+							    });
+							    return html;
 							}
-							
+
+		                } else {
+		                	$.each(JSON.parse(data), function(index, val) {
+								if (val.etat == "sent") {
+								$("<tr></tr>").appendTo('.table #tableBody2')
+					            .append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+								} else if (val.etat == "opened") {
+									$("<tr></tr>").appendTo('.table #tableBody2')
+			            			.append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span2.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+								} else if (val.etat == "clicked") {
+									$("<tr></tr>").appendTo('.table #tableBody2')
+			            			.append("<td>"+ val.emails+"</td><td>"+span1.html()+"</td><td>"+span2.html()+"</td><td>"+span3.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+								} else if (val.etat == "unsub") {
+									$("<tr></tr>").appendTo('.table #tableBody2')
+			            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span4.html()+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td>");
+								} else if (val.etat == "blocked") {
+									$("<tr></tr>").appendTo('.table #tableBody2')
+			            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span5.html()+"</td><td>"+""+"</td><td>"+""+"</td>");
+								} else if (val.etat == "spam") {
+									$("<tr></tr>").appendTo('.table #tableBody2')
+			            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span6.html()+"</td><td>"+""+"</td>");
+								} else if (val.etat == "bounce") {
+									$("<tr></tr>").appendTo('.table #tableBody2')
+			            			.append("<td>"+ val.emails+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+""+"</td><td>"+span7.html()+"</td>");
+								}								
 						});
+
+		                }						
                     },
                 complete: function(){
                 	$('.chargementAjax').addClass('hidden');
@@ -107,7 +145,6 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 					return newdata;
 				});
 				if (newdata.length > 0 ) {
-					console.log(newdata)
 					$('.navigation').css('display','none');
 					$('.tableDetail').css('display','none');                     
 	                $('#tableBody').children('tr').remove();
