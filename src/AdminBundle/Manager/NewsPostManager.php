@@ -280,14 +280,21 @@ class NewsPostManager
      * Publish OR Unpublish news post
      *
      * @param NewsPost $news_post
-     * @param $state
-     * @param $flush
+     * @param boolean $state
+     * @param datetime $publication_datetime
+     * @param boolean $flush
      */
-    public function definePublishedState(NewsPost $news_post, $state, $flush = true)
+    public function definePublishedState(NewsPost $news_post, $state, $publication_datetime = null, $flush = true)
     {
         $news_post->setPublishedState($state);
         if (true == $state) {
             $news_post->setProgrammedInProgressState(false);
+            if (is_null($publication_datetime)) {
+                $publication_datetime = new \DateTime('now');
+            }
+            $news_post->setPublicationDatetime($publication_datetime);
+        } else {
+            $news_post->setPublicationDatetime(null);
         }
 
         if ($flush) {
