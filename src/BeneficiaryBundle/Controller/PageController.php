@@ -31,11 +31,6 @@ class PageController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $editorial = $home_page_data->getEditorial();
-        if (is_null($editorial)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
         $table_network = $program->getSiteTableNetworkSetting();
         $has_network = false;
         if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
@@ -48,12 +43,22 @@ class PageController extends Controller
         }
                 
         $em = $this->getDoctrine()->getManager();
-        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')->findByHomePageDataOrdered($home_page_data);
+        $ordered_slide_list = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+            ->findByHomePageDataOrdered($home_page_data);
 
-        $home_page_post_list = $em->getRepository('AdminBundle\Entity\HomePagePost')->findBy(array('program' => $program), array('created_at' => 'DESC'));
+        $parameter_edito = $em->getRepository('AdminBundle\Entity\HomePagePost')->findOneBy(
+            array('program' => $program, 'post_type' => PostType::PARAMETER_EDITO)
+        );
+
+        $home_page_post_list = $em->getRepository('AdminBundle\Entity\HomePagePost')
+            ->findPublishedNewsPost($program);
+        if (!is_null($parameter_edito)) {
+            array_push($home_page_post_list, $parameter_edito);
+        }
+        $post_ordering = $this->get('AdminBundle\Service\DataOrdering\PostOrdering');
+        $home_page_post_list = $post_ordering->orderByDateDesc($home_page_post_list);
 
         return $this->render('BeneficiaryBundle:Page:home.html.twig', array(
-            'editorial' => $editorial,
             'has_network' => $has_network,
             'table_network' => $table_network,
             'slide_list' => $ordered_slide_list,
