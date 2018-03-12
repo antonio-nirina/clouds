@@ -166,7 +166,7 @@
                                     <img src="{{ post_element_icon }}">
                                     <div class="post-infos-container">
                                         <span class="title">{{ news_post.homePagePost.title }}</span>
-                                        <span class="date {{ class }}">{{ post_state_text }} - {{ date_prefix }}{{ date | localizeddate('none', 'none', locale, null, "d MMMM Y 'à' HH:mm") }}</span>
+                                        <span class="date {{ class }}">{{ post_state_text }} - {{ date_prefix }}{{ date is not empty ? date | localizeddate('none', 'none', locale, null, "d MMMM Y 'à' HH:mm") :'' }}</span>
                                     </div>
                                 </div>
                                 <div class="view-number-container">

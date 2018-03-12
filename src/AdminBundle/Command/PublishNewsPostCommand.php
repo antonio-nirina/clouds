@@ -33,7 +33,7 @@ class PublishNewsPostCommand extends ContainerAwareCommand
             ->findToPublishByTypeAndProgrammedPublicationDatetime(PostType::NEWS_POST, $current_date);
         $news_post_manager = $this->getContainer()->get('AdminBundle\Manager\NewsPostManager');
         foreach ($to_publish_news_post_list as $news_post) {
-            $news_post_manager->definePublishedState($news_post, true, false);
+            $news_post_manager->definePublishedState($news_post, true, $current_date, false);
         }
         $news_post_manager->flush();
     }
