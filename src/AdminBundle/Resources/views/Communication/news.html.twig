@@ -83,7 +83,8 @@
                     </div>
                     <div class="row filter news-filter control-panel">
                         <div class="news-name-search-container filter-block-element-container">
-                            <input class="input-search-list news-name-search-input" placeholder="filtrer par nom" data-path=".title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter">
+                            <input type="text" class="input-search-list news-name-search-input removable-content-input" placeholder="filtrer par nom" data-path=".title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter">
+                            <span class="delete-input" style="display: none;"></span>
                         </div>
                         <div class="send-state-filter-container filter-block-element-container">
                             <div class="jplist-drop-down status-filter-drop-down" data-control-type="filter-drop-down" data-control-name="status-filter" data-control-action="filter">
@@ -96,6 +97,7 @@
                                     <li><span data-path=".wait">EN ATTENTE</span></li>
                                 </ul>
                             </div>
+                            <span class="delete-input" style="display: none;"></span>
                         </div>
                         <div class="archived-element-container filter-block-element-container">
                             <a href="{{ archived_post_path }}" class="archived-elements" data-target-link="{{ path("admin_communication_emailing_compaign_archived") }}">
@@ -111,18 +113,21 @@
                             </div>
                         </div>
                         <div class="selected-elements-button-container">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-element-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
-                                    ACTIONS
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdown-selected-element-action">
-                                    {% if archived_state is defined and true == archived_state %}
-                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="restore">RESTAURER</a>
-                                    {% else %}
-                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="archive">ARCHIVER</a>
-                                    {% endif %}
-                                    <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="delete">SUPPRIMER</a>
+                            <div class="dropdown-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-element-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-selected-element-action">
+                                        {% if archived_state is defined and true == archived_state %}
+                                            <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="restore">RESTAURER</a>
+                                        {% else %}
+                                            <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="archive">ARCHIVER</a>
+                                        {% endif %}
+                                        <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="delete">SUPPRIMER</a>
+                                    </div>
                                 </div>
+                                <span class="delete-input" style="display: none;"></span>
                             </div>
                             <div class="button-container">
                                 <button class="btn-valider" data-target-url="{{ path('admin_communication_news_group_action') }}">
