@@ -5680,3 +5680,11 @@ section .row.filter.selected-elements{
 .hidden-block{
     display: none !important;
 }
+
+/**
+ * partie e-learning
+ */
+.img-e-learning-circle{
+    background:url('../images/cloudsRewards/e-learning.png') no-repeat;
+    background-position: -53px -2px;
+}

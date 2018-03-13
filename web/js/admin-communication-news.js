@@ -8,8 +8,8 @@ $(document).ready(function(){
     $(document).ready(function(){
         $('.chargementAjax').removeClass('hidden');
         $('.main-section').jplist({
-            itemsBox: '.news-post-list',
-            itemPath: '.news-post-element',
+            itemsBox: '.element-list',
+            itemPath: '.element',
             panelPath: '.control-panel'
         });
         $('.jplist-no-results').removeClass('hidden-block');

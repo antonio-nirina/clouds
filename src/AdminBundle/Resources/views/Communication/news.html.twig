@@ -136,7 +136,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row list news-post-list" id="news-post-list">
+                    <div class="row list news-post-list element-list" id="news-post-list">
                         {% if news_post_list is defined and news_post_list is not empty %}
                             {% for news_post in news_post_list %}
                                 {% set post_state_text = '' %}
@@ -161,7 +161,7 @@
                                     {% set date = news_post.homePagePost.lastEdit %}
                                     {% set class= "wait" %}
                                 {% endif %}
-                        <div class="row news-post-element {{ class }}" data-status="{{ class }}">
+                        <div class="row news-post-element element {{ class }}" data-status="{{ class }}">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
                                     <div>
