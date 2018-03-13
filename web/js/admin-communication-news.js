@@ -683,6 +683,7 @@ $(document).ready(function(){
         dropdown_toggle_button.text(dropdown_toggle_button.attr('data-default-text'));
         $(this).find('.selected-elements-button-container').find('.button-container .btn-valider').attr('data-grouped-action', '');
         $(this).find('.selected-elements-button-container').find('.dropdown-container .delete-input').hide();
+        checked = [];
     });
 
     // soumission action de groupe
