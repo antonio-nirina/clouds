@@ -5923,6 +5923,7 @@ section .row.filter.selected-elements{
 .semi-large-data-manipulation-modal .content-list-element .actions-container .edit{
     display: inline-block;
     background: url('../../images/cloudsRewards/edit.png') no-repeat;
+    background: url('../images/cloudsRewards/edit.png') no-repeat;
     height: 21px;
     width: 25px;
 }
@@ -5930,6 +5931,7 @@ section .row.filter.selected-elements{
 .semi-large-data-manipulation-modal .content-list-element .actions-container .delete{
     display: inline-block;
     background: url('../../images/cloudsRewards/delete.png') no-repeat;
+    background: url('../images/cloudsRewards/delete.png') no-repeat;
     height: 21px;
     width: 16px;
 }
