@@ -1,0 +1,259 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
+            <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            <!-- jplist -->
+            <link href="{{ asset("jplist/css/jplist.core.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.textbox-filter.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.checkbox-dropdown.min.css") }}">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':7})) }}
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_e_learning") }}">e-learning </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_e_learning") }}">e-learning </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_e_learning_welcoming_banner") }}">bannière d'accueil </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-12 col-md-12">
+                <section class="fieldset active main-section">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-9 col-sm-12">
+                            <h3 class="hidden-sm-down block-title">Création et édition de pages e-learning</h3>
+                            <h5 class="hidden-md-up block-title">Création et édition de pages e-learning</h5>
+                            <p>Un onglet e-learning sera ajouté à votre menu</p>
+                            <button class="btn-valider" data-target-url="">créer un nouveau e-learning</button>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-12">
+                            <div class="hidden-sm-down corner-circle-img img-e-learning-circle rounded-circle"></div>
+                        </div>
+                    </div>
+                    <div class="row filter news-filter control-panel">
+                        <div class="news-name-search-container filter-block-element-container">
+                            <input type="text" class="input-search-list news-name-search-input removable-content-input" placeholder="rechercher par nom" data-path=".title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter">
+                            <span class="delete-input" style="display: none;"></span>
+                        </div>
+                        <div class="send-state-filter-container filter-block-element-container">
+                            <div class="jplist-drop-down status-filter-drop-down" data-control-type="filter-drop-down" data-control-name="status-filter" data-control-action="filter">
+                                <ul>
+                                    <li><span data-path="default">TOUS</span></li>
+                                    <li><span data-path=".published">PUBLIÉ</span></li>
+                                    <li><span data-path=".programmed">PROGRAMMÉ</span></li>
+                                    <li><span data-path=".wait">EN ATTENTE</span></li>
+                                </ul>
+                            </div>
+                            <span class="delete-input" style="display: none;"></span>
+                        </div>
+                        <div class="archived-element-container filter-block-element-container">
+                            <a href="#" class="archived-elements" data-target-link="">
+                                archivées
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row filter selected-elements" style="display: none;">
+                        <div class="elements-count">
+                            <div class="selected-count">
+                                <input class="selected-elements-input" type="text" value="post sélectionné" disabled>
+                                <span class="delete-input"></span>
+                            </div>
+                        </div>
+                        <div class="selected-elements-button-container">
+                            <div class="dropdown-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-element-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-selected-element-action">
+                                        {% if archived_state is defined and true == archived_state %}
+                                            <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="restore">RESTAURER</a>
+                                        {% else %}
+                                            <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="archive">ARCHIVER</a>
+                                        {% endif %}
+                                        <a class="dropdown-item grouped-action-choice" href="#" data-grouped-action="delete">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                                <span class="delete-input" style="display: none;"></span>
+                            </div>
+                            <div class="button-container">
+                                <button class="btn-valider" data-target-url="{{ path('admin_communication_news_group_action') }}">
+                                    valider
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row list e-learning-list element-list">
+                        <div class="row news-post-element element published" data-status="">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="el1" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="el1"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/square-academic-cap.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">Produits 1</span>
+                                        <span class="date published">Publié - le 02 février 2018 à 14:44</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">10</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    <span>Tous les participants</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        {% if archived_state is not defined %}
+                                            <a class="dropdown-item preview-news-post" href="#" data-target-url="">APERÇU</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                            <a class="dropdown-item edit-news-post" href="#" data-target-url="">ÉDITER</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                            <a class="dropdown-item duplicate-news-post" href="#" data-target-url="">DUPLIQUER</a>
+                                        {% endif %}
+
+                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="">PUBLIER</a>
+
+                                        {% if archived_state is defined and true == archived_state %}
+                                            <a class="dropdown-item restore-news-post" href="#" data-target-url="">RESTAURER</a>
+                                        {% else %}
+                                            <a class="dropdown-item archive-news-post" href="#" data-target-url="">ARCHIVER</a>
+                                        {% endif %}
+
+                                        <a class="dropdown-item delete-news-post" href="#" data-target-url="">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row news-post-element element wait" data-status="">
+                            <div class="col-12 col-lg-9 post-characteristics-container">
+                                <div class="post-data-container">
+                                    <div>
+                                        <input id="el2" type="checkbox" class="styled-checkbox bigger">
+                                        <label for="el2"></label>
+                                    </div>
+                                    <img src="{{ asset("images/cloudsRewards/square-academic-cap.png") }}">
+                                    <div class="post-infos-container">
+                                        <span class="title">Actualité 2</span>
+                                        <span class="date wait">En attente - modifié le 12 février 2018 à 14:44</span>
+                                    </div>
+                                </div>
+                                <div class="view-number-container">
+                                    <span class="number">0</span>
+                                    <span>vues</span>
+                                </div>
+                                <div class="viewer-container">
+                                    <span>Commercial</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 post-actions-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                        ACTIONS
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                        {% if archived_state is not defined %}
+                                            <a class="dropdown-item preview-news-post" href="#" data-target-url="">APERÇU</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                            <a class="dropdown-item edit-news-post" href="#" data-target-url="">ÉDITER</a>
+                                        {% endif %}
+
+                                        {% if archived_state is not defined %}
+                                            <a class="dropdown-item duplicate-news-post" href="#" data-target-url="">DUPLIQUER</a>
+                                        {% endif %}
+
+                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="">PUBLIER</a>
+
+                                        {% if archived_state is defined and true == archived_state %}
+                                            <a class="dropdown-item restore-news-post" href="#" data-target-url="">RESTAURER</a>
+                                        {% else %}
+                                            <a class="dropdown-item archive-news-post" href="#" data-target-url="">ARCHIVER</a>
+                                        {% endif %}
+
+                                        <a class="dropdown-item delete-news-post" href="#" data-target-url="">SUPPRIMER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jplist-no-results hidden-block">
+                        <p>Aucun résultat</p>
+                    </div>
+                    <div class="control-panel pagination-container">
+                        <div class="jplist-pagination" data-control-type="pagination" data-control-name="paging" data-control-action="paging" data-items-per-page="5" data-first="premier" data-last="dernier"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <p class = "chargementAjax hidden">
+            <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+        </p>
+    </main>
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+            <script src="{{ asset('chosen/chosen.jquery.js') }}"></script>
+            <script src="{{ asset('js/bootstrap-multimodal/multimodal.min.js') }}"></script>
+            <!-- jplist library -->
+            <script src="{{ asset('jplist/js/jplist.core.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.sort-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.pagination-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.textbox-filter.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.filter-dropdown-bundle.min.js') }}"></script>
+            <script src="{{ asset("js/admin-communication-e-learning.js") }}"></script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

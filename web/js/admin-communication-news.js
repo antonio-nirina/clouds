@@ -8,8 +8,8 @@ $(document).ready(function(){
     $(document).ready(function(){
         $('.chargementAjax').removeClass('hidden');
         $('.main-section').jplist({
-            itemsBox: '.news-post-list',
-            itemPath: '.news-post-element',
+            itemsBox: '.element-list',
+            itemPath: '.element',
             panelPath: '.control-panel'
         });
         $('.jplist-no-results').removeClass('hidden-block');
@@ -682,6 +682,8 @@ $(document).ready(function(){
         var dropdown_toggle_button = $(this).find('.selected-elements-button-container').find('.dropdown').find('button.dropdown-toggle');
         dropdown_toggle_button.text(dropdown_toggle_button.attr('data-default-text'));
         $(this).find('.selected-elements-button-container').find('.button-container .btn-valider').attr('data-grouped-action', '');
+        $(this).find('.selected-elements-button-container').find('.dropdown-container .delete-input').hide();
+        checked = [];
     });
 
     // soumission action de groupe
@@ -745,6 +747,50 @@ $(document).ready(function(){
      * FIN
      * Communication - Actualités
      * Incrémentation - Décrémentation nombre éléments de liste selectionnés
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - Actualités
+     * Suppresion selection, recherche
+     * *********************************************************************************************
+     */
+    // suppression recherche
+    $('.news-name-search-container .delete-input').on('click', function(){
+        var associated_input = $(this).prev('.news-name-search-input');
+        associated_input.val('');
+        associated_input.trigger('keyup');
+    });
+
+    // suppression filtre par statut
+        // affichage bouton de suppression
+    $(document).on('click', '.send-state-filter-container .status-filter-drop-down ul li', function(){
+        $(this).parents('.send-state-filter-container').find('.delete-input').show();
+    });
+        // gestion de suppression de selection
+    $(document).on('click', '.send-state-filter-container .delete-input', function(){
+        $(this).parents('.send-state-filter-container').find('.status-filter-drop-down ul li span[data-path=default]').parent('li').click();
+        $(this).hide();
+    });
+
+    // suppression selection action de groupe
+        // affichage bouton de suppression
+    $(document).on('click', '.selected-elements-button-container .dropdown .dropdown-menu a', function(){
+        $(this).parents('.dropdown').next('.delete-input').show();
+    });
+        // gestion de suppression de selection
+    $(document).on('click', '.selected-elements-button-container .delete-input', function(){
+        var selected_element_container = $(this).parents('.selected-elements-button-container');
+        var dropdown_toggle = selected_element_container.find('.dropdown button.dropdown-toggle');
+        dropdown_toggle.text(dropdown_toggle.attr('data-default-text'));
+        selected_element_container.find('.button-container .btn-valider').attr('data-grouped-action', '');
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - Actualités
+     * Suppresion selection, recherche
      * *********************************************************************************************
      */
 

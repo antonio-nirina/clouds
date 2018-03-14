@@ -2246,4 +2246,20 @@ class CommunicationController extends AdminController
         $html2pdf->pdf->Output($filename.'.pdf');
     }
 
+
+    /**
+     * @Route("/e-learning/liste", name="admin_communication_e_learning")
+     */
+    public function eLearningAction()
+    {
+        return $this->render('AdminBundle:Communication:e_learning.html.twig');
+    }
+
+    /**
+     * @Route("/e-learning/banniere-accueil", name="admin_communication_e_learning_welcoming_banner")
+     */
+    public function eLearningWelcomingBannerAction()
+    {
+        return $this->render('AdminBundle:Communication:e_learning_welcoming_banner.html.twig');
+    }
 }

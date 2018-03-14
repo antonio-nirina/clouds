@@ -1,0 +1,55 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="{{ asset("minicolors/css/jquery.minicolors.css") }}" rel="stylesheet">
+            <link href="{{ asset("chosen/chosen.css") }}" rel="stylesheet">
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+            <!-- jplist -->
+            <link href="{{ asset("jplist/css/jplist.core.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.textbox-filter.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.checkbox-dropdown.min.css") }}">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':7})) }}
+    <main class="col-md-9  offset-md-1 float-left main">
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_e_learning_welcoming_banner") }}">bannière d'accueil </a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="{{ path("admin_communication_e_learning") }}">e-learning </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="{{ path("admin_communication_e_learning_welcoming_banner") }}">bannière d'accueil </a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+
+        <p class = "chargementAjax hidden">
+            <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+        </p>
+    </main>
+{% endblock %}
