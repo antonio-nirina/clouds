@@ -5070,11 +5070,13 @@ ul.post-pagination li:not(.last)::after{
     margin-bottom: 10px;
 }
 
-#create-edit-news-modal .modal-body-title{
+#create-edit-news-modal .modal-body-title,
+.semi-large-data-manipulation-modal .modal-body-title{
     margin-top: -40px;
 }
 
-#create-edit-news-modal .modal-body{
+#create-edit-news-modal .modal-body,
+.semi-large-data-manipulation-modal .modal-body{
     padding: 25px;
 }
 
@@ -5111,33 +5113,42 @@ ul.post-pagination li:not(.last)::after{
     background-color: var(--couleur_1);
 }
 
-#create-edit-news-modal .form-row{
+#create-edit-news-modal .form-row,
+.semi-large-data-manipulation-modal .form-row{
     display: flex;
     width: 100%;
 }
 
-#create-edit-news-modal .form-row.vertical-centered{
+#create-edit-news-modal .form-row.vertical-centered,
+.semi-large-data-manipulation-modal .form-row.vertical-centered{
     align-items: center;
 }
 
-#create-edit-news-modal .form-row.vertical{
+
+#create-edit-news-modal .form-row.vertical,
+.semi-large-data-manipulation-modal .form-row.vertical{
     flex-direction: column;
 }
 
-#create-edit-news-modal .form-row label{
+#create-edit-news-modal .form-row label,
+.semi-large-data-manipulation-modal .form-row label{
     margin-right: 15px;
 }
 
-#create-edit-news-modal .delete-input{
+#create-edit-news-modal .delete-input,
+.semi-large-data-manipulation-modal .delete-input{
     width: 26px;
     height: 26px;
+    min-width: 26px;
 }
 
-#create-edit-news-modal .large-input-text{
+#create-edit-news-modal .large-input-text,
+.semi-large-data-manipulation-modal .large-input-text{
     margin-left: 0;
 }
 
-.action-button-container{
+.action-button-container,
+.semi-large-data-manipulation-modal .content-button-container{
     width: 100%;
     border: 1px solid #CBCBCB;
     padding: 15px 10px;
@@ -5145,17 +5156,22 @@ ul.post-pagination li:not(.last)::after{
     margin-bottom: 20px;
 }
 
-#create-edit-news-modal .action-button-container .add{
+#create-edit-news-modal .action-button-container .add,
+.semi-large-data-manipulation-modal .action-button-container .add,
+.semi-large-data-manipulation-modal .content-button-container .add{
     line-height: 20px;
     cursor: pointer;
 }
 
-#create-edit-news-modal .action-button-container .add::before{
+#create-edit-news-modal .action-button-container .add::before,
+.semi-large-data-manipulation-modal .action-button-container .add::before,
+.semi-large-data-manipulation-modal .content-button-container .add::before{
     position: relative;
     cursor: pointer;
 }
 
-.action-button-block-container{
+.action-button-block-container,
+.semi-large-data-manipulation-modal .content-block-container{
     border: 1px solid #CBCBCB;
     width: 100%;
     padding: 20px 10px;
@@ -5163,7 +5179,8 @@ ul.post-pagination li:not(.last)::after{
     margin-bottom: 20px;
 }
 
-.action-button-block-container .block-title{
+.action-button-block-container .block-title,
+.semi-large-data-manipulation-modal .content-block-container .block-title{
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -5174,7 +5191,8 @@ ul.post-pagination li:not(.last)::after{
     margin-bottom: 20px;
 }
 
-.action-button-block-container .delete-block{
+.action-button-block-container .delete-block,
+.semi-large-data-manipulation-modal .content-block-container .delete-block{
     width: 25px;
     height: 25px;
     background: url('../images/cloudsRewards/delete.png') center center no-repeat;
@@ -5190,22 +5208,26 @@ ul.post-pagination li:not(.last)::after{
     align-self: flex-start;
 }
 
-#create-edit-news-modal .action-button-option-input{
+#create-edit-news-modal .action-button-option-input,
+.semi-large-data-manipulation-modal .action-button-option-input{
     min-width: 0;
 }
 
-#create-edit-news-modal .form-row-group-title{
+#create-edit-news-modal .form-row-group-title,
+.semi-large-data-manipulation-modal .form-row-group-title{
     display: inline-block;
     font-family: var(--police_bold);
     margin-top: 20px;
 }
 
-#create-edit-news-modal .action-button-block-container .form-row label.fixed-width{
+#create-edit-news-modal .action-button-block-container .form-row label.fixed-width,
+.semi-large-data-manipulation-modal .action-button-block-container .form-row label.fixed-width{
     width: 175px;
     margin-right: 0;
 }
 
-#create-edit-news-modal .action-button-block-container .action-button-input{
+#create-edit-news-modal .action-button-block-container .action-button-input,
+.semi-large-data-manipulation-modal .action-button-block-container .action-button-input{
     border: 1px solid #636363;
     border-radius: 5px;
     padding: 5px 0 5px 10px;
@@ -5214,32 +5236,38 @@ ul.post-pagination li:not(.last)::after{
     text-align: left;
 }
 
-#create-edit-news-modal .action-button-block-container .action-button-input.semi-large{
+#create-edit-news-modal .action-button-block-container .action-button-input.semi-large,
+.semi-large-data-manipulation-modal .action-button-block-container .action-button-input.semi-large{
     width: 350px;
     min-width: 0;
 }
 
-#create-edit-news-modal .action-button-block-container .action-button-input.large{
+#create-edit-news-modal .action-button-block-container .action-button-input.large,
+.semi-large-data-manipulation-modal .action-button-block-container .action-button-input.large{
     width: 730px;
     min-width: 0;
 }
 
-#create-edit-news-modal .publish-program-container{
+#create-edit-news-modal .publish-program-container,
+.semi-large-data-manipulation-modal .publish-program-container{
     display: flex;
     width: 100%;
     justify-content: space-around;
 }
 
-#create-edit-news-modal .programmed-state-container{
+#create-edit-news-modal .programmed-state-container,
+.semi-large-data-manipulation-modal .programmed-state-container{
     display: flex;
     margin: 20px 0;
 }
 
-#create-edit-news-modal .programmed-state-container label.text-label{
+#create-edit-news-modal .programmed-state-container label.text-label,
+.semi-large-data-manipulation-modal .programmed-state-container label.text-label{
     top: -5px;
 }
 
-#create-edit-news-modal .submit-block-container{
+#create-edit-news-modal .submit-block-container,
+.semi-large-data-manipulation-modal .submit-block-container{
     display: flex;
     justify-content: center;
 }
@@ -5396,7 +5424,8 @@ section .row.filter.selected-elements{
 }
 
 @media (max-width: 767px) {
-    #create-edit-news-modal .delete-input{
+    #create-edit-news-modal .delete-input,
+    .semi-large-data-manipulation-modal .delete-input{
         width: 30px;
     }
 }
@@ -5406,55 +5435,67 @@ section .row.filter.selected-elements{
         max-width: 100%;
     }
 
-    #create-edit-news-modal .delete-input{
+    #create-edit-news-modal .delete-input,
+    .semi-large-data-manipulation-modal .delete-input{
         width: 35px;
     }
 
-    #create-edit-news-modal .large-input-text{
+    #create-edit-news-modal .large-input-text,
+    .semi-large-data-manipulation-modal .large-input-text{
         min-width: 0;
     }
 
-    #create-edit-news-modal .vertical-xs{
+    #create-edit-news-modal .vertical-xs,
+    .semi-large-data-manipulation-modal .vertical-xs{
         flex-direction: column;
     }
 
-    #create-edit-news-modal .publish-program-container{
+    #create-edit-news-modal .publish-program-container,
+    .semi-large-data-manipulation-modal .publish-program-container{
         flex-direction: column;
     }
 
-    #create-edit-news-modal .submit-block-container{
+    #create-edit-news-modal .submit-block-container,
+    .semi-large-data-manipulation-modal .submit-block-container{
         flex-direction: column;
     }
 
-    #create-edit-news-modal .submit-block-container .second-button{
+    #create-edit-news-modal .submit-block-container .second-button,
+    .semi-large-data-manipulation-modal .submit-block-container .second-button{
         margin-top: 20px !important;
     }
 
-    #create-edit-news-modal .submit-block-container{
+    #create-edit-news-modal .submit-block-container,
+    .semi-large-data-manipulation-modal .submit-block-container{
         margin-top: 40px;
     }
 }
 
 @media (min-width: 768px) {
-    #create-edit-news-modal .action-button-block-container .form-row label{
+    #create-edit-news-modal .action-button-block-container .form-row label,
+    .semi-large-data-manipulation-modal .action-button-block-container .form-row label{
         margin-right: 70px;
     }
 
-    #create-edit-news-modal .action-button-block-container .action-button-color-option{
+    #create-edit-news-modal .action-button-block-container .action-button-color-option,
+    .semi-large-data-manipulation-modal .action-button-block-container .action-button-color-option{
         margin-right: 40px;
     }
 }
 
 @media (min-width: 576px){
-    #create-edit-news-modal .submit-block-container .first-button{
+    #create-edit-news-modal .submit-block-container .first-button,
+    .semi-large-data-manipulation-modal .submit-block-container .first-button{
         margin-right: 40px;
     }
 
-    #create-edit-news-modal .submit-block-container .second-button{
+    #create-edit-news-modal .submit-block-container .second-button,
+    .semi-large-data-manipulation-modal .submit-block-container .second-button{
         margin-left: 40px;
     }
 
-    #create-edit-news-modal .submit-block-container{
+    #create-edit-news-modal .submit-block-container,
+    .semi-large-data-manipulation-modal .submit-block-container{
         margin-top: 20px;
     }
 }
@@ -5687,4 +5728,291 @@ section .row.filter.selected-elements{
 .img-e-learning-circle{
     background:url('../images/cloudsRewards/e-learning.png') no-repeat;
     background-position: -53px -2px;
+}
+
+.semi-large-data-manipulation-modal  .title-separator{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.semi-large-data-manipulation-modal  .title-separator .title{
+    min-width: 50px;
+    margin-right: 10px;
+}
+
+.semi-large-data-manipulation-modal  .title-separator .separator-line{
+    border-top: 1px solid #CBCBCB;
+    flex-grow: 2;
+}
+
+.semi-large-data-manipulation-modal .title-separator + .content-button-container{
+    margin-top: 10px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-type-container{
+    display: flex;
+    width: 100%;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-type-container .document-type-document-icon{
+    display: block;
+    background-color: #4F4F4F;
+    width: 38px;
+    height: 49px;
+    -webkit-mask-image: url('../images/cloudsRewards/file-icon.svg');
+    mask-image: url('../images/cloudsRewards/file-icon.svg');
+    mask-repeat: no-repeat;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-type-container .document-type-gallery-icon{
+    display: block;
+    background-color: #4F4F4F;
+    width: 88px;
+    height: 49px;
+    -webkit-mask-image: url('../images/cloudsRewards/gallery-icon.svg');
+    mask-image: url('../images/cloudsRewards/gallery-icon.svg');
+    mask-repeat: no-repeat;
+    -webkit-mask-position-y: -9px;
+    mask-position-y: -9px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-type-container .document-type-video-icon{
+    display: block;
+    background-color: #4F4F4F;
+    width: 71px;
+    height: 49px;
+    -webkit-mask-image: url('../images/cloudsRewards/video-icon.svg');
+    mask-image: url('../images/cloudsRewards/video-icon.svg');
+    mask-repeat: no-repeat;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-type-element{
+    color: #4F4F4F;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+    margin-right: 40px;
+    min-width: 160px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-type-element:hover{
+    cursor: pointer;
+    color: var(--couleur_2);
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-type-element:hover .icon{
+    background-color: var(--couleur_2);
+}
+
+.semi-large-data-manipulation-modal .content-block-container .add-content-block{
+    padding: 0 20px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .add-content-block p.main-info{
+    margin-bottom: 15px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .add-content-block .form-row .form-element{
+    display: flex;
+    flex-grow: 2;
+}
+
+.semi-large-data-manipulation-modal .content-block-container.video .add-content-block .form-row label{
+    width: 120px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container.video .add-content-block .info-container{
+    margin-left: 160px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container.video .form-row.video-name input{
+    width: 450px;
+    min-width: 0;
+}
+
+.semi-large-data-manipulation-modal .standard-styled-input{
+    border: 1px solid #636363;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    background-color: inherit;
+    text-align: left;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-name-container{
+    margin-top: 20px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-name-container label{
+    margin-right: 30px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-name{
+    display: flex;
+    align-items: center;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-name .delete-input{
+    float: none;
+    top: 0;
+    min-width: 26px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .document-name input{
+    width: 320px;
+    min-width: 0;
+}
+
+.semi-large-data-manipulation-modal .content-block-container .add-content-button-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.semi-large-data-manipulation-modal .content-list-element{
+    width: 100%;
+    border: 1px solid #CBCBCB;
+    padding: 15px 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.semi-large-data-manipulation-modal .content-denomination{
+    display: flex;
+
+}
+
+.semi-large-data-manipulation-modal .content-denomination-image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+}
+
+.semi-large-data-manipulation-modal .content-denomination-name{
+    align-self: center;
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.semi-large-data-manipulation-modal .content-denomination-image img{
+    width: 40px;
+}
+
+.semi-large-data-manipulation-modal .content-denomination-image span{
+    display: block;
+    font-size: 9px;
+    color: #457FE3;
+    text-decoration: underline;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container{
+    display: flex;
+    width: 130px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container .edit{
+    display: inline-block;
+    background: url('../../images/cloudsRewards/edit.png') no-repeat;
+    height: 21px;
+    width: 25px;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container .delete{
+    display: inline-block;
+    background: url('../../images/cloudsRewards/delete.png') no-repeat;
+    height: 21px;
+    width: 16px;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container .reorder{
+    width: 15px;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container .reorder.disabled{
+    opacity: 0.5;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container .reorder.disabled span{
+    cursor: initial;
+}
+
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container .reorder-up{
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../images/cloudsRewards/arrow-up-overlay.png') no-repeat;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container .reorder-down{
+    height: 12px;
+    width: auto;
+    display: block;
+    background: url('../images/cloudsRewards/arrow-down-overlay.png') no-repeat;
+}
+
+.semi-large-data-manipulation-modal .content-list-element .actions-container span:hover{
+    cursor: pointer;
+}
+
+.video-icon{
+    display: block;
+    background-color: #4F4F4F;
+    width: 71px;
+    height: 49px;
+    -webkit-mask-image: url('../images/cloudsRewards/video-icon.svg');
+    mask-image: url('../images/cloudsRewards/video-icon.svg');
+    mask-repeat: no-repeat;
+}
+
+.gallery-icon{
+    display: block;
+    background-color: #4F4F4F;
+    width: 88px;
+    height: 49px;
+    -webkit-mask-image: url('../images/cloudsRewards/gallery-icon.svg');
+    mask-image: url('../images/cloudsRewards/gallery-icon.svg');
+    mask-repeat: no-repeat;
+    -webkit-mask-position-y: -9px;
+    mask-position-y: -9px;
+}
+
+@media (max-width: 767px) {
+    .semi-large-data-manipulation-modal .content-block-container .document-type-element{
+        margin-right: 0;
+        align-self: center;
+    }
+
+    .semi-large-data-manipulation-modal .vertical-md{
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 575px) {
+    .semi-large-data-manipulation-modal .content-block-container .document-type-container{
+        flex-direction: column;
+    }
+
+    .semi-large-data-manipulation-modal .content-list-element{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .semi-large-data-manipulation-modal .content-list-element .actions-container{
+        margin-top: 20px;
+    }
+
+    .semi-large-data-manipulation-modal .content-block-container.video .add-content-block .info-container{
+        margin-left: 0;
+    }
 }
