@@ -55,7 +55,7 @@
                             <h3 class="hidden-sm-down block-title">Création et édition de pages e-learning</h3>
                             <h5 class="hidden-md-up block-title">Création et édition de pages e-learning</h5>
                             <p>Un onglet e-learning sera ajouté à votre menu</p>
-                            <button class="btn-valider" data-target-url="">créer un nouveau e-learning</button>
+                            <button class="btn-valider create-e-learning-button" data-target-url="">créer un nouveau e-learning</button>
                         </div>
                         <div class="col-lg-2 col-md-3 col-sm-12">
                             <div class="hidden-sm-down corner-circle-img img-e-learning-circle rounded-circle"></div>
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="row list e-learning-list element-list">
-                        <div class="row news-post-element element published" data-status="">
+                        <div class="row element published" data-status="">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
                                     <div>
@@ -143,31 +143,31 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-action">
                                         {% if archived_state is not defined %}
-                                            <a class="dropdown-item preview-news-post" href="#" data-target-url="">APERÇU</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">APERÇU</a>
                                         {% endif %}
 
                                         {% if archived_state is not defined %}
-                                            <a class="dropdown-item edit-news-post" href="#" data-target-url="">ÉDITER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">ÉDITER</a>
                                         {% endif %}
 
                                         {% if archived_state is not defined %}
-                                            <a class="dropdown-item duplicate-news-post" href="#" data-target-url="">DUPLIQUER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">DUPLIQUER</a>
                                         {% endif %}
 
-                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="">PUBLIER</a>
+                                        <a class="dropdown-item" href="#" data-target-url="">PUBLIER</a>
 
                                         {% if archived_state is defined and true == archived_state %}
-                                            <a class="dropdown-item restore-news-post" href="#" data-target-url="">RESTAURER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">RESTAURER</a>
                                         {% else %}
-                                            <a class="dropdown-item archive-news-post" href="#" data-target-url="">ARCHIVER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">ARCHIVER</a>
                                         {% endif %}
 
-                                        <a class="dropdown-item delete-news-post" href="#" data-target-url="">SUPPRIMER</a>
+                                        <a class="dropdown-item" href="#" data-target-url="">SUPPRIMER</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row news-post-element element wait" data-status="">
+                        <div class="row element wait" data-status="">
                             <div class="col-12 col-lg-9 post-characteristics-container">
                                 <div class="post-data-container">
                                     <div>
@@ -195,26 +195,26 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-action">
                                         {% if archived_state is not defined %}
-                                            <a class="dropdown-item preview-news-post" href="#" data-target-url="">APERÇU</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">APERÇU</a>
                                         {% endif %}
 
                                         {% if archived_state is not defined %}
-                                            <a class="dropdown-item edit-news-post" href="#" data-target-url="">ÉDITER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">ÉDITER</a>
                                         {% endif %}
 
                                         {% if archived_state is not defined %}
-                                            <a class="dropdown-item duplicate-news-post" href="#" data-target-url="">DUPLIQUER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">DUPLIQUER</a>
                                         {% endif %}
 
-                                        <a class="dropdown-item publish-news-post publish-unpublish-news-post" href="#" data-target-url="">PUBLIER</a>
+                                        <a class="dropdown-item" href="#" data-target-url="">PUBLIER</a>
 
                                         {% if archived_state is defined and true == archived_state %}
-                                            <a class="dropdown-item restore-news-post" href="#" data-target-url="">RESTAURER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">RESTAURER</a>
                                         {% else %}
-                                            <a class="dropdown-item archive-news-post" href="#" data-target-url="">ARCHIVER</a>
+                                            <a class="dropdown-item" href="#" data-target-url="">ARCHIVER</a>
                                         {% endif %}
 
-                                        <a class="dropdown-item delete-news-post" href="#" data-target-url="">SUPPRIMER</a>
+                                        <a class="dropdown-item" href="#" data-target-url="">SUPPRIMER</a>
                                     </div>
                                 </div>
                             </div>
@@ -226,6 +226,198 @@
                     <div class="control-panel pagination-container">
                         <div class="jplist-pagination" data-control-type="pagination" data-control-name="paging" data-control-action="paging" data-items-per-page="5" data-first="premier" data-last="dernier"></div>
                     </div>
+
+                    <!-- Modal créer / éditer e-learning -->
+                    <div id="create-edit-e-learning-modal" class="app-dialog modal semi-large-data-manipulation-modal" tabindex="-1" role="dialog" data-backdrop="static">
+                        <div class="modal-dialog modal-lg semi-large-fixed" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="modal-body-container">
+                                        <span class="modal-body-title">Édition d'un e-learning</span>
+                                        <div class="preview-news-button-container">
+                                            <span class="preview-news-button">voir le post</span>
+                                        </div>
+                                        <div class="form-row">
+                                            <label>titre</label>
+                                            <input type="text" class="large-input-text removable-content-input">
+                                            <span class="delete-input" style="display: none;"></span>
+                                        </div>
+                                        <div class="form-row vertical">
+                                            <label>texte</label>
+                                            <textarea class="large-textarea" id="news-text"></textarea>
+                                        </div>
+                                        <div class="title-separator">
+                                            <span class="title">médias</span><span class="separator-line"></span>
+                                        </div>
+
+                                        <!-- content list element -->
+                                        <div class="content-list-element">
+                                            <div class="content-denomination">
+                                                <div class="content-denomination-image">
+                                                    <img src="{{ asset('images/cloudsRewards/pdf-file-icon.png') }}"><span>Lorem_ipsum.pdf</span>
+                                                </div>
+                                                <span class="content-denomination-name">Produits 2017</span>
+                                            </div>
+                                            <div class="actions-container">
+                                                <span class="edit"></span>
+                                                <span class="delete"></span>
+                                                <div class="reorder disabled">
+                                                    <span class="reorder-up"></span>
+                                                    <span class="reorder-down"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="content-list-element">
+                                            <div class="content-denomination">
+                                                <div class="content-denomination-image">
+                                                    <span class="video-icon"></span>
+                                                </div>
+                                                <span class="content-denomination-name">Vidéo de présentation</span>
+                                            </div>
+                                            <div class="actions-container">
+                                                <span class="edit"></span>
+                                                <span class="delete"></span>
+                                                <div class="reorder disabled">
+                                                    <span class="reorder-up"></span>
+                                                    <span class="reorder-down"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="content-list-element">
+                                            <div class="content-denomination">
+                                                <div class="content-denomination-image">
+                                                    <span class="gallery-icon"></span>
+                                                </div>
+                                                <span class="content-denomination-name">Galérie 1</span>
+                                            </div>
+                                            <div class="actions-container">
+                                                <span class="edit"></span>
+                                                <span class="delete"></span>
+                                                <div class="reorder disabled">
+                                                    <span class="reorder-up"></span>
+                                                    <span class="reorder-down"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - content list element -->
+
+                                        <!-- add media by type -->
+                                        <div class="content-block-container">
+                                            <div class="block-title">
+                                                <span>ajouter un nouveau média</span>
+                                                <span class="delete-block"></span>
+                                            </div>
+                                            <div class="document-type-container">
+                                                <div class="document-type-element">
+                                                    <span class="document-type-document-icon icon"></span>
+                                                    <span>document</span>
+                                                </div>
+                                                <div class="document-type-element">
+                                                    <span class="document-type-gallery-icon icon"></span>
+                                                    <span>galerie d'images</span>
+                                                </div>
+                                                <div class="document-type-element">
+                                                    <span class="document-type-video-icon icon"></span>
+                                                    <span>vidéo</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - add media by type -->
+
+                                        <!-- adding document media -->
+                                        <div class="content-block-container">
+                                            <div class="block-title">
+                                                <span>ajouter un nouveau média</span>
+                                                <span class="delete-block"></span>
+                                            </div>
+                                            <div class="add-content-block">
+                                                <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
+                                                <button class="btn-valider btn-upload">
+                                                    <span class="upload"></span>choisissze un fichier...
+                                                </button>
+                                                <div class="info-container">
+                                                    <p>les fichiers doivent peser moins de <span class="bigger">20 Mo</span></p>
+                                                </div>
+                                                <div class="upload-img-button-container">
+                                                    <button class="upload-img-button">
+                                                        <span class="blue-upload"></span><span class="img-name-container">Lorem_ipsum.pdf</span>
+                                                    </button>
+                                                </div>
+                                                <a href="#" class="delete-link"></a>
+                                                <div class="form-row document-name-container vertical-md">
+                                                    <label>nom du document</label>
+                                                    <div class="document-name">
+                                                        <input class="standard-styled-input" type="text" value="Produits 2017">
+                                                        <span class="delete-input"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="add-content-button-container">
+                                                    <button class="btn-valider">ajouter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - adding document media -->
+
+                                        <!-- adding vidéo media -->
+                                        <div class="content-block-container video">
+                                            <div class="block-title">
+                                                <span>ajouter un nouveau média</span>
+                                                <span class="delete-block"></span>
+                                            </div>
+                                            <div class="add-content-block">
+                                                <p class="main-info">ajouter une vidéo</p>
+                                                <div class="form-row vertical-xs">
+                                                    <label>url de la vidéo</label>
+                                                    <div class="form-element">
+                                                        <input type="text" class="standard-styled-input large-input-text" value="https://monlienderedirection.com/challenge">
+                                                        <span class="delete-input"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="info-container">
+                                                    <p>url youtube, vimeo, depuis votre serveur, etc.</p>
+                                                    <p>si toutefois votre vidéo n'est pas hebergée veuillez <a href="#" class="blue-anchor">nous contacter</a></p>
+                                                </div>
+                                                <div class="form-row video-name vertical-xs">
+                                                    <label>nom de la vidéo</label>
+                                                    <div class="form-element">
+                                                        <input type="text" class="standard-styled-input" value="Vidéo de présentation">
+                                                        <span class="delete-input"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="add-content-button-container">
+                                                    <button class="btn-valider">ajouter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - adding vidéo media -->
+
+                                        <div class="content-button-container">
+                                            <a class="add">ajouter un média</a>
+                                        </div>
+                                        <div class="title-separator">
+                                            <span class="title">quiz</span><span class="separator-line"></span>
+                                        </div>
+                                        <div class="content-button-container">
+                                            <a class="add">ajouter un quiz</a>
+                                        </div>
+                                        <div class="title-separator">
+                                            <span class="title">Bouton d'action</span><span class="separator-line"></span>
+                                        </div>
+                                        <div class="content-button-container">
+                                            <a class="add">ajouter un bouton d'action</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN - Modal créer / éditer e-learning-->
                 </section>
             </div>
         </div>
@@ -234,6 +426,8 @@
             <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
         </p>
     </main>
+
+    <input type="hidden" name="ckeditor_config_general_path" value="{{ asset('ckeditor/custom/config-general.js') }}">
 {% endblock %}
 
 {% block footer %}
