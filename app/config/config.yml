@@ -201,8 +201,8 @@ ensepar_html2pdf:
     encoding: UTF-8
     margin: [10,15,10,15]
 ewz_recaptcha:
-    public_key:  6Le0ZEwUAAAAAE8GmTJnapnO9LTISHIKThTf3HuW
-    private_key: 6Le0ZEwUAAAAAJNwWxCJIkFKd8ocT6suOPBZYFDC
+    public_key:  6LeQokwUAAAAAG86iuXIS9wps8O9X4uXI0mySchv
+    private_key: 6LeQokwUAAAAAIwb-9GAChZkoQrIL_Ko81ASZaOX
     #locale_key:  %kernel.default_locale%
     locale_from_request: true
     verify_host: true
