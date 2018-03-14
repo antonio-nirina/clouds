@@ -4,6 +4,7 @@
 
 {% block fos_user_content %}
     <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+    <p><a href="{{path("fos_user_security_login")}}">veuillez clique-ici!!</a></p>
     {% if targetUrl %}
     <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
     {% endif %}
