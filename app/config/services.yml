@@ -51,3 +51,5 @@ services:
         class: 'AppBundle\EventListener\HttpHeaderCustomizer'
         tags:
             - { name: kernel.event_listener, event: kernel.response}
+
+    

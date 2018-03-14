@@ -19,8 +19,13 @@ class PageController extends Controller
     /**
      * @Route("/", name="beneficiary_home")
      */
-    public function homePageAction()
+    public function homePageAction(Request $request)
     {
+    	$auth = $this->get('security.authorization_checker');
+    	if (false === $auth->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return  $this->redirectToRoute("fos_user_security_login");
+        }
+
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');

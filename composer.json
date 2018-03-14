@@ -23,6 +23,7 @@
         "doctrine/orm": "^2.5",
         "drewm/mailchimp-api": "^2.4",
         "ensepar/html2pdf-bundle": "^3.0",
+        "excelwebzone/recaptcha-bundle": "^1.5",
         "friendsofsymfony/jsrouting-bundle": "^2.2",
         "friendsofsymfony/user-bundle": "2.0.1",
         "incenteev/composer-parameter-handler": "^2.0",

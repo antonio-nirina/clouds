@@ -638,6 +638,7 @@ li.options{
 	color: white;
 	font-family: var(--police);
 	text-align: center;
+	cursor: pointer;
 }
 
 .content-btn-inscris{

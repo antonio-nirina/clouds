@@ -6,6 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
@@ -163,6 +164,17 @@ class User extends BaseUser
      * @ORM\Column(type="array", nullable=true)
      */
     protected $customization;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
+     */
+    protected $societe;
+
+    /**
+    * @Recaptcha\IsTrue
+    */
+    public $recaptcha;
 	
 	/**
      * Constructor
@@ -564,6 +576,30 @@ class User extends BaseUser
     {
         return $this->pro_email;
     }
+
+    /**
+     * Set societe
+     *
+     * @param string $societe
+     *
+     * @return User
+     */
+    public function setSociete($societe)
+    {
+        $this->societe = $societe;
+
+        return $this;
+    }
+
+    /**
+     * Get societe
+     *
+     * @return string
+     */
+    public function getSociete()
+    {
+        return $this->societe;
+    }
 	
 	/**
      * Add resultatsSondagesQuiz
@@ -598,4 +634,11 @@ class User extends BaseUser
     {
         return $this->resultats_sondages_quiz;
     }
+
+    public function setEmail($email){
+        parent::setEmail($email);
+        $this->setUsername($email);
+    }
+
+    
 }
