@@ -30,6 +30,10 @@ div.slide{
 	z-index: 1;
 }
 
+.form{
+	margin-left: 15px;
+}
+
 .text{
 width: 691px;
 height: 172px;
