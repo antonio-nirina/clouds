@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 48" width="40" height="48">
+	<defs>
+		<image width="29" height="35" id="img1" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyOSAzNSIgd2lkdGg9IjI5IiBoZWlnaHQ9IjM1Ij4KCTxzdHlsZT4KCQl0c3BhbiB7IHdoaXRlLXNwYWNlOnByZSB9CgkJLnNocDAgeyBmaWxsOiBub25lO3N0cm9rZTogIzhhODc0NCB9IAoJCS50eHQxIHsgZm9udC1zaXplOiAyNnB4O2ZpbGw6IHJnYigwLDAsMjU1KTtmb250LWZhbWlseTogIkxhdG8iO2ZvbnQtd2VpZ2h0OiBib2xkIH0gCgk8L3N0eWxlPgoJPGcgaWQ9IlBhZ2UgMSI+CgkJPHBhdGggaWQ9IlBhdGggMSIgY2xhc3M9InNocDAiIGQ9Ik0yOC4wNiwzNC4xNHYtMzMuMTNjMCwtMC4yOCAtMC4yMywtMC41IC0wLjUsLTAuNWgtMjYuNTVjLTAuMjgsMCAtMC41LDAuMjMgLTAuNSwwLjV2MzMuMTNjMCwwLjI4IDAuMjMsMC41MSAwLjUsMC41MWgyNi41NWMwLjI4LDAgMC41LC0wLjIzIDAuNSwtMC41MXoiIC8+CgkJPHRleHQgaWQ9Igo/IiBzdHlsZT0idHJhbnNmb3JtOiBtYXRyaXgoMSwwLDAsMSw4LjQ5MywyNy4wMTIpIiA+CgkJCTx0c3BhbiB4PSIwIiB5PSIwIiBjbGFzcz0idHh0MSI+PzwvdHNwYW4+CgkJPC90ZXh0PgoJPC9nPgo8L3N2Zz4="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="quiz" href="#img1" transform="matrix(1.379,0,0,1.371,0,0)"/>
+</svg>

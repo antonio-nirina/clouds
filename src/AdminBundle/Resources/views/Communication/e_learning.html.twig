@@ -239,7 +239,7 @@
                                     <div class="modal-body-container">
                                         <span class="modal-body-title">Édition d'un e-learning</span>
                                         <div class="preview-news-button-container">
-                                            <span class="preview-news-button">voir le post</span>
+                                            <span class="preview-news-button">aperçu</span>
                                         </div>
                                         <div class="form-row">
                                             <label>titre</label>
@@ -260,12 +260,14 @@
                                                 <div class="content-denomination-image">
                                                     <img src="{{ asset('images/cloudsRewards/pdf-file-icon.png') }}"><span>Lorem_ipsum.pdf</span>
                                                 </div>
-                                                <span class="content-denomination-name">Produits 2017</span>
+                                                <div class="content-denomination-name">
+                                                    <div>Produits 2017</div>
+                                                </div>
                                             </div>
                                             <div class="actions-container">
                                                 <span class="edit"></span>
                                                 <span class="delete"></span>
-                                                <div class="reorder disabled">
+                                                <div class="reorder">
                                                     <span class="reorder-up"></span>
                                                     <span class="reorder-down"></span>
                                                 </div>
@@ -277,12 +279,14 @@
                                                 <div class="content-denomination-image">
                                                     <span class="video-icon"></span>
                                                 </div>
-                                                <span class="content-denomination-name">Vidéo de présentation</span>
+                                                <div class="content-denomination-name">
+                                                    <div>Vidéo de présentation</div>
+                                                </div>
                                             </div>
                                             <div class="actions-container">
                                                 <span class="edit"></span>
                                                 <span class="delete"></span>
-                                                <div class="reorder disabled">
+                                                <div class="reorder">
                                                     <span class="reorder-up"></span>
                                                     <span class="reorder-down"></span>
                                                 </div>
@@ -294,12 +298,14 @@
                                                 <div class="content-denomination-image">
                                                     <span class="gallery-icon"></span>
                                                 </div>
-                                                <span class="content-denomination-name">Galérie 1</span>
+                                                <div class="content-denomination-name">
+                                                    <div>Galérie 1</div>
+                                                </div>
                                             </div>
                                             <div class="actions-container">
                                                 <span class="edit"></span>
                                                 <span class="delete"></span>
-                                                <div class="reorder disabled">
+                                                <div class="reorder">
                                                     <span class="reorder-up"></span>
                                                     <span class="reorder-down"></span>
                                                 </div>
@@ -339,7 +345,7 @@
                                             <div class="add-content-block">
                                                 <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
                                                 <button class="btn-valider btn-upload">
-                                                    <span class="upload"></span>choisissze un fichier...
+                                                    <span class="upload"></span>choisissez un fichier...
                                                 </button>
                                                 <div class="info-container">
                                                     <p>les fichiers doivent peser moins de <span class="bigger">20 Mo</span></p>
@@ -397,18 +403,220 @@
                                         </div>
                                         <!-- end - adding vidéo media -->
 
+                                        <!-- adding image gallery media -->
+                                        <div class="content-block-container">
+                                            <div class="block-title">
+                                                <span>ajouter un nouveau média</span>
+                                                <span class="delete-block"></span>
+                                            </div>
+                                            <div class="add-content-block">
+                                                <p class="main-info">ajouter une galerie d'image</p>
+                                                <div class="form-row document-name-container vertical-md">
+                                                    <label>nom de la galerie</label>
+                                                    <div class="document-name">
+                                                        <input class="standard-styled-input" type="text" value="Galerie 1">
+                                                        <span class="delete-input"></span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- image list -->
+                                                <div class="content-list-element-container">
+                                                    <div class="content-list-element image-gallery">
+                                                        <div class="content-denomination">
+                                                            <div class="content-denomination-image">
+                                                                <div class="image-preview"></div>
+                                                            </div>
+                                                            <div class="content-denomination-name">
+                                                                <div>Nom de l'image 1</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="actions-container">
+                                                            <span class="edit"></span>
+                                                            <span class="delete"></span>
+                                                            <div class="reorder disabled">
+                                                                <span class="reorder-up"></span>
+                                                                <span class="reorder-down"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end -  images list -->
+
+                                                <div>
+                                                    <button class="btn-valider btn-upload">
+                                                        <span class="upload"></span>choisissez un fichier...
+                                                    </button>
+                                                    <div class="info-container">
+                                                        <p>document au format jpeg ou gif limité à <span class="bigger">20 Mo</span></p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="upload-img-button-container">
+                                                        <button class="upload-img-button">
+                                                            <span class="blue-upload"></span><span class="img-name-container">image 1.jpeg</span>
+                                                        </button>
+                                                    </div>
+                                                    <a href="#" class="delete-link"></a>
+                                                    <div class="form-row document-name-container vertical-md">
+                                                        <label>nom de l'image</label>
+                                                        <div class="document-name">
+                                                            <input class="standard-styled-input" type="text" value="Nom de l'image 1">
+                                                            <span class="delete-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="add-content-button-container">
+                                                        <button class="btn-valider">ajouter</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - adding image gallery media -->
+
                                         <div class="content-button-container">
                                             <a class="add">ajouter un média</a>
                                         </div>
                                         <div class="title-separator">
                                             <span class="title">quiz</span><span class="separator-line"></span>
                                         </div>
+
+                                        <!-- quiz list -->
+                                        <div class="content-list-element">
+                                            <div class="content-denomination">
+                                                <div class="content-denomination-image">
+                                                    <span class="quiz-icon"></span>
+                                                </div>
+                                                <div class="content-denomination-name">
+                                                    <div>Produits 2017</div>
+                                                </div>
+                                            </div>
+                                            <div class="actions-container">
+                                                <span class="edit"></span>
+                                                <span class="delete"></span>
+                                                <div class="reorder disabled">
+                                                    <span class="reorder-up"></span>
+                                                    <span class="reorder-down"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - quiz list -->
+
+                                        <!-- adding quiz -->
+                                        <div class="content-block-container video">
+                                            <div class="block-title">
+                                                <span>ajouter un nouveau quiz</span>
+                                                <span class="delete-block"></span>
+                                            </div>
+                                            <div class="add-content-block">
+                                                <p class="main-info">vous devez créer un quiz dans la partie "sondages/quiz" pour qu'il apparaisse dans le menu déroulant</p>
+                                                <div class="dropdown-container quiz-selection">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
+                                                            SÉLECTIONNEZ<span class="hidden-under-355">&nbsp;UN QUIZ</span>
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown-selected-quiz">
+                                                            <a class="dropdown-item" href="#">QUIZ 1</a>
+                                                            <a class="dropdown-item" href="#">QUIZ 2</a>
+                                                            <a class="dropdown-item" href="#">QUIZ 3</a>
+                                                            <a class="dropdown-item" href="#">QUIZ 4</a>
+                                                        </div>
+                                                    </div>
+                                                    <span class="delete-input"></span>
+                                                </div>
+                                                <div class="add-content-button-container">
+                                                    <button class="btn-valider">ajouter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - adding quiz -->
+
                                         <div class="content-button-container">
                                             <a class="add">ajouter un quiz</a>
                                         </div>
                                         <div class="title-separator">
                                             <span class="title">Bouton d'action</span><span class="separator-line"></span>
                                         </div>
+
+                                        <!-- action button element -->
+                                        <div class="content-list-element">
+                                            <div class="content-denomination">
+                                                <div class="content-denomination-image">
+                                                    <span class="action-button-icon"></span>
+                                                </div>
+                                                <div class="content-denomination-name">
+                                                    <div>En savoir plus</div>
+                                                </div>
+                                            </div>
+                                            <div class="actions-container">
+                                                <span class="edit"></span>
+                                                <span class="delete"></span>
+                                            </div>
+                                        </div>
+                                        <!-- action button element -->
+
+                                        <!-- adding action button -->
+                                        <div class="content-block-container action-button-block-container">
+                                            <div class="block-title">
+                                                <span>bouton d'action</span>
+                                                <span class="delete-block"></span>
+                                            </div>
+                                            <div class="add-content-block">
+                                                <div class="form-row vertical-centered">
+                                                    <label class="fixed-width">texte du bouton</label>
+                                                    <input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large" value="En savoir plus">
+                                                    <span class="delete-input delete-action-button-text"></span>
+                                                </div>
+                                                <div class="form-row vertical-xs">
+                                                    <label>aspect du bouton</label>
+                                                    <div class="vertical-xs">
+                                                        <div class="action-button-color-option">
+                                                            <span class="option-title">Couleur</span>
+                                                            <input type="text" class="color-value">
+                                                        </div>
+                                                        <div class="action-button-color-option">
+                                                            <span class="option-title">Couleur du texte</span>
+                                                            <input type="text" class="color-value">
+                                                        </div>
+                                                    </div>
+                                                    <div class="action-button-preview">
+                                                        En savoir plus
+                                                    </div>
+                                                </div>
+                                                <span class="form-row-group-title">lien de redirection du bouton d'action</span>
+                                                <div class="form-row vertical-centered">
+                                                    <label class="fixed-width">renseigner une url</label>
+                                                    <input type="text" value="https://monliennderedirection.com/challenge" class="removable-content-input action-button-input large">
+                                                    <span class="delete-input"></span>
+                                                </div>
+                                                <div class="form-row vertical-xs">
+                                                    <label>ou chercher une page du site</label>
+                                                    <div class="action-button-target-page-choice styled-choice-select">
+                                                        <div class="dropdown clearable">
+                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="POINTER SUR">
+                                                                POINTER SUR
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
+                                                                <a class="dropdown-item" href="#">PRÉSENTATION DE LA SOCIÉTÉ</a>
+                                                                <a class="dropdown-item" href="#">DÉCOUVREZ LE PROGRAMME</a>
+                                                                <a class="dropdown-item" href="#">DÉCLARER UNE VENTE</a>
+                                                                <a class="dropdown-item" href="#">CLASSEMENT</a>
+                                                                <a class="dropdown-item sub-level" href="#">CHALLENGE 1</a>
+                                                                <a class="dropdown-item sub-level" href="#">CHALLENGE 2</a>
+                                                                <a class="dropdown-item" href="#">SONDAGES / QUIZ</a>
+                                                                <a class="dropdown-item sub-level" href="#">QUIZ 1</a>
+                                                                <a class="dropdown-item sub-level" href="#">QUIZ 2</a>
+                                                                <a class="dropdown-item" href="#">CADEAUX</a>
+                                                            </div>
+                                                            <span class="delete-select"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="add-content-button-container">
+                                                    <button class="btn-valider">ajouter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end - adding action button -->
+
                                         <div class="content-button-container">
                                             <a class="add">ajouter un bouton d'action</a>
                                         </div>
