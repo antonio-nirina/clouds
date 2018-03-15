@@ -6091,3 +6091,34 @@ section .row.filter.selected-elements{
         max-width: 100%;
     }
 }
+
+/**
+ * E-learning - Bannière d'accueil
+ */
+.part-title{
+    color: var(--couleur_2);
+    display: block;
+    margin: 15px 0 10px 0;
+    width: 100%;
+}
+
+.preview-container{
+    display: block;
+    height: 200px;
+    width: auto;
+    background-color: #CCCCCC;
+    margin: 0 -24px;
+    position: relative;
+}
+
+.preview-container .message-preview{
+    font-weight: 100;
+    font-size: 30px;
+    letter-spacing: 3px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
