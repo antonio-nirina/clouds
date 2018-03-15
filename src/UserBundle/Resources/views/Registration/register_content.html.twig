@@ -40,92 +40,135 @@
 						</div>
 					</div>
 				</div>
-				{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form'}}) }}
+				{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form'}}) }}	
+				{#{{ form_errors(form.civility) }}
+				{{ form_errors(form.name) }}	 
+				 {{form_errors(form.firstname)}}	
+				 {{ form_errors(form.email.first) }}
+				 {{ form_errors(form.email.second) }}
+				 {{ form_errors(form.phone) }}	
+				 {{ form_errors(form.plainPassword.first) }}
+				 {{ form_errors(form.plainPassword.second)}}
+				 {{ form_errors(form.societe) }}
+				 {{ form_errors(form.address_1) }}
+				 {{ form_errors(form.city) }}
+				 {{ form_errors(form.postal_code) }}
+				 {{ form_errors(form.accepte) }}#}
+
 					 <div class="checkbok civility">
-					 	{{form_label(form.civility,'civilité*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					 	{{form_label(form.civility,'civilité*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm cv-label'} })}}
 					 	<label>
 					 		{{form_widget(form.civility, { 'attr' : { 'class': 'checkbox' } })}}
+					 		 
 					 	</label>
-					    
+					   
 					  </div>
 					    <div class="form-group row">
 					    	{{form_label(form.name,'prénom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					    	<div class="col-6">
+					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.name,{ 'attr' : { 'class': 'form-control' } })}}
+					    		{{ form_errors(form.name) }}
 					    	</div>
+					    	
 					    </div>
 					     <div class="form-group row">
 					     	{{form_label(form.firstname,'nom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					     	<div class="col-6">
+					     	<div class="col-6 text-danger">
 					     		{{form_widget(form.firstname,{ 'attr' : { 'class': 'form-control' } })}}
-					     	</div>					    	
+					     		{{form_errors(form.firstname)}}	
+					     	</div>
+					     					    	
 					    </div>
 					    <div class="form-group row">
 					    	{{form_label(form.email.first,'email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					    	<div class="col-6">
+					    	<div class="col-6 text-danger emailErreur">
 					    		{{form_widget(form.email.first,{ 'attr' : { 'class': 'form-control' } }) }}
-					    	</div>					    	
+					    		{{ form_errors(form.email.first) }}
+					    	</div>
+					    					    	
 					    </div>
 					    <div class="form-group row">
 					    {{form_label(form.email.second,'confirmation e-email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					    	<div class="col-6">
+					    	<div class="col-6 text-danger emailErreur">
 					    		{{form_widget(form.email.second,{ 'attr' : { 'class': 'form-control' } }) }}
-					    	</div>					    	
+					    		{{ form_errors(form.email.second) }}
+					    	</div>
+					    						    	
 					    </div>
 					     <div class="form-group row">
 					     	{{form_label(form.phone,'téléphone*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					     	<div class="col-6">
+					     	<div class="col-6 text-danger">
 					     		{{form_widget(form.phone,{ 'attr' : { 'class': 'form-control' } })}}
-					     	</div>					    	
+					     		{{ form_errors(form.phone) }}	
+					     	</div>
+					     					    	
 						</div>
 						<div class="form-group row">
 					{{form_label(form.plainPassword.first,'mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-							<div class="col-6">
+							<div class="col-6 text-danger password">
 								{{form_widget(form.plainPassword.first,{ 'attr' : { 'class': 'form-control' } }) }}
+								{{ form_errors(form.plainPassword.first) }}
 							</div>
+							
 						</div>
 					   <div class="form-group row">
 					   	{{form_label(form.plainPassword.second,'confirmation mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					   	<div class="col-6">
+					   	<div class="col-6 text-danger password">
 					   		{{form_widget(form.plainPassword.second,{ 'attr' : { 'class': 'form-control' } }) }}
+					   		{{ form_errors(form.plainPassword.second)}}
 					   	</div>
+					   	
 					   </div>
 					    <div class="form-group row">
 					    	{{form_label(form.societe,'société*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					    	<div class="col-6">
+					    	<div class="col-6 text-danger">
 					    		 {{form_widget(form.societe,{ 'attr' : { 'class': 'form-control' } })}}
+					    		 {{ form_errors(form.societe) }}
 					    	</div>
+					    	
 					    </div>
 					   <div class="form-group row">
 					   	{{form_label(form.address_1,'adresse postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					   	<div class="col-6">
+					   	<div class="col-6 text-danger">
 					   		{{form_widget(form.address_1,{ 'attr' : { 'class': 'form-control' } })}}
+					   		{{ form_errors(form.address_1) }}
 					   	</div>
+					   
 					   </div>
 					    <div class="form-group row">
 					    		{{form_label(form.postal_code,'code postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					    	<div class="col-6">
+					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.postal_code,{ 'attr' : { 'class': 'form-control' } })}}
+					    		{{ form_errors(form.postal_code) }}
 					    	</div>
+					    	
 					    </div>
 					    <div class="form-group row">
 					    	{{form_label(form.city,'ville*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
-					    	<div class="col-6">
+					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.city,{ 'attr' : { 'class': 'form-control' } })}}
+					    		 {{ form_errors(form.city) }}
 					    	</div>
+					    	
 					    </div>
 					    <div class="checkbok condtion">
-					    	{{form_label(form.accepte,'acceptation du réglement*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    	{{form_label(form.accepte,'acceptation du réglement*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-acepte'} })}}
 					    	<label>
 					    		{{form_widget(form.accepte)}}
+					    		<div class="text-danger">{{ form_errors(form.accepte) }}</div>
 					    	</label>
-					    </div>					    
+					    	
+					    </div>
+					    <div class="text-danger recaptErreur">
+					    	{{ form_errors(form.recaptcha) }}	
+					    </div>
+					    <div class="recapt">
+					    	{{form_widget(form.recaptcha,{'attr': {'class': 'recaptcha'}})}}
+					    </div>					    				    					    
 					    
-					    {{form_widget(form.recaptcha,{'attr': {'class': 'recaptcha'}})}}
 				<div class="valide">
 	    			<input type="submit" value="valider" class="btn-valider valide-user" />
 	    		</div>
-	       			
 				{{ form_end(form) }}
 	    	<div>
 		</div>
@@ -134,4 +177,16 @@
 
 {% block footer %}
 		{% embed 'UserBundle::footer.html.twig' %}{% endembed %}
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+
+		//$('label').addClass('test');
+		//$(".test").css('display',"none");
+		//$("label[for=fos_user_registration_form_accepte_0]").css('display','none');
+		$("label[for=fos_user_registration_form_accepte_0]").addClass('civ3');
+		$("label[for=fos_user_registration_form_civility_1]").addClass('civ2');
+		$("label[for=fos_user_registration_form_civility_0]").addClass('civ1');
+	</script>
 {% endblock %}

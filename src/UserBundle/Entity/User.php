@@ -7,8 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
+
+/** 
+ *    
+ * @ORM\Entity
+ * @UniqueEntity("email",message="fos_user.email.already_used")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks()
@@ -36,6 +41,7 @@ use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
  *          type="string",
  *          length=180,
  *          nullable=true,
+ *          unique = true
  *     )
  * ),
  *  @ORM\AttributeOverride(name="emailCanonical",
@@ -62,7 +68,10 @@ use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
  *     )
  * ),
  * })
+ *
+ * 
  */
+
 class User extends BaseUser
 {
     /**
@@ -170,6 +179,12 @@ class User extends BaseUser
      * @Assert\Length(max=255)
      */
     protected $societe;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true,unique=true)
+     * @Assert\Length(max=255)
+     */
+    protected $code;
 
     /**
     * @Recaptcha\IsTrue
@@ -312,6 +327,7 @@ class User extends BaseUser
     {
         return $this->status;
     }
+
 
     /**
      * Set contactInformation
@@ -599,6 +615,30 @@ class User extends BaseUser
     public function getSociete()
     {
         return $this->societe;
+    }
+
+    /**
+     * Set code
+     *
+     * @param boolean $code
+     *
+     * @return User
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return boolean
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 	
 	/**

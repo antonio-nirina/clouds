@@ -38,6 +38,7 @@ class RegistrationType extends AbstractType
             'required' => true,
             'first_options'  => array('label' => 'email*'),
             'second_options' => array('label' => 'confirmation e-email*'),
+            'invalid_message' => 'fos_user.email.mismatch',
         ));
         $builder->add('phone',TextType::class,["label"=>"téléphone*"]);
         $builder->add('plainPassword', RepeatedType::class, array(
@@ -46,6 +47,7 @@ class RegistrationType extends AbstractType
             'required' => true,
             'first_options'  => array('label' => 'mot de passe*'),
             'second_options' => array('label' => 'confirmation mot de passe*'),
+            'invalid_message' => 'fos_user.password.mismatch',
         ));
         $builder->add('societe',TextType::class,["label"=>"Société*"]);
         $builder->add('address_1',TextType::class,["label"=>"adresse postale*"]);
@@ -55,7 +57,7 @@ class RegistrationType extends AbstractType
             [
             "mapped" => false,
             "choices"=>[
-                "M"=>"M."
+                " "=>"M."
             ],
             'choice_attr' => array(
                 'M' => array('class' => 'checkbox'),

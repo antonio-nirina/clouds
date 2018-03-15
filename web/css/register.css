@@ -19,7 +19,7 @@
 	margin-top: 1px;
 	display: block;
 	position: relative;
-	left: -383px;
+	left: -251px;
 	cursor: pointer;
 }
 
@@ -89,7 +89,7 @@ top: -32px;
 
 .valide{
 	position: relative;
-	left: 221px;
+	left: 192px;
 	margin-bottom: 101px;
 	top: 15px;
 }
@@ -118,4 +118,106 @@ font-size: 16px;
 }
 label{
 	text-align: left;
+}
+
+.password ul>li{
+	list-style-type: none;
+	font-size: 12px;
+}
+
+.recaptErreur ul>li{
+	list-style-type: none;
+	font-size: 12px;
+	margin-left: 71px;
+}
+.emailErreur ul>li{
+	list-style-type: none;
+	font-size: 12px;
+}
+
+#fos_user_registration_form_civility_1{
+	margin-left: 39px;
+}
+
+.civ2{
+	margin-left: 20px;
+}
+
+.civ1{
+	/*margin-left: -5px;*/
+	left: -6px;
+}
+
+.cv-label{
+	position: relative;
+	left: -16px;
+}
+.label-acepte{
+	position: relative;
+	left: -16px;
+}
+
+.civ3{
+	left: -6px;
+	top: -7px;
+}
+
+.logo-cloud{
+	position: relative;
+	left: 211px;
+}
+.recapt{
+margin-top: 31px;
+margin-left: 3px;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgb(176,183,197);
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #667ADE;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }
