@@ -9,6 +9,4 @@ class ELearningContentType
     const MEDIA_DOCUMENT = 'media-document';
     const MEDIA_VIDEO = 'media-video';
     const MEDIA_IMAGE_GALLERY = 'media-image-gallery';
-    const QUIZ = 'quiz';
-    const ACTION_BUTTON = 'action-button';
 }

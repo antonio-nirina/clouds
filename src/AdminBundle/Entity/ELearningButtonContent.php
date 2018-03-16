@@ -2,70 +2,22 @@
 namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use AdminBundle\Traits\EntityTraits\ELearningContentTrait;
 use AdminBundle\Traits\EntityTraits\ActionButtonTrait;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="e_learning_content")
+ * @ORM\Entity()
+ * @ORM\Table(name="e_learning_button_content")
  */
-class ELearningContent
+class ELearningButtonContent
 {
-    /**
-     * @ORM\Id()
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
-     */
-    private $content_order;
-
-    /**
-     * @var $content_type    taking value in AdminBundle\Component\Elearning\ELearningContentType constant
-     *
-     * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank()
-     */
-    private $content_type;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $associated_file;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $video_url;
-
-    /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningGalleryImage", mappedBy="e_learning_content")
-     */
-    private $images;
-
+    use ELearningContentTrait;
     use ActionButtonTrait;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ELearning", inversedBy="contents")
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ELearning", inversedBy="button_content")
      */
     private $e_learning;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -82,7 +34,7 @@ class ELearningContent
      *
      * @param string $name
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setName($name)
     {
@@ -106,7 +58,7 @@ class ELearningContent
      *
      * @param integer $contentOrder
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setContentOrder($contentOrder)
     {
@@ -126,83 +78,11 @@ class ELearningContent
     }
 
     /**
-     * Set contentType
-     *
-     * @param string $contentType
-     *
-     * @return ELearningContent
-     */
-    public function setContentType($contentType)
-    {
-        $this->content_type = $contentType;
-
-        return $this;
-    }
-
-    /**
-     * Get contentType
-     *
-     * @return string
-     */
-    public function getContentType()
-    {
-        return $this->content_type;
-    }
-
-    /**
-     * Set associatedFile
-     *
-     * @param string $associatedFile
-     *
-     * @return ELearningContent
-     */
-    public function setAssociatedFile($associatedFile)
-    {
-        $this->associated_file = $associatedFile;
-
-        return $this;
-    }
-
-    /**
-     * Get associatedFile
-     *
-     * @return string
-     */
-    public function getAssociatedFile()
-    {
-        return $this->associated_file;
-    }
-
-    /**
-     * Set videoUrl
-     *
-     * @param string $videoUrl
-     *
-     * @return ELearningContent
-     */
-    public function setVideoUrl($videoUrl)
-    {
-        $this->video_url = $videoUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get videoUrl
-     *
-     * @return string
-     */
-    public function getVideoUrl()
-    {
-        return $this->video_url;
-    }
-
-    /**
      * Set actionButtonText
      *
      * @param string $actionButtonText
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setActionButtonText($actionButtonText)
     {
@@ -226,7 +106,7 @@ class ELearningContent
      *
      * @param string $actionButtonTextColor
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setActionButtonTextColor($actionButtonTextColor)
     {
@@ -250,7 +130,7 @@ class ELearningContent
      *
      * @param string $actionButtonBackgroundColor
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setActionButtonBackgroundColor($actionButtonBackgroundColor)
     {
@@ -274,7 +154,7 @@ class ELearningContent
      *
      * @param string $actionButtonTargetUrl
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setActionButtonTargetUrl($actionButtonTargetUrl)
     {
@@ -298,7 +178,7 @@ class ELearningContent
      *
      * @param string $actionButtonTargetPage
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setActionButtonTargetPage($actionButtonTargetPage)
     {
@@ -318,45 +198,11 @@ class ELearningContent
     }
 
     /**
-     * Add image
-     *
-     * @param \AdminBundle\Entity\ELearningGalleryImage $image
-     *
-     * @return ELearningContent
-     */
-    public function addImage(\AdminBundle\Entity\ELearningGalleryImage $image)
-    {
-        $this->images[] = $image;
-
-        return $this;
-    }
-
-    /**
-     * Remove image
-     *
-     * @param \AdminBundle\Entity\ELearningGalleryImage $image
-     */
-    public function removeImage(\AdminBundle\Entity\ELearningGalleryImage $image)
-    {
-        $this->images->removeElement($image);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    /**
      * Set eLearning
      *
      * @param \AdminBundle\Entity\ELearning $eLearning
      *
-     * @return ELearningContent
+     * @return ELearningButtonContent
      */
     public function setELearning(\AdminBundle\Entity\ELearning $eLearning = null)
     {

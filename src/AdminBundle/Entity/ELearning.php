@@ -29,11 +29,6 @@ class ELearning
     private $main_text;
 
     /**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningContent", mappedBy="e_learning")
-     */
-    private $contents;
-
-    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="e_learnings")
      */
     private $program;
@@ -57,6 +52,45 @@ class ELearning
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $publication_datetime;
+
+    /**
+     * @var string $viewer_authorization_type   available value in AdminBundle\Component\Authorization\AuthorizationType
+     *
+     * @ORM\Column(type="string", length=50)
+     * @Assert\Length(max=100)
+     * @Assert\NotBlank()
+     */
+    private $viewer_authorization_type;
+
+    /**
+     * @var string $authorized_viewer_role          AdminBundle\Entity\ProgramUser role value
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $authorized_viewer_role;
+
+    /**
+     * @var string $custom_authorized_viewer_list   list of authorized AdminBundle\Entity\ProgramUser id
+     *
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $custom_authorized_viewer_list;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningMediaContent", mappedBy="e_learning")
+     */
+    private $media_contents;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningQuizContent", mappedBy="e_learning")
+     */
+    private $quiz_contents;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ELearningButtonContent", mappedBy="e_learning")
+     */
+    private $button_content;
 
     /**
      * Constructor
@@ -122,40 +156,6 @@ class ELearning
     public function getMainText()
     {
         return $this->main_text;
-    }
-
-    /**
-     * Add content
-     *
-     * @param \AdminBundle\Entity\ELearningContent $content
-     *
-     * @return ELearning
-     */
-    public function addContent(\AdminBundle\Entity\ELearningContent $content)
-    {
-        $this->contents[] = $content;
-
-        return $this;
-    }
-
-    /**
-     * Remove content
-     *
-     * @param \AdminBundle\Entity\ELearningContent $content
-     */
-    public function removeContent(\AdminBundle\Entity\ELearningContent $content)
-    {
-        $this->contents->removeElement($content);
-    }
-
-    /**
-     * Get contents
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getContents()
-    {
-        return $this->contents;
     }
 
     /**
@@ -276,5 +276,169 @@ class ELearning
     public function getPublicationDatetime()
     {
         return $this->publication_datetime;
+    }
+
+    /**
+     * Set viewerAuthorizationType
+     *
+     * @param string $viewerAuthorizationType
+     *
+     * @return ELearning
+     */
+    public function setViewerAuthorizationType($viewerAuthorizationType)
+    {
+        $this->viewer_authorization_type = $viewerAuthorizationType;
+
+        return $this;
+    }
+
+    /**
+     * Get viewerAuthorizationType
+     *
+     * @return string
+     */
+    public function getViewerAuthorizationType()
+    {
+        return $this->viewer_authorization_type;
+    }
+
+    /**
+     * Set authorizedViewerRole
+     *
+     * @param string $authorizedViewerRole
+     *
+     * @return ELearning
+     */
+    public function setAuthorizedViewerRole($authorizedViewerRole)
+    {
+        $this->authorized_viewer_role = $authorizedViewerRole;
+
+        return $this;
+    }
+
+    /**
+     * Get authorizedViewerRole
+     *
+     * @return string
+     */
+    public function getAuthorizedViewerRole()
+    {
+        return $this->authorized_viewer_role;
+    }
+
+    /**
+     * Set customAuthorizedViewerList
+     *
+     * @param array $customAuthorizedViewerList
+     *
+     * @return ELearning
+     */
+    public function setCustomAuthorizedViewerList($customAuthorizedViewerList)
+    {
+        $this->custom_authorized_viewer_list = $customAuthorizedViewerList;
+
+        return $this;
+    }
+
+    /**
+     * Get customAuthorizedViewerList
+     *
+     * @return array
+     */
+    public function getCustomAuthorizedViewerList()
+    {
+        return $this->custom_authorized_viewer_list;
+    }
+
+    /**
+     * Add mediaContent
+     *
+     * @param \AdminBundle\Entity\ELearningMediaContent $mediaContent
+     *
+     * @return ELearning
+     */
+    public function addMediaContent(\AdminBundle\Entity\ELearningMediaContent $mediaContent)
+    {
+        $this->media_contents[] = $mediaContent;
+
+        return $this;
+    }
+
+    /**
+     * Remove mediaContent
+     *
+     * @param \AdminBundle\Entity\ELearningMediaContent $mediaContent
+     */
+    public function removeMediaContent(\AdminBundle\Entity\ELearningMediaContent $mediaContent)
+    {
+        $this->media_contents->removeElement($mediaContent);
+    }
+
+    /**
+     * Get mediaContents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMediaContents()
+    {
+        return $this->media_contents;
+    }
+
+    /**
+     * Add quizContent
+     *
+     * @param \AdminBundle\Entity\ELearningQuizContent $quizContent
+     *
+     * @return ELearning
+     */
+    public function addQuizContent(\AdminBundle\Entity\ELearningQuizContent $quizContent)
+    {
+        $this->quiz_contents[] = $quizContent;
+
+        return $this;
+    }
+
+    /**
+     * Remove quizContent
+     *
+     * @param \AdminBundle\Entity\ELearningQuizContent $quizContent
+     */
+    public function removeQuizContent(\AdminBundle\Entity\ELearningQuizContent $quizContent)
+    {
+        $this->quiz_contents->removeElement($quizContent);
+    }
+
+    /**
+     * Get quizContents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuizContents()
+    {
+        return $this->quiz_contents;
+    }
+
+    /**
+     * Set buttonContent
+     *
+     * @param \AdminBundle\Entity\ELearningButtonContent $buttonContent
+     *
+     * @return ELearning
+     */
+    public function setButtonContent(\AdminBundle\Entity\ELearningButtonContent $buttonContent = null)
+    {
+        $this->button_content = $buttonContent;
+
+        return $this;
+    }
+
+    /**
+     * Get buttonContent
+     *
+     * @return \AdminBundle\Entity\ELearningButtonContent
+     */
+    public function getButtonContent()
+    {
+        return $this->button_content;
     }
 }
