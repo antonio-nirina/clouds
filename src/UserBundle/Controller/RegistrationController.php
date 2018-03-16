@@ -56,13 +56,15 @@ class RegistrationController extends BaseController
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-                $em = $this->getDoctrine()->getManager();
-                $id = $this->generateCodeId();
-                $codes = $em->getRepository("UserBundle:User")->findOneByCode($id);
-                if (empty($codes)) {
-                   $user->setCode($id);
+                $em = $this->getDoctrine()->getManager()->getRepository("UserBundle:User");
+                $al = $em->findAll();
+                $code = $this->generateCodeId($al);
+                $val = $em->findOneByCode($code);               
+                while (!empty($val)) {
+                   $code = $this->generateCodeId($total);
+                   break;
                 }
-            
+                $user->setCode($code);
                 $userManager->updateUser($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
@@ -178,12 +180,18 @@ class RegistrationController extends BaseController
         }
     }
 
-
-    protected function generateCodeId()
+    protected function generateCodeId($total)
     {
         $nombre = "1234567890";
         $code = []; 
-        $length = 6;
+        $max = count($total);
+        $i = 6;
+        $ecart = $max - pow(10, $i);
+        if ($ecart < 0) {
+            $length = 6;
+        } elseif ($ecart > 0) {
+           $length = 7;
+        }
         $alphaLength = strlen($nombre) - 1; 
         for ($i = 0; $i < $length; $i++) {
             $n = rand(0, $alphaLength);
@@ -191,13 +199,6 @@ class RegistrationController extends BaseController
         }
 
         return implode($code);
-
-        /*$codes = $em->getRepository("UserBundle:User")->findAll();
-        foreach ($codes as  $value) {
-            $code[] = $value->getCode();
-        } 
-        $res = floatval(max($code))+1;
-        return $res;*/
     }
 }
 

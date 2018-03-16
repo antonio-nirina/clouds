@@ -10,20 +10,23 @@
 	padding-right:100px;
 }
 
-.deconnect{
-	background: url('../images/cloudsRewards/log.png');
-	background-repeat:no-repeat;
-	width: 36px;
-	height: 24px;
-	background-position: -1558px -25px;
-	margin-top: 1px;
-	display: block;
+.logout a{
+	mask-image: url('../images/cloudsRewards/logout.svg');
+	-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
 	position: relative;
-	left: -251px;
+	left: 1867%;
 	cursor: pointer;
+	-webkit-text-fill-color: white;
+	mask-position: center;
+	-webkit-mask-position: center;
+display: block;
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+
+	background: white;
 }
 
-div.slide{
+div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
 	background-repeat:no-repeat;
 	background-position: 0px -123px;
@@ -54,14 +57,14 @@ hr {
     border: 0;
     border-top: 3px solid rgb(102,122,222);
     width: 100%;
-    left: -8px;
+    left: 0px;
 	position: relative;
 }
 
 .challenge img{
 width: 100%;
 position: relative;
-left: -11px;
+left: 0px;
 margin-top: 15px;
 height: 185px;
 }
@@ -69,7 +72,7 @@ height: 185px;
  .salut{
 	border: 3px solid rgb(176,183,197);
 	width: 100px;
-height: 92px;
+	height: 92px;
 }
 .symbole{
 	float: right;
@@ -96,6 +99,11 @@ top: -32px;
 	left: 192px;
 	margin-bottom: 101px;
 	top: 15px;
+
+}
+.valide-user{
+	height: 34px;
+	width: 130px !important;
 }
 .g-recaptcha{
 	position: relative !important;
@@ -168,7 +176,259 @@ label{
 
 .logo-cloud{
 	position: relative;
-	left: 211px;
+	left: 257px;
+}
+.recapt{
+margin-top: 4px;
+margin-left: 3px;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgb(176,183,197);
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #667ADE;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+/*=================================Max1200=========================================================================*/
+
+@media (min-width: 1200px) {
+.registre{
+	background:url('../images/cloudsRewards/bandeau-header-login.png');
+	background-repeat:no-repeat;
+	margin:0;
+	padding:0;
+	height:76px;
+	width:100%;
+	z-index:100;
+	padding-left:100px;
+	padding-right:100px;
+}
+
+.ens{
+	width: 100%;
+	height: 100%;
+}
+
+.logout{
+	position: relative;
+    left: 66px;
+    width: 28px;
+    height: 20px;
+}
+
+.logout a{
+	mask-image: url('../images/cloudsRewards/logout.svg');
+	-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+	position: relative;
+	left: 1867%;
+	cursor: pointer;
+	-webkit-text-fill-color: white;
+	mask-position: center;
+	-webkit-mask-position: center;
+display: block;
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+
+	background: white;
+}
+
+
+div.all{
+	background: url('../images/cloudsRewards/bg-slide.png');
+	background-repeat:no-repeat;
+	background-position: 0px -123px;
+	z-index: 1;
+}
+
+.form{
+	margin-left: 15px;
+}
+
+.text{
+width: 691px;
+height: 172px;
+line-height: 20px;
+text-align: left;
+margin-bottom: 113px;
+}
+
+
+
+.form-control{
+	margin-left: 6px!important;
+}
+
+hr {
+    margin-top: 34px;
+    margin-bottom: 25px;
+    border: 0;
+    border-top: 3px solid rgb(102,122,222);
+    width: 100%;
+    left: 0px;
+	position: relative;
+}
+
+.challenge img{
+width: 100%;
+position: relative;
+left: 0px;
+margin-top: 15px;
+height: 185px;
+}
+
+ .salut{
+	border: 3px solid rgb(176,183,197);
+	width: 100px;
+	height: 92px;
+}
+.symbole{
+	float: right;
+margin-right: 94px;
+position: relative;
+top: -32px;
+}
+.titre{
+	margin-top: 67px;
+}
+
+.message{
+	font-size: 11px;
+	color: #424960;
+	max-width: 86%;
+	font-weight: bold;
+	position: relative;
+	top: -16px;
+
+}
+
+.valide{
+	position: relative;
+	left: 192px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+.valide-user{
+	height: 34px;
+	width: 130px !important;
+}
+.g-recaptcha{
+	position: relative !important;
+left: 107px !important;
+}
+
+.inscription{
+	position: relative;
+	top: 4px;
+	color: rgb(102,122,224);
+	font-family: "Lato";
+	
+}
+.bienvenu{
+	color: rgb(102,122,224);
+	font-family: "Lato";
+	margin-bottom: 27px;
+	position: relative;
+	top: -16px;
+	
+}
+h4{
+font-size: 16px;
+}
+label{
+	text-align: left;
+}
+
+.password ul>li{
+	list-style-type: none;
+	font-size: 12px;
+}
+
+.recaptErreur ul>li{
+	list-style-type: none;
+	font-size: 12px;
+	margin-left: 71px;
+}
+.emailErreur ul>li{
+	list-style-type: none;
+	font-size: 12px;
+}
+
+#fos_user_registration_form_civility_1{
+	margin-left: 39px;
+}
+
+.civ2{
+	margin-left: 20px;
+}
+
+.civ1{
+	/*margin-left: -5px;*/
+	left: -6px;
+}
+
+.cv-label{
+	position: relative;
+	left: -16px;
+}
+.label-acepte{
+	position: relative;
+	left: -16px;
+}
+
+.civ3{
+	left: -6px;
+	top: -7px;
+}
+
+.logo-cloud{
+	position: relative;
+	left: 257px;
 }
 .recapt{
 margin-top: 31px;
@@ -225,3 +485,1007 @@ margin-left: 3px;
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+
+}
+
+/*================================================Max368===============================================================*/
+@media (max-width: 368px)  {
+	
+	.logo-cloud {
+
+	    position: relative;
+	    left: -69px;
+	    top: 14px;
+	}
+
+.registre{
+	background:url('../images/cloudsRewards/bandeau-header-login.png');
+	background-repeat:no-repeat;
+	margin:0;
+	padding:0;
+	height:76px;
+	width:100%;
+	z-index:100;
+	padding-left:100px;
+	padding-right:100px;
+}
+
+.logout{
+	position: relative;
+    left: 9px;
+    top:14px;
+}
+
+.logout a{
+	mask-image: url('../images/cloudsRewards/logout.svg');
+	-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+	position: relative;
+	cursor: pointer;
+	-webkit-text-fill-color: white;
+	mask-position: center;
+	-webkit-mask-position: center;
+	display: block;
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+	background: white;
+	width: 33px;
+	height: 25px;
+}
+
+
+div.all{
+	background: url('../images/cloudsRewards/bg-slide.png');
+	background-repeat:no-repeat;
+	background-position: 0px -123px;
+	z-index: 1;
+}
+
+
+.challenge img{
+	width: 100%;
+	position: relative;
+	left: 12px;
+	margin-top: 15px;
+	height: 185px;
+}
+.message{
+	font-size: 11px;
+	color: #424960;
+	max-width: 41%;
+	font-weight: bold;
+	position: relative;
+	top: -16px;
+}
+
+.text{
+	width: 691px !important;
+	height: 172px !important;
+	line-height: 20px !important;
+	text-align: left !important;
+	margin-bottom: 168px !important;
+	margin-left: 22px !important;
+}
+
+.recapt{
+	position: relative;
+	left: -150px;
+}
+
+.valide{
+	position: relative;
+	left: 32px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+.symbole{
+float: right;
+margin-right: 414px;
+position: relative;
+top: -8px;
+}
+
+.form{
+	margin-left: 44px;
+}
+
+}
+
+/*===============================================368-458======================================================================*/
+@media (min-width: 368px) and (max-width: 458px) {
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	.logo-cloud {
+	    position: relative;
+	    left: -10px;
+	    top: 8px;
+	}
+
+div.all{
+	background: url('../images/cloudsRewards/bg-slide.png');
+	background-repeat:no-repeat;
+	background-position: 0px -123px;
+	z-index: 1;
+}
+
+
+.message{
+	font-size: 11px;
+	color: #424960;
+	max-width: 44%;
+	font-weight: bold;
+	position: relative;
+	top: -16px;
+}
+
+.challenge img{
+	width: 100%;
+	position: relative;
+	left: 37px;
+	margin-top: 15px;
+	height: 185px;
+}
+
+	.symbole{
+		float: right;
+		margin-right: 378px;
+		position: relative;
+		top: -11px;
+	}
+
+	.recapt{
+		position: relative;
+		left: -120px;
+	}
+
+	.valide{
+		position: relative;
+		left: 32px;
+		margin-bottom: 101px;
+		top: 15px;
+
+	}
+
+	.form{
+		margin-left: 56px;
+	}
+
+	.text{
+		width: 691px !important;
+		height: 172px !important; 
+		line-height: 20px !important;
+		text-align: left !important;
+		margin-bottom: 164px !important;
+		margin-left: 37px !important;
+	}
+}
+
+/*===============================================458-575======================================================================*/
+
+
+@media (min-width: 458px) and (max-width: 575px) {
+	.logo-cloud {
+		    position: relative;
+		    left: -131px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 65%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 100%;
+		position: relative;
+		left: 103px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: -120px;
+	}
+
+	.valide{
+		position: relative;
+		left: 32px;
+		margin-bottom: 101px;
+		top: 15px;
+
+	}
+
+	.symbole{
+		float: right;
+		margin-right: 238px;
+		position: relative;
+		top: -32px;
+	}
+
+.form{
+	margin-left: 42px;
+}
+
+.text{
+	width: 691px;
+	height: 172px;
+	line-height: 20px;
+	text-align: left;
+	margin-bottom: 113px;
+	margin-left: 25px;
+}
+
+
+}
+
+
+/*===================================================576-644=================================================================*/
+@media (min-width: 576px) and (max-width: 644px) {
+
+	.logo-cloud {
+		    position: relative;
+		    left: -131px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+		display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 79%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 97%;
+		position: relative;
+		left: 6px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+.symbole{
+		float: right;
+		margin-right: 189px;
+		position: relative;
+		top: -32px;
+	}
+
+
+}
+
+.text{
+	width: 691px;
+	height: 172px;
+	line-height: 20px;
+	text-align: left;
+	margin-bottom: 113px;
+	margin-left: 25px;
+}
+
+
+.form{
+	margin-left: 42px;
+}
+
+/*====================================================645-648================================================================*/
+
+@media (min-width: 645px) and (max-width: 648px) {
+
+	.logo-cloud {
+		    position: relative;
+		    left: -131px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 79%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 97%;
+		position: relative;
+		left: 18px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+.symbole{
+		float: right;
+		margin-right: 189px;
+		position: relative;
+		top: -32px;
+}
+
+
+
+}
+/*=====================================================649-767===============================================================*/
+@media (min-width: 649px) and (max-width: 767px) {
+
+	.logo-cloud {
+		    position: relative;
+		    left: -131px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+		padding-right: 38px;
+	}
+
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 61%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 95%;
+		position: relative;
+		left: 13px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+.symbole{
+		float: right;
+		margin-right: 273px;
+		position: relative;
+		top: -32px;
+}
+.form{
+	margin-left: 45px;
+}
+
+.titre{
+	margin-left: 28px;
+}
+
+.inscription{
+	position: relative;
+	top: 4px;
+	color: rgb(102,122,224);
+	font-family: "Lato";
+	margin-left: 28px;
+	
+}
+
+}
+/*========================================================768-831============================================================*/
+@media (min-width: 768px) and (max-width: 831px) {
+
+	.logo-cloud {
+		    position: relative;
+		    left: -131px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 58%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 95%;
+		position: relative;
+		left: 13px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+.symbole{
+		float: right;
+		margin-right: 294px;
+		position: relative;
+		top: -32px;
+}
+
+
+
+}
+/*=======================================================831-933=============================================================*/
+@media (min-width: 831px) and (max-width: 933px) {
+
+	.logo-cloud {
+		    position: relative;
+		    left: -131px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+.symbole {
+    float: right;
+    margin-right: 246px;
+    position: relative;
+    top: -32px;
+}
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 67%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 100%;
+		position: relative;
+		left: -7px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+
+}
+
+/*=======================================================934=============================================================*/
+
+@media (min-width: 934px) and (max-width: 991px) {
+
+	.logo-cloud {
+	    position: relative !important;
+	    left: -131px !important;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+.symbole {
+    float: right;
+    margin-right: 225px;
+    position: relative;
+    top: -32px;
+}
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 70%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 100%;
+		position: relative;
+		left: -7px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+
+}
+
+
+/*====================================================================================================================*/
+@media (min-width: 992px) and (max-width: 1000px) {
+
+	.logo-cloud {
+		    position: relative;
+		    left: 159px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1867%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+.symbole {
+    float: right;
+    margin-right: 179px;
+    position: relative;
+    top: -32px;
+}
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 79%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 100%;
+		position: relative;
+		left: -7px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+
+}
+/*====================================================================================================================*/
+@media (min-width: 1001px) and (max-width: 1090px) {
+
+	.logo-cloud {
+		    position: relative;
+		    left: 159px;
+	}
+	.logout{
+		position: relative;
+    	width: 29px;
+		left: -37px;
+		height: 16px;
+	}
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1216%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+.symbole {
+    float: right;
+    margin-right: 179px;
+    position: relative;
+    top: -32px;
+}
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 79%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 100%;
+		position: relative;
+		left: -7px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+}
+
+/*====================================================================================================================*/
+
+
+@media (min-width: 1091px) and (max-width: 1149px) {
+	.logo-cloud {
+		    position: relative;
+		    left: 159px;
+	}
+
+	.logout{
+		position: relative;
+    	top:14px;
+    	width: 25px;
+		left: -39px;
+	}
+
+	.logout a{
+		mask-image: url('../images/cloudsRewards/logout.svg');
+		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+		position: relative;
+		left: 1215%;
+		cursor: pointer;
+		-webkit-text-fill-color: white;
+		mask-position: center;
+		-webkit-mask-position: center;
+	display: block;
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+
+		background: white;
+	}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+.symbole {
+    float: right;
+    margin-right: 179px;
+    position: relative;
+    top: -32px;
+}
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 79%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+
+	.challenge img{
+		width: 100%;
+		position: relative;
+		left: -7px;
+		margin-top: 15px;
+		height: 185px;
+	}
+
+	.recapt{
+		position: relative;
+		left: 22px;
+	}
+
+.valide{
+	position: relative;
+	left: 207px;
+	margin-bottom: 101px;
+	top: 15px;
+
+}
+
+}
+/*====================================================================================================================*/
+
+@media (min-width: 1150px) and (max-width: 1199px) {
+
+	.logout{
+		position: relative;
+    	top:14px;
+    	width: 25px;
+		left: -39px;
+	}
+
+.logout a{
+	mask-image: url('../images/cloudsRewards/logout.svg');
+	-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+	position: relative;
+	left: 1867%;
+	cursor: pointer;
+	-webkit-text-fill-color: white;
+	mask-position: center;
+	-webkit-mask-position: center;
+	display: block;
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+
+	background: white;
+}
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+}
+/*====================================================================================================================*/
+

@@ -7,20 +7,18 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	{{ render(controller("AdminBundle:Parametrages:logoLogin")) }}
-	<div class="navbar-collapse collapse" id="collapsingNavbarNiv1">
-		<div class="navbar-nav form-connexion col-12 col-sm-12 col-md-8 col-lg-8 col-xl-6 offset-md-2 offset-lg-4 offset-xl-6">
-			
-		</div>
+	<div class="logout">
+		<a href="{{ path("fos_user_security_logout") }}"> PP{#<img src="{{asset('images/cloudsRewards/power.png')}}">#}</a>
 	</div>
-	<div class="deconnect">
-		<a href="{{ path("fos_user_security_logout") }}"></a>
-	</div>
+	
 </nav>
 <main>
 	{% trans_default_domain 'FOSUserBundle' %}
-	<div class="container slide">
+	<div class="container slide all">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
+				<div class="ens" style="background-color:white;"> 
+					
 				<div class="challenge">
 					<img src="{{asset("images/cloudsRewards/slide-1024.jpg")}}">
 				</div>
@@ -170,7 +168,8 @@
 	    			<input type="submit" value="valider" class="btn-valider valide-user" />
 	    		</div>
 				{{ form_end(form) }}
-	    	<div>
+				</div>
+	    	</div>
 		</div>
 	</div>
 </main>
