@@ -165,6 +165,11 @@ class Program
     private $home_page_post;
 
     /**
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearning", mappedBy="program")
+     */
+    private $e_learnings;
+
+    /**
      * @ORM\PrePersist
      */
     public function initProgram()
@@ -969,5 +974,39 @@ class Program
     public function getResultatsSondagesQuiz()
     {
         return $this->resultats_sondages_quiz;
+    }
+
+    /**
+     * Add eLearning
+     *
+     * @param \AdminBundle\Entity\ELearning $eLearning
+     *
+     * @return Program
+     */
+    public function addELearning(\AdminBundle\Entity\ELearning $eLearning)
+    {
+        $this->e_learnings[] = $eLearning;
+
+        return $this;
+    }
+
+    /**
+     * Remove eLearning
+     *
+     * @param \AdminBundle\Entity\ELearning $eLearning
+     */
+    public function removeELearning(\AdminBundle\Entity\ELearning $eLearning)
+    {
+        $this->e_learnings->removeElement($eLearning);
+    }
+
+    /**
+     * Get eLearnings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getELearnings()
+    {
+        return $this->e_learnings;
     }
 }

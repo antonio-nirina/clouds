@@ -3,6 +3,7 @@ namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AdminBundle\Traits\EntityTraits\ActionButtonTrait;
 
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\NewsPostRepository")
@@ -23,31 +24,9 @@ class NewsPost
     private $action_button_state;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * action button datas
      */
-    private $action_button_text;
-
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     * @Assert\Length(max=20)
-     */
-    private $action_button_text_color;
-
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     * @Assert\Length(max=20)
-     */
-    private $action_button_background_color;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $action_button_target_url;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $action_button_target_page;
+    use ActionButtonTrait;
 
     /**
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\HomePagePost", mappedBy="news_post")
@@ -56,7 +35,7 @@ class NewsPost
     private $home_page_post;
 
     /**
-     * @var string $viewer_authorization_type       available value in AdminBundle\Component\Post\NewsPostAuthorizationType
+     * @var string $viewer_authorization_type   available value in AdminBundle\Component\Post\NewsPostAuthorizationType
      *
      * @ORM\Column(type="string", length=50)
      * @Assert\Length(max=100)
@@ -153,53 +132,6 @@ class NewsPost
         return $this->action_button_state;
     }
 
-    /**
-     * Set actionButtonTextColor
-     *
-     * @param string $actionButtonTextColor
-     *
-     * @return NewsPost
-     */
-    public function setActionButtonTextColor($actionButtonTextColor)
-    {
-        $this->action_button_text_color = $actionButtonTextColor;
-
-        return $this;
-    }
-
-    /**
-     * Get actionButtonTextColor
-     *
-     * @return string
-     */
-    public function getActionButtonTextColor()
-    {
-        return $this->action_button_text_color;
-    }
-
-    /**
-     * Set actionButtonBackgroundColor
-     *
-     * @param string $actionButtonBackgroundColor
-     *
-     * @return NewsPost
-     */
-    public function setActionButtonBackgroundColor($actionButtonBackgroundColor)
-    {
-        $this->action_button_background_color = $actionButtonBackgroundColor;
-
-        return $this;
-    }
-
-    /**
-     * Get actionButtonBackgroundColor
-     *
-     * @return string
-     */
-    public function getActionButtonBackgroundColor()
-    {
-        return $this->action_button_background_color;
-    }
 
     /**
      * Set homePagePost
@@ -225,29 +157,7 @@ class NewsPost
         return $this->home_page_post;
     }
 
-    /**
-     * Set actionButtonText
-     *
-     * @param string $actionButtonText
-     *
-     * @return NewsPost
-     */
-    public function setActionButtonText($actionButtonText)
-    {
-        $this->action_button_text = $actionButtonText;
 
-        return $this;
-    }
-
-    /**
-     * Get actionButtonText
-     *
-     * @return string
-     */
-    public function getActionButtonText()
-    {
-        return $this->action_button_text;
-    }
 
     /**
      * Set viewerAuthorizationType
@@ -442,54 +352,6 @@ class NewsPost
     }
 
     /**
-     * Set actionButtonTargetUrl
-     *
-     * @param string $actionButtonTargetUrl
-     *
-     * @return NewsPost
-     */
-    public function setActionButtonTargetUrl($actionButtonTargetUrl)
-    {
-        $this->action_button_target_url = $actionButtonTargetUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get actionButtonTargetUrl
-     *
-     * @return string
-     */
-    public function getActionButtonTargetUrl()
-    {
-        return $this->action_button_target_url;
-    }
-
-    /**
-     * Set actionButtonTargetPage
-     *
-     * @param string $actionButtonTargetPage
-     *
-     * @return NewsPost
-     */
-    public function setActionButtonTargetPage($actionButtonTargetPage)
-    {
-        $this->action_button_target_page = $actionButtonTargetPage;
-
-        return $this;
-    }
-
-    /**
-     * Get actionButtonTargetPage
-     *
-     * @return string
-     */
-    public function getActionButtonTargetPage()
-    {
-        return $this->action_button_target_page;
-    }
-
-    /**
      * Set programmedInProgressState
      *
      * @param boolean $programmedInProgressState
@@ -547,5 +409,125 @@ class NewsPost
         $this->id = null;
 
         return $this;
+    }
+
+    /**
+     * Set actionButtonText
+     *
+     * @param string $actionButtonText
+     *
+     * @return NewsPost
+     */
+    public function setActionButtonText($actionButtonText)
+    {
+        $this->action_button_text = $actionButtonText;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonText
+     *
+     * @return string
+     */
+    public function getActionButtonText()
+    {
+        return $this->action_button_text;
+    }
+
+    /**
+     * Set actionButtonTextColor
+     *
+     * @param string $actionButtonTextColor
+     *
+     * @return NewsPost
+     */
+    public function setActionButtonTextColor($actionButtonTextColor)
+    {
+        $this->action_button_text_color = $actionButtonTextColor;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonTextColor
+     *
+     * @return string
+     */
+    public function getActionButtonTextColor()
+    {
+        return $this->action_button_text_color;
+    }
+
+    /**
+     * Set actionButtonBackgroundColor
+     *
+     * @param string $actionButtonBackgroundColor
+     *
+     * @return NewsPost
+     */
+    public function setActionButtonBackgroundColor($actionButtonBackgroundColor)
+    {
+        $this->action_button_background_color = $actionButtonBackgroundColor;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonBackgroundColor
+     *
+     * @return string
+     */
+    public function getActionButtonBackgroundColor()
+    {
+        return $this->action_button_background_color;
+    }
+
+    /**
+     * Set actionButtonTargetUrl
+     *
+     * @param string $actionButtonTargetUrl
+     *
+     * @return NewsPost
+     */
+    public function setActionButtonTargetUrl($actionButtonTargetUrl)
+    {
+        $this->action_button_target_url = $actionButtonTargetUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonTargetUrl
+     *
+     * @return string
+     */
+    public function getActionButtonTargetUrl()
+    {
+        return $this->action_button_target_url;
+    }
+
+    /**
+     * Set actionButtonTargetPage
+     *
+     * @param string $actionButtonTargetPage
+     *
+     * @return NewsPost
+     */
+    public function setActionButtonTargetPage($actionButtonTargetPage)
+    {
+        $this->action_button_target_page = $actionButtonTargetPage;
+
+        return $this;
+    }
+
+    /**
+     * Get actionButtonTargetPage
+     *
+     * @return string
+     */
+    public function getActionButtonTargetPage()
+    {
+        return $this->action_button_target_page;
     }
 }
