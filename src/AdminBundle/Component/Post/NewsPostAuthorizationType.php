@@ -1,14 +1,13 @@
 <?php
 namespace AdminBundle\Component\Post;
 
+use AdminBundle\Component\Authorization\AuthorizationType;
+
 /**
  * Post authorization
  *
  * Post authorization, for eg for viewing a (news) post
  */
-class NewsPostAuthorizationType
+class NewsPostAuthorizationType extends AuthorizationType
 {
-    const ALL = 'authorization-type-all';
-    const BY_ROLE = 'authorization-type-by-role';
-    const CUSTOM_LIST = 'authorization-type-custom-list';
 }
