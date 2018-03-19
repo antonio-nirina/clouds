@@ -79,16 +79,19 @@ class ELearning
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningMediaContent", mappedBy="e_learning")
+     * @Assert\Valid()
      */
     private $media_contents;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningQuizContent", mappedBy="e_learning")
+     * @Assert\Valid()
      */
     private $quiz_contents;
 
     /**
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ELearningButtonContent", mappedBy="e_learning")
+     * @Assert\Valid()
      */
     private $button_content;
 
