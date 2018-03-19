@@ -1,18 +1,14 @@
 <?php
 namespace AdminBundle\Component\Post;
 
+use AdminBundle\Component\Submission\SubmissionType;
+
 /**
  * Post submission
  *
- * Post authorization, for eg SAVE or PUBLISH
+ * Post submission, for eg SAVE or PUBLISH
  */
 
-class NewsPostSubmissionType
+class NewsPostSubmissionType extends SubmissionType
 {
-    const SAVE = 'submission-type-save';
-    const PUBLISH = 'submission-type-publish';
-    const VALID_SUBMISSION_TYPE = array(
-        self::SAVE,
-        self::PUBLISH,
-    );
 }

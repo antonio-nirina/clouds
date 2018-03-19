@@ -43,6 +43,7 @@ use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
 use AdminBundle\Component\Post\NewsPostAuthorizationType;
 use AdminBundle\Component\GroupAction\GroupActionType;
 use AdminBundle\Component\Post\NewsPostTypeLabel;
+use AdminBundle\Component\Submission\SubmissionType;
 
 /**
  * @Route("/admin/communication")
@@ -2253,6 +2254,37 @@ class CommunicationController extends AdminController
     public function eLearningAction()
     {
         return $this->render('AdminBundle:Communication:e_learning.html.twig');
+    }
+
+    /**
+     * @Route("/e-learning/creer", name="admin_communication_e_learning_create")
+     */
+    public function createELearningAction(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $form_generator = $this->get('AdminBundle\Service\FormGenerator\ELearningFormGenerator');
+        $e_learning_form = $form_generator->generateForCreation($program);
+        $e_learning_form->handleRequest($request);
+        if ($e_learning_form->isSubmitted() && $e_learning_form->isValid()) {
+            die;
+        }
+
+        $content = $this->renderView('AdminBundle:Communication/ELearning:manip_e_learning.html.twig', array(
+            'e_learning_form' => $e_learning_form->createView(),
+            'submission_type_class' => new SubmissionType(),
+        ));
+        $data = $json_response_data_provider->success();
+        if ($e_learning_form->isSubmitted() && !$e_learning_form->isValid()) {
+            $data = $json_response_data_provider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
     }
 
     /**

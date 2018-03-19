@@ -660,6 +660,8 @@
     </main>
 
     <input type="hidden" name="ckeditor_config_general_path" value="{{ asset('ckeditor/custom/config-general.js') }}">
+    <input type="hidden" name="create_e_learning_url" value="{{ path('admin_communication_e_learning_create') }}">
+    <input type="hidden" name="e_learning_list" value="{{ path('admin_communication_e_learning') }}">
 {% endblock %}
 
 {% block footer %}
@@ -679,6 +681,7 @@
             <script src="{{ asset('jplist/js/jplist.pagination-bundle.min.js') }}"></script>
             <script src="{{ asset('jplist/js/jplist.textbox-filter.min.js') }}"></script>
             <script src="{{ asset('jplist/js/jplist.filter-dropdown-bundle.min.js') }}"></script>
+            <script src="{{ asset("js/admin-widget-and-common-functions.js") }}"></script>
             <script src="{{ asset("js/admin-communication-e-learning.js") }}"></script>
         {% endblock %}
     {% endembed %}
