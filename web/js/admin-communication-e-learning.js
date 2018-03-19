@@ -55,7 +55,7 @@ $(document).ready(function(){
     // soumission de formulaire
     $(document).on('click', '#create-edit-e-learning-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
-        $('.chargementAjax').removeClass('hidden');
+        /*$('.chargementAjax').removeClass('hidden');
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
         }
@@ -91,7 +91,7 @@ $(document).ready(function(){
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
             }
-        });
+        });*/
     });
 
 
