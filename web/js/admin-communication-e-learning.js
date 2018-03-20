@@ -55,14 +55,14 @@ $(document).ready(function(){
     // soumission de formulaire
     $(document).on('click', '#create-edit-e-learning-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
-        /*$('.chargementAjax').removeClass('hidden');
+        $('.chargementAjax').removeClass('hidden');
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
         }
         var submission_type = $(this).attr('data-submission-type');
         var data = {'submission_type': submission_type};
         var target_url = $('input[name=create_e_learning_url]').val();
-        var redirect_target = $('input[name=e_learning_list]');
+        var redirect_target = $('input[name=e_learning_list]').val();
         $('#create-edit-e-learning-modal form').ajaxSubmit({
             type: 'POST',
             url: target_url,
@@ -73,7 +73,7 @@ $(document).ready(function(){
                     installWysiwyg();
                     installColorPicker();
                 } else {
-                    // window.location.replace(redirect_target);
+                    window.location.replace(redirect_target);
                 }
             },
             statusCode: {
@@ -91,7 +91,7 @@ $(document).ready(function(){
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
             }
-        });*/
+        });
     });
 
 

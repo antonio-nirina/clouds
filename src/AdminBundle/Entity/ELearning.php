@@ -24,7 +24,7 @@ class ELearning
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $main_text;
 
@@ -90,17 +90,19 @@ class ELearning
     private $quiz_contents;
 
     /**
-     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ELearningButtonContent", mappedBy="e_learning")
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningButtonContent", mappedBy="e_learning")
      * @Assert\Valid()
      */
-    private $button_content;
+    private $button_contents;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->contents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->media_contents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->quiz_contents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->button_contents = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -159,30 +161,6 @@ class ELearning
     public function getMainText()
     {
         return $this->main_text;
-    }
-
-    /**
-     * Set program
-     *
-     * @param \AdminBundle\Entity\Program $program
-     *
-     * @return ELearning
-     */
-    public function setProgram(\AdminBundle\Entity\Program $program = null)
-    {
-        $this->program = $program;
-
-        return $this;
-    }
-
-    /**
-     * Get program
-     *
-     * @return \AdminBundle\Entity\Program
-     */
-    public function getProgram()
-    {
-        return $this->program;
     }
 
     /**
@@ -354,6 +332,30 @@ class ELearning
     }
 
     /**
+     * Set program
+     *
+     * @param \AdminBundle\Entity\Program $program
+     *
+     * @return ELearning
+     */
+    public function setProgram(\AdminBundle\Entity\Program $program = null)
+    {
+        $this->program = $program;
+
+        return $this;
+    }
+
+    /**
+     * Get program
+     *
+     * @return \AdminBundle\Entity\Program
+     */
+    public function getProgram()
+    {
+        return $this->program;
+    }
+
+    /**
      * Add mediaContent
      *
      * @param \AdminBundle\Entity\ELearningMediaContent $mediaContent
@@ -422,26 +424,36 @@ class ELearning
     }
 
     /**
-     * Set buttonContent
+     * Add buttonContent
      *
      * @param \AdminBundle\Entity\ELearningButtonContent $buttonContent
      *
      * @return ELearning
      */
-    public function setButtonContent(\AdminBundle\Entity\ELearningButtonContent $buttonContent = null)
+    public function addButtonContent(\AdminBundle\Entity\ELearningButtonContent $buttonContent)
     {
-        $this->button_content = $buttonContent;
+        $this->button_contents[] = $buttonContent;
 
         return $this;
     }
 
     /**
-     * Get buttonContent
+     * Remove buttonContent
      *
-     * @return \AdminBundle\Entity\ELearningButtonContent
+     * @param \AdminBundle\Entity\ELearningButtonContent $buttonContent
      */
-    public function getButtonContent()
+    public function removeButtonContent(\AdminBundle\Entity\ELearningButtonContent $buttonContent)
     {
-        return $this->button_content;
+        $this->button_contents->removeElement($buttonContent);
+    }
+
+    /**
+     * Get buttonContents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getButtonContents()
+    {
+        return $this->button_contents;
     }
 }
