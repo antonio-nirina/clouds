@@ -1,83 +1,55 @@
 <?php
 namespace AdminBundle\Form;
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use AdminBundle\Entity\NewsPost;
-use AdminBundle\Form\HomePagePostType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use AdminBundle\Manager\ProgramManager;
 use AdminBundle\Exception\NoRelatedProgramException;
+use AdminBundle\Manager\ProgramManager;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use AdminBundle\Form\SelectingCommonDataType;
 
 /**
- * Form type for creating/editing news post
+ * Holding Form Fields for manipulating action button
  */
-class NewsPostType extends SelectingCommonDataType
+class ActionButtonType extends AbstractType
 {
-    private $container;
+    private $program_manager;
+    private $em;
     private $url_generator;
 
     public function __construct(
-        ContainerInterface $container,
         ProgramManager $program_manager,
         EntityManager $em,
         UrlGeneratorInterface $url_generator
     ) {
-        parent::__construct($program_manager, $em);
-        $this->container = $container;
+        $this->program_manager = $program_manager;
+        $this->em = $em;
         $this->url_generator = $url_generator;
     }
+
 
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-        $builder->add('home_page_post', HomePagePostType::class)
-            ->add('action_button_state', CheckboxType::class)
-            ->add('action_button_text', TextType::class)
+        $builder->add('action_button_text', TextType::class)
             ->add('action_button_text_color', TextType::class)
             ->add('action_button_background_color', TextType::class)
             ->add('action_button_target_url', TextType::class)
             ->add('action_button_target_page', ChoiceType::class, array(
-                'choices' => $this->retrieveTargetPageList(),
-                'placeholder' => 'POINTER SUR'
-            ))
-            ->add('programmed_publication_state', ChoiceType::class, array(
-                'choices' => array(
-                    'false' => false,
-                    'true' => true,
-                ),
-                'expanded' => true,
-                'multiple' => false,
-            ))
-            ->add('programmed_publication_datetime', DateTimeType::class, array(
-                'label' => false,
-                'date_widget' => "single_text",
-                'time_widget' => "choice",
-                'with_seconds' => false,
-                'html5' => false,
-                'date_format'=>'dd/MM/yyyy',
-                'input' => 'datetime',
-                /*'model_timezone' => $this->container->getParameter('app_time_zone'),*/
+                'choices' =>  $this->retrieveTargetPageList(),
+                'placeholder' => 'POINTER SUR',
             ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => NewsPost::class,
+            'inherit_data' => true,
         ));
     }
 
@@ -106,7 +78,7 @@ class NewsPostType extends SelectingCommonDataType
 
         }
 
-        // put survey and quiz page and questinnaires in options
+        // put survey and quiz page and questionnaires in options
         $survey_and_quiz = $this->em->getRepository('AdminBundle\Entity\SondagesQuiz')
             ->findOneBy(array('program' => $program));
         if (!is_null($survey_and_quiz)) {

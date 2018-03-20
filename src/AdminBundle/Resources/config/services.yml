@@ -94,3 +94,18 @@ services:
             class: AdminBundle\Form\WelcomingNewsPostType
             autowire: true
             autoconfigure: true
+
+    AdminBundle\Form\ActionButtonType:
+        class: AdminBundle\Form\ActionButtonType
+        autowire: true
+        autoconfigure: true
+
+    AdminBundle\Form\ELearningQuizContentType:
+        class: AdminBundle\Form\ELearningQuizContentType
+        autowire: true
+        autoconfigure: true
+
+    AdminBundle\Form\ELearningType:
+        class: AdminBundle\Form\ELearningType
+        autowire: true
+        autoconfigure: true

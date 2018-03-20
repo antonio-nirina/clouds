@@ -211,7 +211,6 @@ $(document).ready(function(){
 
     $(document).on('click', '#create-edit-news-modal .viewer-authorization-type-choice .delete-select', function(){
         var toggle_button = $('#create-edit-news-modal').find('.viewer-authorization-type-choice button.toggle-button');
-        console.log(toggle_button);
         $('#create-edit-news-modal').find('.authorized-viewer-role-input').val(toggle_button.attr('data-default-button-text'));
     });
 
