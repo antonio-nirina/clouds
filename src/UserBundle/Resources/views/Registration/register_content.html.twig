@@ -7,8 +7,9 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	{{ render(controller("AdminBundle:Parametrages:logoLogin")) }}
+	{#<img src="{{asset('images/cloudsRewards/power.png')}}">#}
 	<div class="logout">
-		<a href="{{ path("fos_user_security_logout") }}"> PP{#<img src="{{asset('images/cloudsRewards/power.png')}}">#}</a>
+		<a href="{{ path("fos_user_security_logout") }}">*</a>
 	</div>
 	
 </nav>
@@ -17,12 +18,11 @@
 	<div class="container slide all">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
-				<div class="ens" style="background-color:white;"> 
-					
 				<div class="challenge">
 					<img src="{{asset("images/cloudsRewards/slide-1024.jpg")}}">
 				</div>
-				<hr>
+				{#<hr>#}
+			<div id="ens" class = "fieldset active" style="background-color:white;"> 
 				<div class="text">
 					<div class="inscription"><h4>formulaire d'inscription</h4></div>
 					<div class="symbole"><img src="{{asset("images/cloudsRewards/salut.png")}}"class="rounded-circle salut"></div>
@@ -39,20 +39,6 @@
 					</div>
 				</div>
 				{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form'}}) }}	
-				{#{{ form_errors(form.civility) }}
-				{{ form_errors(form.name) }}	 
-				 {{form_errors(form.firstname)}}	
-				 {{ form_errors(form.email.first) }}
-				 {{ form_errors(form.email.second) }}
-				 {{ form_errors(form.phone) }}	
-				 {{ form_errors(form.plainPassword.first) }}
-				 {{ form_errors(form.plainPassword.second)}}
-				 {{ form_errors(form.societe) }}
-				 {{ form_errors(form.address_1) }}
-				 {{ form_errors(form.city) }}
-				 {{ form_errors(form.postal_code) }}
-				 {{ form_errors(form.accepte) }}#}
-
 					 <div class="checkbok civility">
 					 	{{form_label(form.civility,'civilité*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm cv-label'} })}}
 					 	<label>
@@ -154,9 +140,27 @@
 					    	<label>
 					    		{{form_widget(form.accepte)}}
 					    		<div class="text-danger">{{ form_errors(form.accepte) }}</div>
-					    	</label>
-					    	
+					    	</label>					    	
 					    </div>
+					    {% for nom in name %}
+				    		{% if form.vars["form"].children[nom].children is empty %}
+				    			<div class="form-group row">
+				    			{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"],{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    			<div class = "col-6 text-danger">
+					    				{{form_widget(form.vars["form"].children[nom],{ 'attr' : { 'class': 'form-control' } })}}
+					    				{{ form_errors(form.vars["form"].children[nom]) }}
+					    			</div>				    	
+					    		</div>
+					    	{% else %}
+					    	<div class="checkbok civility">
+							 	{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"],{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm cv-label'} })}}
+							 	<label>
+							 		{{form_widget(form.vars["form"].children[nom], { 'attr': { 'class': 'checkbox' } })}}
+							 	</label>						   
+						  	</div>
+			    			{% endif %}					    		
+					    {% endfor %}
+					   
 					    <div class="text-danger recaptErreur">
 					    	{{ form_errors(form.recaptcha) }}	
 					    </div>
@@ -168,6 +172,7 @@
 	    			<input type="submit" value="valider" class="btn-valider valide-user" />
 	    		</div>
 				{{ form_end(form) }}
+				<input type="hidden" type ="text" name="nom" value="{{radio}}">
 				</div>
 	    	</div>
 		</div>
@@ -181,11 +186,16 @@
 {% block javascripts %}
 	<script type="text/javascript">
 
-		//$('label').addClass('test');
-		//$(".test").css('display',"none");
-		//$("label[for=fos_user_registration_form_accepte_0]").css('display','none');
+		var name = $('input[name=nom]').val();
+		var tabs = JSON.parse(name);
 		$("label[for=fos_user_registration_form_accepte_0]").addClass('civ3');
 		$("label[for=fos_user_registration_form_civility_1]").addClass('civ2');
 		$("label[for=fos_user_registration_form_civility_0]").addClass('civ1');
+		$.each(tabs, function(index, val) {
+			const add0 = "fos_user_registration_form_"+val+"_0";
+			const add1 = "fos_user_registration_form_"+val+"_1";
+			$("label[for="+add1+"]").addClass('civ2');
+			$("label[for="+add0+"]").addClass('civ1');
+		});
 	</script>
 {% endblock %}

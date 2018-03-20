@@ -15,9 +15,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use UserBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use UserBundle\Service\Parameter\AddFormType;
+use AdminBundle\Component\SiteForm\FieldType;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 
 
@@ -31,11 +34,12 @@ class RegistrationController extends BaseController
      */
     public function registerAction(Request $request)
     {
-        /** @var $formFactory FactoryInterface */
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
         $formFactory = $this->get('fos_user.registration.form.factory');
-        /** @var $userManager UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
-        /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
         $user = $userManager->createUser();
@@ -49,13 +53,18 @@ class RegistrationController extends BaseController
         }
 
         $form = $formFactory->createForm();
-
         $form->setData($user);
+        $parameter = $this->get("user.parameter")->getParam();
+        $nom = $this->getNameForm($parameter,$form)["all"];
+        $nomRadio = $this->getNameForm($parameter,$form)["radio"];
+        $resp = new JsonResponse($nomRadio);
+        $radio = $resp->getContent();
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);               
+                $var = $this->getValForm($parameter,$form);          
                 $em = $this->getDoctrine()->getManager()->getRepository("UserBundle:User");
                 $al = $em->findAll();
                 $code = $this->generateCodeId($al);
@@ -63,8 +72,10 @@ class RegistrationController extends BaseController
                 while (!empty($val)) {
                    $code = $this->generateCodeId($total);
                    break;
-                }
+                }                
+                $customize = !empty($var)?$var : "";
                 $user->setCode($code);
+                $user->setCustomization($customize);
                 $userManager->updateUser($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
@@ -85,7 +96,7 @@ class RegistrationController extends BaseController
         }
 
         return $this->render('UserBundle:Registration:register.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(),"name" => $nom,"radio" => $radio
         ));
     }
 
@@ -200,5 +211,35 @@ class RegistrationController extends BaseController
 
         return implode($code);
     }
+
+
+    protected function getValForm($parameter,$form)
+    {
+        foreach ($parameter as  $value) {
+            $val = $this->get("user.parameter")->traitement($value->getLabel());
+            $name[] = $val;
+            if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO && !empty($form->get($val)->getData())) {
+               $var[] = [$value->getLabel() => $form->get($val)->getData()]; 
+            } 
+        }
+
+        return $var;    
+    }
+
+    protected function getNameForm($parameter,$form)
+    {
+        foreach ($parameter as  $value) {
+            $val = $this->get("user.parameter")->traitement($value->getLabel());       
+            if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO ) {
+               $name[] = $val;
+            }
+            if ($value->getFieldType() == FieldType::CHOICE_RADIO) {
+                $nameRadio[] = $val;
+             } 
+        }
+
+        return ["all"=>$name,"radio"=>$nameRadio];    
+    }
+   
 }
 

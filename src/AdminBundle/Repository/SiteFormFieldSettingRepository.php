@@ -111,4 +111,12 @@ class SiteFormFieldSettingRepository extends EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    public function getChampParameter($list)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s')
+        ->where($qb->expr()->notIn('s.label', $list));
+        return $qb->getQuery()->getResult();
+    }
 }

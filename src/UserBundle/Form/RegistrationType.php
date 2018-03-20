@@ -15,16 +15,57 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
+use UserBundle\Service\Parameter\AddFormType;
+use AdminBundle\Component\SiteForm\FieldType;
 
 class RegistrationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+
+    private $formParameter;
+
+    public function __construct(AddFormType $formParameter)
     {
+        $this->formParameter = $formParameter;
+    }
+    
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    { 
+        $param = $this->formParameter->getParam();  
+        if (!empty($param)) { 
+            foreach ($param as $field) {
+                switch ($field->getFieldType()) {
+                    case FieldType::TEXT:
+                    $champText = $this->formParameter->traitement($field->getLabel());
+                    $builder->add($champText,TextType::class,["label"=>$field->getLabel()."*",
+                        "mapped"=>false,
+                        'attr' => array('class' => 'champ')
+                    ]);
+                    break;
+                    case FieldType::CHOICE_RADIO:
+                    $champText = $this->formParameter->traitement($field->getLabel());
+                    $builder->add($champText,ChoiceType::class,
+                        ["choices"=>[
+                            "Oui"=>"Oui",
+                            "Non"=>"Non"
+                        ],
+                        "label"=>$field->getLabel()."*",
+                        'choices_as_values' => true,
+                        'multiple'=>false,
+                        'expanded'=>true,
+                        "mapped"=>false
+                    ]);
+                    break;
+                }
+            }
+        }
         $builder->add('civility',ChoiceType::class,
             ["choices"=>[
                 "Mme"=>"Mme",
                 "M."=>"Mr."
             ],
+            'choice_attr' => array(
+                'M' => array('class' => 'checkbox'),
+            ),
             "label"=>"civilité",
             'choices_as_values' => true,
             'multiple'=>false,
@@ -67,6 +108,7 @@ class RegistrationType extends AbstractType
             'multiple'=>false,
             'expanded'=>true
         ]);
+        
         $builder->add('recaptcha', EWZRecaptchaType::class,array(
         'attr' => array(
             'options' => array(
@@ -90,4 +132,6 @@ class RegistrationType extends AbstractType
     {
         return 'app_user_registration';
     }
+
+   
 }
