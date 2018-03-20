@@ -217,7 +217,6 @@ class RegistrationController extends BaseController
     {
         foreach ($parameter as  $value) {
             $val = $this->get("user.parameter")->traitement($value->getLabel());
-            $name[] = $val;
             if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO && !empty($form->get($val)->getData())) {
                $var[] = [$value->getLabel() => $form->get($val)->getData()]; 
             } 

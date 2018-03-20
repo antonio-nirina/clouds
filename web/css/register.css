@@ -21,11 +21,12 @@
     box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
     background-color: #FFFFFF;
     border-top: solid 2px var(--couleur_2);
+    margin-bottom: 46px;
 }
 
 .logout{
 	position: relative;
-    left: 18px;
+    left: -44px;
     width: 28px;
     height: 20px;
 }
@@ -97,7 +98,7 @@ height: 185px;
 }
 .symbole{
 	float: right;
-margin-right: 121px;
+margin-right: 110px;
 position: relative;
 top: -24px;
 }
@@ -240,8 +241,8 @@ margin-left: 40px;
     position: absolute;
     left: 1px;
     top: 1px;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     border: 1px solid rgb(176,183,197);
     border-radius: 100%;
     background: #fff;
@@ -249,12 +250,12 @@ margin-left: 40px;
 [type="radio"]:checked + label:after,
 [type="radio"]:not(:checked) + label:after {
     content: '';
-    width: 13px;
-    height: 13px;
+    width: 15px;
+    height: 15px;
     background: #667ADE;
     position: absolute;
     top: 3px;
-    left: 3px;
+    left: 1px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -296,12 +297,13 @@ margin-left: 40px;
     box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
     background-color: #FFFFFF;
     border-top: solid 2px var(--couleur_2);
+    margin-bottom: 46px;
 }
 
 
 .logout{
 	position: relative;
-    left: 18px;
+    left: -44px;
     width: 28px;
     height: 20px;
 }
@@ -364,7 +366,7 @@ height: 185px;
 }
 .symbole{
 	float: right;
-margin-right: 121px;
+margin-right: 110px;
 position: relative;
 top: -24px;
 }
@@ -494,9 +496,9 @@ margin-left: 40px;
     content: '';
     position: absolute;
     left: 1px;
-    top: 1px;
-    width: 18px;
-    height: 18px;
+    top: 2px;
+    width: 17px;
+    height: 17px;
     border: 1px solid rgb(176,183,197);
     border-radius: 100%;
     background: #fff;
@@ -504,12 +506,12 @@ margin-left: 40px;
 [type="radio"]:checked + label:after,
 [type="radio"]:not(:checked) + label:after {
     content: '';
-    width: 13px;
-    height: 13px;
+    width: 17px;
+    height: 17px;
     background: #667ADE;
     position: absolute;
     top: 3px;
-    left: 3px;
+    left: 1px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;

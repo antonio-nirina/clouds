@@ -6,8 +6,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use AdminBundle\Repository\SiteFormFieldSettingRepository;
 
 
-
-
 class AddFormType
 {
 	
@@ -37,7 +35,6 @@ class AddFormType
         ];
         $em = $this->container->get("doctrine.orm.entity_manager");      
         $formParameter = $em->getRepository("AdminBundle:SiteFormFieldSetting")->getChampParameter($lists);
-
         return $formParameter;
     }
 

@@ -30,29 +30,55 @@ class RegistrationType extends AbstractType
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     { 
-        $param = $this->formParameter->getParam();  
+        $param = $this->formParameter->getParam(); 
+ 
         if (!empty($param)) { 
             foreach ($param as $field) {
                 switch ($field->getFieldType()) {
                     case FieldType::TEXT:
                     $champText = $this->formParameter->traitement($field->getLabel());
-                    $builder->add($champText,TextType::class,["label"=>$field->getLabel()."*",
-                        "mapped"=>false,
-                    ]);
+                    if ($field->getMandatory() === true) {
+                        $builder->add($champText,TextType::class,
+                            ["label"=>$field->getLabel()."*",
+                            "mapped"=>false,
+                        ]);
+                    } else {
+                        $builder->add($champText,TextType::class,
+                            ["label"=>$field->getLabel(),
+                            "required"=>false,
+                            "mapped"=>false,
+                        ]);
+                    }
+                    
                     break;
                     case FieldType::CHOICE_RADIO:
                     $champText = $this->formParameter->traitement($field->getLabel());
-                    $builder->add($champText,ChoiceType::class,
-                        ["choices"=>[
-                            "Oui"=>"Oui",
-                            "Non"=>"Non"
-                        ],
-                        "label"=>$field->getLabel()."*",
-                        'choices_as_values' => true,
-                        'multiple'=>false,
-                        'expanded'=>true,
-                        "mapped"=>false
-                    ]);
+                    if ($field->getMandatory() === true) {
+                           $builder->add($champText,ChoiceType::class,
+                            ["choices"=>[
+                                "Oui"=>"Oui",
+                                "Non"=>"Non"
+                            ],
+                            "label"=>$field->getLabel()."*",
+                            'choices_as_values' => true,
+                            'multiple'=>false,
+                            'expanded'=>true,
+                            "mapped"=>false
+                        ]); 
+                       } else {
+                            $builder->add($champText,ChoiceType::class,
+                                ["choices"=>[
+                                    "Oui"=>"Oui",
+                                    "Non"=>"Non"
+                                ],
+                                "label"=>$field->getLabel(),
+                                'choices_as_values' => true,
+                                'multiple'=>false,
+                                'expanded'=>true,
+                                "required"=>false,
+                                "mapped"=>false
+                            ]);
+                        }
                     break;
                 }
             }
