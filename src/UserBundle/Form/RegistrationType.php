@@ -38,7 +38,6 @@ class RegistrationType extends AbstractType
                     $champText = $this->formParameter->traitement($field->getLabel());
                     $builder->add($champText,TextType::class,["label"=>$field->getLabel()."*",
                         "mapped"=>false,
-                        'attr' => array('class' => 'champ')
                     ]);
                     break;
                     case FieldType::CHOICE_RADIO:
