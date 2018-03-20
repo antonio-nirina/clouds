@@ -194,8 +194,10 @@
 		$.each(tabs, function(index, val) {
 			const add0 = "fos_user_registration_form_"+val+"_0";
 			const add1 = "fos_user_registration_form_"+val+"_1";
+			const add3 =  "fos_user_registration_form_"+val+"_placeholder";
 			$("label[for="+add1+"]").addClass('civ2');
 			$("label[for="+add0+"]").addClass('civ1');
+			$("label[for="+add3+"]").css("display","none");
 		});
 	</script>
 {% endblock %}
