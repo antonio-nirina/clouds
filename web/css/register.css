@@ -30,6 +30,23 @@
 	max-width: 1024px;
 }
 
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -119px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+width: 100%;
+position: relative;
+left: 0px;
+margin-top: 1px;
+height: 250px;
+ background-repeat: no-repeat;
+}
+
 /*.challenge{
 	 background: url('../images/cloudsRewards/slide-1024.jpg');
 	 background-repeat:no-repeat;
