@@ -6043,6 +6043,33 @@ section .row.filter.selected-elements{
     mask-repeat: no-repeat;
 }
 
+.document-icon{
+    display: block;
+    background-color: #4F4F4F;
+    width: 39px;
+    height: 49px;
+    -webkit-mask-image: url('../images/cloudsRewards/file-icon.svg');
+    mask-image: url('../images/cloudsRewards/file-icon.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.semi-large-data-manipulation-modal .content-block-list-container{
+    width: 100%;
+}
+
+.semi-large-data-manipulation-modal .temporary-content-block-list-container{
+    width: 100%;
+}
+
+.semi-large-data-manipulation-modal .media-content-list-container{
+    width: 100%;
+}
+
+.semi-large-data-manipulation-modal .content-block-list-container.media-container .content-block-container{
+    display: none;
+}
+
 .action-button-icon{
     display: block;
     width: 60px;

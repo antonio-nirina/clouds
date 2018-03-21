@@ -662,6 +662,9 @@
     <input type="hidden" name="ckeditor_config_general_path" value="{{ asset('ckeditor/custom/config-general.js') }}">
     <input type="hidden" name="create_e_learning_url" value="{{ path('admin_communication_e_learning_create') }}">
     <input type="hidden" name="e_learning_list" value="{{ path('admin_communication_e_learning') }}">
+    <input type="hidden" name="e_learning_content_type_document" value="{{ constant('MEDIA_DOCUMENT', e_learning_content_type_class) }}">
+    <input type="hidden" name="e_learning_content_type_image_gallery" value="{{ constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) }}">
+    <input type="hidden" name="e_learning_content_type_video" value="{{ constant('MEDIA_VIDEO', e_learning_content_type_class) }}">
 {% endblock %}
 
 {% block footer %}

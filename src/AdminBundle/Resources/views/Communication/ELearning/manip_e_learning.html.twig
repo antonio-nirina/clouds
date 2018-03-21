@@ -26,87 +26,166 @@
         <span class="title">médias</span><span class="separator-line"></span>
     </div>
 
-    {#<!-- content list element -->
-    <div class="content-list-element">
-        <div class="content-denomination">
-            <div class="content-denomination-image">
-                <img src="{{ asset('images/cloudsRewards/pdf-file-icon.png') }}"><span>Lorem_ipsum.pdf</span>
+    <!-- content list element -->
+    <div class="media-content-list-container">
+    {% for content in e_learning_form.media_contents %}
+        <div class="content-list-element">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="document-icon"></span>
+                </div>
+                <div class="content-denomination-name">
+                    <div>{{ content.vars.value.name }}</div>
+                </div>
             </div>
-            <div class="content-denomination-name">
-                <div>Produits 2017</div>
+            <div class="actions-container">
+                <span class="edit"></span>
+                <span class="delete"></span>
+                <div class="reorder">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
             </div>
         </div>
-        <div class="actions-container">
-            <span class="edit"></span>
-            <span class="delete"></span>
-            <div class="reorder">
-                <span class="reorder-up"></span>
-                <span class="reorder-down"></span>
+    {% endfor %}
+        {#<div class="content-list-element">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <img src="{{ asset('images/cloudsRewards/pdf-file-icon.png') }}"><span>Lorem_ipsum.pdf</span>
+                </div>
+                <div class="content-denomination-name">
+                    <div>Produits 2017</div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <span class="edit"></span>
+                <span class="delete"></span>
+                <div class="reorder">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
             </div>
         </div>
+        <div class="content-list-element">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="video-icon"></span>
+                </div>
+                <div class="content-denomination-name">
+                    <div>Vidéo de présentation</div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <span class="edit"></span>
+                <span class="delete"></span>
+                <div class="reorder">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
+            </div>
+        </div>
+        <div class="content-list-element">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="gallery-icon"></span>
+                </div>
+                <div class="content-denomination-name">
+                    <div>Galérie 1</div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <span class="edit"></span>
+                <span class="delete"></span>
+                <div class="reorder">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
+            </div>
+        </div>#}
     </div>
+    <!-- end - content list element -->
 
-    <div class="content-list-element">
-        <div class="content-denomination">
-            <div class="content-denomination-image">
-                <span class="video-icon"></span>
-            </div>
-            <div class="content-denomination-name">
-                <div>Vidéo de présentation</div>
-            </div>
-        </div>
-        <div class="actions-container">
-            <span class="edit"></span>
-            <span class="delete"></span>
-            <div class="reorder">
-                <span class="reorder-up"></span>
-                <span class="reorder-down"></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="content-list-element">
-        <div class="content-denomination">
-            <div class="content-denomination-image">
-                <span class="gallery-icon"></span>
-            </div>
-            <div class="content-denomination-name">
-                <div>Galérie 1</div>
-            </div>
-        </div>
-        <div class="actions-container">
-            <span class="edit"></span>
-            <span class="delete"></span>
-            <div class="reorder">
-                <span class="reorder-up"></span>
-                <span class="reorder-down"></span>
-            </div>
-        </div>
-    </div>
-    <!-- end - content list element -->#}
-
-    {#<!-- add media by type -->
-    <div class="content-block-container">
+    <!-- add media by type -->
+    <div class="content-block-container add-media-content-block" style="display: none">
         <div class="block-title">
             <span>ajouter un nouveau média</span>
             <span class="delete-block"></span>
         </div>
         <div class="document-type-container">
-            <div class="document-type-element">
+            <div class="document-type-element" data-media-type="document">
                 <span class="document-type-document-icon icon"></span>
                 <span>document</span>
             </div>
-            <div class="document-type-element">
+            <div class="document-type-element" data-media-type="image-gallery">
                 <span class="document-type-gallery-icon icon"></span>
                 <span>galerie d'images</span>
             </div>
-            <div class="document-type-element">
+            <div class="document-type-element" data-media-type="video">
                 <span class="document-type-video-icon icon"></span>
                 <span>vidéo</span>
             </div>
         </div>
     </div>
-    <!-- end - add media by type -->#}
+    <!-- end - add media by type -->
+
+    <!-- adding media -->
+    <div class="content-block-list-container media-container">
+    {% for content in e_learning_form.media_contents %}
+        {% set additional_block_class = '' %}
+        {% if constant('MEDIA_DOCUMENT', e_learning_content_type_class) %}
+            {% set additional_block_class = 'media-document-block' %}
+        {% elseif constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) %}
+            {% set additional_block_class = 'media-image-gallery-block' %}
+        {% elseif constant('MEDIA_VIDEO', e_learning_content_type_class) %}
+            {% set additional_block_class = 'media-video-block' %}
+        {% endif %}
+
+        <div class="content-block-container {{ additional_block_class }}" data-block-index="">
+            {{ form_widget(content.content_type, {'attr': {'class': 'content-type-input'}}) }}
+            {{ form_widget(content.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
+            <div class="block-title">
+                <span>ajouter un nouveau média</span>
+                <span class="delete-block"></span>
+            </div>
+            <div class="add-content-block">
+                <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
+                <div>
+                    {{ form_widget(content.associated_file, {'attr': {'class': 'hidden-input-file associated-file'}}) }}
+                    <button class="btn-valider btn-upload input-file-trigger">
+                        <span class="upload"></span>choisissez un fichier...
+                    </button>
+                    <div class="info-container associated-file-info">
+                        <p>les fichiers doivent peser moins de <span class="bigger">20 Mo</span></p>
+                    </div>
+                    <div class="upload-img-button-container hidden-button input-file-trigger">
+                        <button class="upload-img-button">
+                            <span class="blue-upload"></span><span class="img-name-container">Lorem_ipsum.pdf</span>
+                        </button>
+                    </div>
+                    <a href="#" class="delete-link input-file-delete-link" style="display: none;"></a>
+                    <input type="hidden" name="initial_image" value="">
+                    <input type="hidden" name="initial_image_name" value="">
+                </div>
+                <div class="form-row document-name-container vertical-md" style="display:none;">
+                    <label>nom du document</label>
+                    <div class="document-name">
+                        {#<input class="standard-styled-input" type="text" value="Produits 2017">#}
+                        {{ form_widget(content.name, {'attr': {'class': 'standard-styled-input removable-content-input'}}) }}
+                        <span class="delete-input" style="display: none"></span>
+                    </div>
+                </div>
+                <div class="add-content-button-container" style="display:none;">
+                    <button class="btn-valider add-media">ajouter</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <div class="temporary-content-block-list-container">
+
+    </div>
+    <!-- end - adding media -->
 
     {#<!-- adding document media -->
     <div class="content-block-container">
@@ -245,7 +324,7 @@
     <!-- end - adding image gallery media -->#}
 
     <div class="content-button-container">
-        <a class="add">ajouter un média</a>
+        <a class="add add-media-content">ajouter un média</a>
     </div>
 
     <div class="title-separator">
@@ -433,5 +512,66 @@
         <button class="btn-valider second-button publish" data-submission-type="{{ constant('PUBLISH', submission_type_class) }}">publier</button>
     </div>
     <div class="form-visibility-end"></div>
+    <div class="block-model-container">
+        <div class="content-block-container" data-block-index="">
+            {{ form_widget(e_learning_form.media_contents.vars.prototype.content_type, {'attr': {'class': 'content-type-input form-el'}}) }}
+            {{ form_widget(e_learning_form.media_contents.vars.prototype.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
+            <div class="block-title">
+                <span>ajouter un nouveau média</span>
+                <span class="delete-block"></span>
+            </div>
+            <div class="add-content-block">
+                <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
+                <div>
+                    {{ form_widget(e_learning_form.media_contents.vars.prototype.associated_file, {'attr': {'class': 'hidden-input-file associated-file form-el'}}) }}
+                    <button class="btn-valider btn-upload input-file-trigger">
+                        <span class="upload"></span>choisissez un fichier...
+                    </button>
+                    <div class="info-container associated-file-info">
+                        <p>les fichiers doivent peser moins de <span class="bigger">20 Mo</span></p>
+                    </div>
+                    <div class="upload-img-button-container hidden-button input-file-trigger">
+                        <button class="upload-img-button">
+                            <span class="blue-upload"></span><span class="img-name-container">Lorem_ipsum.pdf</span>
+                        </button>
+                    </div>
+                    <a href="#" class="delete-link input-file-delete-link" style="display: none;"></a>
+                    <input type="hidden" name="initial_image" value="">
+                    <input type="hidden" name="initial_image_name" value="">
+                </div>
+                <div class="form-row document-name-container vertical-md" style="display:none;">
+                    <label>nom du document</label>
+                    <div class="document-name">
+                        {#<input class="standard-styled-input" type="text" value="Produits 2017">#}
+                        {{ form_widget(e_learning_form.media_contents.vars.prototype.name, {'attr': {'class': 'standard-styled-input removable-content-input form-el'}}) }}
+                        <span class="delete-input" style="display: none"></span>
+                    </div>
+                </div>
+                <div class="error-message-container document-name-error-message">
+                </div>
+                <div class="add-content-button-container" style="display:none;">
+                    <button class="btn-valider add-media">ajouter</button>
+                </div>
+            </div>
+        </div>
+        <div class="content-list-element">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="document-icon"></span>
+                </div>
+                <div class="content-denomination-name">
+                    <div>Titre de l'élément</div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <span class="edit"></span>
+                <span class="delete"></span>
+                <div class="reorder">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 {{ form_end(e_learning_form) }}
 {% endif %}
