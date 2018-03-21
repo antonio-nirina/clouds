@@ -21,7 +21,6 @@
 				<div class="challenge">
 					<img src="{{asset("images/cloudsRewards/slide-1024.jpg")}}">
 				</div>
-				{#<hr>#}
 			<div id="ens" class = "fieldset active" style="background-color:white;"> 
 				<div class="text">
 					<div class="inscription"><h4>formulaire d'inscription</h4></div>
@@ -48,7 +47,7 @@
 					   
 					  </div>
 					    <div class="form-group row">
-					    	{{form_label(form.name,'prénom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    	{{form_label(form.name,'prénom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.name,{ 'attr' : { 'class': 'form-control' } })}}
 					    		{{ form_errors(form.name) }}
@@ -56,7 +55,7 @@
 					    	
 					    </div>
 					     <div class="form-group row">
-					     	{{form_label(form.firstname,'nom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					     	{{form_label(form.firstname,'nom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					     	<div class="col-6 text-danger">
 					     		{{form_widget(form.firstname,{ 'attr' : { 'class': 'form-control' } })}}
 					     		{{form_errors(form.firstname)}}	
@@ -64,7 +63,7 @@
 					     					    	
 					    </div>
 					    <div class="form-group row">
-					    	{{form_label(form.email.first,'email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    	{{form_label(form.email.first,'email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger emailErreur">
 					    		{{form_widget(form.email.first,{ 'attr' : { 'class': 'form-control' } }) }}
 					    		{{ form_errors(form.email.first) }}
@@ -72,7 +71,7 @@
 					    					    	
 					    </div>
 					    <div class="form-group row">
-					    {{form_label(form.email.second,'confirmation e-email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    {{form_label(form.email.second,'confirmation e-email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger emailErreur">
 					    		{{form_widget(form.email.second,{ 'attr' : { 'class': 'form-control' } }) }}
 					    		{{ form_errors(form.email.second) }}
@@ -80,7 +79,7 @@
 					    						    	
 					    </div>
 					     <div class="form-group row">
-					     	{{form_label(form.phone,'téléphone*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					     	{{form_label(form.phone,'téléphone*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					     	<div class="col-6 text-danger">
 					     		{{form_widget(form.phone,{ 'attr' : { 'class': 'form-control' } })}}
 					     		{{ form_errors(form.phone) }}	
@@ -88,7 +87,7 @@
 					     					    	
 						</div>
 						<div class="form-group row">
-					{{form_label(form.plainPassword.first,'mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					{{form_label(form.plainPassword.first,'mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 							<div class="col-6 text-danger password">
 								{{form_widget(form.plainPassword.first,{ 'attr' : { 'class': 'form-control' } }) }}
 								{{ form_errors(form.plainPassword.first) }}
@@ -96,7 +95,7 @@
 							
 						</div>
 					   <div class="form-group row">
-					   	{{form_label(form.plainPassword.second,'confirmation mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					   	{{form_label(form.plainPassword.second,'confirmation mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					   	<div class="col-6 text-danger password">
 					   		{{form_widget(form.plainPassword.second,{ 'attr' : { 'class': 'form-control' } }) }}
 					   		{{ form_errors(form.plainPassword.second)}}
@@ -104,7 +103,7 @@
 					   	
 					   </div>
 					    <div class="form-group row">
-					    	{{form_label(form.societe,'société*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    	{{form_label(form.societe,'société*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		 {{form_widget(form.societe,{ 'attr' : { 'class': 'form-control' } })}}
 					    		 {{ form_errors(form.societe) }}
@@ -112,7 +111,7 @@
 					    	
 					    </div>
 					   <div class="form-group row">
-					   	{{form_label(form.address_1,'adresse postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					   	{{form_label(form.address_1,'adresse postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					   	<div class="col-6 text-danger">
 					   		{{form_widget(form.address_1,{ 'attr' : { 'class': 'form-control' } })}}
 					   		{{ form_errors(form.address_1) }}
@@ -120,7 +119,7 @@
 					   
 					   </div>
 					    <div class="form-group row">
-					    		{{form_label(form.postal_code,'code postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    		{{form_label(form.postal_code,'code postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.postal_code,{ 'attr' : { 'class': 'form-control' } })}}
 					    		{{ form_errors(form.postal_code) }}
@@ -128,7 +127,7 @@
 					    	
 					    </div>
 					    <div class="form-group row">
-					    	{{form_label(form.city,'ville*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+					    	{{form_label(form.city,'ville*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.city,{ 'attr' : { 'class': 'form-control' } })}}
 					    		 {{ form_errors(form.city) }}
@@ -145,7 +144,7 @@
 					    {% for nom in name %}
 				    		{% if form.vars["form"].children[nom].children is empty %}
 				    			<div class="form-group row">
-				    			{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"],{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm'} })}}
+				    			{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"],{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    			<div class = "col-6 text-danger">
 					    				{{form_widget(form.vars["form"].children[nom],{ 'attr' : { 'class': 'form-control' } })}}
 					    				{{ form_errors(form.vars["form"].children[nom]) }}

@@ -72,10 +72,11 @@ class RegistrationController extends BaseController
                 while (!empty($val)) {
                    $code = $this->generateCodeId($total);
                    break;
-                }                
-                $customize = !empty($var)?$var : "";
-                $user->setCode($code);
-                $user->setCustomization($customize);
+                }                               
+                if (!empty($var)) {
+                    $user->setCustomization($customize);
+                }
+                $user->setCode($code);               
                 $userManager->updateUser($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
