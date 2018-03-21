@@ -224,8 +224,9 @@ label{
 	left: 257px;
 }
 .recapt{
-margin-top: 31px;
-margin-left: 40px;
+position: relative;
+top: -3px;
+left: -43px;
 }
 
 [type="radio"]:checked,
@@ -509,8 +510,9 @@ label{
 	left: 257px;
 }
 .recapt{
-margin-top: 31px;
-margin-left: 40px;
+position: relative;
+top: -3px;
+left: -43px;
 }
 
 [type="radio"]:checked,
