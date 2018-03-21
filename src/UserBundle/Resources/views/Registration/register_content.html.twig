@@ -9,7 +9,7 @@
 	{{ render(controller("AdminBundle:Parametrages:logoLogin")) }}
 	{#<img src="{{asset('images/cloudsRewards/power.png')}}">#}
 	<div class="logout">
-		<a href="{{ path("fos_user_security_logout") }}">*</a>
+		<a href="{{ path("fos_user_security_logout") }}"></a>
 	</div>
 	
 </nav>
@@ -17,14 +17,20 @@
 	{% trans_default_domain 'FOSUserBundle' %}
 	<div class="container slide all">
 		<div class="row">
-			<div class="col-md-6 offset-md-3">
+			<div class="conten-left"></div>
+			<div class="content-rigth"></div>
+			<div {#class="col-md-6 offset-md-3"#} class="content">
 				<div class="challenge">
-					<img src="{{asset("images/cloudsRewards/slide-1024.jpg")}}">
+					<div class="image-slide"></div>
+					{#<img src="{{asset("images/cloudsRewards/acc2.png")}}">#}
 				</div>
 			<div id="ens" class = "fieldset active" style="background-color:white;"> 
 				<div class="text">
 					<div class="inscription"><h4>formulaire d'inscription</h4></div>
-					<div class="symbole"><img src="{{asset("images/cloudsRewards/salut.png")}}"class="rounded-circle salut"></div>
+					{#<div class="symbole"><img src="{{asset("images/cloudsRewards/salut.png")}}"class="rounded-circle salut"></div>#}
+					<div class="salut">
+						<div class="symbole hidden-sm-down corner-circle-img rounded-circle"></div>
+					</div>
 					<div class="titre">
 						<div class="bienvenu"><h4>Bienvenu sur le challenge 2017!</h4></div>
 						<div class="message">

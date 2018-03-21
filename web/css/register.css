@@ -1,3 +1,4 @@
+
 .registre{
 	background:url('../images/cloudsRewards/bandeau-header-login.png');
 	background-repeat:no-repeat;
@@ -8,6 +9,25 @@
 	z-index:100;
 	padding-left:100px;
 	padding-right:100px;
+}
+
+.content-right{
+	width: 16%;
+    margin-right: 2%;
+    display: inline-block;
+    float: right;
+}
+
+.conten-left{
+	width: 16%;
+    margin-left: 2%;
+    display: inline-block;
+    float: left;
+}
+
+.content{
+	width: 60%;
+	max-width: 1024px;
 }
 
 /*.challenge{
@@ -26,14 +46,14 @@
     /*position:relative;*/
     box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
     background-color: #FFFFFF;
-    border-top: solid 2px var(--couleur_2);
+    /*border-top: solid 1px var(--couleur_2);*/
     margin-bottom: 46px;
 }
 
 
 .logout{
 	position: relative;
-    left: -44px;
+    left: 15px;
     width: 28px;
     height: 20px;
 }
@@ -63,7 +83,7 @@ div.all{
 }
 
 .form{
-	margin-left: 82px;
+	margin-left: 96px;
 }
 
 .form-group {
@@ -87,8 +107,9 @@ div.all{
 	height: 172px;
 	line-height: 20px;
 	text-align: left;
-	margin-bottom: 72px;
+	margin-bottom: 114px;
 	margin-left: 25px;
+	margin-top: 20px;
 }
 
 
@@ -107,40 +128,57 @@ height: 233px;
 }
 
  .salut{
-	border: 3px solid rgb(176,183,197);
+	/*border: 3px solid rgb(176,183,197);
 	width: 100px;
-	height: 92px;
-}
-.symbole{
+	height: 92px;*/
 	float: right;
+	position: relative;
+	left: 12px;
+	top: -41px;
+}
+
+.symbole{
+/*float: right;
 margin-right: 110px;
 position: relative;
-top: -24px;
+top: -24px;*/
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
 }
+
+.corner-circle-img{
+    width: 117px;
+    height: 117px;
+    background-repeat: no-repeat;
+    border: 2px solid #BEBEBE;
+    float: right;
+    box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
+}
+
+
 .titre{
-	margin-top: 67px;
+	margin-top: 89px;
 }
 
 .message{
 	font-size: 11px;
 	color: #424960;
-	max-width: 83%;
+	max-width: 100%;
 	font-weight: bold;
 	position: relative;
 	top: -16px;
+	font-family: "Lato-Regular";
+	font-size: 14px;
+
 
 }
 
-.valide{
-	position: relative;
-	left: 30%;
-	margin-bottom: 101px;
-	top: 15px;
 
-}
 .valide-user{
 	height: 34px;
 	width: 130px !important;
+	font-size: 15px !important;
+	font-family: "Lato-Regular" !important;
 }
 .g-recaptcha{
 	position: relative !important;
@@ -149,27 +187,32 @@ left: 107px !important;
 
 .inscription{
 	position: relative;
+	text-align: left;
 	top: 4px;
-	color: rgb(102,122,224);
-	font-family: "Lato-Regular";
+	/*color: rgb(102,122,224);*/
+	
 	
 }
 .bienvenu{
-	color: rgb(102,122,224);
-	font-family: "Lato-Regular";
+	/*color: rgb(102,122,224);*/
+	color: var(--couleur_2);	
 	margin-bottom: 27px;
 	position: relative;
 	top: -16px;
-	font-weight: bold;
 	
 }
 .inscription h4{
-font-size: 20px;
+font-size: 25px;
+color: var(--couleur_2);
+font-family: "Lato";
+font-weight: lighter;
+
 }
 
 .bienvenu h4{
 	font-weight: bold;
-	font-size: 14px;
+	font-size: 15px;
+	font-family: "Lato";
 }
 label{
 	text-align: left;
@@ -196,37 +239,63 @@ label{
 
 .civ2{
 	margin-left: 20px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 
 .civ1{
 	/*margin-left: -5px;*/
 	left: -6px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 
 .cv-label{
 	position: relative;
 	left: -16px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 .label-acepte{
 	position: relative;
 	left: -16px;
+	font-size: 15px;
+	font-family: "Regular";
+
+}
+
+.label-position{
+	position: relative !important;
+	top: 7px !important;
+	font-size: 15px !important;
+	font-family: "Lato-Regular" !important;
 }
 
 .civ3{
 	left: -6px;
 	top: -7px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 
 
 
 .logo-cloud{
 	position: relative;
-	left: 257px;
+	left: 136px;
 }
 .recapt{
-position: relative;
-top: -3px;
-left: -43px;
+	position: relative;
+	top: -3px;
+	left: 8%;
+}
+
+.valide{
+	position: relative;
+	left: 34%;
+	margin-bottom: 101px;
+	top: 15px;
+
 }
 
 [type="radio"]:checked,
@@ -286,9 +355,9 @@ left: -43px;
 
 }
 
+
 /*=================================Max1200=========================================================================*/
 
-@media (min-width: 1200px) {
 .registre{
 	background:url('../images/cloudsRewards/bandeau-header-login.png');
 	background-repeat:no-repeat;
@@ -301,6 +370,31 @@ left: -43px;
 	padding-right:100px;
 }
 
+.content-right{
+	width: 16%;
+    margin-right: 2%;
+    display: inline-block;
+    float: right;
+}
+
+.conten-left{
+	width: 16%;
+    margin-left: 2%;
+    display: inline-block;
+    float: left;
+}
+
+.content{
+	width: 60%;
+	max-width: 1024px;
+}
+
+/*.challenge{
+	 background: url('../images/cloudsRewards/slide-1024.jpg');
+	 background-repeat:no-repeat;
+
+}*/
+
 #ens{
 	width: 100%;
 	height: auto;
@@ -311,14 +405,14 @@ left: -43px;
     /*position:relative;*/
     box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
     background-color: #FFFFFF;
-    border-top: solid 2px var(--couleur_2);
+    /*border-top: solid 1px var(--couleur_2);*/
     margin-bottom: 46px;
 }
 
 
 .logout{
 	position: relative;
-    left: -44px;
+    left: 15px;
     width: 28px;
     height: 20px;
 }
@@ -348,7 +442,7 @@ div.all{
 }
 
 .form{
-	margin-left: 82px;
+	margin-left: 96px;
 }
 
 .form-group {
@@ -372,8 +466,9 @@ div.all{
 	height: 172px;
 	line-height: 20px;
 	text-align: left;
-	margin-bottom: 72px;
+	margin-bottom: 114px;
 	margin-left: 25px;
+	margin-top: 20px;
 }
 
 
@@ -388,44 +483,61 @@ width: 100%;
 position: relative;
 left: 0px;
 margin-top: 15px;
-height: 185px;
+height: 233px;
 }
 
  .salut{
-	border: 3px solid rgb(176,183,197);
+	/*border: 3px solid rgb(176,183,197);
 	width: 100px;
-	height: 92px;
-}
-.symbole{
+	height: 92px;*/
 	float: right;
+	position: relative;
+	left: 12px;
+	top: -41px;
+}
+
+.symbole{
+/*float: right;
 margin-right: 110px;
 position: relative;
-top: -24px;
+top: -24px;*/
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
 }
+
+.corner-circle-img{
+    width: 117px;
+    height: 117px;
+    background-repeat: no-repeat;
+    border: 2px solid #BEBEBE;
+    float: right;
+    box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
+}
+
+
 .titre{
-	margin-top: 67px;
+	margin-top: 89px;
 }
 
 .message{
 	font-size: 11px;
 	color: #424960;
-	max-width: 83%;
+	max-width: 100%;
 	font-weight: bold;
 	position: relative;
 	top: -16px;
+	font-family: "Lato-Regular";
+	font-size: 14px;
+
 
 }
 
-.valide{
-	position: relative;
-	left: 30%;
-	margin-bottom: 101px;
-	top: 15px;
 
-}
 .valide-user{
 	height: 34px;
 	width: 130px !important;
+	font-size: 15px !important;
+	font-family: "Lato-Regular" !important;
 }
 .g-recaptcha{
 	position: relative !important;
@@ -434,29 +546,33 @@ left: 107px !important;
 
 .inscription{
 	position: relative;
+	text-align: left;
 	top: 4px;
-	color: rgb(102,122,224);
-	font-family: "Lato-Regular";
-
+	/*color: rgb(102,122,224);*/
+	
 	
 }
 .bienvenu{
-	color: rgb(102,122,224);
-	font-family: "Lato-Regular";
+	/*color: rgb(102,122,224);*/
+	color: var(--couleur_2);	
 	margin-bottom: 27px;
 	position: relative;
 	top: -16px;
-	font-weight: bold;
+	
 }
 .inscription h4{
-font-size: 20px;
+font-size: 25px;
+color: var(--couleur_2);
+font-family: "Lato";
+font-weight: lighter;
+
 }
 
 .bienvenu h4{
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 15px;
+	font-family: "Lato";
 }
-
 label{
 	text-align: left;
 }
@@ -482,37 +598,63 @@ label{
 
 .civ2{
 	margin-left: 20px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 
 .civ1{
 	/*margin-left: -5px;*/
 	left: -6px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 
 .cv-label{
 	position: relative;
 	left: -16px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 .label-acepte{
 	position: relative;
 	left: -16px;
+	font-size: 15px;
+	font-family: "Regular";
+
+}
+
+.label-position{
+	position: relative !important;
+	top: 7px !important;
+	font-size: 15px !important;
+	font-family: "Lato-Regular" !important;
 }
 
 .civ3{
 	left: -6px;
 	top: -7px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
 }
 
 
 
 .logo-cloud{
 	position: relative;
-	left: 257px;
+	left: 136px;
 }
 .recapt{
-position: relative;
-top: -3px;
-left: -43px;
+	position: relative;
+	top: -3px;
+	left: 8%;
+}
+
+.valide{
+	position: relative;
+	left: 34%;
+	margin-bottom: 101px;
+	top: 15px;
+
 }
 
 [type="radio"]:checked,
@@ -555,7 +697,7 @@ left: -43px;
     border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    background: url('../images/cloudsRewards/checkon.png') no-repeat;
+    background: url('../images/cloudsRewards/checkon.png') no-repeat;   
     /*background-size: auto auto;*/
 	background-size: 23px 23px;
 }
@@ -613,6 +755,12 @@ left: -43px;
 	width: 25px;
 	left: -219px;
 }
+
+.content{
+	width: 100%;
+	max-width: 1024px;
+}
+
 
 	.logout a{
 		mask-image: url('../images/cloudsRewards/logout.svg');
@@ -677,12 +825,25 @@ div.all{
 
 }
 
-.symbole{
-float: right;
-margin-right: 414px;
-position: relative;
-top: -8px;
+ .salut{
+	/*border: 3px solid rgb(176,183,197);
+	width: 100px;
+	height: 92px;*/
+	float: right;
+	position: relative;
+	left: -105px;
+	top: -26px;
 }
+
+.symbole{
+/*float: right;
+margin-right: 110px;
+position: relative;
+top: -24px;*/
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
 
 .form{
 	margin-left: 44px;
@@ -691,6 +852,11 @@ top: -8px;
 .label-position{
 	position: relative !important;
 	top: -10px !important;
+}
+
+.logo-cloud{
+	position: relative;
+	left: 136px;
 }
 
 }
