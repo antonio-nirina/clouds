@@ -335,6 +335,28 @@ $(document).ready(function(){
      * Création e-learning - Manipulation image de galerie
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Suppression media
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.delete-media', function(e){
+        e.preventDefault();
+        var content_element = $(this).parents('.content-list-element');
+        var content_index = content_element.attr('data-element-index');
+        console.log(content_index);
+        $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']').remove();
+        content_element.remove();
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Suppression media
+     * *********************************************************************************************
+     */
 });
 
 function addMediaFormBlockBases()
