@@ -11,29 +11,12 @@
 	padding-right:100px;
 }
 
-.content-right{
-	width: 16%;
-    margin-right: 2%;
-    display: inline-block;
-    float: right;
-}
 
-.conten-left{
-	width: 16%;
-    margin-left: 2%;
-    display: inline-block;
-    float: left;
-}
-
-.content{
-	width: 60%;
-	max-width: 1024px;
-}
 
 .challenge{
 	background: url('../images/cloudsRewards/a.jpg');
 	background-repeat:no-repeat;
- 	background-position: -119px -1px;
+ 	background-position: -50px -1px;
 	margin-top: 22px;
 
 }
@@ -69,8 +52,9 @@ height: 250px;
 
 
 .logout{
-	position: relative;
-    left: 15px;
+	/*position: relative;*/
+	position: absolute;
+    left: 40%;
     width: 28px;
     height: 20px;
 }
@@ -100,11 +84,19 @@ div.all{
 }
 
 .form{
-	margin-left: 96px;
+	/*margin-left: 96px;*/
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .form-group {
     margin-bottom: 1.7rem !important;
+}
+
+.form-in{
+	margin-left: auto;
+	
+	width: 90%;
 }
 
 .label-position{
@@ -120,7 +112,7 @@ div.all{
 }
 
 .text{
-	width: 691px;
+	width: 100%;
 	height: 172px;
 	line-height: 20px;
 	text-align: left;
@@ -136,13 +128,7 @@ div.all{
 }
 
 
-.challenge img{
-width: 100%;
-position: relative;
-left: 0px;
-margin-top: 15px;
-height: 233px;
-}
+
 
  .salut{
 	/*border: 3px solid rgb(176,183,197);
@@ -150,7 +136,7 @@ height: 233px;
 	height: 92px;*/
 	float: right;
 	position: relative;
-	left: 12px;
+	left: -29px;
 	top: -41px;
 }
 
@@ -180,7 +166,7 @@ background-position: -29px -1px;
 .message{
 	font-size: 11px;
 	color: #424960;
-	max-width: 100%;
+	max-width: 98%;
 	font-weight: bold;
 	position: relative;
 	top: -16px;
@@ -269,15 +255,15 @@ label{
 
 .cv-label{
 	position: relative;
-	left: -16px;
+	left: 13px;
 	font-size: 15px;
 	font-family: "Lato-Regular";
 }
 .label-acepte{
 	position: relative;
-	left: -16px;
+	left: 13px;
 	font-size: 15px;
-	font-family: "Regular";
+	font-family: "Lato-Regular";
 
 }
 
@@ -285,7 +271,10 @@ label{
 	position: relative !important;
 	top: 7px !important;
 	font-size: 15px !important;
-	font-family: "Lato-Regular" !important;
+	font-family: "Lato-Regular" ;
+}
+.checkbox{
+	margin-left: 22px;
 }
 
 .civ3{
@@ -295,23 +284,28 @@ label{
 	font-family: "Lato-Regular";
 }
 
+#fos_user_registration_form_accepte{
+	margin-left: 20px;
+}
+
 
 
 .logo-cloud{
-	position: relative;
-	left: 136px;
+	position: absolute;
+	left: 212px;
 }
 .recapt{
 	position: relative;
 	top: -3px;
-	left: 8%;
+	left: 21%;
 }
 
 .valide{
 	position: relative;
-	left: 34%;
+	/*left: 34%;*/
 	margin-bottom: 101px;
 	top: 15px;
+	text-align: center;
 
 }
 
@@ -374,8 +368,8 @@ label{
 
 
 /*=================================Max1200=========================================================================*/
-
-.registre{
+@media (min-width: 1200px){
+	.registre{
 	background:url('../images/cloudsRewards/bandeau-header-login.png');
 	background-repeat:no-repeat;
 	margin:0;
@@ -387,23 +381,23 @@ label{
 	padding-right:100px;
 }
 
-.content-right{
-	width: 16%;
-    margin-right: 2%;
-    display: inline-block;
-    float: right;
+
+
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -50px -1px;
+	margin-top: 22px;
+
 }
 
-.conten-left{
-	width: 16%;
-    margin-left: 2%;
-    display: inline-block;
-    float: left;
-}
-
-.content{
-	width: 60%;
-	max-width: 1024px;
+.image-slide{
+width: 100%;
+position: relative;
+left: 0px;
+margin-top: 1px;
+height: 250px;
+ background-repeat: no-repeat;
 }
 
 /*.challenge{
@@ -428,8 +422,9 @@ label{
 
 
 .logout{
-	position: relative;
-    left: 15px;
+	/*position: relative;*/
+	position: absolute;
+    left: 40%;
     width: 28px;
     height: 20px;
 }
@@ -459,11 +454,19 @@ div.all{
 }
 
 .form{
-	margin-left: 96px;
+	/*margin-left: 96px;*/
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .form-group {
     margin-bottom: 1.7rem !important;
+}
+
+.form-in{
+	margin-left: auto;
+	
+	width: 90%;
 }
 
 .label-position{
@@ -479,7 +482,7 @@ div.all{
 }
 
 .text{
-	width: 691px;
+	width: 100%;
 	height: 172px;
 	line-height: 20px;
 	text-align: left;
@@ -495,13 +498,7 @@ div.all{
 }
 
 
-.challenge img{
-width: 100%;
-position: relative;
-left: 0px;
-margin-top: 15px;
-height: 233px;
-}
+
 
  .salut{
 	/*border: 3px solid rgb(176,183,197);
@@ -509,7 +506,7 @@ height: 233px;
 	height: 92px;*/
 	float: right;
 	position: relative;
-	left: 12px;
+	left: -29px;
 	top: -41px;
 }
 
@@ -539,7 +536,7 @@ background-position: -29px -1px;
 .message{
 	font-size: 11px;
 	color: #424960;
-	max-width: 100%;
+	max-width: 98%;
 	font-weight: bold;
 	position: relative;
 	top: -16px;
@@ -628,15 +625,15 @@ label{
 
 .cv-label{
 	position: relative;
-	left: -16px;
+	left: 13px;
 	font-size: 15px;
 	font-family: "Lato-Regular";
 }
 .label-acepte{
 	position: relative;
-	left: -16px;
+	left: 13px;
 	font-size: 15px;
-	font-family: "Regular";
+	font-family: "Lato-Regular";
 
 }
 
@@ -646,6 +643,9 @@ label{
 	font-size: 15px !important;
 	font-family: "Lato-Regular" !important;
 }
+.checkbox{
+	margin-left: 22px;
+}
 
 .civ3{
 	left: -6px;
@@ -654,23 +654,28 @@ label{
 	font-family: "Lato-Regular";
 }
 
+#fos_user_registration_form_accepte{
+	margin-left: 20px;
+}
+
 
 
 .logo-cloud{
-	position: relative;
-	left: 136px;
+	position: absolute;
+	left: 212px;
 }
 .recapt{
 	position: relative;
 	top: -3px;
-	left: 8%;
+	left: 21%;
 }
 
 .valide{
 	position: relative;
-	left: 34%;
+	/*left: 34%;*/
 	margin-bottom: 101px;
 	top: 15px;
+	text-align: center;
 
 }
 
@@ -734,147 +739,160 @@ label{
 /*================================================Max368===============================================================*/
 @media (max-width: 368px)  {
 	
-	.logo-cloud {
-	    position: relative;
-	    left: -69px;
-	    top: 14px;
-	}
 
-#ens{
-	width: 100%;
-	height: auto;
-}
-
-.fieldset.active{
-    /*margin-top:10px;
-    position:relative;*/
-    box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
-    background-color: #FFFFFF;
-    /*border-top: solid 2px var(--couleur_2);*/
-}
-
-
-.registre{
-	background:url('../images/cloudsRewards/bandeau-header-login.png');
-	background-repeat:no-repeat;
-	margin:0;
-	padding:0;
-	height:76px;
-	width:100%;
-	z-index:100;
-	padding-left:100px;
-	padding-right:100px;
-}
-
-.logout{
-	position: relative;
-	top: -16px;
-	width: 25px;
-	left: -219px;
-}
-
-.content{
-	width: 100%;
-	max-width: 1024px;
-}
-
-
-	.logout a{
-		mask-image: url('../images/cloudsRewards/logout.svg');
-		-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+	.logo-cloud{
 		position: relative;
-		left: 1215%;
-		cursor: pointer;
-		-webkit-text-fill-color: white;
-		mask-position: center;
-		-webkit-mask-position: center;
-		display: block;
-		mask-repeat: no-repeat;
-		-webkit-mask-repeat: no-repeat;
-		background: white;
+		left: -21%;
+		top: 24%;
+	}
+
+	#ens{
+		width: 100%;
+		height: auto;
+	}
+
+	.fieldset.active{
+	    /*margin-top:10px;
+	    position:relative;*/
+	    box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
+	    background-color: #FFFFFF;
+	    /*border-top: solid 2px var(--couleur_2);*/
 	}
 
 
-div.all{
-	background: url('../images/cloudsRewards/bg-slide.png');
-	background-repeat:no-repeat;
-	background-position: 0px -123px;
-	z-index: 1;
-}
+	.registre{
+		background:url('../images/cloudsRewards/bandeau-header-login.png');
+		background-repeat:no-repeat;
+		margin:0;
+		padding:0;
+		height:76px;
+		width:100%;
+		z-index:100;
+		padding-left:100px;
+		padding-right:100px;
+	}
+
+	.logout{
+		position: relative;
+		top: -16px;
+		width: 25px;
+		left: -219px;
+	}
 
 
-.challenge img{
+
+
+		.logout a{
+			mask-image: url('../images/cloudsRewards/logout.svg');
+			-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+			position: relative;
+			left: 1215%;
+			cursor: pointer;
+			-webkit-text-fill-color: white;
+			mask-position: center;
+			-webkit-mask-position: center;
+			display: block;
+			mask-repeat: no-repeat;
+			-webkit-mask-repeat: no-repeat;
+			background: white;
+		}
+
+
+	div.all{
+		background: url('../images/cloudsRewards/bg-slide.png');
+		background-repeat:no-repeat;
+		background-position: 0px -123px;
+		z-index: 1;
+	}
+
+
+	.challenge{
+		background: url('../images/cloudsRewards/a.jpg');
+		background-repeat:no-repeat;
+	 	background-position: -273px -1px;
+		margin-top: 22px;
+
+	}
+
+	.image-slide{
 	width: 100%;
 	position: relative;
-	left: 12px;
-	margin-top: 15px;
-	height: 185px;
-}
-.message{
-	font-size: 11px;
-	color: #424960;
-	max-width: 41%;
-	font-weight: bold;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+	}
+
+	.inscription h4 {
+    font-size: 20px;
+    color: var(--couleur_2);
+    font-family: "Lato";
+    font-weight: lighter;
+	}
+
+	.message{
+		font-size: 11px;
+		color: #424960;
+		max-width: 41%;
+		font-weight: bold;
+		position: relative;
+		top: -16px;
+	}
+
+	.text{
+		width: 691px !important;
+		height: 172px !important;
+		line-height: 20px !important;
+		text-align: left !important;
+		margin-bottom: 168px !important;
+		margin-left: 22px !important;
+	}
+
+
+	.recapt{
+		position: relative;
+		left: -150px;
+	}
+
+	.valide{
+		position: relative;
+		left: -22%;
+		margin-bottom: 101px;
+		top: 15px;
+
+	}
+
+
+	 .salut{
+		/*border: 3px solid rgb(176,183,197);
+		width: 100px;
+		height: 92px;*/
+		float: right;
+		position: relative;
+		left: -105px;
+		top: -26px;
+	}
+
+	.symbole{
+	/*float: right;
+	margin-right: 110px;
 	position: relative;
-	top: -16px;
-}
-
-.text{
-	width: 691px !important;
-	height: 172px !important;
-	line-height: 20px !important;
-	text-align: left !important;
-	margin-bottom: 168px !important;
-	margin-left: 22px !important;
-}
+	top: -24px;*/
+	background:url('../images/cloudsRewards/salut.png');
+	background-position: -29px -1px;
+	}
 
 
-.recapt{
-	position: relative;
-	left: -186px;
-}
+	.form{
+		margin-left: 44px;
+	}
 
-.valide{
-	position: relative;
-	left: 32px;
-	margin-bottom: 101px;
-	top: 15px;
+	.label-position{
+		position: relative !important;
+		top: -10px !important;
+	}
 
-}
-
- .salut{
-	/*border: 3px solid rgb(176,183,197);
-	width: 100px;
-	height: 92px;*/
-	float: right;
-	position: relative;
-	left: -105px;
-	top: -26px;
-}
-
-.symbole{
-/*float: right;
-margin-right: 110px;
-position: relative;
-top: -24px;*/
-background:url('../images/cloudsRewards/salut.png');
-background-position: -29px -1px;
-}
-
-
-.form{
-	margin-left: 44px;
-}
-
-.label-position{
-	position: relative !important;
-	top: -10px !important;
-}
-
-.logo-cloud{
-	position: relative;
-	left: 136px;
-}
+	
 
 }
 
@@ -930,6 +948,13 @@ div.all{
 	z-index: 1;
 }
 
+.inscription h4 {
+    font-size: 20px;
+    color: var(--couleur_2);
+    font-family: "Lato";
+    font-weight: lighter;
+}
+
 
 .message{
 	font-size: 11px;
@@ -940,12 +965,21 @@ div.all{
 	top: -16px;
 }
 
-.challenge img{
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -273px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
 	width: 100%;
 	position: relative;
-	left: 37px;
-	margin-top: 15px;
-	height: 185px;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
 }
 
 	.symbole{
@@ -957,12 +991,12 @@ div.all{
 
 	.recapt{
 		position: relative;
-		left: -186px;
+		left: -150px;
 	}
 
 	.valide{
 		position: relative;
-		left: 32px;
+		left:-27%;
 		margin-bottom: 101px;
 		top: 15px;
 
@@ -993,7 +1027,7 @@ div.all{
 @media (min-width: 458px) and (max-width: 575px) {
 	.logo-cloud {
 		    position: relative;
-		    left: -131px;
+		    left: -27px;
 	}
 	.logout{
 		position: relative;
@@ -1050,22 +1084,30 @@ div.all{
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: 103px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -250px -1px;
+	margin-top: 22px;
 
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
 	.recapt{
 		position: relative;
-		left: -120px;
+		left: -98px;
 	}
 
 	.valide{
 		position: relative;
-		left: 32px;
+		left: -17px;
 		margin-bottom: 101px;
 		top: 15px;
 
@@ -1079,7 +1121,7 @@ div.all{
 	}
 
 .form{
-	margin-left: 42px;
+	margin-left: 92px;
 }
 
 .label-position{
@@ -1162,13 +1204,22 @@ div.all{
 	}
 
 
-	.challenge img{
-		width: 97%;
-		position: relative;
-		left: 6px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -170px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
 
 	.recapt{
 		position: relative;
@@ -1177,7 +1228,6 @@ div.all{
 
 .valide{
 	position: relative;
-	left: 207px;
 	margin-bottom: 101px;
 	top: 15px;
 
@@ -1234,7 +1284,7 @@ div.all{
 		position: relative;
 		top: -39px;
 		width: 25px;
-		left: 237px;
+		left: 27px;
 	}
 
 	.logout a{
@@ -1271,13 +1321,22 @@ div.all{
 	}
 
 
-	.challenge img{
-		width: 97%;
-		position: relative;
-		left: 18px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -170px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
 
 	.recapt{
 		position: relative;
@@ -1286,7 +1345,6 @@ div.all{
 
 .valide{
 	position: relative;
-	left: 207px;
 	margin-bottom: 101px;
 	top: 15px;
 
@@ -1358,21 +1416,43 @@ div.all{
 	.message{
 		font-size: 11px;
 		color: #424960;
-		max-width: 61%;
+		max-width: 81%;
 		font-weight: bold;
 		position: relative;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: 13px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -128px -1px;
+	margin-top: 22px;
 
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: -210px;
+	top: -41px;
+}
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
 	.recapt{
 		position: relative;
 		left: 22px;
@@ -1380,18 +1460,12 @@ div.all{
 
 .valide{
 	position: relative;
-	left: 207px;
 	margin-bottom: 101px;
 	top: 15px;
 
 }
 
-.symbole{
-		float: right;
-		margin-right: 273px;
-		position: relative;
-		top: -32px;
-}
+
 .form{
 	margin-left: 45px;
 }
@@ -1462,41 +1536,67 @@ div.all{
 
 
 	.message{
-		font-size: 11px;
 		color: #424960;
-		max-width: 47%;
+		max-width: 71%;
 		font-weight: bold;
 		position: relative;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: 2px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -227px -1px;
+	margin-top: 22px;
 
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: -210px;
+	top: -41px;
+}
+
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+
+	
 	.recapt{
 		position: relative;
-		left: -162px;
+		left: -12px;
 	}
 
 .valide{
 	position: relative;
-	left: 117px;
 	margin-bottom: 101px;
 	top: 15px;
 
 }
-
-.symbole{
-		float: right;
-		margin-right: 344px;
-		position: relative;
-		top: -32px;
+.text {
+    width: 691px;
+    height: 172px;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 187px;
+    margin-left: 25px;
+    margin-top: 20px;
 }
 
 
@@ -1554,43 +1654,72 @@ div.all{
 	}
 
 
-.symbole {
-    float: right;
-    margin-right: 341px;
-    position: relative;
-    top: -32px;
-}
+
 
 	.message{
-		font-size: 11px;
 		color: #424960;
-		max-width: 50%;
-		font-weight: bold;
-		position: relative;
+		max-width: 78%;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: 0px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -206px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: -210px;
+	top: -41px;
+}
+
+
+
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+.text {
+    width: 691px;
+    height: 172px;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 196px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
 
 	.recapt{
 		position: relative;
-		left: -125px;
+		left: 0px;
 	}
 
 .valide{
 	position: relative;
-	left: 94px;
 	margin-bottom: 101px;
 	top: 15px;
 
 }
+
+
 
 
 }
@@ -1646,31 +1775,56 @@ div.all{
 		z-index: 1;
 	}
 
-
-.symbole {
-    float: right;
-    margin-right: 310px;
-    position: relative;
-    top: -32px;
-}
-
 	.message{
-		font-size: 11px;
 		color: #424960;
-		max-width: 58%;
+		max-width: 86%;
 		font-weight: bold;
 		position: relative;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: -7px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -128px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: -107px;
+	top: -41px;
+}
+
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+.text {
+    width: 691px;
+    height: 172px;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 196px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
 
 	.recapt{
 		position: relative;
@@ -1679,7 +1833,6 @@ div.all{
 
 .valide{
 	position: relative;
-	left: 154px;
 	margin-bottom: 101px;
 	top: 15px;
 
@@ -1741,31 +1894,57 @@ div.all{
 	}
 
 
-.symbole {
-    float: right;
-    margin-right: 256px;
-    position: relative;
-    top: -22px;
-}
 
 	.message{
-		font-size: 11px;
 		color: #424960;
-		max-width: 60%;
+		max-width: 89%;
 		font-weight: bold;
 		position: relative;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: -7px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -128px -1px;
+	margin-top: 22px;
 
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: -107px;
+	top: -41px;
+}
+
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+.text {
+    width: 691px;
+    height: 172px;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 196px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
 	.recapt{
 		position: relative;
 		left: -66px;
@@ -1773,7 +1952,6 @@ div.all{
 
 .valide{
 	position: relative;
-	left: 172px;
 	margin-bottom: 101px;
 	top: 15px;
 
@@ -1786,7 +1964,7 @@ div.all{
 
 	.logo-cloud {
 		    position: relative;
-		    left: 159px;
+		    left: 68px;
 	}
 
 #ens{
@@ -1805,7 +1983,7 @@ div.all{
 	.logout{
 		position: relative;
     	width: 29px;
-		left: -37px;
+		left: 4%;
 		height: 16px;
 	}
 	.logout a{
@@ -1831,40 +2009,66 @@ div.all{
 	}
 
 
-.symbole {
-    float: right;
-    /*margin-right: 179px;*/
-    position: relative;
-    top: -32px;
-    left: -208px;
-}
 
 	.message{
 		font-size: 11px;
 		color: #424960;
-		max-width: 60%;
+		max-width: 98%;
 		font-weight: bold;
 		position: relative;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: -7px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -128px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: -107px;
+	top: -41px;
+}
+
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+.text {
+    width: 691px;
+    height: 172px;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 196px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
 
 	.recapt{
 		position: relative;
-		left: -50px;
+		left: 69px;
 	}
 
 .valide{
 	position: relative;
-	left: 207px;
 	margin-bottom: 101px;
 	top: 15px;
 
@@ -1878,7 +2082,7 @@ div.all{
 @media (min-width: 1091px) and (max-width: 1149px) {
 	.logo-cloud {
 		    position: relative;
-		    left: 159px;
+		    left: 79px;
 	}
 
 #ens{
@@ -1899,7 +2103,7 @@ div.all{
 		position: relative;
     	top:-1px;
     	width: 25px;
-		left: -39px;
+		left: 20%;
 	}
 
 	.logout a{
@@ -1926,39 +2130,67 @@ div.all{
 	}
 
 
-.symbole {
-    float: right;
-    margin-right: 179px;
-    position: relative;
-    top: -32px;
-}
+
 
 	.message{
 		font-size: 11px;
 		color: #424960;
-		max-width: 74%;
+		max-width: 100%;
 		font-weight: bold;
 		position: relative;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
 
 
-	.challenge img{
-		width: 100%;
-		position: relative;
-		left: -7px;
-		margin-top: 15px;
-		height: 185px;
-	}
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -128px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: 0px;
+	top: -41px;
+}
+
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+.text {
+    width: 691px;
+    height: 172px;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 196px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
 
 	.recapt{
 		position: relative;
-		left: 22px;
+		left: 105px;
 	}
 
 .valide{
 	position: relative;
-	left: 207px;
 	margin-bottom: 101px;
 	top: 15px;
 
@@ -1971,9 +2203,9 @@ div.all{
 
 	.logout{
 		position: relative;
-    	top:14px;
-    	width: 25px;
-		left: -39px;
+    	top: 2px;
+		width: 25px;
+		left: 67px;
 	}
 
 #ens{
@@ -2013,21 +2245,59 @@ div.all{
 		z-index: 1;
 	}
 
-	.symbole {
-    float: right;
-    margin-right: 179px;
-    position: relative;
-    top: -32px;
-}
+	
 
 	.message{
 		font-size: 11px;
 		color: #424960;
-		max-width: 74%;
+		max-width: 100%;
 		font-weight: bold;
 		position: relative;
+		font-family: "Lato-Regular";
+		font-size: 14px;
 		top: -16px;
 	}
+
+
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -128px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	 background-repeat: no-repeat;
+}
+
+.salut{
+	float: right;
+	position: relative;
+	left: 7px;
+	top: -41px;
+}
+
+
+.symbole{
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+.text {
+    width: 691px;
+    height: 172px;
+    line-height: 20px;
+    text-align: left;
+    margin-bottom: 196px;
+    margin-left: 25px;
+    margin-top: 20px;
+}
 
 
 

@@ -7,8 +7,7 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	{{ render(controller("AdminBundle:Parametrages:logoLogin")) }}
-	{#<img src="{{asset('images/cloudsRewards/power.png')}}">#}
-	<div class="logout">
+	<div class="logout hidden-sm-down">
 		<a href="{{ path("fos_user_security_logout") }}"></a>
 	</div>
 	
@@ -17,10 +16,10 @@
 	{% trans_default_domain 'FOSUserBundle' %}
 	<div class="container slide all">
 		<div class="row">
-			<div class="conten-left"></div>
-			<div class="content-rigth"></div>
-			<div {#class="col-md-6 offset-md-3"#} class="content">
-				<div class="challenge">
+			{#<div class="conten-left"></div>
+			<div class="content-rigth"></div>#}
+			<div class="col-md-8 offset-md-2" {#class="content"#}>
+				<div class="challenge hidden-sm-down">
 					<div class="image-slide"></div>
 					{#<img src="{{asset("images/cloudsRewards/acc2.png")}}">#}
 				</div>
@@ -34,17 +33,12 @@
 					<div class="titre">
 						<div class="bienvenu"><h4>Bienvenu sur le challenge 2017!</h4></div>
 						<div class="message">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 						</div>
 					</div>
 				</div>
 				{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form'}}) }}	
-					 <div class="checkbok civility">
+					 <div class=" civility form-in">
 					 	{{form_label(form.civility,'civilité*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm cv-label'} })}}
 					 	<label>
 					 		{{form_widget(form.civility, { 'attr' : { 'class': 'checkbox' } })}}
@@ -52,7 +46,7 @@
 					 	</label>
 					   
 					  </div>
-					    <div class="form-group row">
+					    <div class="form-group row form-in">
 					    	{{form_label(form.name,'prénom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.name,{ 'attr' : { 'class': 'form-control' } })}}
@@ -60,7 +54,7 @@
 					    	</div>
 					    	
 					    </div>
-					     <div class="form-group row">
+					     <div class="form-group row form-in">
 					     	{{form_label(form.firstname,'nom*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					     	<div class="col-6 text-danger">
 					     		{{form_widget(form.firstname,{ 'attr' : { 'class': 'form-control' } })}}
@@ -68,7 +62,7 @@
 					     	</div>
 					     					    	
 					    </div>
-					    <div class="form-group row">
+					    <div class="form-group row form-in">
 					    	{{form_label(form.email.first,'email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger emailErreur">
 					    		{{form_widget(form.email.first,{ 'attr' : { 'class': 'form-control' } }) }}
@@ -76,7 +70,7 @@
 					    	</div>
 					    					    	
 					    </div>
-					    <div class="form-group row">
+					    <div class="form-group row form-in">
 					    {{form_label(form.email.second,'confirmation e-email*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger emailErreur">
 					    		{{form_widget(form.email.second,{ 'attr' : { 'class': 'form-control' } }) }}
@@ -84,7 +78,7 @@
 					    	</div>
 					    						    	
 					    </div>
-					     <div class="form-group row">
+					     <div class="form-group row form-in">
 					     	{{form_label(form.phone,'téléphone*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					     	<div class="col-6 text-danger">
 					     		{{form_widget(form.phone,{ 'attr' : { 'class': 'form-control' } })}}
@@ -92,7 +86,7 @@
 					     	</div>
 					     					    	
 						</div>
-						<div class="form-group row">
+						<div class="form-group row form-in">
 					{{form_label(form.plainPassword.first,'mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 							<div class="col-6 text-danger password">
 								{{form_widget(form.plainPassword.first,{ 'attr' : { 'class': 'form-control' } }) }}
@@ -100,7 +94,7 @@
 							</div>
 							
 						</div>
-					   <div class="form-group row">
+					   <div class="form-group row form-in">
 					   	{{form_label(form.plainPassword.second,'confirmation mot de passe*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					   	<div class="col-6 text-danger password">
 					   		{{form_widget(form.plainPassword.second,{ 'attr' : { 'class': 'form-control' } }) }}
@@ -108,7 +102,7 @@
 					   	</div>
 					   	
 					   </div>
-					    <div class="form-group row">
+					    <div class="form-group row form-in">
 					    	{{form_label(form.societe,'société*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		 {{form_widget(form.societe,{ 'attr' : { 'class': 'form-control' } })}}
@@ -116,7 +110,7 @@
 					    	</div>
 					    	
 					    </div>
-					   <div class="form-group row">
+					   <div class="form-group row form-in">
 					   	{{form_label(form.address_1,'adresse postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					   	<div class="col-6 text-danger">
 					   		{{form_widget(form.address_1,{ 'attr' : { 'class': 'form-control' } })}}
@@ -124,7 +118,7 @@
 					   	</div>
 					   
 					   </div>
-					    <div class="form-group row">
+					    <div class="form-group row form-in">
 					    		{{form_label(form.postal_code,'code postal*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.postal_code,{ 'attr' : { 'class': 'form-control' } })}}
@@ -132,7 +126,7 @@
 					    	</div>
 					    	
 					    </div>
-					    <div class="form-group row">
+					    <div class="form-group row form-in">
 					    	{{form_label(form.city,'ville*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    	<div class="col-6 text-danger">
 					    		{{form_widget(form.city,{ 'attr' : { 'class': 'form-control' } })}}
@@ -140,7 +134,7 @@
 					    	</div>
 					    	
 					    </div>
-					    <div class="checkbok condtion">
+					    <div class=" condtion form-in">
 					    	{{form_label(form.accepte,'acceptation du réglement*',{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-acepte'} })}}
 					    	<label>
 					    		{{form_widget(form.accepte)}}
@@ -149,7 +143,7 @@
 					    </div>
 					    {% for nom in name %}
 				    		{% if form.vars["form"].children[nom].children is empty %}
-				    			<div class="form-group row">
+				    			<div class="form-group row form-in">
 				    			{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"],{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm label-position'} })}}
 					    			<div class = "col-6 text-danger">
 					    				{{form_widget(form.vars["form"].children[nom],{ 'attr' : { 'class': 'form-control' } })}}
@@ -157,7 +151,7 @@
 					    			</div>				    	
 					    		</div>
 					    	{% else %}
-					    	<div class="checkbok civility">
+					    	<div class=" civility form-in">
 							 	{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"],{ 'label_attr': {'class': 'col-sm-4 col-form-label col-form-label-sm cv-label'} })}}
 							 	<label>
 							 		{{form_widget(form.vars["form"].children[nom], { 'attr': { 'class': 'checkbox' } })}}
@@ -166,10 +160,10 @@
 			    			{% endif %}					    		
 					    {% endfor %}
 					   
-					    <div class="text-danger recaptErreur">
+					    <div class="text-danger recaptErreur form-in">
 					    	{{ form_errors(form.recaptcha) }}	
 					    </div>
-					    <div class="recapt">
+					    <div class="recapt ">
 					    	{{form_widget(form.recaptcha,{'attr': {'class': 'recaptcha'}})}}
 					    </div>					    				    					    
 					    

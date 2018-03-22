@@ -37,8 +37,3 @@ monolog:
         #    type: chromephp
         #    level: info
 
-#swiftmailer:
-#    delivery_addresses: ['me@example.com']
-mailjet:
-    api_key: "48e3f6bca0cf84cc2e61559207e56ff7"
-    secret_key: "9ae7242c697bbda911a2a59c45a1309a"
