@@ -181,7 +181,7 @@ background-position: -29px -1px;
 	height: 34px;
 	width: 130px !important;
 	font-size: 15px !important;
-	font-family: "Lato-Regular" !important;
+	font-family: "Lato-Regular" ;
 }
 .g-recaptcha{
 	position: relative !important;
@@ -368,7 +368,8 @@ label{
 
 /*=================================Max1200=========================================================================*/
 @media (min-width: 1200px){
-	.registre{
+	
+.registre{
 	background:url('../images/cloudsRewards/bandeau-header-login.png');
 	background-repeat:no-repeat;
 	margin:0;
@@ -550,7 +551,7 @@ background-position: -29px -1px;
 	height: 34px;
 	width: 130px !important;
 	font-size: 15px !important;
-	font-family: "Lato-Regular" !important;
+	font-family: "Lato-Regular" ;
 }
 .g-recaptcha{
 	position: relative !important;
@@ -576,8 +577,7 @@ left: 107px !important;
 .inscription h4{
 font-size: 25px;
 color: var(--couleur_2);
-font-family: "Lato";
-font-weight: lighter;
+font-family: "Lato-Ligth";
 
 }
 
@@ -640,7 +640,7 @@ label{
 	position: relative !important;
 	top: 7px !important;
 	font-size: 15px !important;
-	font-family: "Lato-Regular" !important;
+	font-family: "Lato-Regular" ;
 }
 .checkbox{
 	margin-left: 22px;
