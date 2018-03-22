@@ -65,7 +65,7 @@ $(document).ready(function(){
                 $(this).remove();
             }
         });
-        $('#create-edit-e-learning-modal').find('.not-yet-added').remove();
+        $('#create-edit-e-learning-modal').find('.original-data-holder-el').remove();
 
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
@@ -84,7 +84,7 @@ $(document).ready(function(){
                     installWysiwyg();
                     installColorPicker();
                 } else {
-                    window.location.replace(redirect_target);
+                    // window.location.replace(redirect_target);
                 }
             },
             statusCode: {
@@ -143,6 +143,7 @@ $(document).ready(function(){
     $(document).on('click', '.add-media-content', function(e){
         e.preventDefault();
         $('.add-media-content-block').show();
+        $('.content-block-list-container.media-container').find('.content-block-container').hide();
     });
 
     // bouton upload image
@@ -201,6 +202,63 @@ $(document).ready(function(){
      * Création e-learning - Ajout contenu de type media
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Edition contenu de type media
+     * *********************************************************************************************
+     */
+    // affichage formulaire
+    $(document).on('click', '.edit.media-content', function(e){
+        e.preventDefault();
+        var content_index = $(this).parents('.content-list-element').attr('data-element-index');
+        var content_block = $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']');
+        content_block.attr('data-manipulation-type', 'edit');
+        createOriginalDataHolder(content_block);
+        content_block.find('.add-content-button-container .edit-media').show();
+        content_block.find('.add-content-button-container .add-media').hide();
+        content_block.show();
+    });
+
+    // validation de l'édition
+    $(document).on('click', '.btn-valider.edit-media', function(e){
+        e.preventDefault();
+        var content_block_container = $(this).parents('.content-block-container');
+        content_block_container.find('.document-name-error-message').text('');
+        var media_name = content_block_container.find('.document-name-container').find('input').not('.original-data-holder-el').val().trim();
+        if ('' != media_name) {
+            var content_block_index = content_block_container.attr('data-block-index');
+            var corresponding_content_element = $('.media-content-list-container').find('.content-list-element[data-element-index='+content_block_index+']');
+            corresponding_content_element.find('.content-denomination-name div').text(media_name);
+            content_block_container.hide();
+        } else {
+            content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
+        }
+    });
+
+    // annulation de l'édition, par fermeture de block
+    $(document).on('click', '.delete-media-block', function(e){
+        e.preventDefault();
+        var content_block_container = $(this).parents('.content-block-container');
+        if('edit' == content_block_container.attr('data-manipulation-type')){
+            resetFormElementToOriginalData(content_block_container);
+            setAssociatedFileButtonText(content_block_container);
+            setDeleteNameInputVisibility(content_block_container);
+            setFormElementVisibilityOnEdit(content_block_container);
+            content_block_container.hide();
+        } else if ('create' == content_block_container.attr('data-manipulation-type')) {
+            content_block_container.remove();
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Edition contenu de type media
+     * *********************************************************************************************
+     */
 });
 
 function addMediaFormBlockBases()
@@ -244,7 +302,12 @@ function addMediaFormBlock(content_block_container)
     if ($('.content-block-list-container.media-container').find('.content-block-container').length <= 0){
         current_index = 1;
     } else {
-        current_index = parseInt($('.content-block-list-container.media-container').find('.content-block-container').last().attr('data-block-index')) + 1;
+        var content_block_list = $('.content-block-list-container.media-container').find('.content-block-container');
+        var index_list = [];
+        content_block_list.each(function(){
+            index_list.push(parseInt($(this).attr('data-block-index')));
+        });
+        current_index = (Math.max.apply(null, index_list)) + 1;
     }
 
     var form_el_list = content_block_container.find('.form-el');
@@ -271,7 +334,76 @@ function createEquivalentMediaListElement(content_block_container)
 {
     var content_list_element = $('.block-model-container').find('.content-list-element').clone();
     content_list_element.find('.content-denomination-name').find('div').text(content_block_container.find('.document-name').find('input').val());
+    content_list_element.attr('data-element-index', content_block_container.attr('data-block-index'));
 
     var media_content_list_container = $('.media-content-list-container');
     media_content_list_container.append(content_list_element);
+}
+
+function createOriginalDataHolder(content_block_container)
+{
+    content_block_container.find('.original-data-holder-container').html('');
+    var form_element_list = content_block_container.find('.form-el');
+    form_element_list.each(function(){
+        var original_data_holder = $(this).clone();
+
+        var original_data_holder_id = original_data_holder.attr('id');
+        original_data_holder_id = original_data_holder_id + '__origin__';
+        original_data_holder.attr('id', original_data_holder_id);
+
+        var original_data_holder_name = original_data_holder.attr('name');
+        original_data_holder_name = original_data_holder_name + '__origin__';
+        original_data_holder.attr('name', original_data_holder_name);
+
+        original_data_holder.addClass('original-data-holder-el');
+        var original_data_holder_container = content_block_container.find('.original-data-holder-container');
+        original_data_holder_container.append(original_data_holder);
+        // $(this).before(original_data_holder);
+        original_data_holder.hide();
+    });
+}
+
+function resetFormElementToOriginalData(content_block_container)
+{
+    var current_data_holder_list = content_block_container.find('.form-el').not('.original-data-holder-el');
+    current_data_holder_list.each(function(){
+        var current_data_holder_id = $(this).attr('id');
+        var current_data_holder_name = $(this).attr('name');
+        var corresponding_original_data_holder = content_block_container.find('.original-data-holder-container').find('#'+current_data_holder_id+'__origin__');
+        $(this).after(corresponding_original_data_holder);
+        $(this).remove();
+        corresponding_original_data_holder.attr('id', current_data_holder_id);
+        corresponding_original_data_holder.attr('name', current_data_holder_name);
+        corresponding_original_data_holder.removeClass('original-data-holder-el');
+
+        corresponding_original_data_holder.not('.hidden-input-file').show();
+    });
+}
+
+function setAssociatedFileButtonText(content_block_container)
+{
+    var associated_file_name = content_block_container.find('.hidden-input-file.associated-file').val();
+    if ('' != associated_file_name) {
+        content_block_container.find('.upload-img-button-container .img-name-container').text(associated_file_name.split('\\').pop());
+    }
+}
+
+function setDeleteNameInputVisibility(content_block_container)
+{
+    var document_name_block = content_block_container.find('.document-name-container .document-name')
+    var content_name = document_name_block.find('input').val();
+    if ('' !== content_name) {
+        document_name_block.find('.delete-input').show();
+    }
+}
+
+function setFormElementVisibilityOnEdit(content_block_container){
+    var associated_file_name = content_block_container.find('.hidden-input-file.associated-file').val();
+    if ('' != associated_file_name) {
+        content_block_container.find('.btn-upload').addClass('hidden-button');
+        content_block_container.find('.upload-img-button-container').removeClass('hidden-button');
+        content_block_container.find('.associated-file-info').hide();
+    }
+    content_block_container.find('.document-name-container').show();
+    content_block_container.find('.add-content-button-container').show();
 }

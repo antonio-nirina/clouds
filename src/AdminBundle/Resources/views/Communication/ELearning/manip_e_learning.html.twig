@@ -29,7 +29,7 @@
     <!-- content list element -->
     <div class="media-content-list-container">
     {% for content in e_learning_form.media_contents %}
-        <div class="content-list-element">
+        <div class="content-list-element" data-element-index="{{ loop.index }}">
             <div class="content-denomination">
                 <div class="content-denomination-image">
                     <span class="document-icon"></span>
@@ -140,12 +140,12 @@
             {% set additional_block_class = 'media-video-block' %}
         {% endif %}
 
-        <div class="content-block-container {{ additional_block_class }}" data-block-index="">
+        <div class="content-block-container {{ additional_block_class }}" data-block-index="{{ loop.index }}" data-manipulation-type="edit">
             {{ form_widget(content.content_type, {'attr': {'class': 'content-type-input'}}) }}
             {{ form_widget(content.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
             <div class="block-title">
                 <span>ajouter un nouveau média</span>
-                <span class="delete-block"></span>
+                <span class="delete-block delete-media-block"></span>
             </div>
             <div class="add-content-block">
                 <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
@@ -175,7 +175,9 @@
                     </div>
                 </div>
                 <div class="add-content-button-container" style="display:none;">
-                    <button class="btn-valider add-media">ajouter</button>
+                    <button class="btn-valider edit-media">éditer</button>
+                </div>
+                <div class="original-data-holder-container">
                 </div>
             </div>
         </div>
@@ -513,12 +515,12 @@
     </div>
     <div class="form-visibility-end"></div>
     <div class="block-model-container">
-        <div class="content-block-container" data-block-index="">
+        <div class="content-block-container" data-block-index="" data-manipulation-type="create">
             {{ form_widget(e_learning_form.media_contents.vars.prototype.content_type, {'attr': {'class': 'content-type-input form-el'}}) }}
             {{ form_widget(e_learning_form.media_contents.vars.prototype.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
             <div class="block-title">
                 <span>ajouter un nouveau média</span>
-                <span class="delete-block"></span>
+                <span class="delete-block delete-media-block"></span>
             </div>
             <div class="add-content-block">
                 <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
@@ -551,10 +553,13 @@
                 </div>
                 <div class="add-content-button-container" style="display:none;">
                     <button class="btn-valider add-media">ajouter</button>
+                    <button class="btn-valider edit-media" style="display: none;">éditer</button>
+                </div>
+                <div class="original-data-holder-container">
                 </div>
             </div>
         </div>
-        <div class="content-list-element">
+        <div class="content-list-element" data-element-index="">
             <div class="content-denomination">
                 <div class="content-denomination-image">
                     <span class="document-icon"></span>
@@ -564,7 +569,7 @@
                 </div>
             </div>
             <div class="actions-container">
-                <span class="edit"></span>
+                <span class="edit media-content"></span>
                 <span class="delete"></span>
                 <div class="reorder">
                     <span class="reorder-up"></span>
