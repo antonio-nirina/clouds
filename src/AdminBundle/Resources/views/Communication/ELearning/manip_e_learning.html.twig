@@ -141,16 +141,21 @@
         {% endif %}
 
         <div class="content-block-container {{ additional_block_class }}" data-block-index="{{ loop.index }}" data-manipulation-type="edit">
-            {{ form_widget(content.content_type, {'attr': {'class': 'content-type-input'}}) }}
+            {{ form_widget(content.content_type, {'attr': {'class': 'content-type-input form-el'}}) }}
             {{ form_widget(content.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
             <div class="block-title">
                 <span>ajouter un nouveau média</span>
                 <span class="delete-block delete-media-block"></span>
             </div>
             <div class="add-content-block">
-                <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
-                <div>
-                    {{ form_widget(content.associated_file, {'attr': {'class': 'hidden-input-file associated-file'}}) }}
+                <p class="main-info">
+                    <span class="media-document-element">ajouter un document format word, excel, powerwpoint, pdf etc.</span>
+                    <span class="media-video-element">ajouter une vidéo</span>
+                </p>
+
+                <!-- doc part -->
+                <div class="media-document-element">
+                    {{ form_widget(content.associated_file, {'attr': {'class': 'hidden-input-file associated-file form-el'}}) }}
                     <button class="btn-valider btn-upload input-file-trigger">
                         <span class="upload"></span>choisissez un fichier...
                     </button>
@@ -166,11 +171,33 @@
                     <input type="hidden" name="initial_image" value="">
                     <input type="hidden" name="initial_image_name" value="">
                 </div>
+                <!-- end - doc part -->
+
+                <!-- video part -->
+                <div class="form-row vertical-xs media-video-element">
+                    {#<label>url de la vidéo</label>#}
+                    {{ form_label(content.video_url, 'url de la vidéo') }}
+                    <div class="form-element">
+                        {#<input type="text" class="standard-styled-input large-input-text" value="https://monlienderedirection.com/challenge">#}
+                        {{ form_widget(content.video_url, {'attr': {'class': 'video-url-input standard-styled-input large-input-text removable-content-input form-el'}}) }}
+                        {% set delete_input_visibility = 'style=display:none' %}
+                        {% if content.vars.value.videoUrl | trim is not empty %}
+                            {% set delete_input_visibility = '' %}
+                        {% endif %}
+                        <span class="delete-input" {{ delete_input_visibility }}></span>
+                    </div>
+                </div>
+                <div class="info-container media-video-element">
+                    <p>url youtube, vimeo, depuis votre serveur, etc.</p>
+                    <p>si toutefois votre vidéo n'est pas hebergée veuillez <a href="#" class="blue-anchor">nous contacter</a></p>
+                </div>
+                <!-- end - video part -->
+
                 <div class="form-row document-name-container vertical-md" style="display:none;">
                     <label>nom du document</label>
                     <div class="document-name">
                         {#<input class="standard-styled-input" type="text" value="Produits 2017">#}
-                        {{ form_widget(content.name, {'attr': {'class': 'standard-styled-input removable-content-input'}}) }}
+                        {{ form_widget(content.name, {'attr': {'class': 'standard-styled-input removable-content-input form-el'}}) }}
                         <span class="delete-input" style="display: none"></span>
                     </div>
                 </div>
@@ -184,7 +211,7 @@
     {% endfor %}
     </div>
 
-    <div class="temporary-content-block-list-container">
+    <div class="temporary-content-block-list-container media">
 
     </div>
     <!-- end - adding media -->
@@ -223,8 +250,8 @@
     </div>
     <!-- end - adding document media -->#}
 
-    {#<!-- adding vidéo media -->
-    <div class="content-block-container video">
+    <!-- adding vidéo media -->
+    {#<div class="content-block-container video">
         <div class="block-title">
             <span>ajouter un nouveau média</span>
             <span class="delete-block"></span>
@@ -253,8 +280,8 @@
                 <button class="btn-valider">ajouter</button>
             </div>
         </div>
-    </div>
-    <!-- end - adding vidéo media -->#}
+    </div>#}
+    <!-- end - adding vidéo media -->
 
     {#<!-- adding image gallery media -->
     <div class="content-block-container">
@@ -523,8 +550,13 @@
                 <span class="delete-block delete-media-block"></span>
             </div>
             <div class="add-content-block">
-                <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
-                <div>
+                <p class="main-info">
+                    <span class="media-document-element">ajouter un document format word, excel, powerwpoint, pdf etc.</span>
+                    <span class="media-video-element">ajouter une vidéo</span>
+                </p>
+
+                <!-- doc part -->
+                <div class="media-document-element">
                     {{ form_widget(e_learning_form.media_contents.vars.prototype.associated_file, {'attr': {'class': 'hidden-input-file associated-file form-el'}}) }}
                     <button class="btn-valider btn-upload input-file-trigger">
                         <span class="upload"></span>choisissez un fichier...
@@ -541,6 +573,23 @@
                     <input type="hidden" name="initial_image" value="">
                     <input type="hidden" name="initial_image_name" value="">
                 </div>
+                <!-- end - doc part -->
+
+                <!-- video part -->
+                <div class="form-row vertical-xs media-video-element">
+                    {{ form_label(e_learning_form.media_contents.vars.prototype.video_url, 'url de la vidéo') }}
+                    <div class="form-element">
+                        {{ form_widget(e_learning_form.media_contents.vars.prototype.video_url, {'attr': {'class': 'video-url-input standard-styled-input large-input-text removable-content-input form-el'}}) }}
+                        <span class="delete-input" style=display:none></span>
+                    </div>
+                </div>
+                <div class="info-container media-video-element">
+                    <p>url youtube, vimeo, depuis votre serveur, etc.</p>
+                    <p>si toutefois votre vidéo n'est pas hebergée veuillez <a href="#" class="blue-anchor">nous contacter</a></p>
+                </div>
+                <!-- end - video part -->
+
+
                 <div class="form-row document-name-container vertical-md" style="display:none;">
                     <label>nom du document</label>
                     <div class="document-name">

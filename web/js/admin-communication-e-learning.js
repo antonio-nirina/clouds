@@ -67,6 +67,9 @@ $(document).ready(function(){
         });
         $('#create-edit-e-learning-modal').find('.original-data-holder-el').remove();
 
+        // closing all opened edit block (not saved) to restore to original datas
+        closingAllOpenedEdit();
+
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
         }
@@ -142,6 +145,9 @@ $(document).ready(function(){
     // appel choix
     $(document).on('click', '.add-media-content', function(e){
         e.preventDefault();
+        // removing all previously opened content block, in add
+        removingAllOpenedOnCreate();
+
         $('.add-media-content-block').show();
         $('.content-block-list-container.media-container').find('.content-block-container').hide();
     });
@@ -168,9 +174,15 @@ $(document).ready(function(){
         $(this).parents('.content-block-container').find('.document-name-container').trigger('block-hide');
     });
 
-    // choix de type de document
+    // choix de type de document à ajouter
     $(document).on('click', '.document-type-element', function(e){
         e.preventDefault();
+        // closing all previously opened content block, in edit
+        closingAllOpenedEdit();
+
+        // removing all previously opened content block, in add
+        removingAllOpenedOnCreate();
+
         if ('undefined' !== typeof $(this).attr('data-media-type')) {
             addMediaFormBlockTemporary($(this).attr('data-media-type'));
             $(this).parents('.content-block-container').hide();
@@ -212,6 +224,13 @@ $(document).ready(function(){
     // affichage formulaire
     $(document).on('click', '.edit.media-content', function(e){
         e.preventDefault();
+        // closing all previously opened content block, edit
+        closingAllOpenedEdit();
+
+        // removing all previously opened content block, in add
+        removingAllOpenedOnCreate();
+
+        // continuing process
         var content_index = $(this).parents('.content-list-element').attr('data-element-index');
         var content_block = $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']');
         content_block.attr('data-manipulation-type', 'edit');
@@ -281,15 +300,30 @@ function addMediaDocumentFormBlock()
     return form_content;
 }
 
+function addMediaVideoBlock()
+{
+    var form_content = addMediaFormBlockBases();
+    form_content.addClass('media-video-block');
+    form_content.addClass('video');
+    form_content.find('input.content-type-input').val($('input[name=e_learning_content_type_video]').val());
+    form_content.find('.document-name-container').show();
+    form_content.find('.document-name-container label').text('nom de la vidéo');
+    form_content.find('.add-content-button-container').show();
+
+    return form_content;
+}
+
 function addMediaFormBlockTemporary(media_type)
 {
     var form_content = null
     if ('document' == media_type) {
         form_content = addMediaDocumentFormBlock()
+    } else if ('video' == media_type){
+        form_content = addMediaVideoBlock();
     }
     if (null !== form_content) {
         // var media_list_container = $('.content-block-list-container.media-container');
-        var temp_media_list_container = $('.temporary-content-block-list-container');
+        var temp_media_list_container = $('.temporary-content-block-list-container.media');
         temp_media_list_container.append(form_content);
     }
 }
@@ -325,6 +359,8 @@ function addMediaFormBlock(content_block_container)
     var current_order = media_content_list_container.find('.content-list-element').length + 1;
     content_block_container.find('.content-order-input').val(current_order);
 
+    content_block_container.attr('data-manipulation-type', 'edit');
+
     media_list_container.append(content_block_container);
     content_block_container.hide();
     createEquivalentMediaListElement(content_block_container);
@@ -335,6 +371,13 @@ function createEquivalentMediaListElement(content_block_container)
     var content_list_element = $('.block-model-container').find('.content-list-element').clone();
     content_list_element.find('.content-denomination-name').find('div').text(content_block_container.find('.document-name').find('input').val());
     content_list_element.attr('data-element-index', content_block_container.attr('data-block-index'));
+
+    // changing content element icon
+    if (content_block_container.hasClass('media-document-block')) {
+        content_list_element.find('.content-denomination .content-denomination-image span').attr('class', 'document-icon');
+    } else if (content_block_container.hasClass('media-video-block')) {
+        content_list_element.find('.content-denomination .content-denomination-image span').attr('class', 'video-icon');
+    }
 
     var media_content_list_container = $('.media-content-list-container');
     media_content_list_container.append(content_list_element);
@@ -404,6 +447,21 @@ function setFormElementVisibilityOnEdit(content_block_container){
         content_block_container.find('.upload-img-button-container').removeClass('hidden-button');
         content_block_container.find('.associated-file-info').hide();
     }
+
+    var video_url = content_block_container.find('.video-url-input').val();
+    if ('' != video_url) {
+        content_block_container.find('.video-url-input').next('.delete-input').show();
+    }
     content_block_container.find('.document-name-container').show();
     content_block_container.find('.add-content-button-container').show();
+}
+
+function closingAllOpenedEdit()
+{
+    $('.content-block-list-container.media-container').find('.content-block-container:visible').find('.delete-block').click();
+}
+
+function removingAllOpenedOnCreate()
+{
+    $('.temporary-content-block-list-container.media').find('.content-block-container').remove();
 }

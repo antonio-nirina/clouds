@@ -6079,6 +6079,15 @@ section .row.filter.selected-elements{
     background-color: white;
 }
 
+.media-document-block .media-video-element,
+.media-document-block .media-image-gallery-element,
+.media-video-block .media-document-element,
+.media-video-block .media-image-gallery-element,
+.media-image-gallery-block .media-document-element,
+.media-image-gallery-block .media-video-element{
+    display: none;
+}
+
 @media (max-width: 355px) {
     .hidden-under-355{
         display: none;
