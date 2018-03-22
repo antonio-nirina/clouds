@@ -46,6 +46,54 @@ $(document).ready(function(){
      * FIIN
      * Mise à jour de données de formulaire - "qui verra?"
      */
+
+    /**
+     * Bouton d'upload de fichier
+     */
+    $(document).on('click', '.input-file-trigger', function(e){
+        e.preventDefault();
+        $(this).parent().find('.hidden-input-file').trigger('click');
+    });
+
+    $(document).on('change', '.hidden-input-file', function(){
+        if('' == $(this).val().trim()){
+            var initial_image = $(this).parent().find('input[name=initial_image]').val();
+            var initial_image_name = $(this).parent().find('input[name=initial_image_name]').val();
+            /*if('' == initial_image_name.trim()){
+                $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
+                $(this).parent().find('.btn-upload').removeClass('hidden-button');
+            } else {
+
+            }*/
+            $(this).parent().find('.upload-img-button-container').addClass('hidden-button');
+            $(this).parent().find('.btn-upload').removeClass('hidden-button');
+            $(this).parent().find('.delete-link').hide();
+        } else {
+            var image_file_name = $(this).val().split('\\').pop();
+            $(this).parent().find('.upload-img-button').css('background-position', '15px');
+            $(this).parent().find('.upload-img-button').find('.img-name-container').text(image_file_name);
+            $(this).parent().find('.upload-img-button-container').removeClass('hidden-button');
+            $(this).parent().find('.btn-upload').addClass('hidden-button');
+            $(this).parent().find('.delete-link').show();
+        }
+    });
+
+    $(document).on('click', '.input-file-delete-link', function(e){
+        e.preventDefault();
+        var current_delete_link = $(this);
+        var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+        wrapper.trigger('reset');
+        current_delete_link.parent().find('input[type=file]').unwrap();
+        current_delete_link.parent().find('.upload-img-button-container').addClass('hidden-button');
+        current_delete_link.parent().find('.btn-upload').removeClass('hidden-button');
+        current_delete_link.parent().find('input[type=file]').trigger('input-file-reset');
+        current_delete_link.hide();
+    });
+
+    /**
+     * FIN
+     * Bouton d'upload de fichier
+     */
 });
 
 function installWysiwyg()

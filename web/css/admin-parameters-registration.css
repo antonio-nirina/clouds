@@ -5847,11 +5847,13 @@ section .row.filter.selected-elements{
     text-align: left;
 }
 
-.semi-large-data-manipulation-modal .content-block-container .document-name-container{
+.semi-large-data-manipulation-modal .content-block-container .document-name-container,
+.semi-large-data-manipulation-modal .content-block-container .image-file-name-container{
     margin-top: 20px;
 }
 
-.semi-large-data-manipulation-modal .content-block-container .document-name-container label{
+.semi-large-data-manipulation-modal .content-block-container .document-name-container label,
+.semi-large-data-manipulation-modal .content-block-container .image-file-name-container label{
     /*margin-right: 30px;*/
     width: 150px;
 }
@@ -5872,7 +5874,8 @@ section .row.filter.selected-elements{
     min-width: 0;
 }
 
-.semi-large-data-manipulation-modal .content-block-container .add-content-button-container{
+.semi-large-data-manipulation-modal .content-block-container .add-content-button-container,
+.semi-large-data-manipulation-modal .content-block-container .add-image-button-container{
     display: flex;
     width: 100%;
     justify-content: center;
@@ -5999,6 +6002,10 @@ section .row.filter.selected-elements{
     margin: 0 0 15px 0;
 }
 
+.semi-large-data-manipulation-modal .content-list-element.image-gallery:first-child{
+    margin-top: 20px;
+}
+
 .dropdown-container.quiz-selection{
     display: flex;
 }
@@ -6043,6 +6050,33 @@ section .row.filter.selected-elements{
     mask-repeat: no-repeat;
 }
 
+.document-icon{
+    display: block;
+    background-color: #4F4F4F;
+    width: 39px;
+    height: 49px;
+    -webkit-mask-image: url('../images/cloudsRewards/file-icon.svg');
+    mask-image: url('../images/cloudsRewards/file-icon.svg');
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.semi-large-data-manipulation-modal .content-block-list-container{
+    width: 100%;
+}
+
+.semi-large-data-manipulation-modal .temporary-content-block-list-container{
+    width: 100%;
+}
+
+.semi-large-data-manipulation-modal .media-content-list-container{
+    width: 100%;
+}
+
+.semi-large-data-manipulation-modal .content-block-list-container.media-container .content-block-container{
+    display: none;
+}
+
 .action-button-icon{
     display: block;
     width: 60px;
@@ -6050,6 +6084,23 @@ section .row.filter.selected-elements{
     border: 2px solid #4f4f4f;
     border-radius: 25px;
     background-color: white;
+}
+
+.media-document-block .media-video-element,
+.media-document-block .media-image-gallery-element,
+.media-video-block .media-document-element,
+.media-video-block .media-image-gallery-element,
+.media-image-gallery-block .media-document-element,
+.media-image-gallery-block .media-video-element{
+    display: none;
+}
+
+.semi-large-data-manipulation-modal .gallery-image-element .btn-upload{
+    margin-top: 0;
+}
+
+.semi-large-data-manipulation-modal .content-list-element.media{
+    align-items: center;
 }
 
 @media (max-width: 355px) {

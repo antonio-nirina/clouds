@@ -4,6 +4,7 @@ namespace AdminBundle\Form;
 use AdminBundle\Form\ELearningContentType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use AdminBundle\Form\ELearningGalleryImageType;
@@ -28,7 +29,9 @@ class ELearningMediaContentType extends ELearningContentType
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,
-            ));
+                'prototype_name' => '__image_name__',
+            ))
+            ->add('content_type', HiddenType::class);
     }
 
     /**
