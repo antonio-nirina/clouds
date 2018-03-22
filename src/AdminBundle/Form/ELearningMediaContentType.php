@@ -29,6 +29,7 @@ class ELearningMediaContentType extends ELearningContentType
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,
+                'prototype_name' => '__image_name__',
             ))
             ->add('content_type', HiddenType::class);
     }

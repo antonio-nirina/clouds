@@ -151,6 +151,7 @@
                 <p class="main-info">
                     <span class="media-document-element">ajouter un document format word, excel, powerwpoint, pdf etc.</span>
                     <span class="media-video-element">ajouter une vidéo</span>
+                    <span class="media-image-gallery-element">ajouter une galerie d'image</span>
                 </p>
 
                 <!-- doc part -->
@@ -164,7 +165,7 @@
                     </div>
                     <div class="upload-img-button-container hidden-button input-file-trigger">
                         <button class="upload-img-button">
-                            <span class="blue-upload"></span><span class="img-name-container">Lorem_ipsum.pdf</span>
+                            <span class="blue-upload"></span><span class="img-name-container"></span>
                         </button>
                     </div>
                     <a href="#" class="delete-link input-file-delete-link" style="display: none;"></a>
@@ -193,6 +194,7 @@
                 </div>
                 <!-- end - video part -->
 
+                <!-- media name -->
                 <div class="form-row document-name-container vertical-md" style="display:none;">
                     <label>nom du document</label>
                     <div class="document-name">
@@ -201,6 +203,14 @@
                         <span class="delete-input" style="display: none"></span>
                     </div>
                 </div>
+                <div class="error-message-container document-name-error-message">
+                </div>
+                <!-- end - media name -->
+
+                <!-- image gallery part -->
+
+                <!-- end - image gallery part -->
+
                 <div class="add-content-button-container" style="display:none;">
                     <button class="btn-valider edit-media">éditer</button>
                 </div>
@@ -283,8 +293,8 @@
     </div>#}
     <!-- end - adding vidéo media -->
 
-    {#<!-- adding image gallery media -->
-    <div class="content-block-container">
+    <!-- adding image gallery media -->
+    <div class="content-block-container" style="display: none;">
         <div class="block-title">
             <span>ajouter un nouveau média</span>
             <span class="delete-block"></span>
@@ -320,7 +330,7 @@
                     </div>
                 </div>
             </div>
-            <!-- end -  images list -->
+
 
             <div>
                 <button class="btn-valider btn-upload">
@@ -337,7 +347,7 @@
                     </button>
                 </div>
                 <a href="#" class="delete-link"></a>
-                <div class="form-row document-name-container vertical-md">
+                <div class="form-row image-file-name-container vertical-md">
                     <label>nom de l'image</label>
                     <div class="document-name">
                         <input class="standard-styled-input" type="text" value="Nom de l'image 1">
@@ -350,7 +360,7 @@
             </div>
         </div>
     </div>
-    <!-- end - adding image gallery media -->#}
+    <!-- end - adding image gallery media -->
 
     <div class="content-button-container">
         <a class="add add-media-content">ajouter un média</a>
@@ -379,9 +389,9 @@
             </div>
         </div>
     </div>
-    <!-- end - quiz list -->#}
+    <!-- end - quiz list -->
 
-    {#<!-- adding quiz -->
+    <!-- adding quiz -->
     <div class="content-block-container video">
         <div class="block-title">
             <span>ajouter un nouveau quiz</span>
@@ -553,6 +563,7 @@
                 <p class="main-info">
                     <span class="media-document-element">ajouter un document format word, excel, powerwpoint, pdf etc.</span>
                     <span class="media-video-element">ajouter une vidéo</span>
+                    <span class="media-image-gallery-element">ajouter une galerie d'image</span>
                 </p>
 
                 <!-- doc part -->
@@ -589,7 +600,7 @@
                 </div>
                 <!-- end - video part -->
 
-
+                <!-- media name -->
                 <div class="form-row document-name-container vertical-md" style="display:none;">
                     <label>nom du document</label>
                     <div class="document-name">
@@ -600,6 +611,21 @@
                 </div>
                 <div class="error-message-container document-name-error-message">
                 </div>
+                <!-- end - media name -->
+
+                <!-- image gallery part -->
+                    <!-- image list -->
+                <div class="image-element-list-container">
+                </div>
+
+                <div class="image-block-container">
+                </div>
+
+                <div class="temporary-image-block-container">
+                </div>
+                    <!-- end -  images list -->
+                <!-- end - image gallery part -->
+
                 <div class="add-content-button-container" style="display:none;">
                     <button class="btn-valider add-media">ajouter</button>
                     <button class="btn-valider edit-media" style="display: none;">éditer</button>
@@ -608,7 +634,7 @@
                 </div>
             </div>
         </div>
-        <div class="content-list-element" data-element-index="">
+        <div class="content-list-element media" data-element-index="">
             <div class="content-denomination">
                 <div class="content-denomination-image">
                     <span class="document-icon"></span>
@@ -621,6 +647,61 @@
                 <span class="edit media-content"></span>
                 <span class="delete"></span>
                 <div class="reorder">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- gallery image element prototype -->
+        <div class="gallery-image-element" data-block-index="">
+            {{ form_widget(e_learning_form.media_contents.vars.prototype.images.vars.prototype.image_order, {'attr': {'class': 'form-el image-order-input'}}) }}
+            {{ form_widget(e_learning_form.media_contents.vars.prototype.images.vars.prototype.image_file, {'attr': {'class': 'hidden-input-file image-file form-el'}}) }}
+            <button class="btn-valider btn-upload input-file-trigger">
+                <span class="upload"></span>choisissez un fichier...
+            </button>
+            <div class="info-container image-file-info">
+                <p>document au format jpeg ou gif limité à <span class="bigger">20 Mo</span></p>
+            </div>
+            <div class="upload-img-button-container hidden-button input-file-trigger">
+                <button class="upload-img-button">
+                    <span class="blue-upload"></span><span class="img-name-container"></span>
+                </button>
+            </div>
+            <a href="#" class="delete-link input-file-delete-link" style="display: none;"></a>
+            <input type="hidden" name="initial_image" value="">
+            <input type="hidden" name="initial_image_name" value="">
+            <div class="form-row image-file-name-container vertical-md" style="display: none">
+                {#<label>nom de l'image</label>#}
+                {{ form_label(e_learning_form.media_contents.vars.prototype.images.vars.prototype.name, 'nom de l\'image') }}
+                <div class="document-name">
+                    {#<input class="standard-styled-input" type="text" value="Nom de l'image 1">#}
+                    {{ form_widget(e_learning_form.media_contents.vars.prototype.images.vars.prototype.name, {'attr': {'class': 'standard-styled-input removable-content-input form-el'}}) }}
+                    <span class="delete-input" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="error-message-container image-name-error-message">
+            </div>
+            <div class="add-image-button-container" style="display: none;">
+                <button class="btn-valider add-gallery-image-element">ajouter</button>
+                <button class="btn-valider edit-gallery-image-element" style="display: none">éditer</button>
+            </div>
+        </div>
+        <!-- end - gallery image element prototype -->
+
+        <div class="content-list-element image-gallery">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <div class="image-preview"></div>
+                </div>
+                <div class="content-denomination-name">
+                    <div>Nom de l'image 1</div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <span class="edit"></span>
+                <span class="delete"></span>
+                <div class="reorder disabled">
                     <span class="reorder-up"></span>
                     <span class="reorder-down"></span>
                 </div>
