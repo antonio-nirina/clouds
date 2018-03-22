@@ -534,6 +534,7 @@ function setFormElementVisibilityOnEdit(content_block_container){
         content_block_container.find('.btn-upload').addClass('hidden-button');
         content_block_container.find('.upload-img-button-container').removeClass('hidden-button');
         content_block_container.find('.associated-file-info').hide();
+        content_block_container.find('.upload-img-button-container').next('.input-file-delete-link').show();
     }
 
     var video_url = content_block_container.find('.video-url-input').val();
