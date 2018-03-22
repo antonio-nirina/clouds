@@ -55,7 +55,7 @@ $(document).ready(function(){
     // soumission de formulaire
     $(document).on('click', '#create-edit-e-learning-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
-        $('.chargementAjax').removeClass('hidden');
+        /*$('.chargementAjax').removeClass('hidden');
 
         // removing useless block for data saving (model, form prototype, etc)
         $('#create-edit-e-learning-modal').find('.block-model-container').remove();
@@ -105,7 +105,7 @@ $(document).ready(function(){
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
             }
-        });
+        });*/
     });
 
 
