@@ -52,7 +52,7 @@ $(document).ready(function(){
      */
     $(document).on('click', '.input-file-trigger', function(e){
         e.preventDefault();
-        $(this).parent().find('.hidden-input-file').trigger('click');
+        $(this).parent().children('.hidden-input-file').trigger('click');
     });
 
     $(document).on('change', '.hidden-input-file', function(){
@@ -81,12 +81,12 @@ $(document).ready(function(){
     $(document).on('click', '.input-file-delete-link', function(e){
         e.preventDefault();
         var current_delete_link = $(this);
-        var wrapper = current_delete_link.parent().find('input[type=file]').wrap('<form></form>').parent();
+        var wrapper = current_delete_link.parent().children('input[type=file]').wrap('<form></form>').parent();
         wrapper.trigger('reset');
-        current_delete_link.parent().find('input[type=file]').unwrap();
-        current_delete_link.parent().find('.upload-img-button-container').addClass('hidden-button');
-        current_delete_link.parent().find('.btn-upload').removeClass('hidden-button');
-        current_delete_link.parent().find('input[type=file]').trigger('input-file-reset');
+        current_delete_link.parent().children('input[type=file]').unwrap();
+        current_delete_link.parent().children('.upload-img-button-container').addClass('hidden-button');
+        current_delete_link.parent().children('.btn-upload').removeClass('hidden-button');
+        current_delete_link.parent().children('input[type=file]').trigger('input-file-reset');
         current_delete_link.hide();
     });
 

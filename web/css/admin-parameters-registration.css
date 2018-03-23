@@ -6103,6 +6103,15 @@ section .row.filter.selected-elements{
     align-items: center;
 }
 
+.semi-large-data-manipulation-modal .image-block-container,
+.semi-large-data-manipulation-modal .temporary-image-block-container{
+    margin-top: 20px;
+}
+
+.semi-large-data-manipulation-modal .add-image-button-container{
+    margin-top: 0 !important;
+}
+
 @media (max-width: 355px) {
     .hidden-under-355{
         display: none;
