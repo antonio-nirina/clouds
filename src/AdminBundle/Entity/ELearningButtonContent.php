@@ -15,7 +15,7 @@ class ELearningButtonContent
     use ActionButtonTrait;
 
     /**
-     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ELearning", inversedBy="button_content")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ELearning", inversedBy="button_contents")
      */
     private $e_learning;
 

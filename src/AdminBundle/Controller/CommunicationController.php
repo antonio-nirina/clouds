@@ -44,6 +44,7 @@ use AdminBundle\Component\Post\NewsPostAuthorizationType;
 use AdminBundle\Component\GroupAction\GroupActionType;
 use AdminBundle\Component\Post\NewsPostTypeLabel;
 use AdminBundle\Component\Submission\SubmissionType;
+use AdminBundle\Component\ELearning\ELearningContentType;
 
 /**
  * @Route("/admin/communication")
@@ -2253,7 +2254,9 @@ class CommunicationController extends AdminController
      */
     public function eLearningAction()
     {
-        return $this->render('AdminBundle:Communication:e_learning.html.twig');
+        return $this->render('AdminBundle:Communication:e_learning.html.twig', array(
+            'e_learning_content_type_class' => new ELearningContentType(),
+        ));
     }
 
     /**
@@ -2271,12 +2274,23 @@ class CommunicationController extends AdminController
         $e_learning_form = $form_generator->generateForCreation($program);
         $e_learning_form->handleRequest($request);
         if ($e_learning_form->isSubmitted() && $e_learning_form->isValid()) {
-            die;
-        }
+            // dump($e_learning_form->getData());
+            $submission_type = $request->get('submission_type');
+            $e_learning_manager = $this->get('AdminBundle\Manager\ELearningManager');
+            if (in_array($submission_type, SubmissionType::VALID_SUBMISSION_TYPE)
+                && $e_learning_manager->create($e_learning_form->getData(), $submission_type)
+            ) {
+                $data = $json_response_data_provider->success();
+                return new JsonResponse($data, 200);
+            } else {
+                return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+            }
+         }
 
         $content = $this->renderView('AdminBundle:Communication/ELearning:manip_e_learning.html.twig', array(
             'e_learning_form' => $e_learning_form->createView(),
             'submission_type_class' => new SubmissionType(),
+            'e_learning_content_type_class' => new ELearningContentType(),
         ));
         $data = $json_response_data_provider->success();
         if ($e_learning_form->isSubmitted() && !$e_learning_form->isValid()) {

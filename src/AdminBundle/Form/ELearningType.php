@@ -45,7 +45,7 @@ class ELearningType extends SelectingCommonDataType
                 'allow_delete' => true,
             ))
 //            ->add('button_content', ELearningButtonContentType::class);
-            ->add('button_content', CollectionType::class, array(
+            ->add('button_contents', CollectionType::class, array(
                 'entry_type' => ELearningButtonContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
