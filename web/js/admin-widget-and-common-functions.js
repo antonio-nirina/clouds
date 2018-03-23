@@ -83,10 +83,10 @@ $(document).ready(function(){
         var current_delete_link = $(this);
         var wrapper = current_delete_link.parent().children('input[type=file]').wrap('<form></form>').parent();
         wrapper.trigger('reset');
-        current_delete_link.parent().children('input[type=file]').unwrap();
+        current_delete_link.parent().find('input[type=file]').not('.original-data-holder-el, .original-image-data-holder-el').unwrap();
         current_delete_link.parent().children('.upload-img-button-container').addClass('hidden-button');
         current_delete_link.parent().children('.btn-upload').removeClass('hidden-button');
-        current_delete_link.parent().children('input[type=file]').trigger('input-file-reset');
+        current_delete_link.parent().find('input[type=file]').not('.original-data-holder-el, .original-image-data-holder-el').trigger('input-file-reset');
         current_delete_link.hide();
     });
 
