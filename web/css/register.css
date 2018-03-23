@@ -741,7 +741,7 @@ div.all{
 .logo-cloud{
 	position: relative;
 	left: -13px;
-	top: 12px;
+	top: -5px;
 }
 .recapt{
 	
@@ -816,8 +816,8 @@ left:118px;
 
 	.logo-cloud {
 	    position: relative;
-	    left: -10px;
-	    top: 8px;
+	    left: -40px;
+	    top: -4px;
 	}
 
 div.all{
@@ -938,8 +938,8 @@ left:118px;
 
 	.logo-cloud {
 	    position: relative;
-	    left: -10px;
-	    top: 8px;
+	    left: -40px;
+	    top: -4px;
 	}
 
 div.all{
