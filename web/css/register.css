@@ -180,7 +180,6 @@ font-family: var(--police_light);
 }
 
 .bienvenu h4{
-	font-weight: bold;
 	font-size: 15px;
 	font-family: var(--police_bold);
 }
@@ -495,7 +494,6 @@ font-family: var(--police_light);
 }
 
 .bienvenu h4{
-	font-weight: bold;
 	font-size: 15px;
 	font-family: var(--police_bold);
 }
