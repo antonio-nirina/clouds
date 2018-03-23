@@ -13,7 +13,7 @@ fos_user:
         mismatch: 'Les deux emails ne sont pas identiques.'
     password:
         blank: 'Entrez un mot de passe s''il vous plait.'
-        short: 'Le mot de passe est trop trop trop trop court.'
+        short: 'Le mot de passe minimum est à 6 caractères.'
         mismatch: 'Les deux mots de passe ne sont pas identiques.'
         validate: "Le mot de passe doit contenir au moins 1 lettre majuscule, 1 lettre minuscule, et 1 nombre"
     new_password:

@@ -191,17 +191,24 @@ label{
 	list-style-type: none;
 	font-size: 12px;
 	text-align: left;
+	font-family: "Lato-Regular";
+	font-weight: bold;
 }
 
-.recapt ul>li{
+.recaptErreur ul>li{
 	list-style-type: none;
 	font-size: 12px;
-	text-align: left;
+	text-align: center;
+	font-family: "Lato-Regular";
+	font-weight: bold;
 }
 .emailErreur ul>li{
 	list-style-type: none;
 	font-size: 12px;
 	text-align: left;
+	font-family: "Lato-Regular";
+	font-weight: bold;
+
 }
 
 

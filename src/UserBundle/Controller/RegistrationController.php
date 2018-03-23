@@ -55,17 +55,20 @@ class RegistrationController extends BaseController
         $form = $formFactory->createForm();
         $form->setData($user);
         $parameter = $this->get("user.parameter")->getParam();
-        $res = $this->getNameForm($parameter,$form)["all"];
-        $nom = !empty($res)? $res :"";
-        $resradio = $this->getNameForm($parameter,$form)["radio"];
-        $nomRadio = !empty($resradio)? $resradio: "";
+        if (!empty($parameter)) {
+        $nom = $this->getNameForm($parameter,$form)["all"];
+        $nomRadio = $this->getNameForm($parameter,$form)["radio"];
         $resp = new JsonResponse($nomRadio);
         $radio = $resp->getContent();
+        } else {
+            $nom = "";
+            $radio = "";
+        }       
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);               
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);              
                 $var = $this->getValForm($parameter,$form);          
                 $em = $this->getDoctrine()->getManager()->getRepository("UserBundle:User");
                 $al = $em->findAll();
@@ -76,7 +79,7 @@ class RegistrationController extends BaseController
                    break;
                 }                               
                 if (!empty($var)) {
-                    $user->setCustomization($customize);
+                    $user->setCustomization($var);
                 }
                 $user->setCode($code);               
                 $userManager->updateUser($user);
@@ -218,30 +221,37 @@ class RegistrationController extends BaseController
 
     protected function getValForm($parameter,$form)
     {
-        foreach ($parameter as  $value) {
+        if (!empty($parameter)) {
+           foreach ($parameter as  $value) {
             $val = $this->get("user.parameter")->traitement($value->getLabel());
             if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO) {
                $var[] = [$value->getLabel() => $form->get($val)->getData()]; 
             } 
         }
-
-        return $var;    
+        return $var;   
+        } else {
+            return "";
+        }
+         
     }
 
     protected function getNameForm($parameter,$form)
-    {
+    {        
         foreach ($parameter as  $value) {
             $val = $this->get("user.parameter")->traitement($value->getLabel());       
             if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO ) {
-               $name[] = $val;
+               $nom[] = $val;
             }
             if ($value->getFieldType() == FieldType::CHOICE_RADIO) {
-                $nameRadio[] = $val;
+                $nomR[] = $val;
              } 
         }
-
-        return ["all"=>$name,"radio"=>$nameRadio];    
-    }
+        $nameRadio = !empty($nomR) ? $nomR : "";
+        $name = !empty($nom) ? $nom : "";
+        return ["all"=>$name,"radio"=>$nameRadio]; 
+    } 
+            
+    
    
 }
 
