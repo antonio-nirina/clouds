@@ -270,6 +270,7 @@ $(document).ready(function(){
             var corresponding_content_element = $('.media-content-list-container').find('.content-list-element[data-element-index='+content_block_index+']');
             corresponding_content_element.find('.content-denomination-name div').text(media_name);
             closingAllImageOpenedEdit(content_block_container);
+            deletingElementAndBlockWithToDeleteFlagOn(content_block_container)
             content_block_container.hide();
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
@@ -427,12 +428,46 @@ $(document).ready(function(){
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
     });
-
     /**
      * *********************************************************************************************
      * FIN
      * Communication - E-learning
      * Création e-learning - Edition image de galerie
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Suppression image de galerie
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.delete-gallery-image', function(e){
+        e.preventDefault();
+        var image_element = $(this).parents('.content-list-element.image-gallery');
+        var data_element_index = image_element.attr('data-element-index');
+        var content_block = $(this).parents('.content-block-container');
+        var corresponding_image_block = content_block.find('.image-block-container .gallery-image-element[data-block-index='+data_element_index+']');
+
+        // simulate deleting by adding "to-delete-image-element" and "to-delete-image-block"
+        // and processing real removing when validating edit
+        image_element.addClass('to-delete-image-element');
+        image_element.hide();
+        corresponding_image_block.addClass('to-delete-image-block');
+        corresponding_image_block.hide();
+
+        // adding new temporary image block if there is not yet one
+        var temporary_image_block_container = content_block.find('.temporary-image-block-container');
+        if (temporary_image_block_container.find('.gallery-image-element').length <= 0){
+            addGalleryImageTemporary(content_block);
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Suppression image de galerie
      * *********************************************************************************************
      */
 });
@@ -642,6 +677,30 @@ function resetFormElementToOriginalData(content_block_container)
             $(this).hide();
         });
     }
+
+    removeToDeleteFlagOnImageElementAndBlock(content_block_container);
+}
+
+function removeToDeleteFlagOnImageElementAndBlock(content_block_container)
+{
+    var to_delete_element_list = content_block_container.find('.image-element-list-container .content-list-element.image-gallery.to-delete-image-element');
+    to_delete_element_list.each(function(){
+        $(this).removeClass('to-delete-image-element');
+        $(this).show();
+    });
+
+    var to_delete_block_list = content_block_container.find('.image-block-container .gallery-image-element.to-delete-image-block');
+    to_delete_block_list.each(function(){
+        $(this).removeClass('to-delete-image-block');
+    });
+}
+
+function deletingElementAndBlockWithToDeleteFlagOn(content_block_container)
+{
+    var to_delete_element_list = content_block_container.find('.image-element-list-container .content-list-element.image-gallery.to-delete-image-element');
+    to_delete_element_list.remove();
+    var to_delete_block_list = content_block_container.find('.image-block-container .gallery-image-element.to-delete-image-block');
+    to_delete_block_list.remove();
 }
 
 function resetImageFormElementToOriginalData(image_block)
