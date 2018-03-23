@@ -195,21 +195,20 @@ label{
 .password ul>li{
 	list-style-type: none;
 	font-size: 12px;
+	text-align: left;
 }
 
-.recaptErreur ul>li{
+.recapt ul>li{
 	list-style-type: none;
 	font-size: 12px;
-	margin-left: 71px;
+	text-align: left;
 }
 .emailErreur ul>li{
 	list-style-type: none;
 	font-size: 12px;
+	text-align: left;
 }
 
-#fos_user_registration_form_civility_1{
-	margin-left: 39px;
-}
 
 .civ2{
 	margin-left: 20px;
@@ -1695,12 +1694,12 @@ height: 250px;
 /*====================================================================================================================*/
 @media (min-width: 992px) and (max-width: 1000px) {
 
-	.logout{
+	/*.logout{
 		position: relative;
 		top: -49px;
 		width: 25px;
 		left: 37%;
-	}
+	}*/
 
 	.logout a{
 		mask-image: url('../images/cloudsRewards/logout.svg');
@@ -1819,7 +1818,7 @@ height: 250px;
 
 	.logout{
 		position: relative;
-		top: 11%;
+		top: -5%;
 		width: 25px;
 		left: 17%;
 	}

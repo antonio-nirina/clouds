@@ -55,8 +55,10 @@ class RegistrationController extends BaseController
         $form = $formFactory->createForm();
         $form->setData($user);
         $parameter = $this->get("user.parameter")->getParam();
-        $nom = $this->getNameForm($parameter,$form)["all"];
-        $nomRadio = $this->getNameForm($parameter,$form)["radio"];
+        $res = $this->getNameForm($parameter,$form)["all"];
+        $nom = !empty($res)? $res :"";
+        $resradio = $this->getNameForm($parameter,$form)["radio"];
+        $nomRadio = !empty($resradio)? $resradio: "";
         $resp = new JsonResponse($nomRadio);
         $radio = $resp->getContent();
         $form->handleRequest($request);

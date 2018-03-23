@@ -15,7 +15,7 @@ fos_user:
         blank: 'Entrez un mot de passe s''il vous plait.'
         short: 'Le mot de passe est trop trop trop trop court.'
         mismatch: 'Les deux mots de passe ne sont pas identiques.'
-        validate: "Le mot de passe doit comporter au moins 1 lettre majuscule, 1 lettre minuscule, et 1 nombre"
+        validate: "Le mot de passe doit contenir au moins 1 lettre majuscule, 1 lettre minuscule, et 1 nombre"
     new_password:
         blank: 'Entrez un nouveau mot de passe s''il vous plait.'
         short: 'Le nouveau mot de passe est trop court.'
