@@ -764,9 +764,9 @@ div.all{
 }
 
 .accepte{
-position: relative;
-top: 12px;
-left: -79px;
+	position: relative;
+	top: -25px;
+	left: 73%;
 }
 .checkbox{
 top: -24px;
@@ -886,8 +886,8 @@ div.all{
 
 .accepte{
 position: relative;
-top: 12px;
-left: -79px;
+top: -25px;
+left: 65%;
 }
 .checkbox{
 top: -24px;
@@ -1008,8 +1008,8 @@ div.all{
 
 .accepte{
 position: relative;
-top: 12px;
-left: -79px;
+top: -25px;
+left: 50%;
 }
 .checkbox{
 top: -24px;
@@ -1130,8 +1130,8 @@ div.all{
 }
 .accepte{
 position: relative;
-top: 12px;
-left: -79px;
+top: 8px;
+left: 8%;
 }
 .checkbox{
 top: 8px;
@@ -1255,8 +1255,8 @@ div.all{
 
 .accepte{
 position: relative;
-top: 12px;
-left: -79px;
+top: 8px;
+left: -1%;
 }
 .checkbox{
 
@@ -1382,8 +1382,8 @@ div.all{
 
 .accepte{
 position: relative;
-top: 12px;
-left: -79px;
+top: 8px;
+left: -1%;
 }
 .checkbox{
 
