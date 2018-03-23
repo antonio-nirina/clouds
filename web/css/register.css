@@ -96,9 +96,329 @@ div.all{
 }
 
 
+
+
+.form-control{
+	margin-left: 6px!important;
+}
+/*
+.form-group {
+    margin-bottom: 1.7rem !important;
+}
+
+.civility{
+	 margin-bottom: 1rem !important;
+}
+.accepte{
+	 margin-bottom: 11px !important;
+}
+
+
+*/
+
+
+
+ .salut{
+	float: right;
+}
+
+.symbole{
+
+background:url('../images/cloudsRewards/salut.png');
+background-position: -29px -1px;
+}
+
+.corner-circle-img{
+    width: 117px;
+    height: 117px;
+    background-repeat: no-repeat;
+    border: 2px solid #BEBEBE;
+    float: right;
+    box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
+}
+
+
+.message{
+	font-size: 11px;
+	color: #424960;
+	position: relative;
+	top: -16px;
+	font-family: "Lato-Regular";
+	font-size: 14px;
+
+
+}
+
+
+.valide-user{
+	height: 34px;
+	width: 130px !important;
+	font-size: 15px !important;
+	font-family: "Lato-Regular" ;
+}
+
+
+.inscription{
+	position: relative;
+	text-align: left;
+	top: 4px;
+	
+}
+.bienvenu{
+	color: var(--couleur_2);	
+	margin-bottom: 27px;
+	position: relative;
+	top: -16px;
+	
+}
+.inscription h4{
+font-size: 25px;
+color: var(--couleur_2);
+font-family: var(--police_light);
+
+}
+
+.bienvenu h4{
+	font-weight: bold;
+	font-size: 15px;
+	font-family: "Lato";
+}
+label{
+	text-align: left;
+}
+
+.password ul>li{
+	list-style-type: none;
+	font-size: 12px;
+	text-align: left;
+}
+
+.recapt ul>li{
+	list-style-type: none;
+	font-size: 12px;
+	text-align: left;
+}
+.emailErreur ul>li{
+	list-style-type: none;
+	font-size: 12px;
+	text-align: left;
+}
+
+
+.civ2{
+	margin-left: 20px;
+	font-size: 15px;
+	font-family: "Lato-Regular";
+}
+
+.civ1{
+	/*margin-left: -5px;*/
+	font-size: 15px;
+	font-family: "Lato-Regular";
+}
+
+.cv-label{
+	font-size: 15px;
+	font-family: "Lato-Regular";
+}
+.label-acepte{
+	
+	font-size: 15px;
+	font-family: "Lato-Regular";
+
+}
+
 .label-position{
 	position: relative !important;
 	top: 7px !important;
+	font-size: 15px !important;
+	font-family: "Lato-Regular" ;
+}
+
+
+.civ3{
+	font-size: 15px;
+	font-family: "Lato-Regular";
+	position: relative;
+	top: -8px;
+}
+
+
+.logo-cloud{
+	position: absolute;
+	left: 212px;
+}
+.recapt{
+	
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 25px;
+}
+
+.valide{
+	position: relative;
+	/*left: 34%;*/
+	margin-bottom: 101px;
+	top: 15px;
+	text-align: center;
+
+}
+
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 36px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: -2px;
+    width: 23px;
+    height: 23px;
+    border: 1px solid rgb(176,183,197);
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 23px;
+    height: 23px;
+    /*background: #667ADE;*/
+    position: absolute;
+    top: -2px;
+    left: 6px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    background: url('../images/cloudsRewards/checkon.png') no-repeat;   
+    /*background-size: auto auto;*/
+	background-size: 23px 23px;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+}
+
+
+/*=================================Max1200=========================================================================*/
+@media (min-width: 1200px){
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9 {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}
+
+.registre{
+	background:url('../images/cloudsRewards/bandeau-header-login.png');
+	background-repeat:no-repeat;
+	margin:0;
+	padding:0;
+	height:76px;
+	width:100%;
+	z-index:100;
+	padding-left:100px;
+	padding-right:100px;
+}
+
+
+
+.challenge{
+	background: url('../images/cloudsRewards/a.jpg');
+	background-repeat:no-repeat;
+ 	background-position: -50px -1px;
+	margin-top: 22px;
+
+}
+
+.image-slide{
+width: 100%;
+position: relative;
+left: 0px;
+margin-top: 1px;
+height: 250px;
+ background-repeat: no-repeat;
+}
+
+/*.challenge{
+	 background: url('../images/cloudsRewards/slide-1024.jpg');
+	 background-repeat:no-repeat;
+
+}*/
+
+#ens{
+	width: 100%;
+	height: auto;
+}
+
+.fieldset.active{
+    margin-top:22px;
+    /*position:relative;*/
+    box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
+    background-color: #FFFFFF;
+    /*border-top: solid 1px var(--couleur_2);*/
+    margin-bottom: 46px;
+}
+
+
+.logout{
+	/*position: relative;*/
+	position: absolute;
+    left: 40%;
+    width: 28px;
+    height: 20px;
+}
+
+.logout a{
+	mask-image: url('../images/cloudsRewards/logout.svg');
+	-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
+	position: relative;
+	left: 1867%;
+	cursor: pointer;
+	-webkit-text-fill-color: white;
+	mask-position: center;
+	-webkit-mask-position: center;
+	display: block;
+	mask-repeat: no-repeat;
+	-webkit-mask-repeat: no-repeat;
+	height: 26px;
+	background: white;
+}
+
+
+div.all{
+	background: url('../images/cloudsRewards/bg-slide.png');
+	background-repeat:no-repeat;
+	background-position: 0px -123px;
+	z-index: 1;
+}
+
+.form{
+	/*margin-left: 96px;*/
+	margin-left: auto;
+	margin-right: auto;
 }
 
 
@@ -324,351 +644,7 @@ label{
     transform: scale(1);
 }
 
-}
 
-
-/*=================================Max1200=========================================================================*/
-@media (min-width: 1200px){
-
-.inscription {
-    position: relative;
-    text-align: left;
-    top: 4px;
-    color: rgb(102,122,224);
-}
-.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9 {
-    padding-right: 15px !important;
-    padding-left: 15px !important;
-}
-
-.registre{
-	background:url('../images/cloudsRewards/bandeau-header-login.png');
-	background-repeat:no-repeat;
-	margin:0;
-	padding:0;
-	height:76px;
-	width:100%;
-	z-index:100;
-	padding-left:100px;
-	padding-right:100px;
-}
-
-
-
-.challenge{
-	background: url('../images/cloudsRewards/a.jpg');
-	background-repeat:no-repeat;
- 	background-position: -50px -1px;
-	margin-top: 22px;
-
-}
-
-.image-slide{
-width: 100%;
-position: relative;
-left: 0px;
-margin-top: 1px;
-height: 250px;
- background-repeat: no-repeat;
-}
-
-/*.challenge{
-	 background: url('../images/cloudsRewards/slide-1024.jpg');
-	 background-repeat:no-repeat;
-
-}*/
-
-#ens{
-	width: 100%;
-	height: auto;
-}
-
-.fieldset.active{
-    margin-top:22px;
-    /*position:relative;*/
-    box-shadow: 1.5px 1.5px 2px #AAAAAA, 0 -2px 0 var(--couleur_2);
-    background-color: #FFFFFF;
-    /*border-top: solid 1px var(--couleur_2);*/
-    margin-bottom: 46px;
-}
-
-
-.logout{
-	/*position: relative;*/
-	position: absolute;
-    left: 40%;
-    width: 28px;
-    height: 20px;
-}
-
-.logout a{
-	mask-image: url('../images/cloudsRewards/logout.svg');
-	-webkit-mask-image: url('../images/cloudsRewards/logout.svg');
-	position: relative;
-	left: 1867%;
-	cursor: pointer;
-	-webkit-text-fill-color: white;
-	mask-position: center;
-	-webkit-mask-position: center;
-	display: block;
-	mask-repeat: no-repeat;
-	-webkit-mask-repeat: no-repeat;
-	height: 26px;
-	background: white;
-}
-
-
-div.all{
-	background: url('../images/cloudsRewards/bg-slide.png');
-	background-repeat:no-repeat;
-	background-position: 0px -123px;
-	z-index: 1;
-}
-
-.form{
-	/*margin-left: 96px;*/
-	margin-left: auto;
-	margin-right: auto;
-}
-
-
-.label-position{
-	position: relative !important;
-	top: 7px !important;
-}
-
-
-
-.form-control{
-	margin-left: 6px!important;
-}
-/*
-.form-group {
-    margin-bottom: 1.7rem !important;
-}
-
-.civility{
-	 margin-bottom: 1rem !important;
-}
-.accepte{
-	 margin-bottom: 11px !important;
-}
-
-
-*/
-
-
-
- .salut{
-	float: right;
-}
-
-.symbole{
-
-background:url('../images/cloudsRewards/salut.png');
-background-position: -29px -1px;
-}
-
-.corner-circle-img{
-    width: 117px;
-    height: 117px;
-    background-repeat: no-repeat;
-    border: 2px solid #BEBEBE;
-    float: right;
-    box-shadow: 0 0 5px grey inset, 0 0 0 1px #BEBEBE;
-}
-
-
-.titre{
-	margin-top: 89px;
-}
-
-.message{
-	font-size: 11px;
-	color: #424960;
-	position: relative;
-	top: -16px;
-	font-family: "Lato-Regular";
-	font-size: 14px;
-
-
-}
-
-
-.valide-user{
-	height: 34px;
-	width: 130px !important;
-	font-size: 15px !important;
-	font-family: "Lato-Regular" ;
-}
-
-
-.inscription{
-	position: relative;
-	text-align: left;
-	top: 4px;
-	/*color: rgb(102,122,224);*/
-	
-	
-}
-.bienvenu{
-	/*color: rgb(102,122,224);*/
-	color: var(--couleur_2);	
-	margin-bottom: 27px;
-	position: relative;
-	top: -16px;
-	
-}
-.inscription h4{
-font-size: 25px;
-color: var(--couleur_2);
-font-family: var(--police_light);
-
-}
-
-.bienvenu h4{
-	font-weight: bold;
-	font-size: 15px;
-	font-family: "Lato";
-}
-label{
-	text-align: left;
-}
-
-.password ul>li{
-	list-style-type: none;
-	font-size: 12px;
-}
-
-.recaptErreur ul>li{
-	list-style-type: none;
-	font-size: 12px;
-	margin-left: 71px;
-}
-.emailErreur ul>li{
-	list-style-type: none;
-	font-size: 12px;
-}
-
-#fos_user_registration_form_civility_1{
-	margin-left: 39px;
-}
-
-.civ2{
-	margin-left: 20px;
-	font-size: 15px;
-	font-family: "Lato-Regular";
-}
-
-.civ1{
-	/*margin-left: -5px;*/
-	font-size: 15px;
-	font-family: "Lato-Regular";
-}
-
-.cv-label{
-	font-size: 15px;
-	font-family: "Lato-Regular";
-}
-.label-acepte{
-	
-	font-size: 15px;
-	font-family: "Lato-Regular";
-
-}
-
-.label-position{
-	position: relative !important;
-	top: 7px !important;
-	font-size: 15px !important;
-	font-family: "Lato-Regular" ;
-}
-
-
-.civ3{
-	font-size: 15px;
-	font-family: "Lato-Regular";
-	position: relative;
-	top: -8px;
-}
-
-
-
-
-
-.logo-cloud{
-	position: absolute;
-	left: 212px;
-}
-.recapt{
-	margin-top: 25px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.valide{
-	position: relative;
-	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
-	text-align: center;
-
-}
-
-[type="radio"]:checked,
-[type="radio"]:not(:checked) {
-    position: absolute;
-    left: -9999px;
-}
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label
-{
-    position: relative;
-    padding-left: 36px;
-    cursor: pointer;
-    line-height: 20px;
-    display: inline-block;
-    color: #666;
-
-}
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: -2px;
-    width: 23px;
-    height: 23px;
-    border: 1px solid rgb(176,183,197);
-    border-radius: 100%;
-    background: #fff;
-}
-[type="radio"]:checked + label:after,
-[type="radio"]:not(:checked) + label:after {
-    content: '';
-    width: 23px;
-    height: 23px;
-    /*background: #667ADE;*/
-    position: absolute;
-    top: -2px;
-    left: 6px;
-    border-radius: 100%;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    background: url('../images/cloudsRewards/checkon.png') no-repeat;   
-    /*background-size: auto auto;*/
-	background-size: 23px 23px;
-}
-[type="radio"]:not(:checked) + label:after {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-}
-[type="radio"]:checked + label:after {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
 
 }
 
@@ -776,11 +752,28 @@ div.all{
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
 }
+
+.label-position{
+	margin-left: 5px;
+
+}
+
+.accepte{
+position: relative;
+top: 12px;
+left: -79px;
+}
+.checkbox{
+top: -24px;
+left:118px;
+}
+
+
 }
 
 /*===============================================368-458======================================================================*/
@@ -880,11 +873,28 @@ div.all{
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
 }
+
+.label-position{
+	margin-left: 5px;
+
+}
+
+.accepte{
+position: relative;
+top: 12px;
+left: -79px;
+}
+.checkbox{
+top: -24px;
+left:118px;
+}
+
+
 }
 
 /*===============================================458-575======================================================================*/
@@ -985,11 +995,28 @@ div.all{
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
 }
+
+.label-position{
+	margin-left: 5px;
+
+}
+
+.accepte{
+position: relative;
+top: 12px;
+left: -79px;
+}
+.checkbox{
+top: -24px;
+left:118px;
+}
+
+
 
 }
 
@@ -1091,10 +1118,24 @@ div.all{
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
+}
+
+.label-position{
+	margin-left: 5px;
+
+}
+.accepte{
+position: relative;
+top: 12px;
+left: -79px;
+}
+.checkbox{
+top: 8px;
+left:53px;
 }
 
 
@@ -1201,11 +1242,29 @@ div.all{
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
 }
+
+.label-position{
+	margin-left: 5px;
+
+}
+
+.accepte{
+position: relative;
+top: 12px;
+left: -79px;
+}
+.checkbox{
+
+top: 6px;
+left: -79px;
+}
+
+
 
 
 }
@@ -1310,12 +1369,27 @@ div.all{
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 9px;
+	top: -40px;
 	text-align: center;
 
 }
 
+.label-position{
+	margin-left: 5px;
+
+}
+
+.accepte{
+position: relative;
+top: 12px;
+left: -79px;
+}
+.checkbox{
+
+top: 6px;
+left: 15px;
+}
 
 }
 
@@ -1434,8 +1508,8 @@ height: 250px;
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
 }
@@ -1559,8 +1633,8 @@ height: 250px;
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
 }
@@ -1682,8 +1756,8 @@ height: 250px;
 .valide{
 	position: relative;
 	/*left: 34%;*/
-	margin-bottom: 101px;
-	top: 15px;
+	margin-bottom: 0px;
+	top: -52px;
 	text-align: center;
 
 }
