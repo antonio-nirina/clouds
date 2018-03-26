@@ -24,6 +24,7 @@
 	background-repeat:no-repeat;
  	background-position: -50px -1px;
 	margin-top: 22px;
+	max-width: 973px;
 
 }
 
@@ -34,6 +35,7 @@ left: 0px;
 margin-top: 1px;
 height: 250px;
  background-repeat: no-repeat;
+ max-width: 973px;
 }
 
 /*.challenge{
@@ -45,6 +47,7 @@ height: 250px;
 #ens{
 	width: 100%;
 	height: auto;
+	max-width: 973px;
 }
 
 .fieldset.active{
@@ -262,6 +265,12 @@ label{
 	margin-top: 25px;
 }
 
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 83%
+}
+
 .valide{
 	position: relative;
 	/*left: 34%;*/
@@ -358,22 +367,25 @@ label{
 	background-repeat:no-repeat;
  	background-position: -50px -1px;
 	margin-top: 22px;
+	max-width: 973px;
 
 }
 
 .image-slide{
-width: 100%;
-position: relative;
-left: 0px;
-margin-top: 1px;
-height: 250px;
- background-repeat: no-repeat;
+	width: 100%;
+	position: relative;
+	left: 0px;
+	margin-top: 1px;
+	height: 250px;
+	background-repeat: no-repeat;
+	max-width: 973px;
 }
 
 
 #ens{
 	width: 100%;
 	height: auto;
+	max-width: 973px;
 }
 
 .fieldset.active{
@@ -389,9 +401,10 @@ height: 250px;
 .logout{
 	/*position: relative;*/
 	position: absolute;
-    left: 40%;
+    /*left: 40%;*/
     width: 28px;
     height: 20px;
+    left: 39%;
 }
 
 .logout a{
@@ -568,12 +581,19 @@ label{
 .logo-cloud{
 	position: relative;
 	left: 116px;
+	/*left: 207px;*/
 }
 .recapt{
 	
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 25px;
+}
+
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 83%;
 }
 
 .valide{
@@ -771,6 +791,10 @@ top: -24px;
 left:118px;
 }
 
+.g-recaptcha{
+	margin-left: 0px;
+}
+
 
 }
 
@@ -890,6 +914,10 @@ left: 65%;
 .checkbox{
 top: -24px;
 left:118px;
+}
+
+.g-recaptcha{
+	margin-left: 0px;
 }
 
 
@@ -1014,6 +1042,12 @@ top: -24px;
 left:118px;
 }
 
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 64%
+}
+
 
 
 }
@@ -1134,6 +1168,11 @@ left: 8%;
 .checkbox{
 top: 8px;
 left:53px;
+}
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
 }
 
 
@@ -1260,6 +1299,12 @@ left: -1%;
 
 top: 6px;
 left: -79px;
+}
+
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
 }
 
 
@@ -1389,6 +1434,12 @@ top: 6px;
 left: 15px;
 }
 
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
 }
 
 
@@ -1510,6 +1561,12 @@ height: 250px;
 	top: -52px;
 	text-align: center;
 
+}
+
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
 }
 
 
@@ -1637,6 +1694,12 @@ height: 250px;
 
 }
 
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
 }
 
 /*=======================================================934=============================================================*/
@@ -1758,6 +1821,11 @@ height: 250px;
 	top: -52px;
 	text-align: center;
 
+}
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
 }
 
 }
@@ -1883,6 +1951,11 @@ height: 250px;
 
 }
 
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
 
 }
 /*====================================================================================================================*/
@@ -2004,6 +2077,13 @@ height: 250px;
 	text-align: center;
 
 }
+
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
 }
 
 /*====================================================================================================================*/
@@ -2128,6 +2208,12 @@ height: 250px;
 
 }
 
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
 }
 /*====================================================================================================================*/
 
@@ -2249,7 +2335,11 @@ height: 250px;
 	text-align: center;
 
 }
-
+.g-recaptcha{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
 
 
 }
