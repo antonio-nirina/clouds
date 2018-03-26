@@ -6061,18 +6061,12 @@ section .row.filter.selected-elements{
     mask-repeat: no-repeat;
 }
 
-.semi-large-data-manipulation-modal .content-block-list-container{
+.semi-large-data-manipulation-modal .content-block-list-container,
+.semi-large-data-manipulation-modal .temporary-content-block-list-container,
+.semi-large-data-manipulation-modal .media-content-list-container,
+.semi-large-data-manipulation-modal .quiz-content-list-container{
     width: 100%;
 }
-
-.semi-large-data-manipulation-modal .temporary-content-block-list-container{
-    width: 100%;
-}
-
-.semi-large-data-manipulation-modal .media-content-list-container{
-    width: 100%;
-}
-
 .semi-large-data-manipulation-modal .content-block-list-container.media-container .content-block-container{
     display: none;
 }
@@ -6110,6 +6104,16 @@ section .row.filter.selected-elements{
 
 .semi-large-data-manipulation-modal .add-image-button-container{
     margin-top: 0 !important;
+}
+
+.semi-large-data-manipulation-modal .quiz-selection .delete-select{
+    margin-left: 10px;
+    min-width: 25px;
+}
+
+/* new quiz dropdown style */
+.semi-large-data-manipulation-modal .styled-choice-select.quiz-select .dropdown{
+    width: 250px;
 }
 
 @media (max-width: 355px) {
