@@ -273,10 +273,13 @@ class Common
         $filters = ["campaign" => $id];
         $messages = $this->mailjetClient->get(Resources::$Message,['filters' => $filters])->getData();
         foreach ($messages as $key => $value) {
-            $res[] = [
+            if (intval($value["CampaignID"]) === intval($id)) {
+               $res[] = [
                 "emails"=>$this->getContactById($value["ContactID"])["Email"],
                 "etat"=>$value["Status"]
-            ];
+                ];
+            }
+            
         }
         return $res;
     }

@@ -1,5 +1,4 @@
 
-
 .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9 {
     padding-right: 15px !important;
     padding-left: 15px !important;
@@ -59,13 +58,12 @@ height: 250px;
     margin-bottom: 46px;
 }
 
-
 .logout{
-	/*position: relative;*/
-	position: absolute;
-    left: 40%;
+	position: relative;
+    left: 31%;
     width: 28px;
     height: 20px;
+    top: -31px;
 }
 
 .logout a{
@@ -82,6 +80,20 @@ height: 250px;
 	-webkit-mask-repeat: no-repeat;
 	height: 26px;
 	background: white;
+}
+
+.logo-logout{
+	max-width: 973px;
+}
+
+/*.logo-cloud{
+	position: relative;
+	left: 116px;
+}*/
+
+.log{
+position: relative;
+left: -78px;
 }
 
 
@@ -253,11 +265,6 @@ label{
 	top: -8px;
 }
 
-
-.logo-cloud{
-	position: relative;
-	left: 116px;
-}
 .recapt{
 	
 	margin-left: auto;
@@ -343,6 +350,7 @@ label{
 
 @media (min-width: 1200px){
 
+
 .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9 {
     padding-right: 15px !important;
     padding-left: 15px !important;
@@ -372,15 +380,20 @@ label{
 }
 
 .image-slide{
-	width: 100%;
-	position: relative;
-	left: 0px;
-	margin-top: 1px;
-	height: 250px;
-	background-repeat: no-repeat;
-	max-width: 973px;
+width: 100%;
+position: relative;
+left: 0px;
+margin-top: 1px;
+height: 250px;
+ background-repeat: no-repeat;
+ max-width: 973px;
 }
 
+/*.challenge{
+	 background: url('../images/cloudsRewards/slide-1024.jpg');
+	 background-repeat:no-repeat;
+
+}*/
 
 #ens{
 	width: 100%;
@@ -399,12 +412,11 @@ label{
 
 
 .logout{
-	/*position: relative;*/
-	position: absolute;
-    /*left: 40%;*/
+	position: relative;
+    left: 31%;
     width: 28px;
     height: 20px;
-    left: 39%;
+    top: -31px;
 }
 
 .logout a{
@@ -421,6 +433,20 @@ label{
 	-webkit-mask-repeat: no-repeat;
 	height: 26px;
 	background: white;
+}
+
+.logo-logout{
+	max-width: 973px;
+}
+
+/*.logo-cloud{
+	position: relative;
+	left: 116px;
+}*/
+
+.log{
+position: relative;
+left: -78px;
 }
 
 
@@ -444,6 +470,21 @@ div.all{
 	margin-left: 6px!important;
 	font-family: "Lato-Regular";
 }
+/*
+.form-group {
+    margin-bottom: 1.7rem !important;
+}
+
+.civility{
+	 margin-bottom: 1rem !important;
+}
+.accepte{
+	 margin-bottom: 11px !important;
+}
+
+
+*/
+
 
 
  .salut{
@@ -577,12 +618,6 @@ label{
 	top: -8px;
 }
 
-
-.logo-cloud{
-	position: relative;
-	left: 116px;
-	/*left: 207px;*/
-}
 .recapt{
 	
 	margin-left: auto;
@@ -593,7 +628,7 @@ label{
 .g-recaptcha{
 	margin-left: auto;
 	margin-right: auto;
-	width: 83%;
+	width: 83%
 }
 
 .valide{
@@ -661,15 +696,10 @@ label{
     transform: scale(1);
 }
 
-
-
-
 }
 
-
 /*================================================Max368===============================================================*/
-@media (max-width: 368px)  {
-
+@media (max-width: 368px) {
 #ens{
 	width: 100%;
 	height: auto;
@@ -701,6 +731,17 @@ label{
 	width: 25px;
 	left: -219px;
 }
+
+.log{
+	position: relative;
+	left: 0px;
+}
+
+/*.logo-cloud{
+	position: relative;
+	left: -13px;
+	top: -5px;
+}*/
 
 	.logout a{
 		mask-image: url('../images/cloudsRewards/logout.svg');
@@ -755,12 +796,6 @@ div.all{
 	
 }
 
-
-.logo-cloud{
-	position: relative;
-	left: -13px;
-	top: -5px;
-}
 .recapt{
 	
 	margin-left: auto;
@@ -792,7 +827,7 @@ left:118px;
 }
 
 .g-recaptcha{
-	margin-left: 0px;
+	margin-left: 0px !important;
 }
 
 
@@ -835,12 +870,17 @@ left:118px;
 
 }
 
+.log{
+	position: relative;
+	left: 0px;
+}
 
-	.logo-cloud {
+
+	/*.logo-cloud {
 	    position: relative;
 	    left: -40px;
 	    top: -4px;
-	}
+	}*/
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -952,7 +992,18 @@ left:118px;
 	#ens{
 	width: 100%;
 	height: auto;
+	}
+
+.log{
+	position: relative;
+	left: 0px;
 }
+
+/*.logo-cloud {
+    position: relative;
+    left: -40px;
+    top: -4px;
+}*/
 
 .fieldset.active{
    
@@ -961,12 +1012,6 @@ left:118px;
 
 }
 
-
-	.logo-cloud {
-	    position: relative;
-	    left: -40px;
-	    top: -4px;
-	}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -1090,12 +1135,17 @@ left:118px;
 
 }
 
+.log{
+	position: relative;
+	left: 133px;
+}
 
-	.logo-cloud {
+
+	/*.logo-cloud {
 	    position: relative;
 	    left: -10px;
 	    top: -9px;
-	}
+	}*/
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -1219,12 +1269,17 @@ left:53px;
 
 }
 
+.log{
+	position: relative;
+	left: 133px;
+}
 
-	.logo-cloud {
+
+	/*.logo-cloud {
 	    position: relative;
 	    left: -10px;
 	    top: -9px;
-	}
+	}*/
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -1351,13 +1406,11 @@ left: -79px;
     background-color: #FFFFFF;
 
 }
-
-
-	.logo-cloud {
-	    position: relative;
-	    left: -10px;
-	    top: -9px;
-	}
+.log{
+	position: relative;
+	left: 150px;
+	top: -11px;
+}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -1479,13 +1532,11 @@ left: 15px;
     background-color: #FFFFFF;
 
 }
-
-
-	.logo-cloud {
-	    position: relative;
-	    left: -107px;
-	    top: -9px;
-	}
+.log{
+	position: relative;
+	left: 150px;
+	top: -11px;
+}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -1611,12 +1662,11 @@ height: 250px;
 
 }
 
-
-	.logo-cloud {
-	    position: relative;
-	    left: -139px;
-	    top: -9px;
-	}
+.log{
+	position: relative;
+	left: 150px;
+	top: -11px;
+}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -1710,7 +1760,7 @@ height: 250px;
 		position: relative;
 		top: -49px;
 		width: 25px;
-		left: 37%;
+		left: 50%;
 	}
 
 	.logout a{
@@ -1740,12 +1790,11 @@ height: 250px;
 
 }
 
-
-	.logo-cloud {
-	    position: relative;
-	    left: -170px;
-	    top: -9px;
-	}
+.log{
+	position: relative;
+	left: 150px;
+	top: -11px;
+}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -1839,6 +1888,7 @@ height: 250px;
 		/*top: -49px;*/
 		width: 25px;
 		left: 49%;
+		top: 22%;
 	}
 
 	.logout a{
@@ -1963,9 +2013,9 @@ height: 250px;
 
 	.logout{
 		position: relative;
-		top: -5%;
+		top: -36px;
 		width: 25px;
-		left: 17%;
+		left: 49%;
 	}
 
 	.logout a{
@@ -1995,12 +2045,10 @@ height: 250px;
 
 }
 
-
-	.logo-cloud {
-	    position: relative;
-	    left: 169px;
-	    top: -9px;
-	}
+.log{
+position: relative;
+left: -19px;
+}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -2093,9 +2141,9 @@ height: 250px;
 	
 	.logout{
 		position: relative;
-		top: 11%;
+		top: -36px;
 		width: 25px;
-		left: 25%;
+		left: 55%;
 	}
 
 	.logout a{
@@ -2124,13 +2172,10 @@ height: 250px;
     background-color: #FFFFFF;
 
 }
-
-
-	.logo-cloud {
-	    position: relative;
-	    left: 187px;
-	    top: 1px;
-	}
+.log{
+position: relative;
+left: -19px;
+}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
@@ -2221,9 +2266,9 @@ height: 250px;
 
 	.logout{
 		position: relative;
-		top: 11%;
+		top: -48px;
 		width: 25px;
-		left: 24%;
+		left: 56%;
 	}
 
 	.logout a{
@@ -2253,12 +2298,10 @@ height: 250px;
 
 }
 
-
-	.logo-cloud {
-	    position: relative;
-	    left: 190px;
-	    top: 4px;
-	}
+.log{
+position: relative;
+left: -19px;
+}
 
 div.all{
 	background: url('../images/cloudsRewards/bg-slide.png');
