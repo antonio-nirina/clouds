@@ -81,11 +81,10 @@ class ExcelManager
 	    	foreach ($result as  $del) {
 	    		if ($del["etat"] == "blocked" ) {
 	    			$res [] = $del;
-	    		} else {
-	    			$res = "";
-	    		}
+	    		} 
 	    	}
-	    	$objPHPExcel = $this->allTraitement($res);
+	    	$data = !empty($res)?$res:"";
+	    	$objPHPExcel = $this->allTraitement($data);
 	    }
 	   
 	    return $objPHPExcel;
