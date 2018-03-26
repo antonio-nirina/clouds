@@ -243,6 +243,7 @@ $(document).ready(function(){
         var content_block = $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']');
         if (!content_block.is(':visible')) {
             content_block.attr('data-manipulation-type', 'edit');
+            content_block.find('.document-name-error-message').text('');
             createOriginalDataHolder(content_block);
             content_block.find('.add-content-button-container .edit-media').show();
             content_block.find('.add-content-button-container .add-media').hide();
@@ -277,7 +278,7 @@ $(document).ready(function(){
         }
     });
 
-    // annulation de l'édition, par fermeture de block
+    // annulation de la création OU édition, par fermeture de block
     $(document).on('click', '.delete-media-block', function(e){
         e.preventDefault();
         var content_block_container = $(this).parents('.content-block-container');
@@ -428,6 +429,18 @@ $(document).ready(function(){
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
     });
+
+    // annulation de la création OU édition, par fermeture de block
+    $(document).on('click', '.delete-quiz-block', function(e){
+        e.preventDefault();
+        var content_block_container = $(this).parents('.content-block-container');
+        if('edit' == content_block_container.attr('data-manipulation-type')){
+            resetFormElementToOriginalData(content_block_container);
+            content_block_container.hide();
+        } else if ('create' == content_block_container.attr('data-manipulation-type')) {
+            content_block_container.remove();
+        }
+    });
     /**
      * *********************************************************************************************
      * FIN
@@ -470,11 +483,123 @@ $(document).ready(function(){
      * Création e-learning - Suppression image de galerie
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Création quiz
+     * *********************************************************************************************
+     */
+    // appel formulaire
+    $(document).on('click', '.add-quiz-content', function(e){
+        e.preventDefault();
+        // closing all previously opened edit
+        closingAllOpenedQuizEdit();
+
+        // removing all previously opened content block, in add
+        removingAllOpenedQuizOnCreate();
+
+        addQuizBlockTemporary();
+    });
+
+    // soumission ajout quiz
+    $(document).on('click', '.btn-valider.add-quiz', function(e){
+        e.preventDefault();
+        var quiz_content_block = $(this).parents('.content-block-container.quiz-block');
+        var quiz_select = quiz_content_block.find('.styled-choice-select.quiz-select').find('.hidden-select');
+        if('' != quiz_select.find('option:selected').val()){
+            quiz_content_block.find('.quiz-selection-error-message').text('');
+            addQuizFormBlock(quiz_content_block);
+        } else {
+            quiz_content_block.find('.quiz-selection-error-message').text('Cette valeur ne doit pas être vide.');
+        }
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Création quiz
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Edition quiz
+     * *********************************************************************************************
+     */
+    // appel formulaire
+    $(document).on('click', '.edit-quiz-content', function(e){
+        e.preventDefault();
+
+        // closing all previously opened edit
+        closingAllOpenedQuizEdit();
+
+        // removing all previously opened content block, in add
+        removingAllOpenedQuizOnCreate();
+
+        // continuing process
+        var content_index = $(this).parents('.content-list-element').attr('data-element-index');
+        var content_block = $('.content-block-list-container.quiz-container').find('.content-block-container[data-block-index='+content_index+']');
+        if (!content_block.is(':visible')) {
+            content_block.attr('data-manipulation-type', 'edit');
+            content_block.find('.quiz-selection-error-message').text('');
+            createOriginalDataHolder(content_block);
+            setSelectedOptionInOriginalDataHolder(content_block);
+            resetStyledChoiceSelectToOriginalData(content_block);
+            content_block.find('.add-content-button-container .edit-quiz').show();
+            content_block.find('.add-content-button-container .add-quiz').hide();
+            content_block.show();
+        }
+    });
+
+    // soumission d'édition
+    $(document).on('click', '.btn-valider.edit-quiz', function(e){
+        e.preventDefault();
+        var quiz_content_block = $(this).parents('.content-block-container.quiz-block');
+        var quiz_select = quiz_content_block.find('.styled-choice-select.quiz-select').find('.hidden-select');
+        if('' != quiz_select.find('option:selected').val()){
+            quiz_content_block.find('.quiz-selection-error-message').text('');
+            updateQuizBlock(quiz_content_block);
+        } else {
+            quiz_content_block.find('.quiz-selection-error-message').text('Cette valeur ne doit pas être vide.');
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Edition quiz
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - suppression quiz
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.delete-quiz-content', function(e){
+        e.preventDefault();
+        var quiz_element = $(this).parents('.content-list-element');
+        var content_index = quiz_element.attr('data-element-index');
+        var corresponding_content_block = $('.content-block-list-container.quiz-container').find('.content-block-container[data-block-index='+content_index+']');
+        corresponding_content_block.remove();
+        quiz_element.remove();
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - suppression quiz
+     * *********************************************************************************************
+     */
 });
 
 function addMediaFormBlockBases()
 {
-    var form_content_model = $('.block-model-container').find('.content-block-container').clone();
+    var form_content_model = $('.block-model-container').find('.content-block-container.media-content').clone();
     // form_content_model.attr('data-block-index', current_index);
     var html_form_content_model = form_content_model.wrap('<div class="wrapper"></div>').parent().html();
     // html_form_content_model = html_form_content_model.replace(/__name__/g, current_index);
@@ -624,7 +749,6 @@ function createOriginalDataHolder(content_block_container)
         original_data_holder.addClass('original-data-holder-el');
         var original_data_holder_container = content_block_container.find('.original-data-holder-container');
         original_data_holder_container.append(original_data_holder);
-        // $(this).before(original_data_holder);
         original_data_holder.hide();
     });
 }
@@ -664,7 +788,7 @@ function resetFormElementToOriginalData(content_block_container)
         corresponding_original_data_holder.attr('name', current_data_holder_name);
         corresponding_original_data_holder.removeClass('original-data-holder-el');
 
-        corresponding_original_data_holder.not('.hidden-input-file').show();
+        corresponding_original_data_holder.not('.hidden-input-file, .hidden-select').show();
     });
 
     if (content_block_container.hasClass('media-image-gallery-block')) {
@@ -866,4 +990,120 @@ function createEquivalentImageListElement(image_block)
 
     var image_element_list_container = image_block.parents('.content-block-container').find('.image-element-list-container');
     image_element_list_container.append(image_list_element);
+}
+
+function addQuizBlockTemporary()
+{
+    removingAllOpenedQuizOnCreate();
+
+    var quiz_block = $('.block-model-container').find('.content-block-container.quiz-block').clone();
+    // var quiz_block_container = $('.content-block-list-container.quiz-container');
+    var temporary_quiz_block_container = $('.temporary-content-block-list-container.quiz');
+    temporary_quiz_block_container.append(quiz_block);
+}
+
+function addQuizFormBlock(content_block)
+{
+    var content_block_list_container = $('.content-block-list-container.quiz-container');
+    var content_block_list = content_block_list_container.find('.content-block-container');
+
+    var current_index = null;
+    if (content_block_list.length <= 0) {
+        current_index = 1;
+    } else {
+        var index_list = [];
+        content_block_list.each(function(){
+            index_list.push(parseInt($(this).attr('data-block-index')));
+        });
+        current_index = (Math.max.apply(null, index_list)) + 1;
+    }
+
+    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    var form_el_list = content_block.find('.form-el');
+    form_el_list.each(function(){
+        var id = $(this).attr('id');
+        id = id.replace(/__name__/g, current_index);
+        $(this).attr('id', id);
+        var name = $(this).attr('name');
+        name = name.replace(/__name__/g, current_index);
+        $(this).attr('name', name);
+    });
+
+    // setting block index
+    content_block.attr('data-block-index', current_index);
+
+    // setting content order
+    var current_order = content_block_list.length + 1;
+    content_block.find('.content-order-input').val(current_order);
+
+    // setting manipulation type
+    content_block.attr('data-manipulation-type', 'edit');
+
+    // adding media block
+    content_block_list_container.append(content_block);
+    content_block.hide();
+
+    // create quiz list element (preview-like in list)
+    createEquivalentQuizListElement(content_block);
+}
+
+function createEquivalentQuizListElement(content_block)
+{
+    var quiz_name = content_block.find('.styled-choice-select.quiz-select option:selected').text();
+
+    var content_list_element = $('.block-model-container .content-list-element.quiz').clone();
+    content_list_element.find('.content-denomination-name div').text(quiz_name);
+    content_list_element.attr('data-element-index', content_block.attr('data-block-index'));
+
+    var quiz_content_list_container = $('.quiz-content-list-container');
+    quiz_content_list_container.append(content_list_element);
+}
+
+function closingAllOpenedQuizEdit()
+{
+    var quiz_block_list = $('.content-block-list-container.quiz-container').find('.content-block-container:visible');
+    quiz_block_list.each(function(){
+        resetFormElementToOriginalData($(this));
+        $(this).hide();
+    });
+}
+
+function removingAllOpenedQuizOnCreate()
+{
+    var temporary_quiz_block_container = $('.temporary-content-block-list-container.quiz');
+    temporary_quiz_block_container.find('.content-block-container.quiz-block').remove();
+}
+
+function setSelectedOptionInOriginalDataHolder(content_block)
+{
+    var hidden_select_list = content_block.find('.form-el.hidden-select').not('.original-data-holder-el');
+    hidden_select_list.each(function(){
+        var id = $(this).attr('id');
+        var searched_id = id + '__origin__';
+        var selected_value = $(this).find('option:selected').val();
+        var selected_in_original_data_holder = content_block.find('.original-data-holder-container').find('#'+searched_id)
+            .find('option[value='+selected_value+']');
+        selected_in_original_data_holder.prop('selected', true);
+    });
+}
+
+function resetStyledChoiceSelectToOriginalData(content_block)
+{
+    var styled_choice_select_list = content_block.find('.styled-choice-select');
+    styled_choice_select_list.each(function(){
+        var selected_choice = $(this).find('.hidden-select option:selected');
+        var selected_choice_text = selected_choice.text();
+        $(this).find('.dropdown-toggle').text(selected_choice_text);
+        $(this).find('.delete-select').css({'visibility':'visible','display':'inline-block'});
+    });
+}
+
+function updateQuizBlock(content_block)
+{
+    var block_index = content_block.attr('data-block-index');
+    var selected_quiz_text = content_block.find('.styled-choice-select.quiz-select .hidden-select option:selected').text();
+    var corresponding_quiz_element = $('.quiz-content-list-container .content-list-element.quiz[data-element-index='+block_index+']');
+    corresponding_quiz_element.find('.content-denomination-name div').text(selected_quiz_text);
+    content_block.find('.original-data-holder-container').html('');
+    content_block.hide();
 }
