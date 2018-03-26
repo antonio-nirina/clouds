@@ -40,7 +40,7 @@ class AddFormType
 
     public function traitement($field, $charset = 'utf-8')
     {
-        $char = ["?","!","/","%",":","&","+","*","^","$","¨","{}"];
+        $char = ["?","!","/","%",":","&","+","*","^","$","¨","{","}","#","~","@","(",")","[","]","|","°","§","£","µ",";",",","<",">","."];
         $newField = str_replace($char, "", $field);
         $str = str_replace(" ","_",$newField);
         $str = htmlentities($str, ENT_NOQUOTES, $charset);       
