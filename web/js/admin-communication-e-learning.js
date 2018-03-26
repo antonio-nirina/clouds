@@ -243,6 +243,7 @@ $(document).ready(function(){
         var content_block = $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']');
         if (!content_block.is(':visible')) {
             content_block.attr('data-manipulation-type', 'edit');
+            content_block.find('.document-name-error-message').text('');
             createOriginalDataHolder(content_block);
             content_block.find('.add-content-button-container .edit-media').show();
             content_block.find('.add-content-button-container .add-media').hide();
