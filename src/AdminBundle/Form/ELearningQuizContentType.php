@@ -34,6 +34,7 @@ class ELearningQuizContentType extends ELearningContentType
             'class' => 'AdminBundle:SondagesQuizQuestionnaireInfos',
             'choices' => $this->retrieveQuiz(),
             'choice_label' => 'titre_questionnaire',
+            'placeholder' => 'SÉLECTIONNEZ UN QUIZ',
         ));
     }
 

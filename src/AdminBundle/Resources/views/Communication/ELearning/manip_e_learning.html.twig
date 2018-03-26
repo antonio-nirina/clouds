@@ -390,38 +390,37 @@
         </div>
     </div>
     <!-- end - quiz list -->
+    #}
 
-    <!-- adding quiz -->
-    <div class="content-block-container video">
-        <div class="block-title">
-            <span>ajouter un nouveau quiz</span>
-            <span class="delete-block"></span>
-        </div>
-        <div class="add-content-block">
-            <p class="main-info">vous devez créer un quiz dans la partie "sondages/quiz" pour qu'il apparaisse dans le menu déroulant</p>
-            <div class="dropdown-container quiz-selection">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
-                        SÉLECTIONNEZ<span class="hidden-under-355">&nbsp;UN QUIZ</span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-selected-quiz">
-                        <a class="dropdown-item" href="#">QUIZ 1</a>
-                        <a class="dropdown-item" href="#">QUIZ 2</a>
-                        <a class="dropdown-item" href="#">QUIZ 3</a>
-                        <a class="dropdown-item" href="#">QUIZ 4</a>
-                    </div>
+    <div class="quiz-content-list-container">
+        {#<div class="content-list-element">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="quiz-icon"></span>
                 </div>
-                <span class="delete-input"></span>
+                <div class="content-denomination-name">
+                    <div>Produits 2017</div>
+                </div>
             </div>
-            <div class="add-content-button-container">
-                <button class="btn-valider">ajouter</button>
+            <div class="actions-container">
+                <span class="edit"></span>
+                <span class="delete"></span>
+                <div class="reorder disabled">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
             </div>
-        </div>
+        </div>#}
     </div>
-    <!-- end - adding quiz -->#}
+
+    <div class="content-block-list-container quiz-container">
+    </div>
+
+    <div class="temporary-content-block-list-container quiz">
+    </div>
 
     <div class="content-button-container">
-        <a class="add">ajouter un quiz</a>
+        <a class="add add-quiz-content">ajouter un quiz</a>
     </div>
 
     <div class="title-separator">
@@ -552,7 +551,8 @@
     </div>
     <div class="form-visibility-end"></div>
     <div class="block-model-container">
-        <div class="content-block-container" data-block-index="" data-manipulation-type="create">
+        <!-- media block -->
+        <div class="content-block-container media-content" data-block-index="" data-manipulation-type="create">
             {{ form_widget(e_learning_form.media_contents.vars.prototype.content_type, {'attr': {'class': 'content-type-input form-el'}}) }}
             {{ form_widget(e_learning_form.media_contents.vars.prototype.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
             <div class="block-title">
@@ -634,6 +634,9 @@
                 </div>
             </div>
         </div>
+        <!-- end - media block -->
+
+        <!-- media element (in list) -->
         <div class="content-list-element media" data-element-index="">
             <div class="content-denomination">
                 <div class="content-denomination-image">
@@ -652,6 +655,7 @@
                 </div>
             </div>
         </div>
+        <!-- end - media element (in list) -->
 
         <!-- gallery image element prototype -->
         <div class="gallery-image-element" data-block-index="">
@@ -691,6 +695,7 @@
         </div>
         <!-- end - gallery image element prototype -->
 
+        <!-- image element (in list) -->
         <div class="content-list-element image-gallery" data-element-index="">
             <div class="content-denomination">
                 <div class="content-denomination-image">
@@ -709,6 +714,76 @@
                 </div>
             </div>
         </div>
+        <!-- end - image element (in list) -->
+
+        <!-- quiz block -->
+        <div class="content-block-container quiz-block" data-block-index="" data-manipulation-type="create">
+            {{ form_widget(e_learning_form.quiz_contents.vars.prototype.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
+            <div class="block-title">
+                <span>ajouter un nouveau quiz</span>
+                <span class="delete-block delete-quiz-block"></span>
+            </div>
+            <div class="add-content-block">
+                <p class="main-info">vous devez créer un quiz dans la partie "sondages/quiz" pour qu'il apparaisse dans le menu déroulant</p>
+                <div class="styled-choice-select quiz-select">
+                    {#<div class="dropdown-container quiz-selection">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="SELECTIONNEZ UN QUIZ">
+                                SÉLECTIONNEZ<span class="hidden-under-355">&nbsp;UN QUIZ</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-selected-quiz">
+                                {% for choice in e_learning_form.quiz_contents.vars.prototype.quiz.vars.choices %}
+                                <a class="dropdown-item" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
+                                {% endfor %}
+                            </div>
+                            <span class="delete-select" style="display: none;"></span>
+                        </div>
+                    </div>#}
+                    <div class="dropdown clearable">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="SELECTIONNEZ UN QUIZ">
+                            SÉLECTIONNEZ<span class="hidden-under-355">&nbsp;UN QUIZ</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-selected-quiz">
+                            {% for choice in e_learning_form.quiz_contents.vars.prototype.quiz.vars.choices %}
+                                <a class="dropdown-item" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
+                            {% endfor %}
+                        </div>
+                        <span class="delete-select" style="display: none;"></span>
+                    </div>
+                    {{ form_widget(e_learning_form.quiz_contents.vars.prototype.quiz, {'attr': {'class': 'hidden-select form-el'}}) }}
+                </div>
+                <div class="error-message-container quiz-selection-error-message">
+                </div>
+                <div class="add-content-button-container">
+                    <button class="btn-valider add-quiz">ajouter</button>
+                    <button class="btn-valider edit-quiz" style="display: none;">éditer</button>
+                </div>
+                <div class="original-data-holder-container">
+                </div>
+            </div>
+        </div>
+        <!-- end - quiz block -->
+
+        <!-- quiz element -->
+        <div class="content-list-element quiz" data-element-index>
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="quiz-icon"></span>
+                </div>
+                <div class="content-denomination-name">
+                    <div></div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <span class="edit edit-quiz-content"></span>
+                <span class="delete delete-quiz-content"></span>
+                <div class="reorder disabled">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
+            </div>
+        </div>
+        <!-- end - quiz element -->
     </div>
 {{ form_end(e_learning_form) }}
 {% endif %}
