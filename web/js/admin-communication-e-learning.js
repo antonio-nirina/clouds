@@ -643,6 +643,7 @@ $(document).ready(function(){
             installColorPicker();
             content_block.hide();
         } else if ('create' == content_block.attr('data-manipulation-type')) {
+            uninstallColorPicker();
             content_block.remove();
             $('.add-button-content').parents('.content-button-container').show();
         }
