@@ -31,7 +31,7 @@ $(document).ready(function(){
             success: function(data){
                 $('#create-edit-e-learning-modal').find('.modal-body-container').html(data.content);
                 installWysiwyg();
-                installColorPicker();
+                // installColorPicker();
             },
             statusCode: {
                 404: function(data){
@@ -205,6 +205,7 @@ $(document).ready(function(){
             closingAllImageOpenedEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
             addMediaFormBlock(content_block_container);
+            setMediaReorderingFeatureStatus();
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -289,6 +290,7 @@ $(document).ready(function(){
             setFormElementVisibilityOnEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
             content_block_container.hide();
+            setGalleryImageReorderingFeatureStatus(content_block_container);
         } else if ('create' == content_block_container.attr('data-manipulation-type')) {
             content_block_container.remove();
         }
@@ -340,6 +342,8 @@ $(document).ready(function(){
         var image_name = image_block.find('.image-file-name-container').find('input').val().trim();
         if ('' != image_name) {
             addImageBlock(image_block);
+            var content_block = image_block.parents('.content-block-container');
+            setGalleryImageReorderingFeatureStatus(content_block);
         } else {
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -371,6 +375,7 @@ $(document).ready(function(){
         var content_index = content_element.attr('data-element-index');
         $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']').remove();
         content_element.remove();
+        setMediaReorderingFeatureStatus();
     });
     /**
      * *********************************************************************************************
@@ -429,18 +434,6 @@ $(document).ready(function(){
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
     });
-
-    // annulation de la création OU édition, par fermeture de block
-    $(document).on('click', '.delete-quiz-block', function(e){
-        e.preventDefault();
-        var content_block_container = $(this).parents('.content-block-container');
-        if('edit' == content_block_container.attr('data-manipulation-type')){
-            resetFormElementToOriginalData(content_block_container);
-            content_block_container.hide();
-        } else if ('create' == content_block_container.attr('data-manipulation-type')) {
-            content_block_container.remove();
-        }
-    });
     /**
      * *********************************************************************************************
      * FIN
@@ -474,6 +467,8 @@ $(document).ready(function(){
         if (temporary_image_block_container.find('.gallery-image-element').length <= 0){
             addGalleryImageTemporary(content_block);
         }
+
+        setGalleryImageReorderingFeatureStatus(content_block);
     });
 
     /**
@@ -510,8 +505,21 @@ $(document).ready(function(){
         if('' != quiz_select.find('option:selected').val()){
             quiz_content_block.find('.quiz-selection-error-message').text('');
             addQuizFormBlock(quiz_content_block);
+            setQuizReorderingFeatureStatus();
         } else {
             quiz_content_block.find('.quiz-selection-error-message').text('Cette valeur ne doit pas être vide.');
+        }
+    });
+
+    // annulation de la création OU édition, par fermeture de block
+    $(document).on('click', '.delete-quiz-block', function(e){
+        e.preventDefault();
+        var content_block_container = $(this).parents('.content-block-container');
+        if('edit' == content_block_container.attr('data-manipulation-type')){
+            resetFormElementToOriginalData(content_block_container);
+            content_block_container.hide();
+        } else if ('create' == content_block_container.attr('data-manipulation-type')) {
+            content_block_container.remove();
         }
     });
     /**
@@ -587,6 +595,7 @@ $(document).ready(function(){
         var corresponding_content_block = $('.content-block-list-container.quiz-container').find('.content-block-container[data-block-index='+content_index+']');
         corresponding_content_block.remove();
         quiz_element.remove();
+        setQuizReorderingFeatureStatus();
     });
     /**
      * *********************************************************************************************
@@ -595,6 +604,129 @@ $(document).ready(function(){
      * Création e-learning - suppression quiz
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - ajout bouton d'action
+     * *********************************************************************************************
+     */
+    // appel formulaire
+    $(document).on('click', '.add-button-content', function(e){
+        e.preventDefault();
+        addButtonBlockTemporary();
+        installColorPicker();
+        $(this).parents('.content-button-container').hide();
+    });
+
+    // soumission ajout
+    $(document).on('click', '.btn-valider.add-button', function(e){
+        e.preventDefault();
+        var button_content_block = $(this).parents('.content-block-container.action-button-block-container');
+        var button_text = button_content_block.find('.action-button-text-input');
+        if ('' != button_text.val().trim()) {
+            button_content_block.find('.button-text-error-message').text('');
+            addActionButtonFormBlock(button_content_block);
+        } else {
+            button_content_block.find('.button-text-error-message').text('Cette valeur ne doit pas être vide.')
+        }
+    });
+
+    // annulation de la création OU édition, par fermeture de block
+    $(document).on('click', '.delete-button-block', function(e){
+        e.preventDefault();
+        var content_block = $(this).parents('.content-block-container');
+        if ('edit' == content_block.attr('data-manipulation-type')) {
+            resetFormElementToOriginalData(content_block);
+            resetActionButtonElement(content_block);
+            uninstallColorPicker();
+            installColorPicker();
+            content_block.hide();
+        } else if ('create' == content_block.attr('data-manipulation-type')) {
+            content_block.remove();
+            $('.add-button-content').parents('.content-button-container').show();
+        }
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - ajout bouton d'action
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - edition bouton d'action
+     * *********************************************************************************************
+     */
+    // appel formulaire
+    $(document).on('click', '.edit-button-content', function(e){
+        e.preventDefault();
+        var content_index = 1;
+        var content_block = $('.content-block-list-container.button-container').find('.content-block-container[data-block-index='+content_index+']');
+        if (!content_block.is(':visible')) {
+            content_block.attr('data-manipulation-type', 'edit');
+            content_block.find('.button-text-error-message').text('');
+            createOriginalDataHolder(content_block);
+            setSelectedOptionInOriginalDataHolder(content_block);
+            resetStyledChoiceSelectToOriginalData(content_block);
+            setDeleteSelectVisibility(content_block);
+            content_block.find('.add-content-button-container .edit-button').show();
+            content_block.find('.add-content-button-container .add-button').hide();
+            content_block.show();
+        }
+    });
+    
+    // soumission édition
+    $(document).on('click', '.btn-valider.edit-button', function(e){
+        e.preventDefault();
+        var button_content_block = $(this).parents('.content-block-container.action-button-block-container');
+        var button_text = button_content_block.find('.action-button-text-input');
+        if ('' != button_text.val().trim()) {
+            button_content_block.find('.button-text-error-message').text('');
+            updateActionButtonFormBlock(button_content_block);
+        } else {
+            button_content_block.find('.button-text-error-message').text('Cette valeur ne doit pas être vide.')
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - edition bouton d'action
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Suppression bouton d'action
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.delete-button-content', function(e){
+        e.preventDefault();
+        var button_element = $(this).parents('.content-list-element');
+        button_element.find('.content-denomination-name div').text('');
+        button_element.hide();
+
+        var button_content_block = $('.content-block-list-container.button-container').find('.content-block-container.action-button-block-container').first();
+        uninstallColorPicker(button_content_block);
+        button_content_block.remove();
+
+        $('.add-button-content').parents('.content-button-container').show();
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Suppression bouton d'action
+     * *********************************************************************************************
+     */
+
+
 });
 
 function addMediaFormBlockBases()
@@ -788,7 +920,15 @@ function resetFormElementToOriginalData(content_block_container)
         corresponding_original_data_holder.attr('name', current_data_holder_name);
         corresponding_original_data_holder.removeClass('original-data-holder-el');
 
-        corresponding_original_data_holder.not('.hidden-input-file, .hidden-select').show();
+        corresponding_original_data_holder.not('.hidden-input-file, .hidden-select, .hidden-input-text').show();
+
+        if (corresponding_original_data_holder.hasClass('removable-content-input')) {
+            if ('' != corresponding_original_data_holder.val().trim()) {
+                corresponding_original_data_holder.next('.delete-input').show();
+            } else {
+                corresponding_original_data_holder.next('.delete-input').hide();
+            }
+        }
     });
 
     if (content_block_container.hasClass('media-image-gallery-block')) {
@@ -842,7 +982,7 @@ function resetImageFormElementToOriginalData(image_block)
         corresponding_original_data_holder.removeClass('original-image-data-holder-el');
         corresponding_original_data_holder.not('.hidden-input-file').show();
     });
-    setImagFileButtonText(image_block)
+    setImageFileButtonText(image_block)
 }
 
 function setAssociatedFileButtonText(content_block_container)
@@ -853,7 +993,7 @@ function setAssociatedFileButtonText(content_block_container)
     }
 }
 
-function setImagFileButtonText(image_block)
+function setImageFileButtonText(image_block)
 {
     var file_name = image_block.find('.hidden-input-file.image-file').val();
     if ('' != file_name) {
@@ -890,7 +1030,6 @@ function setFormElementVisibilityOnEdit(content_block_container){
 function setImageFormElementVisibilityOnEdit(image_block)
 {
     var image_name = image_block.find('.hidden-input-file.image-file').val();
-    console.log(image_name);
     if ('' != image_name) {
         image_block.find('.btn-upload').addClass('hidden-button');
         image_block.find('.upload-img-button-container').removeClass('hidden-button');
@@ -1082,8 +1221,24 @@ function setSelectedOptionInOriginalDataHolder(content_block)
         var searched_id = id + '__origin__';
         var selected_value = $(this).find('option:selected').val();
         var selected_in_original_data_holder = content_block.find('.original-data-holder-container').find('#'+searched_id)
-            .find('option[value='+selected_value+']');
+            .find('option[value="'+selected_value+'"]');
         selected_in_original_data_holder.prop('selected', true);
+    });
+}
+
+function setDeleteSelectVisibility(content_block)
+{
+    var hidden_select_list = content_block.find('.form-el.hidden-select').not('.original-data-holder-el');
+    hidden_select_list.each(function(){
+        var selected_value = $(this).find('option:selected').val();
+        var styled_choice_select = $(this).parents('.styled-choice-select');
+        if ('' == selected_value) {
+            styled_choice_select.find('.dropdown .delete-select').css('visibility', 'hidden');
+            styled_choice_select.find('.dropdown .delete-select').hide();
+        } else {
+            styled_choice_select.find('.dropdown .delete-select').css('visibility', 'visible');
+            styled_choice_select.find('.dropdown .delete-select').show();
+        }
     });
 }
 
@@ -1106,4 +1261,129 @@ function updateQuizBlock(content_block)
     corresponding_quiz_element.find('.content-denomination-name div').text(selected_quiz_text);
     content_block.find('.original-data-holder-container').html('');
     content_block.hide();
+}
+
+function addButtonBlockTemporary()
+{
+    var button_block = $('.block-model-container .content-block-container.action-button-block-container').clone();
+    var temporary_button_block_container = $('.temporary-content-block-list-container.button');
+    temporary_button_block_container.append(button_block);
+    initActionButtonDatas(button_block);
+}
+
+function initActionButtonDatas(content_block)
+{
+    content_block.find('.action-button-color-option .bg-color').val('#ff0000');
+    content_block.find('.action-button-color-option .text-color').val('#ffffff');
+    var default_action_button_text = 'En savoir plus';
+    content_block.find('.content-name-input').val(default_action_button_text);
+    content_block.find('.action-button-text-input').val(default_action_button_text);
+    content_block.find('.action-button-text-input').next('.delete-input').show();
+    content_block.find('.action-button-preview').text(default_action_button_text);
+}
+
+function addActionButtonFormBlock(content_block)
+{
+    var content_block_list_container = $('.content-block-list-container.button-container');
+    content_block_list_container.html('');
+    var current_index = 1;
+
+    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    var form_el_list = content_block.find('.form-el');
+    form_el_list.each(function(){
+        var id = $(this).attr('id');
+        id = id.replace(/__name__/g, current_index);
+        $(this).attr('id', id);
+        var name = $(this).attr('name');
+        name = name.replace(/__name__/g, current_index);
+        $(this).attr('name', name);
+    });
+
+    // setting block index
+    content_block.attr('data-block-index', current_index);
+
+    // setting manipulation type
+    content_block.attr('data-manipulation-type', 'edit');
+
+    // adding media block
+    content_block_list_container.append(content_block);
+    content_block.hide();
+
+    // copy button text to content name input
+    var button_text = content_block.find('.action-button-text-input').not('.original-data-holder-el').val();
+    var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
+    content_name_input.val(button_text);
+
+    // create button list element (preview-like in list)
+    createEquivalentButtonListElement(content_block);
+}
+
+function createEquivalentButtonListElement(content_block) {
+    var content_list_element = $('.button-content-list-container').find('.content-list-element.button').first();
+    var button_text = content_block.find('.action-button-text-input').val();
+    content_list_element.find('.content-denomination-name div').text(button_text);
+    content_list_element.show();
+}
+
+// better called after resetFormElementToOriginalData()
+// to get original data
+function resetActionButtonElement(content_block)
+{
+    // button preview
+    var button_preview = content_block.find('.action-button-preview');
+    var button_text = content_block.find('.form-row .action-button-text-input').val();
+    var button_bg_color = content_block.find('.form-row .action-button-background-color').val();
+    var button_text_color = content_block.find('.form-row .action-button-text-color').val();
+    button_preview.text(button_text);
+    button_preview.css({
+        'background-color': button_bg_color,
+        'color': button_text_color
+    });
+}
+
+function updateActionButtonFormBlock(content_block)
+{
+    var button_text = content_block.find('.action-button-text-input').val();
+    var content_list_element = $('.button-content-list-container').find('.content-list-element.button').first();
+    content_list_element.find('.content-denomination-name div').text(button_text);
+    content_block.find('.original-data-holder-container').html('');
+
+    // copy button text to content name input
+    var button_text = content_block.find('.action-button-text-input').not('.original-data-holder-el').val();
+    var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
+    content_name_input.val(button_text);
+
+    content_block.hide();
+}
+
+function setMediaReorderingFeatureStatus()
+{
+    var media_content_list_container = $('.media-content-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setQuizReorderingFeatureStatus()
+{
+    var media_content_list_container = $('.quiz-content-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setGalleryImageReorderingFeatureStatus(content_block)
+{
+    var media_content_list_container = content_block.find('.image-element-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setReorderingFeatureStatus(content_list_container)
+{
+    var content_list = content_list_container.find('.content-list-element').not('.to-delete-image-element');
+    if (content_list.length > 1) {
+        content_list.each(function(){
+            $(this).find('.actions-container .reorder').removeClass('disabled');
+        });
+    } else {
+        content_list.each(function(){
+            $(this).find('.actions-container .reorder').addClass('disabled');
+        });
+    }
 }

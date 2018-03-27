@@ -48,60 +48,6 @@
             </div>
         </div>
     {% endfor %}
-        {#<div class="content-list-element">
-            <div class="content-denomination">
-                <div class="content-denomination-image">
-                    <img src="{{ asset('images/cloudsRewards/pdf-file-icon.png') }}"><span>Lorem_ipsum.pdf</span>
-                </div>
-                <div class="content-denomination-name">
-                    <div>Produits 2017</div>
-                </div>
-            </div>
-            <div class="actions-container">
-                <span class="edit"></span>
-                <span class="delete"></span>
-                <div class="reorder">
-                    <span class="reorder-up"></span>
-                    <span class="reorder-down"></span>
-                </div>
-            </div>
-        </div>
-        <div class="content-list-element">
-            <div class="content-denomination">
-                <div class="content-denomination-image">
-                    <span class="video-icon"></span>
-                </div>
-                <div class="content-denomination-name">
-                    <div>Vidéo de présentation</div>
-                </div>
-            </div>
-            <div class="actions-container">
-                <span class="edit"></span>
-                <span class="delete"></span>
-                <div class="reorder">
-                    <span class="reorder-up"></span>
-                    <span class="reorder-down"></span>
-                </div>
-            </div>
-        </div>
-        <div class="content-list-element">
-            <div class="content-denomination">
-                <div class="content-denomination-image">
-                    <span class="gallery-icon"></span>
-                </div>
-                <div class="content-denomination-name">
-                    <div>Galérie 1</div>
-                </div>
-            </div>
-            <div class="actions-container">
-                <span class="edit"></span>
-                <span class="delete"></span>
-                <div class="reorder">
-                    <span class="reorder-up"></span>
-                    <span class="reorder-down"></span>
-                </div>
-            </div>
-        </div>#}
     </div>
     <!-- end - content list element -->
 
@@ -226,73 +172,6 @@
     </div>
     <!-- end - adding media -->
 
-    {#<!-- adding document media -->
-    <div class="content-block-container">
-        <div class="block-title">
-            <span>ajouter un nouveau média</span>
-            <span class="delete-block"></span>
-        </div>
-        <div class="add-content-block">
-            <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
-            <button class="btn-valider btn-upload">
-                <span class="upload"></span>choisissez un fichier...
-            </button>
-            <div class="info-container">
-                <p>les fichiers doivent peser moins de <span class="bigger">20 Mo</span></p>
-            </div>
-            <div class="upload-img-button-container">
-                <button class="upload-img-button">
-                    <span class="blue-upload"></span><span class="img-name-container">Lorem_ipsum.pdf</span>
-                </button>
-            </div>
-            <a href="#" class="delete-link"></a>
-            <div class="form-row document-name-container vertical-md">
-                <label>nom du document</label>
-                <div class="document-name">
-                    <input class="standard-styled-input" type="text" value="Produits 2017">
-                    <span class="delete-input"></span>
-                </div>
-            </div>
-            <div class="add-content-button-container">
-                <button class="btn-valider">ajouter</button>
-            </div>
-        </div>
-    </div>
-    <!-- end - adding document media -->#}
-
-    <!-- adding vidéo media -->
-    {#<div class="content-block-container video">
-        <div class="block-title">
-            <span>ajouter un nouveau média</span>
-            <span class="delete-block"></span>
-        </div>
-        <div class="add-content-block">
-            <p class="main-info">ajouter une vidéo</p>
-            <div class="form-row vertical-xs">
-                <label>url de la vidéo</label>
-                <div class="form-element">
-                    <input type="text" class="standard-styled-input large-input-text" value="https://monlienderedirection.com/challenge">
-                    <span class="delete-input"></span>
-                </div>
-            </div>
-            <div class="info-container">
-                <p>url youtube, vimeo, depuis votre serveur, etc.</p>
-                <p>si toutefois votre vidéo n'est pas hebergée veuillez <a href="#" class="blue-anchor">nous contacter</a></p>
-            </div>
-            <div class="form-row video-name vertical-xs">
-                <label>nom de la vidéo</label>
-                <div class="form-element">
-                    <input type="text" class="standard-styled-input" value="Vidéo de présentation">
-                    <span class="delete-input"></span>
-                </div>
-            </div>
-            <div class="add-content-button-container">
-                <button class="btn-valider">ajouter</button>
-            </div>
-        </div>
-    </div>#}
-    <!-- end - adding vidéo media -->
-
     <!-- adding image gallery media -->
     <div class="content-block-container" style="display: none;">
         <div class="block-title">
@@ -330,8 +209,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div>
                 <button class="btn-valider btn-upload">
                     <span class="upload"></span>choisissez un fichier...
@@ -370,48 +247,10 @@
         <span class="title">quiz</span><span class="separator-line"></span>
     </div>
 
-    {#<!-- quiz list -->
-    <div class="content-list-element">
-        <div class="content-denomination">
-            <div class="content-denomination-image">
-                <span class="quiz-icon"></span>
-            </div>
-            <div class="content-denomination-name">
-                <div>Produits 2017</div>
-            </div>
-        </div>
-        <div class="actions-container">
-            <span class="edit"></span>
-            <span class="delete"></span>
-            <div class="reorder disabled">
-                <span class="reorder-up"></span>
-                <span class="reorder-down"></span>
-            </div>
-        </div>
+    <!-- quiz list -->
+    <div class="quiz-content-list-container">
     </div>
     <!-- end - quiz list -->
-    #}
-
-    <div class="quiz-content-list-container">
-        {#<div class="content-list-element">
-            <div class="content-denomination">
-                <div class="content-denomination-image">
-                    <span class="quiz-icon"></span>
-                </div>
-                <div class="content-denomination-name">
-                    <div>Produits 2017</div>
-                </div>
-            </div>
-            <div class="actions-container">
-                <span class="edit"></span>
-                <span class="delete"></span>
-                <div class="reorder disabled">
-                    <span class="reorder-up"></span>
-                    <span class="reorder-down"></span>
-                </div>
-            </div>
-        </div>#}
-    </div>
 
     <div class="content-block-list-container quiz-container">
     </div>
@@ -427,92 +266,36 @@
         <span class="title">Bouton d'action</span><span class="separator-line"></span>
     </div>
 
-    {#<!-- action button element -->
-    <div class="content-list-element">
-        <div class="content-denomination">
-            <div class="content-denomination-image">
-                <span class="action-button-icon"></span>
+    <!-- action button element -->
+    <div class="button-content-list-container">
+        <div class="content-list-element button" data-element-index="1" style="display: none;">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="action-button-icon"></span>
+                </div>
+                <div class="content-denomination-name">
+                    <div></div>
+                </div>
             </div>
-            <div class="content-denomination-name">
-                <div>En savoir plus</div>
+            <div class="actions-container">
+                <span class="edit edit-button-content"></span>
+                <span class="delete delete-button-content"></span>
             </div>
-        </div>
-        <div class="actions-container">
-            <span class="edit"></span>
-            <span class="delete"></span>
         </div>
     </div>
-    <!-- action button element -->#}
+    <!-- action button element -->
 
-    {#<!-- adding action button -->
-    <div class="content-block-container action-button-block-container">
-        <div class="block-title">
-            <span>bouton d'action</span>
-            <span class="delete-block"></span>
-        </div>
-        <div class="add-content-block">
-            <div class="form-row vertical-centered">
-                <label class="fixed-width">texte du bouton</label>
-                <input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large" value="En savoir plus">
-                <span class="delete-input delete-action-button-text"></span>
-            </div>
-            <div class="form-row vertical-xs">
-                <label>aspect du bouton</label>
-                <div class="vertical-xs">
-                    <div class="action-button-color-option">
-                        <span class="option-title">Couleur</span>
-                        <input type="text" class="color-value">
-                    </div>
-                    <div class="action-button-color-option">
-                        <span class="option-title">Couleur du texte</span>
-                        <input type="text" class="color-value">
-                    </div>
-                </div>
-                <div class="action-button-preview">
-                    En savoir plus
-                </div>
-            </div>
-            <span class="form-row-group-title">lien de redirection du bouton d'action</span>
-            <div class="form-row vertical-centered">
-                <label class="fixed-width">renseigner une url</label>
-                <input type="text" value="https://monlienderedirection.com/challenge" class="removable-content-input action-button-input large">
-                <span class="delete-input"></span>
-            </div>
-            <div class="form-row vertical-xs">
-                <label>ou chercher une page du site</label>
-                <div class="action-button-target-page-choice styled-choice-select">
-                    <div class="dropdown clearable">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="POINTER SUR">
-                            POINTER SUR
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
-                            <a class="dropdown-item" href="#">PRÉSENTATION DE LA SOCIÉTÉ</a>
-                            <a class="dropdown-item" href="#">DÉCOUVREZ LE PROGRAMME</a>
-                            <a class="dropdown-item" href="#">DÉCLARER UNE VENTE</a>
-                            <a class="dropdown-item" href="#">CLASSEMENT</a>
-                            <a class="dropdown-item sub-level" href="#">CHALLENGE 1</a>
-                            <a class="dropdown-item sub-level" href="#">CHALLENGE 2</a>
-                            <a class="dropdown-item" href="#">SONDAGES / QUIZ</a>
-                            <a class="dropdown-item sub-level" href="#">QUIZ 1</a>
-                            <a class="dropdown-item sub-level" href="#">QUIZ 2</a>
-                            <a class="dropdown-item" href="#">CADEAUX</a>
-                        </div>
-                        <span class="delete-select"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="add-content-button-container">
-                <button class="btn-valider">ajouter</button>
-            </div>
-        </div>
+    <div class="temporary-content-block-list-container button">
     </div>
-    <!-- end - adding action button -->#}
+
+    <div class="content-block-list-container button-container">
+    </div>
 
     <div class="content-button-container">
-        <a class="add">ajouter un bouton d'action</a>
+        <a class="add add-button-content">ajouter un bouton d'action</a>
     </div>
 
-    <div class="form-row vertical-xs">
+    <div class="form-row vertical-xs viewer-authorization-container">
         {#<label>qui verra ce e-learning?</label>#}
         {{ form_label(e_learning_form.viewer_authorization_type, 'qui verra ce e-learning?') }}
         <div class="styled-choice-select viewer-authorization-type-choice">
@@ -643,13 +426,13 @@
                     <span class="document-icon"></span>
                 </div>
                 <div class="content-denomination-name">
-                    <div>Titre de l'élément</div>
+                    <div></div>
                 </div>
             </div>
             <div class="actions-container">
                 <span class="edit media-content"></span>
                 <span class="delete delete-media"></span>
-                <div class="reorder">
+                <div class="reorder disabled">
                     <span class="reorder-up"></span>
                     <span class="reorder-down"></span>
                 </div>
@@ -726,19 +509,6 @@
             <div class="add-content-block">
                 <p class="main-info">vous devez créer un quiz dans la partie "sondages/quiz" pour qu'il apparaisse dans le menu déroulant</p>
                 <div class="styled-choice-select quiz-select">
-                    {#<div class="dropdown-container quiz-selection">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="SELECTIONNEZ UN QUIZ">
-                                SÉLECTIONNEZ<span class="hidden-under-355">&nbsp;UN QUIZ</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-selected-quiz">
-                                {% for choice in e_learning_form.quiz_contents.vars.prototype.quiz.vars.choices %}
-                                <a class="dropdown-item" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
-                                {% endfor %}
-                            </div>
-                            <span class="delete-select" style="display: none;"></span>
-                        </div>
-                    </div>#}
                     <div class="dropdown clearable">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="SELECTIONNEZ UN QUIZ">
                             SÉLECTIONNEZ<span class="hidden-under-355">&nbsp;UN QUIZ</span>
@@ -765,7 +535,7 @@
         <!-- end - quiz block -->
 
         <!-- quiz element -->
-        <div class="content-list-element quiz" data-element-index>
+        <div class="content-list-element quiz" data-element-index="">
             <div class="content-denomination">
                 <div class="content-denomination-image">
                     <span class="quiz-icon"></span>
@@ -784,6 +554,84 @@
             </div>
         </div>
         <!-- end - quiz element -->
+
+        <!-- add button content -->
+        <div class="content-block-container action-button-block-container" data-manipulation-type="create">
+            {{ form_widget(e_learning_form.button_contents.vars.prototype.name, {'attr': {'class': 'form-el hidden-input-text content-name-input'}}) }}
+            {#{{ form_widget(e_learning_form.button_contents.vars.prototype.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}#}
+            <div class="block-title">
+                <span>bouton d'action</span>
+                <span class="delete-block delete-button-block"></span>
+            </div>
+            <div class="add-content-block">
+                <div class="form-row vertical-centered">
+                    {#<label class="fixed-width">texte du bouton</label>#}
+                    {{ form_label(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_text, 'texte du bouton', {'label_attr': {'class': 'fixed-width'}}) }}
+                    {#<input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large" value="En savoir plus">#}
+                    {{ form_widget(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_text, {'attr': {'class': 'removable-content-input action-button-input action-button-text-input semi-large form-el action-button-text-input form-el'}}) }}
+                    <span class="delete-input delete-action-button-text" style="display: none"></span>
+                </div>
+                <div class="error-message-container button-text-error-message"></div>
+                <div class="form-row vertical-md">
+                    <label>aspect du bouton</label>
+                    <div class="vertical-xs">
+                        <div class="action-button-color-option">
+                            <span class="option-title">Couleur</span>
+                            {#<input type="text" class="color-value">#}
+                            {{ form_widget(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_background_color, {'attr': {'class': 'color-value bg-color action-button-background-color form-el'}}) }}
+                        </div>
+                        <div class="action-button-color-option">
+                            <span class="option-title">Couleur du texte</span>
+                            {#<input type="text" class="color-value">#}
+                            {{ form_widget(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_text_color, {'attr': {'class': 'color-value text-color action-button-text-color form-el'}}) }}
+                        </div>
+                    </div>
+                    <div class="action-button-preview-container">
+                        <div class="action-button-preview"></div>
+                    </div>
+                </div>
+                <span class="form-row-group-title">lien de redirection du bouton d'action</span>
+                <div class="form-row vertical-centered">
+                    {#<label class="fixed-width">renseigner une url</label>#}
+                    {{ form_label(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_target_url, 'renseigner une url', {'label_attr': {'class': 'fixed-width'}}) }}
+                    {#<input type="text" value="https://monlienderedirection.com/challenge" class="removable-content-input action-button-input large">#}
+                    {{ form_widget(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_target_url, {'attr': {'class': 'removable-content-input action-button-input large form-el'}}) }}
+                    <span class="delete-input" style="display: none;"></span>
+                </div>
+                <div class="form-row vertical-xs">
+                    {#<label>ou chercher une page du site</label>#}
+                    {{ form_label(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_target_page, 'ou chercher une page du site') }}
+                    <div class="action-button-target-page-choice styled-choice-select">
+                        <div class="dropdown clearable">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="POINTER SUR">
+                                POINTER SUR
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
+                                {% set previous_ref_for_sub_level = null %}
+                                {% for choice in e_learning_form.button_contents.vars.prototype.action_button_data.action_button_target_page.vars.choices %}
+                                    {% set additional_class = '' %}
+                                    {% if previous_ref_for_sub_level is not null and choice.value matches '{'~previous_ref_for_sub_level.value~'/[0-9]+$}' %}
+                                        {% set additional_class = 'sub-level' %}
+                                    {% else %}
+                                        {% set previous_ref_for_sub_level = choice %}
+                                    {% endif %}
+                                    <a class="dropdown-item {{ additional_class }}" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
+                                {% endfor %}
+                            </div>
+                            <span class="delete-select" style="display: none;"></span>
+                        </div>
+                        {{ form_widget(e_learning_form.button_contents.vars.prototype.action_button_data.action_button_target_page, {'attr': {'class': 'hidden-select action-button-target-page-select form-el'}}) }}
+                    </div>
+                </div>
+                <div class="add-content-button-container">
+                    <button class="btn-valider add-button">ajouter</button>
+                    <button class="btn-valider edit-button" style="display: none;">editer</button>
+                </div>
+                <div class="original-data-holder-container">
+                </div>
+            </div>
+        </div>
+        <!-- end - add button content -->
     </div>
 {{ form_end(e_learning_form) }}
 {% endif %}
