@@ -148,6 +148,9 @@ $(document).ready(function(){
         // removing all previously opened content block, in add
         removingAllOpenedOnCreate();
 
+        // closing opened edit
+        closingAllOpenedEdit();
+
         // closing all edit in progress, restoring original datas
         var content_block_list = $('.content-block-list-container.media-container').find('.content-block-container:visible');
         content_block_list.each(function(){
@@ -206,6 +209,7 @@ $(document).ready(function(){
             removingAllImageOpenedOnCreate(content_block_container);
             addMediaFormBlock(content_block_container);
             setMediaReorderingFeatureStatus();
+            removeFlagOnNewNotSavedImage(content_block_container);
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -272,7 +276,8 @@ $(document).ready(function(){
             var corresponding_content_element = $('.media-content-list-container').find('.content-list-element[data-element-index='+content_block_index+']');
             corresponding_content_element.find('.content-denomination-name div').text(media_name);
             closingAllImageOpenedEdit(content_block_container);
-            deletingElementAndBlockWithToDeleteFlagOn(content_block_container)
+            deletingElementAndBlockWithToDeleteFlagOn(content_block_container);
+            removeFlagOnNewNotSavedImage(content_block_container);
             content_block_container.hide();
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
@@ -289,6 +294,7 @@ $(document).ready(function(){
             setDeleteNameInputVisibility(content_block_container);
             setFormElementVisibilityOnEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
+            deleteNewNotSavedImage(content_block_container);
             content_block_container.hide();
             setGalleryImageReorderingFeatureStatus(content_block_container);
         } else if ('create' == content_block_container.attr('data-manipulation-type')) {
@@ -1117,9 +1123,11 @@ function addImageBlock(image_block)
     // adding new temporary image block
     addGalleryImageTemporary(image_block.parents('.content-block-container'));
 
-
     // showing "add gallery" button
     image_block.parents('.content-block-container').find('.add-content-button-container').show();
+
+    // adding new but not saved flag
+    image_block.addClass('new-not-saved-image');
 }
 
 function createEquivalentImageListElement(image_block)
@@ -1130,6 +1138,7 @@ function createEquivalentImageListElement(image_block)
 
     var image_element_list_container = image_block.parents('.content-block-container').find('.image-element-list-container');
     image_element_list_container.append(image_list_element);
+    image_list_element.addClass('new-not-saved-image');
 }
 
 function addQuizBlockTemporary()
@@ -1387,4 +1396,18 @@ function setReorderingFeatureStatus(content_list_container)
             $(this).find('.actions-container .reorder').addClass('disabled');
         });
     }
+}
+
+function removeFlagOnNewNotSavedImage(content_block)
+{
+    // content_block.find('.new-not-saved-image').removeClass('new-not-saved-image');
+    var new_not_saved_image_list = content_block.find('.new-not-saved-image');
+    new_not_saved_image_list.each(function(){
+        $(this).removeClass('new-not-saved-image');
+    });
+}
+
+function deleteNewNotSavedImage(content_block)
+{
+    content_block.find('.new-not-saved-image').remove();
 }

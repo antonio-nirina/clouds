@@ -85,7 +85,7 @@ $(document).ready(function(){
         wrapper.trigger('reset');
         current_delete_link.parent().find('input[type=file]').not('.original-data-holder-el, .original-image-data-holder-el').unwrap();
         current_delete_link.parent().children('.upload-img-button-container').addClass('hidden-button');
-        current_delete_link.parent().children('.btn-upload').action-button-background-colorremoveClass('hidden-button');
+        current_delete_link.parent().children('.btn-upload').removeClass('hidden-button');
         current_delete_link.parent().find('input[type=file]').not('.original-data-holder-el, .original-image-data-holder-el').trigger('input-file-reset');
         current_delete_link.hide();
     });
