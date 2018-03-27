@@ -85,7 +85,7 @@ $(document).ready(function(){
         wrapper.trigger('reset');
         current_delete_link.parent().find('input[type=file]').not('.original-data-holder-el, .original-image-data-holder-el').unwrap();
         current_delete_link.parent().children('.upload-img-button-container').addClass('hidden-button');
-        current_delete_link.parent().children('.btn-upload').removeClass('hidden-button');
+        current_delete_link.parent().children('.btn-upload').action-button-background-colorremoveClass('hidden-button');
         current_delete_link.parent().find('input[type=file]').not('.original-data-holder-el, .original-image-data-holder-el').trigger('input-file-reset');
         current_delete_link.hide();
     });
@@ -93,6 +93,34 @@ $(document).ready(function(){
     /**
      * FIN
      * Bouton d'upload de fichier
+     */
+
+    /**
+     * Bouton d'action
+     */
+    // aperçu bouton d'action, texte
+    $(document).on('input', '.action-button-text-input', function(){
+        $(this).parents('.action-button-block-container').find('.action-button-preview').text($(this).val());
+    });
+
+    $(document).on('click', '.delete-action-button-text', function(){
+        $(this).parents('.action-button-block-container').find('.action-button-preview').text('');
+    });
+
+    // aperçu bouton, couleur de bouton (couleur de fond)
+    $(document).on('change', '.action-button-background-color', function(e){
+        e.preventDefault();
+        $(this).parents('.action-button-block-container').find('.action-button-preview').css("background-color", $(this).val());
+    });
+
+    // aperçu bouton, couleur texte
+    $(document).on('change', '.action-button-text-color', function(e){
+        e.preventDefault();
+        $(this).parents('.action-button-block-container').find('.action-button-preview').css("color", $(this).val());
+    });
+    /**
+     * FIN
+     * Bouton d'action
      */
 });
 
@@ -113,8 +141,8 @@ function installWysiwyg()
 
 function installColorPicker()
 {
-    if ($('.color-value').length >0 ) {
-        $('.color-value').each( function() {
+    if ($('.color-value:not(.original-data-holder-el)').length >0 ) {
+        $('.color-value:not(.original-data-holder-el)').each( function() {
             $(this).minicolors({
                 control: $(this).attr('data-control') || 'brightness',
                 defaultValue: $(this).attr('data-defaultValue') || '',
@@ -131,6 +159,15 @@ function installColorPicker()
                 },
                 theme: 'bootstrap'
             });
+        });
+    }
+}
+
+function uninstallColorPicker()
+{
+    if ($('.color-value:not(.original-data-holder-el)').length >0 ) {
+        $('.color-value:not(.original-data-holder-el)').each(function(){
+            $(this).minicolors('destroy');
         });
     }
 }
