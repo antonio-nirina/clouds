@@ -205,6 +205,7 @@ $(document).ready(function(){
             closingAllImageOpenedEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
             addMediaFormBlock(content_block_container);
+            setMediaReorderingFeatureStatus();
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -289,6 +290,7 @@ $(document).ready(function(){
             setFormElementVisibilityOnEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
             content_block_container.hide();
+            setGalleryImageReorderingFeatureStatus(content_block_container);
         } else if ('create' == content_block_container.attr('data-manipulation-type')) {
             content_block_container.remove();
         }
@@ -340,6 +342,8 @@ $(document).ready(function(){
         var image_name = image_block.find('.image-file-name-container').find('input').val().trim();
         if ('' != image_name) {
             addImageBlock(image_block);
+            var content_block = image_block.parents('.content-block-container');
+            setGalleryImageReorderingFeatureStatus(content_block);
         } else {
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -371,6 +375,7 @@ $(document).ready(function(){
         var content_index = content_element.attr('data-element-index');
         $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']').remove();
         content_element.remove();
+        setMediaReorderingFeatureStatus();
     });
     /**
      * *********************************************************************************************
@@ -462,6 +467,8 @@ $(document).ready(function(){
         if (temporary_image_block_container.find('.gallery-image-element').length <= 0){
             addGalleryImageTemporary(content_block);
         }
+
+        setGalleryImageReorderingFeatureStatus(content_block);
     });
 
     /**
@@ -498,6 +505,7 @@ $(document).ready(function(){
         if('' != quiz_select.find('option:selected').val()){
             quiz_content_block.find('.quiz-selection-error-message').text('');
             addQuizFormBlock(quiz_content_block);
+            setQuizReorderingFeatureStatus();
         } else {
             quiz_content_block.find('.quiz-selection-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -587,6 +595,7 @@ $(document).ready(function(){
         var corresponding_content_block = $('.content-block-list-container.quiz-container').find('.content-block-container[data-block-index='+content_index+']');
         corresponding_content_block.remove();
         quiz_element.remove();
+        setQuizReorderingFeatureStatus();
     });
     /**
      * *********************************************************************************************
@@ -973,7 +982,7 @@ function resetImageFormElementToOriginalData(image_block)
         corresponding_original_data_holder.removeClass('original-image-data-holder-el');
         corresponding_original_data_holder.not('.hidden-input-file').show();
     });
-    setImagFileButtonText(image_block)
+    setImageFileButtonText(image_block)
 }
 
 function setAssociatedFileButtonText(content_block_container)
@@ -984,7 +993,7 @@ function setAssociatedFileButtonText(content_block_container)
     }
 }
 
-function setImagFileButtonText(image_block)
+function setImageFileButtonText(image_block)
 {
     var file_name = image_block.find('.hidden-input-file.image-file').val();
     if ('' != file_name) {
@@ -1345,4 +1354,36 @@ function updateActionButtonFormBlock(content_block)
     content_name_input.val(button_text);
 
     content_block.hide();
+}
+
+function setMediaReorderingFeatureStatus()
+{
+    var media_content_list_container = $('.media-content-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setQuizReorderingFeatureStatus()
+{
+    var media_content_list_container = $('.quiz-content-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setGalleryImageReorderingFeatureStatus(content_block)
+{
+    var media_content_list_container = content_block.find('.image-element-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setReorderingFeatureStatus(content_list_container)
+{
+    var content_list = content_list_container.find('.content-list-element').not('.to-delete-image-element');
+    if (content_list.length > 1) {
+        content_list.each(function(){
+            $(this).find('.actions-container .reorder').removeClass('disabled');
+        });
+    } else {
+        content_list.each(function(){
+            $(this).find('.actions-container .reorder').addClass('disabled');
+        });
+    }
 }
