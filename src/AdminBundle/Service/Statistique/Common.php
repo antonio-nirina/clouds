@@ -270,7 +270,7 @@ class Common
 
     public function getStatusByEmail($id)
     {
-        $filters = ["campaign" => $id];
+        $filters = ["limit" => 0];
         $messages = $this->mailjetClient->get(Resources::$Message,['filters' => $filters])->getData();
         foreach ($messages as $key => $value) {
             if (intval($value["CampaignID"]) === intval($id)) {
