@@ -31,7 +31,6 @@ $(document).ready(function(){
             success: function(data){
                 $('#create-edit-e-learning-modal').find('.modal-body-container').html(data.content);
                 installWysiwyg();
-                // installColorPicker();
             },
             statusCode: {
                 404: function(data){
@@ -55,9 +54,19 @@ $(document).ready(function(){
     // soumission de formulaire
     $(document).on('click', '#create-edit-e-learning-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
-        /*$('.chargementAjax').removeClass('hidden');
+        $('.chargementAjax').removeClass('hidden');
 
-        // removing useless block for data saving (model, form prototype, etc)
+        // fermeture des éditions de contenu en cours
+        closingAllOpenedEdit();
+        closingAllOpenedQuizEdit();
+        closeActionButtonEdit();
+
+        // fermeture des créations de contentu en cours
+        removingAllOpenedOnCreate();
+        removingAllOpenedQuizOnCreate();
+        removeActionButtonOnCreate();
+
+        // suppression des blocks inutiles et encombrants pour l'enregistrement (model, prototype, etc)
         $('#create-edit-e-learning-modal').find('.block-model-container').remove();
         var div_list = $('#create-edit-e-learning-modal').find('div');
         div_list.each(function(){
@@ -67,10 +76,7 @@ $(document).ready(function(){
         });
         $('#create-edit-e-learning-modal').find('.original-data-holder-el').remove();
 
-        // closing all opened edit block (not saved) to restore to original datas
-        closingAllOpenedEdit();
-
-        for (name in CKEDITOR.instances) {
+        /*for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
         }
         var submission_type = $(this).attr('data-submission-type');
@@ -145,13 +151,13 @@ $(document).ready(function(){
     // appel choix
     $(document).on('click', '.add-media-content', function(e){
         e.preventDefault();
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedOnCreate();
 
-        // closing opened edit
+        // fermeture des blocks, édition
         closingAllOpenedEdit();
 
-        // closing all edit in progress, restoring original datas
+        // fermeture des blocks d'édition
         var content_block_list = $('.content-block-list-container.media-container').find('.content-block-container:visible');
         content_block_list.each(function(){
             resetFormElementToOriginalData($(this));
@@ -186,10 +192,10 @@ $(document).ready(function(){
     // choix de type de document à ajouter
     $(document).on('click', '.document-type-element', function(e){
         e.preventDefault();
-        // closing all previously opened content block, in edit
+        // suppression des blocks, creation
         closingAllOpenedEdit();
 
-        // removing all previously opened content block, in add
+        // fermeture des blocks, édition
         removingAllOpenedOnCreate();
 
         if ('undefined' !== typeof $(this).attr('data-media-type')) {
@@ -238,10 +244,10 @@ $(document).ready(function(){
     // affichage formulaire
     $(document).on('click', '.edit.media-content', function(e){
         e.preventDefault();
-        // closing all previously opened content block, edit
+        // fermeture des blocks, édition
         closingAllOpenedEdit();
 
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedOnCreate();
 
         // continuing process
@@ -296,6 +302,7 @@ $(document).ready(function(){
             setFormElementVisibilityOnEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
             deleteNewNotSavedImage(content_block_container);
+            closingAllImageOpenedEdit(content_block_container);
             content_block_container.hide();
             setGalleryImageReorderingFeatureStatus(content_block_container);
         } else if ('create' == content_block_container.attr('data-manipulation-type')) {
@@ -408,16 +415,16 @@ $(document).ready(function(){
             .find('.image-block-container').find('.gallery-image-element[data-block-index='+image_block_index+']');
         var content_block = image_block.parents('.content-block-container');
 
-        // setting form element visibility
+        // visibilité des éléments de formulaire
         setImageFormElementVisibilityOnEdit(image_block)
 
-        // closing all previously opened image block, edit
+        // fermeture des blocks, édition
         closingAllImageOpenedEdit(content_block);
 
-        // removing all previously opened image block, add
+        // suppression des blocks, creation
         removingAllImageOpenedOnCreate(content_block);
 
-        // processing edit
+        // poursuivre édition
         image_block.attr('data-manipulation-type', 'edit');
         createOriginalImageDataHolder(image_block);
         image_block.find('.add-image-button-container .edit-gallery-image-element').show();
@@ -464,14 +471,14 @@ $(document).ready(function(){
         var content_block = $(this).parents('.content-block-container');
         var corresponding_image_block = content_block.find('.image-block-container .gallery-image-element[data-block-index='+data_element_index+']');
 
-        // simulate deleting by adding "to-delete-image-element" and "to-delete-image-block"
-        // and processing real removing when validating edit
+        // simulation suppression en ajoutant les classes "to-delete-image-element" et "to-delete-image-block"
+        // réelle suppression à la validation d'édition
         image_element.addClass('to-delete-image-element');
         image_element.hide();
         corresponding_image_block.addClass('to-delete-image-block');
         corresponding_image_block.hide();
 
-        // adding new temporary image block if there is not yet one
+        // ajout de block d'ajout d'image
         var temporary_image_block_container = content_block.find('.temporary-image-block-container');
         if (temporary_image_block_container.find('.gallery-image-element').length <= 0){
             addGalleryImageTemporary(content_block);
@@ -498,10 +505,10 @@ $(document).ready(function(){
     // appel formulaire
     $(document).on('click', '.add-quiz-content', function(e){
         e.preventDefault();
-        // closing all previously opened edit
+        // fermeture des blocks, édition
         closingAllOpenedQuizEdit();
 
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedQuizOnCreate();
 
         addQuizBlockTemporary();
@@ -551,10 +558,10 @@ $(document).ready(function(){
     $(document).on('click', '.edit-quiz-content', function(e){
         e.preventDefault();
 
-        // closing all previously opened edit
+        // fermeture des blocks, édition
         closingAllOpenedQuizEdit();
 
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedQuizOnCreate();
 
         // continuing process
@@ -649,15 +656,9 @@ $(document).ready(function(){
         e.preventDefault();
         var content_block = $(this).parents('.content-block-container');
         if ('edit' == content_block.attr('data-manipulation-type')) {
-            resetFormElementToOriginalData(content_block);
-            resetActionButtonElement(content_block);
-            uninstallColorPicker();
-            installColorPicker();
-            content_block.hide();
+            closeActionButtonEdit(content_block);
         } else if ('create' == content_block.attr('data-manipulation-type')) {
-            uninstallColorPicker();
-            content_block.remove();
-            $('.add-button-content').parents('.content-button-container').show();
+            removeActionButtonOnCreate(content_block);
         }
     });
     /**
@@ -837,7 +838,7 @@ function addMediaFormBlock(content_block_container)
 {
     var media_list_container = $('.content-block-list-container.media-container');
 
-    // getting current index
+    // index actuel
     var current_index = null;
     if ($('.content-block-list-container.media-container').find('.content-block-container').length <= 0){
         current_index = 1;
@@ -850,7 +851,7 @@ function addMediaFormBlock(content_block_container)
         current_index = (Math.max.apply(null, index_list)) + 1;
     }
 
-    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
     var form_el_list = content_block_container.find('.form-el');
     form_el_list.each(function(){
         var id = $(this).attr('id');
@@ -861,22 +862,17 @@ function addMediaFormBlock(content_block_container)
         $(this).attr('name', name);
     });
 
-    // setting block index
+    // definition index de block
     content_block_container.attr('data-block-index', current_index);
 
-    // setting content order
-    /*var media_content_list_container = $('.media-content-list-container');
-    var current_order = media_content_list_container.find('.content-list-element').length + 1;
-    content_block_container.find('.content-order-input').val(current_order);*/
-
-    // setting manipulation type
+    // type de manipulation
     content_block_container.attr('data-manipulation-type', 'edit');
 
-    // adding media block
+    // ajout du block
     media_list_container.append(content_block_container);
     content_block_container.hide();
 
-    // create media list element (preview-like in list)
+    // création d'élément de liste equivalent
     createEquivalentMediaListElement(content_block_container);
 }
 
@@ -886,7 +882,7 @@ function createEquivalentMediaListElement(content_block_container)
     content_list_element.find('.content-denomination-name').find('div').text(content_block_container.find('.document-name').find('input').val());
     content_list_element.attr('data-element-index', content_block_container.attr('data-block-index'));
 
-    // changing content element icon
+    // changement icone
     if (content_block_container.hasClass('media-document-block')) {
         content_list_element.find('.content-denomination .content-denomination-image span').attr('class', 'document-icon');
     } else if (content_block_container.hasClass('media-video-block')) {
@@ -1108,7 +1104,7 @@ function addImageBlock(image_block)
 {
     var image_block_container =  image_block.parents('.content-block-container').find('.image-block-container');
 
-    // getting current index
+    // index actuel
     var current_index = null;
     if (image_block_container.find('.gallery-image-element').length <= 0) {
         current_index = 1;
@@ -1121,7 +1117,7 @@ function addImageBlock(image_block)
         current_index = (Math.max.apply(null, index_list)) + 1;
     }
 
-    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
     var form_el_list = image_block.find('.form-el');
     form_el_list.each(function(){
         var id = $(this).attr('id');
@@ -1132,30 +1128,26 @@ function addImageBlock(image_block)
         $(this).attr('name', name);
     });
 
-    // setting block index
+    // definition index de block
     image_block.attr('data-block-index', current_index);
 
-    // setting content order
-    /*var current_order = image_block_container.length + 1;
-    image_block.find('.image-order-input').val(current_order);*/
-
-    // setting manipulation type
+    // type de manipulation
     image_block.attr('data-manipulation-type', 'edit');
 
-    // adding media block
+    // ajout du block
     image_block_container.append(image_block);
     image_block.hide();
 
-    // create media list element (preview-like in list)
+    // création d'élément de liste equivalent
     createEquivalentImageListElement(image_block);
 
-    // adding new temporary image block
+    // ajout option nouvelle image
     addGalleryImageTemporary(image_block.parents('.content-block-container'));
 
-    // showing "add gallery" button
+    // afficher bouton "ajouter galerie"
     image_block.parents('.content-block-container').find('.add-content-button-container').show();
 
-    // adding new but not saved flag
+    // ajout de flag "nouveau mais non sauvegardé"
     image_block.addClass('new-not-saved-image');
 }
 
@@ -1196,7 +1188,7 @@ function addQuizFormBlock(content_block)
         current_index = (Math.max.apply(null, index_list)) + 1;
     }
 
-    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
     var form_el_list = content_block.find('.form-el');
     form_el_list.each(function(){
         var id = $(this).attr('id');
@@ -1207,21 +1199,17 @@ function addQuizFormBlock(content_block)
         $(this).attr('name', name);
     });
 
-    // setting block index
+    // definition index de block
     content_block.attr('data-block-index', current_index);
 
-    // setting content order
-    /*var current_order = content_block_list.length + 1;
-    content_block.find('.content-order-input').val(current_order);*/
-
-    // setting manipulation type
+    // type de manipulation
     content_block.attr('data-manipulation-type', 'edit');
 
-    // adding media block
+    // ajout du block
     content_block_list_container.append(content_block);
     content_block.hide();
 
-    // create quiz list element (preview-like in list)
+    // création d'élément de liste equivalent
     createEquivalentQuizListElement(content_block);
 }
 
@@ -1327,7 +1315,7 @@ function addActionButtonFormBlock(content_block)
     content_block_list_container.html('');
     var current_index = 1;
 
-    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
     var form_el_list = content_block.find('.form-el');
     form_el_list.each(function(){
         var id = $(this).attr('id');
@@ -1338,22 +1326,22 @@ function addActionButtonFormBlock(content_block)
         $(this).attr('name', name);
     });
 
-    // setting block index
+    // definition index de block
     content_block.attr('data-block-index', current_index);
 
-    // setting manipulation type
+    // type de manipulation
     content_block.attr('data-manipulation-type', 'edit');
 
-    // adding media block
+    // ajout du block
     content_block_list_container.append(content_block);
     content_block.hide();
 
-    // copy button text to content name input
+    // mise à jour nom de contenu, par texte de bouton
     var button_text = content_block.find('.action-button-text-input').not('.original-data-holder-el').val();
     var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
     content_name_input.val(button_text);
 
-    // create button list element (preview-like in list)
+    // création d'élément de liste equivalent
     createEquivalentButtonListElement(content_block);
 }
 
@@ -1364,8 +1352,8 @@ function createEquivalentButtonListElement(content_block) {
     content_list_element.show();
 }
 
-// better called after resetFormElementToOriginalData()
-// to get original data
+// à appeler après resetFormElementToOriginalData()
+// pour obtenir les données d'origine
 function resetActionButtonElement(content_block)
 {
     // button preview
@@ -1387,7 +1375,7 @@ function updateActionButtonFormBlock(content_block)
     content_list_element.find('.content-denomination-name div').text(button_text);
     content_block.find('.original-data-holder-container').html('');
 
-    // copy button text to content name input
+    // mise à jour nom de contenu, par texte de bouton
     var button_text = content_block.find('.action-button-text-input').not('.original-data-holder-el').val();
     var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
     content_name_input.val(button_text);
@@ -1482,4 +1470,28 @@ function defineContentOrder(content_list_container, content_block_list_container
             current_order++;
         }
     });
+}
+
+function closeActionButtonEdit(content_block=null)
+{
+    if (null == content_block) {
+        content_block = $('.content-block-list-container.button-container').find('.content-block-container.action-button-block-container')
+            .first();
+    }
+    resetFormElementToOriginalData(content_block);
+    resetActionButtonElement(content_block);
+    uninstallColorPicker();
+    installColorPicker();
+    content_block.hide();
+}
+
+function removeActionButtonOnCreate(content_block=null)
+{
+    if (null == content_block) {
+        content_block = $('.temporary-content-block-list-container.button').find('.content-block-container.action-button-block-container')
+            .first();
+    }
+    uninstallColorPicker();
+    content_block.remove();
+    $('.add-button-content').parents('.content-button-container').show();
 }
