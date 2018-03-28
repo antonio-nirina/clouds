@@ -122,6 +122,39 @@ $(document).ready(function(){
      * FIN
      * Bouton d'action
      */
+
+    /**
+     * Reordering content element
+     */
+    $(document).on('click', '.reorder-up', function(e){
+        e.preventDefault();
+        var reorder_container = $(this).parents('.reorder');
+        if (!reorder_container.hasClass('disabled')) {
+            var current_element = $(this).parents('.content-list-element');
+            var upper_element = current_element.prev('.content-list-element');
+            if (upper_element.length > 0) {
+                upper_element.before(current_element);
+                reorder_container.trigger('reordering-content');
+            }
+        }
+    });
+
+    $(document).on('click', '.reorder-down', function(e){
+        e.preventDefault();
+        var reorder_container = $(this).parents('.reorder');
+        if (!reorder_container.hasClass('disabled')) {
+            var current_element = $(this).parents('.content-list-element');
+            var lower_element = current_element.next('.content-list-element');
+            if (lower_element.length > 0) {
+                lower_element.after(current_element);
+                reorder_container.trigger('reordering-content');
+            }
+        }
+    });
+    /**
+     * FIN
+     * Reordering content element
+     */
 });
 
 function installWysiwyg()

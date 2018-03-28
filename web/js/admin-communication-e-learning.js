@@ -210,6 +210,7 @@ $(document).ready(function(){
             addMediaFormBlock(content_block_container);
             setMediaReorderingFeatureStatus();
             removeFlagOnNewNotSavedImage(content_block_container);
+            defineMediaOrder();
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -350,6 +351,7 @@ $(document).ready(function(){
             addImageBlock(image_block);
             var content_block = image_block.parents('.content-block-container');
             setGalleryImageReorderingFeatureStatus(content_block);
+            defineImageOrder(content_block);
         } else {
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -382,6 +384,7 @@ $(document).ready(function(){
         $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']').remove();
         content_element.remove();
         setMediaReorderingFeatureStatus();
+        defineMediaOrder();
     });
     /**
      * *********************************************************************************************
@@ -475,6 +478,7 @@ $(document).ready(function(){
         }
 
         setGalleryImageReorderingFeatureStatus(content_block);
+        defineImageOrder(content_block);
     });
 
     /**
@@ -512,6 +516,7 @@ $(document).ready(function(){
             quiz_content_block.find('.quiz-selection-error-message').text('');
             addQuizFormBlock(quiz_content_block);
             setQuizReorderingFeatureStatus();
+            defineQuizOrder();
         } else {
             quiz_content_block.find('.quiz-selection-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -602,6 +607,7 @@ $(document).ready(function(){
         corresponding_content_block.remove();
         quiz_element.remove();
         setQuizReorderingFeatureStatus();
+        defineQuizOrder();
     });
     /**
      * *********************************************************************************************
@@ -733,7 +739,30 @@ $(document).ready(function(){
      * *********************************************************************************************
      */
 
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Reordonnancement
+     * *********************************************************************************************
+     */
+    $(document).on('reordering-content', '.reorder', function(){
+        if ($(this).hasClass('media-reorder')) {
+            defineMediaOrder();
+        } else if ($(this).hasClass('quiz-reorder')) {
+            defineQuizOrder();
+        } else if ($(this).hasClass('image-reorder')) {
+            var content_block = $(this).parents('.content-block-container');
+            defineImageOrder(content_block);
+        }
+    });
 
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Reordonnancement
+     * *********************************************************************************************
+     */
 });
 
 function addMediaFormBlockBases()
@@ -836,9 +865,9 @@ function addMediaFormBlock(content_block_container)
     content_block_container.attr('data-block-index', current_index);
 
     // setting content order
-    var media_content_list_container = $('.media-content-list-container');
+    /*var media_content_list_container = $('.media-content-list-container');
     var current_order = media_content_list_container.find('.content-list-element').length + 1;
-    content_block_container.find('.content-order-input').val(current_order);
+    content_block_container.find('.content-order-input').val(current_order);*/
 
     // setting manipulation type
     content_block_container.attr('data-manipulation-type', 'edit');
@@ -1107,8 +1136,8 @@ function addImageBlock(image_block)
     image_block.attr('data-block-index', current_index);
 
     // setting content order
-    var current_order = image_block_container.length + 1;
-    image_block.find('.image-order-input').val(current_order);
+    /*var current_order = image_block_container.length + 1;
+    image_block.find('.image-order-input').val(current_order);*/
 
     // setting manipulation type
     image_block.attr('data-manipulation-type', 'edit');
@@ -1182,8 +1211,8 @@ function addQuizFormBlock(content_block)
     content_block.attr('data-block-index', current_index);
 
     // setting content order
-    var current_order = content_block_list.length + 1;
-    content_block.find('.content-order-input').val(current_order);
+    /*var current_order = content_block_list.length + 1;
+    content_block.find('.content-order-input').val(current_order);*/
 
     // setting manipulation type
     content_block.attr('data-manipulation-type', 'edit');
@@ -1410,4 +1439,47 @@ function removeFlagOnNewNotSavedImage(content_block)
 function deleteNewNotSavedImage(content_block)
 {
     content_block.find('.new-not-saved-image').remove();
+}
+
+function defineMediaOrder()
+{
+    var content_list_container = $('.media-content-list-container');
+    var content_block_list_container = $('.content-block-list-container.media-container');
+    defineContentOrder(content_list_container, content_block_list_container);
+}
+
+function defineQuizOrder()
+{
+    var content_list_container = $('.quiz-content-list-container');
+    var content_block_list_container = $('.content-block-list-container.quiz-container');
+    defineContentOrder(content_list_container, content_block_list_container);
+}
+
+function defineImageOrder(content_block)
+{
+    var content_list_container = content_block.find('.image-element-list-container');
+    var content_block_list_container = content_block.find('.image-block-container');
+    defineContentOrder(content_list_container, content_block_list_container, 'image');
+}
+
+function defineContentOrder(content_list_container, content_block_list_container, content_type = 'standard')
+{
+    var content_element_list = content_list_container.find('.content-list-element').not('.to-delete-image-element');
+    var current_order = 1;
+    content_element_list.each(function(){
+        var content_element_index = $(this).attr('data-element-index');
+        var corresponding_content_block = null;
+        var content_order_input = null;
+        if ('image' == content_type) {
+            corresponding_content_block = content_block_list_container.find('.gallery-image-element[data-block-index='+content_element_index+']');
+            content_order_input = corresponding_content_block.find('.image-order-input').not('.original-image-data-holder-el');
+        } else {
+            corresponding_content_block = content_block_list_container.find('.content-block-container[data-block-index='+content_element_index+']');
+            content_order_input = corresponding_content_block.find('.content-order-input').not('.original-data-holder-el');
+        }
+        if (null != content_order_input){
+            content_order_input.val(current_order);
+            current_order++;
+        }
+    });
 }
