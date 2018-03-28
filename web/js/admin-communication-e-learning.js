@@ -54,7 +54,7 @@ $(document).ready(function(){
     // soumission de formulaire
     $(document).on('click', '#create-edit-e-learning-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
-        $('.chargementAjax').removeClass('hidden');
+        /*$('.chargementAjax').removeClass('hidden');
 
         // fermeture des éditions de contenu en cours
         closingAllOpenedEdit();
@@ -76,7 +76,7 @@ $(document).ready(function(){
         });
         $('#create-edit-e-learning-modal').find('.original-data-holder-el').remove();
 
-        /*for (name in CKEDITOR.instances) {
+        for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
         }
         var submission_type = $(this).attr('data-submission-type');
