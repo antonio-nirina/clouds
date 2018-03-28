@@ -1,0 +1,214 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+			<link href="{{ asset("css/communications/sondages-quiz.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/communications/pre-sondages.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {#{{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}#}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="#">sondages / quiz</a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page-active" href="#">sondages / quiz</a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page" href="#">bannière d'accueil</a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+           <div class="col-12 col-md-12">
+            <section  class = "fieldset inactive page">
+                <div class="block-active-hover"></div>
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-sm-12">
+                         <h3 class="hidden-sm-down block-title">Création et édition de sondage et quiz</h3>
+                         <p class = "descr-sondage-quiz">Un onglet sondage / quiz sera ajpouté à votre menu.</p>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-12">
+                    <div class="hidden-sm-down corner-circle-img img-content-sondanges-quiz rounded-circle"></div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 creer-new">
+                        <div class="chp" style="text-align:center; float:left;">
+                                    <button class="btn-valider " name = "btn-submit-form-etape-1" type = "submit">
+                                        créer un nouveau sondage / quiz
+                                    </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row trie-sondage"> 
+                        <div class="col-sm-4 col-md-4">
+                            <div class="dropdown clearable filtres quiz-filter">
+                                    <button class="btn btn-secondary dropdown-toggle filtre" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                        FILTRER PAR 
+                                    </button>
+                                    <div class="dropdown-menu quiz-menu" aria-labelledby="dropdownMenuFiltre">
+                                        <a class="dropdown-item programmed-item" href="#">
+                                            TOUS
+                                            <span>tous</span>
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            {{"publié"|upper}}
+                                            <span>publie</span>
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            EN ATTENTE
+                                            <span>attente</span>
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                             {{"clôturé"|upper}}
+                                            <span>cloture</span>
+                                        </a>
+                                    </div>
+                                </div>
+                        </div>                               
+                        <div class="col-sm-5 col-md-5">
+                                <div class="dropdown clearable questionnaires quest-filter">
+                                    <button class="btn btn-secondary dropdown-toggle quest" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                        TYPE DE QUESTIONNAIRE
+                                    </button>
+                                    <div class="dropdown-menu quest-menu" aria-labelledby="dropdownTypeFilter">
+                                        <a class="dropdown-item" href="#">
+                                            TOUS
+                                            <span>All</span>
+                                        </a>
+                                        <a class="dropdown-item quest-menu" href="#">
+                                            SONDAGE
+                                            <span>sondage</span>
+                                        </a>
+                                        <a class="dropdown-item quest-menu" href="#">
+                                            QUIZ
+                                            <span>quiz</span>
+                                        </a>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            <a href="#" class="add add-folder-link add-to-archive archived-campaign" data-target-link="#">
+                                archivées
+                            </a>
+                        </div>
+                </div>
+                <div class="row checked-quiz">
+                        <div class="col-4 col-md-4 text-selected ">
+                            <input type="text" name="sondage-selected" class="input-text">
+                            <span class="delete-input"></span>
+                        </div>
+                        <div class="col-4 col-md-4 supp-supp">
+                            <div class="dropdown clearable questionnaires suppr-filter">
+                                    <button class="btn btn-secondary dropdown-toggle suppr" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
+                                        SUPPRIMER
+                                    </button>
+                                    <div class="dropdown-menu suppr-menu" aria-labelledby="dropdownTypeFilter">
+                                        <a class="dropdown-item suppr-menu" href="#">
+                                            TOUS
+                                            <span>All</span>
+                                        </a>
+                                        <a class="dropdown-item suppr-menu" href="#">
+                                            SONDAGE
+                                            <span>sondage</span>
+                                        </a>
+                                        <a class="dropdown-item suppr-menu" href="#">
+                                            QUIZ
+                                            <span>quiz</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                 <span class="delete-supp"></span>
+                        </div>
+                        <div class="col-4 col-md-4 btn-supp">
+                            <button class="btn-valider valider submit-form" name = "btn-submit" type = "submit">
+                                        valider
+                            </button>
+                        </div>
+                </div>
+                <div class="row detaille">
+                        <div class="col-12 col-lg-9 nom-test">
+                            <div class="data-container">
+                                    <div>
+                                        <label class="radioChecked notChecked">
+                                            <input type="hidden" name="radio" value="">
+                                        </label>
+                                    </div>                           
+                                    <div class="hidden-sm-down quest-image"></div>
+                                    <div class="titre-quiz">
+                                        <p id="nom-quest">{{"Test1"}}</p>                            
+                                        <p id="type-quest">{{"Quiz"}}</p>
+                                        <p id="pub">{{"Publié- le 02 février 2018 à 14:44"}}</p>
+                                    </div> 
+                            </div>                      
+                                <div class="nombres">
+                                    <span id="number">30</span>
+                                    <span id="participation">participations</span>
+                                </div>
+                                <div class=" roles">
+                                    <span id="role">Tous les participants</span>
+                                </div>
+                        </div>
+                        <div class="col-12 col-lg-3 campagne-action">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle detail-action" type="button" id="dropdownMenuAction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                    ACTIONS
+                                </button>
+                                <div class="dropdown-menu action-menu" aria-labelledby="dropdownMenuAction">
+                                    <a class="dropdown-item campaign-statistique" href="#" data-campaign = "" data-title = "">STATISTIQUES</a>
+                                        <a class="dropdown-item action-menu" href="#" data-target-url="">DUPLIQUER</a>
+                                    <a id = "apercu_campagne" class="dropdown-item campaign-preview" data-url = "" style = "cursor:pointer;">ARCHIVER</a>
+                                    <a class="dropdown-item action-menu" href="#" data-campaign-draft-id="">SUPPRIMER</a>
+                                    <input type="hidden" name="campaign-id" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+           </div> 
+        </div>
+    </main>
+{% endblock %}
+
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>   
+            <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+            <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script> 
+            <script type="text/javascript" src="{{asset("js/communications/pre-sondages.js")}}"></script> 
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+

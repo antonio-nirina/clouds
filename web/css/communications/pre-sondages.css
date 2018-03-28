@@ -1,0 +1,381 @@
+
+.creer-new{
+position: relative;
+top: -49px;
+}
+
+.preSondageQuiz{
+	margin: 0px -23px 0px;
+    background-color: #F9F9F9;
+
+}
+.trie-sondage{
+	padding-top: 29px;
+    padding-bottom: 29px;
+}
+
+.filtres.quiz-filter button{
+	width: 8rem !important;
+}
+
+.trie-sondage .quiz-menu, .trie-sondage .quiz-menu > a, .trie-sondage .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 31px;
+    width: 10rem !important;
+}
+
+.trie-sondage .filtre, .trie-sondage .filtre.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 10rem;
+    text-align: left;
+}
+
+.trie-sondage .quest, .trie-sondage .quest.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 13rem;
+    text-align: left;
+}
+
+.checked-quiz .suppr, .checked-quiz .suppr.active{
+	border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 10rem;
+    text-align: left;
+}
+
+.trie-sondage .quest-menu, .trie-sondage .quest-menu > a, .trie-sondage .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 31px;
+    width: 13rem !important;
+}
+
+.checked-quiz .suppr-menu,.checked-quiz .suppr-menu > a, .checked-quiz .dropdown-toggle {
+    font-size: 12px;
+    font-family: var(--police);
+    color: #404040;
+    background-color: #e5e5e5;
+    height: 31px;
+    width: 10rem !important;
+}
+
+.trie-sondage  .quiz-menu > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+
+.checked-quiz .suppr-menu > a:hover {
+	background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+
+.trie-sondage  .quest-menu > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+
+section .dropdown.show .quest {
+    visibility: hidden;
+    box-shadow: none;
+}
+
+section .dropdown.show .filtre {
+    visibility: hidden;
+    box-shadow: none;
+}
+.trie-sondage .quiz-menu  {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+.trie-sondage .quest-menu  {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+
+.checked-quiz .suppr-menu{
+	 border: 0;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+
+.trie-sondage .quest-menu > a{
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+
+.checked-quiz  .suppr-menu > a{
+	box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2);
+    padding: 8px 16px;
+}
+
+.trie-sondage .quiz-filter .quiz-menu   > a > span, .trie-sondage .quiz-filter button > span {
+    display: none;
+}
+
+.trie-sondage .quest-filter .quest-menu   > a > span, .trie-sondage .quest-filter button > span {
+    display: none;
+}
+
+.checked-quiz .suppr-filter .suppr-menu  > a > span, .checked-quiz .suppr-filter button > span {
+    display: none;
+}
+
+.add.add-to-archive {
+    padding-right: 40px;
+}
+.add.add-to-archive:before {
+    content: "\f07b";
+    font-size: 14px;
+    margin-right: 5px;
+    font-family: fontawesome;
+    position: relative;
+    top: 0;
+    padding: 4px;
+    color: white;
+    background: var(--couleur_1);
+    border-radius: 50%;
+}
+.add.add-to-archive:hover:before {
+    background: var(--couleur_1);
+    color: white !important;
+}
+
+.add {
+    color: var(--couleur_1) !important;
+    font-size: 14px;
+}
+
+.add.add-to-archive {
+    padding-right: 40px;
+    margin-left: 42px;
+}
+
+.add.add-folder-link, .add.free-add {
+    line-height: 28px;
+}
+.add.add-folder-link::before, .add.free-add::before {
+    position: relative;
+}
+
+.checked-quiz{
+	border-top: 1px solid rgba(0,0,0,0.2);
+	margin: 0px -23px 0px;
+	width: 105%;
+	background-color: #F5F5F5;
+	padding-top: 42px;
+	padding-bottom: 31px;
+	display: none;
+}
+
+.input-text{
+border: 1px solid;
+border-radius: 7px;
+padding: 6px 10px;
+color: var(--couleur_4);
+}
+
+.text-selected{
+font-size: 14px;
+font-family: var(--police);
+height: 34px !important;
+}
+
+.delete-input, .delete-mandatory-input {
+    width: 25px;
+    height: 25px;
+    background: url('../../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    left: -18px;
+    margin-left: 10px;
+    float: right;
+}
+
+.notChecked{
+	background: url('../../images/cloudsRewards/check-off.png');
+}
+
+.checked{
+	background: url('../../images/cloudsRewards/check-on.png');
+}
+
+.radioChecked{
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	display: inline-block;
+	float: left;
+}
+
+.delete-supp{
+	 width: 25px;
+    height: 25px;
+    background: url('../../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    position: relative;
+    top: -26px;
+    left: -81px;
+    margin-left: 10px;
+    float: right;
+}
+
+.btn-supp{
+	position: relative;
+	top: -19px;
+	left: 19px;
+	height: 34px !important
+}
+
+.supp-supp{
+	position: relative;
+	left: 62px;
+	height: 34px !important;
+}
+
+.detaille{
+	padding: 20px 0 40px 0;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	padding-bottom: 30px;
+}
+
+.detaille .campagne-action {
+    display: flex;
+	justify-content: flex-end;
+	/*padding: 0;*/
+	align-items: center;
+}
+
+
+
+section .detail-action, section .detail-action.active {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    min-width: 10rem;
+    text-align: left;
+}
+
+.detaille .action-menu > a:hover {
+    background-color: white;
+    box-shadow: 1.5px 2.598px 3px rgba(0,0,0,0.2), -0.5px -0.5px 1px rgba(0,0,0,0.2);
+}
+
+section .dropdown.show .detail-action{
+    visibility: hidden;
+    box-shadow: none;
+}
+
+section .dropdown.show .suppr{
+    visibility: hidden;
+    box-shadow: none;
+}
+
+.titre-quiz{
+	padding-right: 0 !important;
+	padding-left: 0 !important;
+	position: relative;
+	left: -23px;
+}
+
+.titre-quiz p{
+	margin-bottom: 0px;
+}
+
+.titre-quiz #pub{
+	font-size: 12px;
+	color: #38CC00;
+	font-family: var(--police_bold);
+}
+
+.titre-quiz #type-quest{
+	font-size: 13px;
+	color: var(--couleur_4);
+	font-family: var(--police_light);
+}
+
+.titre-quiz #nom-quest{
+	color: var(--couleur_2);
+	font-family: var(--police_bold);
+}
+
+.nombres #number{
+	font-size: 17px;
+	color: var(--couleur_2);
+	font-family: var(--police_bold);
+	margin-bottom: 0 !important;
+}
+
+.nombres #participation{
+font-size: 13px;
+color: var(--couleur_4);
+font-family: var(--police_bold);
+}
+
+
+.roles #role{
+font-size: 13px;
+color: var(--couleur_4);
+font-family: var(--police_bold);
+margin-bottom: 0 !important;
+padding-top: 4px;
+}
+
+.quest-image{
+	margin: 0 27px;
+	 width: 30px;
+    height: 32px;
+	 background: url('../../images/cloudsRewards/quest.png') no-repeat;
+	 border:  1px solid rgba(0,0,0,0.2);
+	background-position: center;
+	position: relative;
+	left: -8px;
+}
+
+.nom-test{
+	display: flex;
+}
+
+.data-container{
+	display: flex;
+	align-items: center;
+	width: 60%;
+}
+
+.nombres{
+display: flex;
+flex-direction: column;
+justify-content: center;
+width: 19%;
+font-size: 13px;
+font-family: var(--police_bold);
+margin-left: 10px;
+}
+.roles{
+display: flex;
+justify-content: center;
+align-items: center;
+width: 30%;
+font-size: 13px;
+font-family: var(--police_bold);
+text-align: center;
+}

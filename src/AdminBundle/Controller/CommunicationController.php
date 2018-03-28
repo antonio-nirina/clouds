@@ -2308,4 +2308,15 @@ class CommunicationController extends AdminController
     {
         return $this->render('AdminBundle:Communication:e_learning_welcoming_banner.html.twig');
     }
+
+    /**
+     * @Route("/pre-sondage", name="admin_communication_pre_sondage")
+     * 
+     */
+    public function preSondageQuizAction(Request $request)
+    {
+
+        return $this->render('AdminBundle:Communication:preSondage.html.twig');
+
+    }
 }
