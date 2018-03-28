@@ -2250,6 +2250,10 @@ class CommunicationController extends AdminController
 
 
     /**
+     * Listing e-learning
+     *
+     * @return Response
+     *
      * @Route("/e-learning/liste", name="admin_communication_e_learning")
      */
     public function eLearningAction()
@@ -2260,6 +2264,13 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * Action to call when creating new e-learning
+     * (using AJAX call)
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
      * @Route("/e-learning/creer", name="admin_communication_e_learning_create")
      */
     public function createELearningAction(Request $request)
@@ -2274,7 +2285,6 @@ class CommunicationController extends AdminController
         $e_learning_form = $form_generator->generateForCreation($program);
         $e_learning_form->handleRequest($request);
         if ($e_learning_form->isSubmitted() && $e_learning_form->isValid()) {
-            // dump($e_learning_form->getData());
             $submission_type = $request->get('submission_type');
             $e_learning_manager = $this->get('AdminBundle\Manager\ELearningManager');
             if (in_array($submission_type, SubmissionType::VALID_SUBMISSION_TYPE)
@@ -2302,6 +2312,10 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * Configuring e-learning welcoming banner
+     *
+     * @return Response
+     *
      * @Route("/e-learning/banniere-accueil", name="admin_communication_e_learning_welcoming_banner")
      */
     public function eLearningWelcomingBannerAction()

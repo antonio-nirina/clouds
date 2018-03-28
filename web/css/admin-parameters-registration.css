@@ -6064,7 +6064,8 @@ section .row.filter.selected-elements{
 .semi-large-data-manipulation-modal .content-block-list-container,
 .semi-large-data-manipulation-modal .temporary-content-block-list-container,
 .semi-large-data-manipulation-modal .media-content-list-container,
-.semi-large-data-manipulation-modal .quiz-content-list-container{
+.semi-large-data-manipulation-modal .quiz-content-list-container,
+.semi-large-data-manipulation-modal .button-content-list-container{
     width: 100%;
 }
 .semi-large-data-manipulation-modal .content-block-list-container.media-container .content-block-container{
@@ -6114,6 +6115,19 @@ section .row.filter.selected-elements{
 /* new quiz dropdown style */
 .semi-large-data-manipulation-modal .styled-choice-select.quiz-select .dropdown{
     width: 250px;
+}
+
+.semi-large-data-manipulation-modal .content-block-container.action-button-block-container .action-button-input.large{
+    width: 690px;
+    min-width: 0;
+}
+
+.semi-large-data-manipulation-modal .action-button-preview-container{
+    min-width: 150px;
+}
+
+.semi-large-data-manipulation-modal .viewer-authorization-container{
+    margin-top: 15px;
 }
 
 @media (max-width: 355px) {
@@ -6185,4 +6199,8 @@ section .row.filter.selected-elements{
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
+}
+
+.hidden-input-text{
+    display: none;
 }

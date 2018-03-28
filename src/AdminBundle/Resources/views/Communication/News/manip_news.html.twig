@@ -146,14 +146,15 @@
                         {{ dropdown_toggle_text }}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
-                        {% set previous_choice = null %}
+                        {% set previous_ref_for_sub_level = null %}
                         {% for choice in news_post_form.action_button_target_page.vars.choices %}
                             {% set additional_class = '' %}
-                            {% if previous_choice is not null and choice.value matches '{'~previous_choice.value~'/[0-9]+$}' %}
+                            {% if previous_ref_for_sub_level is not null and choice.value matches '{'~previous_ref_for_sub_level.value~'/[0-9]+$}' %}
                                 {% set additional_class = 'sub-level' %}
+                            {% else %}
+                                {% set previous_ref_for_sub_level = choice %}
                             {% endif %}
                         <a class="dropdown-item {{ additional_class }}" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
-                            {% set previous_choice = choice %}
                         {% endfor %}
                     </div>
                     {% set delete_input_visibility = 'style=display:none' %}

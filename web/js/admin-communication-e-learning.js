@@ -31,7 +31,6 @@ $(document).ready(function(){
             success: function(data){
                 $('#create-edit-e-learning-modal').find('.modal-body-container').html(data.content);
                 installWysiwyg();
-                installColorPicker();
             },
             statusCode: {
                 404: function(data){
@@ -57,7 +56,17 @@ $(document).ready(function(){
         e.preventDefault();
         /*$('.chargementAjax').removeClass('hidden');
 
-        // removing useless block for data saving (model, form prototype, etc)
+        // fermeture des éditions de contenu en cours
+        closingAllOpenedEdit();
+        closingAllOpenedQuizEdit();
+        closeActionButtonEdit();
+
+        // fermeture des créations de contentu en cours
+        removingAllOpenedOnCreate();
+        removingAllOpenedQuizOnCreate();
+        removeActionButtonOnCreate();
+
+        // suppression des blocks inutiles et encombrants pour l'enregistrement (model, prototype, etc)
         $('#create-edit-e-learning-modal').find('.block-model-container').remove();
         var div_list = $('#create-edit-e-learning-modal').find('div');
         div_list.each(function(){
@@ -66,9 +75,6 @@ $(document).ready(function(){
             }
         });
         $('#create-edit-e-learning-modal').find('.original-data-holder-el').remove();
-
-        // closing all opened edit block (not saved) to restore to original datas
-        closingAllOpenedEdit();
 
         for (name in CKEDITOR.instances) {
             CKEDITOR.instances[name].updateElement();
@@ -145,10 +151,13 @@ $(document).ready(function(){
     // appel choix
     $(document).on('click', '.add-media-content', function(e){
         e.preventDefault();
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedOnCreate();
 
-        // closing all edit in progress, restoring original datas
+        // fermeture des blocks, édition
+        closingAllOpenedEdit();
+
+        // fermeture des blocks d'édition
         var content_block_list = $('.content-block-list-container.media-container').find('.content-block-container:visible');
         content_block_list.each(function(){
             resetFormElementToOriginalData($(this));
@@ -183,10 +192,10 @@ $(document).ready(function(){
     // choix de type de document à ajouter
     $(document).on('click', '.document-type-element', function(e){
         e.preventDefault();
-        // closing all previously opened content block, in edit
+        // suppression des blocks, creation
         closingAllOpenedEdit();
 
-        // removing all previously opened content block, in add
+        // fermeture des blocks, édition
         removingAllOpenedOnCreate();
 
         if ('undefined' !== typeof $(this).attr('data-media-type')) {
@@ -205,6 +214,9 @@ $(document).ready(function(){
             closingAllImageOpenedEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
             addMediaFormBlock(content_block_container);
+            setMediaReorderingFeatureStatus();
+            removeFlagOnNewNotSavedImage(content_block_container);
+            defineMediaOrder();
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -232,10 +244,10 @@ $(document).ready(function(){
     // affichage formulaire
     $(document).on('click', '.edit.media-content', function(e){
         e.preventDefault();
-        // closing all previously opened content block, edit
+        // fermeture des blocks, édition
         closingAllOpenedEdit();
 
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedOnCreate();
 
         // continuing process
@@ -271,7 +283,8 @@ $(document).ready(function(){
             var corresponding_content_element = $('.media-content-list-container').find('.content-list-element[data-element-index='+content_block_index+']');
             corresponding_content_element.find('.content-denomination-name div').text(media_name);
             closingAllImageOpenedEdit(content_block_container);
-            deletingElementAndBlockWithToDeleteFlagOn(content_block_container)
+            deletingElementAndBlockWithToDeleteFlagOn(content_block_container);
+            removeFlagOnNewNotSavedImage(content_block_container);
             content_block_container.hide();
         } else {
             content_block_container.find('.document-name-error-message').text('Cette valeur ne doit pas être vide.');
@@ -288,7 +301,10 @@ $(document).ready(function(){
             setDeleteNameInputVisibility(content_block_container);
             setFormElementVisibilityOnEdit(content_block_container);
             removingAllImageOpenedOnCreate(content_block_container);
+            deleteNewNotSavedImage(content_block_container);
+            closingAllImageOpenedEdit(content_block_container);
             content_block_container.hide();
+            setGalleryImageReorderingFeatureStatus(content_block_container);
         } else if ('create' == content_block_container.attr('data-manipulation-type')) {
             content_block_container.remove();
         }
@@ -340,6 +356,9 @@ $(document).ready(function(){
         var image_name = image_block.find('.image-file-name-container').find('input').val().trim();
         if ('' != image_name) {
             addImageBlock(image_block);
+            var content_block = image_block.parents('.content-block-container');
+            setGalleryImageReorderingFeatureStatus(content_block);
+            defineImageOrder(content_block);
         } else {
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
@@ -371,6 +390,8 @@ $(document).ready(function(){
         var content_index = content_element.attr('data-element-index');
         $('.content-block-list-container.media-container').find('.content-block-container[data-block-index='+content_index+']').remove();
         content_element.remove();
+        setMediaReorderingFeatureStatus();
+        defineMediaOrder();
     });
     /**
      * *********************************************************************************************
@@ -394,16 +415,16 @@ $(document).ready(function(){
             .find('.image-block-container').find('.gallery-image-element[data-block-index='+image_block_index+']');
         var content_block = image_block.parents('.content-block-container');
 
-        // setting form element visibility
+        // visibilité des éléments de formulaire
         setImageFormElementVisibilityOnEdit(image_block)
 
-        // closing all previously opened image block, edit
+        // fermeture des blocks, édition
         closingAllImageOpenedEdit(content_block);
 
-        // removing all previously opened image block, add
+        // suppression des blocks, creation
         removingAllImageOpenedOnCreate(content_block);
 
-        // processing edit
+        // poursuivre édition
         image_block.attr('data-manipulation-type', 'edit');
         createOriginalImageDataHolder(image_block);
         image_block.find('.add-image-button-container .edit-gallery-image-element').show();
@@ -429,18 +450,6 @@ $(document).ready(function(){
             image_block.find('.image-name-error-message').text('Cette valeur ne doit pas être vide.');
         }
     });
-
-    // annulation de la création OU édition, par fermeture de block
-    $(document).on('click', '.delete-quiz-block', function(e){
-        e.preventDefault();
-        var content_block_container = $(this).parents('.content-block-container');
-        if('edit' == content_block_container.attr('data-manipulation-type')){
-            resetFormElementToOriginalData(content_block_container);
-            content_block_container.hide();
-        } else if ('create' == content_block_container.attr('data-manipulation-type')) {
-            content_block_container.remove();
-        }
-    });
     /**
      * *********************************************************************************************
      * FIN
@@ -462,18 +471,21 @@ $(document).ready(function(){
         var content_block = $(this).parents('.content-block-container');
         var corresponding_image_block = content_block.find('.image-block-container .gallery-image-element[data-block-index='+data_element_index+']');
 
-        // simulate deleting by adding "to-delete-image-element" and "to-delete-image-block"
-        // and processing real removing when validating edit
+        // simulation suppression en ajoutant les classes "to-delete-image-element" et "to-delete-image-block"
+        // réelle suppression à la validation d'édition
         image_element.addClass('to-delete-image-element');
         image_element.hide();
         corresponding_image_block.addClass('to-delete-image-block');
         corresponding_image_block.hide();
 
-        // adding new temporary image block if there is not yet one
+        // ajout de block d'ajout d'image
         var temporary_image_block_container = content_block.find('.temporary-image-block-container');
         if (temporary_image_block_container.find('.gallery-image-element').length <= 0){
             addGalleryImageTemporary(content_block);
         }
+
+        setGalleryImageReorderingFeatureStatus(content_block);
+        defineImageOrder(content_block);
     });
 
     /**
@@ -493,10 +505,10 @@ $(document).ready(function(){
     // appel formulaire
     $(document).on('click', '.add-quiz-content', function(e){
         e.preventDefault();
-        // closing all previously opened edit
+        // fermeture des blocks, édition
         closingAllOpenedQuizEdit();
 
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedQuizOnCreate();
 
         addQuizBlockTemporary();
@@ -510,8 +522,22 @@ $(document).ready(function(){
         if('' != quiz_select.find('option:selected').val()){
             quiz_content_block.find('.quiz-selection-error-message').text('');
             addQuizFormBlock(quiz_content_block);
+            setQuizReorderingFeatureStatus();
+            defineQuizOrder();
         } else {
             quiz_content_block.find('.quiz-selection-error-message').text('Cette valeur ne doit pas être vide.');
+        }
+    });
+
+    // annulation de la création OU édition, par fermeture de block
+    $(document).on('click', '.delete-quiz-block', function(e){
+        e.preventDefault();
+        var content_block_container = $(this).parents('.content-block-container');
+        if('edit' == content_block_container.attr('data-manipulation-type')){
+            resetFormElementToOriginalData(content_block_container);
+            content_block_container.hide();
+        } else if ('create' == content_block_container.attr('data-manipulation-type')) {
+            content_block_container.remove();
         }
     });
     /**
@@ -532,10 +558,10 @@ $(document).ready(function(){
     $(document).on('click', '.edit-quiz-content', function(e){
         e.preventDefault();
 
-        // closing all previously opened edit
+        // fermeture des blocks, édition
         closingAllOpenedQuizEdit();
 
-        // removing all previously opened content block, in add
+        // suppression des blocks, creation
         removingAllOpenedQuizOnCreate();
 
         // continuing process
@@ -587,12 +613,155 @@ $(document).ready(function(){
         var corresponding_content_block = $('.content-block-list-container.quiz-container').find('.content-block-container[data-block-index='+content_index+']');
         corresponding_content_block.remove();
         quiz_element.remove();
+        setQuizReorderingFeatureStatus();
+        defineQuizOrder();
     });
     /**
      * *********************************************************************************************
      * FIN
      * Communication - E-learning
      * Création e-learning - suppression quiz
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - ajout bouton d'action
+     * *********************************************************************************************
+     */
+    // appel formulaire
+    $(document).on('click', '.add-button-content', function(e){
+        e.preventDefault();
+        addButtonBlockTemporary();
+        installColorPicker();
+        $(this).parents('.content-button-container').hide();
+    });
+
+    // soumission ajout
+    $(document).on('click', '.btn-valider.add-button', function(e){
+        e.preventDefault();
+        var button_content_block = $(this).parents('.content-block-container.action-button-block-container');
+        var button_text = button_content_block.find('.action-button-text-input');
+        if ('' != button_text.val().trim()) {
+            button_content_block.find('.button-text-error-message').text('');
+            addActionButtonFormBlock(button_content_block);
+        } else {
+            button_content_block.find('.button-text-error-message').text('Cette valeur ne doit pas être vide.')
+        }
+    });
+
+    // annulation de la création OU édition, par fermeture de block
+    $(document).on('click', '.delete-button-block', function(e){
+        e.preventDefault();
+        var content_block = $(this).parents('.content-block-container');
+        if ('edit' == content_block.attr('data-manipulation-type')) {
+            closeActionButtonEdit(content_block);
+        } else if ('create' == content_block.attr('data-manipulation-type')) {
+            removeActionButtonOnCreate(content_block);
+        }
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - ajout bouton d'action
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - edition bouton d'action
+     * *********************************************************************************************
+     */
+    // appel formulaire
+    $(document).on('click', '.edit-button-content', function(e){
+        e.preventDefault();
+        var content_index = 1;
+        var content_block = $('.content-block-list-container.button-container').find('.content-block-container[data-block-index='+content_index+']');
+        if (!content_block.is(':visible')) {
+            content_block.attr('data-manipulation-type', 'edit');
+            content_block.find('.button-text-error-message').text('');
+            createOriginalDataHolder(content_block);
+            setSelectedOptionInOriginalDataHolder(content_block);
+            resetStyledChoiceSelectToOriginalData(content_block);
+            setDeleteSelectVisibility(content_block);
+            content_block.find('.add-content-button-container .edit-button').show();
+            content_block.find('.add-content-button-container .add-button').hide();
+            content_block.show();
+        }
+    });
+    
+    // soumission édition
+    $(document).on('click', '.btn-valider.edit-button', function(e){
+        e.preventDefault();
+        var button_content_block = $(this).parents('.content-block-container.action-button-block-container');
+        var button_text = button_content_block.find('.action-button-text-input');
+        if ('' != button_text.val().trim()) {
+            button_content_block.find('.button-text-error-message').text('');
+            updateActionButtonFormBlock(button_content_block);
+        } else {
+            button_content_block.find('.button-text-error-message').text('Cette valeur ne doit pas être vide.')
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - edition bouton d'action
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Suppression bouton d'action
+     * *********************************************************************************************
+     */
+    $(document).on('click', '.delete-button-content', function(e){
+        e.preventDefault();
+        var button_element = $(this).parents('.content-list-element');
+        button_element.find('.content-denomination-name div').text('');
+        button_element.hide();
+
+        var button_content_block = $('.content-block-list-container.button-container').find('.content-block-container.action-button-block-container').first();
+        uninstallColorPicker(button_content_block);
+        button_content_block.remove();
+
+        $('.add-button-content').parents('.content-button-container').show();
+    });
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Suppression bouton d'action
+     * *********************************************************************************************
+     */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Création e-learning - Reordonnancement
+     * *********************************************************************************************
+     */
+    $(document).on('reordering-content', '.reorder', function(){
+        if ($(this).hasClass('media-reorder')) {
+            defineMediaOrder();
+        } else if ($(this).hasClass('quiz-reorder')) {
+            defineQuizOrder();
+        } else if ($(this).hasClass('image-reorder')) {
+            var content_block = $(this).parents('.content-block-container');
+            defineImageOrder(content_block);
+        }
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Création e-learning - Reordonnancement
      * *********************************************************************************************
      */
 });
@@ -669,7 +838,7 @@ function addMediaFormBlock(content_block_container)
 {
     var media_list_container = $('.content-block-list-container.media-container');
 
-    // getting current index
+    // index actuel
     var current_index = null;
     if ($('.content-block-list-container.media-container').find('.content-block-container').length <= 0){
         current_index = 1;
@@ -682,7 +851,7 @@ function addMediaFormBlock(content_block_container)
         current_index = (Math.max.apply(null, index_list)) + 1;
     }
 
-    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
     var form_el_list = content_block_container.find('.form-el');
     form_el_list.each(function(){
         var id = $(this).attr('id');
@@ -693,22 +862,17 @@ function addMediaFormBlock(content_block_container)
         $(this).attr('name', name);
     });
 
-    // setting block index
+    // definition index de block
     content_block_container.attr('data-block-index', current_index);
 
-    // setting content order
-    var media_content_list_container = $('.media-content-list-container');
-    var current_order = media_content_list_container.find('.content-list-element').length + 1;
-    content_block_container.find('.content-order-input').val(current_order);
-
-    // setting manipulation type
+    // type de manipulation
     content_block_container.attr('data-manipulation-type', 'edit');
 
-    // adding media block
+    // ajout du block
     media_list_container.append(content_block_container);
     content_block_container.hide();
 
-    // create media list element (preview-like in list)
+    // création d'élément de liste equivalent
     createEquivalentMediaListElement(content_block_container);
 }
 
@@ -718,7 +882,7 @@ function createEquivalentMediaListElement(content_block_container)
     content_list_element.find('.content-denomination-name').find('div').text(content_block_container.find('.document-name').find('input').val());
     content_list_element.attr('data-element-index', content_block_container.attr('data-block-index'));
 
-    // changing content element icon
+    // changement icone
     if (content_block_container.hasClass('media-document-block')) {
         content_list_element.find('.content-denomination .content-denomination-image span').attr('class', 'document-icon');
     } else if (content_block_container.hasClass('media-video-block')) {
@@ -788,7 +952,15 @@ function resetFormElementToOriginalData(content_block_container)
         corresponding_original_data_holder.attr('name', current_data_holder_name);
         corresponding_original_data_holder.removeClass('original-data-holder-el');
 
-        corresponding_original_data_holder.not('.hidden-input-file, .hidden-select').show();
+        corresponding_original_data_holder.not('.hidden-input-file, .hidden-select, .hidden-input-text').show();
+
+        if (corresponding_original_data_holder.hasClass('removable-content-input')) {
+            if ('' != corresponding_original_data_holder.val().trim()) {
+                corresponding_original_data_holder.next('.delete-input').show();
+            } else {
+                corresponding_original_data_holder.next('.delete-input').hide();
+            }
+        }
     });
 
     if (content_block_container.hasClass('media-image-gallery-block')) {
@@ -842,7 +1014,7 @@ function resetImageFormElementToOriginalData(image_block)
         corresponding_original_data_holder.removeClass('original-image-data-holder-el');
         corresponding_original_data_holder.not('.hidden-input-file').show();
     });
-    setImagFileButtonText(image_block)
+    setImageFileButtonText(image_block)
 }
 
 function setAssociatedFileButtonText(content_block_container)
@@ -853,7 +1025,7 @@ function setAssociatedFileButtonText(content_block_container)
     }
 }
 
-function setImagFileButtonText(image_block)
+function setImageFileButtonText(image_block)
 {
     var file_name = image_block.find('.hidden-input-file.image-file').val();
     if ('' != file_name) {
@@ -890,7 +1062,6 @@ function setFormElementVisibilityOnEdit(content_block_container){
 function setImageFormElementVisibilityOnEdit(image_block)
 {
     var image_name = image_block.find('.hidden-input-file.image-file').val();
-    console.log(image_name);
     if ('' != image_name) {
         image_block.find('.btn-upload').addClass('hidden-button');
         image_block.find('.upload-img-button-container').removeClass('hidden-button');
@@ -933,7 +1104,7 @@ function addImageBlock(image_block)
 {
     var image_block_container =  image_block.parents('.content-block-container').find('.image-block-container');
 
-    // getting current index
+    // index actuel
     var current_index = null;
     if (image_block_container.find('.gallery-image-element').length <= 0) {
         current_index = 1;
@@ -946,7 +1117,7 @@ function addImageBlock(image_block)
         current_index = (Math.max.apply(null, index_list)) + 1;
     }
 
-    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
     var form_el_list = image_block.find('.form-el');
     form_el_list.each(function(){
         var id = $(this).attr('id');
@@ -957,29 +1128,27 @@ function addImageBlock(image_block)
         $(this).attr('name', name);
     });
 
-    // setting block index
+    // definition index de block
     image_block.attr('data-block-index', current_index);
 
-    // setting content order
-    var current_order = image_block_container.length + 1;
-    image_block.find('.image-order-input').val(current_order);
-
-    // setting manipulation type
+    // type de manipulation
     image_block.attr('data-manipulation-type', 'edit');
 
-    // adding media block
+    // ajout du block
     image_block_container.append(image_block);
     image_block.hide();
 
-    // create media list element (preview-like in list)
+    // création d'élément de liste equivalent
     createEquivalentImageListElement(image_block);
 
-    // adding new temporary image block
+    // ajout option nouvelle image
     addGalleryImageTemporary(image_block.parents('.content-block-container'));
 
-
-    // showing "add gallery" button
+    // afficher bouton "ajouter galerie"
     image_block.parents('.content-block-container').find('.add-content-button-container').show();
+
+    // ajout de flag "nouveau mais non sauvegardé"
+    image_block.addClass('new-not-saved-image');
 }
 
 function createEquivalentImageListElement(image_block)
@@ -990,6 +1159,7 @@ function createEquivalentImageListElement(image_block)
 
     var image_element_list_container = image_block.parents('.content-block-container').find('.image-element-list-container');
     image_element_list_container.append(image_list_element);
+    image_list_element.addClass('new-not-saved-image');
 }
 
 function addQuizBlockTemporary()
@@ -1018,7 +1188,7 @@ function addQuizFormBlock(content_block)
         current_index = (Math.max.apply(null, index_list)) + 1;
     }
 
-    // replacing default form element id and name by real ones (indexed instead of __name__-ed)
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
     var form_el_list = content_block.find('.form-el');
     form_el_list.each(function(){
         var id = $(this).attr('id');
@@ -1029,21 +1199,17 @@ function addQuizFormBlock(content_block)
         $(this).attr('name', name);
     });
 
-    // setting block index
+    // definition index de block
     content_block.attr('data-block-index', current_index);
 
-    // setting content order
-    var current_order = content_block_list.length + 1;
-    content_block.find('.content-order-input').val(current_order);
-
-    // setting manipulation type
+    // type de manipulation
     content_block.attr('data-manipulation-type', 'edit');
 
-    // adding media block
+    // ajout du block
     content_block_list_container.append(content_block);
     content_block.hide();
 
-    // create quiz list element (preview-like in list)
+    // création d'élément de liste equivalent
     createEquivalentQuizListElement(content_block);
 }
 
@@ -1082,8 +1248,24 @@ function setSelectedOptionInOriginalDataHolder(content_block)
         var searched_id = id + '__origin__';
         var selected_value = $(this).find('option:selected').val();
         var selected_in_original_data_holder = content_block.find('.original-data-holder-container').find('#'+searched_id)
-            .find('option[value='+selected_value+']');
+            .find('option[value="'+selected_value+'"]');
         selected_in_original_data_holder.prop('selected', true);
+    });
+}
+
+function setDeleteSelectVisibility(content_block)
+{
+    var hidden_select_list = content_block.find('.form-el.hidden-select').not('.original-data-holder-el');
+    hidden_select_list.each(function(){
+        var selected_value = $(this).find('option:selected').val();
+        var styled_choice_select = $(this).parents('.styled-choice-select');
+        if ('' == selected_value) {
+            styled_choice_select.find('.dropdown .delete-select').css('visibility', 'hidden');
+            styled_choice_select.find('.dropdown .delete-select').hide();
+        } else {
+            styled_choice_select.find('.dropdown .delete-select').css('visibility', 'visible');
+            styled_choice_select.find('.dropdown .delete-select').show();
+        }
     });
 }
 
@@ -1106,4 +1288,210 @@ function updateQuizBlock(content_block)
     corresponding_quiz_element.find('.content-denomination-name div').text(selected_quiz_text);
     content_block.find('.original-data-holder-container').html('');
     content_block.hide();
+}
+
+function addButtonBlockTemporary()
+{
+    var button_block = $('.block-model-container .content-block-container.action-button-block-container').clone();
+    var temporary_button_block_container = $('.temporary-content-block-list-container.button');
+    temporary_button_block_container.append(button_block);
+    initActionButtonDatas(button_block);
+}
+
+function initActionButtonDatas(content_block)
+{
+    content_block.find('.action-button-color-option .bg-color').val('#ff0000');
+    content_block.find('.action-button-color-option .text-color').val('#ffffff');
+    var default_action_button_text = 'En savoir plus';
+    content_block.find('.content-name-input').val(default_action_button_text);
+    content_block.find('.action-button-text-input').val(default_action_button_text);
+    content_block.find('.action-button-text-input').next('.delete-input').show();
+    content_block.find('.action-button-preview').text(default_action_button_text);
+}
+
+function addActionButtonFormBlock(content_block)
+{
+    var content_block_list_container = $('.content-block-list-container.button-container');
+    content_block_list_container.html('');
+    var current_index = 1;
+
+    // remplacement id et name par les attributs réels (index au lieu de __name__)
+    var form_el_list = content_block.find('.form-el');
+    form_el_list.each(function(){
+        var id = $(this).attr('id');
+        id = id.replace(/__name__/g, current_index);
+        $(this).attr('id', id);
+        var name = $(this).attr('name');
+        name = name.replace(/__name__/g, current_index);
+        $(this).attr('name', name);
+    });
+
+    // definition index de block
+    content_block.attr('data-block-index', current_index);
+
+    // type de manipulation
+    content_block.attr('data-manipulation-type', 'edit');
+
+    // ajout du block
+    content_block_list_container.append(content_block);
+    content_block.hide();
+
+    // mise à jour nom de contenu, par texte de bouton
+    var button_text = content_block.find('.action-button-text-input').not('.original-data-holder-el').val();
+    var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
+    content_name_input.val(button_text);
+
+    // création d'élément de liste equivalent
+    createEquivalentButtonListElement(content_block);
+}
+
+function createEquivalentButtonListElement(content_block) {
+    var content_list_element = $('.button-content-list-container').find('.content-list-element.button').first();
+    var button_text = content_block.find('.action-button-text-input').val();
+    content_list_element.find('.content-denomination-name div').text(button_text);
+    content_list_element.show();
+}
+
+// à appeler après resetFormElementToOriginalData()
+// pour obtenir les données d'origine
+function resetActionButtonElement(content_block)
+{
+    // button preview
+    var button_preview = content_block.find('.action-button-preview');
+    var button_text = content_block.find('.form-row .action-button-text-input').val();
+    var button_bg_color = content_block.find('.form-row .action-button-background-color').val();
+    var button_text_color = content_block.find('.form-row .action-button-text-color').val();
+    button_preview.text(button_text);
+    button_preview.css({
+        'background-color': button_bg_color,
+        'color': button_text_color
+    });
+}
+
+function updateActionButtonFormBlock(content_block)
+{
+    var button_text = content_block.find('.action-button-text-input').val();
+    var content_list_element = $('.button-content-list-container').find('.content-list-element.button').first();
+    content_list_element.find('.content-denomination-name div').text(button_text);
+    content_block.find('.original-data-holder-container').html('');
+
+    // mise à jour nom de contenu, par texte de bouton
+    var button_text = content_block.find('.action-button-text-input').not('.original-data-holder-el').val();
+    var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
+    content_name_input.val(button_text);
+
+    content_block.hide();
+}
+
+function setMediaReorderingFeatureStatus()
+{
+    var media_content_list_container = $('.media-content-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setQuizReorderingFeatureStatus()
+{
+    var media_content_list_container = $('.quiz-content-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setGalleryImageReorderingFeatureStatus(content_block)
+{
+    var media_content_list_container = content_block.find('.image-element-list-container');
+    setReorderingFeatureStatus(media_content_list_container);
+}
+
+function setReorderingFeatureStatus(content_list_container)
+{
+    var content_list = content_list_container.find('.content-list-element').not('.to-delete-image-element');
+    if (content_list.length > 1) {
+        content_list.each(function(){
+            $(this).find('.actions-container .reorder').removeClass('disabled');
+        });
+    } else {
+        content_list.each(function(){
+            $(this).find('.actions-container .reorder').addClass('disabled');
+        });
+    }
+}
+
+function removeFlagOnNewNotSavedImage(content_block)
+{
+    // content_block.find('.new-not-saved-image').removeClass('new-not-saved-image');
+    var new_not_saved_image_list = content_block.find('.new-not-saved-image');
+    new_not_saved_image_list.each(function(){
+        $(this).removeClass('new-not-saved-image');
+    });
+}
+
+function deleteNewNotSavedImage(content_block)
+{
+    content_block.find('.new-not-saved-image').remove();
+}
+
+function defineMediaOrder()
+{
+    var content_list_container = $('.media-content-list-container');
+    var content_block_list_container = $('.content-block-list-container.media-container');
+    defineContentOrder(content_list_container, content_block_list_container);
+}
+
+function defineQuizOrder()
+{
+    var content_list_container = $('.quiz-content-list-container');
+    var content_block_list_container = $('.content-block-list-container.quiz-container');
+    defineContentOrder(content_list_container, content_block_list_container);
+}
+
+function defineImageOrder(content_block)
+{
+    var content_list_container = content_block.find('.image-element-list-container');
+    var content_block_list_container = content_block.find('.image-block-container');
+    defineContentOrder(content_list_container, content_block_list_container, 'image');
+}
+
+function defineContentOrder(content_list_container, content_block_list_container, content_type = 'standard')
+{
+    var content_element_list = content_list_container.find('.content-list-element').not('.to-delete-image-element');
+    var current_order = 1;
+    content_element_list.each(function(){
+        var content_element_index = $(this).attr('data-element-index');
+        var corresponding_content_block = null;
+        var content_order_input = null;
+        if ('image' == content_type) {
+            corresponding_content_block = content_block_list_container.find('.gallery-image-element[data-block-index='+content_element_index+']');
+            content_order_input = corresponding_content_block.find('.image-order-input').not('.original-image-data-holder-el');
+        } else {
+            corresponding_content_block = content_block_list_container.find('.content-block-container[data-block-index='+content_element_index+']');
+            content_order_input = corresponding_content_block.find('.content-order-input').not('.original-data-holder-el');
+        }
+        if (null != content_order_input){
+            content_order_input.val(current_order);
+            current_order++;
+        }
+    });
+}
+
+function closeActionButtonEdit(content_block=null)
+{
+    if (null == content_block) {
+        content_block = $('.content-block-list-container.button-container').find('.content-block-container.action-button-block-container')
+            .first();
+    }
+    resetFormElementToOriginalData(content_block);
+    resetActionButtonElement(content_block);
+    uninstallColorPicker();
+    installColorPicker();
+    content_block.hide();
+}
+
+function removeActionButtonOnCreate(content_block=null)
+{
+    if (null == content_block) {
+        content_block = $('.temporary-content-block-list-container.button').find('.content-block-container.action-button-block-container')
+            .first();
+    }
+    uninstallColorPicker();
+    content_block.remove();
+    $('.add-button-content').parents('.content-button-container').show();
 }
