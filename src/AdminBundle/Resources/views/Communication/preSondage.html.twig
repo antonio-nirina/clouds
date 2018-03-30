@@ -45,9 +45,7 @@
             </div>
         </div>
         <div class="row">
-           <div class="col-12 col-md-12">
-            <section  class = "fieldset inactive page">
-                <div class="block-active-hover"></div>
+            <section  class = "fieldset active">
                 <div class="row">
                     <div class="col-lg-10 col-md-10 col-sm-12">
                          <h3 class="hidden-sm-down block-title">Création et édition de sondage et quiz</h3>
@@ -58,13 +56,13 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 creer-new">
                         <div class="chp" style="text-align:center; float:left;">
-                                    <button class="btn-valider " name = "btn-submit-form-etape-1" type = "submit">
-                                        créer un nouveau sondage / quiz
-                                    </button>
+                        <button class="btn-valider create_sondage_quiz" name = "btn-submit-form-etape-1" type = "submit">
+                                créer un nouveau sondage / quiz
+                        </button>
                         </div>
                     </div>
                 </div>
-                <div class="row trie-sondage"> 
+                <div class="row trie-sondage preSondageQuiz"> 
                         <div class="col-sm-4 col-md-4">
                             <div class="dropdown clearable filtres quiz-filter">
                                     <button class="btn btn-secondary dropdown-toggle filtre" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
@@ -120,7 +118,7 @@
                 <div class="row checked-quiz">
                         <div class="col-4 col-md-4 text-selected ">
                             <input type="text" name="sondage-selected" class="input-text">
-                            <span class="delete-input"></span>
+                            <span class="delete-supp1"></span>
                         </div>
                         <div class="col-4 col-md-4 supp-supp">
                             <div class="dropdown clearable questionnaires suppr-filter">
@@ -159,6 +157,7 @@
                                         </label>
                                     </div>                           
                                     <div class="hidden-sm-down quest-image"></div>
+                                    {#<div class="hidden-sm-down percent-image"></div>#}
                                     <div class="titre-quiz">
                                         <p id="nom-quest">{{"Test1"}}</p>                            
                                         <p id="type-quest">{{"Quiz"}}</p>
@@ -189,12 +188,30 @@
                         </div>
                     </div>
                 </div>
+                <!-- Modal créer sondage quiz -->
+            <div id="create-sondage-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
+                <div class="modal-dialog modal-lg modal-sondage" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
+                        </div>
+                        <div class="modal-body">
+                            <div class="error-message-container centered-message general-message"></div>
+                            <div class="modal-body-container">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+            <!-- FIN - Modal créer / éditer e-learning-->
             </section>
-           </div> 
         </div>
     </main>
+    <p class = "chargementAjax hidden">
+        <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+    </p>
+     <input type="hidden" name="create_sondage_quiz_url" value="{{ path('admin_communication_pre_sondage_create') }}">
 {% endblock %}
-
 
 {% block footer %}
     {% embed 'AdminBundle::footer.html.twig' %}
@@ -205,10 +222,10 @@
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
-            <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script> 
+            {#<script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>#}
+            <script src="{{ asset("js/admin-widget-and-common-functions.js") }}"></script>
             <script type="text/javascript" src="{{asset("js/communications/pre-sondages.js")}}"></script> 
         {% endblock %}
     {% endembed %}
 {% endblock %}
-
 

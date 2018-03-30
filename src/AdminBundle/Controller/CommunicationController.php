@@ -2333,4 +2333,52 @@ class CommunicationController extends AdminController
         return $this->render('AdminBundle:Communication:preSondage.html.twig');
 
     }
+
+    
+
+    /**
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @Route("/pre-sondage/create",name="admin_communication_pre_sondage_create")
+     *    
+     */
+    public function createPreSondageAction(Request $request,$id = null)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $IsSondagesQuiz = false;
+
+       if(!is_null($id)){
+            $SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findOneBy(array(
+               'id' => $id
+            ));
+        } else {
+            $SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
+        }
+        
+        $SondagesQuizQuestions = new SondagesQuizQuestions();
+        $SondagesQuizReponses = new SondagesQuizReponses();
+        $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $SondagesQuizQuestionnaireInfos);
+        $QuestionsInfosArray = array();
+        if(isset($SondagesQuizArray[0])){
+            $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
+        }
+        $content = $this->renderView('AdminBundle:Communication:pre_create_sondage.html.twig', array(
+            'formQuestionnaires' => $formQuestionnaires->createView(),
+            'IsSondagesQuiz' => $IsSondagesQuiz,
+            'program' => $program,
+            'QuestionsInfosArray' => $QuestionsInfosArray
+        ));
+        $data = $json_response_data_provider->success();
+        $data['content'] = $content;
+        return new JsonResponse($data, 200);
+    }
 }
