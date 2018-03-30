@@ -31,6 +31,7 @@ class ELearningGalleryImage
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Image(maxSize="20M", mimeTypes={"image/jpeg", "image/gif"})
      */
     private $image_file;
 

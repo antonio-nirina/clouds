@@ -13,7 +13,7 @@ class ELearningQuizContent
     use ELearningContentTrait;
 
     /**
-     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
      */
     private $quiz;
 
@@ -81,30 +81,6 @@ class ELearningQuizContent
     }
 
     /**
-     * Set quiz
-     *
-     * @param \AdminBundle\Entity\SondagesQuizQuestionnaireInfos $quiz
-     *
-     * @return ELearningQuizContent
-     */
-    public function setQuiz(\AdminBundle\Entity\SondagesQuizQuestionnaireInfos $quiz = null)
-    {
-        $this->quiz = $quiz;
-
-        return $this;
-    }
-
-    /**
-     * Get quiz
-     *
-     * @return \AdminBundle\Entity\SondagesQuizQuestionnaireInfos
-     */
-    public function getQuiz()
-    {
-        return $this->quiz;
-    }
-
-    /**
      * Set eLearning
      *
      * @param \AdminBundle\Entity\ELearning $eLearning
@@ -126,5 +102,29 @@ class ELearningQuizContent
     public function getELearning()
     {
         return $this->e_learning;
+    }
+
+    /**
+     * Set quiz
+     *
+     * @param \AdminBundle\Entity\SondagesQuizQuestionnaireInfos $quiz
+     *
+     * @return ELearningQuizContent
+     */
+    public function setQuiz(\AdminBundle\Entity\SondagesQuizQuestionnaireInfos $quiz = null)
+    {
+        $this->quiz = $quiz;
+
+        return $this;
+    }
+
+    /**
+     * Get quiz
+     *
+     * @return \AdminBundle\Entity\SondagesQuizQuestionnaireInfos
+     */
+    public function getQuiz()
+    {
+        return $this->quiz;
     }
 }

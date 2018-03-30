@@ -28,24 +28,41 @@
 
     <!-- content list element -->
     <div class="media-content-list-container">
+    {% set media_contents_length = e_learning_form.media_contents|length %}
     {% for content in e_learning_form.media_contents %}
-        <div class="content-list-element" data-element-index="{{ loop.index }}">
+        {% set icon_class = '' %}
+        {% if constant('MEDIA_DOCUMENT', e_learning_content_type_class) == content.vars.value.contentType %}
+            {% set icon_class = 'document-icon' %}
+        {% elseif constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) == content.vars.value.contentType %}
+            {% set icon_class = 'gallery-icon' %}
+        {% elseif constant('MEDIA_VIDEO', e_learning_content_type_class) == content.vars.value.contentType %}
+            {% set icon_class = 'video-icon' %}
+        {% endif %}
+
+        {% set reorder_add_class = '' %}
+        {% if media_contents_length <= 1 %}
+            {% set reorder_add_class = 'disabled' %}
+        {% endif %}
+        <div class="content-list-element media" data-element-index="{{ loop.index }}">
             <div class="content-denomination">
                 <div class="content-denomination-image">
-                    <span class="document-icon"></span>
+                    <span class="{{ icon_class }}"></span>
                 </div>
                 <div class="content-denomination-name">
                     <div>{{ content.vars.value.name }}</div>
                 </div>
             </div>
             <div class="actions-container">
-                <span class="edit"></span>
-                <span class="delete"></span>
-                <div class="reorder">
+                <span class="edit media-content"></span>
+                <span class="delete delete-media"></span>
+                <div class="reorder media-reorder {{ reorder_add_class }}">
                     <span class="reorder-up"></span>
                     <span class="reorder-down"></span>
                 </div>
             </div>
+        </div>
+        <div class="error-message-container">
+            {{ form_errors(e_learning_form.media_contents[loop.index].associated_file) }}
         </div>
     {% endfor %}
     </div>
@@ -78,15 +95,15 @@
     <div class="content-block-list-container media-container">
     {% for content in e_learning_form.media_contents %}
         {% set additional_block_class = '' %}
-        {% if constant('MEDIA_DOCUMENT', e_learning_content_type_class) %}
+        {% if constant('MEDIA_DOCUMENT', e_learning_content_type_class) == content.vars.value.contentType %}
             {% set additional_block_class = 'media-document-block' %}
-        {% elseif constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) %}
+        {% elseif constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) == content.vars.value.contentType %}
             {% set additional_block_class = 'media-image-gallery-block' %}
-        {% elseif constant('MEDIA_VIDEO', e_learning_content_type_class) %}
-            {% set additional_block_class = 'media-video-block' %}
+        {% elseif constant('MEDIA_VIDEO', e_learning_content_type_class) == content.vars.value.contentType %}
+            {% set additional_block_class = 'media-video-block video' %}
         {% endif %}
 
-        <div class="content-block-container {{ additional_block_class }}" data-block-index="{{ loop.index }}" data-manipulation-type="edit">
+        <div class="content-block-container media-content {{ additional_block_class }}" data-block-index="{{ loop.index }}" data-manipulation-type="edit">
             {{ form_widget(content.content_type, {'attr': {'class': 'content-type-input form-el'}}) }}
             {{ form_widget(content.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
             <div class="block-title">
@@ -109,12 +126,12 @@
                     <div class="info-container associated-file-info">
                         <p>les fichiers doivent peser moins de <span class="bigger">20 Mo</span></p>
                     </div>
-                    <div class="upload-img-button-container hidden-button input-file-trigger">
+                    <div class="upload-img-button-container input-file-trigger hidden-button">
                         <button class="upload-img-button">
                             <span class="blue-upload"></span><span class="img-name-container"></span>
                         </button>
                     </div>
-                    <a href="#" class="delete-link input-file-delete-link" style="display: none;"></a>
+                    <a href="#" class="delete-link input-file-delete-link" style="display:none;"></a>
                     <input type="hidden" name="initial_image" value="">
                     <input type="hidden" name="initial_image_name" value="">
                 </div>
@@ -141,12 +158,22 @@
                 <!-- end - video part -->
 
                 <!-- media name -->
-                <div class="form-row document-name-container vertical-md" style="display:none;">
-                    <label>nom du document</label>
+                {% set document_name_label = '' %}
+                {% set document_name_block_visibility = '' %}
+                {% if constant('MEDIA_DOCUMENT', e_learning_content_type_class) == content.vars.value.contentType %}
+                    {% set document_name_label = 'nom du document' %}
+                    {% set document_name_block_visibility = 'style=display:none;' %}
+                {% elseif constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) == content.vars.value.contentType %}
+                    {% set document_name_label = 'nom de la galerie' %}
+                {% elseif constant('MEDIA_VIDEO', e_learning_content_type_class) == content.vars.value.contentType %}
+                    {% set document_name_label = 'nom de la vidéo' %}
+                {% endif %}
+                <div class="form-row document-name-container vertical-md" {{ document_name_block_visibility }}>
+                    <label>{{ document_name_label }}</label>
                     <div class="document-name">
                         {#<input class="standard-styled-input" type="text" value="Produits 2017">#}
                         {{ form_widget(content.name, {'attr': {'class': 'standard-styled-input removable-content-input form-el'}}) }}
-                        <span class="delete-input" style="display: none"></span>
+                        <span class="delete-input"></span>
                     </div>
                 </div>
                 <div class="error-message-container document-name-error-message">
@@ -154,10 +181,58 @@
                 <!-- end - media name -->
 
                 <!-- image gallery part -->
+                <!-- image list -->
+                {# images should not be saved if there are form errors #}
+                {# so after reloading, this block should be empty #}
+                {#<div class="image-element-list-container">
+                    {% set image_length = content.images|length %}
+                    {% for image in content.images %}
+                    <div class="content-list-element image-gallery">
+                        <div class="content-denomination">
+                            <div class="content-denomination-image">
+                                <span class="gallery-icon"></span>
+                            </div>
+                            <div class="content-denomination-name">
+                                <div>{{ image.vars.value.name }}</div>
+                            </div>
+                        </div>
+                        <div class="actions-container">
+                            <span class="edit gallery-image"></span>
+                            <span class="delete delete-gallery-image"></span>
+                            {% set image_add_class = '' %}
+                            {% if image_length <= 1 %}
+                                {% set image_add_class = 'disabled' %}
+                            {% endif %}
+                            <div class="reorder image-reorder {{ image_add_class }}">
+                                <span class="reorder-up"></span>
+                                <span class="reorder-down"></span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>#}
+                <div class="image-element-list-container"></div>
+                <!-- end - image list -->
+
+                <!-- image form blocks -->
+                {# images should not be saved if there are form errors #}
+                {# so after reloading, this block should be empty #}
+                <div class="image-block-container"></div>
+                <!-- end - image form blocks -->
+
+                <!-- temporary image block container -->
+                <div class="temporary-image-block-container"></div>
+                <!-- end - temporary image block container -->
 
                 <!-- end - image gallery part -->
 
-                <div class="add-content-button-container" style="display:none;">
+                {% set submit_button_container_visibility = '' %}
+                {% if constant('MEDIA_DOCUMENT', e_learning_content_type_class) == content.vars.value.contentType %}
+                    {% set submit_button_container_visibility = 'style=display:none;' %}
+                {% elseif constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) == content.vars.value.contentType %}
+                {% elseif constant('MEDIA_VIDEO', e_learning_content_type_class) == content.vars.value.contentType %}
+                {% endif %}
+                <div class="add-content-button-container" {{ submit_button_container_visibility }}>
                     <button class="btn-valider edit-media">éditer</button>
                 </div>
                 <div class="original-data-holder-container">
@@ -181,10 +256,77 @@
 
     <!-- quiz list -->
     <div class="quiz-content-list-container">
+    {% set quiz_contents_length = e_learning_form.quiz_contents|length %}
+    {% for content in e_learning_form.quiz_contents %}
+        {% set reorder_add_class = '' %}
+        {% if quiz_contents_length <= 1 %}
+            {% set reorder_add_class = 'disabled' %}
+        {% endif %}
+        <div class="content-list-element quiz" data-element-index="{{ loop.index }}">
+            <div class="content-denomination">
+                <div class="content-denomination-image">
+                    <span class="quiz-icon"></span>
+                </div>
+                <div class="content-denomination-name">
+                    <div>{{ content.quiz.vars.data.titreQuestionnaire }}</div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <span class="edit edit-quiz-content"></span>
+                <span class="delete delete-quiz-content"></span>
+                <div class="reorder quiz-reorder {{ reorder_add_class }}">
+                    <span class="reorder-up"></span>
+                    <span class="reorder-down"></span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
     </div>
     <!-- end - quiz list -->
 
     <div class="content-block-list-container quiz-container">
+    {% for content in e_learning_form.quiz_contents %}
+        <div class="content-block-container quiz-block" data-block-index="{{ loop.index }}" data-manipulation-type="edit" style="display:none;">
+            {{ form_widget(content.name, {'attr': {'class': 'form-el hidden-input-text content-name-input'}}) }}
+            {{ form_widget(content.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
+            <div class="block-title">
+                <span>ajouter un nouveau quiz</span>
+                <span class="delete-block delete-quiz-block"></span>
+            </div>
+            <div class="add-content-block">
+                <p class="main-info">vous devez créer un quiz dans la partie "sondages/quiz" pour qu'il apparaisse dans le menu déroulant</p>
+                <div class="styled-choice-select quiz-select">
+                    <div class="dropdown clearable">
+                        {% set dropdown_toggle_text = 'SÉLECTIONNEZ<span class="hidden-under-355"> UN QUIZ</span>' %}
+                        {% if '' != content.quiz.vars.value %}
+                            {% for choice in content.quiz.vars.choices %}
+                                {% if content.quiz.vars.value == choice.value %}
+                                    {% set dropdown_toggle_text = choice.label %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="SELECTIONNEZ UN QUIZ">
+                            {{ dropdown_toggle_text }}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-selected-quiz">
+                        {% for choice in content.quiz.vars.choices %}
+                            <a class="dropdown-item" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
+                        {% endfor %}
+                        </div>
+                        <span class="delete-select" style="display: none;"></span>
+                    </div>
+                    {{ form_widget(content.quiz, {'attr': {'class': 'hidden-select form-el'}}) }}
+                </div>
+                <div class="error-message-container quiz-selection-error-message">
+                </div>
+                <div class="add-content-button-container">
+                    <button class="btn-valider edit-quiz">éditer</button>
+                </div>
+                <div class="original-data-holder-container">
+                </div>
+            </div>
+        </div>
+    {% endfor %}
     </div>
 
     <div class="temporary-content-block-list-container quiz">
@@ -199,14 +341,21 @@
     </div>
 
     <!-- action button element -->
+    {% set button_element_visibility = '' %}
+    {% set button_element_name = '' %}
+    {% if e_learning_form.button_contents|length < 1 %}
+        {% set button_element_visibility = 'style=display:none;' %}
+    {% else %}
+        {% set button_element_name = e_learning_form.button_contents[1].vars.value.name %}
+    {% endif %}
     <div class="button-content-list-container">
-        <div class="content-list-element button" data-element-index="1" style="display: none;">
+        <div class="content-list-element button" data-element-index="1" {{ button_element_visibility }}>
             <div class="content-denomination">
                 <div class="content-denomination-image">
                     <span class="action-button-icon"></span>
                 </div>
                 <div class="content-denomination-name">
-                    <div></div>
+                    <div>{{ button_element_name }}</div>
                 </div>
             </div>
             <div class="actions-container">
@@ -221,9 +370,105 @@
     </div>
 
     <div class="content-block-list-container button-container">
+    {% if e_learning_form.button_contents|length >= 1 %}
+        {% set button_content = e_learning_form.button_contents[1] %}
+        <div class="content-block-container action-button-block-container" data-manipulation-type="create" data-block-index="1" style="display:none;">
+            {{ form_widget(button_content.name, {'attr': {'class': 'form-el hidden-input-text content-name-input'}}) }}
+            <div class="block-title">
+                <span>bouton d'action</span>
+                <span class="delete-block delete-button-block"></span>
+            </div>
+            <div class="add-content-block">
+                <div class="form-row vertical-centered">
+                    {#<label class="fixed-width">texte du bouton</label>#}
+                    {{ form_label(button_content.action_button_data.action_button_text, 'texte du bouton', {'label_attr': {'class': 'fixed-width'}}) }}
+                    {#<input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large" value="En savoir plus">#}
+                    {{ form_widget(button_content.action_button_data.action_button_text, {'attr': {'class': 'removable-content-input action-button-input action-button-text-input semi-large form-el action-button-text-input form-el'}}) }}
+                    <span class="delete-input delete-action-button-text"></span>
+                </div>
+                <div class="error-message-container button-text-error-message"></div>
+                <div class="form-row vertical-md">
+                    <label>aspect du bouton</label>
+                    <div class="vertical-xs">
+                        <div class="action-button-color-option">
+                            <span class="option-title">Couleur</span>
+                            {#<input type="text" class="color-value">#}
+                            {{ form_widget(button_content.action_button_data.action_button_background_color, {'attr': {'class': 'color-value bg-color action-button-background-color form-el'}}) }}
+                        </div>
+                        <div class="action-button-color-option">
+                            <span class="option-title">Couleur du texte</span>
+                            {#<input type="text" class="color-value">#}
+                            {{ form_widget(button_content.action_button_data.action_button_text_color, {'attr': {'class': 'color-value text-color action-button-text-color form-el'}}) }}
+                        </div>
+                    </div>
+                    <div class="action-button-preview-container">
+                        <div class="action-button-preview" style="color: {{ button_content.action_button_data.vars.value.actionButtonTextColor }}; background-color: {{ button_content.action_button_data.vars.value.actionButtonBackgroundColor }}">{{ button_content.vars.value.name }}</div>
+                    </div>
+                </div>
+                <span class="form-row-group-title">lien de redirection du bouton d'action</span>
+                <div class="form-row vertical-centered">
+                    {#<label class="fixed-width">renseigner une url</label>#}
+                    {{ form_label(button_content.action_button_data.action_button_target_url, 'renseigner une url', {'label_attr': {'class': 'fixed-width'}}) }}
+                    {#<input type="text" value="https://monlienderedirection.com/challenge" class="removable-content-input action-button-input large">#}
+                    {{ form_widget(button_content.action_button_data.action_button_target_url, {'attr': {'class': 'removable-content-input action-button-input large form-el'}}) }}
+                    {% set delete_input_visibility = 'style=display:none' %}
+                    {% if button_content.action_button_data.vars.value.actionButtonTargetUrl | trim is not empty %}
+                        {% set delete_input_visibility = '' %}
+                    {% endif %}
+                    <span class="delete-input" {{ delete_input_visibility }}></span>
+                </div>
+                <div class="form-row vertical-xs">
+                    {#<label>ou chercher une page du site</label>#}
+                    {{ form_label(button_content.action_button_data.action_button_target_page, 'ou chercher une page du site') }}
+                    <div class="action-button-target-page-choice styled-choice-select">
+                        <div class="dropdown clearable">
+                            {% set dropdown_toggle_text = 'POINTER SUR' %}
+                            {% if '' != button_content.action_button_data.action_button_target_page.vars.value %}
+                                {% for choice in button_content.action_button_data.action_button_target_page.vars.choices  %}
+                                    {% if button_content.action_button_data.action_button_target_page.vars.value == choice.value %}
+                                        {% set dropdown_toggle_text = choice.label %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="POINTER SUR">
+                                {{ dropdown_toggle_text }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
+                                {% set previous_ref_for_sub_level = null %}
+                                {% for choice in button_content.action_button_data.action_button_target_page.vars.choices %}
+                                    {% set additional_class = '' %}
+                                    {% if previous_ref_for_sub_level is not null and choice.value matches '{'~previous_ref_for_sub_level.value~'/[0-9]+$}' %}
+                                        {% set additional_class = 'sub-level' %}
+                                    {% else %}
+                                        {% set previous_ref_for_sub_level = choice %}
+                                    {% endif %}
+                                    <a class="dropdown-item {{ additional_class }}" href="#" data-value="{{ choice.value }}">{{ choice.label }}</a>
+                                {% endfor %}
+                            </div>
+                            {% set delete_input_visibility = 'style=display:none' %}
+                            {% if button_content.action_button_data.action_button_target_page.vars.value | trim is not empty %}
+                                {% set delete_input_visibility = '' %}
+                            {% endif %}
+                            <span class="delete-select" {{ delete_input_visibility }}></span>
+                        </div>
+                        {{ form_widget(button_content.action_button_data.action_button_target_page, {'attr': {'class': 'hidden-select action-button-target-page-select form-el'}}) }}
+                    </div>
+                </div>
+                <div class="add-content-button-container">
+                    <button class="btn-valider edit-button">editer</button>
+                </div>
+                <div class="original-data-holder-container">
+                </div>
+            </div>
+        </div>
+    {% endif %}
     </div>
 
-    <div class="content-button-container">
+    {% set add_button_content_container_visibility = '' %}
+    {% if e_learning_form.button_contents|length >= 1 %}
+        {% set add_button_content_container_visibility = 'style=display:none;' %}
+    {% endif %}
+    <div class="content-button-container" {{ add_button_content_container_visibility }}>
         <a class="add add-button-content">ajouter un bouton d'action</a>
     </div>
 
@@ -434,6 +679,7 @@
 
         <!-- quiz block -->
         <div class="content-block-container quiz-block" data-block-index="" data-manipulation-type="create">
+            {{ form_widget(e_learning_form.quiz_contents.vars.prototype.name, {'attr': {'class': 'form-el hidden-input-text content-name-input'}}) }}
             {{ form_widget(e_learning_form.quiz_contents.vars.prototype.content_order, {'attr': {'class': 'content-order-input form-el'}}) }}
             <div class="block-title">
                 <span>ajouter un nouveau quiz</span>

@@ -54,7 +54,7 @@ $(document).ready(function(){
     // soumission de formulaire
     $(document).on('click', '#create-edit-e-learning-modal .submit-block-container .btn-valider', function(e){
         e.preventDefault();
-        /*$('.chargementAjax').removeClass('hidden');
+        $('.chargementAjax').removeClass('hidden');
 
         // fermeture des éditions de contenu en cours
         closingAllOpenedEdit();
@@ -92,8 +92,9 @@ $(document).ready(function(){
                     $('#create-edit-e-learning-modal').find('.modal-body-container').html(data.content);
                     installWysiwyg();
                     installColorPicker();
+                    $('#create-edit-e-learning-modal').find('.error-message-container.general-message').text('Erreur de soumission de formulaire.');
                 } else {
-                    // window.location.replace(redirect_target);
+                    window.location.replace(redirect_target);
                 }
             },
             statusCode: {
@@ -111,7 +112,7 @@ $(document).ready(function(){
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
             }
-        });*/
+        });
     });
 
 
@@ -1205,6 +1206,11 @@ function addQuizFormBlock(content_block)
     // type de manipulation
     content_block.attr('data-manipulation-type', 'edit');
 
+    // mise à jour nom de contenu, texte de quiz
+    var quiz_text = content_block.find('.styled-choice-select.quiz-select').find('.hidden-select option:selected').text();
+    var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
+    content_name_input.val(quiz_text);
+
     // ajout du block
     content_block_list_container.append(content_block);
     content_block.hide();
@@ -1286,6 +1292,12 @@ function updateQuizBlock(content_block)
     var selected_quiz_text = content_block.find('.styled-choice-select.quiz-select .hidden-select option:selected').text();
     var corresponding_quiz_element = $('.quiz-content-list-container .content-list-element.quiz[data-element-index='+block_index+']');
     corresponding_quiz_element.find('.content-denomination-name div').text(selected_quiz_text);
+
+    // mise à jour nom de contenu, texte de quiz
+    var quiz_text = content_block.find('.styled-choice-select.quiz-select').find('.hidden-select option:selected').text();
+    var content_name_input = content_block.find('.content-name-input').not('.original-data-holder-el');
+    content_name_input.val(quiz_text);
+
     content_block.find('.original-data-holder-container').html('');
     content_block.hide();
 }
@@ -1475,7 +1487,7 @@ function defineContentOrder(content_list_container, content_block_list_container
 function closeActionButtonEdit(content_block=null)
 {
     if (null == content_block) {
-        content_block = $('.content-block-list-container.button-container').find('.content-block-container.action-button-block-container')
+        content_block = $('.content-block-list-container.button-container').find('.content-block-container.action-button-block-container:visible')
             .first();
     }
     resetFormElementToOriginalData(content_block);

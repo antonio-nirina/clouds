@@ -4,6 +4,9 @@ namespace AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AdminBundle\Traits\EntityTraits\ELearningContentTrait;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use AdminBundle\Component\FileUpload\DocumentFileBlackList;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -23,6 +26,7 @@ class ELearningMediaContent
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\File(maxSize="10M")
      */
     private $associated_file;
 
@@ -33,6 +37,7 @@ class ELearningMediaContent
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ELearningGalleryImage", mappedBy="e_learning_media_content")
+     * @Assert\Valid()
      */
     private $images;
 
@@ -235,5 +240,28 @@ class ELearningMediaContent
     public function getELearning()
     {
         return $this->e_learning;
+    }
+
+
+    /**
+     * Validate associated file on upoad
+     * Used with document type media
+     *
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     *
+     * @Assert\Callback()
+     */
+    public function validateAssociatedFile(ExecutionContextInterface $context, $payload)
+    {
+        $associate_file = $this->getAssociatedFile();
+        if (!is_null($associate_file) && $associate_file instanceof UploadedFile) {
+            $file_extension = $associate_file->getClientOriginalExtension();
+            if (in_array($file_extension, DocumentFileBlackList::BLACK_LIST)) {
+                $context->buildViolation('Type de fichier non autorisé.')
+                    ->atPath('associated_file')
+                    ->addViolation();
+            }
+        }
     }
 }
