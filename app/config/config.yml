@@ -46,6 +46,14 @@ parameters:
     emailing_template_thumbnail_dir: '%kernel.project_dir%/web/communication/emailing/template/thumbnail'
     emailing_template_thumbnail_location: 'communication/emailing/template/thumbnail/'
 
+    # E-learning media gallery image files
+    e_learning_media_gallery_image_dir: '%kernel.project_dir%/web/communication/e_learning/media/gallery/image'
+    e_learning_media_gallery_image_location: 'communication/e_learning/media/gallery/image/'
+
+    # E-learning media document files
+    e_learning_media_document_dir: '%kernel.project_dir%/web/communication/e_learning/media/document'
+    e_learning_media_document_location: 'communication/e_learning/media/document/'
+
     # Application time zone
     app_time_zone: 'Europe/Paris'
 

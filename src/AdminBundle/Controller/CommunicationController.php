@@ -2295,6 +2295,7 @@ class CommunicationController extends AdminController
             } else {
                 return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
             }
+//            dump($e_learning_form->getData());
          }
 
         $content = $this->renderView('AdminBundle:Communication/ELearning:manip_e_learning.html.twig', array(
