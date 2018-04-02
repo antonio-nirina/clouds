@@ -5,7 +5,7 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
 	$(document).on('click','.clearable .dropdown-it', function(e){
 	        e.preventDefault(); 
 
-	        var a=$(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
+	        var a = $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
 	        setTimeout(sendChoice($(this)), 0);
 	});
 
@@ -67,7 +67,6 @@ $("#statistique-campaign-dialog").on("shown.bs.modal",function(){
                         var span5 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background5 "></i></span></div>');
                         var span6 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background6 "></i></span></div>');
                         var span7 = $('<div><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-1x icon-background7 "></i></span></div>');
-		                console.log(JSON.parse(data).length)
 		                if (JSON.parse(data).length > 10) {
 		                	$("#container-page").css("display","block");
 		                	 $('#container-page').pagination({

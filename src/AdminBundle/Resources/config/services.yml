@@ -113,3 +113,7 @@ services:
     AdminBundle\Manager\ELearningManager:
         class: AdminBundle\Manager\ELearningManager
         autowire: true
+
+    adminBundle.sondagequizManager:
+        class: AdminBundle\Manager\SondageQuizManager
+        autowire: true

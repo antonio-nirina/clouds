@@ -38,13 +38,13 @@ class SondagesQuizQuestionnaireInfos
     private $description_questionnaire;
 	
 	/**
-     * @ORM\Column(name="date_creation", type="datetime")
+     * @ORM\Column(name="date_creation", type="datetime",nullable=true)
      */
     protected $date_creation;
 	
 	
 	/**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuiz", inversedBy="sondages_quiz_questionnaire_infos")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuiz", inversedBy="sondages_quiz_questionnaire_infos",cascade={"persist"})
      */
     private $sondages_quiz;
 	
@@ -63,6 +63,38 @@ class SondagesQuizQuestionnaireInfos
      * @ORM\Column(type="boolean")
      */
     private $est_publier;
+
+    /**
+     * @ORM\Column(type="boolean",options={"default"=0})
+     */
+    private $est_archived = false;
+
+    /**
+     * @ORM\Column(type="boolean",options={"default"=0})
+     */
+    private $est_cloture = false;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $view_number;
+
+    /**
+     * @var string $viewer_authorization_type   available value in AdminBundle\Component\Post\NewsPostAuthorizationType
+     *
+     * @ORM\Column(type="string", length=50)
+     * @Assert\Length(max=100)
+     * @Assert\NotBlank()
+     */
+    private $authorization_type;
+
+    /**
+     * @var string $authorized_viewer_role          AdminBundle\Entity\ProgramUser role value
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $authorized_role;
+
 	
 	
 	/**
@@ -181,11 +213,11 @@ class SondagesQuizQuestionnaireInfos
     }
 	
 	/**
-	* @ORM\PrePersist
-	*/
+    * @ORM\PrePersist()
+    */
 	public function addDateCreation()
 	{
-		$this->setDateCreation(new \Datetime());
+		$this->date_creation = new \Datetime();
 	}
 
     /**
@@ -303,5 +335,127 @@ class SondagesQuizQuestionnaireInfos
     public function getResultatsSondagesQuiz()
     {
         return $this->resultats_sondages_quiz;
+    }
+
+   
+
+    /**
+     * Set estArchived.
+     *
+     * @param bool $estArchived
+     *
+     * @return SondagesQuizQuestionnaireInfos
+     */
+    public function setEstArchived($estArchived)
+    {
+        $this->est_archived = $estArchived;
+
+        return $this;
+    }
+
+    /**
+     * Get estArchived.
+     *
+     * @return bool
+     */
+    public function getEstArchived()
+    {
+        return $this->est_archived;
+    }
+
+    /**
+     * Set estCloture.
+     *
+     * @param bool $estCloture
+     *
+     * @return SondagesQuizQuestionnaireInfos
+     */
+    public function setEstCloture($estCloture)
+    {
+        $this->est_cloture = $estCloture;
+
+        return $this;
+    }
+
+    /**
+     * Get estCloture.
+     *
+     * @return bool
+     */
+    public function getEstCloture()
+    {
+        return $this->est_cloture;
+    }
+
+    /**
+     * Set viewNumber.
+     *
+     * @param int|null $viewNumber
+     *
+     * @return SondagesQuizQuestionnaireInfos
+     */
+    public function setViewNumber($viewNumber = null)
+    {
+        $this->view_number = $viewNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get viewNumber.
+     *
+     * @return int|null
+     */
+    public function getViewNumber()
+    {
+        return $this->view_number;
+    }
+
+    /**
+     * Set authorizationType.
+     *
+     * @param string $authorizationType
+     *
+     * @return SondagesQuizQuestionnaireInfos
+     */
+    public function setAuthorizationType($authorizationType)
+    {
+        $this->authorization_type = $authorizationType;
+
+        return $this;
+    }
+
+    /**
+     * Get authorizationType.
+     *
+     * @return string
+     */
+    public function getAuthorizationType()
+    {
+        return $this->authorization_type;
+    }
+
+    /**
+     * Set authorizedRole.
+     *
+     * @param string|null $authorizedRole
+     *
+     * @return SondagesQuizQuestionnaireInfos
+     */
+    public function setAuthorizedRole($authorizedRole = null)
+    {
+        $this->authorized_role = $authorizedRole;
+
+        return $this;
+    }
+
+    /**
+     * Get authorizedRole.
+     *
+     * @return string|null
+     */
+    public function getAuthorizedRole()
+    {
+        return $this->authorized_role;
     }
 }

@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% if welcoming_news_post_type is defined and true == welcoming_news_post_type %}
-    {% set main_sub_menu_label = 'publications d\'accueil' %}
+    {% set main_sub_menu_label = "publications d'accueil" %}
     {% set main_sub_menu_url = path("admin_communication_news", {'post_type_label': constant('WELCOMING', post_type_label_class)}) %}
     {% set main_section_title = 'Création et édition de publications d\'accueil' %}
     {% set main_section_description = 'La publication d\'accueil est une publication qui s\'affichera automatiquement dans le fil d\'actualité du participant lors de sa 1<sup>ère</sup> connexion sur la plateform. C\'est un message d\'accueil sur la plateforme.' %}

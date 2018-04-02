@@ -315,6 +315,18 @@ section .dropdown.show .suppr{
 	font-family: var(--police_bold);
 }
 
+.titre-quiz #cloture{
+    font-size: 12px;
+    color: red;
+    font-family: var(--police_bold);
+}
+
+.titre-quiz #att{
+    font-size: 12px;
+   color: var(--couleur_4);
+    font-family: var(--police_bold);
+}
+
 .titre-quiz #type-quest{
 	font-size: 13px;
 	color: var(--couleur_4);
@@ -399,7 +411,24 @@ text-align: center;
 	left: -8px;
 }
 
+.not-results {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px 20px;
 
+}
+.not-list {
+    display: none !important;
+}
+
+.container-page{
+    display: none !important;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px 20px;
+}
 /*===========================================POPUP================================================================*/
 .modal-sondage{
     width: 1024px;
@@ -565,8 +594,22 @@ font-family: var(--police_light);
 top: -26px;
 position: relative;
 }
-#sondages_quiz_questionnaire_infos_titre_questionnaire{
 
+div.ligne-separator-question-hide::after {
+    display: inline;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    content: "\f106";
+    font-family: "FontAwesome";
+    font-size: 27px;
+    border: none !important;
+    position: absolute;
+    right: 0;
+    top: -7px;
+    color: #404040;
+    -webkit-text-stroke: 1px #e5e5e5;
+    cursor: pointer;
 }
 
 /*================================================================================================================*/

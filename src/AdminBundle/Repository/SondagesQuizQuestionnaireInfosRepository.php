@@ -32,4 +32,51 @@ class SondagesQuizQuestionnaireInfosRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     *
+     */
+    public function getStatusClotureArchived()
+    {
+        $qb = $this->createQueryBuilder('sqi');
+        $qb->where($qb->expr()->eq('sqqi.est_archived', ':archived'))
+            ->andWhere($qb->expr()->eq('sqqi.est_cloture', ':cloture_state'))
+            ->setParameters(array(
+                "archived"=> true,
+                "cloture_state" => true
+        ));
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+    /**
+     *
+     */
+    public function getStatusPublieArchived()
+    {
+        $qb = $this->createQueryBuilder('sqi');
+        $qb->where($qb->expr()->eq('sqqi.est_archived', ':archived'))
+            ->andWhere($qb->expr()->eq('sqqi.est_publier', ':published_state'))
+            ->setParameters(array(
+                "archived"=> true,
+                "published_state" => true
+            ));
+        return $qb->getQuery()->getResult();
+    }
+    public function getStatusAttenteArchived()
+    {
+        $qb = $this->createQueryBuilder('sqi');
+        $qb->where($qb->expr()->eq('sqqi.est_archived', ':archived'))
+            ->andWhere($qb->expr()->eq('sqqi.est_cloture', ':cloture_state'))
+            ->andWhere($qb->expr()->eq('sqqi.est_publier', ':published_state'))
+            ->setParameters(array(
+                "archived"=> true,
+                "cloture_state" => false,
+                "published_state"=>false
+            ));
+        return $qb->getQuery()->getResult();
+    }
+
+
 }

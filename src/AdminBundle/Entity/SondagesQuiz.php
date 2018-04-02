@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\SondagesQuizRepository")
  * @ORM\Table(name="sondages_quiz")
+ * @ORM\HasLifecycleCallbacks()
  */
 class SondagesQuiz
 {
@@ -58,7 +59,7 @@ class SondagesQuiz
     private $program;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos", mappedBy="sondages_quiz")
+     * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos",mappedBy="sondages_quiz", *cascade={"persist","remove"})
      */
     private $sondages_quiz_questionnaire_infos;
 	
@@ -300,6 +301,15 @@ class SondagesQuiz
     {
         return $this->date_creation;
     }
+
+    /**
+    * @ORM\PrePersist()
+    */
+    public function addDateCreation()
+    {
+        $this->date_creation = new \Datetime();
+    }
+
 	
 	
 	/**

@@ -80,6 +80,95 @@ function HideShowSondagesOrQuiz(Type){
         });
     }
 }
+
+function sendFilter(){
+    var filter = $('.dropdown.all-filter').find('button').hasClass('active');
+    var donnee = $('input[name=obj]').val();
+    var data = JSON.parse(donnee);
+    var newdata = [];
+    var  obj = {};
+    if (filter) {
+        obj.status = $('.dropdown.filtres').find('button').find("span").html().trim();
+    }
+    if (obj.status == "publie") {
+        var res = data.map(function(index, elem) {
+            if (index.publie == true ) {
+                newdata.push(index);
+            } 
+            return newdata;
+        });
+
+    } else if (obj.status == "cloture") {
+        var res = data.map(function(index, elem) {
+            if (index.cloture == true ) {
+                newdata.push(index);
+
+            } 
+            return newdata;
+        });
+        
+    } else if (obj.status == "attente") {
+        var res = data.map(function(index, elem) {
+            if (index.publie == false ) {
+                newdata.push(index);
+            } 
+            return newdata;
+        });
+    } else {
+       newdata.push(data);
+    }
+    
+    if (newdata.length > 2) {
+        $(".container-page").css("display","flex");
+        $(".nom-test").css("display", "none");
+        $(".nom-test2").css("display", "flex");
+        $('.container-page').pagination({
+            pageSize: 2,
+            showPrevious: false,
+            nextText:"dernier",
+            dataSource: newdata ,
+            callback: function(obj, pagination) {
+                var html = template(obj);
+                $('.nom-test2').html(html);
+            }
+         });
+    }
+}
+
+function template(obj) {
+    var html = [];
+    $.each(obj, function(index, item){
+        console.log(html.titre)
+        html = $(".nom-quest2").html(item.id);
+
+    });
+
+    return html;
+}
+
+function seletedSondage(AttrId){
+    if(AttrId){
+        var ArrayAttrId = new Array;
+        ArrayAttrId = AttrId.split('-');
+        var Id = ArrayAttrId[2];
+        var TypeQuestions = $('select#sondages_quiz_questionnaire_infos_sondages_quiz_questions_'+Id+'_type_question').val();
+        if(TypeQuestions > 0){
+            if(TypeQuestions == 1){
+                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('cases à cocher');
+            }else if(TypeQuestions == 2){
+                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('choix multiples');
+            }else if(TypeQuestions == 3){
+                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('échelle linéaire');
+            }else if(TypeQuestions == 4){
+                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('tableau à choix mutltiples');
+            }
+        }
+
+    }
+}
+
+
+
 $(document).ready(function(){ 
     
 /*$('section.page').mouseover(function(){
@@ -93,13 +182,19 @@ $(document).ready(function(){
 		$(".trie-sondage").removeClass('preSondageQuiz');
 		$(this).find('div.block-active-hover').hide();
 	});*/
-
+     var objArchived = $('input[name=obj]').val();
+     if (JSON.parse(objArchived).length == 0) {
+        $(".not-results").removeClass("not-list");
+     }
+    var checked = [];
 	$(".radioChecked").on("click",function(){
 		$(this).removeClass('notChecked');
 		$(this).addClass('checked');
 		//$(".quizSelected").css("display","block");
 		$('.delete-input').css("display","block");
 		$(".checked-quiz").css("display","flex");
+         var text = (checked.length == 1)?checked.length+" publication sélectionnée":((checked.length > 1)?checked.length+" publications sélectionnées":"");
+        $(".checked-quiz .text-selected  input").val(text);
 	});
 
 	$(".delete-input").on("click",function(){
@@ -108,6 +203,21 @@ $(document).ready(function(){
 		//$(".quizSelected").css("display","none");
 		$(".checked-quiz").css("display","none");
 	});
+
+    $(document).on('click', '.detaille .data-container .styled-checkbox', function(){
+        if($(this).is(':checked')){
+            checked.push($(this).attr('id'));
+        } else {
+            checked.splice(checked.indexOf($(this).attr('id')), 1);
+        }
+
+    });
+
+    $(document).on('click','.clearable .dropdown-item', function(e){
+            e.preventDefault(); 
+            var a = $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
+            setTimeout(sendFilter($(this)), 0);
+    });
 
 	$('.create_sondage_quiz').on('click', function(e){
         e.preventDefault();
@@ -123,26 +233,9 @@ $(document).ready(function(){
                 var $QuestionEnCours = $('div.content-questionnaire');
                 var Questions = parseInt(parseInt($QuestionEnCours.length) - 1);
                 NbreQuestion = Questions;
-                $('div.content-questionnaire').each(function(s){
+                $('div.content-questionnaire').each(function(){
                     var AttrId = $(this).attr('id');
-                    if(AttrId){
-                        var ArrayAttrId = new Array;
-                        ArrayAttrId = AttrId.split('-');
-                        var Id = ArrayAttrId[2];
-                        var TypeQuestions = $('select#sondages_quiz_questionnaire_infos_sondages_quiz_questions_'+Id+'_type_question').val();
-                        if(TypeQuestions > 0){
-                            if(TypeQuestions == 1){
-                                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('cases à cocher');
-                            }else if(TypeQuestions == 2){
-                                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('choix multiples');
-                            }else if(TypeQuestions == 3){
-                                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('échelle linéaire');
-                            }else if(TypeQuestions == 4){
-                                $('button#dropdownMenuActionTypeQuestion-'+Id+'').html('tableau à choix mutltiples');
-                            }
-                        }
-
-                    }
+                    seletedSondage(AttrId);
 
                 });
 
@@ -170,6 +263,188 @@ $(document).ready(function(){
         });
     });
 
+     // édition sondage&quiz, appel de formulaire
+    $(document).on('click', '.edit-pre-sondage', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        console.log(url)
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data){
+                $('#edit-sondage-modal').find('.modal-body-container').html(data.content);
+                installWysiwyg();
+                var $QuestionEnCours = $('div.content-questionnaire');
+                var Questions = parseInt(parseInt($QuestionEnCours.length) - 1);
+                NbreQuestion = Questions;
+                $('div.content-questionnaire').each(function(){
+                    var AttrId = $(this).attr('id');
+                    seletedSondage(AttrId);
+
+                });
+
+                if($('input#nbre_questions').val() == '0'){
+                    AjouterQuestionCollection();
+                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#edit-sondage-modal').modal('show');
+                setTimeout(function(){
+                    $('.chargementAjax').addClass('hidden');
+                }, 1050);
+            }
+        });
+    });
+
+    //publier sondage&Quiz
+
+     $(document).on('click', '.publier-pre-sondage', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        var redirect_target = $('input[name=list-url]').val();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(){
+                window.location.replace(redirect_target);
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+     //Archived Sondage&Quiz
+
+    $(document).on('click', ".archived-pre-sondage", function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        var redirect_target = $('input[name=list-url]').val();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(){
+                window.location.replace(redirect_target);
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    //Show POPUP Delete
+
+    $(document).on('click', ".delete-pre-sondage", function(e){
+        e.preventDefault();
+        var url = $(this).attr('data-url');
+        $('#confirm-delete-news-modal').find('.confirm-delete').attr('data-url', url);
+        $('#confirm-delete-news-modal').modal('show');
+    });
+
+    //Delete Sondage&Quiz
+    $(document).on('click', '#confirm-delete-news-modal .confirm-delete', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        console.log(url)
+        var redirect_url = $('input[name=list-url]').val();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(){
+                window.location.replace(redirect_url);
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    //Cloture Sondage
+
+     $(document).on('click', ".cloture-pre-sondage", function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        var redirect_target = $('input[name=list-url]').val();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(){
+                window.location.replace(redirect_target);
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    $(document).on('click', '.restore-news-post', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-url');
+        var redirection_url = $('input[name=list-url]').val();
+        $.ajax({
+            type: 'POST',
+            url: target_url,
+            success: function(){
+                window.location.replace(redirection_url);
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    //Duplicate
+
+    $(document).on('click', ".duplique-pre-sondage", function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(data){
+                $('#duplicate-news-modal').find('.modal-body-container').html(data.content);
+                $('#duplicate-news-modal').find('.general-message').html('');
+            },
+            statusCode: {
+                404: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#duplicate-news-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+
+        });
+    });
+
+
     var SondagesQuizType = $('input.choix-type-action:checked').val();
     if(!SondagesQuizType){
         $('input#sondages_quiz_questionnaire_infos_type_sondages_quiz_1').prop('checked', true);
@@ -177,15 +452,6 @@ $(document).ready(function(){
     }
     HideShowSondagesOrQuiz(SondagesQuizType);
     
-    //Simuler click input file
-    $(document).on('click', 'button.btn-upload-img-sondage-quiz', function(){
-        $('input#sondages_quiz_image').click();
-    });
-    
-    //Previsualiser l'image
-    $(document).on('change', 'input#sondages_quiz_image', function(){
-        readURL(this);
-    });
     
     //Trie des reponses 'up'
     $(document).on('click', 'a.reorder-up-field-row-link', function(){
@@ -300,25 +566,6 @@ $(document).ready(function(){
         }
     });
     
-    //Delete banniére
-    $(document).on('click', 'img#img-delete-img-banniere', function(){
-        $('.chargementAjax').removeClass('hidden');
-        var UrlDeleteBanniere = $('input#UrlDeleteBanniere').val();
-        setTimeout(function(){
-            $.ajax({
-                type : "POST",
-                url: UrlDeleteBanniere,
-                data : 'type=1',
-                success: function(reponse){
-                    if(reponse == 'ok'){
-                        location.reload();
-                        $('.chargementAjax').addClass('hidden');
-                    }
-                }
-            });
-        }, 300);                
-    });
-    
     //Selection menu type question 
     $(document).on('click', 'button.dropdownMenuActionTypeQuestion', function(){
         var AttrId = $(this).attr('id');
@@ -380,6 +627,8 @@ $(document).ready(function(){
         
         return false;
     });
+
+
     
     $(document).on('click', 'button.confirm-delete-quiz', function(){
         var AttrId = $(this).attr('id');
@@ -439,6 +688,7 @@ $(document).ready(function(){
         var IdQuestion = ArrayAttrId[4];
         $('.chargementAjax').removeClass('hidden');
         var UriDeleteQuestions = $('input#UriDeleteQuestions').val();
+        console.log(UriDeleteQuestions)
         setTimeout(function(){
             $.ajax({
                 type : "POST",
