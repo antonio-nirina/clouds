@@ -1725,7 +1725,6 @@ class CommunicationController extends AdminController
         if (NewsPostTypeLabel::WELCOMING == $post_type_label) {
             $view_options['welcoming_news_post_type'] = true;
         }
-        dump($view_options);
         return $this->render('AdminBundle:Communication:news.html.twig', $view_options);
     }
 
@@ -2339,7 +2338,7 @@ class CommunicationController extends AdminController
         $manager = $this->get("adminBundle.sondagequizManager");
         $allData = $manager->getAllSondageQuiz($status);
         $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
-
+        dump($allData);
         return $this->render('AdminBundle:Communication:preSondage.html.twig',["data"=>$allData,"obj"=>$data]);
     }
 
@@ -2359,11 +2358,9 @@ class CommunicationController extends AdminController
         $allData = $manager->getAllSondageQuizArchived($status);
         $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
         $obj = ["data"=>$allData,"dataJson"=>$data];
-
+        
         return $this->render('AdminBundle:Communication:preSondage_archived.html.twig',$obj);
     }
-
-    
 
     /**
      *
@@ -2383,6 +2380,13 @@ class CommunicationController extends AdminController
         }
         $em = $this->getDoctrine()->getManager();
         $IsSondagesQuiz = false;
+        $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+        if(!isset($SondagesQuizArray[0])){
+            $SondagesQuiz = new SondagesQuiz();
+        }else{
+            $SondagesQuiz = $SondagesQuizArray[0];
+            $IsSondagesQuiz = true;
+        }
         $SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
         $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $SondagesQuizQuestionnaireInfos);
         $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
@@ -2390,6 +2394,29 @@ class CommunicationController extends AdminController
         if(isset( $SondagesQuizArray[0])){
             $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
         }
+
+        $formQuestionnaires->handleRequest($request);
+        if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
+            $SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
+            $SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuiz);
+            if($request->get("data") == "btn-publier-sondages-quiz"){
+                $SondagesQuizQuestionnaireInfosData->setEstPublier(true);
+            }else{
+                $SondagesQuizQuestionnaireInfosData->setEstPublier(false);
+            }
+            $em->persist($SondagesQuizQuestionnaireInfosData);
+            foreach($SondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $Questions){
+                $Questions->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfosData);
+                $em->persist($Questions);
+                foreach($Questions->getSondagesQuizReponses() as $Reponses){
+                    $Reponses->setSondagesQuizQuestions($Questions);
+                }
+            }            
+            $em->flush();
+            $data = $json_response_data_provider->success();
+            return new JsonResponse($data, 200);          
+        }
+       
         $content = $this->renderView('AdminBundle:Communication:pre_create_sondage.html.twig', array(
             'formQuestionnaires' => $formQuestionnaires->createView(),
             'IsSondagesQuiz' => $IsSondagesQuiz,
@@ -2400,6 +2427,8 @@ class CommunicationController extends AdminController
         $data['content'] = $content;
         return new JsonResponse($data, 200);
     }
+
+
     /**
      * @Route("/pre-sondage/editer/{id}", requirements={"id": "\d+"}, name="admin_communication_pre_sondage_edit")
      */
@@ -2612,7 +2641,4 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->success(), 200);
     }
 
-
-
-
-    }
+}

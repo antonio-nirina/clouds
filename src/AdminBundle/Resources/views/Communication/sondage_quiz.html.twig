@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block main %}
-    {{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}
+    {#{{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}#}
 
     <main class="col-md-9  offset-md-1 float-left main">
 
@@ -237,6 +237,7 @@
 					
 					<div id="collectionQuestions" data-prototype-question="{% filter escape %} {{ include('AdminBundle:PartialPage/SiteFormField:questions-sondages-quiz.html.twig', { 'form': formQuestionnaires.sondages_quiz_questions.vars.prototype }) }} {% endfilter %}">
 						{# QUESTIONS #}
+							{% set NbreRoles = 0 %}
 							{% set NbreQuestion = 0 %}
 							{% for ObjQuestions in formQuestionnaires.sondages_quiz_questions %}
 								{% set NumeroQuestion = NbreQuestion + 1 %}
@@ -351,7 +352,7 @@
 													</span>
 												</label>
 												{{ form_widget(ObjQuestions.type_question, {'attr': {'class': 'hidden'}}) }}
-												{{ form_widget(ObjQuestions.ordre, {'attr': {'class': 'input-form-text-reponse ordre-questions hidden'}}) }}
+											{{ form_widget(ObjQuestions.ordre, {'attr': {'class': 'input-form-text-reponse ordre-questions hidden'}}) }}
 											</div>
 										</div>
 										
@@ -458,7 +459,7 @@
 					
 					<div class = "row separator"></div>
 					<div class = "row separator"></div>
-					
+
 					<div class="row">
 						<div class="col-12 col-md-6" style="text-align:right;">
 							<button id = "enregistrer-All-form" class="btn-valider valider submit-form" data-id="426" name = "btn-enregistrer-sondages-quiz" type = "submit">enregistrer</button>
@@ -472,7 +473,7 @@
 					{{ form_end(formQuestionnaires) }}
 				</section>
 				
-				{% for QuestionsInfos in QuestionsInfosArray%}
+				{% for QuestionsInfos in QuestionsInfosArray %}
 				<section class="fieldset inactive">
 					<div class="block-active-hover"></div>
 					<div class="row">

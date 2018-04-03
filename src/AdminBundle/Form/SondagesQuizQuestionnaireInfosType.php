@@ -39,7 +39,16 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
 					'allow_delete' => true,
 					'prototype' => true,
 					'prototype_name' => '__opt_questions__'
-				  ));
+				  ))
+				->add('authorized_role',ChoiceType::class, array(
+						'choices' => array(
+							'tous les participants' => '1',
+							'par roles' => '2'
+						),
+						'choices_as_values' => true,
+						'multiple' => false,
+						'expanded' => false,
+					));
     }
 	
 	/**

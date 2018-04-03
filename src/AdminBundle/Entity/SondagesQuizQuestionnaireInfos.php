@@ -75,21 +75,12 @@ class SondagesQuizQuestionnaireInfos
     private $est_cloture = false;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true,options={"default"=0})
      */
     private $view_number;
 
     /**
-     * @var string $viewer_authorization_type   available value in AdminBundle\Component\Post\NewsPostAuthorizationType
-     *
-     * @ORM\Column(type="string", length=50)
-     * @Assert\Length(max=100)
-     * @Assert\NotBlank()
-     */
-    private $authorization_type;
-
-    /**
-     * @var string $authorized_viewer_role          AdminBundle\Entity\ProgramUser role value
+     * @var string $authorized_viewer_role         
      *
      * @ORM\Column(type="text", nullable=true)
      */
@@ -411,30 +402,7 @@ class SondagesQuizQuestionnaireInfos
         return $this->view_number;
     }
 
-    /**
-     * Set authorizationType.
-     *
-     * @param string $authorizationType
-     *
-     * @return SondagesQuizQuestionnaireInfos
-     */
-    public function setAuthorizationType($authorizationType)
-    {
-        $this->authorization_type = $authorizationType;
-
-        return $this;
-    }
-
-    /**
-     * Get authorizationType.
-     *
-     * @return string
-     */
-    public function getAuthorizationType()
-    {
-        return $this->authorization_type;
-    }
-
+    
     /**
      * Set authorizedRole.
      *

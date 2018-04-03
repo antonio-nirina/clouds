@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block main %}
-    {#{{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}#}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}
 
     <main class="col-md-9  offset-md-1 float-left main">
 
@@ -151,6 +151,7 @@
                             </div>
                         </div>
                          {% for view in data %}
+                            {% if view.estArchived == false %}
                         <div class="row detaille">
                             <div class="col-12 col-lg-9 nom-test">
                                     <div class="data-container">
@@ -181,11 +182,19 @@
                                             </div> 
                                     </div>                      
                                         <div class="nombres">
-                                            <span id="number">{{view.viewNumber}}</span>
+                                             {% if view.viewNumber is empty %}
+                                                <span id="number">0</span>
+                                            {% else %}
+                                                <span id="number">view.viewNumber</span>
+                                             {% endif %}
                                             <span id="participation">participations</span>
                                         </div>
                                         <div class=" roles">
-                                            <span id="role">{{view.authorizedRole}}</span>
+                                            {% if view.authorizedRole == 1 %}
+                                                <span id="role">Tous les participants</span>
+                                            {% else %}
+                                                <span id="role">Commercial</span>
+                                            {% endif %}
                                         </div>
                             </div>
                             <div class="col-12 col-lg-9 nom-test2" style="display:none">
@@ -223,7 +232,9 @@
                                     <div class="dropdown-menu action-menu" aria-labelledby="dropdownMenuAction">
                                     <a class="dropdown-item menu-stat stat-pre-sondage" href="#" data-campaign = "" data-title = "">STATISTIQUES</a>
                                     <a class="dropdown-item menu-duplique duplique-pre-sondage" href="#" data-url="{{ path('admin_communication_pre_sondage_duplicate', {"id": view.id}) }}">DUPLIQUER</a>
+                                    {% if view.estCloture == false %}
                                     <a class="dropdown-item menu-cloture cloture-pre-sondage" data-url = "{{ path('admin_communication_pre_sondage_cloture', {"id": view.id}) }}" style = "cursor:pointer;">CLOTURE</a>
+                                    {% endif %}
                                     <a class="dropdown-item menu-archived archived-pre-sondage" data-url = "{{ path('admin_communication_pre_sondage_archive', {"id": view.id}) }}" style = "cursor:pointer;">ARCHIVER</a>
                                     <a class="dropdown-item menu-delete delete-pre-sondage" href="#" data-campaign-draft-id="" data-url = "{{ path('admin_communication_pre_sondage_delete', {"id": view.id}) }}">SUPPRIMER</a>
                                     </div>
@@ -246,6 +257,7 @@
                                 {% endif %}              
                             </div>
                         </div>
+                        {% endif %}
                         {% endfor %}
                         <div class="not-results not-list">
                             <p>Aucun résultat</p>

@@ -263,6 +263,98 @@ $(document).ready(function(){
         });
     });
 
+    // submit create sondage
+
+    $(document).on('click', '#create-sondage-modal  .submit .btn-valider', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var redirect = $('input[name=list-url]').val();
+        var  url = $('input[name=create_sondage_quiz_url]').val();
+        var data = $(this).attr("name");
+    $("#create-sondage-modal form").ajaxSubmit({
+            type: 'POST',
+            url: url,
+            data: {"data":data},
+            success: function(data){
+                if(data['error']){
+                    $('#create-sondage-modal').find('.modal-body-container').html(data.content);
+                    installWysiwyg();
+                    var $QuestionEnCours = $('div.content-questionnaire');
+                    var Questions = parseInt(parseInt($QuestionEnCours.length) - 1);
+                    NbreQuestion = Questions;
+                    $('div.content-questionnaire').each(function(){
+                        var AttrId = $(this).attr('id');
+                        seletedSondage(AttrId);
+
+                    });
+
+                    if($('input#nbre_questions').val() == '0'){
+                        AjouterQuestionCollection();
+                    }
+                } else {
+                    window.location.replace(redirect);
+                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#create-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#create-edit-e-learning-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#create-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-sondage-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#create-sondage-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+
+    });
+
+//Selection menu type question 
+    $(document).on('click', 'div.dropdownMenuListeTypeUestion a.dropdown-item', function(){
+        var Id = $(this).attr('data-id');
+        var MenuClicker = $.trim($(this).html());
+        
+        var choix = '0';
+        if(MenuClicker == 'cases à cocher'){
+            choix = '1';
+        }else if(MenuClicker == 'choix multiples'){
+            choix = '2';
+        }else if(MenuClicker == 'échelle linéaire'){
+            choix = '3';
+        }else if(MenuClicker == 'tableau à choix mutltiples'){
+            choix = '4';
+        }
+        
+        $('select#sondages_quiz_questionnaire_infos_sondages_quiz_questions_'+Id+'_type_question').val(choix).change();
+        $('button#dropdownMenuActionTypeQuestion-'+Id+'').html(MenuClicker);
+        $('div#dropdownMenuListeTypeUestion-'+Id+'').hide();
+        return false;
+    });
+
+    //Selection  type Roles 
+    $(document).on('click', 'div.dropdownMenuListeTypeRole a.dropdown-item', function(){
+        //var Id = $(this).attr('data-id');
+        var MenuClicker = $.trim($(this).html());        
+        var choix = '0';
+        if(MenuClicker == 'tous les participants'){
+            choix = '1';
+        }else if(MenuClicker == 'par roles'){
+            choix = '2';
+        }
+                
+        $('select#sondages_quiz_questionnaire_infos_authorized_role').val(choix).change();
+        $('button#dropdownMenuActionTypeRole-'+Id+'').html(MenuClicker);
+        $('div#dropdownMenuListeTypeRole-'+Id+'').hide();
+        return false;
+    });
+    
+
      // édition sondage&quiz, appel de formulaire
     $(document).on('click', '.edit-pre-sondage', function(e){
         e.preventDefault();
@@ -315,12 +407,12 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var url = $(this).attr('data-url');
-        var redirect_target = $('input[name=list-url]').val();
+        var redirect = $('input[name=list-url]').val();
         $.ajax({
             type: 'POST',
             url: url,
             success: function(){
-                window.location.replace(redirect_target);
+                window.location.replace(redirect);
             },
             complete: function(){
                 $('.chargementAjax').addClass('hidden');
