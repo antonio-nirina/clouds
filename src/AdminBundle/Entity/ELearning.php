@@ -3,6 +3,7 @@ namespace AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -52,6 +53,18 @@ class ELearning
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $publication_datetime;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $last_edit;
 
     /**
      * @var string $viewer_authorization_type   available value in AdminBundle\Component\Authorization\AuthorizationType
@@ -455,5 +468,53 @@ class ELearning
     public function getButtonContents()
     {
         return $this->button_contents;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return ELearning
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set lastEdit
+     *
+     * @param \DateTime $lastEdit
+     *
+     * @return ELearning
+     */
+    public function setLastEdit($lastEdit)
+    {
+        $this->last_edit = $lastEdit;
+
+        return $this;
+    }
+
+    /**
+     * Get lastEdit
+     *
+     * @return \DateTime
+     */
+    public function getLastEdit()
+    {
+        return $this->last_edit;
     }
 }

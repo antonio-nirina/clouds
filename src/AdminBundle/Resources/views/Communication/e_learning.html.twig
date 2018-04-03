@@ -61,9 +61,9 @@
                             <div class="hidden-sm-down corner-circle-img img-e-learning-circle rounded-circle"></div>
                         </div>
                     </div>
-                    <div class="row filter news-filter control-panel">
-                        <div class="news-name-search-container filter-block-element-container">
-                            <input type="text" class="input-search-list news-name-search-input removable-content-input" placeholder="rechercher par nom" data-path=".title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter">
+                    <div class="row filter element-filter control-panel">
+                        <div class="element-name-search-container filter-block-element-container">
+                            <input type="text" class="input-search-list element-name-search-input removable-content-input" placeholder="rechercher par nom" data-path=".title" data-control-type="textbox" data-control-name="title-filter" data-control-action="filter">
                             <span class="delete-input" style="display: none;"></span>
                         </div>
                         <div class="send-state-filter-container filter-block-element-container">
@@ -71,7 +71,6 @@
                                 <ul>
                                     <li><span data-path="default">TOUS</span></li>
                                     <li><span data-path=".published">PUBLIÉ</span></li>
-                                    <li><span data-path=".programmed">PROGRAMMÉ</span></li>
                                     <li><span data-path=".wait">EN ATTENTE</span></li>
                                 </ul>
                             </div>
@@ -86,7 +85,7 @@
                     <div class="row filter selected-elements" style="display: none;">
                         <div class="elements-count">
                             <div class="selected-count">
-                                <input class="selected-elements-input" type="text" value="post sélectionné" disabled>
+                                <input class="selected-elements-input" type="text" value="e-learning sélectionné" disabled>
                                 <span class="delete-input"></span>
                             </div>
                         </div>
@@ -108,117 +107,101 @@
                                 <span class="delete-input" style="display: none;"></span>
                             </div>
                             <div class="button-container">
-                                <button class="btn-valider" data-target-url="{{ path('admin_communication_news_group_action') }}">
+                                <button class="btn-valider" data-target-url="">
                                     valider
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="row list e-learning-list element-list">
-                        <div class="row element published" data-status="">
-                            <div class="col-12 col-lg-9 post-characteristics-container">
-                                <div class="post-data-container">
-                                    <div>
-                                        <input id="el1" type="checkbox" class="styled-checkbox bigger">
-                                        <label for="el1"></label>
+                        {% if e_learning_list is defined and e_learning_list is not empty %}
+                            {% for e_learning in e_learning_list %}
+                                {% set element_state_text = '' %}
+                                {% set date_prefix = 'le ' %}
+                                {% set date = '' %}
+                                {% set class= '' %}
+
+                                {% if true == e_learning.publishedState %}
+                                    {% set element_state_text = 'Publié' %}
+                                    {% set date = e_learning.publicationDatetime %}
+                                    {% set class= 'published' %}
+                                {% else %}
+                                    {% set element_state_text = 'En attente' %}
+                                    {% set date_prefix = 'modifié le ' %}
+                                    {% set date = e_learning.lastEdit %}
+                                    {% set class= "wait" %}
+                                {% endif %}
+
+                            <div class="row element {{ class }}" data-status="{{ class }}">
+                                <div class="col-12 col-lg-9 element-characteristics-container">
+                                    <div class="element-data-container">
+                                        <div>
+                                            <input id="{{ e_learning.getId }}" type="checkbox" class="styled-checkbox bigger">
+                                            <label for="{{ e_learning.getId }}"></label>
+                                        </div>
+                                        <img src="{{ asset("images/cloudsRewards/square-academic-cap.png") }}">
+                                        <div class="element-infos-container">
+                                            <span class="title">{{ e_learning.title }}</span>
+                                            <span class="date {{ class }}">{{ element_state_text }} - {{ date_prefix }}{{ date is not empty ? date | localizeddate('none', 'none', locale, null, "d MMMM Y 'à' HH:mm") :'' }}</span>
+                                        </div>
                                     </div>
-                                    <img src="{{ asset("images/cloudsRewards/square-academic-cap.png") }}">
-                                    <div class="post-infos-container">
-                                        <span class="title">Produits 1</span>
-                                        <span class="date published">Publié - le 02 février 2018 à 14:44</span>
+                                    <div class="view-number-container">
+                                        <span class="number">{{ e_learning.viewNumber }}</span>
+                                        <span>vues</span>
                                     </div>
-                                </div>
-                                <div class="view-number-container">
-                                    <span class="number">10</span>
-                                    <span>vues</span>
-                                </div>
-                                <div class="viewer-container">
-                                    <span>Tous les participants</span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 post-actions-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
-                                        {% if archived_state is not defined %}
-                                            <a class="dropdown-item" href="#" data-target-url="">APERÇU</a>
+                                    <div class="viewer-container">
+                                        {% set authorization_all = constant('ALL', authorization_type_class) %}
+                                        {% set authorization_by_role = constant('BY_ROLE', authorization_type_class)  %}
+                                        {% set viewer_text = '' %}
+                                        {% if authorization_all == e_learning.viewerAuthorizationType %}
+                                            {% set viewer_text = 'Tous les participants' %}
                                         {% endif %}
-
-                                        {% if archived_state is not defined %}
-                                            <a class="dropdown-item" href="#" data-target-url="">ÉDITER</a>
+                                        {% if e_learning.viewerAuthorizationType matches '{^'~authorization_by_role~'_[0-9]+$}' %}
+                                            {% set viewer_text = e_learning.authorizedViewerRole %}
                                         {% endif %}
-
-                                        {% if archived_state is not defined %}
-                                            <a class="dropdown-item" href="#" data-target-url="">DUPLIQUER</a>
-                                        {% endif %}
-
-                                        <a class="dropdown-item" href="#" data-target-url="">PUBLIER</a>
-
-                                        {% if archived_state is defined and true == archived_state %}
-                                            <a class="dropdown-item" href="#" data-target-url="">RESTAURER</a>
-                                        {% else %}
-                                            <a class="dropdown-item" href="#" data-target-url="">ARCHIVER</a>
-                                        {% endif %}
-
-                                        <a class="dropdown-item" href="#" data-target-url="">SUPPRIMER</a>
+                                        <span>{{ viewer_text }}</span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row element wait" data-status="">
-                            <div class="col-12 col-lg-9 post-characteristics-container">
-                                <div class="post-data-container">
-                                    <div>
-                                        <input id="el2" type="checkbox" class="styled-checkbox bigger">
-                                        <label for="el2"></label>
-                                    </div>
-                                    <img src="{{ asset("images/cloudsRewards/square-academic-cap.png") }}">
-                                    <div class="post-infos-container">
-                                        <span class="title">Actualité 2</span>
-                                        <span class="date wait">En attente - modifié le 12 février 2018 à 14:44</span>
-                                    </div>
-                                </div>
-                                <div class="view-number-container">
-                                    <span class="number">0</span>
-                                    <span>vues</span>
-                                </div>
-                                <div class="viewer-container">
-                                    <span>Commercial</span>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 post-actions-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-                                        ACTIONS
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-action">
-                                        {% if archived_state is not defined %}
-                                            <a class="dropdown-item" href="#" data-target-url="">APERÇU</a>
-                                        {% endif %}
+                                <div class="col-12 col-lg-3 element-actions-container">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+                                            ACTIONS
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown-action">
+                                            {% if archived_state is not defined %}
+                                                <a class="dropdown-item" href="#" data-target-url="">APERÇU</a>
+                                            {% endif %}
 
-                                        {% if archived_state is not defined %}
-                                            <a class="dropdown-item" href="#" data-target-url="">ÉDITER</a>
-                                        {% endif %}
+                                            {% if archived_state is not defined %}
+                                                <a class="dropdown-item" href="#" data-target-url="">ÉDITER</a>
+                                            {% endif %}
 
-                                        {% if archived_state is not defined %}
-                                            <a class="dropdown-item" href="#" data-target-url="">DUPLIQUER</a>
-                                        {% endif %}
+                                            {% if archived_state is not defined %}
+                                                <a class="dropdown-item" href="#" data-target-url="">DUPLIQUER</a>
+                                            {% endif %}
 
-                                        <a class="dropdown-item" href="#" data-target-url="">PUBLIER</a>
+                                            {% if archived_state is not defined %}
+                                                {% if true ==  e_learning.publishedState %}
+                                                <a class="dropdown-item" href="#" data-target-url="">DÉPUBLIER</a>
+                                                {% else %}
+                                                <a class="dropdown-item" href="#" data-target-url="">PUBLIER</a>
+                                                {% endif %}
+                                            {% endif %}
 
-                                        {% if archived_state is defined and true == archived_state %}
-                                            <a class="dropdown-item" href="#" data-target-url="">RESTAURER</a>
-                                        {% else %}
-                                            <a class="dropdown-item" href="#" data-target-url="">ARCHIVER</a>
-                                        {% endif %}
 
-                                        <a class="dropdown-item" href="#" data-target-url="">SUPPRIMER</a>
+                                            {% if archived_state is defined and true == archived_state %}
+                                                <a class="dropdown-item" href="#" data-target-url="">RESTAURER</a>
+                                            {% else %}
+                                                <a class="dropdown-item" href="#" data-target-url="">ARCHIVER</a>
+                                            {% endif %}
+
+                                            <a class="dropdown-item" href="#" data-target-url="">SUPPRIMER</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="jplist-no-results hidden-block">
                         <p>Aucun résultat</p>
@@ -236,415 +219,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="error-message-container centered-message general-message"></div>
-                                    <div class="modal-body-container">
-                                        <span class="modal-body-title">Édition d'un e-learning</span>
-                                        <div class="preview-news-button-container">
-                                            <span class="preview-news-button">aperçu</span>
-                                        </div>
-                                        <div class="form-row">
-                                            <label>titre</label>
-                                            <input type="text" class="large-input-text removable-content-input">
-                                            <span class="delete-input" style="display: none;"></span>
-                                        </div>
-                                        <div class="form-row vertical">
-                                            <label>texte</label>
-                                            <textarea class="large-textarea" id="news-text"></textarea>
-                                        </div>
-                                        <div class="title-separator">
-                                            <span class="title">médias</span><span class="separator-line"></span>
-                                        </div>
-
-                                        <!-- content list element -->
-                                        <div class="content-list-element">
-                                            <div class="content-denomination">
-                                                <div class="content-denomination-image">
-                                                    <img src="{{ asset('images/cloudsRewards/pdf-file-icon.png') }}"><span>Lorem_ipsum.pdf</span>
-                                                </div>
-                                                <div class="content-denomination-name">
-                                                    <div>Produits 2017</div>
-                                                </div>
-                                            </div>
-                                            <div class="actions-container">
-                                                <span class="edit"></span>
-                                                <span class="delete"></span>
-                                                <div class="reorder">
-                                                    <span class="reorder-up"></span>
-                                                    <span class="reorder-down"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="content-list-element">
-                                            <div class="content-denomination">
-                                                <div class="content-denomination-image">
-                                                    <span class="video-icon"></span>
-                                                </div>
-                                                <div class="content-denomination-name">
-                                                    <div>Vidéo de présentation</div>
-                                                </div>
-                                            </div>
-                                            <div class="actions-container">
-                                                <span class="edit"></span>
-                                                <span class="delete"></span>
-                                                <div class="reorder">
-                                                    <span class="reorder-up"></span>
-                                                    <span class="reorder-down"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="content-list-element">
-                                            <div class="content-denomination">
-                                                <div class="content-denomination-image">
-                                                    <span class="gallery-icon"></span>
-                                                </div>
-                                                <div class="content-denomination-name">
-                                                    <div>Galérie 1</div>
-                                                </div>
-                                            </div>
-                                            <div class="actions-container">
-                                                <span class="edit"></span>
-                                                <span class="delete"></span>
-                                                <div class="reorder">
-                                                    <span class="reorder-up"></span>
-                                                    <span class="reorder-down"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - content list element -->
-
-                                        <!-- add media by type -->
-                                        <div class="content-block-container">
-                                            <div class="block-title">
-                                                <span>ajouter un nouveau média</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="document-type-container">
-                                                <div class="document-type-element">
-                                                    <span class="document-type-document-icon icon"></span>
-                                                    <span>document</span>
-                                                </div>
-                                                <div class="document-type-element">
-                                                    <span class="document-type-gallery-icon icon"></span>
-                                                    <span>galerie d'images</span>
-                                                </div>
-                                                <div class="document-type-element">
-                                                    <span class="document-type-video-icon icon"></span>
-                                                    <span>vidéo</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - add media by type -->
-
-                                        <!-- adding document media -->
-                                        <div class="content-block-container">
-                                            <div class="block-title">
-                                                <span>ajouter un nouveau média</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="add-content-block">
-                                                <p class="main-info">ajouter un document format word, excel, powerwpoint, pdf etc.</p>
-                                                <button class="btn-valider btn-upload">
-                                                    <span class="upload"></span>choisissez un fichier...
-                                                </button>
-                                                <div class="info-container">
-                                                    <p>les fichiers doivent peser moins de <span class="bigger">20 Mo</span></p>
-                                                </div>
-                                                <div class="upload-img-button-container">
-                                                    <button class="upload-img-button">
-                                                        <span class="blue-upload"></span><span class="img-name-container">Lorem_ipsum.pdf</span>
-                                                    </button>
-                                                </div>
-                                                <a href="#" class="delete-link"></a>
-                                                <div class="form-row document-name-container vertical-md">
-                                                    <label>nom du document</label>
-                                                    <div class="document-name">
-                                                        <input class="standard-styled-input" type="text" value="Produits 2017">
-                                                        <span class="delete-input"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-content-button-container">
-                                                    <button class="btn-valider">ajouter</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - adding document media -->
-
-                                        <!-- adding vidéo media -->
-                                        <div class="content-block-container video">
-                                            <div class="block-title">
-                                                <span>ajouter un nouveau média</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="add-content-block">
-                                                <p class="main-info">ajouter une vidéo</p>
-                                                <div class="form-row vertical-xs">
-                                                    <label>url de la vidéo</label>
-                                                    <div class="form-element">
-                                                        <input type="text" class="standard-styled-input large-input-text" value="https://monlienderedirection.com/challenge">
-                                                        <span class="delete-input"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="info-container">
-                                                    <p>url youtube, vimeo, depuis votre serveur, etc.</p>
-                                                    <p>si toutefois votre vidéo n'est pas hebergée veuillez <a href="#" class="blue-anchor">nous contacter</a></p>
-                                                </div>
-                                                <div class="form-row video-name vertical-xs">
-                                                    <label>nom de la vidéo</label>
-                                                    <div class="form-element">
-                                                        <input type="text" class="standard-styled-input" value="Vidéo de présentation">
-                                                        <span class="delete-input"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="add-content-button-container">
-                                                    <button class="btn-valider">ajouter</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - adding vidéo media -->
-
-                                        <!-- adding image gallery media -->
-                                        <div class="content-block-container">
-                                            <div class="block-title">
-                                                <span>ajouter un nouveau média</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="add-content-block">
-                                                <p class="main-info">ajouter une galerie d'image</p>
-                                                <div class="form-row document-name-container vertical-md">
-                                                    <label>nom de la galerie</label>
-                                                    <div class="document-name">
-                                                        <input class="standard-styled-input" type="text" value="Galerie 1">
-                                                        <span class="delete-input"></span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- image list -->
-                                                <div class="content-list-element-container">
-                                                    <div class="content-list-element image-gallery">
-                                                        <div class="content-denomination">
-                                                            <div class="content-denomination-image">
-                                                                <div class="image-preview"></div>
-                                                            </div>
-                                                            <div class="content-denomination-name">
-                                                                <div>Nom de l'image 1</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="actions-container">
-                                                            <span class="edit"></span>
-                                                            <span class="delete"></span>
-                                                            <div class="reorder disabled">
-                                                                <span class="reorder-up"></span>
-                                                                <span class="reorder-down"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- end -  images list -->
-
-                                                <div>
-                                                    <button class="btn-valider btn-upload">
-                                                        <span class="upload"></span>choisissez un fichier...
-                                                    </button>
-                                                    <div class="info-container">
-                                                        <p>document au format jpeg ou gif limité à <span class="bigger">20 Mo</span></p>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="upload-img-button-container">
-                                                        <button class="upload-img-button">
-                                                            <span class="blue-upload"></span><span class="img-name-container">image 1.jpeg</span>
-                                                        </button>
-                                                    </div>
-                                                    <a href="#" class="delete-link"></a>
-                                                    <div class="form-row document-name-container vertical-md">
-                                                        <label>nom de l'image</label>
-                                                        <div class="document-name">
-                                                            <input class="standard-styled-input" type="text" value="Nom de l'image 1">
-                                                            <span class="delete-input"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="add-content-button-container">
-                                                        <button class="btn-valider">ajouter</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - adding image gallery media -->
-
-                                        <div class="content-button-container">
-                                            <a class="add">ajouter un média</a>
-                                        </div>
-                                        <div class="title-separator">
-                                            <span class="title">quiz</span><span class="separator-line"></span>
-                                        </div>
-
-                                        <!-- quiz list -->
-                                        <div class="content-list-element">
-                                            <div class="content-denomination">
-                                                <div class="content-denomination-image">
-                                                    <span class="quiz-icon"></span>
-                                                </div>
-                                                <div class="content-denomination-name">
-                                                    <div>Produits 2017</div>
-                                                </div>
-                                            </div>
-                                            <div class="actions-container">
-                                                <span class="edit"></span>
-                                                <span class="delete"></span>
-                                                <div class="reorder disabled">
-                                                    <span class="reorder-up"></span>
-                                                    <span class="reorder-down"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - quiz list -->
-
-                                        <!-- adding quiz -->
-                                        <div class="content-block-container video">
-                                            <div class="block-title">
-                                                <span>ajouter un nouveau quiz</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="add-content-block">
-                                                <p class="main-info">vous devez créer un quiz dans la partie "sondages/quiz" pour qu'il apparaisse dans le menu déroulant</p>
-                                                <div class="dropdown-container quiz-selection">
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-selected-quiz" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-text="ACTIONS">
-                                                            SÉLECTIONNEZ<span class="hidden-under-355">&nbsp;UN QUIZ</span>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdown-selected-quiz">
-                                                            <a class="dropdown-item" href="#">QUIZ 1</a>
-                                                            <a class="dropdown-item" href="#">QUIZ 2</a>
-                                                            <a class="dropdown-item" href="#">QUIZ 3</a>
-                                                            <a class="dropdown-item" href="#">QUIZ 4</a>
-                                                        </div>
-                                                    </div>
-                                                    <span class="delete-input"></span>
-                                                </div>
-                                                <div class="add-content-button-container">
-                                                    <button class="btn-valider">ajouter</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - adding quiz -->
-
-                                        <div class="content-button-container">
-                                            <a class="add">ajouter un quiz</a>
-                                        </div>
-                                        <div class="title-separator">
-                                            <span class="title">Bouton d'action</span><span class="separator-line"></span>
-                                        </div>
-
-                                        <!-- action button element -->
-                                        <div class="content-list-element">
-                                            <div class="content-denomination">
-                                                <div class="content-denomination-image">
-                                                    <span class="action-button-icon"></span>
-                                                </div>
-                                                <div class="content-denomination-name">
-                                                    <div>En savoir plus</div>
-                                                </div>
-                                            </div>
-                                            <div class="actions-container">
-                                                <span class="edit"></span>
-                                                <span class="delete"></span>
-                                            </div>
-                                        </div>
-                                        <!-- action button element -->
-
-                                        <!-- adding action button -->
-                                        <div class="content-block-container action-button-block-container">
-                                            <div class="block-title">
-                                                <span>bouton d'action</span>
-                                                <span class="delete-block"></span>
-                                            </div>
-                                            <div class="add-content-block">
-                                                <div class="form-row vertical-centered">
-                                                    <label class="fixed-width">texte du bouton</label>
-                                                    <input type="text" value="mon bouton d'action" class="removable-content-input action-button-input semi-large" value="En savoir plus">
-                                                    <span class="delete-input delete-action-button-text"></span>
-                                                </div>
-                                                <div class="form-row vertical-xs">
-                                                    <label>aspect du bouton</label>
-                                                    <div class="vertical-xs">
-                                                        <div class="action-button-color-option">
-                                                            <span class="option-title">Couleur</span>
-                                                            <input type="text" class="color-value">
-                                                        </div>
-                                                        <div class="action-button-color-option">
-                                                            <span class="option-title">Couleur du texte</span>
-                                                            <input type="text" class="color-value">
-                                                        </div>
-                                                    </div>
-                                                    <div class="action-button-preview">
-                                                        En savoir plus
-                                                    </div>
-                                                </div>
-                                                <span class="form-row-group-title">lien de redirection du bouton d'action</span>
-                                                <div class="form-row vertical-centered">
-                                                    <label class="fixed-width">renseigner une url</label>
-                                                    <input type="text" value="https://monlienderedirection.com/challenge" class="removable-content-input action-button-input large">
-                                                    <span class="delete-input"></span>
-                                                </div>
-                                                <div class="form-row vertical-xs">
-                                                    <label>ou chercher une page du site</label>
-                                                    <div class="action-button-target-page-choice styled-choice-select">
-                                                        <div class="dropdown clearable">
-                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-action-button-page-target" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="POINTER SUR">
-                                                                POINTER SUR
-                                                            </button>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdown-action-button-page-target">
-                                                                <a class="dropdown-item" href="#">PRÉSENTATION DE LA SOCIÉTÉ</a>
-                                                                <a class="dropdown-item" href="#">DÉCOUVREZ LE PROGRAMME</a>
-                                                                <a class="dropdown-item" href="#">DÉCLARER UNE VENTE</a>
-                                                                <a class="dropdown-item" href="#">CLASSEMENT</a>
-                                                                <a class="dropdown-item sub-level" href="#">CHALLENGE 1</a>
-                                                                <a class="dropdown-item sub-level" href="#">CHALLENGE 2</a>
-                                                                <a class="dropdown-item" href="#">SONDAGES / QUIZ</a>
-                                                                <a class="dropdown-item sub-level" href="#">QUIZ 1</a>
-                                                                <a class="dropdown-item sub-level" href="#">QUIZ 2</a>
-                                                                <a class="dropdown-item" href="#">CADEAUX</a>
-                                                            </div>
-                                                            <span class="delete-select"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="add-content-button-container">
-                                                    <button class="btn-valider">ajouter</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end - adding action button -->
-
-                                        <div class="content-button-container">
-                                            <a class="add">ajouter un bouton d'action</a>
-                                        </div>
-
-                                        <div class="form-row vertical-xs">
-                                            <label>qui verra ce post?</label>
-                                            <div class="styled-choice-select viewer-authorization-type-choice">
-                                                <div class="dropdown post-viewer-dropdown clearable">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-e-learning-viewer-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-button-text="TOUS LES PARTICIPANTS">
-                                                        TOUS LES PARTICIPANTS
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdown-e-learning-viewer-group">
-                                                        <a class="dropdown-item" href="#">TOUS LES PARTICIPANTS</a>
-                                                        <a class="dropdown-item" href="#">COMMERCIAL</a>
-                                                        <a class="dropdown-item" href="#">DIRECTEUR COMMERCIAL</a>
-                                                        <a class="dropdown-item" href="#">PERSONNALISER</a>
-                                                    </div>
-                                                    <span class="delete-select"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="submit-block-container">
-                                            <button class="btn-valider first-button save">enregistrer</button>
-                                            <button class="btn-valider second-button publish">publier</button>
-                                        </div>
-
-                                    </div>
+                                    <div class="modal-body-container"></div>
                                 </div>
                             </div>
                         </div>
@@ -665,6 +240,9 @@
     <input type="hidden" name="e_learning_content_type_document" value="{{ constant('MEDIA_DOCUMENT', e_learning_content_type_class) }}">
     <input type="hidden" name="e_learning_content_type_image_gallery" value="{{ constant('MEDIA_IMAGE_GALLERY', e_learning_content_type_class) }}">
     <input type="hidden" name="e_learning_content_type_video" value="{{ constant('MEDIA_VIDEO', e_learning_content_type_class) }}">
+
+    <input type="hidden" name="multiple_selection_one_selected_element_text" value=" e-learning selectionné">
+    <input type="hidden" name="multiple_selection_many_selected_elements_text" value=" e-learning selectionnés">
 {% endblock %}
 
 {% block footer %}

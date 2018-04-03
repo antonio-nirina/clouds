@@ -45,6 +45,7 @@ use AdminBundle\Component\GroupAction\GroupActionType;
 use AdminBundle\Component\Post\NewsPostTypeLabel;
 use AdminBundle\Component\Submission\SubmissionType;
 use AdminBundle\Component\ELearning\ELearningContentType;
+use AdminBundle\Component\Authorization\AuthorizationType;
 
 /**
  * @Route("/admin/communication")
@@ -2258,8 +2259,21 @@ class CommunicationController extends AdminController
      */
     public function eLearningAction()
     {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $e_learning_list = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
+            array('program' => $program),
+            array('created_at' => 'DESC')
+        );
+
         return $this->render('AdminBundle:Communication:e_learning.html.twig', array(
             'e_learning_content_type_class' => new ELearningContentType(),
+            'e_learning_list' => $e_learning_list,
+            'authorization_type_class' => new AuthorizationType(),
         ));
     }
 
@@ -2295,7 +2309,6 @@ class CommunicationController extends AdminController
             } else {
                 return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
             }
-//            dump($e_learning_form->getData());
          }
 
         $content = $this->renderView('AdminBundle:Communication/ELearning:manip_e_learning.html.twig', array(
