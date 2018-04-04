@@ -70,24 +70,23 @@
 					</div>
 					
 					<div id = "content-questionnaire-apercu-{{ NbreQuestion }}" class = "content-questionnaire-apercu">
-					
 						<div class="row">
 							<div class="col-12 col-sm-8 col-md-8">
 								<h3 class="hidden-sm-down block-title">{{ ObjQuestions.questions.vars.value }}</h3>
 								<h5 class="hidden-md-up block-title">{{ ObjQuestions.questions.vars.value }}</h5>
 							</div>
+
 							<div class="col-12 col-sm-4 col-md-4">
 								<div class="option-container-question">
 									<span id = "edit-post-questions-{{ NbreQuestion }}" class="edit-post-questions"></span>
-									<span class="delete-post-questions" data-toggle = "modal" data-target = "#confirm-delete-question-dialog-{{ ObjQuestions.vars.value.id }}"></span>
+									<span class="delete-post-questions" data-toggle = "modal" data-target = "#confirm-delete-question-dialog-{{ ObjQuestions.vars.value.id }}" data-question ="{{ ObjQuestions.vars.value.id }}"></span>
 									<span class="trie-post-questions">
 										<a id="reorder-up-field-row-link-question-{{ NbreQuestion }}" href="#" class="reorder-up-field-row-link-question"></a>
 										<a id="reorder-down-field-row-link-question-{{ NbreQuestion }}" href="#" class="reorder-down-field-row-link-question"></a>
 									</span>
 								</div>
 							</div>
-						</div>
-						
+						</div>						
 						<!-- dialog - confirmation suppression questionnaires -->
 						<div id="confirm-delete-question-dialog-{{ ObjQuestions.vars.value.id }}" class="modal fade confirm-delete-question-dialog" tabindex="-1" role="dialog">
 							<div class="modal-dialog modal-lg" role="document">
@@ -274,28 +273,27 @@
 	<div class = "row separator"></div>
 	<div class = "row separator"></div>
 	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12">
-				<label class="champForm">
+		<div class="col-lg-12 col-md-12 col-sm-12 autorization-sondage">
 					<span class="lib-form">qui verra ce sondage / quiz?</span>
 					<span class = "content-dropdown-toggle dropdown clearable filtres">
-						<button class="btn btn-secondary dropdown-toggle dropdownMenuActionTypeRole" type="button" id="dropdownMenuActionTypeRole-{{ NbreRoles }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
+						<button class="btn btn-secondary dropdown-toggle dropdownMenuActionTypeRole" type="button" id="dropdownMenuActionTypeRole-{{ NbreQuestion }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
 							tous les participants
 						</button>
-					<div id = "dropdownMenuListeTypeRole" class="dropdown-menu dropdownMenuListeTypeRole" aria-labelledby="dropdownMenuListeTypeRole">
-						<a class="dropdown-item" href="#">
+					<div id = "dropdownMenuListeTypeRole-{{ NbreQuestion }}" class="dropdown-menu dropdownMenuListeTypeRole" aria-labelledby="dropdownMenuListeTypeRole">
+						<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
 							tous les participants
 						</a>
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
 							par roles
 						</a>						
 					</div>
 				</span>
-				</label>
 				{{ form_widget(formQuestionnaires.authorized_role, {'attr': {'class': 'hidden'}}) }}
 				{{ form_errors(formQuestionnaires.authorized_role) }}
 			</div>
 	</div>
-	{% set NbreRoles = NbreRoles + 1 %}
+
+
 	<div class="row submit">
 		<div class="col-12 col-md-6" style="text-align:right;">
 			<button id = "enregistrer-All-form" class="btn-valider valider submit-form" data-id="426" name = "btn-enregistrer-sondages-quiz" type = "submit">enregistrer</button>

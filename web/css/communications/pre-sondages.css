@@ -205,7 +205,7 @@ font-family: var(--police);
 height: 34px !important;
 }
 
-.notChecked{
+/*.notChecked{
 	background: url('../../images/cloudsRewards/check-off.png');
 }
 
@@ -219,6 +219,24 @@ height: 34px !important;
 	cursor: pointer;
 	display: inline-block;
 	float: left;
+}*/
+
+.styled-checkbox.bigger:checked + label{
+    background: url('../../images/cloudsRewards/check-on.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
+}
+
+.styled-checkbox.bigger + label{
+    background: url('../../images/cloudsRewards/check-off.png') no-repeat;
+    height: 25px;
+    width: 25px;
+    display: inline-block;
+    margin: 5px 0 0 0;
+    cursor:pointer;
 }
 
 .delete-supp{
@@ -303,6 +321,7 @@ section .dropdown.show .suppr{
 	padding-left: 0 !important;
 	position: relative;
 	left: -23px;
+    top: -7px;
 }
 
 .titre-quiz p{
@@ -369,6 +388,7 @@ padding-top: 4px;
 	background-position: center;
 	position: relative;
 	left: -8px;
+    top: -4px;
 }
 
 .nom-test{
@@ -409,6 +429,7 @@ text-align: center;
 	background-position: center;
 	position: relative;
 	left: -8px;
+    top: -4px;
 }
 
 .not-results {
@@ -433,6 +454,11 @@ text-align: center;
 .modal-sondage{
     width: 1024px;
     max-width: 90%;
+    /*width: 926px;
+max-width: 90%;
+position: absolute;
+top: -1%;
+left: 17%*/
 }
 
 .apercu{
@@ -616,6 +642,15 @@ div.ligne-separator-question-hide::after {
 font-size: 13px;
 color: var(--couleur_4);
 /*font-family: var(--police_bold);*/
+}
+
+.autorization-sondage{
+    margin-bottom: 49px;
+}
+
+span.lib-form{
+color: var(--couleur_4);
+font-family: var(--police_bold);
 }
 
 /*================================================================================================================*/

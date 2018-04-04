@@ -155,6 +155,144 @@ $(document).ready(function(){
      * FIN
      * Reordering content element
      */
+
+    /**
+     * Dans liste d'éléments, suppression recherche, selection
+     */
+    // suppression recherche
+    $('.element-name-search-container .delete-input').on('click', function(){
+        var associated_input = $(this).prev('.element-name-search-input');
+        associated_input.val('');
+        associated_input.trigger('keyup');
+    });
+
+    // suppression filtre par statut (publié, en attente, etc)
+    // affichage bouton de suppression
+    $(document).on('click', '.send-state-filter-container .status-filter-drop-down ul li', function(){
+        $(this).parents('.send-state-filter-container').find('.delete-input').show();
+    });
+    // gestion de suppression de selection
+    $(document).on('click', '.send-state-filter-container .delete-input', function(){
+        $(this).parents('.send-state-filter-container').find('.status-filter-drop-down ul li span[data-path=default]').parent('li').click();
+        $(this).hide();
+    });
+
+    // suppression selection action de groupe
+    // affichage bouton de suppression
+    $(document).on('click', '.selected-elements-button-container .dropdown .dropdown-menu a', function(){
+        $(this).parents('.dropdown').next('.delete-input').show();
+    });
+    // gestion de suppression de selection
+    $(document).on('click', '.selected-elements-button-container .delete-input', function(){
+        var selected_element_container = $(this).parents('.selected-elements-button-container');
+        var dropdown_toggle = selected_element_container.find('.dropdown button.dropdown-toggle');
+        dropdown_toggle.text(dropdown_toggle.attr('data-default-text'));
+        selected_element_container.find('.button-container .btn-valider').attr('data-grouped-action', '');
+    });
+    /**
+     * FIN
+     * Dans liste d'éléments, suppression recherche, selection
+     */
+
+    /**
+     * Actions de groupe
+     */
+    $(document).on('change', '.element-data-container .styled-checkbox', function(){
+        var checked = getChecked();
+        var one_selected_element_text = $('input[name=multiple_selection_one_selected_element_text]').length > 0 ? $('input[name=multiple_selection_one_selected_element_text]').val() : ' élément sélectionné';
+        var many_selected_elements_text = $('input[name=multiple_selection_many_selected_elements_text]').length > 0 ? $('input[name=multiple_selection_many_selected_elements_text]').val() : ' éléments sélectionnés';
+        var text = (checked.length == 1)?checked.length+one_selected_element_text:((checked.length > 1)?checked.length+many_selected_elements_text:"");
+        $(".selected-elements .selected-count input").val(text);
+        if (checked.length > 0) {
+            $('.selected-elements').css('display',"flex");
+            $('.selected-elements .selected-count .delete-input').css('display','block');
+        } else {
+            $('.selected-elements').css('display',"none");
+            $('.selected-elements').trigger('hide-block');
+        }
+    });
+
+    // suppression des selections effectuées
+    $(document).on('click', '.selected-elements .selected-count .delete-input', function(){
+        $('.element-data-container .styled-checkbox').each(function(){
+            $(this).prop('checked', false);
+        });
+        $('.selected-elements').css('display',"none");
+        $('.selected-elements').trigger('hide-block');
+    });
+
+    // Selection de type d'action de groupe
+    $(document).on('click', '.grouped-action-choice', function(e){
+        e.preventDefault();
+        var selected_element_container = $(this).parents('.selected-elements-button-container');
+        selected_element_container.find('button.dropdown-toggle').text($(this).text());
+        selected_element_container.find('.button-container .btn-valider').attr('data-grouped-action', $(this).attr('data-grouped-action'));
+    });
+
+    // action à la fermeture du block d'action de groupe
+    $(document).on('hide-block', '.selected-elements', function(){
+        var dropdown_toggle_button = $(this).find('.selected-elements-button-container').find('.dropdown').find('button.dropdown-toggle');
+        dropdown_toggle_button.text(dropdown_toggle_button.attr('data-default-text'));
+        $(this).find('.selected-elements-button-container').find('.button-container .btn-valider').attr('data-grouped-action', '');
+        $(this).find('.selected-elements-button-container').find('.dropdown-container .delete-input').hide();
+        checked = [];
+    });
+
+    // TODO : implementing general logic
+    // soumission action de groupe
+    $(document).on('click', '.selected-elements .selected-elements-button-container .btn-valider', function(e){
+        e.preventDefault();
+        /*if ('undefined' !== typeof $(this).attr('data-grouped-action') && '' != $(this).attr('data-grouped-action')){
+            $('.chargementAjax').removeClass('hidden');
+            var arr_checked = getChecked();
+            var str_checked = arr_checked.join(',');
+            var data = {'element_id_list': str_checked, 'grouped_action_type': $(this).attr('data-grouped-action')};
+            if ($('input[name=welcoming_news_post_type]').length > 0 && 'true' == $('input[name=welcoming_news_post_type]').val()){
+                if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                    var redirection_url = $('input[name=archived_welcoming_news_post_list_url]').val();
+                } else {
+                    var redirection_url = $('input[name=welcoming_news_post_list_url]').val();
+                }
+            } else {
+                if ($('input[name=archived_state]').length > 0 && 'true' == $('input[name=archived_state]').val()) {
+                    var redirection_url = $('input[name=archived_news_post_list_url]').val();
+                } else {
+                    var redirection_url = $('input[name=news_post_list_url]').val();
+                }
+            }
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('data-target-url'),
+                data: data,
+                success: function(){
+                    window.location.replace(redirection_url);
+                },
+                complete: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            });
+        }*/
+    });
+
+    /**
+     * FIN
+     * Actions de groupe
+     */
+
+    /**
+     * Incrémentation - Décrémentation nombre éléments de liste selectionnés
+     */
+    $(document).on('click', '.element-list .element-data-container .styled-checkbox', function(){
+        if($(this).is(':checked')){
+            checked.push($(this).attr('id'));
+        } else {
+            checked.splice(checked.indexOf($(this).attr('id')), 1);
+        }
+    });
+    /**
+     * FIN
+     * Incrémentation - Décrémentation nombre éléments de liste selectionnés
+     */
 });
 
 function installWysiwyg()
@@ -222,3 +360,8 @@ $(document).ready(function(){
         $(this).find('.general-message.error-message-container').text('');
     });
 });
+
+var checked = [];
+function getChecked() {
+    return checked;
+}

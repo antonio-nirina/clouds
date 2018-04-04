@@ -129,8 +129,8 @@
                                         </button>
                                         <div class="dropdown-menu suppr-menu" aria-labelledby="dropdownTypeFilter">
                                             <a class="dropdown-item suppr-menu" href="#">
-                                                TOUS
-                                                <span>All</span>
+                                                SUPPRIMER
+                                                <span>supp</span>
                                             </a>
                                             <a class="dropdown-item suppr-menu" href="#">
                                                 SONDAGE
@@ -156,9 +156,13 @@
                             <div class="col-12 col-lg-9 nom-test">
                                     <div class="data-container">
                                             <div>
-                                                <label class="radioChecked notChecked">
+                                                {#<label class="radioChecked notChecked">
                                                     <input type="checkbox" name="radio" class="styled-checkbox bigger" style="display:none">
-                                                </label>
+                                                </label>#}
+                                                <div>
+                                                <input id="{{ view.id }}" type="checkbox" class="styled-checkbox bigger">
+                                                <label for="{{ view.id }}"></label>
+                                            </div>
                                             </div>
                                                 {% if view.estPublier == true %}                           
                                                 <div class="hidden-sm-down quest-image"></div>
