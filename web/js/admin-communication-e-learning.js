@@ -765,6 +765,74 @@ $(document).ready(function(){
      * Création e-learning - Reordonnancement
      * *********************************************************************************************
      */
+
+    /**
+     * *********************************************************************************************
+     * Communication - E-learning
+     * Aperçu
+     * *********************************************************************************************
+     */
+    // appel popup
+    $(document).on('click', '.preview-e-learning', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var target_url = $(this).attr('data-target-url');
+        $.ajax({
+            type: 'GET',
+            url: target_url,
+            success: function(data){
+                $('#preview-e-learning-modal').find('.modal-body-container').html(data.content);
+            },
+            statusCode: {
+                404: function(data){
+                    $('#preview-e-learning-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#preview-e-learning-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#preview-e-learning-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#preview-e-learning-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#preview-e-learning-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
+    // ouverture detail aperçu
+    $(document).on('click', '#preview-e-learning-modal .preview-icon', function(e){
+        e.preventDefault();
+        var detail_container = $(this).parents('.main-container').find('.standard-content-detail-container');
+        var chevron_up = $(this).parent().children('.chevron-up');
+        var preview_icon_container = $(this).parent();
+        $(this).hide();
+        chevron_up.show();
+        preview_icon_container.css('align-items', 'flex-start');
+        detail_container.show();
+    });
+
+    // fermeture detail aperçu
+    $(document).on('click', '#preview-e-learning-modal .chevron-up', function(e){
+        e.preventDefault();
+        var detail_container = $(this).parents('.main-container').find('.standard-content-detail-container');
+        var preview_icon = $(this).parent().children('.preview-icon');
+        var preview_icon_container = $(this).parent();
+        $(this).hide();
+        preview_icon.show();
+        preview_icon_container.css('align-items', 'center');
+        detail_container.hide();
+    });
+
+    /**
+     * *********************************************************************************************
+     * FIN
+     * Communication - E-learning
+     * Aperçu
+     * *********************************************************************************************
+     */
 });
 
 function addMediaFormBlockBases()

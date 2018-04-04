@@ -147,4 +147,26 @@ class ELearningManager extends BasicManager
         $e_learning_button_content->setELearning($e_learning);
         $this->em->persist($e_learning_button_content);
     }
+
+    /**
+     * Retrieve ELearning ordered content
+     *
+     * @param ELearning $e_learning
+     *
+     * @return mixed
+     */
+    public function retrieveELearningContentData(ELearning $e_learning)
+    {
+        $result['media_contents'] = $this->em->getRepository('AdminBundle\Entity\ELearningMediaContent')
+            ->findBy(array('e_learning' => $e_learning), array('content_order' => 'ASC'));
+
+        $result['quiz_contents'] = $this->em->getRepository('AdminBundle\Entity\ELearningQuizContent')
+            ->findBy(array('e_learning' => $e_learning), array('content_order' => 'ASC'));
+
+        $button_contents = $this->em->getRepository('AdminBundle\Entity\ELearningButtonContent')
+            ->findBy(array('e_learning' => $e_learning));
+        $result['button_content'] = !empty($button_contents) ? $button_contents[0] : null;
+
+        return $result;
+    }
 }
