@@ -310,6 +310,26 @@
                 {{ home_page_post.content | raw }}
                 </div>
 
+                {%
+                if home_page_post.postType == constant('NEWS_POST', home_page_post_type_class)
+                or home_page_post.postType == constant('WELCOMING_NEWS_POST', home_page_post_type_class)
+                %}
+                    {% if true == home_page_post.newsPost.actionButtonState %}
+                        {% if home_page_post.newsPost.actionButtonTargetPage is not empty %}
+                            {% set target = home_page_post.newsPost.actionButtonTargetPage  %}
+                        {% elseif home_page_post.newsPost.actionButtonTargetUrl is not empty %}
+                            {% set target = home_page_post.newsPost.actionButtonTargetUrl  %}
+                        {% else %}
+                            {% set target = '#' %}
+                        {% endif %}
+                <div class="button-container">
+                    <a class="action-button" href="{{ target }}" {{ target == '#' ? '' : 'target=_blank' }} style="background-color: {{ home_page_post.newsPost.actionButtonBackgroundColor }}; color: {{ home_page_post.newsPost.actionButtonTextColor }}">
+                        {{ home_page_post.newsPost.actionButtonText }}
+                    </a>
+                </div>
+                    {% endif %}
+                {% endif %}
+
                 <p class = "btn-jaime-block-center light">
                     <span class = "lib-btn-jaime regular">J'aime 73</span>
                 </p>

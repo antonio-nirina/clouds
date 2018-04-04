@@ -2693,3 +2693,24 @@ textarea{
 	display: inline-block;
 	margin-right: 20px;
 }
+
+/**
+ * Bouton d'action - Posts page d'accueil
+ */
+.button-container{
+	display: flex;
+	justify-content: center;
+	padding: 20px 0;
+}
+
+.button-container .action-button{
+	border-radius: 25px;
+	padding: 10px 20px 10px 20px;
+	background-color: #ff0000;
+	color: #ffffff;
+	font-family: var(--police) !important;
+	display: inline-block;
+	max-width: 250px;
+	text-align: center;
+	word-wrap: break-word;
+}
