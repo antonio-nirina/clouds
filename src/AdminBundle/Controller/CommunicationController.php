@@ -2326,6 +2326,49 @@ class CommunicationController extends AdminController
     }
 
     /**
+     * Action to call when previewing e-learning
+     * (using AJAX call)
+     *
+     * @param Request $request
+     * @param int $id
+     *
+     * @return JsonResponse
+     *
+     * @Route("/e-learning/previsualisation/{id}", requirements={"id": "\d+"}, name="admin_communication_e_learning_preview")
+     */
+    public function previewELearningAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $e_learning = $em->getRepository('AdminBundle\Entity\ELearning')->findOneBy(array(
+            'id' => $id,
+            'program' => $program,
+        ));
+        if (is_null($e_learning)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $e_learning_manager = $this->get('AdminBundle\Manager\ELearningManager');
+        $e_learning_data = $e_learning_manager->retrieveELearningContentData($e_learning);
+
+        $data = $json_response_data_provider->success();
+        $data['content'] = $this->renderView('AdminBundle:Communication/ELearning:preview_e_learning.html.twig', array(
+            'e_learning' => $e_learning,
+            'e_learning_media_contents' => $e_learning_data['media_contents'],
+            'e_learning_quiz_contents' => $e_learning_data['quiz_contents'],
+            'e_learning_button_content' => $e_learning_data['button_content'],
+            'content_type_class' => new ELearningContentType(),
+        ));
+
+        return new JsonResponse($data, 200);
+    }
+
+    /**
      * Configuring e-learning welcoming banner
      *
      * @return Response
