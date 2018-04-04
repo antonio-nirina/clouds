@@ -75,7 +75,7 @@ class RegistrationController extends BaseController
                 $code = $this->generateCodeId($al);
                 $val = $em->findOneByCode($code);               
                 while (!empty($val)) {
-                   $code = $this->generateCodeId($total);
+                   $code = $this->generateCodeId($al);
                    break;
                 }                               
                 if (!empty($var)) {
