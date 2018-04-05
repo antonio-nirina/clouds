@@ -1,0 +1,65 @@
+image: epcallan/php7-testing-phpunit:7.1-phpunit5
+
+variables:
+  gitlab_path: "bocasay/symfony/cloud-rewards-v2"
+  git_ssh_url: "git@gitlab.com:$gitlab_path.git"
+  insight_branch: "develop"
+  application_path: "."
+
+cache:
+  key: "$CI_JOB_NAME"
+  untracked: true
+  paths:
+      - vendor/
+
+before_script:
+  - apt install -y unzip
+  - composer install -d $application_path
+
+
+phplint:
+  stage: build
+  script:
+    - composer require --dev jakub-onderka/php-parallel-lint -d $application_path/
+    - php $application_path/vendor/bin/parallel-lint $application_path/ --exclude $application_path/vendor --exclude $application_path/bin --exclude $application_path/var --exclude $application_path/web
+  artifacts:
+    paths:
+      - vendor/
+
+insight-create:
+  stage: build
+  script:
+    - git clone https://gitlab.com/mbernard-bocasay/analyse.git analyze
+    - unzip -n analyze/insight.zip -d ./
+    - sh insight/create.sh
+  artifacts:
+    paths:
+    - analyze.html
+    expire_in: 1 week
+
+insight-analyze:
+  stage: test
+  script:
+    - git clone https://gitlab.com/mbernard-bocasay/analyse.git analyze
+    - unzip -n analyze/insight.zip -d ./
+    - sh insight/analyze.sh
+  artifacts:
+      paths:
+        - analyze/
+
+phpcs:
+  stage: test
+  script:
+    - git clone https://github.com/Endouble/Symfony3-custom-coding-standard.git && composer install -d ./Symfony3-custom-coding-standard
+    - ./Symfony3-custom-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../../../Symfony3-custom-coding-standard
+    - ./Symfony3-custom-coding-standard/vendor/bin/phpcs -d memory_limit=512M --standard=Symfony3Custom --ignore=*/vendor/*,*/app/*,*/bin/*,*/var/*,*/web/*,*/DataFixtures/*,*/Symfony3Custom/* $application_path/ --report=full
+
+phpunit:
+  stage: test
+  script:
+    - php $application_path/vendor/bin/simple-phpunit $application_path/tests
+  
+
+
+
+
