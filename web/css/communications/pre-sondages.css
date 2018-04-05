@@ -606,7 +606,6 @@ height: 33px;
 .champForm .lib-form{
   font-size: 13px;
 color: var(--couleur_4);
-font-family: var(--police_bold);  
 }
 
 .champForm .block{
@@ -650,7 +649,6 @@ color: var(--couleur_4);
 
 span.lib-form{
 color: var(--couleur_4);
-font-family: var(--police_bold);
 }
 
 /*================================================================================================================*/

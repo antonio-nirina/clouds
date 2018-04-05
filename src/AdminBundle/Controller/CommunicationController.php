@@ -1839,7 +1839,6 @@ class CommunicationController extends AdminController
                 return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
             }
         }
-
         $content_option = array(
             'news_post_form' => $news_post_form->createView(),
             'news_post_submission_type_class' => new NewsPostSubmissionType(),
@@ -2397,7 +2396,8 @@ class CommunicationController extends AdminController
         }
         $status = $request->request->get("statut");
         $manager = $this->get("adminBundle.sondagequizManager");
-        $allData = $manager->getAllSondageQuiz($status);
+        $allData = $manager->getAllSondageQuiz();
+        dump($allData);
         $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
         return $this->render('AdminBundle:Communication:preSondage.html.twig',["data"=>$allData,"obj"=>$data]);
     }

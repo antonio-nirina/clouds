@@ -277,22 +277,20 @@
 					<span class="lib-form">qui verra ce sondage / quiz?</span>
 					<span class = "content-dropdown-toggle dropdown clearable filtres">
 						<button class="btn btn-secondary dropdown-toggle dropdownMenuActionTypeRole" type="button" id="dropdownMenuActionTypeRole-{{ NbreQuestion }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-							tous les participants
+							{{formQuestionnaires.authorized_role.vars.choices[0].label|upper}}
 						</button>
 					<div id = "dropdownMenuListeTypeRole-{{ NbreQuestion }}" class="dropdown-menu dropdownMenuListeTypeRole" aria-labelledby="dropdownMenuListeTypeRole">
-						<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
-							tous les participants
+						{% for choice in formQuestionnaires.authorized_role.vars.choices %}
+						<a class="dropdown-item" data-id = "{{ NbreQuestion }}" data-value ="{{choice.value}}" href="#">
+							{{choice.label|upper}}
 						</a>
-						<a class="dropdown-item" data-id = "{{ NbreQuestion }}" href="#">
-							par roles
-						</a>						
+						{% endfor %}					
 					</div>
 				</span>
 				{{ form_widget(formQuestionnaires.authorized_role, {'attr': {'class': 'hidden'}}) }}
 				{{ form_errors(formQuestionnaires.authorized_role) }}
 			</div>
 	</div>
-
 
 	<div class="row submit">
 		<div class="col-12 col-md-6" style="text-align:right;">
@@ -305,73 +303,6 @@
 	</div>
 	{{ form_rest(formQuestionnaires) }}
 	{{ form_end(formQuestionnaires) }}
-
-				{% for QuestionsInfos in QuestionsInfosArray%}
-				<section class="fieldset inactive">
-					<div class="block-active-hover"></div>
-					<div class="row">
-                        <div class="col-12 col-sm-9 col-md-9">
-                            <h3 class="hidden-sm-down block-title">{{ QuestionsInfos.TitreQuestionnaire }}</h3>
-                            <h5 class="hidden-md-up block-title">{{ QuestionsInfos.TitreQuestionnaire }}</h5>
-                            <p class="date-info">créé le {{ QuestionsInfos.DateCreation | localizeddate('none', 'none', locale, null, "d MMMM yyyy") }}</p>
-
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="option-container">
-                                <a href="{{ path("admin_communication_sondage_quiz", { 'id': QuestionsInfos.Id }) }}" class="edit-post"></a>
-                                <a href="#" class="delete-post" data-sondages-quiz-post-id="{{ QuestionsInfos.Id }}" data-toggle="modal" data-target="#confirm-delete-dialog-{{ QuestionsInfos.Id }}"></a>
-                                <a href="#" class="close-edit-post-form"></a>
-                            </div>
-                        </div>
-                    </div>
-				</section>
-				
-				<!-- dialog - confirmation suppression sondages/quiz -->
-				<div id="confirm-delete-dialog-{{ QuestionsInfos.Id }}" class="modal fade confirm-delete-dialog" tabindex="-1" role="dialog">
-					<div class="modal-dialog modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
-							</div>
-							<div class="modal-body">
-								<div class="modal-body-container">
-									<div class="text-container">
-										<span class="confirm-dialog-title">Suppression</span>
-										<p class="message">Êtes-vous sûr de vouloir supprimer définitivement ?</p>
-									</div>
-									<div>
-										<button id = "id-confirm-delete-{{ QuestionsInfos.Id }}" class ="btn-valider confirm-delete-quiz">
-											valider
-										</button>
-									</div>
-								</div>
-							</div>
-							<input type="hidden" name="edito_post_id" value="">
-						</div>
-					</div>
-				</div>
-				<!-- FIN - dialog - confirmation suppression sondages/quiz -->
-				{% endfor %}
-            </div>
-        </div>
-
-        <div class = "row separator"></div>
-		
-		<!-- dialog - edition sondages/quiz -->
-		<div id="edit-sondages-quiz" class="modal fade edit-sondages-quiz" tabindex="-2" role="dialog">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
-					</div>
-					<div class="modal-body">
-						<div class="modal-body-container"></div>
-					</div>
-					<input type="hidden" name="edito_post_id" value="">
-				</div>
-			</div>
-		</div>
-		<!-- FIN - dialog - confirmation suppression sondages/quiz -->
-	
+	<!-- FIN - dialog - confirmation suppression sondages/quiz -->	
 	<input type="hidden" name="ckeditor_config_general_path" value="{{ asset('ckeditor/custom/config-general.js') }}">
 		

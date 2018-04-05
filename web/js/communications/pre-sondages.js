@@ -385,14 +385,9 @@ $(document).ready(function(){
     //Selection  type Roles 
     $(document).on('click', 'div.dropdownMenuListeTypeRole a.dropdown-item', function(){
         var Id = $(this).attr('data-id');
-        var MenuClicker = $.trim($(this).html());        
-        var choix = '0';
-        if(MenuClicker == 'tous les participants'){
-            choix = '1';
-        }else if(MenuClicker == 'par roles'){
-            choix = '2';
-        }
-        $('select#sondages_quiz_questionnaire_infos_authorized_role').val(choix).change();
+        var val = $(this).attr('data-value');
+        var MenuClicker = $.trim($(this).html());             
+        $('select#sondages_quiz_questionnaire_infos_authorized_role').val(val).change();
         $('button#dropdownMenuActionTypeRole-'+Id+'').html(MenuClicker);
         $('div#dropdownMenuListeTypeRole-'+Id+'').hide();
         return false;

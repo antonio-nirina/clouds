@@ -18,30 +18,13 @@ class SondageQuizManager
 
     /**
      * Retrieve data of sondage Quiz
-     * @param string $status
+     * 
      * @return array
      */
-    public function getAllSondageQuiz($status = "")
-    {
-        if (!empty($status)){
-            switch ($status){
-                case ConstanteStatus::ARCHIVED :
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->findOneByEst_archived(["date_creation"=>"desc"]);
-                    break;
-                case ConstanteStatus::CLOTURE:
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->findOneByEst_cloture(["date_creation"=>"desc"]);
-                    break;
-                case ConstanteStatus::PUBLIE:
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->findOneByEst_publier(["date_creation"=>"desc"]);
-                    break;
-
-            }
-
-        } else {
-            $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
+    public function getAllSondageQuiz()
+    {    
+        $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
                 ->findBy([],["date_creation"=>"DESC"]);
-        }
-
         return $data;
     }
 
