@@ -2586,7 +2586,7 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/pre-sondage/-groupe", name="admin_communication_pre_sondage_group_action")
+     * @Route("/pre-sondage/groupe", name="admin_communication_pre_sondage_group_action")
      */
     public function groupPreSondageAction(Request $request)
     {
