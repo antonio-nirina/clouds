@@ -22,6 +22,10 @@
     display: none;
 }
 
+.questionnaires{
+    width: 205px !important;
+}
+
 .jplist-drop-down.status-filter-drop-down{
     width: 160px;
     position: relative;
@@ -85,6 +89,10 @@
     cursor: pointer;
 }
 
+.control-panel.pagination-container {
+    margin-top: 53px;
+}
+
 .control-panel.pagination-container .jplist-pagination{
     width: 100%;
     display: flex;
@@ -105,6 +113,7 @@
 
 .control-panel.pagination-container .jplist-pagination .jplist-pagingmid button.jplist-current{
     color: var(--couleur_2);
+
 }
 
 .control-panel.pagination-container .jplist-pagination .jplist-pagingmid button:not(:last-child)::after{
@@ -125,7 +134,10 @@
 .hidden-block{
     display: none !important;
 }
-/************************************/
+.control-panel.pagination-container .jplist-pagination .jplist-first{
+     display: none !important;
+}
+/***************************************************************************************/
 
 .fieldset.active{
     margin-top:10px;
@@ -332,22 +344,6 @@ font-size: 14px;
 font-family: var(--police);
 height: 34px !important;
 }
-
-/*.notChecked{
-	background: url('../../images/cloudsRewards/check-off.png');
-}
-
-.checked{
-	background: url('../../images/cloudsRewards/check-on.png');
-}
-
-.radioChecked{
-	width: 25px;
-	height: 25px;
-	cursor: pointer;
-	display: inline-block;
-	float: left;
-}*/
 
 .styled-checkbox.bigger:checked + label{
     background: url('../../images/cloudsRewards/check-on.png') no-repeat;

@@ -81,61 +81,6 @@ function HideShowSondagesOrQuiz(Type){
     }
 }
 
-function sendFilter(){
-    var filter = $('.dropdown.all-filter').find('button').hasClass('active');
-    var donnee = $('input[name=obj]').val();
-    var data = JSON.parse(donnee);
-    console.log(data)
-    var newdata = [];
-    var  obj = {};
-    if (filter) {
-        obj.status = $('.dropdown.filtres').find('button').find("span").html().trim();
-    }
-    if (obj.status == "publie") {
-        var res = data.map(function(index, elem) {
-            if (index.publie == true ) {
-                newdata.push(index);
-            } 
-            return newdata;
-        });
-
-    } else if (obj.status == "cloture") {
-        var res = data.map(function(index, elem) {
-            if (index.cloture == true ) {
-                newdata.push(index);
-
-            } 
-            return newdata;
-        });
-        
-    } else if (obj.status == "attente") {
-        var res = data.map(function(index, elem) {
-            if (index.publie == false ) {
-                newdata.push(index);
-            } 
-            return newdata;
-        });
-    } else {
-       newdata.push(data);
-    }
-    
-    if (newdata.length > 2) {
-        $(".container-page").css("display","flex");
-        $(".nom-test").css("display", "none");
-        $(".nom-test2").css("display", "flex");
-        $('.container-page').pagination({
-            pageSize: 2,
-            showPrevious: false,
-            nextText:"dernier",
-            dataSource: newdata ,
-            callback: function(obj, pagination) {
-                var html = template(obj);
-                $('.nom-test2').html(html);
-            }
-         });
-    }
-}
-
 function template(obj) {
     var html = [];
     $.each(obj, function(index, item){
@@ -260,18 +205,38 @@ $(document).ready(function(){
     });
     // suivre pour les dropdown and valide
      $(document).on('hide-block', '.checked-quiz', function(){
-        var dropdown_toggle_button = $(this).find('.selected-elements-button-container').find('.dropdown').find('button.dropdown-toggle');
-        dropdown_toggle_button.text(dropdown_toggle_button.attr('data-default-text'));
-        $(this).find('.selected-elements-button-container').find('.button-container .btn-valider').attr('data-grouped-action', '');
-        $(this).find('.selected-elements-button-container').find('.dropdown-container .delete-input').hide();
+        var dropdown_toggle_button = $(this).find('.supp-supp').find('button.dropdown');
+        dropdown_toggle_button.text(dropdown_toggle_button.attr('data-default'));
+        $(this).find('.btn-supp').find('.btn-valider').attr('data-grouped-action', '');
+        //$(this).find('.selected-elements-button-container').find('.dropdown-container .delete-input').hide();
         checked = [];
     });
+    //submit sondage selected
+     $(document).on('click', '.checked-quiz .btn-supp .btn-valider', function(e){
+        e.preventDefault();
+        if ('undefined' !== typeof $(this).attr('data-grouped-action') && '' != $(this).attr('data-grouped-action')){
+            $('.chargementAjax').removeClass('hidden');
+            var arr_checked = getChecked();
+            var str_checked = arr_checked.join(',');
+            var data = {'id_list': str_checked, 'grouped_action_type': $(this).attr('data-grouped-action')};
+            if ($('input[name=archived_status]').length > 0 && 'true' == $('input[name=archived_status]').val()) {
+                    var redirection_url = $('input[name=list-url-archived]').val();
+            } else {
+                    var redirection_url = $('input[name=news_post_list_url]').val();
+            }
 
-
-    $(document).on('click','.clearable .dropdown-item', function(e){
-            e.preventDefault(); 
-            var a = $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
-            setTimeout(sendFilter($(this)), 0);
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('data-target-url'),
+                data: data,
+                success: function(){
+                    window.location.replace(redirection_url);
+                },
+                complete: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            });
+        }
     });
 
 	$('.create_sondage_quiz').on('click', function(e){

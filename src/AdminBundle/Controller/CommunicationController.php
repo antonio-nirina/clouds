@@ -2397,7 +2397,6 @@ class CommunicationController extends AdminController
         $status = $request->request->get("statut");
         $manager = $this->get("adminBundle.sondagequizManager");
         $allData = $manager->getAllSondageQuiz();
-        dump($status);
         $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
         return $this->render('AdminBundle:Communication:preSondage.html.twig',["data"=>$allData,"obj"=>$data]);
     }
@@ -2583,6 +2582,37 @@ class CommunicationController extends AdminController
         }
         $manager = $this->get("adminBundle.sondagequizManager");
         $data = $manager->renderToArchived($editSondage,$archived);
+        return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/pre-sondage/-groupe", name="admin_communication_pre_sondage_group_action")
+     */
+    public function groupPreSondageAction(Request $request)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $idList = $request->get('id_list');
+        $actionType = $request->get('action_type');
+
+        if (is_null($idList)
+            || is_null($actionType)
+            || !in_array($actionType, GroupActionType::NEWS_POST_VALID_GROUP_ACTION)
+        ) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $manager = $this->get("adminBundle.sondagequizManager");
+        $manager->groupAction(
+            explode(',', $idList),
+            $actionType,
+            $program
+        );
+
         return new JsonResponse($json_response_data_provider->success(), 200);
     }
 

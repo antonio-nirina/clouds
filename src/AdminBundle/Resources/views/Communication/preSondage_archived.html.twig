@@ -316,6 +316,8 @@
     <input type = "hidden" name ="obj" value ="{{dataJson}}"> 
     <input type="hidden" name="list-url" value="{{ path('admin_communication_pre_sondage') }}">
     <input type="hidden" name="create__url" value="{{ path('admin_communication_pre_sondage_create') }}">
+    <input type="hidden" name="archived_status" value="true">
+    <input type="hidden" name="list-url-archived" value="{{path("admin_communication_pre_sondage_news_archived")}}">
 {% endblock %}
 
 {% block footer %}
@@ -329,6 +331,11 @@
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
              <script src="{{ asset('js/pagination.min.js')}}"></script>
             {#<script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>#}
+            <script src="{{ asset('jplist/js/jplist.core.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.sort-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.pagination-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.textbox-filter.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.filter-dropdown-bundle.min.js') }}"></script>
             <script src="{{ asset("js/admin-widget-and-common-functions.js") }}"></script>
             <script type="text/javascript" src="{{asset("js/communications/pre-sondages.js")}}"></script> 
         {% endblock %}
