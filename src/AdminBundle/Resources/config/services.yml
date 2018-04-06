@@ -117,3 +117,8 @@ services:
     adminBundle.sondagequizManager:
         class: AdminBundle\Manager\SondageQuizManager
         autowire: true
+
+    adminBundle.form.sondagequizInfosType:
+        class: AdminBundle\Form\SondagesQuizQuestionnaireInfosType
+        autowire: true
+        autoconfigure: true

@@ -3,6 +3,7 @@ namespace AdminBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use AdminBundle\Component\SondageQuizConst\ConstanteStatus;
+use AdminBundle\Component\GroupAction\GroupActionType;
 
 
 class SondageQuizManager
@@ -18,30 +19,13 @@ class SondageQuizManager
 
     /**
      * Retrieve data of sondage Quiz
-     * @param string $status
+     * 
      * @return array
      */
-    public function getAllSondageQuiz($status = "")
-    {
-        if (!empty($status)){
-            switch ($status){
-                case ConstanteStatus::ARCHIVED :
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->findOneByEst_archived(["date_creation"=>"desc"]);
-                    break;
-                case ConstanteStatus::CLOTURE:
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->findOneByEst_cloture(["date_creation"=>"desc"]);
-                    break;
-                case ConstanteStatus::PUBLIE:
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->findOneByEst_publier(["date_creation"=>"desc"]);
-                    break;
-
-            }
-
-        } else {
-            $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
+    public function getAllSondageQuiz()
+    {    
+        $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
                 ->findBy([],["date_creation"=>"DESC"]);
-        }
-
         return $data;
     }
 
@@ -135,4 +119,26 @@ class SondageQuizManager
 
     }
 
+    /**
+     * @param $idList
+     * @param $actionType
+     */
+    public function groupAction($idList,$actionType)
+    {
+        foreach ($idList as $key => $value) {
+            $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
+                    ->findOneById($value);
+            if (!empty($data)) {
+                if (GroupActionType::DELETE == $actionType) {
+                    $this->delete($data, false);
+                } elseif (GroupActionType::ARCHIVE == $actionType) {
+                    $this->renderToArchived($data, true);
+                } elseif (GroupActionType::RESTORE == $actionType) {
+                    $this->renderToArchived($data, false);
+                }
+            }
+        }
+        $this->em->flush();
+        return;
+    }
 }

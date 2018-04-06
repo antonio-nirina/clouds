@@ -12,10 +12,18 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use AdminBundle\Form\SondagesQuizQuestionsType;
 use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
+use Doctrine\ORM\EntityManager;
 
 
 class SondagesQuizQuestionnaireInfosType extends AbstractType
 {
+	protected $em;
+
+	public function __construct(EntityManager $em) 
+	{
+        $this->em = $em;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -41,10 +49,7 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
 					'prototype_name' => '__opt_questions__'
 				  ))
 				->add('authorized_role',ChoiceType::class, array(
-						'choices' => array(
-							'tous les participants' => '1',
-							'par roles' => '2'
-						),
+						'choices' => $this->getAllRoles(),
 						'choices_as_values' => true,
 						'multiple' => false,
 						'expanded' => false,
@@ -67,6 +72,16 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
     public function getName()
     {
         return 'sondages_quiz_questionnaire_infos';
+    }
+
+    protected function getAllRoles()
+    {
+    	 $roles = $this->em->getRepository('AdminBundle\Entity\Role')->findAll();
+    	 foreach ($roles as $key => $value) {
+    	 	$role[$value->getName()] = $value->getId();
+    	 }
+
+    	 return $role;
     }
 
 }
