@@ -5,8 +5,12 @@
         {% block stylesheets %}
             {{ parent() }}
             <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
-			<link href="{{ asset("css/communications/sondages-quiz.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/communications/sondages-quiz.css") }}" rel="stylesheet">
             <link href="{{ asset("css/communications/pre-sondages.css") }}" rel="stylesheet">
+
+            <link href="{{ asset("jplist/css/jplist.core.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.textbox-filter.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.checkbox-dropdown.min.css") }}">
         {% endblock %}
     {% endembed %}
 {% endblock %}
@@ -46,7 +50,7 @@
         </div>
         <div class="row">
             <div class="col-12 col-md-12">
-                <section  class = "fieldset active">
+                <section  class = "fieldset active main-section">
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-12">
                              <h3 class="hidden-sm-down block-title">Création et édition de sondage et quiz</h3>
@@ -63,7 +67,7 @@
                                 </div>
                         </div>
                     </div>
-                    <div class="row trie-sondage preSondageQuiz"> 
+                    {#<div class="row trie-sondage preSondageQuiz"> 
                             <div class="col-sm-4 col-md-4">
                                 <div class="dropdown clearable filtres all-filter quiz-filter">
                                         <button class="btn btn-secondary dropdown-toggle filtre" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
@@ -109,7 +113,27 @@
                                             </a>
                                         </div>
                                     </div>
+                            </div>#}
+                        <div class="row filter news-filter control-panel trie-sondage preSondageQuiz">
+                            <div class="col-sm-4 col-md-4 send-state-filter-container filter-block-element-container">
+                                <div class="jplist-drop-down status-filter-drop-down" data-control-type="filter-drop-down" data-control-name="status-filter" data-control-action="filter">
+                                    <ul>
+                                        <li><span data-path="default">TOUS</span></li>
+                                        <li><span data-path=".published">PUBLIÉ</span></li>
+                                        <li><span data-path=".attente">EN ATTENTE</span></li>
+                                        <li><span data-path=".cloture">{{"clôturé"|upper}}</span></li>
+                                    </ul>
+                                </div>
                             </div>
+                                <div class=" col-sm-5 col-md-5 send-state-filter-container filter-block-element-container">
+                                    <div class="jplist-drop-down status-filter-drop-down" data-control-type="filter-drop-down" data-control-name="status-filter" data-control-action="filter">
+                                        <ul>
+                                            <li><span data-path="default">TOUS</span></li>
+                                            <li><span data-path=".sondage">SONDAGE</span></li>
+                                            <li><span data-path=".quiz">QUIZ</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             <div class="col-sm-3 col-md-3">
                             <a href="{{path("admin_communication_pre_sondage_news_archived")}}" class="add add-folder-link add-to-archive archived-campaign" 
                             data-link="">
@@ -150,10 +174,28 @@
                                 </button>
                             </div>
                         </div>
-                         {% for view in data %}
-                            {% if view.estArchived == false %}
-                        <div class="row detaille">
-                            <div class="col-12 col-lg-9 nom-test">
+                        <div class="list">
+                             {% for view in data %}
+
+                                {% set class= "" %}
+                                {% set otherClass = "" %}
+                                {% if view.typeSondagesQuiz == 2 %}
+                                    {% set otherClass = "quiz" %}
+                                {% else %} 
+                                    {% set otherClass= 'sondage' %}
+                                {% endif %}
+
+                                {% if view.estArchived == false %}
+                                   {% if view.estPublier == true %}
+                                        {% set class= "published" %}
+                                   {% elseif  view.estCloture == true  %}
+                                        {% set class= "cloture" %}
+                                   {% else %}
+                                        {% set class= "attente" %}
+                                {% endif %}
+                                
+                            <div class="row detaille element {{ class }} {{otherClass}}" data-status="{{ class }} {{otherClass}}">
+                                <div class="col-12 col-lg-9 nom-test">
                                     <div class="data-container">
                                             <div>
                                                 {#<label class="radioChecked notChecked">
@@ -201,32 +243,6 @@
                                             {% endif %}
                                         </div>
                             </div>
-                            <div class="col-12 col-lg-9 nom-test2" style="display:none">
-                                    <div class="data-container2">
-                                            <div>
-                                                <label class="radioChecked2 notChecked2">
-                                                    <input type="checkbox" name="radio" class="styled-checkbox bigger" style="display:none">
-                                                </label>
-                                            </div>
-                                            <div class="hidden-sm-down quest-image2"></div>
-                                            <div class="hidden-sm-down percent-image2"></div>
-                                            <div class="titre-quiz2">
-                                                <p id="nom-quest2"></p>                             
-                                                <p id="type-quest2">{{"Quiz"}}</p>
-                                                <p id="type-quest3">{{"Sondage"}}</p>
-                                                <p id="pub2">{{"Publié-le"}}</p>
-                                                <p id="cloture2">{{"clôturé-le"}} </p>                                                
-                                                <p id="att2">{{"En attente-modifié le"}} </p>
-                                            </div> 
-                                        <div class="nombres2">
-                                            <span id="number2">{{view.viewNumber}}</span>
-                                            <span id="participation">participations</span>
-                                        </div>
-                                        <div class=" roles2">
-                                            <span id="role2">{{view.authorizedRole}}</span>
-                                        </div>
-                                    </div>
-                            </div>
                             <div class="col-12 col-lg-3 campagne-action">
                                  {% if view.estPublier == true or view.estCloture == true %}
                                 <div class="dropdown">
@@ -263,10 +279,13 @@
                         </div>
                         {% endif %}
                         {% endfor %}
-                        <div class="not-results not-list">
+                        {#<div class="not-results not-list">
+                            <p>Aucun résultat</p>
+                        </div>#}
+                    </div>
+                       <div class="jplist-no-results hidden-block">
                             <p>Aucun résultat</p>
                         </div>
-                        <div class="container-page">ffyyy</div>
                         <!-- Modal créer sondage quiz -->
                     <div id="create-sondage-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
                         <div class="modal-dialog modal-lg modal-sondage" role="document">
@@ -368,6 +387,11 @@
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
              <script src="{{ asset('js/pagination.min.js')}}"></script>
             {#<script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>#}
+            <script src="{{ asset('jplist/js/jplist.core.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.sort-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.pagination-bundle.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.textbox-filter.min.js') }}"></script>
+            <script src="{{ asset('jplist/js/jplist.filter-dropdown-bundle.min.js') }}"></script>
             <script src="{{ asset("js/admin-widget-and-common-functions.js") }}"></script>
             <script type="text/javascript" src="{{asset("js/communications/pre-sondages.js")}}"></script> 
         {% endblock %}

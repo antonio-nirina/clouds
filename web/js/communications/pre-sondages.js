@@ -85,6 +85,7 @@ function sendFilter(){
     var filter = $('.dropdown.all-filter').find('button').hasClass('active');
     var donnee = $('input[name=obj]').val();
     var data = JSON.parse(donnee);
+    console.log(data)
     var newdata = [];
     var  obj = {};
     if (filter) {
@@ -167,7 +168,21 @@ function seletedSondage(AttrId){
     }
 }
 
+var checked = [];
+    function getChecked() {
+        return checked;
+    }
 
+$(document).ready(function(){
+        $('.chargementAjax').removeClass('hidden');
+        $('.main-section').jplist({
+            itemsBox: '.list',
+            itemPath: '.element',
+            panelPath: '.control-panel'
+        });
+        $('.jplist-no-results').removeClass('hidden-block');
+        $('.chargementAjax').addClass('hidden');
+    });
 
 $(document).ready(function(){ 
     
@@ -258,11 +273,6 @@ $(document).ready(function(){
             var a = $(this).parents('.dropdown').find('button').addClass('active').html($(this).html());
             setTimeout(sendFilter($(this)), 0);
     });
-
-    var checked = [];
-    function getChecked() {
-        return checked;
-    }
 
 	$('.create_sondage_quiz').on('click', function(e){
         e.preventDefault();

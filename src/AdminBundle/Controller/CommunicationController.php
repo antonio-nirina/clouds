@@ -2397,7 +2397,7 @@ class CommunicationController extends AdminController
         $status = $request->request->get("statut");
         $manager = $this->get("adminBundle.sondagequizManager");
         $allData = $manager->getAllSondageQuiz();
-        dump($allData);
+        dump($status);
         $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
         return $this->render('AdminBundle:Communication:preSondage.html.twig',["data"=>$allData,"obj"=>$data]);
     }
