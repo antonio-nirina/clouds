@@ -223,4 +223,9 @@ class Role
     {
         return $this->active;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -141,4 +141,19 @@ class SondageQuizManager
         $this->em->flush();
         return;
     }
+
+
+    /**
+     * @param $id
+     * 
+     */
+    public function getElementStatistique($id)
+    {
+        $results =  $this->em->getRepository("AdminBundle:ResultatsSondagesQuiz")->getResultsResponse($id);
+
+        return $results;
+       
+    }
+
+    
 }

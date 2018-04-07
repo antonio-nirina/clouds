@@ -48,12 +48,7 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
 					'prototype' => true,
 					'prototype_name' => '__opt_questions__'
 				  ))
-				->add('authorized_role',ChoiceType::class, array(
-						'choices' => $this->getAllRoles(),
-						'choices_as_values' => true,
-						'multiple' => false,
-						'expanded' => false,
-					));
+				->add('authorized_role');
     }
 	
 	/**
@@ -72,16 +67,6 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
     public function getName()
     {
         return 'sondages_quiz_questionnaire_infos';
-    }
-
-    protected function getAllRoles()
-    {
-    	 $roles = $this->em->getRepository('AdminBundle\Entity\Role')->findAll();
-    	 foreach ($roles as $key => $value) {
-    	 	$role[$value->getName()] = $value->getId();
-    	 }
-
-    	 return $role;
     }
 
 }

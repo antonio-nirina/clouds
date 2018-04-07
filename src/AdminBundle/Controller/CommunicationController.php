@@ -2394,7 +2394,6 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        $status = $request->request->get("statut");
         $manager = $this->get("adminBundle.sondagequizManager");
         $allData = $manager->getAllSondageQuiz();
         $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
@@ -2440,6 +2439,7 @@ class CommunicationController extends AdminController
         $em = $this->getDoctrine()->getManager();
         $IsSondagesQuiz = false;
         $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+        $roleDefault = $em->getRepository('AdminBundle:Role')->findByProgram($program);
         if(!isset($SondagesQuizArray[0])){
             $SondagesQuiz = new SondagesQuiz();
         }else{
@@ -2453,6 +2453,70 @@ class CommunicationController extends AdminController
         if(isset( $SondagesQuizArray[0])){
             $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
         }
+
+        $formQuestionnaires->handleRequest($request);
+        if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
+            $SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
+            if (empty($SondagesQuizQuestionnaireInfosData->getAuthorizedRole())) {
+               $SondagesQuizQuestionnaireInfosData->setAuthorizedRole($roleDefault[0]);
+            }
+            $SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuiz);
+            if($request->get("data") == "btn-publier-sondages-quiz"){
+                $SondagesQuizQuestionnaireInfosData->setEstPublier(true);
+            }else{
+                $SondagesQuizQuestionnaireInfosData->setEstPublier(false);
+            }
+
+            $em->persist($SondagesQuizQuestionnaireInfosData);
+            foreach($SondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $Questions){
+                $Questions->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfosData);
+                $em->persist($Questions);
+                foreach($Questions->getSondagesQuizReponses() as $Reponses){
+                    $Reponses->setSondagesQuizQuestions($Questions);
+                }
+            }            
+            $em->flush();
+            $data = $json_response_data_provider->success();
+            return new JsonResponse($data, 200);          
+        }
+       
+        $content = $this->renderView('AdminBundle:Communication:pre_create_sondage.html.twig', array(
+            'formQuestionnaires' => $formQuestionnaires->createView(),
+            'IsSondagesQuiz' => $IsSondagesQuiz,
+            'program' => $program,
+        ));
+        $data = $json_response_data_provider->success();
+        $data['content'] = $content;
+        return new JsonResponse($data, 200);
+    }
+
+
+    /**
+     * @Route("/pre-sondage/editer/{id}", requirements={"id": "\d+"}, name="admin_communication_pre_sondage_edit")
+     */
+    public function editPreSondageAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $editSondage = $em->getRepository("AdminBundle:SondagesQuizQuestionnaireInfos")
+            ->find($id);
+        if (empty($editSondage)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+        $IsSondagesQuiz = false;
+        $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+        if(!isset($SondagesQuizArray[0])){
+            $SondagesQuiz = new SondagesQuiz();
+        }else{
+            $SondagesQuiz = $SondagesQuizArray[0];
+            $IsSondagesQuiz = true;
+        }
+        $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $editSondage);
+        $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
 
         $formQuestionnaires->handleRequest($request);
         if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
@@ -2475,45 +2539,11 @@ class CommunicationController extends AdminController
             $data = $json_response_data_provider->success();
             return new JsonResponse($data, 200);          
         }
-       
-        $content = $this->renderView('AdminBundle:Communication:pre_create_sondage.html.twig', array(
-            'formQuestionnaires' => $formQuestionnaires->createView(),
-            'IsSondagesQuiz' => $IsSondagesQuiz,
-            'program' => $program,
-            'QuestionsInfosArray' => $QuestionsInfosArray
-        ));
-        $data = $json_response_data_provider->success();
-        $data['content'] = $content;
-        return new JsonResponse($data, 200);
-    }
-
-
-    /**
-     * @Route("/pre-sondage/editer/{id}", requirements={"id": "\d+"}, name="admin_communication_pre_sondage_edit")
-     */
-    public function editPreSondageAction(Request $request, $id)
-    {
-        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
-        }
-        $em = $this->getDoctrine()->getManager();
-        $editSondage = $em->getRepository("AdminBundle:SondagesQuizQuestionnaireInfos")
-            ->findOneById($id);
-        if (empty($editSondage)) {
-            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
-        }
-        $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $editSondage);
-        $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
-        $QuestionsInfosArray = array();
-        if(isset( $SondagesQuizArray[0])){
-            $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
-        }
+        
         $content = $this->renderView('AdminBundle:Communication:pre_create_sondage.html.twig', array(
             'formQuestionnaires' => $formQuestionnaires->createView(),
             'program' => $program,
-            'QuestionsInfosArray' => $QuestionsInfosArray
+            'edit'=> true
         ));
         $data = $json_response_data_provider->success();
         $data['content'] = $content;
@@ -2729,6 +2759,32 @@ class CommunicationController extends AdminController
         $manager = $this->get("adminBundle.sondagequizManager");
         $data = $manager->renderToCloture($clotureSondage);
         return new JsonResponse($json_response_data_provider->success(), 200);
+    }
+
+    /**
+     * @Route("/pre-sondage/statistiques/{id}", name="admin_communication_pre_sondage_stat")
+     */
+    public function statistiquesPreSondageAction(Request $request, $id)
+    {
+        $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $manager = $this->get("adminBundle.sondagequizManager");
+        $statSondage = $manager->getElementStatistique($id);
+        if (empty($statSondage)) {
+            return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
+        }
+
+        $content = $this->renderView('AdminBundle:Communication:statistique_sondage.html.twig', array(
+            'data' => $statSondage,
+        ));
+        $data = $json_response_data_provider->success();
+        $data['content'] = $content;
+        return new JsonResponse($data, 200);
     }
 
 }

@@ -1,0 +1,47 @@
+<span class="modal-body-title">Résultat sondage et Quiz</span>
+
+<div class="row trie-sondage" style="display:block;background-color:#F9F9F9">
+	<div class="row">
+		<div class="col-12">
+			<span>{{data.titreQuestionnaire}}</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<span>Sondage - crée le  {{data.dateCreation is not empty ? data.dateCreation  | localizeddate('none', 'none', locale, null, "d MMMM Y ") :''}}</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<span>Envoyé:{{data.authorizedRole.name}}</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<span>Réponse:</span>
+		</div>
+		<div class="col-6">
+			<span>Taux de participation:</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<div class="chp" style="text-align:center; float:left;">
+                <button class="btn-valider create_sondage_quiz" name = "btn-submit-form-etape-1" type = "submit">
+                        globales / individuelles
+                </button>
+            </div>
+		</div>
+		<div class="col-6" st>
+			<div class="chp" style="text-align:center; float:left;">
+                <button class="btn-valider create_sondage_quiz" name = "btn-submit-form-etape-1" type = "submit">
+                        télécharger les résultats
+                </button>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div class="graphique">
+ 	<div id="container"></div>
+</div> 

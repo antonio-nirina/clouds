@@ -283,6 +283,51 @@ $(document).ready(function(){
         });
     });
 
+     // édition sondage&quiz, appel de formulaire
+    $(document).on('click', '.edit-pre-sondage', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data){
+                $('#edit-sondage-modal').find('.modal-body-container').html(data.content);
+                installWysiwyg();
+                var $QuestionEnCours = $('div.content-questionnaire');
+                var Questions = parseInt(parseInt($QuestionEnCours.length) - 1);
+                NbreQuestion = Questions;
+                $('div.content-questionnaire').each(function(){
+                    var AttrId = $(this).attr('id');
+                    seletedSondage(AttrId);
+
+                });
+
+                if($('input#nbre_questions').val() == '0'){
+                    AjouterQuestionCollection();
+                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#edit-sondage-modal').modal('show');
+                setTimeout(function(){
+                    $('.chargementAjax').addClass('hidden');
+                }, 1050);
+            }
+        });
+    });
+
     // submit create sondage
 
     $(document).on('click', '#create-sondage-modal  .submit .btn-valider', function(e){
@@ -291,6 +336,7 @@ $(document).ready(function(){
         var redirect = $('input[name=list-url]').val();
         var  url = $('input[name=create_sondage_quiz_url]').val();
         var data = $(this).attr("name");
+        console.log(url)
     $("#create-sondage-modal form").ajaxSubmit({
             type: 'POST',
             url: url,
@@ -298,6 +344,59 @@ $(document).ready(function(){
             success: function(data){
                 if(data['error']){
                     $('#create-sondage-modal').find('.modal-body-container').html(data.content);
+                    installWysiwyg();
+                    var $QuestionEnCours = $('div.content-questionnaire');
+                    var Questions = parseInt(parseInt($QuestionEnCours.length) - 1);
+                    NbreQuestion = Questions;
+                    $('div.content-questionnaire').each(function(){
+                        var AttrId = $(this).attr('id');
+                        seletedSondage(AttrId);
+
+                    });
+
+                    if($('input#nbre_questions').val() == '0'){
+                        AjouterQuestionCollection();
+                    }
+                } else {
+                    window.location.replace(redirect);
+                }
+            },
+            statusCode: {
+                404: function(data){
+                    $('#create-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#create-edit-e-learning-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#create-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#create-sondage-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#create-sondage-modal').modal('show');
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+
+    });
+
+    // submit Edit sondage
+
+    $(document).on('click', '#edit-sondage-modal  .submit .btn-valider', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var redirect = $('input[name=list-url]').val();
+        var url = $('input[name=edit_sondage_quiz_url').val();
+        var data = $(this).attr("name");
+        console.log(url)
+    $("#edit-sondage-modal form").ajaxSubmit({
+            type: 'POST',
+            url: url,
+            data: {"data":data},
+            success: function(data){
+                if(data['error']){
+                    $('#edit-sondage-modal').find('.modal-body-container').html(data.content);
                     installWysiwyg();
                     var $QuestionEnCours = $('div.content-questionnaire');
                     var Questions = parseInt(parseInt($QuestionEnCours.length) - 1);
@@ -383,53 +482,6 @@ $(document).ready(function(){
         ArrayAttrId = AttrId.split('-');
         $('div#dropdownMenuListeTypeRole-'+ArrayAttrId[1]+'').show();
         //return false;
-    });
-    
-
-     // édition sondage&quiz, appel de formulaire
-    $(document).on('click', '.edit-pre-sondage', function(e){
-        e.preventDefault();
-        $('.chargementAjax').removeClass('hidden');
-        var url = $(this).attr('data-url');
-        console.log(url)
-        $.ajax({
-            type: 'GET',
-            url: url,
-            success: function(data){
-                $('#edit-sondage-modal').find('.modal-body-container').html(data.content);
-                installWysiwyg();
-                var $QuestionEnCours = $('div.content-questionnaire');
-                var Questions = parseInt(parseInt($QuestionEnCours.length) - 1);
-                NbreQuestion = Questions;
-                $('div.content-questionnaire').each(function(){
-                    var AttrId = $(this).attr('id');
-                    seletedSondage(AttrId);
-
-                });
-
-                if($('input#nbre_questions').val() == '0'){
-                    AjouterQuestionCollection();
-                }
-            },
-            statusCode: {
-                404: function(data){
-                    $('#edit-sondage-modal').find('.modal-body-container').html('');
-                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
-                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
-                },
-                500: function(data){
-                    $('#edit-sondage-modal').find('.modal-body-container').html('');
-                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
-                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
-                }
-            },
-            complete: function(){
-                $('#edit-sondage-modal').modal('show');
-                setTimeout(function(){
-                    $('.chargementAjax').addClass('hidden');
-                }, 1050);
-            }
-        });
     });
 
     //publier sondage&Quiz
@@ -852,6 +904,37 @@ $(document).ready(function(){
         var Prevs = $(this).prev();
         Prevs.find('input.input-form-text-reponse-quiz').val('');
         return false;
+    });
+
+    $(document).on('click', '.stat-pre-sondage', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(data){
+                $('#edit-sondage-modal').find('.modal-body-container').html(data.content);          
+            },
+            statusCode: {
+                404: function(data){
+                    $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                },
+                500: function(data){
+                    $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('#edit-sondage-modal').modal('show');
+                setTimeout(function(){
+                    $('.chargementAjax').addClass('hidden');
+                }, 1050);
+            }
+        });
     });
 });
 

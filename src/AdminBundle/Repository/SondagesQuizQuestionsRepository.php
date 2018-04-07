@@ -16,4 +16,5 @@ class SondagesQuizQuestionsRepository extends EntityRepository
         // dump($qb->getDql());
         return $qb->getQuery()->getResult();
     }
+
 }
