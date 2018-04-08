@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,7 +24,7 @@ class SecurityController extends BaseController
     public function loginAction(Request $request)
     {
         /**
- * @var $session Session 
+ * @var $session Session
 */
         $session = $request->getSession();
 
@@ -60,7 +60,7 @@ class SecurityController extends BaseController
             )
         );
     }
-    
+
     /**
      * Renders the login template with the given parameters. Overwrite this function in
      * an extended controller to provide additional data for the login template.
@@ -85,4 +85,3 @@ class SecurityController extends BaseController
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 }
-?>

@@ -18,7 +18,9 @@ class PeriodPointSettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'gain', CollectionType::class, array(
+            'gain',
+            CollectionType::class,
+            array(
                         "entry_type" => TextType::class,
                         "entry_options" => array(
                             'required' => false,

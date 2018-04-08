@@ -242,8 +242,7 @@ class ELearningMediaContent
         return $this->e_learning;
     }
 
-
-    /**
+/**
      * Validate associated file on upoad
      * Used with document type media
      *

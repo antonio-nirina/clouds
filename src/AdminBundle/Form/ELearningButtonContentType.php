@@ -19,7 +19,9 @@ class ELearningButtonContentType extends ELearningContentType
     {
         parent::buildForm($builder, $options);
         $builder->add(
-            'action_button_data', ActionButtonType::class, array(
+            'action_button_data',
+            ActionButtonType::class,
+            array(
             'data_class' => ELearningButtonContent::class,
             )
         );

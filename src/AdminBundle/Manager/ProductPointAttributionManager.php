@@ -376,7 +376,7 @@ class ProductPointAttributionManager
         if (!empty($prod_point_setting_turnover_propo_list)) {
             foreach ($prod_point_setting_turnover_propo_list as $prod_point_setting_turnover_propo) {
                 $prod_point_setting_turnover_propo->setProductGroup(
-                    (int)$prod_point_setting_turnover_propo->getProductGroup() - 1
+                    (int) $prod_point_setting_turnover_propo->getProductGroup() - 1
                 );
             }
         }
@@ -390,7 +390,7 @@ class ProductPointAttributionManager
         if (!empty($prod_point_setting_turnover_slice_list)) {
             foreach ($prod_point_setting_turnover_slice_list as $prod_point_setting_turnover_slice) {
                 $prod_point_setting_turnover_slice->setProductGroup(
-                    (int)$prod_point_setting_turnover_slice->getProductGroup() - 1
+                    (int) $prod_point_setting_turnover_slice->getProductGroup() - 1
                 );
             }
         }

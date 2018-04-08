@@ -18,7 +18,8 @@ class TemplateListDataHandler
         foreach ($template_list as $template) {
             $this->template_thumbnail_generator->setComEmailTemplate($template);
             array_push(
-                $template_data_list, array(
+                $template_data_list,
+                array(
                 'template_data' => $template,
                 'template_thumbnail_image' => $this->template_thumbnail_generator->retrieveThumbnailFullName(),
                 )

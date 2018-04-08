@@ -18,7 +18,9 @@ class LoginPortalDataType extends AbstractType
         $builder->add('title', TextType::class)
             ->add('text', TextareaType::class)
             ->add(
-                'login_portal_slides', CollectionType::class, array(
+                'login_portal_slides',
+                CollectionType::class,
+                array(
                 'entry_type' => LoginPortalSlideType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,

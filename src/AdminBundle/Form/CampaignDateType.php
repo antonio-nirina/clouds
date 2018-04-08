@@ -18,7 +18,9 @@ class CampaignDateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            "launch_date", DateTimeType::class, array(
+            "launch_date",
+            DateTimeType::class,
+            array(
             "label" => false,
             'date_widget' => "single_text",
             'time_widget' => "choice",

@@ -2,7 +2,6 @@
 
 namespace UserBundle\Controller;
 
-
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -22,8 +21,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Service\Parameter\AddFormType;
 use AdminBundle\Component\SiteForm\FieldType;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
-
-
 
 class RegistrationController extends BaseController
 {
@@ -63,25 +60,25 @@ class RegistrationController extends BaseController
         } else {
             $nom = "";
             $radio = "";
-        }       
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);              
-                $var = $this->getValForm($parameter, $form);          
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+                $var = $this->getValForm($parameter, $form);
                 $em = $this->getDoctrine()->getManager()->getRepository("UserBundle:User");
                 $al = $em->findAll();
                 $code = $this->generateCodeId($al);
-                $val = $em->findOneByCode($code);               
+                $val = $em->findOneByCode($code);
                 while (!empty($val)) {
                     $code = $this->generateCodeId($al);
                     break;
-                }                               
+                }
                 if (!empty($var)) {
                     $user->setCustomization($var);
                 }
-                $user->setCode($code);               
+                $user->setCode($code);
                 $userManager->updateUser($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
@@ -102,7 +99,8 @@ class RegistrationController extends BaseController
         }
 
         return $this->render(
-            'UserBundle:Registration:register.html.twig', array(
+            'UserBundle:Registration:register.html.twig',
+            array(
             'form' => $form->createView(),"name" => $nom,"radio" => $radio
             )
         );
@@ -127,7 +125,8 @@ class RegistrationController extends BaseController
         }
 
         return $this->render(
-            'UserBundle:Registration:check_email.html.twig', array(
+            'UserBundle:Registration:check_email.html.twig',
+            array(
             'user' => $user,
             )
         );
@@ -144,7 +143,7 @@ class RegistrationController extends BaseController
     public function confirmAction(Request $request, $token)
     {
         /**
- * @var $userManager \FOS\UserBundle\Model\UserManagerInterface 
+ * @var $userManager \FOS\UserBundle\Model\UserManagerInterface
 */
         $userManager = $this->get('fos_user.user_manager');
 
@@ -155,7 +154,7 @@ class RegistrationController extends BaseController
         }
 
         /**
- * @var $dispatcher EventDispatcherInterface 
+ * @var $dispatcher EventDispatcherInterface
 */
         $dispatcher = $this->get('event_dispatcher');
 
@@ -188,7 +187,8 @@ class RegistrationController extends BaseController
         }
 
         return $this->render(
-            'UserBundle:Registration:confirmed.html.twig', array(
+            'UserBundle:Registration:confirmed.html.twig',
+            array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
             )
@@ -210,7 +210,7 @@ class RegistrationController extends BaseController
     protected function generateCodeId($total)
     {
         $nombre = "1234567890";
-        $code = []; 
+        $code = [];
         $max = count($total);
         $i = 6;
         $ecart = $max - pow(10, $i);
@@ -219,7 +219,7 @@ class RegistrationController extends BaseController
         } elseif ($ecart > 0) {
             $length = 7;
         }
-        $alphaLength = strlen($nombre) - 1; 
+        $alphaLength = strlen($nombre) - 1;
         for ($i = 0; $i < $length; $i++) {
             $n = rand(0, $alphaLength);
             $code[] = $nombre[$n];
@@ -229,39 +229,34 @@ class RegistrationController extends BaseController
     }
 
 
-    protected function getValForm($parameter,$form)
+    protected function getValForm($parameter, $form)
     {
         if (!empty($parameter)) {
-            foreach ($parameter as  $value) {
+            foreach ($parameter as $value) {
                 $val = $this->get("user.parameter")->traitement($value->getLabel());
                 if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO) {
-                    $var[] = [$value->getLabel() => $form->get($val)->getData()]; 
-                } 
+                    $var[] = [$value->getLabel() => $form->get($val)->getData()];
+                }
             }
-            return $var;   
+            return $var;
         } else {
             return "";
         }
-         
     }
 
-    protected function getNameForm($parameter,$form)
-    {        
-        foreach ($parameter as  $value) {
-            $val = $this->get("user.parameter")->traitement($value->getLabel());       
-            if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO ) {
+    protected function getNameForm($parameter, $form)
+    {
+        foreach ($parameter as $value) {
+            $val = $this->get("user.parameter")->traitement($value->getLabel());
+            if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO) {
                 $nom[] = $val;
             }
             if ($value->getFieldType() == FieldType::CHOICE_RADIO) {
                 $nomR[] = $val;
-            } 
+            }
         }
         $nameRadio = !empty($nomR) ? $nomR : "";
         $name = !empty($nom) ? $nom : "";
-        return ["all"=>$name,"radio"=>$nameRadio]; 
-    } 
-            
-    
-   
+        return ["all"=>$name,"radio"=>$nameRadio];
+    }
 }
-

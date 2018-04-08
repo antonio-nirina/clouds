@@ -23,7 +23,9 @@ class SondagesQuizQuestionsType extends AbstractType
         $builder->add('questions', TextType::class)
             ->add('commentaire', TextareaType::class)
             ->add(
-                'type_question', ChoiceType::class, array(
+                'type_question',
+                ChoiceType::class,
+                array(
                 'choices'  => array(
                 'cases à cocher' => 1,
                 'choix multiples' => 2,
@@ -33,13 +35,17 @@ class SondagesQuizQuestionsType extends AbstractType
                 )
             )
             ->add(
-                'est_reponse_obligatoire', CheckboxType::class, array(
+                'est_reponse_obligatoire',
+                CheckboxType::class,
+                array(
                 'label' => 'réponse obligatoire',
                 'required' => false,
                 )
             )
             ->add(
-                'sondages_quiz_reponses', CollectionType::class, array(
+                'sondages_quiz_reponses',
+                CollectionType::class,
+                array(
                 'entry_type' => SondagesQuizReponsesType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -49,7 +55,7 @@ class SondagesQuizQuestionsType extends AbstractType
             )
             ->add('ordre', HiddenType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */

@@ -68,8 +68,8 @@ class SitePagesStandardDefaultFixtures extends Fixture
         'options' => array()
         )
         );
-    
-        foreach($ListPageParDefaut as $PagesStandardDefault){
+
+        foreach ($ListPageParDefaut as $PagesStandardDefault) {
             $site_pages_standard_default = new SitePagesStandardDefault();
             $site_pages_standard_default->setPageName($PagesStandardDefault['page']);
             $site_pages_standard_default->setOptions($PagesStandardDefault['options']);

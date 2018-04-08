@@ -19,7 +19,8 @@ class PostOrdering
     public function orderByDateDesc(array $post_list)
     {
         usort(
-            $post_list, function ($a, $b) {
+            $post_list,
+            function ($a, $b) {
                 $a_date = $this->defineToCompareDate($a);
                 $b_date = $this->defineToCompareDate($b);
                 if ($a_date == $b_date) {

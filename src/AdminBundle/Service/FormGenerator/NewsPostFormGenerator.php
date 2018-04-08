@@ -151,6 +151,4 @@ class NewsPostFormGenerator
 
         return $form;
     }
-
-
 }

@@ -24,7 +24,9 @@ class SondagesQuizType extends AbstractType
             ->add('nom_menu', TextType::class)
             ->add('titre', TextType::class)
             ->add(
-                'image', FileType::class, array(
+                'image',
+                FileType::class,
+                array(
                     "required" => false
                 )
             );

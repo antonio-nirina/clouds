@@ -190,7 +190,7 @@ class RegistrationModel
     public function save()
     {
         $writer = $this->create();
-        $save_path = $this->container->getParameter("registration_model_dir").'/'.self::FILE_NAME_AND_EXT;
+        $save_path = $this->container->getParameter("registration_model_dir") . '/' . self::FILE_NAME_AND_EXT;
         $this->save_path = $save_path;
         $writer->save($save_path);
 
@@ -199,7 +199,7 @@ class RegistrationModel
 
     public function removeSavedFile()
     {
-        $file_path = $this->container->getParameter("registration_model_dir").'/'.self::FILE_NAME_AND_EXT;
+        $file_path = $this->container->getParameter("registration_model_dir") . '/' . self::FILE_NAME_AND_EXT;
         if ($this->filesystem->exists($file_path)) {
             $this->filesystem->remove($file_path);
         }

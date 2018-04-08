@@ -172,15 +172,15 @@ class ComEmailTemplateManager
 
         $sort_option = array();
         switch ($sorting_parameter) {
-        case TemplateSortingParameter::RECENT:
-            $sort_option = array('last_edit' => 'DESC');
-            break;
-        case TemplateSortingParameter::A_TO_Z:
-            $sort_option = array('name' => 'ASC');
-            break;
-        case TemplateSortingParameter::Z_TO_A:
-            $sort_option = array('name' => 'DESC');
-            break;
+            case TemplateSortingParameter::RECENT:
+                $sort_option = array('last_edit' => 'DESC');
+                break;
+            case TemplateSortingParameter::A_TO_Z:
+                $sort_option = array('name' => 'ASC');
+                break;
+            case TemplateSortingParameter::Z_TO_A:
+                $sort_option = array('name' => 'DESC');
+                break;
         }
 
         $template_list = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')

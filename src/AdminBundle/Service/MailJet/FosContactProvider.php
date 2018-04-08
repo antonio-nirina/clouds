@@ -37,7 +37,8 @@ class FosContactProvider implements ProviderInterface
                 $contact = new Contact($user->getEmail(), $user->getUsername(), $userProperties);
 
                 return $contact;
-            }, $users
+            },
+            $users
         );
 
         return $contacts;

@@ -44,5 +44,4 @@ class HomePagePostRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
 }

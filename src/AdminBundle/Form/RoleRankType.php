@@ -23,7 +23,9 @@ class RoleRankType extends AbstractType
             ->add('rank', HiddenType::class, array())
             ->add('name', TextType::class, array())
             ->add(
-                'gain', TextType::class, array(
+                'gain',
+                TextType::class,
+                array(
                     'constraints' => array(
                         new Range(
                             array(

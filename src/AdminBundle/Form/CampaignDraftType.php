@@ -62,7 +62,9 @@ class CampaignDraftType extends AbstractType
         $builder->add('name', TextType::class)
             ->add('subject', TextType::class)
             ->add(
-                'list_id', ChoiceType::class, array(
+                'list_id',
+                ChoiceType::class,
+                array(
                 'choices' => $this->retrieveListList(),
                 'expanded' => false,
                 'multiple' => false,
@@ -70,14 +72,18 @@ class CampaignDraftType extends AbstractType
                 )
             )
             ->add(
-                'template_id', ChoiceType::class, array(
+                'template_id',
+                ChoiceType::class,
+                array(
                 'choices' => $this->retrieveTemplateList(),
                 'expanded' => true,
                 'multiple' => false,
                 )
             )
             ->add(
-                'programmed_state', ChoiceType::class, array(
+                'programmed_state',
+                ChoiceType::class,
+                array(
                 'choices' => array(
                     'false' => 'false',
                     'true' => 'true',
@@ -87,7 +93,9 @@ class CampaignDraftType extends AbstractType
                 )
             )
             ->add(
-                'programmed_launch_date', DateTimeType::class, array(
+                'programmed_launch_date',
+                DateTimeType::class,
+                array(
                 'label' => false,
                 'date_widget' => "single_text",
                 'time_widget' => "choice",

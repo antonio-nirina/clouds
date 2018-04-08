@@ -17,7 +17,9 @@ class ResultSettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'monthly', ChoiceType::class, array(
+            'monthly',
+            ChoiceType::class,
+            array(
                     'choices'  => array(
                         'Oui' => true,
                         'Non' => false),
@@ -27,12 +29,16 @@ class ResultSettingType extends AbstractType
             )
         )
             ->add(
-                'by_product', CheckboxType::class, array(
+                'by_product',
+                CheckboxType::class,
+                array(
                         'label'    => '',
                 'required' => false,)
             )
             ->add(
-                'by_rank', CheckboxType::class, array(
+                'by_rank',
+                CheckboxType::class,
+                array(
                         'label'    => '',
                 'required' => false,)
             );

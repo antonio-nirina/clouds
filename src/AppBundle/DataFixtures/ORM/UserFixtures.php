@@ -17,7 +17,7 @@ class UserFixtures extends Fixture
             ->setEnabled(true);
         $manager->persist($super_admin_user);
         $manager->flush();
-        
+
         //User tests
         $ListUserTest = array(
         array(
@@ -70,8 +70,8 @@ class UserFixtures extends Fixture
         'password' => 'foo',
         )
         );
-        
-        foreach($ListUserTest as $UserTest){
+
+        foreach ($ListUserTest as $UserTest) {
             $test_user = new User();
             $test_user->setUsername($UserTest['email'])
                 ->setPlainPassword($UserTest['password'])

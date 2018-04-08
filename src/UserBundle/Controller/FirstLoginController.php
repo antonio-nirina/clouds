@@ -28,11 +28,11 @@ class FirstLoginController extends BaseController
     /**
      * @Route("/", name="admin_first_log")
      */
-    public function indexAction(Request $request) 
+    public function indexAction(Request $request)
     {
         $user = $this->getUser();
 
-        if(false == $user->getTemporaryPwd()) {
+        if (false == $user->getTemporaryPwd()) {
             return $this->redirectToRoute('admin_dashboard_kpi');//chemin de première affichage
         }
         // dump($user); dump($user instanceof User); die;
@@ -42,7 +42,7 @@ class FirstLoginController extends BaseController
         }
 
         /**
- * @var $dispatcher EventDispatcherInterface 
+ * @var $dispatcher EventDispatcherInterface
 */
         $dispatcher = $this->get('event_dispatcher');
 
@@ -54,11 +54,11 @@ class FirstLoginController extends BaseController
         }
 
         /**
- * @var $formFactory FactoryInterface 
+ * @var $formFactory FactoryInterface
 */
         // $formFactory = $this->get('fos_user.change_password.form.factory');
 
-        $form = $this->createForm(FirstChangePasswordType::class, $user);        
+        $form = $this->createForm(FirstChangePasswordType::class, $user);
         // $form->setData($user);
         // dump($form); die;
 
@@ -66,13 +66,12 @@ class FirstLoginController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**
- * @var $userManager UserManagerInterface 
+ * @var $userManager UserManagerInterface
 */
             $userManager = $this->get('fos_user.user_manager');
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
-
 
             $user->setTemporaryPwd(false);//mis à mdp temporaire
             $userManager->updateUser($user);
@@ -89,10 +88,10 @@ class FirstLoginController extends BaseController
         }
 
         return $this->render(
-            '@FOSUser/ChangePassword/first_change_password.html.twig', array(
+            '@FOSUser/ChangePassword/first_change_password.html.twig',
+            array(
             'form' => $form->createView(),
             )
         );
     }
-    
 }

@@ -48,7 +48,7 @@ class SalesPointAttribution
                                 ->setDate(new \DateTime())
                                 ->setPoints((($ca * $gain) / 100) / $this->ratio)
                                 ->setMotif("rang")
-                                ->setReference("sales_".$sales->getId());
+                                ->setReference("sales_" . $sales->getId());
                             $this->em->persist($user_point);
                         }
                     }
@@ -184,7 +184,7 @@ class SalesPointAttribution
             if ($end) {
                 $classment_progression->setEndDate($end);
             }
-            
+
             if ($previous_classment_progression) {
                 $classment_progression->setPreviousCa($previous_classment_progression->getCurrentCa());
             }
@@ -241,17 +241,17 @@ class SalesPointAttribution
                 if (isset($min) && isset($max) && isset($gain)) {
                     $program_users = $this->em->getRepository('AdminBundle:ProgramUser')
                         ->findProgressionByProgramByMaxMinValue($program, $max, $min, $date);
-                    
+
                     if ($program_users) {
                         foreach ($program_users as $program_user) {
                             $user_point = new UserPoint();
                             $user_point->setProgramUser($program_user)
                                 ->setDate(new \DateTime())
                                 ->setPoints($gain / $this->ratio)
-                                ->setMotif("progression ".date_format($date, "d-m-Y"));
+                                ->setMotif("progression " . date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
-                        
+
                         $this->em->flush();
                     }
                 }
@@ -274,10 +274,10 @@ class SalesPointAttribution
                             $user_point->setProgramUser($program_user)
                                 ->setDate(new \DateTime())
                                 ->setPoints($gain / $this->ratio)
-                                ->setMotif("classement ".date_format($date, "d-m-Y"));
+                                ->setMotif("classement " . date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
-                        
+
                         $this->em->flush();
                     }
                 }
@@ -317,7 +317,7 @@ class SalesPointAttribution
                         ->setDate(new \DateTime())
                         ->setPoints((($ca * $gain) /100) / $this->ratio)
                         ->setMotif("produit")
-                        ->setReference("sales_".$sales->getId());
+                        ->setReference("sales_" . $sales->getId());
                     $this->em->persist($user_point);
                     $this->attributedByPeriod($sales, $user_point);
                     $sales->setProductAttributed(true);
@@ -340,7 +340,7 @@ class SalesPointAttribution
                             ->setDate(new \DateTime())
                             ->setPoints((($ca * $gain) /100) / $this->ratio)
                             ->setMotif("produit")
-                            ->setReference("sales_".$sales->getId());
+                            ->setReference("sales_" . $sales->getId());
                         $this->em->persist($user_point);
                         $this->attributedByPeriod($sales, $user_point);
                         $sales->setProductAttributed(true);
@@ -350,7 +350,7 @@ class SalesPointAttribution
                 }
             }
         }
-        
+
         return $sales;
     }
 

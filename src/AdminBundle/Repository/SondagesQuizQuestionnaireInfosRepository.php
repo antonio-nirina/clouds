@@ -53,7 +53,6 @@ class SondagesQuizQuestionnaireInfosRepository extends EntityRepository
             );
 
         return $qb->getQuery()->getResult();
-
     }
 
     /**
@@ -87,6 +86,4 @@ class SondagesQuizQuestionnaireInfosRepository extends EntityRepository
             );
         return $qb->getQuery()->getResult();
     }
-
-
 }

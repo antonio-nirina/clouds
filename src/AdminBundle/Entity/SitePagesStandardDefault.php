@@ -22,7 +22,7 @@ class SitePagesStandardDefault
      * @ORM\Column(name="page_name", type="string", nullable=true)
      */
     private $page_name;
-    
+
     /**
      * @ORM\Column(type="array")
      */
@@ -37,7 +37,7 @@ class SitePagesStandardDefault
     {
         return $this->id;
     }
-    
+
     /**
      * Set options
      *
@@ -51,7 +51,7 @@ class SitePagesStandardDefault
 
         return $this;
     }
-    
+
     /**
      * Get options
      *
@@ -75,7 +75,7 @@ class SitePagesStandardDefault
 
         return $this;
     }
-    
+
     /**
      * Get pageName
      *

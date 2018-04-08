@@ -60,7 +60,7 @@ class SiteFormFieldSettingRepository extends EntityRepository
             )
             ->andWhere($qb->expr()->eq('site_form_field_setting.published', ':published_state'))
             ->setParameter('site_form_setting', $site_form_setting)
-            ->setParameter('special_field_index', '%'.$special_index.'%')
+            ->setParameter('special_field_index', '%' . $special_index . '%')
             ->setParameter('published_state', $published_state);
 
         return $qb->getQuery()->getOneOrNullResult();
@@ -84,7 +84,7 @@ class SiteFormFieldSettingRepository extends EntityRepository
             ->andWhere($qb->expr()->eq('site_form_field_setting.published', ':published_state'))
             ->orderBy('site_form_field_setting.field_order', 'ASC')
             ->setParameter('site_form_setting', $site_form_setting)
-            ->setParameter('special_field_index', '%'.$special_index.'%')
+            ->setParameter('special_field_index', '%' . $special_index . '%')
             ->setParameter('published_state', $published_state);
 
         return $qb->getQuery()->getResult();

@@ -13,7 +13,9 @@ class HomePageSlideDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'home_page_slides', CollectionType::class, array(
+            'home_page_slides',
+            CollectionType::class,
+            array(
             'entry_type' => HomePageSlideType::class,
             'entry_options' => array('label' => false),
             'allow_add' => true,

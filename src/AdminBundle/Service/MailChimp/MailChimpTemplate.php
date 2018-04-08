@@ -13,7 +13,8 @@ class MailChimpTemplate extends MailChimpHandler
     public function getTemplates()
     {
         return $this->mailchimp->get(
-            '/templates', array(
+            '/templates',
+            array(
             'count' => -1,
             'type' => 'user',
             )
@@ -22,7 +23,7 @@ class MailChimpTemplate extends MailChimpHandler
 
     public function getTemplateContent($template_id)
     {
-        return $this->mailchimp->get('/templates/'.$template_id.'/default-content');
+        return $this->mailchimp->get('/templates/' . $template_id . '/default-content');
     }
 
     public function createTemplate(array $options = array())
@@ -32,6 +33,6 @@ class MailChimpTemplate extends MailChimpHandler
 
     public function editTemplate($template_id, array $options = array())
     {
-        return $this->mailchimp->patch('/templates/'.$template_id, $options);
+        return $this->mailchimp->patch('/templates/' . $template_id, $options);
     }
 }

@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class RegistrationAddRoleDefaultListener implements EventSubscriberInterface
 {
-    
+
     public static function getSubscribedEvents()
     {
         return [
@@ -25,7 +25,7 @@ class RegistrationAddRoleDefaultListener implements EventSubscriberInterface
         $rolesArr = array('ROLE_USER');
 
         /**
- * @var $user \FOS\UserBundle\Model\UserInterface 
+ * @var $user \FOS\UserBundle\Model\UserInterface
 */
         $user = $event->getForm()->getData();
         $user->setRoles($rolesArr);

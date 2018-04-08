@@ -11,7 +11,6 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-
 class AuthenticationLoginSuccessListener implements AuthenticationSuccessHandlerInterface
 {
 
@@ -36,13 +35,10 @@ class AuthenticationLoginSuccessListener implements AuthenticationSuccessHandler
             $roles[] = $value->getRole();
         }
 
-        if (in_array("ROLE_ADMIN", $roles)) {       
+        if (in_array("ROLE_ADMIN", $roles)) {
             return new RedirectResponse($this->router->generate('admin_dashboard_kpi'));
         } else {
             return new RedirectResponse($this->router->generate('beneficiary_home'));
         }
-
     }
-
-
 }

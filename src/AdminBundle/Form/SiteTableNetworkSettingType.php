@@ -20,19 +20,25 @@ class SiteTableNetworkSettingType extends AbstractType
             ->add('has_like', CheckboxType::class)
             ->add('has_facebook', CheckboxType::class)
             ->add(
-                'facebook_link', TextType::class, array(
+                'facebook_link',
+                TextType::class,
+                array(
                     "required" => false
                 )
             )
             ->add('has_linkedin', CheckboxType::class)
             ->add(
-                'linkedin_link', TextType::class, array(
+                'linkedin_link',
+                TextType::class,
+                array(
                     "required" => false
                 )
             )
             ->add('has_twitter', CheckboxType::class)
             ->add(
-                'twitter_link', TextType::class, array(
+                'twitter_link',
+                TextType::class,
+                array(
                     "required" => false
                 )
             );

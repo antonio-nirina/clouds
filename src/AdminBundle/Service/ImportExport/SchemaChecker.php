@@ -59,10 +59,10 @@ class SchemaChecker extends CSVFileContentBrowser
 
     protected function createErrorWithIndex($error_message, $row_index, $col_index = null)
     {
-        $message = $error_message. ' Ligne: '.($row_index+1); // 0-based index to 1-based index (human readable)
+        $message = $error_message . ' Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
         return is_null($col_index)
             ? $message
-            : $message.', Colonne: '.($col_index+1); // 0-based index to 1-based index (human readable)
+            : $message . ', Colonne: ' . ($col_index+1); // 0-based index to 1-based index (human readable)
     }
 
     protected function checkRow($array_data, $array_model, $header_row_index, $row_index)
@@ -111,7 +111,7 @@ class SchemaChecker extends CSVFileContentBrowser
     protected function checkMandatoryData($col_element, $related_field_setting, $row_index, $col_index)
     {
         if (true == $related_field_setting->getMandatory()
-            and empty($col_element)
+            && empty($col_element)
         ) {
             $this->addError(
                 $this->createErrorWithIndex(
@@ -128,40 +128,40 @@ class SchemaChecker extends CSVFileContentBrowser
     protected function checkDataFormat($col_element, $related_field_setting, $row_index, $col_index)
     {
         switch ($related_field_setting->getFieldType()) {
-        case FieldType::TEXT:
-            return array();
+            case FieldType::TEXT:
+                return array();
                 break;
-        case FieldType::ALPHA_TEXT:
-            return $this->validateColumnElement(
-                $col_element,
-                new Type(array("type" => "alpha")),
-                $row_index,
-                $col_index
-            );
+            case FieldType::ALPHA_TEXT:
+                return $this->validateColumnElement(
+                    $col_element,
+                    new Type(array("type" => "alpha")),
+                    $row_index,
+                    $col_index
+                );
                 break;
-        case FieldType::NUM_TEXT:
-            return $this->validateColumnElement(
-                $col_element,
-                new Type(array("type" => "numeric")),
-                $row_index,
-                $col_index
-            );
+            case FieldType::NUM_TEXT:
+                return $this->validateColumnElement(
+                    $col_element,
+                    new Type(array("type" => "numeric")),
+                    $row_index,
+                    $col_index
+                );
                 break;
-        case FieldType::ALPHANUM_TEXT:
-            return $this->validateColumnElement(
-                $col_element,
-                new Type(array("type" => "alnum")),
-                $row_index,
-                $col_index
-            );
+            case FieldType::ALPHANUM_TEXT:
+                return $this->validateColumnElement(
+                    $col_element,
+                    new Type(array("type" => "alnum")),
+                    $row_index,
+                    $col_index
+                );
                 break;
-        case FieldType::EMAIL:
-            return $this->validateColumnElement(
-                $col_element,
-                new Email(),
-                $row_index,
-                $col_index
-            );
+            case FieldType::EMAIL:
+                return $this->validateColumnElement(
+                    $col_element,
+                    new Email(),
+                    $row_index,
+                    $col_index
+                );
                 break;
         }
     }

@@ -17,7 +17,7 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
     const ERROR_NO_USER_HEADER_FOUND = "Pas d'en-têtes de données de résultats trouvés";
     const ERROR_DUPLICATE_USER_DATA = "Existence de doublon non autorisé";
     const ERROR_EXISTENT_USER_WITH_EMAIL = "Adresse email déjà utilisée";
-    
+
     private $user_data_title_row_index;
     private $user_data_header_row_index;
     private $user_data_first_row_index;
@@ -190,9 +190,9 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
     public function check($model, $data)
     {
         parent::check($model, $data);
-        
+
         if (count($this->model->getTitleRowIndexList()) > 0
-            and count($this->model->getHeaderRowIndexList()) > 0
+            && count($this->model->getHeaderRowIndexList()) > 0
         ) {
             // 1-based index to 0-based - From PHPExcel index to CSV file index (by fgetcsv()
             $this->user_data_title_row_index = $this->model->getTitleRowIndexList()[0] - 1;
@@ -211,7 +211,7 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
             $this->addError(self::ERROR_WRONG_GENERAL_STRUCTURE);
             return $this->error_list;
         }
-        
+
         $error_list = $this->checkDatas();
         if (!empty($error_list)) {
             return $this->error_list;

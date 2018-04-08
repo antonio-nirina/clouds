@@ -41,7 +41,9 @@ class ActionButtonType extends AbstractType
             ->add('action_button_background_color', TextType::class)
             ->add('action_button_target_url', TextType::class)
             ->add(
-                'action_button_target_page', ChoiceType::class, array(
+                'action_button_target_page',
+                ChoiceType::class,
+                array(
                 'choices' =>  $this->retrieveTargetPageList(),
                 'placeholder' => 'POINTER SUR',
                 )
@@ -79,7 +81,6 @@ class ActionButtonType extends AbstractType
                 $target_list[$page->getNomPage()] = $this->url_generator
                     ->generate('beneficiary_home_pages_standard_slug', array('slug' => $page->getSlug()));
             }
-
         }
 
         // put survey and quiz page and questionnaires in options

@@ -5,10 +5,9 @@ use Doctrine\ORM\EntityManager;
 use AdminBundle\Component\SondageQuizConst\ConstanteStatus;
 use AdminBundle\Component\GroupAction\GroupActionType;
 
-
 class SondageQuizManager
 {
-    
+
     private $em;
 
     public function __construct(EntityManager $em)
@@ -16,14 +15,13 @@ class SondageQuizManager
         $this->em = $em;
     }
 
-
-    /**
+/**
      * Retrieve data of sondage Quiz
-     * 
+     *
      * @return array
      */
     public function getAllSondageQuiz()
-    {    
+    {
         $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
             ->findBy([], ["date_creation"=>"DESC"]);
         return $data;
@@ -36,19 +34,17 @@ class SondageQuizManager
     public function getAllSondageQuizArchived($status = "")
     {
         if (!empty($status)) {
-            switch ($status){
-            case ConstanteStatus::CLOTURE:
-                $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusClotureArchived();
-                break;
-            case ConstanteStatus::PUBLIE:
-                $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusPublieArchived();
-                break;
-            case ConstanteStatus::ATTENTE:
-                $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusAttenteArchived();
-                break;
-
+            switch ($status) {
+                case ConstanteStatus::CLOTURE:
+                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusClotureArchived();
+                    break;
+                case ConstanteStatus::PUBLIE:
+                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusPublieArchived();
+                    break;
+                case ConstanteStatus::ATTENTE:
+                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusAttenteArchived();
+                    break;
             }
-
         } else {
             $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
                 ->findBy(["est_archived"=>true], ["date_creation"=>"DESC"]);
@@ -63,7 +59,7 @@ class SondageQuizManager
      * @param $data
      * @param $state
      */
-    public function renderToPublished($data,$state)
+    public function renderToPublished($data, $state)
     {
         $date = new \DateTime('now');
         $data->setDateCreation($date);
@@ -118,14 +114,13 @@ class SondageQuizManager
      */
     public function duplicate($data, $form)
     {
-
     }
 
     /**
      * @param $idList
      * @param $actionType
      */
-    public function groupAction($idList,$actionType)
+    public function groupAction($idList, $actionType)
     {
         foreach ($idList as $key => $value) {
             $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")

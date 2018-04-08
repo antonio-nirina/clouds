@@ -19,7 +19,9 @@ class PointAttributionSettingPerformance1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'min_value', TextType::class, array(
+            'min_value',
+            TextType::class,
+            array(
                         'label' => false,
                         "required" => false,
                         'constraints' => array(
@@ -36,7 +38,9 @@ class PointAttributionSettingPerformance1Type extends AbstractType
             )
         )
             ->add(
-                'max_value', TextType::class, array(
+                'max_value',
+                TextType::class,
+                array(
                         'label' => false,
                         "required" => false,
                         'constraints' => array(
@@ -53,7 +57,9 @@ class PointAttributionSettingPerformance1Type extends AbstractType
                 )
             )
             ->add(
-                'gain', TextType::class, array(
+                'gain',
+                TextType::class,
+                array(
                         'label' => false,
                         "required" => false,
                         'constraints' => array(

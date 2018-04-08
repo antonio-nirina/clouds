@@ -74,7 +74,7 @@ class MailChimpCampaign extends MailChimpHandler
                 dump($this->mailchimp->getLastError());
             }
         }
-        
+
         return $result;
     }
 

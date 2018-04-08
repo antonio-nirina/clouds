@@ -8,7 +8,6 @@
 
 namespace AdminBundle\Component\SondageQuizConst;
 
-
 class ConstanteStatus
 {
     const  PUBLIE = "publie";
@@ -16,5 +15,4 @@ class ConstanteStatus
     const ARCHIVED = "archive";
     const TOUS = "tous";
     const ATTENTE ="attente";
-
 }

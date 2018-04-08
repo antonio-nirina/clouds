@@ -5,6 +5,7 @@ namespace AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -25,11 +26,12 @@ class DefaultController extends Controller
             ->setTo('lemospy@gmail.com')
             ->setBody('You should see me from the profiler!');
 
+        $failures = 'failure';
+
         if (!$mailer->send($message, $failures)) {
             echo "Failures:";
-            print_r($failures);die;
+            throw new NotFoundHttpException('Erreur envoie mail');
         }
-
 
         return new Response('<html><body>Admin dashboard!!</body></html>');
     }

@@ -16,7 +16,9 @@ class ProgramPeriodPointType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'period_point_setting', CollectionType::class, array(
+            'period_point_setting',
+            CollectionType::class,
+            array(
                             'entry_type' => PeriodPointSettingType::class,
                             'entry_options' => array(),
                             'label' => false,

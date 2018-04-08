@@ -180,6 +180,7 @@ class ProgramUser
     {
         return $this->program_user_company;
     }
+
     /**
      * Constructor
      */

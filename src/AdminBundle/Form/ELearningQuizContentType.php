@@ -31,7 +31,9 @@ class ELearningQuizContentType extends ELearningContentType
     {
         parent::buildForm($builder, $options);
         $builder->add(
-            'quiz', EntityType::class, array(
+            'quiz',
+            EntityType::class,
+            array(
             'class' => 'AdminBundle:SondagesQuizQuestionnaireInfos',
             'choices' => $this->retrieveQuiz(),
             'choice_label' => 'titre_questionnaire',

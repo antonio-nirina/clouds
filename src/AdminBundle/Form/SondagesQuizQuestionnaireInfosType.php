@@ -14,12 +14,11 @@ use AdminBundle\Form\SondagesQuizQuestionsType;
 use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
 use Doctrine\ORM\EntityManager;
 
-
 class SondagesQuizQuestionnaireInfosType extends AbstractType
 {
     protected $em;
 
-    public function __construct(EntityManager $em) 
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
@@ -30,7 +29,9 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'type_sondages_quiz', ChoiceType::class, array(
+            'type_sondages_quiz',
+            ChoiceType::class,
+            array(
             'choices' => array(
             'créer un sondage' => '1',
             'créer un quiz' => '2'
@@ -43,7 +44,9 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
             ->add('titre_questionnaire', TextType::class)
             ->add('description_questionnaire', TextareaType::class)
             ->add(
-                'sondages_quiz_questions', CollectionType::class, array(
+                'sondages_quiz_questions',
+                CollectionType::class,
+                array(
                 'label' => false,
                 'entry_type' => SondagesQuizQuestionsType::class,
                 'allow_add' => true,
@@ -53,7 +56,9 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
                 )
             )
             ->add(
-                'authorized_role', ChoiceType::class, array(
+                'authorized_role',
+                ChoiceType::class,
+                array(
                 'choices' => $this->getAllRoles(),
                 'choices_as_values' => true,
                 'multiple' => false,
@@ -61,7 +66,7 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
                 )
             );
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -91,5 +96,4 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
 
         return $role;
     }
-
 }

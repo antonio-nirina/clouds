@@ -17,7 +17,9 @@ class ProgramRankType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'roles', CollectionType::class, array(
+            'roles',
+            CollectionType::class,
+            array(
             'entry_type' => RoleRankType::class,
             'entry_options' => array(
                 'required' => false,

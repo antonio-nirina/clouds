@@ -26,32 +26,32 @@ class SondagesQuizReponses
      * @ORM\Column(type="string", nullable=true)
      */
     private $reponses;
-    
+
     /**
      * @ORM\Column(type="boolean")
      */
     private $est_bonne_reponse;
-    
+
     /**
      * @ORM\Column(type="integer")
      */
     private $ordre;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", inversedBy="sondages_quiz_reponses")
      */
     private $sondages_quiz_questions;
-    
+
     /**
      * @ORM\Column(name="date_creation", type="datetime")
      */
     protected $date_creation;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", cascade={"remove"}, mappedBy="sondages_quiz_reponses")
      */
     private $resultats_sondages_quiz;
-    
+
     /**
      * Constructor
      */
@@ -165,7 +165,7 @@ class SondagesQuizReponses
     {
         return $this->date_creation;
     }
-    
+
     /**
      * @ORM\PrePersist
      */
@@ -197,7 +197,7 @@ class SondagesQuizReponses
     {
         return $this->sondages_quiz_questions;
     }
-    
+
     /**
      * Add resultatsSondagesQuiz
      *

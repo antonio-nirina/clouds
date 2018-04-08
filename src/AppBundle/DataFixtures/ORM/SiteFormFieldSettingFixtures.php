@@ -240,7 +240,7 @@ class SiteFormFieldSettingFixtures extends Fixture
 
         //product form field
         $product_declaration_form = $this->getReference("declaration-product-form-setting");
-        
+
         $product_name = new SiteFormFieldSetting();
         $product_name->setFieldType(FieldType::TEXT)
             ->setMandatory(true)
@@ -288,7 +288,6 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setSiteFormSetting($product_declaration_form);
         $product_declaration_form->addSiteFormFieldSetting($product_end_date);
         $manager->persist($product_end_date);
-
 
         $product_reference = new SiteFormFieldSetting();
         $product_reference->setFieldType(FieldType::TEXT)

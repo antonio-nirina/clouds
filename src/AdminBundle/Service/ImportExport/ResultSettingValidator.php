@@ -78,25 +78,25 @@ class ResultSettingValidator extends CSVFileContentBrowser
 
     protected function createErrorWithIndex($error_message, $row_index, $col_index = null)
     {
-        $message = $error_message. ', Ligne: '.($row_index+1); // 0-based index to 1-based index (human readable)
+        $message = $error_message . ', Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
         return is_null($col_index)
             ? $message
-            : $message.', Colonne: '.($col_index+1); // 0-based index to 1-based index (human readable)
+            : $message . ', Colonne: ' . ($col_index+1); // 0-based index to 1-based index (human readable)
     }
 
     protected function createErrorWithColumn($error_message, $row_index, $col_index)
     {
-        $message = $error_message. ', Ligne: '.($row_index+1); // 0-based index to 1-based index (human readable)
+        $message = $error_message . ', Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
         return is_null($col_index)
             ? $message
-            : $message.', Colonne: "'.($col_index).'"'; // 0-based index to 1-based index (human readable)
+            : $message . ', Colonne: "' . ($col_index) . '"'; // 0-based index to 1-based index (human readable)
     }
 
     protected function checkRowResult($header, $array_data, $array_model, $header_row_index, $row_index, $program)
     {
         $i = $row_index;
         $current_row = array_combine($header, $array_data[$i]);
-        
+
         //date check
         $prod_empty = true;
         foreach ($current_row as $index => $col) {
@@ -136,7 +136,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
                     $index,
                     self::ERROR_WRONG_DATE_FOMAT
                 );
-                
+
                 // preg_match($reg_exp, $current_row[$index], $date);
                 // if (empty($date)) {
                 //     $this->addError(
@@ -274,12 +274,12 @@ class ResultSettingValidator extends CSVFileContentBrowser
 
                 $format = 'd/m/Y H:i:s';
                 if (array_key_exists("Date", $current_row)) {
-                    $sales->setDate(\DateTime::createFromFormat($format, $current_row["Date"]." 00:00:00"));
+                    $sales->setDate(\DateTime::createFromFormat($format, $current_row["Date"] . " 00:00:00"));
                 }
 
                 if (array_key_exists("Période de", $current_row)) {
-                    $sales->setDateFrom(\DateTime::createFromFormat($format, $current_row["Période de"]." 00:00:00"));
-                    $sales->setDateTo(\DateTime::createFromFormat($format, $current_row["à"]." 23:59:59"));
+                    $sales->setDateFrom(\DateTime::createFromFormat($format, $current_row["Période de"] . " 00:00:00"));
+                    $sales->setDateTo(\DateTime::createFromFormat($format, $current_row["à"] . " 23:59:59"));
                 }
 
                 $this->manager->persist($sales);

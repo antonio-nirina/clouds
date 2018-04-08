@@ -48,13 +48,17 @@ class NewsPostType extends SelectingCommonDataType
             ->add('action_button_background_color', TextType::class)
             ->add('action_button_target_url', TextType::class)
             ->add(
-                'action_button_target_page', ChoiceType::class, array(
+                'action_button_target_page',
+                ChoiceType::class,
+                array(
                 'choices' => $this->retrieveTargetPageList(),
                 'placeholder' => 'POINTER SUR'
                 )
             )
             ->add(
-                'programmed_publication_state', ChoiceType::class, array(
+                'programmed_publication_state',
+                ChoiceType::class,
+                array(
                 'choices' => array(
                     'false' => false,
                     'true' => true,
@@ -64,7 +68,9 @@ class NewsPostType extends SelectingCommonDataType
                 )
             )
             ->add(
-                'programmed_publication_datetime', DateTimeType::class, array(
+                'programmed_publication_datetime',
+                DateTimeType::class,
+                array(
                 'label' => false,
                 'date_widget' => "single_text",
                 'time_widget' => "choice",
@@ -111,7 +117,6 @@ class NewsPostType extends SelectingCommonDataType
                 $target_list[$page->getNomPage()] = $this->url_generator
                     ->generate('beneficiary_home_pages_standard_slug', array('slug' => $page->getSlug()));
             }
-
         }
 
         // put survey and quiz page and questinnaires in options

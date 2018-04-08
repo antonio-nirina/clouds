@@ -82,7 +82,7 @@ class SiteFormFieldSettingManager
                     }
 
                     if (array_key_exists('choices', $new_field)) {
-                        $choices = array_map('strval', (array)$new_field->choices);
+                        $choices = array_map('strval', (array) $new_field->choices);
                         $choices = array_map('strval', array_flip($choices)); // VALUE is the same as KEY
                         $add_data["choices"] = $choices;
                         $field->setAdditionalData($add_data);
@@ -114,7 +114,7 @@ class SiteFormFieldSettingManager
                 }
             }
         }
-        
+
         if ($type != 'period') {
             $field->setFieldType($type);
             $field->setInRow(false);
@@ -160,7 +160,6 @@ class SiteFormFieldSettingManager
                 unset($additional_data["choices"]);
             }
             $field->setAdditionalData($additional_data);
-
         }
         $this->save();
         return;
@@ -275,7 +274,7 @@ class SiteFormFieldSettingManager
             }
         }
     }
-    
+
     public function getArrangedFields(SiteFormSetting $site_form_setting)
     {
         $site_form_field_setting = $site_form_setting->getSiteFormFieldSettings();
@@ -284,7 +283,7 @@ class SiteFormFieldSettingManager
         foreach ($site_form_field_setting as $field) {
             $arranged_field[$field->getLevel()][] = $field;
         }
-        
+
         return $arranged_field;
     }
 
@@ -292,7 +291,7 @@ class SiteFormFieldSettingManager
     {
         $site_form_setting = $this->em->getRepository('AdminBundle:SiteFormSetting')->findAllDefaultFields($program, $site_form_type);
         $default_fields = $site_form_setting->getSiteFormFieldSettings();
-        
+
         foreach ($default_fields as $field) {
             $field_clone = clone $field;
             $field_clone->setLevel($level);

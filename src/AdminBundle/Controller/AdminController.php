@@ -22,7 +22,8 @@ class AdminController extends Controller
     public function sidebarAction($active)
     {
         return $this->render(
-            $this->sidebar_view, array(
+            $this->sidebar_view,
+            array(
             'active' => $active
             )
         );

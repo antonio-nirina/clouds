@@ -1,7 +1,6 @@
 <?php
 namespace UserBundle\EventListener;
 
-
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
@@ -10,7 +9,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
-
 
 class RegistrationConfirmListener implements EventSubscriberInterface
 {
@@ -39,15 +37,15 @@ class RegistrationConfirmListener implements EventSubscriberInterface
     public function onRegistrationSuccess(FormEvent $event)
     {
         $user = $event->getForm()->getData();
-        
+
         //Set Default role
         $rolesDefault = array('ROLE_COMMERCIAL');
         $user->setRoles($rolesDefault);
-        
+
         //Create accoumpt in Mailjet > Contact
         $Contact = $this->service_container->get('AdminBundle\Service\MailJet\MailjetContactList');
         $responseCreateContact = $Contact->createContactByMail($user);
-        
+
         //$event->setResponse(new Response(print_r($responseCreateContact)));
     }
 }

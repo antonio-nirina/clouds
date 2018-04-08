@@ -39,7 +39,6 @@ class SuperAdminNotificationMailer
             foreach ($recipient_list as $recipient) {
                 array_push($recipient_email_list, $recipient->getEmail());
             }
-
         }
         return $recipient_email_list;
     }
@@ -55,7 +54,8 @@ class SuperAdminNotificationMailer
                     ->setTo($recipient_email)
                     ->setBody(
                         $this->twig->render(
-                            'AdminBundle:Emails/SuperAdminNotification:be_contacted.html.twig', array(
+                            'AdminBundle:Emails/SuperAdminNotification:be_contacted.html.twig',
+                            array(
                             'sender_email' => $sender->getEmail()
                             )
                         ),

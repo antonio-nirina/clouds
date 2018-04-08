@@ -3,6 +3,7 @@
 namespace AdminBundle\Service\ImportExport;
 
 use AdminBundle\Entity\ProgramUserCompany;
+use AdminBundle\Exception\NoSiteFormSettingSetException;
 use UserBundle\Entity\User;
 use AdminBundle\Service\FileHandler\CSVHandler;
 use AdminBundle\Service\ImportExport\SchemaChecker;
@@ -191,9 +192,9 @@ class RegistrationSchemaChecker extends SchemaChecker
         parent::check($model, $data);
 
         if (array_key_exists(0, $this->model->getTitleRowIndexList())
-            and array_key_exists(1, $this->model->getTitleRowIndexList())
-            and array_key_exists(0, $this->model->getHeaderRowIndexList())
-            and array_key_exists(1, $this->model->getHeaderRowIndexList())
+            && array_key_exists(1, $this->model->getTitleRowIndexList())
+            && array_key_exists(0, $this->model->getHeaderRowIndexList())
+            && array_key_exists(1, $this->model->getHeaderRowIndexList())
         ) {
             // 1-based index to 0-based - From PHPExcel index to CSV file index (by fgetcsv()
             $this->model_company_data_title_row_index = $this->model->getTitleRowIndexList()[0] - 1;
@@ -253,7 +254,7 @@ class RegistrationSchemaChecker extends SchemaChecker
                 }
 
                 if (count(array_unique($user_email_list)) < count($user_email_list)) {
-                    $this->addError(self::ERROR_DUPLICATE_USER_DATA.', colonne "'.$email_field->getLabel().'"');
+                    $this->addError(self::ERROR_DUPLICATE_USER_DATA . ', colonne "' . $email_field->getLabel() . '"');
                     return $this->error_list;
                 }
 

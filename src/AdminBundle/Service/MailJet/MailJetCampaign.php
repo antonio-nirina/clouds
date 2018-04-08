@@ -250,7 +250,8 @@ class MailJetCampaign extends MailJetHandler
     private function sortByCreatedAtDesc($campaign_list)
     {
         usort(
-            $campaign_list, function ($a, $b) {
+            $campaign_list,
+            function ($a, $b) {
                 $date_a = new \DateTime($a->getCreatedAt());
                 $date_b = new \DateTime($b->getCreatedAt());
                 if ($date_a == $date_b) {
@@ -296,7 +297,8 @@ class MailJetCampaign extends MailJetHandler
         if (!empty($campaign_draft_id_list)) {
             foreach ($campaign_draft_id_list as $campaign_draft_id) {
                 $this->mailjet->put(
-                    Resources::$Campaigndraft, array(
+                    Resources::$Campaigndraft,
+                    array(
                     'Id' => $campaign_draft_id,
                     'body' => array('Status' => self::CAMPAIGN_STATUS_ARCHIVED),
                     )
@@ -320,7 +322,8 @@ class MailJetCampaign extends MailJetHandler
                         $body = array('Status' => self::CAMPAIGN_STATUS_SENT);
                     }
                     $this->mailjet->put(
-                        Resources::$Campaigndraft, array(
+                        Resources::$Campaigndraft,
+                        array(
                         'Id' => $campaign_draft_id,
                         'body' => $body,
                         )
@@ -349,8 +352,7 @@ class MailJetCampaign extends MailJetHandler
         return null;
     }
 
-
-    /**
+/**
      * Duplicate campaign draft
      *
      * Duplicate campaign draft data
@@ -377,7 +379,8 @@ class MailJetCampaign extends MailJetHandler
         $result = $this->mailjet->post(Resources::$Campaigndraft, array('body' => $source_campaign_draft_data));
         if (in_array($result->getStatus(), self::STATUS_CODE_SUCCESS_LIST)) {
             $result_source_campaign_draft_content = $this->mailjet->get(
-                Resources::$CampaigndraftDetailcontent, array(
+                Resources::$CampaigndraftDetailcontent,
+                array(
                 'id' => $source_campaign_draft_id,
                 )
             );
@@ -388,7 +391,8 @@ class MailJetCampaign extends MailJetHandler
                     'Html-part' => $source_campaign_draft_content['Html-part'],
                 );
                 $result_create_content = $this->mailjet->post(
-                    Resources::$CampaigndraftDetailcontent, array(
+                    Resources::$CampaigndraftDetailcontent,
+                    array(
                     'id' => $result->getData()[0]['ID'],
                     'body' => $content_body,
                     )
@@ -398,7 +402,6 @@ class MailJetCampaign extends MailJetHandler
                 } else {
                     $this->deleteCampaignDraftByIdList(array($result->getData()[0]['ID']));
                 }
-
             } else {
                 $this->deleteCampaignDraftByIdList(array($result->getData()[0]['ID']));
             }
@@ -419,7 +422,8 @@ class MailJetCampaign extends MailJetHandler
         if (!empty($campaign_draft_id_list)) {
             foreach ($campaign_draft_id_list as $campaign_draft_id) {
                 $this->mailjet->put(
-                    Resources::$Campaigndraft, array(
+                    Resources::$Campaigndraft,
+                    array(
                     'Id' => $campaign_draft_id,
                     'body' => array('Status' => self::CAMPAIGN_STATUS_DELETED),
                     )
@@ -532,7 +536,8 @@ class MailJetCampaign extends MailJetHandler
                 'Date' => $campaign_draft_data->getProgrammedLaunchDate()->format(\DateTime::RFC3339)
             );
             $set_schedule_result = $this->mailjet->put(
-                Resources::$CampaigndraftSchedule, array(
+                Resources::$CampaigndraftSchedule,
+                array(
                 'id' => $campaign_draft_id,
                 'body' => $schedule_body
                 )
@@ -606,7 +611,6 @@ class MailJetCampaign extends MailJetHandler
                 }
             }
         }
-
 
         return null;
     }
@@ -704,7 +708,8 @@ class MailJetCampaign extends MailJetHandler
                 'Date' => $campaign_draft_data->getProgrammedLaunchDate()->format(\DateTime::RFC3339)
             );
             $set_schedule_result = $this->mailjet->put(
-                Resources::$CampaigndraftSchedule, array(
+                Resources::$CampaigndraftSchedule,
+                array(
                 'id' => $campaign_draft_data->getId(),
                 'body' => $schedule_body
                 )
@@ -742,7 +747,8 @@ class MailJetCampaign extends MailJetHandler
             }
 
             $edit_result = $this->mailjet->put(
-                Resources::$Campaigndraft, array(
+                Resources::$Campaigndraft,
+                array(
                 'id' => $campaign_draft_data->getId(),
                 'body' => $body
                 )
@@ -812,7 +818,8 @@ class MailJetCampaign extends MailJetHandler
                 $body['TemplateID'] = $campaign_draft_data->getTemplateId();
             }
             $edit_result = $this->mailjet->put(
-                Resources::$Campaigndraft, array(
+                Resources::$Campaigndraft,
+                array(
                 'id' => $campaign_draft_data->getId(),
                 'body' => $body
                 )

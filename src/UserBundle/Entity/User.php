@@ -9,9 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-/** 
- *    
+/**
+ *
  * @ORM\Entity
  * @UniqueEntity("email",message="fos_user.email.already_used")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
@@ -88,7 +87,7 @@ class User extends BaseUser
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="app_user")
      */
     protected $program_user;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="user")
      */
@@ -188,7 +187,7 @@ class User extends BaseUser
      * @Recaptcha\IsTrue
      */
     public $recaptcha;
-    
+
     /**
      * Constructor
      */
@@ -197,15 +196,14 @@ class User extends BaseUser
         $this->resultats_sondages_quiz = new ArrayCollection();
     }
 
-   
-    /**
+/**
      * @ORM\PrePersist
      */
     public function initTemporaryPwd()
     {
         return $this->setTemporaryPwd(true);
     }
-   
+
     /**
      * Set temporaryPwd
      *
@@ -326,8 +324,7 @@ class User extends BaseUser
         return $this->status;
     }
 
-
-    /**
+/**
      * Set contactInformation
      *
      * @param string $contactInformation
@@ -638,7 +635,7 @@ class User extends BaseUser
     {
         return $this->code;
     }
-    
+
     /**
      * Add resultatsSondagesQuiz
      *
@@ -678,6 +675,4 @@ class User extends BaseUser
         parent::setEmail($email);
         $this->setUsername($email);
     }
-
-    
 }

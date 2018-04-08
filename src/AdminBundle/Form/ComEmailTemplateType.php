@@ -23,7 +23,9 @@ class ComEmailTemplateType extends AbstractType
         $builder->add('name', TextType::class)
             ->add('logo', FileType::class, array('data_class' => null))
             ->add(
-                'logo_alignment', ChoiceType::class, array(
+                'logo_alignment',
+                ChoiceType::class,
+                array(
                 'choices' => array(
                     'center' => TemplateLogoAlignment::CENTER,
                     'left' => TemplateLogoAlignment::LEFT,
@@ -41,7 +43,9 @@ class ComEmailTemplateType extends AbstractType
             ->add('footer_unsubscribing_text', TextType::class)
             ->add('footer_additional_info', TextType::class)
             ->add(
-                'contents', CollectionType::class, array(
+                'contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ComEmailTemplateContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,

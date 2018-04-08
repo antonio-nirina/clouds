@@ -22,7 +22,9 @@ class SiteDesignSettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'police', ChoiceType::class, array(
+            'police',
+            ChoiceType::class,
+            array(
                             'choices'  => array(
                                 'Roboto' => "Roboto",
                                 'Open Sans' => "OpenSans",
@@ -35,7 +37,9 @@ class SiteDesignSettingType extends AbstractType
             )
         )
             ->add(
-                'colors', CollectionType::class, array(
+                'colors',
+                CollectionType::class,
+                array(
                     "entry_type" => TextType::class,
                     "entry_options" => array(
                         "required" => false
@@ -43,14 +47,18 @@ class SiteDesignSettingType extends AbstractType
                 )
             )
             ->add(
-                "body_background", FileType::class, array(
+                "body_background",
+                FileType::class,
+                array(
                     'required' => false,
                     'constraints' => array(
                     )
                 )
             )
             ->add(
-                'logo_path', FileType::class, array(
+                'logo_path',
+                FileType::class,
+                array(
                     'required' => false,
                     "constraints" => array(
                     )

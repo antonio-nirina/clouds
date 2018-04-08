@@ -56,9 +56,9 @@ class ResultSettingHandler
         $by_product = $this->result_setting->getByProduct();
         $by_rank = $this->result_setting->getByRank();
         $this->model->save($monthly, $by_product, $by_rank);
-        
+
         $error_list = $this->schema_checker->check($this->model, $data_import_file);
-        
+
         if (!empty($error_list)) {
             $this->error_list = $error_list;
             $this->removeFile($import_file_path);

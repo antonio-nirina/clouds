@@ -35,7 +35,9 @@ class SelectingCommonDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'viewer_authorization_type', ChoiceType::class, array(
+            'viewer_authorization_type',
+            ChoiceType::class,
+            array(
             'choices' => $this->retrieveAuthorizationList(),
             )
         )
@@ -63,7 +65,7 @@ class SelectingCommonDataType extends AbstractType
             foreach ($role_list as $role) {
                 // adding incremented number suffix to prevent generated option tag from losing string value
                 // and recognizing this type of authorization type by using regexp (e.g. : role_\d+)
-                $authorization_values[$role->getName()] = NewsPostAuthorizationType::BY_ROLE .'_'. $i;
+                $authorization_values[$role->getName()] = NewsPostAuthorizationType::BY_ROLE . '_' . $i;
                 $i++;
             }
         }

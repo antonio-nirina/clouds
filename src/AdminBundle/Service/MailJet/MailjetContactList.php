@@ -1,6 +1,5 @@
-<?php 
+<?php
 namespace AdminBundle\Service\MailJet;
-
 
 use Mailjet\MailjetBundle\Client\MailjetClient;
 use Mailjet\MailjetBundle\Manager\ContactsListManager;
@@ -16,35 +15,35 @@ use UserBundle\Entity\User as User;
 
 class MailjetContactList
 {
-    
+
     protected $manager;
     protected $mailjet;
     protected $contactmetadata;
     protected $user;
-    
+
     public function __construct(ContactsListManager $manager, MailjetClient $mailjet, ContactMetadataManager $contactmetadata)
     {
         $this->manager = $manager;
         $this->mailjet = $mailjet;
         $this->contactmetadata = $contactmetadata;
     }
-    
+
     public function setUser($users)
     {
         $this->user = $users;
     }
-    
+
     public function getUser()
     {
         return $this->user;
     }
-    
+
     /**
      * Retrieve all ContactsList
      *
      * @return array
      */
-     
+
     public function getAllList()
     {
         $response = $this->mailjet->get(Resources::$Contactslist, ['filters' => ['Limit' => 0]]);
@@ -54,7 +53,7 @@ class MailjetContactList
 
         return $response->getData();
     }
-    
+
     /**
      * Add ContactsList && contact data
      *
@@ -62,33 +61,31 @@ class MailjetContactList
      */
     public function addContactList($listName, $UsersLists)
     {
-        
+
         $ContactInfos = array();
-        
-        
+
         //Add list name if is not exist
         $eMessages = array();
         $DataList = $this->createList($listName);
-        if(isset($DataList['StatusCode']) && ($DataList['StatusCode'] == 400)) {
+        if (isset($DataList['StatusCode']) && ($DataList['StatusCode'] == 400)) {
             $eMessages['error'] = 'La liste existe déjà!';
-        }elseif(isset($DataList[0]['CreatedAt'])) {
+        } elseif (isset($DataList[0]['CreatedAt'])) {
             $eMessages['idList'] = $DataList[0]['ID'];
         }
-        
-        
+
         $ContactInfos = array();
-        if(isset($eMessages['idList']) && $eMessages['idList'] > 0) {
-            foreach($UsersLists as $UserConacts){
+        if (isset($eMessages['idList']) && $eMessages['idList'] > 0) {
+            foreach ($UsersLists as $UserConacts) {
                 $ListRoles = $UserConacts->getRoles();
-            
-                if($ListRoles[0] == 'ROLE_MANAGER') {
+
+                if ($ListRoles[0] == 'ROLE_MANAGER') {
                     $roles = 'manager';
-                }elseif($ListRoles[0] == 'ROLE_COMMERCIAL') {
+                } elseif ($ListRoles[0] == 'ROLE_COMMERCIAL') {
                     $roles = 'commercial';
-                }elseif($ListRoles[0] == 'ROLE_PARTICIPANT') {
+                } elseif ($ListRoles[0] == 'ROLE_PARTICIPANT') {
                     $roles = 'participant';
                 }
-                
+
                 //Add contact to a list
                 $contact = array(
                 "Email" =>  $UserConacts->getEmail(),
@@ -102,12 +99,12 @@ class MailjetContactList
                 "newsletter_insc" => '0',
                 )
                 );
-                
+
                 $ObjContacts = new Contact($contact['Email'], $contact['Name'], $contact['Properties']);
                 $ContactInfos[] = $this->manager->subscribe($DataList[0]['ID'], $ObjContacts, true);
             }
         }
-        
+
         return $ContactInfos;
     }
 
@@ -123,22 +120,22 @@ class MailjetContactList
     {
         $eMessages = array();
         $DataList = $this->createList($listName);
-        if(isset($DataList['StatusCode']) && ($DataList['StatusCode'] == 400)) {
+        if (isset($DataList['StatusCode']) && ($DataList['StatusCode'] == 400)) {
             $eMessages['error'] = 'La liste existe déjà!';
-        }elseif(isset($DataList[0]['CreatedAt'])) {
+        } elseif (isset($DataList[0]['CreatedAt'])) {
             $eMessages['idList'] = $DataList[0]['ID'];
         }
 
            $ContactInfos = array();
-        if(isset($eMessages['idList']) && $eMessages['idList'] > 0) {
-            foreach($UsersLists as $UserConacts){
+        if (isset($eMessages['idList']) && $eMessages['idList'] > 0) {
+            foreach ($UsersLists as $UserConacts) {
                 $ListRoles = $UserConacts->getRoles();
 
-                if($ListRoles[0] == 'ROLE_MANAGER') {
+                if ($ListRoles[0] == 'ROLE_MANAGER') {
                     $roles = 'manager';
-                }elseif($ListRoles[0] == 'ROLE_COMMERCIAL') {
+                } elseif ($ListRoles[0] == 'ROLE_COMMERCIAL') {
                     $roles = 'commercial';
-                }elseif($ListRoles[0] == 'ROLE_PARTICIPANT') {
+                } elseif ($ListRoles[0] == 'ROLE_PARTICIPANT') {
                     $roles = 'participant';
                 }
 
@@ -164,7 +161,7 @@ class MailjetContactList
 
            return $ContactInfos;
     }
-    
+
     /**
      * Add ContactsList && contact data
      *
@@ -172,20 +169,20 @@ class MailjetContactList
      */
     public function editContactList($IdList, $UsersLists)
     {
-        
+
         $ContactInfos = array();
-        
-        foreach($UsersLists as $UserConacts){
+
+        foreach ($UsersLists as $UserConacts) {
             $ListRoles = $UserConacts->getRoles();
-            if($ListRoles[0] != 'ROLE_ADMIN') {
-                if($ListRoles[0] == 'ROLE_MANAGER') {
+            if ($ListRoles[0] != 'ROLE_ADMIN') {
+                if ($ListRoles[0] == 'ROLE_MANAGER') {
                     $roles = 'manager';
-                }elseif($ListRoles[0] == 'ROLE_COMMERCIAL') {
+                } elseif ($ListRoles[0] == 'ROLE_COMMERCIAL') {
                     $roles = 'commercial';
-                }elseif($ListRoles[0] == 'ROLE_PARTICIPANT') {
+                } elseif ($ListRoles[0] == 'ROLE_PARTICIPANT') {
                     $roles = 'participant';
                 }
-                
+
                 //Add contact to a list
                 $contact = array(
                 "Email" =>  $UserConacts->getEmail(),
@@ -199,15 +196,15 @@ class MailjetContactList
                 "newsletter_insc" => '0',
                 )
                 );
-                
+
                 $ObjContacts = new Contact($contact['Email'], $contact['Name'], $contact['Properties']);
                 $ContactInfos[] = $this->manager->subscribe($IdList, $ObjContacts, true);
             }
         }
-        
+
         return $ContactInfos;
     }
-    
+
     /**
      * Add new ContactsList
      *
@@ -218,7 +215,7 @@ class MailjetContactList
         $response = $this->mailjet->post(Resources::$Contactslist, ['body' => ['Name' => $Lname]]);
         return $response->getData();
     }
-    
+
     /**
      * Get All Contacts
      *
@@ -229,7 +226,7 @@ class MailjetContactList
         $response = $this->mailjet->get(Resources::$Contact, ['filters' => ['Limit' => 0]]);
         return $response->getData();
     }
-    
+
     /**
      * Get Contacts By Id
      *
@@ -240,7 +237,7 @@ class MailjetContactList
         $response = $this->mailjet->get(Resources::$Contact, ['id' => $idContact]);
         return $response->getData();
     }
-    
+
     /**
      * Get List with ID
      *
@@ -251,7 +248,7 @@ class MailjetContactList
         $response = $this->mailjet->get(Resources::$Contactslist, ['id' => $idList]);
         return $response->getData();
     }
-    
+
     /**
      * Get List with Name
      *
@@ -262,20 +259,20 @@ class MailjetContactList
         $response = $this->mailjet->get(Resources::$Listrecipient, ['filters' => ['ListName' => $ListName]]);
         return $response->getData();
     }
-    
+
     /*
-    * De-iscrire l'user 
+    * De-iscrire l'user
     **/
     public function DesinscritContactList($IdList, $UsersLists)
     {
         $reponses = array();
-        foreach($UsersLists as $Email){
+        foreach ($UsersLists as $Email) {
             $ObjContacts = new Contact($Email);
             $reponses[] = $this->manager->unsubscribe($IdList, $ObjContacts);
         }
         return $reponses;
     }
-    
+
     /**
      * Delete List with Id
      *
@@ -285,11 +282,11 @@ class MailjetContactList
     {
         //$contact->setAction(Resources::$Contactslist::ACTION_ADDFORCE);
         //$ContactslistObj = new Contactslist($idList, ContactsList::ACTION_REMOVE, array());
-        
+
         $response = $this->mailjet->delete(Resources::$Contactslist, ['id' => $idList]);
         return $response->getData();
     }
-    
+
     /**
      * Create contact with its email
      *
@@ -301,4 +298,3 @@ class MailjetContactList
         return $response->getData();
     }
 }
-?>

@@ -13,7 +13,9 @@ class ProductPointType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'product_point_setting_list', CollectionType::class, array(
+            'product_point_setting_list',
+            CollectionType::class,
+            array(
             'entry_type' => ProductPointUnitType::class,
             'entry_options' => array('label' => false),
             'allow_add' => true,

@@ -39,7 +39,7 @@ class SiteFormFixtures extends Fixture
             $manager->persist($site_form);
             $manager->persist($site_form_setting);
         }
-        
+
         $manager->flush();
 
         $this->addReference('registration-form', $site_form);

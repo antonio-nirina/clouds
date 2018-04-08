@@ -25,7 +25,9 @@ class ELearningMediaContentType extends ELearningContentType
         $builder->add('associated_file', FileType::class)
             ->add('video_url', TextType::class)
             ->add(
-                'images', CollectionType::class, array(
+                'images',
+                CollectionType::class,
+                array(
                 'entry_type' => ELearningGalleryImageType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,

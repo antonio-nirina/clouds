@@ -47,9 +47,6 @@ use AdminBundle\Component\Submission\SubmissionType;
 use AdminBundle\Component\ELearning\ELearningContentType;
 use AdminBundle\Component\Authorization\AuthorizationType;
 
-
-
-
 /**
  * @Route("/admin/communication")
  */
@@ -114,7 +111,8 @@ class CommunicationController extends AdminController
         }
 
         return $this->render(
-            'AdminBundle:Communication:edito.html.twig', array(
+            'AdminBundle:Communication:edito.html.twig',
+            array(
             'add_edito_form' => $add_edito_form->createView(),
             'edit_edito_form_list' => $edit_edito_form_view_list
             )
@@ -135,7 +133,7 @@ class CommunicationController extends AdminController
         }
 
         $edito_manager = $this->get('AdminBundle\Manager\HomePagePostEditoManager');
-        $edito_manager->deleteEditoById($program, (int)$id);
+        $edito_manager->deleteEditoById($program, (int) $id);
 
         return new Response('<html><body>OK</body></html>');
     }
@@ -194,7 +192,8 @@ class CommunicationController extends AdminController
         }
 
         return $this->render(
-            'AdminBundle:Communication:slideshow.html.twig', array(
+            'AdminBundle:Communication:slideshow.html.twig',
+            array(
             'home_page_slide_data_form' => $home_page_slide_data_form->createView(),
             'original_slides_image' => $original_slides_image,
             'slide_type' => new SlideType(),
@@ -217,7 +216,8 @@ class CommunicationController extends AdminController
         $campaign_data_list = $campaign->getAllVisibleWithData($filters);
 
         return $this->render(
-            'AdminBundle:Communication:emailing_campaign.html.twig', array(
+            'AdminBundle:Communication:emailing_campaign.html.twig',
+            array(
             "list" => $campaign_data_list,
             'content_type_class' => new TemplateContentType(),
             'template_model_class' => new TemplateModel(),
@@ -256,7 +256,6 @@ class CommunicationController extends AdminController
         $campaign_draft_data = new CampaignDraftData();
         $campaign_draft_data->setProgrammedLaunchDate(new \DateTime('now'));
 
-
         $campaign_draft_form = $this->createForm(
             CampaignDraftType::class,
             $campaign_draft_data,
@@ -291,7 +290,8 @@ class CommunicationController extends AdminController
         $template_data_list = $template_list_data_handler->retrieveListDataIndexedById($template_list);
 
         $view = $this->renderView(
-            'AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig', array(
+            'AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig',
+            array(
             'campaign_draft_form' => $campaign_draft_form->createView(),
             'template_data_list' => $template_data_list,
             )
@@ -365,7 +365,8 @@ class CommunicationController extends AdminController
         $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
         $template_data_list = $template_list_data_handler->retrieveListDataIndexedById($template_list);
         $view = $this->renderView(
-            'AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig', array(
+            'AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig',
+            array(
             'campaign_draft_form' => $campaign_draft_form->createView(),
             'template_data_list' => $template_data_list,
             'edit_mode' => true,
@@ -424,7 +425,8 @@ class CommunicationController extends AdminController
         $campaign_data_list = $campaign->getAllArchivedWithData($filters);
 
         return $this->render(
-            'AdminBundle:Communication:emailing_campaign_filtered.html.twig', array(
+            'AdminBundle:Communication:emailing_campaign_filtered.html.twig',
+            array(
             'list' => $campaign_data_list,
             'archived_mode' => true,
             )
@@ -567,7 +569,8 @@ class CommunicationController extends AdminController
                 $json_response_data_provider->contactListCreationSuccess(
                     $response['contact_list_infos']['ID'],
                     ''
-                ), 200
+                ),
+                200
             );
         } else {
             return new JsonResponse($json_response_data_provider->contactListCreationError(), 200);
@@ -589,7 +592,8 @@ class CommunicationController extends AdminController
         $template_data_list = $template_list_data_handler->retrieveListData($template_list);
 
         return $this->render(
-            'AdminBundle:Communication:emailing_templates.html.twig', array(
+            'AdminBundle:Communication:emailing_templates.html.twig',
+            array(
             'template_model_class' => new TemplateModel(),
             'template_data_list' => $template_data_list,
             'content_type_class' => new TemplateContentType(),
@@ -625,7 +629,8 @@ class CommunicationController extends AdminController
 
         $template_list_view = $this
             ->renderView(
-                'AdminBundle:Communication/EmailingTemplates:sorted_emailing_template.html.twig', array(
+                'AdminBundle:Communication/EmailingTemplates:sorted_emailing_template.html.twig',
+                array(
                 'template_data_list' => $template_data_list
                 )
             );
@@ -849,7 +854,6 @@ class CommunicationController extends AdminController
                     $data['content'] = $form_view;
                     return new JsonResponse($data, 200);
                 }
-
             }
         }
 
@@ -902,8 +906,7 @@ class CommunicationController extends AdminController
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
 
-
-    /**
+/**
      * @Route("/emailing/campagne/preview",name="admin_communication_emailing_campagne_preview_template")
      */
     public function previewCampagneTplAction(Request $request)
@@ -925,8 +928,7 @@ class CommunicationController extends AdminController
         return new Response('');
     }
 
-
-    /**
+/**
      * @Route(
      *     "/emailling/templates/duplication-template/{template_id}",
      *     name="admin_communication_emailing_templates_duplicate_template",
@@ -981,7 +983,8 @@ class CommunicationController extends AdminController
         if ($request->isMethod('GET')) {
             $view = $this
                 ->renderView(
-                    'AdminBundle:Communication/EmailingTemplates:duplicate_template.html.twig', array(
+                    'AdminBundle:Communication/EmailingTemplates:duplicate_template.html.twig',
+                    array(
                     'duplicate_template_form' => $duplicate_template_form->createView(),
                     )
                 );
@@ -1004,7 +1007,8 @@ class CommunicationController extends AdminController
                     $data = $json_response_data_provider->formError();
                     $view = $this
                         ->renderView(
-                            'AdminBundle:Communication/EmailingTemplates:duplicate_template.html.twig', array(
+                            'AdminBundle:Communication/EmailingTemplates:duplicate_template.html.twig',
+                            array(
                             'duplicate_template_form' => $duplicate_template_form->createView(),
                             )
                         );
@@ -1058,7 +1062,7 @@ class CommunicationController extends AdminController
 
         return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact/{trie}",
@@ -1072,41 +1076,42 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
-        
-        if(empty($trie) || is_null($trie)) {
+
+        if (empty($trie) || is_null($trie)) {
             return $this->redirectToRoute('admin_communication_emailing_list_contact', array('trie' => 'recents'));
         }
 
         $em = $this->getDoctrine()->getManager();
-        
+
         //Call ContactList manager service
         $AllContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
-        
+
         //Get all contacts Lists
         $ListContact = $AllContactList->getAllList();
-        
+
         // Obtient une liste de colonnes
         foreach ($ListContact as $key => $row) {
             $Name[$key]  = $row['Name'];
             $CreatedAt[$key]  = $row['CreatedAt'];
         }
-        
-        if($trie == 'a-z') {
+
+        if ($trie == 'a-z') {
             array_multisort($Name, SORT_ASC, $ListContact);
-        }elseif($trie == 'z-a') {
+        } elseif ($trie == 'z-a') {
             array_multisort($Name, SORT_DESC, $ListContact);
-        }elseif($trie == 'recents') {
+        } elseif ($trie == 'recents') {
             array_multisort($CreatedAt, SORT_DESC, $ListContact);
         }
-        
+
         return $this->render(
-            'AdminBundle:Communication:emailing_liste_contact.html.twig', array(
+            'AdminBundle:Communication:emailing_liste_contact.html.twig',
+            array(
             'ListContact' => $ListContact,
             'trie' => $trie
             )
         );
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact-edit",
@@ -1122,16 +1127,16 @@ class CommunicationController extends AdminController
         }
 
         $em = $this->getDoctrine()->getManager();
-        
+
         if ($request->isMethod('POST')) {
             $IdList = $request->get('IdList');
             $response = $this->forward('AdminBundle:PartialPage:emailingListeContactEditAjax', array('IdList' => $IdList));
             return new Response($response->getContent());
         }
-        
+
         //return $this->render('AdminBundle:Communication:emailing_liste_contact_edit.html.twig');
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact-edit-submit",
@@ -1147,22 +1152,23 @@ class CommunicationController extends AdminController
         }
 
         $em = $this->getDoctrine()->getManager();
-        
+
         if ($request->isMethod('POST')) {
             $IdList = $request->get('IdList');
             $UserId = $request->get('UserId');
-            
+
             $response = $this->forward(
-                'AdminBundle:PartialPage:emailingListeContactEditSubmitAjax', array(
+                'AdminBundle:PartialPage:emailingListeContactEditSubmitAjax',
+                array(
                 'IdList' => $IdList,
                 'UserId' => $UserId,
                 )
             );
-        
+
             return new Response($response->getContent());
         }
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact-creer",
@@ -1178,14 +1184,14 @@ class CommunicationController extends AdminController
         }
 
         $em = $this->getDoctrine()->getManager();
-        
+
         $response = $this->forward('AdminBundle:PartialPage:emailingListeContactCreerAjax');
-        
+
         return new Response($response->getContent());
-        
+
         //return $this->render('AdminBundle:Communication:emailing_liste_contact_edit.html.twig');
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact-creer-submit",
@@ -1201,24 +1207,24 @@ class CommunicationController extends AdminController
         }
 
         $em = $this->getDoctrine()->getManager();
-        
+
         if ($request->isMethod('POST')) {
             $ListName = $request->get('ListName');
             $UserId = $request->get('UserId');
-            
+
             $response = $this->forward(
-                'AdminBundle:PartialPage:emailingListeContactCreerSubmitAjax', array(
+                'AdminBundle:PartialPage:emailingListeContactCreerSubmitAjax',
+                array(
                 'ListName' => $ListName,
                 'UserId' => $UserId,
                 )
             );
-        
+
             return new Response($response->getContent());
         }
     }
-    
-    
-    /**
+
+/**
      * @Route(
      *     "/emailing/liste-contact-delete",
      *     name="admin_communication_emailing_list_contact_delete",
@@ -1233,20 +1239,21 @@ class CommunicationController extends AdminController
         }
 
         $em = $this->getDoctrine()->getManager();
-        
+
         if ($request->isMethod('POST')) {
             $IdList = $request->get('IdList');
-            
+
             $response = $this->forward(
-                'AdminBundle:PartialPage:emailingListeContactDeleteAjax', array(
+                'AdminBundle:PartialPage:emailingListeContactDeleteAjax',
+                array(
                 'IdList' => $IdList
                 )
             );
-        
+
             return new Response($response->getContent());
         }
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact-dupliquer",
@@ -1262,22 +1269,23 @@ class CommunicationController extends AdminController
         }
 
         $em = $this->getDoctrine()->getManager();
-        
+
         if ($request->isMethod('POST')) {
             $ListName = $request->get('ListName');
             $ListId = $request->get('ListId');
-            
+
             $response = $this->forward(
-                'AdminBundle:PartialPage:emailingListeContactDupliquerAjax', array(
+                'AdminBundle:PartialPage:emailingListeContactDupliquerAjax',
+                array(
                 'ListName' => $ListName,
                 'ListId' => $ListId
                 )
             );
-        
+
             return new Response($response->getContent());
         }
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact-export/{id}",
@@ -1288,15 +1296,15 @@ class CommunicationController extends AdminController
     {
         $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
-        
+
         if (empty($program)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
-        
+
         $em = $this->getDoctrine()->getManager();
-        
+
         $em = $this->getDoctrine()->getManager();
-    
+
         //Call ContactList manager service
         $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
@@ -1308,43 +1316,43 @@ class CommunicationController extends AdminController
         $objPHPExcel->getProperties()->setTitle("Office 2007 XLSX Listing");
         $objPHPExcel->getProperties()->setSubject("Office 2007 XLSX Listing");
         $objPHPExcel->getProperties()->setDescription("Listing for Office 2007 XLSX, generated using Symfony.");
-        
+
         $bordersarray = array(
         'borders'=>array(
-        'top'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN), 
+        'top'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
         'left'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
         'right'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
         'bottom'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN)
         )
         );
-        
+
         $objPHPExcel->getActiveSheet()->SetCellValue('A3', 'prénom');
         $objPHPExcel->getActiveSheet()->SetCellValue('B3', 'nom');
         $objPHPExcel->getActiveSheet()->SetCellValue('C3', 'adresse e-mail');
         $objPHPExcel->getActiveSheet()->SetCellValue('D3', 'rôle');
         $objPHPExcel->getActiveSheet()->SetCellValue('E3', 'désabonné(e)');
-        
+
         $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->applyFromArray(array('bold'=>true,'size'=>12,'name' => 'Arial','color' => array('rgb' => '404040')));
-        
+
         $objPHPExcel->getActiveSheet()->getStyle('A3')->applyFromArray($bordersarray);
         $objPHPExcel->getActiveSheet()->getStyle('B3')->applyFromArray($bordersarray);
         $objPHPExcel->getActiveSheet()->getStyle('C3')->applyFromArray($bordersarray);
         $objPHPExcel->getActiveSheet()->getStyle('D3')->applyFromArray($bordersarray);
         $objPHPExcel->getActiveSheet()->getStyle('E3')->applyFromArray($bordersarray);
-        
+
         $objPHPExcel->getActiveSheet()->getStyle('A:E')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
-        
+
         $objPHPExcel->getActiveSheet()->setTitle('Liste des contacts');
-        
+
         //array de configuration des bordures
         $center = array('alignment'=>array('horizontal'=>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,'vertical'=>\PHPExcel_Style_Alignment::VERTICAL_CENTER));
-            
+
         //pour aligner à gauche
         $left = array('alignment'=>array('horizontal'=>\PHPExcel_Style_Alignment::HORIZONTAL_LEFT));
-            
+
         //pour souligner
-        $souligner = array('font' => array('underline' => \PHPExcel_Style_Font::UNDERLINE_DOUBLE));    
-        
+        $souligner = array('font' => array('underline' => \PHPExcel_Style_Font::UNDERLINE_DOUBLE));
+
         $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(25);
         $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(25);
         $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(40);
@@ -1352,75 +1360,72 @@ class CommunicationController extends AdminController
         $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
         $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e4e6f8');
 
-        
-        //Get List form ID 
+        //Get List form ID
         $ListInfos = $ContactList->getListById($id);
-        
+
         $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($bordersarray);
         $objPHPExcel->getActiveSheet()->getStyle('B1')->applyFromArray($bordersarray);
         $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e4e6f8');
         $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->getFont()->applyFromArray(array('bold'=>true,'size'=>12,'name' => 'Arial','color' => array('rgb' => '404040')));
         $objPHPExcel->getActiveSheet()->SetCellValue('A1', $ListInfos[0]['Name']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('B1', $ListInfos[0]['SubscriberCount'].' contacts');
-        
-        //Get All contact By ListName 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', $ListInfos[0]['SubscriberCount'] . ' contacts');
+
+        //Get All contact By ListName
         $ContactsInfos = $ContactList->getAllContactByName($ListInfos[0]['Name']);
-        
+
         $cpt = 1;
         $i = 4;
-        foreach($ContactsInfos as $Contacts){
-            //Get Contact by ID 
+        foreach ($ContactsInfos as $Contacts) {
+            //Get Contact by ID
             $ContactsDatas = $ContactList->getContactById($Contacts['ContactID']);
-            
-            //Get Contact datas in db 
+
+            //Get Contact datas in db
             $UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ContactsDatas[0]['Email']);
-            
-            if(isset($UsersListes[0])) {
+
+            if (isset($UsersListes[0])) {
                 $Roles = $UsersListes[0]->getRoles();
-                if($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN') {
-                    //Fill excel 
-                    
-                    
-                    $objPHPExcel->getActiveSheet()->SetCellValue('A'.$i, $UsersListes[0]->getFirstname());
-                    $objPHPExcel->getActiveSheet()->SetCellValue('B'.$i, $UsersListes[0]->getName());
-                    $objPHPExcel->getActiveSheet()->SetCellValue('C'.$i, $UsersListes[0]->getEmail());
-                    
-                    if($Roles[0] == 'ROLE_MANAGER') {
-                        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'manager');
-                    }elseif($Roles[0] == 'ROLE_COMMERCIAL') {
-                        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'commercial');
-                    }elseif($Roles[0] == 'ROLE_PARTICIPANT') {
-                        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$i, 'participant');
+                if ($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN') {
+                    //Fill excel
+
+                    $objPHPExcel->getActiveSheet()->SetCellValue('A' . $i, $UsersListes[0]->getFirstname());
+                    $objPHPExcel->getActiveSheet()->SetCellValue('B' . $i, $UsersListes[0]->getName());
+                    $objPHPExcel->getActiveSheet()->SetCellValue('C' . $i, $UsersListes[0]->getEmail());
+
+                    if ($Roles[0] == 'ROLE_MANAGER') {
+                        $objPHPExcel->getActiveSheet()->SetCellValue('D' . $i, 'manager');
+                    } elseif ($Roles[0] == 'ROLE_COMMERCIAL') {
+                        $objPHPExcel->getActiveSheet()->SetCellValue('D' . $i, 'commercial');
+                    } elseif ($Roles[0] == 'ROLE_PARTICIPANT') {
+                        $objPHPExcel->getActiveSheet()->SetCellValue('D' . $i, 'participant');
                     }
-                    
-                    if($Contacts['IsUnsubscribed'] == '1') {
-                        $objPHPExcel->getActiveSheet()->getStyle('A'.$i.':E'.$i.'')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
-                        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, 'désabonné(e)');
-                    }else{
-                        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$i, '');
+
+                    if ($Contacts['IsUnsubscribed'] == '1') {
+                        $objPHPExcel->getActiveSheet()->getStyle('A' . $i . ':E' . $i . '')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
+                        $objPHPExcel->getActiveSheet()->SetCellValue('E' . $i, 'désabonné(e)');
+                    } else {
+                        $objPHPExcel->getActiveSheet()->SetCellValue('E' . $i, '');
                     }
-                    
+
                     $cpt++;
                     $i++;
                 }
             }
         }
-        
-        
+
         // create the writer
         $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel2007');
-        
-        $RootDir = __DIR__.'/../../../web/emailing/liste-contacts-export';
-        if(!file_exists($RootDir)) {
+
+        $RootDir = __DIR__ . '/../../../web/emailing/liste-contacts-export';
+        if (!file_exists($RootDir)) {
             mkdir($RootDir, 0777, true);
         }
-        $nameFile = 'export-liste-contact-'.date('YmdHi').'-emailing.xlsx';
-        $FileDest = $RootDir.'/'.$nameFile;
+        $nameFile = 'export-liste-contact-' . date('YmdHi') . '-emailing.xlsx';
+        $FileDest = $RootDir . '/' . $nameFile;
         $writer->save($FileDest);
-        
+
         return $this->redirectToRoute('admin_communication_emailing_list_contact_export_download', array('filename' => $nameFile));
     }
-    
+
     /**
      * @Route(
      *     "/emailing/liste-contact-export-download/{filename}",
@@ -1433,15 +1438,14 @@ class CommunicationController extends AdminController
         * $basePath can be either exposed (typically inside web/)
         * or "internal"
         */
-        $basePath = $this->container->getParameter('kernel.root_dir').'/../web/emailing/liste-contacts-export';
-        $filePath = $basePath.'/'.$filename;
-        
+        $basePath = $this->container->getParameter('kernel.root_dir') . '/../web/emailing/liste-contacts-export';
+        $filePath = $basePath . '/' . $filename;
+
         // check if file exists
         $fs = new FileSystem();
         if (!$fs->exists($filePath)) {
             throw $this->createNotFoundException();
         }
-
 
         // prepare BinaryFileResponse
         $response = new BinaryFileResponse($filePath);
@@ -1449,9 +1453,8 @@ class CommunicationController extends AdminController
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, $filename, iconv('UTF-8', 'ASCII//TRANSLIT', $filename));
         return $response;
     }
-    
-    
-    /**
+
+/**
      * @Route(
      *     "/sondage-quiz/{id}",
      *     name="admin_communication_sondage_quiz", defaults={"id"=null}),
@@ -1463,97 +1466,97 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        
+
         $em = $this->getDoctrine()->getManager();
-        
+
         $IsSondagesQuiz = false;
         $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
-        if(!isset($SondagesQuizArray[0])) {
+        if (!isset($SondagesQuizArray[0])) {
             $SondagesQuiz = new SondagesQuiz();
-        }else{
+        } else {
             $SondagesQuiz = $SondagesQuizArray[0];
             $IsSondagesQuiz = true;
         }
-        
+
         //Formulaire d'ajout/edition sondages/quiz
         $formSondagesQuiz = $this->createForm(
-            SondagesQuizType::class, $SondagesQuiz, array(
+            SondagesQuizType::class,
+            $SondagesQuiz,
+            array(
             'action' => $this->generateUrl('admin_communication_sondage_quiz'),
             'method' => 'POST',
             )
         );
-        
-        
+
         $formSondagesQuiz->handleRequest($request);
         if ($formSondagesQuiz->isSubmitted() && $formSondagesQuiz->isValid()) {
             $SondagesQuizData = $formSondagesQuiz->getData();
             $SondagesQuizData->setProgram($program);
             $SondagesQuizData->upload($program);
-            
-            if(!isset($SondagesQuizArray[0])) {
+
+            if (!isset($SondagesQuizArray[0])) {
                 $SondagesQuizData->setDateCreation(new \DateTime());
                 $em->persist($SondagesQuizData);
             }
-            
+
             $em->flush();
             return $this->redirectToRoute('admin_communication_sondage_quiz');
         }
-        
+
         //Formulaires questionnaires
-        if(!is_null($id)) {
+        if (!is_null($id)) {
             //$SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
             $SondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findOneBy(
                 array(
                 'id' => $id
                 )
             );
-        }else{
+        } else {
             $SondagesQuizQuestionnaireInfos = new SondagesQuizQuestionnaireInfos();
         }
-        
+
         $SondagesQuizQuestions = new SondagesQuizQuestions();
         $SondagesQuizReponses = new SondagesQuizReponses();
         $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $SondagesQuizQuestionnaireInfos);
-        
+
         $formQuestionnaires->handleRequest($request);
         if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
             $SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
             $SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuiz);
-            if($request->get('btn-publier-sondages-quiz') !== null) {
+            if ($request->get('btn-publier-sondages-quiz') !== null) {
                 $SondagesQuizQuestionnaireInfosData->setEstPublier(true);
-            }else{
+            } else {
                 $SondagesQuizQuestionnaireInfosData->setEstPublier(false);
             }
             $em->persist($SondagesQuizQuestionnaireInfosData);
-            foreach($SondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $Questions){
+            foreach ($SondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $Questions) {
                 $Questions->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfosData);
                 $em->persist($Questions);
-                foreach($Questions->getSondagesQuizReponses() as $Reponses){
+                foreach ($Questions->getSondagesQuizReponses() as $Reponses) {
                     $Reponses->setSondagesQuizQuestions($Questions);
                 }
             }
-            
+
             $em->flush();
             return $this->redirectToRoute('admin_communication_sondage_quiz');
         }
-        
+
         $IsBanniere = false;
         $BannierePath = "";
-        if(!empty($SondagesQuiz->getPath())) {
+        if (!empty($SondagesQuiz->getPath())) {
             $IsBanniere = true;
             $BannierePath = $SondagesQuiz->getPath();
         }
-        
-        
+
         //On recupere les questions/reponses
         $QuestionsInfosArray = array();
-        if(isset($SondagesQuizArray[0])) {
+        if (isset($SondagesQuizArray[0])) {
             $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
         }
-        
 
         return $this->render(
-            'AdminBundle:Communication:sondage_quiz.html.twig', array(
+            'AdminBundle:Communication:sondage_quiz.html.twig',
+            array(
             'formSondagesQuiz' => $formSondagesQuiz->createView(),
             'formQuestionnaires' => $formQuestionnaires->createView(),
             'IsBanniere' => $IsBanniere,
@@ -1564,9 +1567,8 @@ class CommunicationController extends AdminController
             )
         );
     }
-    
-    
-    /**
+
+/**
      * @Route(
      *     "/sondage-quiz/delete-sondages-quiz/sondages-quiz",
      *     name="admin_communication_sondage_quiz_delete")
@@ -1577,9 +1579,9 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        
+
         $em = $this->getDoctrine()->getManager();
-        if($request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {
             $id = $request->get('Id');
             $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
             $em->remove($QuestionsInfosArray);
@@ -1587,7 +1589,7 @@ class CommunicationController extends AdminController
         }
         return new Response('ok');
     }
-    
+
     /**
      * @Route(
      *     "/sondage-quiz/delete-sondages-quiz/reponses",
@@ -1599,10 +1601,10 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        
+
         $em = $this->getDoctrine()->getManager();
-        
-        if($request->isMethod('POST')) {
+
+        if ($request->isMethod('POST')) {
             $id = $request->get('IdReponses');
             $ReponsesInfos = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($id);
             $em->remove($ReponsesInfos);
@@ -1610,7 +1612,7 @@ class CommunicationController extends AdminController
         }
         return new Response('ok');
     }
-    
+
     /**
      * @Route(
      *     "/sondage-quiz/delete-sondages-quiz/questions",
@@ -1622,22 +1624,20 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        
+
         $em = $this->getDoctrine()->getManager();
-        
-        if($request->isMethod('POST')) {
+
+        if ($request->isMethod('POST')) {
             $id = $request->get('IdQuestion');
             $QuestionsInfos = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($id);
             if (!empty($QuestionsInfos)) {
                 $em->remove($QuestionsInfos);
                 $em->flush();
-               
             }
         }
         return new Response("ok");
-        
     }
-    
+
     /**
      * @Route(
      *     "/sondage-quiz/edit-sondages-quiz/{id}",
@@ -1650,20 +1650,21 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        
+
         $em = $this->getDoctrine()->getManager();
-        
-        //Recuperer le questionnaire 
+
+        //Recuperer le questionnaire
         $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($id);
         $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $QuestionsInfosArray);
-        
+
         return $this->render(
-            'AdminBundle:Communication:edit_sondage_quiz.html.twig', array(
+            'AdminBundle:Communication:edit_sondage_quiz.html.twig',
+            array(
             'formQuestionnaires' => $formQuestionnaires->createView(),
             )
         );
     }
-    
+
     /**
      * @Route(
      *     "/sondage-quiz/delete-banniere/banniere",
@@ -1675,17 +1676,17 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        
+
         $em = $this->getDoctrine()->getManager();
-        
+
         if ($request->isMethod('POST')) {
             $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
-            if(isset($SondagesQuizArray[0])) {
+            if (isset($SondagesQuizArray[0])) {
                 $SondagesQuiz = $SondagesQuizArray[0];
                 $SondagesQuiz->setPath(null);
                 $em->flush();
                 return new Response('ok');
-            }else{
+            } else {
                 return new Response('error');
             }
         }
@@ -1802,7 +1803,7 @@ class CommunicationController extends AdminController
             $date->modify('-1 day');
             $format= $date->format("Y-m-d");
             $yest = $date->settime(0, 0, 0)->getTimestamp();
-            $filters = ["fromts" => (string)$yest];
+            $filters = ["fromts" => (string) $yest];
             $respons = $mailjet->get(Resources::$Campaignstatistics, ['filters' => $filters]);
             $listsInfoCampaignYesterday = $respons->getData();
             if (!empty($listsInfoCampaignYesterday)) {
@@ -1822,11 +1823,11 @@ class CommunicationController extends AdminController
                     "info"=>$info,
                     "dataGraph"=>$listsInfoCampaignYesterday
                     ];
-        } elseif ($filtre == "last7days" ) {
+        } elseif ($filtre == "last7days") {
             $date = new \DateTime();
             $last = $date->modify('-6 day');
             $last7 = $date->settime(0, 0, 0)->getTimestamp();
-            $filters = ["fromts"=>(string)$last7];
+            $filters = ["fromts"=>(string) $last7];
             $response7 = $mailjet->get(Resources::$Campaignstatistics, ['filters'=>$filters])->getData();
             $allContactSendCampagne7 = $this->get('adminBundle.statistique')->getContactByPeriode($filtre);
             $info = $this->get('adminBundle.statistique')->getTraitement($response7);
@@ -1835,7 +1836,6 @@ class CommunicationController extends AdminController
                     "info" => $info,
                     "dataGraph"=>$response7
                     ];
-
         }
         $response = new JsonResponse($data);
         return $response;
@@ -1853,7 +1853,8 @@ class CommunicationController extends AdminController
     public function archivedNewsAction(Request $request, $post_type_label)
     {
         return $this->forward(
-            'AdminBundle:Communication:news', array(
+            'AdminBundle:Communication:news',
+            array(
             'archived_state' => true,
             'post_type_label' => $post_type_label,
             )
@@ -1973,7 +1974,6 @@ class CommunicationController extends AdminController
         $data['content'] = $content;
 
         return new JsonResponse($data, 200);
-
     }
 
     /**
@@ -2012,7 +2012,8 @@ class CommunicationController extends AdminController
         }
 
         $content = $this->renderView(
-            'AdminBundle:Communication/News:duplicate_news.html.twig', array(
+            'AdminBundle:Communication/News:duplicate_news.html.twig',
+            array(
             'duplicate_news_post_form' => $news_post_duplication_form->createView()
             )
         );
@@ -2058,7 +2059,8 @@ class CommunicationController extends AdminController
     public function unpublishNewsAction(Request $request, $id)
     {
         return $this->forward(
-            'AdminBundle:Communication:publishNews', array(
+            'AdminBundle:Communication:publishNews',
+            array(
             'id' => $id,
             'state' => false,
             )
@@ -2095,7 +2097,8 @@ class CommunicationController extends AdminController
     public function restoreNewsAction(Request $request, $id)
     {
         return $this->forward(
-            'AdminBundle:Communication:archiveNews', array(
+            'AdminBundle:Communication:archiveNews',
+            array(
             'id' => $id,
             'archived_state' => false,
             )
@@ -2177,7 +2180,8 @@ class CommunicationController extends AdminController
 
         $data = $json_response_data_provider->success();
         $data['content'] = $this->renderView(
-            'AdminBundle:Communication/News:preview_news.html.twig', array(
+            'AdminBundle:Communication/News:preview_news.html.twig',
+            array(
             'news_post' => $news_post
             )
         );
@@ -2197,7 +2201,7 @@ class CommunicationController extends AdminController
         }
         $typeId = $request->request->get("id")["campaign_id"];
         $typeTitle = $request->request->get("id")["title"];
-        $id = !empty($typeId)?$typeId:$request->query->get("id");   
+        $id = !empty($typeId)?$typeId:$request->query->get("id");
         $title = !empty($typeTitle)?$typeTitle:$request->query->get("title");
 
         $mailjet = $this->get('mailjet.client');
@@ -2206,7 +2210,9 @@ class CommunicationController extends AdminController
         $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $results["email"], $request->query->getInt('page', 1), 5,
+            $results["email"],
+            $request->query->getInt('page', 1),
+            5,
             [
                 "id"=> $id,
                 "title"=> $title,
@@ -2244,17 +2250,16 @@ class CommunicationController extends AdminController
         $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
         $data = $results["data"];
         $response = new JsonResponse($data);
-        return $response;       
-
+        return $response;
     }
 
     /**
      * @Route(
      * "/emailing/campagne/statistique/download",
      *  name="admin_communication_emailing_campaign_download",
-     *  options = { "expose" = true }  
+     *  options = { "expose" = true }
      * )
-     *  
+     *
      * @Method({"POST","GET"})
      */
     public function emailingCampaignDownloadAction(Request $request)
@@ -2265,7 +2270,7 @@ class CommunicationController extends AdminController
         }
         $id = $request->query->get("id");
         $status = $request->query->get("status");
-        $objPHPExcel = $this->get("adminBundle.excel")->generateExcel($id, $status);       
+        $objPHPExcel = $this->get("adminBundle.excel")->generateExcel($id, $status);
         $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel5');
         // create the response
         $response = $this->get('phpexcel')->createStreamedResponse($writer);
@@ -2279,13 +2284,12 @@ class CommunicationController extends AdminController
         $response->headers->set('Cache-Control', 'maxage=1');
         $response->headers->set('Content-Disposition', $dispositionHeader);
 
-        return $response; 
-        
+        return $response;
     }
 
     /**
      * @Route("/emailing/campagne/statistique/export", name="admin_communication_emailing_campaign_exports",
-     * options = { "expose" = true })  
+     * options = { "expose" = true })
      * @Method({"POST","GET"})
      */
     public function emailingCampaignExportAction(Request $request)
@@ -2302,7 +2306,8 @@ class CommunicationController extends AdminController
         $campaigns = $mailjet->get(Resources::$Campaign, ['filters' => $filter])->getData()[0];
         $results = $this->get('adminBundle.statistique')->getOneCampagne($id);
         $html = $this->renderView(
-            'pdf/template.html.twig', [
+            'pdf/template.html.twig',
+            [
             "date" => $campaigns["CreatedAt"],
             "email" => $campaigns["FromEmail"],
             "fromName" => $campaigns["FromName"],
@@ -2316,15 +2321,14 @@ class CommunicationController extends AdminController
             ]
         );
         $a_date = new \DateTime();
-        $filename ='export_statistique'.$a_date->format('dmY');
+        $filename ='export_statistique' . $a_date->format('dmY');
         $html2pdf = $this->get('html2pdf_factory')->create();
         $html2pdf->pdf->SetDisplayMode('fullpage');
         $html2pdf->writeHTML($html);
-        $html2pdf->pdf->Output($filename.'.pdf');
+        $html2pdf->pdf->Output($filename . '.pdf');
     }
 
-
-    /**
+/**
      * Listing e-learning
      *
      * @return Response
@@ -2345,7 +2349,8 @@ class CommunicationController extends AdminController
         );
 
         return $this->render(
-            'AdminBundle:Communication:e_learning.html.twig', array(
+            'AdminBundle:Communication:e_learning.html.twig',
+            array(
             'e_learning_content_type_class' => new ELearningContentType(),
             'e_learning_list' => $e_learning_list,
             'authorization_type_class' => new AuthorizationType(),
@@ -2388,7 +2393,8 @@ class CommunicationController extends AdminController
         }
 
         $content = $this->renderView(
-            'AdminBundle:Communication/ELearning:manip_e_learning.html.twig', array(
+            'AdminBundle:Communication/ELearning:manip_e_learning.html.twig',
+            array(
             'e_learning_form' => $e_learning_form->createView(),
             'submission_type_class' => new SubmissionType(),
             'e_learning_content_type_class' => new ELearningContentType(),
@@ -2438,7 +2444,8 @@ class CommunicationController extends AdminController
 
         $data = $json_response_data_provider->success();
         $data['content'] = $this->renderView(
-            'AdminBundle:Communication/ELearning:preview_e_learning.html.twig', array(
+            'AdminBundle:Communication/ELearning:preview_e_learning.html.twig',
+            array(
             'e_learning' => $e_learning,
             'e_learning_media_contents' => $e_learning_data['media_contents'],
             'e_learning_quiz_contents' => $e_learning_data['quiz_contents'],
@@ -2481,7 +2488,7 @@ class CommunicationController extends AdminController
     /**
      * @Route("/pre-sondage/liste/{archived}",defaults={"archived"= false}, name="admin_communication_pre_archived_sondage")
      */
-    public function preSondageQuizArchivedAction(Request $request,$archived)
+    public function preSondageQuizArchivedAction(Request $request, $archived)
     {
         $obj = [];
         $program = $this->container->get('admin.program')->getCurrent();
@@ -2493,7 +2500,7 @@ class CommunicationController extends AdminController
         $allData = $manager->getAllSondageQuizArchived($status);
         $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
         $obj = ["data"=>$allData,"dataJson"=>$data];
-        
+
         return $this->render('AdminBundle:Communication:preSondage_archived.html.twig', $obj);
     }
 
@@ -2505,7 +2512,7 @@ class CommunicationController extends AdminController
      *
      * @Route("/pre-sondage/create",name="admin_communication_pre_sondage_create")
      */
-    public function createPreSondageAction(Request $request,$id = null)
+    public function createPreSondageAction(Request $request, $id = null)
     {
         $json_response_data_provider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
@@ -2515,9 +2522,9 @@ class CommunicationController extends AdminController
         $em = $this->getDoctrine()->getManager();
         $IsSondagesQuiz = false;
         $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
-        if(!isset($SondagesQuizArray[0])) {
+        if (!isset($SondagesQuizArray[0])) {
             $SondagesQuiz = new SondagesQuiz();
-        }else{
+        } else {
             $SondagesQuiz = $SondagesQuizArray[0];
             $IsSondagesQuiz = true;
         }
@@ -2525,7 +2532,7 @@ class CommunicationController extends AdminController
         $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $SondagesQuizQuestionnaireInfos);
         $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
         $QuestionsInfosArray = array();
-        if(isset($SondagesQuizArray[0])) {
+        if (isset($SondagesQuizArray[0])) {
             $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
         }
 
@@ -2533,26 +2540,27 @@ class CommunicationController extends AdminController
         if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
             $SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
             $SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuiz);
-            if($request->get("data") == "btn-publier-sondages-quiz") {
+            if ($request->get("data") == "btn-publier-sondages-quiz") {
                 $SondagesQuizQuestionnaireInfosData->setEstPublier(true);
-            }else{
+            } else {
                 $SondagesQuizQuestionnaireInfosData->setEstPublier(false);
             }
             $em->persist($SondagesQuizQuestionnaireInfosData);
-            foreach($SondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $Questions){
+            foreach ($SondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $Questions) {
                 $Questions->setSondagesQuizQuestionnaireInfos($SondagesQuizQuestionnaireInfosData);
                 $em->persist($Questions);
-                foreach($Questions->getSondagesQuizReponses() as $Reponses){
+                foreach ($Questions->getSondagesQuizReponses() as $Reponses) {
                     $Reponses->setSondagesQuizQuestions($Questions);
                 }
-            }            
+            }
             $em->flush();
             $data = $json_response_data_provider->success();
-            return new JsonResponse($data, 200);          
+            return new JsonResponse($data, 200);
         }
-       
+
         $content = $this->renderView(
-            'AdminBundle:Communication:pre_create_sondage.html.twig', array(
+            'AdminBundle:Communication:pre_create_sondage.html.twig',
+            array(
             'formQuestionnaires' => $formQuestionnaires->createView(),
             'IsSondagesQuiz' => $IsSondagesQuiz,
             'program' => $program,
@@ -2564,8 +2572,7 @@ class CommunicationController extends AdminController
         return new JsonResponse($data, 200);
     }
 
-
-    /**
+/**
      * @Route("/pre-sondage/editer/{id}", requirements={"id": "\d+"}, name="admin_communication_pre_sondage_edit")
      */
     public function editPreSondageAction(Request $request, $id)
@@ -2584,11 +2591,12 @@ class CommunicationController extends AdminController
         $formQuestionnaires = $this->createForm(SondagesQuizQuestionnaireInfosType::class, $editSondage);
         $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
         $QuestionsInfosArray = array();
-        if(isset($SondagesQuizArray[0])) {
+        if (isset($SondagesQuizArray[0])) {
             $QuestionsInfosArray = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBySondagesQuiz($SondagesQuizArray[0]);
         }
         $content = $this->renderView(
-            'AdminBundle:Communication:pre_create_sondage.html.twig', array(
+            'AdminBundle:Communication:pre_create_sondage.html.twig',
+            array(
             'formQuestionnaires' => $formQuestionnaires->createView(),
             'program' => $program,
             'QuestionsInfosArray' => $QuestionsInfosArray
@@ -2597,7 +2605,6 @@ class CommunicationController extends AdminController
         $data = $json_response_data_provider->success();
         $data['content'] = $content;
         return new JsonResponse($data, 200);
-
     }
 
     /**
@@ -2702,7 +2709,8 @@ class CommunicationController extends AdminController
     public function archivedListePreSondageAction(Request $request)
     {
         return $this->forward(
-            'AdminBundle:Communication:preSondageQuizArchived', array(
+            'AdminBundle:Communication:preSondageQuizArchived',
+            array(
             'archived' => true,
             )
         );
@@ -2714,7 +2722,8 @@ class CommunicationController extends AdminController
     public function restorePreSondageAction(Request $request, $id)
     {
         return $this->forward(
-            'AdminBundle:Communication:archivePreSondage', array(
+            'AdminBundle:Communication:archivePreSondage',
+            array(
             'id' => $id,
             'archived' => false,
             )
@@ -2756,7 +2765,8 @@ class CommunicationController extends AdminController
         }
 
         $content = $this->renderView(
-            'AdminBundle:Communication/News:duplicate_news.html.twig', array(
+            'AdminBundle:Communication/News:duplicate_news.html.twig',
+            array(
             'duplicate_sondage_quiz_form' => $form->createView()
             )
         );//reste method duplicate and change duplicate.html.twig
@@ -2767,7 +2777,6 @@ class CommunicationController extends AdminController
         $data['content'] = $content;
 
         return new JsonResponse($data, 200);
-
     }
 
     /**
@@ -2791,7 +2800,6 @@ class CommunicationController extends AdminController
         $manager = $this->get("adminBundle.sondagequizManager");
         $data = $manager->delete($sondageQuiz);
         return new JsonResponse($json_response_data_provider->success(), 200);
-
     }
 
     /**
@@ -2815,5 +2823,4 @@ class CommunicationController extends AdminController
         $data = $manager->renderToCloture($clotureSondage);
         return new JsonResponse($json_response_data_provider->success(), 200);
     }
-
 }

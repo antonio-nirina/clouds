@@ -32,6 +32,7 @@ class HomePageData
      * @Assert\Valid()
      */
     private $home_page_slides;
+
     /**
      * Constructor
      */

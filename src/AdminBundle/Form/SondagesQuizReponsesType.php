@@ -20,14 +20,16 @@ class SondagesQuizReponsesType extends AbstractType
     {
         $builder->add('reponses', TextType::class)
             ->add(
-                'est_bonne_reponse', CheckboxType::class, array(
+                'est_bonne_reponse',
+                CheckboxType::class,
+                array(
                 'label' => 'bonne réponse',
                 'required' => false,
                 )
             )
             ->add('ordre', HiddenType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */

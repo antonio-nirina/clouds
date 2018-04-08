@@ -33,7 +33,9 @@ class ELearningType extends SelectingCommonDataType
         $builder->add('title', TextType::class)
             ->add('main_text', TextareaType::class)
             ->add(
-                'media_contents', CollectionType::class, array(
+                'media_contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ELearningMediaContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
@@ -41,7 +43,9 @@ class ELearningType extends SelectingCommonDataType
                 )
             )
             ->add(
-                'quiz_contents', CollectionType::class, array(
+                'quiz_contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ELearningQuizContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
@@ -50,7 +54,9 @@ class ELearningType extends SelectingCommonDataType
             )
         //            ->add('button_content', ELearningButtonContentType::class);
             ->add(
-                'button_contents', CollectionType::class, array(
+                'button_contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ELearningButtonContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
