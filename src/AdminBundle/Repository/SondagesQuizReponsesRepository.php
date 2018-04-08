@@ -16,4 +16,14 @@ class SondagesQuizReponsesRepository extends EntityRepository
         // dump($qb->getDql());
         return $qb->getQuery()->getResult();
     }
+
+    public function getReponseByQuestion($id)
+    {
+        $qb = $this->createQueryBuilder('sr');
+        $qb->select('sr')
+            ->join('sr.sondages_quiz_questions','sq')
+            ->where('sq.id = :id')
+            ->setParameter('id',$id);
+        return $qb->getQuery()->getResult();
+    }
 }

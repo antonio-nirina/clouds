@@ -149,9 +149,11 @@ class SondageQuizManager
      */
     public function getElementStatistique($id)
     {
-        $results =  $this->em->getRepository("AdminBundle:ResultatsSondagesQuiz")->getResultsResponse($id);
+        $results =  $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestions")->getResultsQuestions($id);
+        $reponseSondage = $this->em->getRepository("AdminBundle\Entity\SondagesQuizReponses")
+                        ->getReponseByQuestion($results->getId());
 
-        return $results;
+        return ["questions"=>$results,"reponse"=>$reponseSondage];
        
     }
 

@@ -2775,12 +2775,13 @@ class CommunicationController extends AdminController
         $em = $this->getDoctrine()->getManager();
         $manager = $this->get("adminBundle.sondagequizManager");
         $statSondage = $manager->getElementStatistique($id);
+        dump($statSondage);
         if (empty($statSondage)) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
         $content = $this->renderView('AdminBundle:Communication:statistique_sondage.html.twig', array(
-            'data' => $statSondage,
+            'data' => $statSondage['questions'],
         ));
         $data = $json_response_data_provider->success();
         $data['content'] = $content;
