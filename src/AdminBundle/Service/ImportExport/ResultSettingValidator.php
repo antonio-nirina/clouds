@@ -168,9 +168,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 //     );
                 // }
             } elseif (!empty($current_row[$index])
-                && (                strpos($index, 'Produit') !== false
-                // ||  strpos($index, 'Précédent') !== false
-                )
+                && (                strpos($index, 'Produit') !== false)
             ) { //check numeric
                 $this->validateColumnElement2(
                     $current_row[$index],

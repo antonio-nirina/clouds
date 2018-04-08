@@ -31,7 +31,7 @@ class TemplateDataGenerator
 
         return $this->twig->render(
             'AdminBundle:EmailTemplates/Communication:template_container.html.twig',
-                array('template_content' => $template_content_view,
+            array('template_content' => $template_content_view,
             )
         );
     }
