@@ -86,9 +86,9 @@ class PointAttributionManager
     public function getTypePerformance1()
     {
         return $this->em->getRepository('AdminBundle:PointAttributionType')
-                                        ->findBy(
-                                            array('point_type_name' => "performance_1")
-                                        );
+            ->findBy(
+                array('point_type_name' => "performance_1")
+            );
     }
 
     public function getCaRange($program)
@@ -108,9 +108,9 @@ class PointAttributionManager
     public function getTypePerformance2()
     {
         return $this->em->getRepository('AdminBundle:PointAttributionType')
-                                        ->findBy(
-                                            array('point_type_name' => "performance_2")
-                                        );
+            ->findBy(
+                array('point_type_name' => "performance_2")
+            );
     }
 
     public function getClassmentRange($program)

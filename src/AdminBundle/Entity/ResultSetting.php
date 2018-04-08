@@ -25,13 +25,13 @@ class ResultSetting
     private $monthly;
 
     /**
-    * @ORM\Column(name="by_product", type="boolean", nullable=true)
-    */
+     * @ORM\Column(name="by_product", type="boolean", nullable=true)
+     */
     private $by_product;
 
     /**
-    * @ORM\Column(name="by_rank", type="boolean", nullable=true)
-    */
+     * @ORM\Column(name="by_rank", type="boolean", nullable=true)
+     */
     private $by_rank;
 
     /**

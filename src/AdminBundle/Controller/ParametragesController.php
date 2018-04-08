@@ -66,10 +66,12 @@ class ParametragesController extends AdminController
         $program = $this->container->get('admin.program')->getCurrent();
         $level = $program->getParamLevel();
 
-        return $this->render('AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig', array(
                                     'level' => $level,
                                     'active' => $active
-                                ));
+            )
+        );
     }
 
     public function rootAction()
@@ -80,9 +82,11 @@ class ParametragesController extends AdminController
         $site_design = $site_design[0];
 
         $has_root = $this->container->get('app.design_root')->exists($program->getId());
-        return $this->render('root.html.twig', array(
+        return $this->render(
+            'root.html.twig', array(
                                     'link' => $has_root
-                                ));
+            )
+        );
     }
 
     public function logoAction()
@@ -103,10 +107,12 @@ class ParametragesController extends AdminController
         } elseif ($site_design->getLogoName()) {
             $name = true;
         }
-        return $this->render('logo.html.twig', array(
+        return $this->render(
+            'logo.html.twig', array(
                                     'link' => $logo_path,
                                     'name' => $name
-                                ));
+            )
+        );
     }
 
     public function logoLoginAction()
@@ -123,10 +129,12 @@ class ParametragesController extends AdminController
         } elseif ($site_design->getLogoName()) {
             $name = true;
         }
-        return $this->render('logo_login.html.twig', array(
+        return $this->render(
+            'logo_login.html.twig', array(
                                     'link' => $logo_path,
                                     'name' => $name
-                                ));
+            )
+        );
     }
 
     /**
@@ -171,10 +179,12 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('admin_parametrages_inscriptions');
         }
 
-        return $this->render('AdminBundle:Parametrages:Programme.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:Programme.html.twig', array(
                                     'all_program_type' => $all_program_type,
                                     'program' => $program
-                                ));
+            )
+        );
     }
 
     /**
@@ -256,7 +266,7 @@ class ParametragesController extends AdminController
                     }
 
                     if (!empty($header_data_form->get('delete_image_command')->getData())
-                    && "true" == $header_data_form->get('delete_image_command')->getData()
+                        && "true" == $header_data_form->get('delete_image_command')->getData()
                     ) {
                         $filesystem = $this->get('filesystem');
                         $image_path = $this->getParameter('registration_header_image_upload_dir')
@@ -284,7 +294,8 @@ class ParametragesController extends AdminController
             }
         }
 
-        return $this->render("AdminBundle:Parametrages:Inscriptions.html.twig", array(
+        return $this->render(
+            "AdminBundle:Parametrages:Inscriptions.html.twig", array(
             "site_form_field_settings" => $registration_site_form_field_settings,
             "form_structure_form" => $form_structure_form->createView(),
             "field_type_list" => FieldTypeName::FIELD_NAME,
@@ -292,7 +303,8 @@ class ParametragesController extends AdminController
             "header_data_form" =>  $header_data_form->createView(),
             "current_header_image" => $current_header_image,
             "intro_data_form" => $intro_data_form->createView(),
-        ));
+            )
+        );
     }
 
     /**
@@ -339,7 +351,7 @@ class ParametragesController extends AdminController
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
-//            return $this->redirectToRoute('fos_user_security_logout');
+            //            return $this->redirectToRoute('fos_user_security_logout');
             return new Response('');
         }
 
@@ -350,10 +362,12 @@ class ParametragesController extends AdminController
         }
 
         if ($request->isMethod('GET')) {
-            return $this->render("AdminBundle:Parametrages:manip_registration_form_field.html.twig", array(
+            return $this->render(
+                "AdminBundle:Parametrages:manip_registration_form_field.html.twig", array(
                 "type" => FieldType::TEXT,
                 "field_type" => new FieldType(),
-            ));
+                )
+            );
         }
 
         if ($request->isMethod('POST')) {
@@ -404,7 +418,7 @@ class ParametragesController extends AdminController
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
-//            return $this->redirectToRoute('fos_user_security_logout');
+            //            return $this->redirectToRoute('fos_user_security_logout');
             return new Response('');
         }
 
@@ -508,10 +522,12 @@ class ParametragesController extends AdminController
             }
         }
 
-        return $this->render("AdminBundle:Parametrages:Imports.html.twig", array(
+        return $this->render(
+            "AdminBundle:Parametrages:Imports.html.twig", array(
             "registration_form" => $registration_import_form->createView(),
             "error_list" => $error_list,
-        ));
+            )
+        );
     }
 
     /**
@@ -546,7 +562,8 @@ class ParametragesController extends AdminController
     public function beContactedAction(Request $request)
     {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')
-            || !$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            || !$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')
+        ) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
 
@@ -612,11 +629,13 @@ class ParametragesController extends AdminController
 
         // dump($site_form_setting); die;
 
-        return $this->render('AdminBundle:Parametrages:New_declaration.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:New_declaration.html.twig', array(
             'site_form_setting' => $site_form_setting,
             'site_form_field_settings' => $site_form_setting->getSiteFormFieldSettings(),
             'max_line' => $site_form_setting->getCustomFieldAllowed() + $default_lines
-        ));
+            )
+        );
     }
 
     /**
@@ -663,11 +682,13 @@ class ParametragesController extends AdminController
 
             if ($request->get('update')) {
                 $field = $fields_manager->updateField($field, $type, $label);
-                return $this->render('AdminBundle:Parametrages:Partial_new.html.twig', array(
+                return $this->render(
+                    'AdminBundle:Parametrages:Partial_new.html.twig', array(
                     'field' => $field,
                     'label' => $label,
                     'personalize' => true
-                ));
+                    )
+                );
             } else {
                 $row = $field->getInRow();
                 $type = ($row)?"period":$field->getFieldType();
@@ -702,19 +723,23 @@ class ParametragesController extends AdminController
             $field = $fields_manager->addNewField($new_field, $site_form_setting);
 
             // dump($field); die;
-            return $this->render('AdminBundle:Parametrages:Partial_new.html.twig', array(
+            return $this->render(
+                'AdminBundle:Parametrages:Partial_new.html.twig', array(
                 'field' => $field,
                 'label' => $label,
                 'personalize' => true
-            ));
+                )
+            );
         }
         
-        return $this->render('AdminBundle:Parametrages:New_field_declaration.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:New_field_declaration.html.twig', array(
             'level' => $level,
             'type' => $type,
             'label' => $label,
             'field_id' => $field_id
-        ));
+            )
+        );
     }
 
     /**
@@ -800,13 +825,15 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('admin_resultats_declaration');
         }
 
-        return $this->render('AdminBundle:Parametrages:Declarations.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:Declarations.html.twig', array(
             'site_form_setting' => $site_form_setting,
             'form_structure_form' => $form_structure_form->createView(),
             'fields' => $arranged_fields,
             'field_type_list' => FieldTypeName::FIELD_NAME,
             'max_line' => $site_form_setting->getCustomFieldAllowed()+ $default_lines
-        ));
+            )
+        );
     }
 
     /**
@@ -834,7 +861,7 @@ class ParametragesController extends AdminController
                 $by_product = $result_setting->getByProduct();
                 $by_rank = $result_setting->getByRank();
                 $response = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel')
-                ->createResponse($monthly, $by_product, $by_rank);
+                    ->createResponse($monthly, $by_product, $by_rank);
                 return $response;
             }
         }
@@ -859,11 +886,13 @@ class ParametragesController extends AdminController
         }
         // $upload_form->refresh();
 
-        return $this->render('AdminBundle:Parametrages:Import_declaration.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:Import_declaration.html.twig', array(
             'form_upload' => $upload_form->createView(),
             'setting_form' => $setting_form->createView(),
             'error_list' => $error_list
-        ));
+            )
+        );
     }
 
     /**
@@ -894,20 +923,20 @@ class ParametragesController extends AdminController
         }
 
         $site_design_form_logo = $this->createForm(SiteDesignSettingType::class, $site_design)
-                                      ->remove('police')
-                                      ->remove('colors')
-                                      ->remove('body_background');//form logo
+            ->remove('police')
+            ->remove('colors')
+            ->remove('body_background');//form logo
 
         $site_design_form_colors = $this->createForm(SiteDesignSettingType::class, $site_design)
-                                        ->remove('police')
-                                        ->remove('logo_name')
-                                        ->remove('logo_path');//form couleurs
+            ->remove('police')
+            ->remove('logo_name')
+            ->remove('logo_path');//form couleurs
 
         $site_design_form_police = $this->createForm(SiteDesignSettingType::class, $site_design)
-                                        ->remove('colors')
-                                        ->remove('logo_name')
-                                        ->remove('logo_path')
-                                        ->remove('body_background');//form police
+            ->remove('colors')
+            ->remove('logo_name')
+            ->remove('logo_path')
+            ->remove('body_background');//form police
 
         
         if ($request->get('site_design_setting')) {
@@ -919,7 +948,8 @@ class ParametragesController extends AdminController
                 
                 if ($site_design_form_logo->isSubmitted() && $site_design_form_logo->isValid()) {
                     if (array_key_exists('logo_path', $request->files->get('site_design_setting'))
-                        && !is_null($site_design->getLogoPath())) {
+                        && !is_null($site_design->getLogoPath())
+                    ) {
                         $logo = $this->container->get('admin.logo')->upload(
                             $site_design->getLogoPath(),
                             $program->getId()
@@ -948,7 +978,8 @@ class ParametragesController extends AdminController
                 if ($site_design_form_colors->isSubmitted() && $site_design_form_colors->isValid()) {
 
                     if (array_key_exists('body_background', $request->files->get('site_design_setting'))
-                        && !is_null($site_design->getBodyBackground())) {
+                        && !is_null($site_design->getBodyBackground())
+                    ) {
                         $background = $this->container->get('admin.body_background')->upload(
                             $site_design->getBodyBackground(),
                             $program->getId()
@@ -987,13 +1018,15 @@ class ParametragesController extends AdminController
             }
         }
 
-        return $this->render('AdminBundle:Parametrages:Design.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:Design.html.twig', array(
             'site_design_form_logo' => $site_design_form_logo->createView(),
             'site_design_form_colors' => $site_design_form_colors->createView(),
             'site_design_form_police' => $site_design_form_police->createView(),
             'logo' => $logo,
             'background' => $background
-        ));
+            )
+        );
     }
 
     /**
@@ -1109,10 +1142,12 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute("admin_content_configure_login_portal");
         }
 
-        return $this->render('AdminBundle:Parametrages:content_configure_login_portal.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:content_configure_login_portal.html.twig', array(
             'login_portal_data_form' => $login_portal_data_form->createView(),
             'original_slides_image' => $original_slides_image,
-        ));
+            )
+        );
     }
 
     /**
@@ -1167,10 +1202,12 @@ class ParametragesController extends AdminController
 
         $em = $this->getDoctrine()->getManager();
         $to_del_slide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
-            ->findOneBy(array(
+            ->findOneBy(
+                array(
                 'login_portal_data' => $login_portal_data,
                 'id' => $id,
-            ));
+                )
+            );
         if (is_null($to_del_slide)) {
             return new Response('');
         }
@@ -1203,10 +1240,12 @@ class ParametragesController extends AdminController
 
         $em = $this->getDoctrine()->getManager();
         $slide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
-            ->findOneBy(array(
+            ->findOneBy(
+                array(
                 'login_portal_data' => $login_portal_data,
                 'id' => $slide_id,
-            ));
+                )
+            );
         if (is_null($slide)) {
             return new Response('');
         }
@@ -1251,10 +1290,12 @@ class ParametragesController extends AdminController
         }*/
         $em = $this->getDoctrine()->getManager();
         $parameter_edito = $em->getRepository('AdminBundle\Entity\HomePagePost')
-            ->findOneBy(array(
+            ->findOneBy(
+                array(
                 'program' => $program,
                 'post_type' => PostType::PARAMETER_EDITO,
-            ));
+                )
+            );
         if (is_null($parameter_edito)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
@@ -1317,12 +1358,14 @@ class ParametragesController extends AdminController
         }
 
 
-        return $this->render('AdminBundle:Parametrages:content_configure_home_page.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:content_configure_home_page.html.twig', array(
             'home_page_slide_data_form' => $home_page_slide_data_form->createView(),
             'home_page_editorial_data_form' => $home_page_editorial_data_form->createView(),
             'original_slides_image' => $original_slides_image,
             'slide_type' => new SlideType(),
-        ));
+            )
+        );
     }
 
     /**
@@ -1386,10 +1429,12 @@ class ParametragesController extends AdminController
 
         $em = $this->getDoctrine()->getManager();
         $to_del_slide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
-            ->findOneBy(array(
+            ->findOneBy(
+                array(
                 'home_page_data' => $home_page_data,
                 'id' => $id
-            ));
+                )
+            );
         if (is_null($to_del_slide)) {
             return new Response('');
         }
@@ -1422,10 +1467,12 @@ class ParametragesController extends AdminController
 
         $em = $this->getDoctrine()->getManager();
         $slide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
-            ->findOneBy(array(
+            ->findOneBy(
+                array(
                 'home_page_data' => $home_page_data,
                 'id' => $slide_id,
-            ));
+                )
+            );
         if (is_null($slide)) {
             return new Response('');
         }
@@ -1473,9 +1520,11 @@ class ParametragesController extends AdminController
             $em->flush();
         }
 
-        return $this->render('AdminBundle:Parametrages:table_reseau.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:table_reseau.html.twig', array(
             "site_table_network" => $site_table_network_form->createView(),
-        ));
+            )
+        );
     }
 
     /**
@@ -1499,9 +1548,11 @@ class ParametragesController extends AdminController
             $this->redirectToRoute('admin_point_rang');
         }
 
-        return $this->render('AdminBundle:Parametrages:rank_point.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:rank_point.html.twig', array(
                 'roles_form' => $roles_form->createView()
-            ));
+            )
+        );
     }
 
     /**
@@ -1525,9 +1576,11 @@ class ParametragesController extends AdminController
             $this->redirectToRoute('admin_point_periode');
         }
 
-        return $this->render('AdminBundle:Parametrages:period_point.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:period_point.html.twig', array(
             "period_point" => $period_point_form->createView()
-        ));
+            )
+        );
     }
 
     /**
@@ -1546,9 +1599,11 @@ class ParametragesController extends AdminController
         $program = $this->container->get('admin.period_point')->newPeriodPointProduct($program);
         $period_point_form = $this->createForm(ProgramPeriodPointType::class, $program);
 
-        return $this->render('AdminBundle:Parametrages:new_period_point.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:new_period_point.html.twig', array(
             "period_point" => $period_point_form->createView()
-        ));
+            )
+        );
     }
 
     /**
@@ -1610,10 +1665,12 @@ class ParametragesController extends AdminController
             }
         }
 
-        return $this->render('AdminBundle:Parametrages:performance_point.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:performance_point.html.twig', array(
             'performance_form1' => $performance_form1->createView(),
             'performance_form2' => $performance_form2->createView(),
-        ));
+            )
+        );
     }
 
     /**
@@ -1669,10 +1726,12 @@ class ParametragesController extends AdminController
             }
         }
 
-        return $this->render('AdminBundle:Parametrages:product_point.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:product_point.html.twig', array(
             'product_point_attribution_form' => $product_point_attribution_form->createView(),
             'product_point_errors' => $product_point_errors,
-        ));
+            )
+        );
     }
 
     /**
@@ -1713,260 +1772,268 @@ class ParametragesController extends AdminController
         return new Response('<html><body>OK</body></html>');
     }
 
-	
-	/**
+    
+    /**
      * @Route(
      *     "/contenus/pages-standard/affiche-contenu-page",
      *     name="admin_pages_standard_affiche")
      */
     public function affichePagesStandardAction(Request $request)
     {
-		$program = $this->container->get('admin.program')->getCurrent();
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$datas = array();
-			$datas['page'] = $request->get('id_page');
-			$datas['new_page'] = $request->get('new_page');
-			$response = $this->forward('AdminBundle:PartialPage:afficheContenuPagesStandard',
-                        array('datas' => $datas)
-                    );
-			return new Response($response->getContent());
-		}else{
-			return new Response('');
-		}
-	}
-	
-	/**
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->isMethod('POST')) {
+            $datas = array();
+            $datas['page'] = $request->get('id_page');
+            $datas['new_page'] = $request->get('new_page');
+            $response = $this->forward(
+                'AdminBundle:PartialPage:afficheContenuPagesStandard',
+                array('datas' => $datas)
+            );
+            return new Response($response->getContent());
+        }else{
+            return new Response('');
+        }
+    }
+    
+    /**
      * @Route("/contenus/pages-standard/supprimer-img",name="admin_pages_standard_supprimer_img")
      */
-    public function supprimerImgPageStandardAction(Request $request){
-		$program = $this->container->get('admin.program')->getCurrent();
+    public function supprimerImgPageStandardAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$datas = array();
-			$datas['page'] = $request->get('id_page');
-			$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($datas['page']);
-			$sitePagesStandardSetting->setPath(NULL);
-			$em->flush();
-			return new Response('ok');
-		}else{
-			return new Response('');
-		}
-	}
-	
-	/**
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->isMethod('POST')) {
+            $datas = array();
+            $datas['page'] = $request->get('id_page');
+            $sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($datas['page']);
+            $sitePagesStandardSetting->setPath(null);
+            $em->flush();
+            return new Response('ok');
+        }else{
+            return new Response('');
+        }
+    }
+    
+    /**
      * @Route("/contenus/pages-standard/add-img-editor",name="admin_pages_standard_add_img_editor")
      */
-	public function LoadPopUpInsertImageCkeditorAction(Request $request){
-		$program = $this->container->get('admin.program')->getCurrent();
+    public function LoadPopUpInsertImageCkeditorAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$response = $this->forward('AdminBundle:PartialPage:affichePopUpImgEditor',array('datas' => array(), 'programm' => $program));
-			return new Response($response->getContent());
-		}else{
-			return new Response('');
-		}
-	}
-	
-	/**
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->isMethod('POST')) {
+            $response = $this->forward('AdminBundle:PartialPage:affichePopUpImgEditor', array('datas' => array(), 'programm' => $program));
+            return new Response($response->getContent());
+        }else{
+            return new Response('');
+        }
+    }
+    
+    /**
      * @Route("/contenus/pages-standard/delete-page-standard",name="admin_pages_standard_delete_page")
      */
-	public function DeletePageStandardAction(Request $request){
-		$program = $this->container->get('admin.program')->getCurrent();
+    public function DeletePageStandardAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$idpage = $request->get('idpage');
-			$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($idpage);
-			if(!is_null($sitePagesStandardSetting)){
-				$em->remove($sitePagesStandardSetting);
-				$em->flush();
-			}
-			return new Response('ok');
-		}else{
-			return new Response('');
-		}
-	}
-	
-	/**
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->isMethod('POST')) {
+            $idpage = $request->get('idpage');
+            $sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($idpage);
+            if(!is_null($sitePagesStandardSetting)) {
+                $em->remove($sitePagesStandardSetting);
+                $em->flush();
+            }
+            return new Response('ok');
+        }else{
+            return new Response('');
+        }
+    }
+    
+    /**
      * @Route("/contenus/pages-standard/add-img-editor-upload",name="admin_pages_standard_add_img_editor_upload")
      */
-	public function UploadImageCkeditorAction(Request $request){
-		$program = $this->container->get('admin.program')->getCurrent();
+    public function UploadImageCkeditorAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$sitePagesStandardSetting = new SitePagesStandardSetting();
-			$Img = $request->files->get('images-ckeditor');
-			$sitePagesStandardSetting->setImgPage($Img);
-			$sitePagesStandardSetting->upload($program);
-			$ImgPath = $sitePagesStandardSetting->getPath();
-		}
-		
-		return new Response($program->getId());
-	}
-	
-	/**
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->isMethod('POST')) {
+            $sitePagesStandardSetting = new SitePagesStandardSetting();
+            $Img = $request->files->get('images-ckeditor');
+            $sitePagesStandardSetting->setImgPage($Img);
+            $sitePagesStandardSetting->upload($program);
+            $ImgPath = $sitePagesStandardSetting->getPath();
+        }
+        
+        return new Response($program->getId());
+    }
+    
+    /**
      * @Route("/contenus/pages-standard/list-img-editor",name="admin_pages_standard_list_img_editor")
      */
-	public function ListImageCkeditorAction(Request $request){
-		$program = $this->container->get('admin.program')->getCurrent();
+    public function ListImageCkeditorAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		if ($request->isMethod('POST')) {
-			$sitePagesStandardSetting = new SitePagesStandardSetting();
-			$RootDir = $sitePagesStandardSetting->getUploadRootDir();
-			$RootProgramm = $RootDir.'/'.$program->getId();
-			//On lit tous les fichiers images
-			$finder = new Finder();
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->isMethod('POST')) {
+            $sitePagesStandardSetting = new SitePagesStandardSetting();
+            $RootDir = $sitePagesStandardSetting->getUploadRootDir();
+            $RootProgramm = $RootDir.'/'.$program->getId();
+            //On lit tous les fichiers images
+            $finder = new Finder();
  
-			$files = $finder->files()->in($RootProgramm)->sortByChangedTime()->getIterator();
-			
-			$ListeFile = array();
-			foreach ($files as $file) {
-				$ListeFile[] = array(
-					'url' => '/web/content/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
-					'nom' => $file->getRelativePathname()
-				);
-			}
-			
-			$response = $this->forward('AdminBundle:PartialPage:afficheListImgEditor',array('datas' => $ListeFile));
-			return new Response($response->getContent());
-		}
-		
-		return new Response('');
-	}
+            $files = $finder->files()->in($RootProgramm)->sortByChangedTime()->getIterator();
+            
+            $ListeFile = array();
+            foreach ($files as $file) {
+                $ListeFile[] = array(
+                'url' => '/web/content/pages_standards/'.$program->getId().'/'.$file->getRelativePathname(),
+                'nom' => $file->getRelativePathname()
+                );
+            }
+            
+            $response = $this->forward('AdminBundle:PartialPage:afficheListImgEditor', array('datas' => $ListeFile));
+            return new Response($response->getContent());
+        }
+        
+        return new Response('');
+    }
 
     /**
      * @Route("/contenus/pages-standard",name="admin_pages_standard")
      */
     public function pagesStandardAction(Request $request)
     {
-		$program = $this->container->get('admin.program')->getCurrent();
-		
-		//redirection si program n'existe pas
-		if (empty($program)) {
+        $program = $this->container->get('admin.program')->getCurrent();
+        
+        //redirection si program n'existe pas
+        if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		//Validation
-		$Onglets = "";
-		if ($request->isMethod('POST')) {
-			
-			$NomPages = $request->get('nom_page');
-			$TitrePages = $request->get('titre_page');
-			$MenuPages = $request->get('menu_page');
-			$ImgPages = $request->files->get('img_page');
-			$ContenuPages = $request->get('contenu_page');
-			$StatusPages = $request->get('status_page');
-			$Id = $request->get('id_page');
-			$Onglets = $request->get('onglet-selectionner-page');
-			
-			$publier = $request->get('publier');
-			$ordre = $request->get('ordre');
-			$obligatoire = $request->get('obligatoire');
-			$label = $request->get('label');
-			$type_champ = $request->get('type_champ');
-			
-			
-			
-			for($i=0; $i < count($NomPages); $i++){
-				
-				$sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
-				if(is_null($sitePagesStandardSetting)){
-					$sitePagesStandardSetting = new SitePagesStandardSetting();
-				}
-				
-				$sitePagesStandardSetting->setNomPage($NomPages[$i]);
-				$sitePagesStandardSetting->setTitrePage($TitrePages[$i]);
-				$sitePagesStandardSetting->setMenuPage($MenuPages[$i]);
-				if(isset($ImgPages[$i])){
-					$sitePagesStandardSetting->setImgPage($ImgPages[$i]);
-				}
-				
-				$sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
-				if(!empty($StatusPages[$i])){
-					$sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
-				}
-				
-				$sitePagesStandardSetting->setProgram($program);
-				
-				$Options['options'] = array();
-				if($NomPages[$i] == 'contact'){
-					$cpt = 0;
-					foreach($label as $LibelleChamp){
-						$Options['options'][] = array(
-							'type' => $type_champ[$cpt],
-							'publier' => (isset($publier[$LibelleChamp]) && !empty($publier[$LibelleChamp])) ? 1 : 0,
-							'obligatoire' => (isset($obligatoire[$LibelleChamp]) && !empty($obligatoire[$LibelleChamp])) ? 1 : 0,
-							'label' => $LibelleChamp,
-							'ordre' => $ordre[$cpt]
-						);
-						$cpt++;
-					}
-				}
-				$sitePagesStandardSetting->setOptions($Options['options']);
-				
-				$sitePagesStandardSetting->upload($program);
-				$em->persist($sitePagesStandardSetting);
-				$em->flush();
-			}
-			
-			//return $this->redirectToRoute('admin_pages_standard');
-		}
-		
-		
-		$AllPages = array();
-		$AllPagesSetting = array();
-		$AllPagesDefault = array();
-		
-		//Get all pages with programm
-		$AllPagesSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->findBy(
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        //Validation
+        $Onglets = "";
+        if ($request->isMethod('POST')) {
+            
+            $NomPages = $request->get('nom_page');
+            $TitrePages = $request->get('titre_page');
+            $MenuPages = $request->get('menu_page');
+            $ImgPages = $request->files->get('img_page');
+            $ContenuPages = $request->get('contenu_page');
+            $StatusPages = $request->get('status_page');
+            $Id = $request->get('id_page');
+            $Onglets = $request->get('onglet-selectionner-page');
+            
+            $publier = $request->get('publier');
+            $ordre = $request->get('ordre');
+            $obligatoire = $request->get('obligatoire');
+            $label = $request->get('label');
+            $type_champ = $request->get('type_champ');
+            
+            
+            
+            for($i=0; $i < count($NomPages); $i++){
+                
+                $sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
+                if(is_null($sitePagesStandardSetting)) {
+                    $sitePagesStandardSetting = new SitePagesStandardSetting();
+                }
+                
+                $sitePagesStandardSetting->setNomPage($NomPages[$i]);
+                $sitePagesStandardSetting->setTitrePage($TitrePages[$i]);
+                $sitePagesStandardSetting->setMenuPage($MenuPages[$i]);
+                if(isset($ImgPages[$i])) {
+                    $sitePagesStandardSetting->setImgPage($ImgPages[$i]);
+                }
+                
+                $sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
+                if(!empty($StatusPages[$i])) {
+                    $sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
+                }
+                
+                $sitePagesStandardSetting->setProgram($program);
+                
+                $Options['options'] = array();
+                if($NomPages[$i] == 'contact') {
+                    $cpt = 0;
+                    foreach($label as $LibelleChamp){
+                        $Options['options'][] = array(
+                        'type' => $type_champ[$cpt],
+                        'publier' => (isset($publier[$LibelleChamp]) && !empty($publier[$LibelleChamp])) ? 1 : 0,
+                        'obligatoire' => (isset($obligatoire[$LibelleChamp]) && !empty($obligatoire[$LibelleChamp])) ? 1 : 0,
+                        'label' => $LibelleChamp,
+                        'ordre' => $ordre[$cpt]
+                        );
+                        $cpt++;
+                    }
+                }
+                $sitePagesStandardSetting->setOptions($Options['options']);
+                
+                $sitePagesStandardSetting->upload($program);
+                $em->persist($sitePagesStandardSetting);
+                $em->flush();
+            }
+            
+            //return $this->redirectToRoute('admin_pages_standard');
+        }
+        
+        
+        $AllPages = array();
+        $AllPagesSetting = array();
+        $AllPagesDefault = array();
+        
+        //Get all pages with programm
+        $AllPagesSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->findBy(
             array('program' => $program)
         );
-		
-		//Get all pages default
-		$AllPagesDefault = $em->getRepository(SitePagesStandardDefault::class)->findAll();
-		
-		if(count($AllPagesSetting) > 0){
-			$AllPages = $AllPagesSetting;
-		}else{
-			$AllPages = $AllPagesDefault;
-		}
-		
-        return $this->render('AdminBundle:Parametrages:pages_standard.html.twig', array(
-			'AllPages' => $AllPages,
-			'Onglets' => $Onglets
-		));
+        
+        //Get all pages default
+        $AllPagesDefault = $em->getRepository(SitePagesStandardDefault::class)->findAll();
+        
+        if(count($AllPagesSetting) > 0) {
+            $AllPages = $AllPagesSetting;
+        }else{
+            $AllPages = $AllPagesDefault;
+        }
+        
+        return $this->render(
+            'AdminBundle:Parametrages:pages_standard.html.twig', array(
+            'AllPages' => $AllPages,
+            'Onglets' => $Onglets
+            )
+        );
     }
 
     /**
@@ -1983,8 +2050,10 @@ class ParametragesController extends AdminController
         $user_point_list = $em->getRepository('AdminBundle\Entity\UserPoint')
             ->findAllWithUserDataByProgram($program);
 
-        return $this->render('AdminBundle:Parametrages:temp_point_result.html.twig', array(
+        return $this->render(
+            'AdminBundle:Parametrages:temp_point_result.html.twig', array(
             'user_point_list' => $user_point_list,
-        ));
+            )
+        );
     }
 }

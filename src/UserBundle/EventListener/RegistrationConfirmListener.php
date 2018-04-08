@@ -39,15 +39,15 @@ class RegistrationConfirmListener implements EventSubscriberInterface
     public function onRegistrationSuccess(FormEvent $event)
     {
         $user = $event->getForm()->getData();
-		
-		//Set Default role
-		$rolesDefault = array('ROLE_COMMERCIAL');
+        
+        //Set Default role
+        $rolesDefault = array('ROLE_COMMERCIAL');
         $user->setRoles($rolesDefault);
-		
-		//Create accoumpt in Mailjet > Contact
-		$Contact = $this->service_container->get('AdminBundle\Service\MailJet\MailjetContactList');
-		$responseCreateContact = $Contact->createContactByMail($user);
-		
-		//$event->setResponse(new Response(print_r($responseCreateContact)));
+        
+        //Create accoumpt in Mailjet > Contact
+        $Contact = $this->service_container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $responseCreateContact = $Contact->createContactByMail($user);
+        
+        //$event->setResponse(new Response(print_r($responseCreateContact)));
     }
 }

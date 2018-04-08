@@ -30,7 +30,7 @@ class ComEmailTemplateDuplicator
         $new_template = clone $com_email_template;
         $new_template->setIdToNull()
             ->setDistantTemplateId(null)
-//            ->setName($this->generateTemplateName($program, $new_template->getName()))
+        //            ->setName($this->generateTemplateName($program, $new_template->getName()))
             ->setName($new_template_name)
             ->setLastEditUser($user)
             ->setLastEdit(new \DateTime('now'))
@@ -82,10 +82,12 @@ class ComEmailTemplateDuplicator
         while (true == $same_name_template_state) {
             $name .= self::NEW_DUPLICATED_TEMPLATE_SUFFIX;
             $com_email_template = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')
-                ->findOneBy(array(
+                ->findOneBy(
+                    array(
                     'name' => $name,
                     'program' => $program,
-                ));
+                    )
+                );
             if (is_null($com_email_template)) {
                 $same_name_template_state = false;
             }

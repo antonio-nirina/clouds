@@ -12,18 +12,22 @@ class ProductPointType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('product_point_setting_list', CollectionType::class, array(
+        $builder->add(
+            'product_point_setting_list', CollectionType::class, array(
             'entry_type' => ProductPointUnitType::class,
             'entry_options' => array('label' => false),
             'allow_add' => true,
             'allow_delete' => true,
-        ));
+            )
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ProductPointSettingData::class,
-        ));
+            )
+        );
     }
 }

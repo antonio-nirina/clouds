@@ -21,7 +21,8 @@ class SiteDesignSettingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('police', ChoiceType::class, array(
+        $builder->add(
+            'police', ChoiceType::class, array(
                             'choices'  => array(
                                 'Roboto' => "Roboto",
                                 'Open Sans' => "OpenSans",
@@ -31,24 +32,31 @@ class SiteDesignSettingType extends AbstractType
                                 'Comfortaa' => "Comfortaa"),
                             'expanded' => true,
                             'multiple' => false
-                        ))
-                ->add('colors', CollectionType::class, array(
+            )
+        )
+            ->add(
+                'colors', CollectionType::class, array(
                     "entry_type" => TextType::class,
                     "entry_options" => array(
                         "required" => false
                     )
-                ))
-                ->add("body_background", FileType::class, array(
+                )
+            )
+            ->add(
+                "body_background", FileType::class, array(
                     'required' => false,
                     'constraints' => array(
                     )
-                ))
-                ->add('logo_path', FileType::class, array(
+                )
+            )
+            ->add(
+                'logo_path', FileType::class, array(
                     'required' => false,
                     "constraints" => array(
                     )
-                ))
-                ->add('logo_name', TextType::class);
+                )
+            )
+            ->add('logo_name', TextType::class);
     }
 
     /**
@@ -56,9 +64,11 @@ class SiteDesignSettingType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => SiteDesignSetting::class,
-        ));
+            )
+        );
     }
 
     /**

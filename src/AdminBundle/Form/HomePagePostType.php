@@ -17,7 +17,7 @@ class HomePagePostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("title", TextType::class, array())
-                ->add("content", TextareaType::class, array());
+            ->add("content", TextareaType::class, array());
     }
 
     /**
@@ -25,9 +25,11 @@ class HomePagePostType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => HomePagePost::class,
-        ));
+            )
+        );
     }
 
     /**

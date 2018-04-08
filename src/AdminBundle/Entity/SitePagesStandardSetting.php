@@ -24,49 +24,49 @@ class SitePagesStandardSetting
      * @ORM\Column(type="string", nullable=true)
      */
     private $nom_page;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $titre_page;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $menu_page;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $contenu_page;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="site_page_standard")
      */
     private $program;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="boolean")
      */
     private $status_page = false;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $path;
-	
-	/**
+    
+    /**
      * @Assert\File(maxSize="6000000")
      */
     private $img_page;
-	
-	/**
+    
+    /**
      * @Gedmo\Slug(fields={"menu_page"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="array")
      */
     private $options;
@@ -81,8 +81,8 @@ class SitePagesStandardSetting
     {
         return $this->id;
     }
-	
-	/**
+    
+    /**
      * Set options
      *
      * @param boolean $options
@@ -95,8 +95,8 @@ class SitePagesStandardSetting
 
         return $this;
     }
-	
-	/**
+    
+    /**
      * Get options
      *
      * @return string
@@ -249,8 +249,8 @@ class SitePagesStandardSetting
     {
         return $this->contenu_page;
     }
-	
-	/**
+    
+    /**
      * Sets img_page.
      *
      * @param UploadedFile $img_page
@@ -269,9 +269,9 @@ class SitePagesStandardSetting
     {
         return $this->img_page;
     }
-	
-	
-	public function getAbsolutePath()
+    
+    
+    public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
     }
@@ -292,27 +292,27 @@ class SitePagesStandardSetting
     {
         return 'pages_standards';
     }
-	
-	public function upload(\AdminBundle\Entity\Program $program = null)
-	{
-		if (null === $this->getImgPage()) {
-			return;
-		}
+    
+    public function upload(\AdminBundle\Entity\Program $program = null)
+    {
+        if (null === $this->getImgPage()) {
+            return;
+        }
 
 
-		$this->getImgPage()->move(
-			$this->getUploadRootDir().'/'.$program->getId(),
-			$this->getImgPage()->getClientOriginalName()
-		);
+        $this->getImgPage()->move(
+            $this->getUploadRootDir().'/'.$program->getId(),
+            $this->getImgPage()->getClientOriginalName()
+        );
 
-		
-		$this->path = $this->getImgPage()->getClientOriginalName();
+        
+        $this->path = $this->getImgPage()->getClientOriginalName();
 
-		
-		$this->img_page = null;
-	}
-	
-	/**
+        
+        $this->img_page = null;
+    }
+    
+    /**
      * Set Path
      *
      * @param string $path
@@ -321,19 +321,19 @@ class SitePagesStandardSetting
      */
     public function setPath($path)
     {
-		/*
-		$InfosPath = pathinfo($path);
-		$extension = $InfosPath['extension'];
-		$filename = $InfosPath['filename'];
-		$Path = $this->removeAccents($filename).'.'.$extension;
-		*/
-		
+        /*
+        $InfosPath = pathinfo($path);
+        $extension = $InfosPath['extension'];
+        $filename = $InfosPath['filename'];
+        $Path = $this->removeAccents($filename).'.'.$extension;
+        */
+        
         $this->path = $path;
 
         return $this;
     }
-	
-	/**
+    
+    /**
      * Get path.
      *
      * @return path
@@ -342,14 +342,14 @@ class SitePagesStandardSetting
     {
         return $this->path;
     }
-	
-	public function removeAccents($string)
-	{
-		$text = str_replace(' ','',$string);
-		return strtr($text,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
-	}
-	
-	/**
+    
+    public function removeAccents($string)
+    {
+        $text = str_replace(' ', '', $string);
+        return strtr($text, "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ", "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+    }
+    
+    /**
      * Set slug
      *
      * @param string $slug

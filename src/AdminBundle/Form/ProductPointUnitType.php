@@ -15,14 +15,16 @@ class ProductPointUnitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('product_point_turnover_proportional', ProductPointTurnoverProportionalType::class)
-                ->add('product_point_turnover_slice', ProductPointTurnoverSliceType::class)
-                ->add('product_group', HiddenType::class);
+            ->add('product_point_turnover_slice', ProductPointTurnoverSliceType::class)
+            ->add('product_group', HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ProductPointSettingUnitData::class,
-        ));
+            )
+        );
     }
 }

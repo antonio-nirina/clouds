@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="fos_user")
  * @ORM\HasLifecycleCallbacks()
  * @ORM\AttributeOverrides({
- *  @ORM\AttributeOverride(name="username",
+ * @ORM\AttributeOverride(name="username",
  *     column=@ORM\Column(
  *          name="username",
  *          type="string",
@@ -26,7 +26,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          nullable=true
  *     )
  * ),
- *  @ORM\AttributeOverride(name="usernameCanonical",
+ * @ORM\AttributeOverride(name="usernameCanonical",
  *     column=@ORM\Column(
  *          name="username_canonical",
  *          type="string",
@@ -35,7 +35,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          nullable=true
  *     )
  * ),
- *  @ORM\AttributeOverride(name="email",
+ * @ORM\AttributeOverride(name="email",
  *     column=@ORM\Column(
  *          name="email",
  *          type="string",
@@ -44,7 +44,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          unique = true
  *     )
  * ),
- *  @ORM\AttributeOverride(name="emailCanonical",
+ * @ORM\AttributeOverride(name="emailCanonical",
  *     column=@ORM\Column(
  *          name="email_canonical",
  *          type="string",
@@ -53,14 +53,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          nullable=true
  *     )
  * ),
- *  @ORM\AttributeOverride(name="enabled",
+ * @ORM\AttributeOverride(name="enabled",
  *     column=@ORM\Column(
  *          name="enabled",
  *          type="boolean",
  *          nullable=true
  *     )
  * ),
- *  @ORM\AttributeOverride(name="password",
+ * @ORM\AttributeOverride(name="password",
  *     column=@ORM\Column(
  *          name="password",
  *          type="string",
@@ -68,8 +68,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     )
  * ),
  * })
- *
- * 
  */
 
 class User extends BaseUser
@@ -90,8 +88,8 @@ class User extends BaseUser
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="app_user")
      */
     protected $program_user;
-	
-	/**
+    
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="user")
      */
     private $resultats_sondages_quiz;
@@ -187,11 +185,11 @@ class User extends BaseUser
     protected $code;
 
     /**
-    * @Recaptcha\IsTrue
-    */
+     * @Recaptcha\IsTrue
+     */
     public $recaptcha;
-	
-	/**
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -201,8 +199,8 @@ class User extends BaseUser
 
    
     /**
-    * @ORM\PrePersist
-    */
+     * @ORM\PrePersist
+     */
     public function initTemporaryPwd()
     {
         return $this->setTemporaryPwd(true);
@@ -640,8 +638,8 @@ class User extends BaseUser
     {
         return $this->code;
     }
-	
-	/**
+    
+    /**
      * Add resultatsSondagesQuiz
      *
      * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
@@ -675,7 +673,8 @@ class User extends BaseUser
         return $this->resultats_sondages_quiz;
     }
 
-    public function setEmail($email){
+    public function setEmail($email)
+    {
         parent::setEmail($email);
         $this->setUsername($email);
     }

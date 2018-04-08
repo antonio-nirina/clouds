@@ -45,69 +45,69 @@ class SiteFormBuilder
         }
 
         switch ($field->getFieldType()) {
-            case FieldType::TEXT:
-                $current_constraints = array();
-                $this->configureTextField(
-                    TextType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
-                break;
+        case FieldType::TEXT:
+            $current_constraints = array();
+            $this->configureTextField(
+                TextType::class,
+                $current_constraints,
+                $constraints,
+                $field
+            );
+            break;
 
-            case FieldType::ALPHA_TEXT:
-                $current_constraints = array(
-                    new Type(array("type" => "alpha")),
-                );
-                $this->configureTextField(
-                    TextType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
-                break;
+        case FieldType::ALPHA_TEXT:
+            $current_constraints = array(
+                new Type(array("type" => "alpha")),
+            );
+            $this->configureTextField(
+                TextType::class,
+                $current_constraints,
+                $constraints,
+                $field
+            );
+            break;
 
-            case FieldType::NUM_TEXT:
-                $current_constraints = array();
-                $this->configureTextField(
-                    IntegerType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
-                break;
+        case FieldType::NUM_TEXT:
+            $current_constraints = array();
+            $this->configureTextField(
+                IntegerType::class,
+                $current_constraints,
+                $constraints,
+                $field
+            );
+            break;
 
-            case FieldType::ALPHANUM_TEXT:
-                $current_constraints = array(
-                    new Type(array("type" => "alnum")),
-                );
-                $this->configureTextField(
-                    TextType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
-                break;
+        case FieldType::ALPHANUM_TEXT:
+            $current_constraints = array(
+                new Type(array("type" => "alnum")),
+            );
+            $this->configureTextField(
+                TextType::class,
+                $current_constraints,
+                $constraints,
+                $field
+            );
+            break;
 
-            case FieldType::EMAIL:
-                $current_constraints = array();
-                $this->configureTextField(
-                    EmailType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
-                break;
+        case FieldType::EMAIL:
+            $current_constraints = array();
+            $this->configureTextField(
+                EmailType::class,
+                $current_constraints,
+                $constraints,
+                $field
+            );
+            break;
 
-            case FieldType::CHOICE_RADIO:
-                $current_constraints = array();
-                $this->configureChoiceField(
-                    ChoiceType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
-                break;
+        case FieldType::CHOICE_RADIO:
+            $current_constraints = array();
+            $this->configureChoiceField(
+                ChoiceType::class,
+                $current_constraints,
+                $constraints,
+                $field
+            );
+            break;
         }
     }
 
@@ -122,10 +122,12 @@ class SiteFormBuilder
         if (!empty($mandatory_constraint)) {
             $label = $label.' '.self::MANDATORY_FIELD_SIGN;
         }
-        $this->form->add($field->getId(), $form_field_type, array(
+        $this->form->add(
+            $field->getId(), $form_field_type, array(
             "label" => $label,
             "constraints" => $constraints,
-        ));
+            )
+        );
     }
 
     public function configureChoiceField(
@@ -139,12 +141,14 @@ class SiteFormBuilder
         if (!empty($mandatory_constraint)) {
             $label = $label.' '.self::MANDATORY_FIELD_SIGN;
         }
-        $this->form->add($field->getId(), $form_field_type, array(
+        $this->form->add(
+            $field->getId(), $form_field_type, array(
             "label" => $label,
             "constraints" => $constraints,
             "choices" => $field->getAdditionalData()["choices"],
             "expanded" => true,
             "multiple" => false,
-        ));
+            )
+        );
     }
 }

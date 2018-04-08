@@ -35,11 +35,13 @@ class ProgramUserClassmentProgressionRepository extends EntityRepository
             ->andWhere($qb->expr()->lt('cl_pr.start_date', ':start'))
             ->andWhere($qb->expr()->eq('cl_pr.is_previous', ':previous'))
             ->orderBy('cl_pr.start_date', 'DESC')
-            ->setParameters(array(
+            ->setParameters(
+                array(
                 "program_user" => $program_user,
                 "start" => $start,
                 "previous" => true
-            ))
+                )
+            )
             ->setMaxResults(1);
 
         return $qb->getQuery()->getOneOrNullResult();

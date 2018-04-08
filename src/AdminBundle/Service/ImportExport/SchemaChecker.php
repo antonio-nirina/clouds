@@ -128,40 +128,40 @@ class SchemaChecker extends CSVFileContentBrowser
     protected function checkDataFormat($col_element, $related_field_setting, $row_index, $col_index)
     {
         switch ($related_field_setting->getFieldType()) {
-            case FieldType::TEXT:
-                return array();
+        case FieldType::TEXT:
+            return array();
                 break;
-            case FieldType::ALPHA_TEXT:
-                return $this->validateColumnElement(
-                    $col_element,
-                    new Type(array("type" => "alpha")),
-                    $row_index,
-                    $col_index
-                );
+        case FieldType::ALPHA_TEXT:
+            return $this->validateColumnElement(
+                $col_element,
+                new Type(array("type" => "alpha")),
+                $row_index,
+                $col_index
+            );
                 break;
-            case FieldType::NUM_TEXT:
-                return $this->validateColumnElement(
-                    $col_element,
-                    new Type(array("type" => "numeric")),
-                    $row_index,
-                    $col_index
-                );
+        case FieldType::NUM_TEXT:
+            return $this->validateColumnElement(
+                $col_element,
+                new Type(array("type" => "numeric")),
+                $row_index,
+                $col_index
+            );
                 break;
-            case FieldType::ALPHANUM_TEXT:
-                return $this->validateColumnElement(
-                    $col_element,
-                    new Type(array("type" => "alnum")),
-                    $row_index,
-                    $col_index
-                );
+        case FieldType::ALPHANUM_TEXT:
+            return $this->validateColumnElement(
+                $col_element,
+                new Type(array("type" => "alnum")),
+                $row_index,
+                $col_index
+            );
                 break;
-            case FieldType::EMAIL:
-                return $this->validateColumnElement(
-                    $col_element,
-                    new Email(),
-                    $row_index,
-                    $col_index
-                );
+        case FieldType::EMAIL:
+            return $this->validateColumnElement(
+                $col_element,
+                new Email(),
+                $row_index,
+                $col_index
+            );
                 break;
         }
     }
@@ -175,11 +175,13 @@ class SchemaChecker extends CSVFileContentBrowser
     ) {
         $violations = $this->validator->validate($col_element, $type);
         if (0 !== count($violations)) {
-            $this->addError($this->createErrorWithIndex(
-                $error_if_not_valid,
-                $row_index,
-                $col_index
-            ));
+            $this->addError(
+                $this->createErrorWithIndex(
+                    $error_if_not_valid,
+                    $row_index,
+                    $col_index
+                )
+            );
             return $this->error_list;
         }
         return array();

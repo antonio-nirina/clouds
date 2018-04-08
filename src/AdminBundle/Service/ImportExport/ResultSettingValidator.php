@@ -148,9 +148,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 //     );
                 // }
             } elseif (!empty($current_row[$index])
-                && (
-                    in_array($index, array('Rang'))
-                )
+                && (                in_array($index, array('Rang')))
             ) { //check integer
                 $this->validateColumnElement2(
                     $current_row[$index],
@@ -170,9 +168,8 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 //     );
                 // }
             } elseif (!empty($current_row[$index])
-                && (
-                    strpos($index, 'Produit') !== false
-                    // ||  strpos($index, 'Précédent') !== false
+                && (                strpos($index, 'Produit') !== false
+                // ||  strpos($index, 'Précédent') !== false
                 )
             ) { //check numeric
                 $this->validateColumnElement2(
@@ -203,12 +200,12 @@ class ResultSettingValidator extends CSVFileContentBrowser
         }
         //user check
         $user = $this->manager
-                        ->getRepository('AdminBundle\Entity\ProgramUser')
-                        ->findByNameAndLastName(
-                            $current_row['Nom'],
-                            $current_row['Prénom'],
-                            $program
-                        );
+            ->getRepository('AdminBundle\Entity\ProgramUser')
+            ->findByNameAndLastName(
+                $current_row['Nom'],
+                $current_row['Prénom'],
+                $program
+            );
         if (empty($user)) {
             $this->addError(
                 $this->createErrorWithIndex(
@@ -228,23 +225,23 @@ class ResultSettingValidator extends CSVFileContentBrowser
 
         //user check
         $program_user = $this->manager
-                        ->getRepository('AdminBundle\Entity\ProgramUser')
-                        ->findByNameAndLastName(
-                            $current_row['Nom'],
-                            $current_row['Prénom'],
-                            $program
-                        );
+            ->getRepository('AdminBundle\Entity\ProgramUser')
+            ->findByNameAndLastName(
+                $current_row['Nom'],
+                $current_row['Prénom'],
+                $program
+            );
         $program_user = $program_user[0];
 
         if (array_key_exists("Fonction", $current_row)) { //assignation role commercial
             $role = $this->manager
-                        ->getRepository('AdminBundle\Entity\Role')
-                        ->findBy(
-                            array(
+                ->getRepository('AdminBundle\Entity\Role')
+                ->findBy(
+                    array(
                                 'name' => $current_row['Fonction'],
                                 'program' => $program
                             )
-                        );
+                );
 
             if (!empty($role)) {
                 $role = $role[0];
@@ -309,11 +306,13 @@ class ResultSettingValidator extends CSVFileContentBrowser
     ) {
         $violations = $this->validator->validate($col_element, $type);
         if (0 !== count($violations)) {
-            $this->addError($this->createErrorWithIndex(
-                $error_if_not_valid,
-                $row_index,
-                $col_index
-            ));
+            $this->addError(
+                $this->createErrorWithIndex(
+                    $error_if_not_valid,
+                    $row_index,
+                    $col_index
+                )
+            );
             return $this->error_list;
         }
         return array();
@@ -328,11 +327,13 @@ class ResultSettingValidator extends CSVFileContentBrowser
     ) {
         $violations = $this->validator->validate($col_element, $type);
         if (0 !== count($violations)) {
-            $this->addError($this->createErrorWithColumn(
-                $error_if_not_valid,
-                $row_index,
-                $col_index
-            ));
+            $this->addError(
+                $this->createErrorWithColumn(
+                    $error_if_not_valid,
+                    $row_index,
+                    $col_index
+                )
+            );
             return $this->error_list;
         }
         return array();

@@ -95,12 +95,14 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setSpecialFieldIndex(
                 array(SpecialFieldIndex::USER_CIVILITY, SpecialFieldIndex::USER_FIELD)
             )
-            ->setAdditionalData(array(
+            ->setAdditionalData(
+                array(
                 "choices" => array(
                     "Mme" => "Mme",
                     "M." => "M.",
                 )
-            ))
+                )
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($civility);
         $manager->persist($civility);
@@ -131,7 +133,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($name);
         $manager->persist($name);
 
-       /* $function = new SiteFormFieldSetting();
+        /* $function = new SiteFormFieldSetting();
         $function->setFieldType(FieldType::TEXT)
             ->setMandatory(true)
             ->setLabel("fonction")

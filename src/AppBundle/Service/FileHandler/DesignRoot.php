@@ -93,24 +93,24 @@ class DesignRoot
         $hex = str_replace("#", "", $hex);
         
         switch (strlen($hex)) {
-            case 3:
-                $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
-                $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
-                $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));
-                $a = 1;
-                break;
-            case 6:
-                $r = hexdec(substr($hex, 0, 2));
-                $g = hexdec(substr($hex, 2, 2));
-                $b = hexdec(substr($hex, 4, 2));
-                $a = 1;
-                break;
-            case 8:
-                $a = hexdec(substr($hex, 0, 2)) / 255;
-                $r = hexdec(substr($hex, 2, 2));
-                $g = hexdec(substr($hex, 4, 2));
-                $b = hexdec(substr($hex, 6, 2));
-                break;
+        case 3:
+            $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
+            $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
+            $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));
+            $a = 1;
+            break;
+        case 6:
+            $r = hexdec(substr($hex, 0, 2));
+            $g = hexdec(substr($hex, 2, 2));
+            $b = hexdec(substr($hex, 4, 2));
+            $a = 1;
+            break;
+        case 8:
+            $a = hexdec(substr($hex, 0, 2)) / 255;
+            $r = hexdec(substr($hex, 2, 2));
+            $g = hexdec(substr($hex, 4, 2));
+            $b = hexdec(substr($hex, 6, 2));
+            break;
         }
         if ($blur) {
             $a = 0.2;

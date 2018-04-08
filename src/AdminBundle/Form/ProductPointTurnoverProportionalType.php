@@ -20,20 +20,24 @@ class ProductPointTurnoverProportionalType extends AbstractType
             ->add('gain', TextType::class)
             ->add('status', CheckboxType::class);
 
-        $builder->get('status')->addModelTransformer(new CallBackTransformer(
-            function ($status) {
-                return (PointAttributionStatus::ON == $status) ? true : false;
-            },
-            function ($status_boolean_value) {
-                return (true == $status_boolean_value) ? PointAttributionStatus::ON : PointAttributionStatus::OFF;
-            }
-        ));
+        $builder->get('status')->addModelTransformer(
+            new CallBackTransformer(
+                function ($status) {
+                    return (PointAttributionStatus::ON == $status) ? true : false;
+                },
+                function ($status_boolean_value) {
+                    return (true == $status_boolean_value) ? PointAttributionStatus::ON : PointAttributionStatus::OFF;
+                }
+            )
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => PointAttributionSetting::class,
-        ));
+            )
+        );
     }
 }

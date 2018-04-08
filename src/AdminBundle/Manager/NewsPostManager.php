@@ -29,8 +29,8 @@ class NewsPostManager
      * Save or Publish depending on submission type
      *
      * @param NewsPost $news_post
-     * @param string $submission_type
-     * @param boolean $flush
+     * @param string   $submission_type
+     * @param boolean  $flush
      *
      * @return boolean
      */
@@ -126,8 +126,8 @@ class NewsPostManager
     /**
      * Return all news post related to a program, with specified archived state
      *
-     * @param Program $program
-     * @param string $news_post_type    whether standard or welcoming news post
+     * @param Program        $program
+     * @param string         $news_post_type whether standard or welcoming news post
      * @param $archived_state
      *
      * @return array
@@ -145,8 +145,8 @@ class NewsPostManager
      * Save or Publish depending on submission type
      *
      * @param NewsPost $news_post
-     * @param string $submission_type
-     * @param boolean $flush
+     * @param string   $submission_type
+     * @param boolean  $flush
      *
      * @return boolean
      */
@@ -200,9 +200,9 @@ class NewsPostManager
     /**
      * Duplicate news post
      *
-     * @param NewsPost $news_post
+     * @param NewsPost        $news_post
      * @param $news_post_title
-     * @param bool $flush
+     * @param bool            $flush
      *
      * @return bool
      */
@@ -254,8 +254,8 @@ class NewsPostManager
      * Should be called after generateNewsPostCopyForDuplication()
      * to avoid explicit linking between NewsPost and its corresponding HomePagePost
      *
-     * @param HomePagePost $home_page_post_source
-     * @param NewsPost $news_post_copy
+     * @param HomePagePost         $home_page_post_source
+     * @param NewsPost             $news_post_copy
      * @param $home_page_post_title
      *
      * @return HomePagePost
@@ -280,9 +280,9 @@ class NewsPostManager
      * Publish OR Unpublish news post
      *
      * @param NewsPost $news_post
-     * @param boolean $state
+     * @param boolean  $state
      * @param datetime $publication_datetime
-     * @param boolean $flush
+     * @param boolean  $flush
      */
     public function definePublishedState(NewsPost $news_post, $state, $publication_datetime = null, $flush = true)
     {
@@ -308,7 +308,7 @@ class NewsPostManager
      * Archive OR Restore news post
      *
      * @param NewsPost $news_post
-     * @param boolean $state
+     * @param boolean  $state
      * @param $flush
      */
     public function defineArchivedState(NewsPost $news_post, $state, $flush = true)
@@ -326,7 +326,7 @@ class NewsPostManager
      * Delete news post
      *
      * @param NewsPost $news_post
-     * @param boolean $flush
+     * @param boolean  $flush
      */
     public function delete(NewsPost $news_post, $flush = true)
     {
@@ -349,9 +349,9 @@ class NewsPostManager
     /**
      * Process action on news post group (Archive or Delete or Restore)
      *
-     * @param array $news_post_id_list
+     * @param array             $news_post_id_list
      * @param $group_action_type
-     * @param Program $program
+     * @param Program           $program
      */
     public function processGroupAction(array $news_post_id_list, $group_action_type, Program $program)
     {

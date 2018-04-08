@@ -27,10 +27,12 @@ class ComEmailTemplateDuplicationData extends DuplicationData
             throw new DuplicationSourceNotValidException();
         }
         $template_with_same_name = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')
-            ->findBy(array(
+            ->findBy(
+                array(
                 'name' => $this->name,
                 'program' => $template_duplication_source->getProgram(),
-            ));
+                )
+            );
         if (!empty($template_with_same_name)) {
             $context->buildViolation(self::ERROR_MESSAGE_NAME_ALREADY_USED)
                 ->atPath('name')

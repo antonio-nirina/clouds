@@ -62,43 +62,43 @@ class Common
     }
 
     /**
-    * couple sender and to and date and subject
-    */ 
+     * couple sender and to and date and subject
+     */ 
 
     public function getContactByCampaign()
     {
         $campaigns = $this->mailjetClient->get(Resources::$Campaign)->getData();
         if (!empty($campaigns)) {
-                foreach ($campaigns as  $value) {
-                    $idCampaign[] = $value["ID"];
-                }
-                foreach ($idCampaign as  $idData) {
-                    $filters = ["campaign"=>$idData];
-                    $idConts[$idData] = $this->mailjetClient->get(Resources::$Contactdata,['filters' =>$filters])->getData();
-                    foreach ($idConts[$idData]  as  $idCont) {
+            foreach ($campaigns as  $value) {
+                $idCampaign[] = $value["ID"];
+            }
+            foreach ($idCampaign as  $idData) {
+                $filters = ["campaign"=>$idData];
+                $idConts[$idData] = $this->mailjetClient->get(Resources::$Contactdata, ['filters' =>$filters])->getData();
+                foreach ($idConts[$idData]  as  $idCont) {
                     $filters = ["id"=>$idCont["ContactID"]];
-                    $allContacts[] = ["idCamp" => $idData,"contact"=>$this->mailjetClient->get(Resources::$Contact,['filters' =>$filters])->getData()];
+                    $allContacts[] = ["idCamp" => $idData,"contact"=>$this->mailjetClient->get(Resources::$Contact, ['filters' =>$filters])->getData()];
                        
-                    }
                 }
-                foreach ($allContacts as  $listCont) {
+            }
+            foreach ($allContacts as  $listCont) {
                   
-                  $list[] = [$listCont["idCamp"], $listCont["contact"][0]["Email"]];
-                }
+                $list[] = [$listCont["idCamp"], $listCont["contact"][0]["Email"]];
+            }
 
-                foreach ($list as  $res) {
-                    $filters = ["id"=>$res[0]];
-                    $prods[] = ["dest"=>$res[1],"result"=>$this->mailjetClient->get(Resources::$Campaign,['filters' =>$filters])->getData()[0]];                                      
-                }
-                foreach ($prods as  $prod) {
+            foreach ($list as  $res) {
+                $filters = ["id"=>$res[0]];
+                $prods[] = ["dest"=>$res[1],"result"=>$this->mailjetClient->get(Resources::$Campaign, ['filters' =>$filters])->getData()[0]];                                      
+            }
+            foreach ($prods as  $prod) {
                 $contacts[] = [
-                    "sender" => $prod["result"]["FromEmail"],
-                    "sujet" => $prod["result"]["Subject"],
-                    "date" => $prod["result"]["CreatedAt"],
-                    "emailTo" =>$prod["dest"]
-                    ];
+                "sender" => $prod["result"]["FromEmail"],
+                "sujet" => $prod["result"]["Subject"],
+                "date" => $prod["result"]["CreatedAt"],
+                "emailTo" =>$prod["dest"]
+                ];
                 
-                }
+            }
                 return $contacts;
         }
         return "";      
@@ -118,24 +118,24 @@ class Common
                 }
                 foreach ($idCampaign as  $idData) {
                     $filters = ["campaign"=>$idData];
-                    $idConts[$idData] = $this->mailjetClient->get(Resources::$Contactdata,['filters' =>$filters])->getData();
+                    $idConts[$idData] = $this->mailjetClient->get(Resources::$Contactdata, ['filters' =>$filters])->getData();
                     foreach ($idConts[$idData]  as  $idCont) {
-                    $filters = ["id"=>$idCont["ContactID"]];
-                    $allContacts[] = ["idCamp" => $idData,"contact"=>$this->mailjetClient->get(Resources::$Contact,['filters' =>$filters])->getData()];
+                        $filters = ["id"=>$idCont["ContactID"]];
+                        $allContacts[] = ["idCamp" => $idData,"contact"=>$this->mailjetClient->get(Resources::$Contact, ['filters' =>$filters])->getData()];
                        
                     }
                 }
 
                 foreach ($allContacts as  $listCont) {
                   
-                  $list[] = [$listCont["idCamp"], $listCont["contact"][0]["Email"]];
+                    $list[] = [$listCont["idCamp"], $listCont["contact"][0]["Email"]];
                 }
                 foreach ($list as  $res) {
                     $filters = ["id"=>$res[0]];
-                    $prods[] = ["dest"=>$res[1],"result"=>$this->mailjetClient->get(Resources::$Campaign,['filters' =>$filters])->getData()[0]];                                      
+                    $prods[] = ["dest"=>$res[1],"result"=>$this->mailjetClient->get(Resources::$Campaign, ['filters' =>$filters])->getData()[0]];                                      
                 }
                 foreach ($prods as  $prod) {
-                $contacts[] = [
+                    $contacts[] = [
                     "sender" => $prod["result"]["FromEmail"],
                     "sujet" => $prod["result"]["Subject"],
                     "date" => $prod["result"]["CreatedAt"],
@@ -146,7 +146,7 @@ class Common
             }
             return ""; 
         
-        } elseif ($filtre =="last7days"){
+        } elseif ($filtre =="last7days") {
             $date7 = new \DateTime();
             $date7->modify("-6 day");
 
@@ -157,24 +157,24 @@ class Common
                 }
                 foreach ($idCampaign as  $idData) {
                     $filters = ["campaign"=>$idData];
-                    $idConts[$idData] = $this->mailjetClient->get(Resources::$Contactdata,['filters' =>$filters])->getData();
+                    $idConts[$idData] = $this->mailjetClient->get(Resources::$Contactdata, ['filters' =>$filters])->getData();
                     foreach ($idConts[$idData]  as  $idCont) {
-                    $filters = ["id"=>$idCont["ContactID"]];
-                    $allContacts[] = ["idCamp" => $idData,"contact"=>$this->mailjetClient->get(Resources::$Contact,['filters' =>$filters])->getData()];
+                        $filters = ["id"=>$idCont["ContactID"]];
+                        $allContacts[] = ["idCamp" => $idData,"contact"=>$this->mailjetClient->get(Resources::$Contact, ['filters' =>$filters])->getData()];
                        
                     }
                 }
                 
                 foreach ($allContacts as  $listCont) {
                   
-                  $list[] = [$listCont["idCamp"], $listCont["contact"][0]["Email"]];
+                    $list[] = [$listCont["idCamp"], $listCont["contact"][0]["Email"]];
                 }
                 foreach ($list as  $res) {
                     $filters = ["id"=>$res[0]];
-                    $prods[] = ["dest"=>$res[1],"result"=>$this->mailjetClient->get(Resources::$Campaign,['filters' =>$filters])->getData()[0]];                                      
+                    $prods[] = ["dest"=>$res[1],"result"=>$this->mailjetClient->get(Resources::$Campaign, ['filters' =>$filters])->getData()[0]];                                      
                 }
                 foreach ($prods as  $prod) {
-                $results[] = [
+                    $results[] = [
                     "sender" => $prod["result"]["FromEmail"],
                     "sujet" => $prod["result"]["Subject"],
                     "date" => $prod["result"]["CreatedAt"],
@@ -191,46 +191,46 @@ class Common
 
     protected function getResult($date)
     {
-        $yest = $date->settime(0,0,0)->getTimestamp();
+        $yest = $date->settime(0, 0, 0)->getTimestamp();
         $filters = ["fromts"=>(string)$yest];
         $format= $date->format("Y-m-d");
-        $campaigns = $this->mailjetClient->get(Resources::$Campaign,['filters' =>$filters])->getData();
+        $campaigns = $this->mailjetClient->get(Resources::$Campaign, ['filters' =>$filters])->getData();
         if (!empty($campaigns)) {
             foreach ($campaigns as  $value) {
-               $dateFiter = new \DateTime($value["CreatedAt"]);
-               $time = $dateFiter->format("Y-m-d");
-               if ($time === $format) {
+                $dateFiter = new \DateTime($value["CreatedAt"]);
+                $time = $dateFiter->format("Y-m-d");
+                if ($time === $format) {
                     $res[] = $value;                       
-               }
+                }
             }
             return !empty($res)? $res: "";  
         }
-       return "";
+        return "";
                     
     }
 
     protected function getResultLastDay($date)
     {
-        $yest = $date->settime(0,0,0)->getTimestamp();
+        $yest = $date->settime(0, 0, 0)->getTimestamp();
         $filters = ["fromts"=>(string)$yest];
         //$format= $date->format("Y-m-d");
-        $campaigns = $this->mailjetClient->get(Resources::$Campaign,['filters' =>$filters])->getData();
+        $campaigns = $this->mailjetClient->get(Resources::$Campaign, ['filters' =>$filters])->getData();
         return $campaigns;
     }
 
     public function getOneCampagne($id)
     {
         $filter = ["campaignid" => $id];
-        $campaigns = $this->mailjetClient->get(Resources::$Campaign,['filters' => $filter])->getData()[0];
+        $campaigns = $this->mailjetClient->get(Resources::$Campaign, ['filters' => $filter])->getData()[0];
         $filters = ["contactslist" => $campaigns["ListID"]];
         $filter2 = ["limit" => 0];
-        $listContactByCampaigns = $this->mailjetClient->get(Resources::$Campaignstatistics,['filters' => $filter2])->getData();
+        $listContactByCampaigns = $this->mailjetClient->get(Resources::$Campaignstatistics, ['filters' => $filter2])->getData();
         foreach ($listContactByCampaigns as  $value) {
             if (intval($value["CampaignID"]) == intval($id)) {
                 $status[] = $value;
             }         
         }
-        $vals = $this->mailjetClient->get(Resources::$Contactslist,['id'=>$campaigns["ListID"]])->getData()[0];
+        $vals = $this->mailjetClient->get(Resources::$Contactslist, ['id'=>$campaigns["ListID"]])->getData()[0];
         $result = $this->getStatusByEmail($id);
         $json = new JsonResponse($result);
         $data = $json->getContent(); 
@@ -247,7 +247,7 @@ class Common
     public function getListCampaign($id)
     {
         $filter = ["campaignid" => $id];
-        $campaigns = $this->mailjetClient->get(Resources::$Campaign,['filters' => $filter])->getData()[0];
+        $campaigns = $this->mailjetClient->get(Resources::$Campaign, ['filters' => $filter])->getData()[0];
 
         $template = $this->getTempalte($campaigns["ListID"]);
         $results = ["campaigns" =>$campaigns,"template"=> $template];
@@ -257,8 +257,8 @@ class Common
     public function getTempalte($id)
     {
         $filter = ["campaignid" => $id];
-        $campaignDraft = $this->mailjetClient->get(Resources::$Campaigndraft,['filters' => $filter])->getData()[0];
-        $template = $this->mailjetClient->get(Resources::$Template,['id' => $campaignDraft["TemplateID"]])->getData()[0];
+        $campaignDraft = $this->mailjetClient->get(Resources::$Campaigndraft, ['filters' => $filter])->getData()[0];
+        $template = $this->mailjetClient->get(Resources::$Template, ['id' => $campaignDraft["TemplateID"]])->getData()[0];
         return $template["Name"];
     }
 
@@ -271,10 +271,10 @@ class Common
     public function getStatusByEmail($id)
     {
         $filters = ["limit" => 0];
-        $messages = $this->mailjetClient->get(Resources::$Message,['filters' => $filters])->getData();
+        $messages = $this->mailjetClient->get(Resources::$Message, ['filters' => $filters])->getData();
         foreach ($messages as $key => $value) {
             if (intval($value["CampaignID"]) === intval($id)) {
-               $res[] = [
+                $res[] = [
                 "emails"=>$this->getContactById($value["ContactID"])["Email"],
                 "etat"=>$value["Status"]
                 ];

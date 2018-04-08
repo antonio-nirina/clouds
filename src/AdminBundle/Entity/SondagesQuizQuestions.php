@@ -26,49 +26,49 @@ class SondagesQuizQuestions
      * @ORM\Column(type="string", nullable=true)
      */
     private $questions;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $commentaire;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="integer")
      */
     private $type_question;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="boolean")
      */
     private $est_reponse_obligatoire;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos", inversedBy="sondages_quiz_questions")
      */
     private $sondages_quiz_questionnaire_infos;
-	
-	/**
+    
+    /**
      * @ORM\Column(name="date_creation", type="datetime")
      */
     protected $date_creation;
-	
-	/**
+    
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizReponses", cascade={"persist", "remove"}, mappedBy="sondages_quiz_questions")
-	 * @ORM\OrderBy({"ordre" = "ASC"})
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $sondages_quiz_reponses;
-	
-	/**
+    
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", cascade={"remove"}, mappedBy="sondages_quiz_questions")
      */
     private $resultats_sondages_quiz;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="integer")
      */
     private $ordre;
-	
-	/**
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -206,14 +206,14 @@ class SondagesQuizQuestions
     {
         return $this->date_creation;
     }
-	
-	/**
-	* @ORM\PrePersist
-	*/
-	public function addDateCreation()
-	{
-		$this->setDateCreation(new \Datetime());
-	}
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function addDateCreation()
+    {
+        $this->setDateCreation(new \Datetime());
+    }
 
     /**
      * Set sondagesQuizQuestionnaireInfos
@@ -272,8 +272,8 @@ class SondagesQuizQuestions
     {
         return $this->sondages_quiz_reponses;
     }
-	
-	/**
+    
+    /**
      * Set ordre
      *
      * @param integer $ordre
@@ -296,10 +296,10 @@ class SondagesQuizQuestions
     {
         return $this->ordre;
     }
-	
-	
-	
-	/**
+    
+    
+    
+    /**
      * Add resultatsSondagesQuiz
      *
      * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz

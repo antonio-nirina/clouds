@@ -16,12 +16,14 @@ class HomePageSlidePostType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('home_page_slides', CollectionType::class, array(
+        $builder->add(
+            'home_page_slides', CollectionType::class, array(
             'entry_type' => HomePageSlideType::class,
             'entry_options' => array('label' => false),
             'allow_add' => true,
             'allow_delete' => true,
-        ));
+            )
+        );
     }
 
     public function getParent()

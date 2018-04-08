@@ -8,8 +8,8 @@ use AdminBundle\Component\GroupAction\GroupActionType;
 
 class SondageQuizManager
 {
-	
-	private $em;
+    
+    private $em;
 
     public function __construct(EntityManager $em)
     {
@@ -25,7 +25,7 @@ class SondageQuizManager
     public function getAllSondageQuiz()
     {    
         $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
-                ->findBy([],["date_creation"=>"DESC"]);
+            ->findBy([], ["date_creation"=>"DESC"]);
         return $data;
     }
 
@@ -35,30 +35,31 @@ class SondageQuizManager
      */
     public function getAllSondageQuizArchived($status = "")
     {
-        if (!empty($status)){
+        if (!empty($status)) {
             switch ($status){
-                case ConstanteStatus::CLOTURE:
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusClotureArchived();
-                    break;
-                case ConstanteStatus::PUBLIE:
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusPublieArchived();
-                    break;
-                case ConstanteStatus::ATTENTE:
-                    $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusAttenteArchived();
-                    break;
+            case ConstanteStatus::CLOTURE:
+                $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusClotureArchived();
+                break;
+            case ConstanteStatus::PUBLIE:
+                $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusPublieArchived();
+                break;
+            case ConstanteStatus::ATTENTE:
+                $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")->getStatusAttenteArchived();
+                break;
 
             }
 
         } else {
             $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
-                ->findBy(["est_archived"=>true],["date_creation"=>"DESC"]);
+                ->findBy(["est_archived"=>true], ["date_creation"=>"DESC"]);
         }
 
         return $data;
     }
 
     /**
-     *RenderTo state Publised
+     * RenderTo state Publised
+     *
      * @param $data
      * @param $state
      */
@@ -76,6 +77,7 @@ class SondageQuizManager
 
     /**
      * RenderTo state Archived
+     *
      * @param $data
      * @param $archive
      */
@@ -127,7 +129,7 @@ class SondageQuizManager
     {
         foreach ($idList as $key => $value) {
             $data = $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestionnaireInfos")
-                    ->findOneById($value);
+                ->findOneById($value);
             if (!empty($data)) {
                 if (GroupActionType::DELETE == $actionType) {
                     $this->delete($data, false);

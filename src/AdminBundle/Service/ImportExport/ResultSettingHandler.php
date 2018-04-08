@@ -68,7 +68,7 @@ class ResultSettingHandler
             $error_list = $this->schema_checker->import($this->model, $data_import_file);
             if (empty($error_list)) {//attribution des points perform
                 $sales_point_attribution = $this->container
-                                                ->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
+                    ->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
                 $program = $this->container->get('admin.program')->getCurrent();
                 $sales_point_attribution->closeClassmentProgression($program, $monthly);
             }

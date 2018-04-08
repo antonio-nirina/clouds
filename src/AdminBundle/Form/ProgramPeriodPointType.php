@@ -15,11 +15,13 @@ class ProgramPeriodPointType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('period_point_setting', CollectionType::class, array(
+        $builder->add(
+            'period_point_setting', CollectionType::class, array(
                             'entry_type' => PeriodPointSettingType::class,
                             'entry_options' => array(),
                             'label' => false,
-                        ));
+            )
+        );
     }
 
     /**
@@ -27,9 +29,11 @@ class ProgramPeriodPointType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => Program::class,
-        ));
+            )
+        );
     }
 
     /**

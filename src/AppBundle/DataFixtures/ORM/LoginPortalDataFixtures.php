@@ -12,9 +12,11 @@ class LoginPortalDataFixtures extends Fixture
     {
         $login_portal_data = new LoginPortalData();
         $login_portal_data->setTitle('CHALLENGE 2017')
-                        ->setText('<p style="text-align:center"><strong>Bienvenue sur le challenge 2017 !</strong></p>
+            ->setText(
+                '<p style="text-align:center"><strong>Bienvenue sur le challenge 2017 !</strong></p>
 
-<p style="text-align:center">Lorem ipsum dolor sit amet, forensibus eloquentiam mel ad, et eos dolorem comprehensam. Sonet legendos accusamus sed cu, autem debet eos ut. Mea eu prodesset efficiantur, an per illum apeirian ocurreret, mea vide postea nostrud no. Ne justo fastidii has, ea ridens corrumpit accommodare has, tantas ancillae sea in.</p>');
+<p style="text-align:center">Lorem ipsum dolor sit amet, forensibus eloquentiam mel ad, et eos dolorem comprehensam. Sonet legendos accusamus sed cu, autem debet eos ut. Mea eu prodesset efficiantur, an per illum apeirian ocurreret, mea vide postea nostrud no. Ne justo fastidii has, ea ridens corrumpit accommodare has, tantas ancillae sea in.</p>'
+            );
 
         $login_portal_data->addLoginPortalSlide($this->getReference('login-portal-slide-1'));
         $this->getReference('login-portal-slide-1')->setLoginPortalData($login_portal_data);

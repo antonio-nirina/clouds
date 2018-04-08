@@ -12,10 +12,12 @@ class MailChimpTemplate extends MailChimpHandler
 
     public function getTemplates()
     {
-        return $this->mailchimp->get('/templates', array(
+        return $this->mailchimp->get(
+            '/templates', array(
             'count' => -1,
             'type' => 'user',
-        ));
+            )
+        );
     }
 
     public function getTemplateContent($template_id)

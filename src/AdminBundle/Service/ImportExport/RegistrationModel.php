@@ -138,7 +138,7 @@ class RegistrationModel
 
         array_push($this->header_row_index_list, $this->current_row); // to save company data headers row index
 
-       /* $this->php_excel_object->setActiveSheetIndex(0)
+        /* $this->php_excel_object->setActiveSheetIndex(0)
             ->mergeCellsByColumnAndRow(0, $this->current_row - 1, $this->current_col - 1, $this->current_row - 1);*/
         $this->addBlankRow();
 

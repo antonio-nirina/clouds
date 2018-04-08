@@ -94,10 +94,12 @@ class MailJetTemplate extends MailJetHandler
             'Html-part' => $html_data,
             'Text-part' => $text_data,
         );
-        $template_detail_response = $this->mailjet->post(Resources::$TemplateDetailcontent, array(
+        $template_detail_response = $this->mailjet->post(
+            Resources::$TemplateDetailcontent, array(
             'id' => $distant_template_id,
             'body' => $template_detail_body
-        ));
+            )
+        );
         if (self::STATUS_CODE_CREATED == $template_detail_response->getStatus()) {
             return $distant_template_id;
         }
@@ -107,9 +109,11 @@ class MailJetTemplate extends MailJetHandler
 
     public function deleteDistantTemplate($distant_template_id)
     {
-        $delete_template_response = $this->mailjet->delete(Resources::$Template, array(
+        $delete_template_response = $this->mailjet->delete(
+            Resources::$Template, array(
             'Id' => $distant_template_id
-        ));
+            )
+        );
         if (self::STATUS_CODE_NO_CONTENT == $delete_template_response->getStatus()) {
             return true;
         } elseif (self::STATUS_CODE_NOT_FOUND == $delete_template_response->getStatus()) {

@@ -143,13 +143,13 @@ class Program
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SitePagesStandardSetting", mappedBy="program")
      */
     private $site_page_standard;
-	
-	/**
+    
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuiz", mappedBy="program")
      */
     private $sondages_quiz;
-	
-	/**
+    
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="program")
      */
     private $resultats_sondages_quiz;
@@ -904,7 +904,7 @@ class Program
     {
         return $this->home_page_post;
     }
-	
+    
 
     /**
      * Add sondagesQuiz
@@ -939,10 +939,10 @@ class Program
     {
         return $this->sondages_quiz;
     }
-	
-	
-	
-	/**
+    
+    
+    
+    /**
      * Add resultatsSondagesQuiz
      *
      * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz

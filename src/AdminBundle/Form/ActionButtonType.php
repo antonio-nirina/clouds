@@ -40,17 +40,21 @@ class ActionButtonType extends AbstractType
             ->add('action_button_text_color', TextType::class)
             ->add('action_button_background_color', TextType::class)
             ->add('action_button_target_url', TextType::class)
-            ->add('action_button_target_page', ChoiceType::class, array(
+            ->add(
+                'action_button_target_page', ChoiceType::class, array(
                 'choices' =>  $this->retrieveTargetPageList(),
                 'placeholder' => 'POINTER SUR',
-            ));
+                )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'inherit_data' => true,
-        ));
+            )
+        );
     }
 
     /**
@@ -73,7 +77,7 @@ class ActionButtonType extends AbstractType
         if (!empty($page_list)) {
             foreach ($page_list as $page) {
                 $target_list[$page->getNomPage()] = $this->url_generator
-                    ->generate('beneficiary_home_pages_standard_slug', array('slug' => $page->getSlug())) ;
+                    ->generate('beneficiary_home_pages_standard_slug', array('slug' => $page->getSlug()));
             }
 
         }

@@ -24,9 +24,9 @@ class ELearningManager extends BasicManager
     /**
      * Create ELearning
      *
-     * @param ELearning $e_learning
+     * @param ELearning       $e_learning
      * @param $submission_type
-     * @param bool $flush
+     * @param bool            $flush
      *
      * @return bool
      */
@@ -88,7 +88,7 @@ class ELearningManager extends BasicManager
      * Save media content data
      * And upload files
      *
-     * @param ELearning $e_learning
+     * @param ELearning             $e_learning
      * @param ELearningMediaContent $e_learning_media_content
      */
     public function saveMediaContentData(ELearning $e_learning, ELearningMediaContent $e_learning_media_content)
@@ -127,7 +127,7 @@ class ELearningManager extends BasicManager
     /**
      * Save quiz content data
      *
-     * @param ELearning $e_learning
+     * @param ELearning            $e_learning
      * @param ELearningQuizContent $e_learning_quiz_content
      */
     public function saveQuizContentData(ELearning $e_learning, ELearningQuizContent $e_learning_quiz_content)
@@ -139,7 +139,7 @@ class ELearningManager extends BasicManager
     /**
      * Save button content data
      *
-     * @param ELearning $e_learning
+     * @param ELearning              $e_learning
      * @param ELearningButtonContent $e_learning_button_content
      */
     public function saveButtonContentData(ELearning $e_learning, ELearningButtonContent $e_learning_button_content)

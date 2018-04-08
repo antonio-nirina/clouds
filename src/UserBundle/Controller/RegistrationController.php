@@ -56,10 +56,10 @@ class RegistrationController extends BaseController
         $form->setData($user);
         $parameter = $this->get("user.parameter")->getParam();
         if (!empty($parameter)) {
-        $nom = $this->getNameForm($parameter,$form)["all"];
-        $nomRadio = $this->getNameForm($parameter,$form)["radio"];
-        $resp = new JsonResponse($nomRadio);
-        $radio = $resp->getContent();
+            $nom = $this->getNameForm($parameter, $form)["all"];
+            $nomRadio = $this->getNameForm($parameter, $form)["radio"];
+            $resp = new JsonResponse($nomRadio);
+            $radio = $resp->getContent();
         } else {
             $nom = "";
             $radio = "";
@@ -69,14 +69,14 @@ class RegistrationController extends BaseController
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);              
-                $var = $this->getValForm($parameter,$form);          
+                $var = $this->getValForm($parameter, $form);          
                 $em = $this->getDoctrine()->getManager()->getRepository("UserBundle:User");
                 $al = $em->findAll();
                 $code = $this->generateCodeId($al);
                 $val = $em->findOneByCode($code);               
                 while (!empty($val)) {
-                   $code = $this->generateCodeId($al);
-                   break;
+                    $code = $this->generateCodeId($al);
+                    break;
                 }                               
                 if (!empty($var)) {
                     $user->setCustomization($var);
@@ -101,9 +101,11 @@ class RegistrationController extends BaseController
             }
         }
 
-        return $this->render('UserBundle:Registration:register.html.twig', array(
+        return $this->render(
+            'UserBundle:Registration:register.html.twig', array(
             'form' => $form->createView(),"name" => $nom,"radio" => $radio
-        ));
+            )
+        );
     }
 
     /**
@@ -124,9 +126,11 @@ class RegistrationController extends BaseController
             throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
         }
 
-        return $this->render('UserBundle:Registration:check_email.html.twig', array(
+        return $this->render(
+            'UserBundle:Registration:check_email.html.twig', array(
             'user' => $user,
-        ));
+            )
+        );
     }
 
     /**
@@ -139,7 +143,9 @@ class RegistrationController extends BaseController
      */
     public function confirmAction(Request $request, $token)
     {
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        /**
+ * @var $userManager \FOS\UserBundle\Model\UserManagerInterface 
+*/
         $userManager = $this->get('fos_user.user_manager');
 
         $user = $userManager->findUserByConfirmationToken($token);
@@ -148,7 +154,9 @@ class RegistrationController extends BaseController
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
+        /**
+ * @var $dispatcher EventDispatcherInterface 
+*/
         $dispatcher = $this->get('event_dispatcher');
 
         $user->setConfirmationToken(null);
@@ -179,10 +187,12 @@ class RegistrationController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('UserBundle:Registration:confirmed.html.twig', array(
+        return $this->render(
+            'UserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
-        ));
+            )
+        );
     }
 
     /**
@@ -207,7 +217,7 @@ class RegistrationController extends BaseController
         if ($ecart < 0) {
             $length = 6;
         } elseif ($ecart > 0) {
-           $length = 7;
+            $length = 7;
         }
         $alphaLength = strlen($nombre) - 1; 
         for ($i = 0; $i < $length; $i++) {
@@ -222,13 +232,13 @@ class RegistrationController extends BaseController
     protected function getValForm($parameter,$form)
     {
         if (!empty($parameter)) {
-           foreach ($parameter as  $value) {
-            $val = $this->get("user.parameter")->traitement($value->getLabel());
-            if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO) {
-               $var[] = [$value->getLabel() => $form->get($val)->getData()]; 
-            } 
-        }
-        return $var;   
+            foreach ($parameter as  $value) {
+                $val = $this->get("user.parameter")->traitement($value->getLabel());
+                if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO) {
+                    $var[] = [$value->getLabel() => $form->get($val)->getData()]; 
+                } 
+            }
+            return $var;   
         } else {
             return "";
         }
@@ -240,11 +250,11 @@ class RegistrationController extends BaseController
         foreach ($parameter as  $value) {
             $val = $this->get("user.parameter")->traitement($value->getLabel());       
             if ($value->getFieldType() == FieldType::TEXT || $value->getFieldType() == FieldType::CHOICE_RADIO ) {
-               $nom[] = $val;
+                $nom[] = $val;
             }
             if ($value->getFieldType() == FieldType::CHOICE_RADIO) {
                 $nomR[] = $val;
-             } 
+            } 
         }
         $nameRadio = !empty($nomR) ? $nomR : "";
         $name = !empty($nom) ? $nom : "";

@@ -24,8 +24,9 @@ class SiteFormFieldSettingManager
 
     /**
      * [adjustFieldOrder adjust current field]
-     * @param  [json] $field_order
-     * @param  [json] $current_fields
+     *
+     * @param [json] $field_order
+     * @param [json] $current_fields
      */
     public function adjustFieldAndOrder($field_order, $current_fields)
     {
@@ -57,7 +58,8 @@ class SiteFormFieldSettingManager
 
     /**
      * [addNewFields add new fields]
-     * @param json $new_field_list
+     *
+     * @param json            $new_field_list
      * @param SiteFormSetting $site_form_setting
      */
     public function addNewFields($new_field_list, SiteFormSetting $site_form_setting, $no_adjust_allowed = false)
@@ -66,18 +68,15 @@ class SiteFormFieldSettingManager
         if (!is_null($new_field_list)) {
             foreach ($new_field_list as $new_field) {
                 if (!is_null($site_form_setting)
-                    &&
-                    (
-                        is_int($site_form_setting->getCustomFieldAllowed())
-                        && $site_form_setting->getCustomFieldAllowed() > 0
-                    )
+                    && (                    is_int($site_form_setting->getCustomFieldAllowed())
+                    && $site_form_setting->getCustomFieldAllowed() > 0)
                 ) {
                     $field = new SiteFormFieldSetting();
                     $field->setSiteFormSetting($site_form_setting)
-                            ->setFieldType($new_field->field_type)
-                            ->setMandatory(boolval($new_field->mandatory))
-                            ->setLabel($new_field->label)
-                            ->setFieldOrder(30); // big value, to put new field at the bottom
+                        ->setFieldType($new_field->field_type)
+                        ->setMandatory(boolval($new_field->mandatory))
+                        ->setLabel($new_field->label)
+                        ->setFieldOrder(30); // big value, to put new field at the bottom
                     if (isset($new_field->level)) {
                         $field->setLevel($new_field->level);
                     }
@@ -170,11 +169,8 @@ class SiteFormFieldSettingManager
     public function addNewField($new_field, SiteFormSetting $site_form_setting, $reduce_custom_field_allowed = false)
     {
         if (!is_null($site_form_setting)
-            &&
-            (
-                is_int($site_form_setting->getCustomFieldAllowed())
-                && $site_form_setting->getCustomFieldAllowed() > 0
-            )
+            && (            is_int($site_form_setting->getCustomFieldAllowed())
+            && $site_form_setting->getCustomFieldAllowed() > 0)
         ) {
             $type = ($new_field['field_type']=="alphanum")?"text":$new_field['field_type'];
 
@@ -185,11 +181,11 @@ class SiteFormFieldSettingManager
             if ($type != 'period') {
                 $field = new SiteFormFieldSetting();
                 $field->setSiteFormSetting($site_form_setting)
-                        ->setFieldType($type)
-                        ->setMandatory($new_field['mandatory'])
-                        ->setLabel($new_field['label'])
-                        ->setFieldOrder(100) // big value, to put new field at the bottom
-                        ->setPersonalizable(true);
+                    ->setFieldType($type)
+                    ->setMandatory($new_field['mandatory'])
+                    ->setLabel($new_field['label'])
+                    ->setFieldOrder(100) // big value, to put new field at the bottom
+                    ->setPersonalizable(true);
                 if (isset($new_field['level'])) {
                     $field->setLevel($new_field['level']);
                     $order = $this->getRepository()
@@ -210,16 +206,16 @@ class SiteFormFieldSettingManager
             } else {
                 $field = new SiteFormFieldSetting();
                 $field->setSiteFormSetting($site_form_setting)
-                        ->setFieldType('date')
-                        ->setMandatory($new_field['mandatory'])
-                        ->setLabel($new_field['label'])
-                        ->setFieldOrder(100) // big value, to put new field at the bottom
-                        ->setPersonalizable(true);
+                    ->setFieldType('date')
+                    ->setMandatory($new_field['mandatory'])
+                    ->setLabel($new_field['label'])
+                    ->setFieldOrder(100) // big value, to put new field at the bottom
+                    ->setPersonalizable(true);
                 if (isset($new_field['level'])) {
                     $field->setLevel($new_field['level']);
                     $order = (int) $this->getRepository()->findLastOrder($field->getSiteFormSetting()->getId(), $new_field['level']);
                     $field->setFieldOrder($order)
-                          ->setInRow($order);
+                        ->setInRow($order);
                 }
 
                 $field2 = clone $field;
@@ -248,8 +244,8 @@ class SiteFormFieldSettingManager
     /**
      * [deleteField delete field]
      *
-     * @param  array  $delete_fields
-     * @param  SiteFormSetting $site_form_setting
+     * @param array           $delete_fields
+     * @param SiteFormSetting $site_form_setting
      */
     public function deleteField($delete_fields, SiteFormSetting $site_form_setting, $no_adjust_allowed = false)
     {

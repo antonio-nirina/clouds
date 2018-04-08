@@ -107,9 +107,11 @@ class ProductPointAttributionManager
     public function retrieveProductAttributionType($program, $type_name)
     {
         return $this->em->getRepository('AdminBundle\Entity\PointAttributionType')
-            ->findOneBy(array(
+            ->findOneBy(
+                array(
                 'point_type_name' => $type_name,
-            ));
+                )
+            );
     }
 
     public function saveProductPointSettingData(ProductPointSettingData $product_point_setting_data, $program)
@@ -216,9 +218,7 @@ class ProductPointAttributionManager
         $program
     ) {
         foreach ($original_product_setting_datas as $original_product_settting_data) {
-            if (false
-                ===
-                $product_point_setting_data->getProductPointSettingList()->contains($original_product_settting_data)
+            if (false===$product_point_setting_data->getProductPointSettingList()->contains($original_product_settting_data)
             ) {
                 $program->removePointAttributionSetting(
                     $original_product_settting_data->getProductPointTurnoverProportional()
@@ -327,12 +327,12 @@ class ProductPointAttributionManager
         }
 
         $prod_point_setting_turnover_slice_A = $this->em->getRepository('AdminBundle\Entity\PointAttributionSetting')
-        ->findOneByProgramAndTypeAndProductGroupAndName(
-            $program,
-            PointAttributionType::PRODUCT_TURNOVER_SLICE,
-            $product_group,
-            SliceCategory::SLICE_A
-        );
+            ->findOneByProgramAndTypeAndProductGroupAndName(
+                $program,
+                PointAttributionType::PRODUCT_TURNOVER_SLICE,
+                $product_group,
+                SliceCategory::SLICE_A
+            );
         if (!is_null($prod_point_setting_turnover_slice_A)) {
             $program->removePointAttributionSetting($prod_point_setting_turnover_slice_A);
             $this->em->remove($prod_point_setting_turnover_slice_A);

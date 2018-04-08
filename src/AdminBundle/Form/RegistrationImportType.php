@@ -12,7 +12,8 @@ class RegistrationImportType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('registration_data', FileType::class, array(
+        $builder->add(
+            'registration_data', FileType::class, array(
             "constraints" => array(
                 new FileExtensionConstraint('csv'),
                 new NotBlank(),
@@ -23,6 +24,7 @@ class RegistrationImportType extends AbstractType
                     )
                 ),
             ),
-        ));
+            )
+        );
     }
 }

@@ -14,14 +14,16 @@ class RegistrationFormHeaderDataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('header_image', FileType::class)
-                ->add('header_message', TextType::class)
-                ->add('delete_image_command', HiddenType::class, array('mapped' => false));
+            ->add('header_message', TextType::class)
+            ->add('delete_image_command', HiddenType::class, array('mapped' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => RegistrationFormData::class,
-        ));
+            )
+        );
     }
 }

@@ -20,43 +20,43 @@ class ResultatsSondagesQuiz
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="resultats_sondages_quiz")
      */
     private $program;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuiz", inversedBy="resultats_sondages_quiz")
      */
     private $sondages_quiz;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos", inversedBy="resultats_sondages_quiz")
      */
     private $sondages_quiz_questionnaire_infos;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", inversedBy="resultats_sondages_quiz")
      */
     private $sondages_quiz_questions;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizReponses", inversedBy="resultats_sondages_quiz")
      */
     private $sondages_quiz_reponses;
-	
-	/**
+    
+    /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="resultats_sondages_quiz")
      */
     private $user;
-	
-	/**
+    
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $echelle;
-	
-	/**
+    
+    /**
      * @ORM\Column(name="date_creation", type="datetime")
      */
     protected $date_creation;
@@ -262,12 +262,12 @@ class ResultatsSondagesQuiz
     {
         return $this->user;
     }
-	
-	/**
-	* @ORM\PrePersist
-	*/
-	public function addDateCreation()
-	{
-		$this->setDateCreation(new \Datetime());
-	}
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function addDateCreation()
+    {
+        $this->setDateCreation(new \Datetime());
+    }
 }

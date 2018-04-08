@@ -20,12 +20,12 @@ class NewsPostDataLinker
     {
         $post_type = null;
         switch ($type_label) {
-            case NewsPostTypeLabel::STANDARD:
-                $post_type = PostType::NEWS_POST;
-                break;
-            case NewsPostTypeLabel::WELCOMING:
-                $post_type = PostType::WELCOMING_NEWS_POST;
-                break;
+        case NewsPostTypeLabel::STANDARD:
+            $post_type = PostType::NEWS_POST;
+            break;
+        case NewsPostTypeLabel::WELCOMING:
+            $post_type = PostType::WELCOMING_NEWS_POST;
+            break;
         }
 
         return $post_type;

@@ -27,11 +27,11 @@ class AuthenticationLoginSuccessListener implements AuthenticationSuccessHandler
     {
         $token = $event->getAuthenticationToken();
         $request = $event->getRequest();
-        $this->onAuthenticationSuccess($request,$token);
+        $this->onAuthenticationSuccess($request, $token);
     }
 
-   public function onAuthenticationSuccess(Request $request, TokenInterface $token)
-   {
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
+    {
         foreach ($token->getRoles() as $value) {
             $roles[] = $value->getRole();
         }

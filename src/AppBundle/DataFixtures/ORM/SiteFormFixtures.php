@@ -21,7 +21,7 @@ class SiteFormFixtures extends Fixture
         foreach ($all_forms as $form) {
             $site_form = new SiteForm();
             $site_form->setName($form[0])
-                    ->setFormType($form[1]);
+                ->setFormType($form[1]);
             $site_form_setting = new SiteFormSetting();
             $site_form_setting->setState(true)
                 ->setProgram($this->getReference('program'))

@@ -41,12 +41,14 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
         if ($this->csv_handler->areSameRows(
             $this->array_model[$this->user_data_title_row_index],
             $this->array_data[$this->row_index]
-        )) {
+        )
+        ) {
             if ($this->increaseRowIndex()) {
                 if ($this->csv_handler->areSameRows(
                     $this->array_model[$this->user_data_header_row_index],
                     $this->array_data[$this->row_index]
-                )) {
+                )
+                ) {
                     $header = $this->array_model[$this->user_data_header_row_index];
 
                     if ($this->increaseRowIndex()) {
@@ -76,10 +78,12 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
                                 }
                             }
                         } else {
-                            $this->addError($this->createErrorWithIndex(
-                                self::ERROR_NO_USER_DATA_FOUND,
-                                $this->row_index
-                            ));
+                            $this->addError(
+                                $this->createErrorWithIndex(
+                                    self::ERROR_NO_USER_DATA_FOUND,
+                                    $this->row_index
+                                )
+                            );
                             return $this->error_list;
                         }
                     } else {
@@ -112,12 +116,14 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
         if ($this->csv_handler->areSameRows(
             $this->array_model[$this->user_data_title_row_index],
             $this->array_data[$this->row_index]
-        )) {
+        )
+        ) {
             if ($this->increaseRowIndex()) {
                 if ($this->csv_handler->areSameRows(
                     $this->array_model[$this->user_data_header_row_index],
                     $this->array_data[$this->row_index]
-                )) {
+                )
+                ) {
                     $header = $this->array_model[$this->user_data_header_row_index];
 
                     if ($this->increaseRowIndex()) {
@@ -147,10 +153,12 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
                                 }
                             }
                         } else {
-                            $this->addError($this->createErrorWithIndex(
-                                self::ERROR_NO_USER_DATA_FOUND,
-                                $this->row_index
-                            ));
+                            $this->addError(
+                                $this->createErrorWithIndex(
+                                    self::ERROR_NO_USER_DATA_FOUND,
+                                    $this->row_index
+                                )
+                            );
                             return $this->error_list;
                         }
                     } else {

@@ -17,19 +17,25 @@ class SiteTableNetworkSettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('has_classment', CheckboxType::class)
-                ->add('has_like', CheckboxType::class)
-                ->add('has_facebook', CheckboxType::class)
-                ->add('facebook_link', TextType::class, array(
+            ->add('has_like', CheckboxType::class)
+            ->add('has_facebook', CheckboxType::class)
+            ->add(
+                'facebook_link', TextType::class, array(
                     "required" => false
-                ))
-                ->add('has_linkedin', CheckboxType::class)
-                ->add('linkedin_link', TextType::class, array(
+                )
+            )
+            ->add('has_linkedin', CheckboxType::class)
+            ->add(
+                'linkedin_link', TextType::class, array(
                     "required" => false
-                ))
-                ->add('has_twitter', CheckboxType::class)
-                ->add('twitter_link', TextType::class, array(
+                )
+            )
+            ->add('has_twitter', CheckboxType::class)
+            ->add(
+                'twitter_link', TextType::class, array(
                     "required" => false
-                ));
+                )
+            );
     }
 
     /**
@@ -37,9 +43,11 @@ class SiteTableNetworkSettingType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => SiteTableNetworkSetting::class,
-        ));
+            )
+        );
     }
 
     /**

@@ -16,12 +16,14 @@ class ProgramPointAttributionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('point_attribution_setting', CollectionType::class, array(
+        $builder->add(
+            'point_attribution_setting', CollectionType::class, array(
                     'entry_type' => $options['entry_type_class'],
                     'entry_options' => array(
                         'label' => false
                     )
-                ));
+            )
+        );
     }
 
     /**
@@ -29,10 +31,12 @@ class ProgramPointAttributionType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => Program::class,
             'entry_type_class' => AbstractType::class
-        ));
+            )
+        );
     }
 
     /**

@@ -30,11 +30,13 @@ class ProgramUserRepository extends EntityRepository
             ->where($qb->expr()->eq('app_user.name', ':name'))
             ->andWhere($qb->expr()->eq('app_user.firstname', ':firstname'))
             ->andWhere($qb->expr()->eq('pu.program', ':program'))
-            ->setParameters(array(
+            ->setParameters(
+                array(
                                 "name" => $name,
                                 "firstname" => $firstname,
                                 "program" => $program
-                                 ));
+                )
+            );
 
         return $qb->getQuery()->getResult();
     }
@@ -48,10 +50,12 @@ class ProgramUserRepository extends EntityRepository
             ->andWhere($qb->expr()->eq('cl_pr.start_date', ':start_date'))
             ->andWhere($qb->expr()->isNotNull('cl_pr.current_ca'))
             ->orderBy('cl_pr.current_ca', 'DESC')
-            ->setParameters(array(
+            ->setParameters(
+                array(
                                 "role" => $role,
                                 "start_date" => $start_date
-                                ));
+                )
+            );
         return $qb->getQuery()->getResult();
     }
 

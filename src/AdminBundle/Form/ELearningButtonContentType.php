@@ -18,9 +18,11 @@ class ELearningButtonContentType extends ELearningContentType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add('action_button_data', ActionButtonType::class, array(
+        $builder->add(
+            'action_button_data', ActionButtonType::class, array(
             'data_class' => ELearningButtonContent::class,
-        ));
+            )
+        );
     }
 
     /**
@@ -28,8 +30,10 @@ class ELearningButtonContentType extends ELearningContentType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ELearningButtonContent::class,
-        ));
+            )
+        );
     }
 }

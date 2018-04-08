@@ -12,20 +12,22 @@ class PostOrdering
     /**
      * Order post DESC (older is placed earlier)
      *
-     * @param array $post_list      array of HomePagePost object
+     * @param array $post_list array of HomePagePost object
      *
      * @return array
      */
     public function orderByDateDesc(array $post_list)
     {
-        usort($post_list, function ($a, $b) {
-            $a_date = $this->defineToCompareDate($a);
-            $b_date = $this->defineToCompareDate($b);
-            if ($a_date == $b_date) {
-                return 0;
+        usort(
+            $post_list, function ($a, $b) {
+                $a_date = $this->defineToCompareDate($a);
+                $b_date = $this->defineToCompareDate($b);
+                if ($a_date == $b_date) {
+                    return 0;
+                }
+                return ($a_date > $b_date) ? -1 : 1;
             }
-            return ($a_date > $b_date) ? -1 : 1;
-        });
+        );
 
         return $post_list;
     }

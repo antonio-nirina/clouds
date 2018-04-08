@@ -47,19 +47,24 @@ class NewsPostType extends SelectingCommonDataType
             ->add('action_button_text_color', TextType::class)
             ->add('action_button_background_color', TextType::class)
             ->add('action_button_target_url', TextType::class)
-            ->add('action_button_target_page', ChoiceType::class, array(
+            ->add(
+                'action_button_target_page', ChoiceType::class, array(
                 'choices' => $this->retrieveTargetPageList(),
                 'placeholder' => 'POINTER SUR'
-            ))
-            ->add('programmed_publication_state', ChoiceType::class, array(
+                )
+            )
+            ->add(
+                'programmed_publication_state', ChoiceType::class, array(
                 'choices' => array(
                     'false' => false,
                     'true' => true,
                 ),
                 'expanded' => true,
                 'multiple' => false,
-            ))
-            ->add('programmed_publication_datetime', DateTimeType::class, array(
+                )
+            )
+            ->add(
+                'programmed_publication_datetime', DateTimeType::class, array(
                 'label' => false,
                 'date_widget' => "single_text",
                 'time_widget' => "choice",
@@ -68,7 +73,8 @@ class NewsPostType extends SelectingCommonDataType
                 'date_format'=>'dd/MM/yyyy',
                 'input' => 'datetime',
                 /*'model_timezone' => $this->container->getParameter('app_time_zone'),*/
-            ));
+                )
+            );
     }
 
     /**
@@ -76,9 +82,11 @@ class NewsPostType extends SelectingCommonDataType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => NewsPost::class,
-        ));
+            )
+        );
     }
 
     /**
@@ -101,7 +109,7 @@ class NewsPostType extends SelectingCommonDataType
         if (!empty($page_list)) {
             foreach ($page_list as $page) {
                 $target_list[$page->getNomPage()] = $this->url_generator
-                    ->generate('beneficiary_home_pages_standard_slug', array('slug' => $page->getSlug())) ;
+                    ->generate('beneficiary_home_pages_standard_slug', array('slug' => $page->getSlug()));
             }
 
         }

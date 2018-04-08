@@ -24,13 +24,15 @@ class ELearningMediaContentType extends ELearningContentType
         parent::buildForm($builder, $options);
         $builder->add('associated_file', FileType::class)
             ->add('video_url', TextType::class)
-            ->add('images', CollectionType::class, array(
+            ->add(
+                'images', CollectionType::class, array(
                 'entry_type' => ELearningGalleryImageType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype_name' => '__image_name__',
-            ))
+                )
+            )
             ->add('content_type', HiddenType::class);
     }
 
@@ -39,8 +41,10 @@ class ELearningMediaContentType extends ELearningContentType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ELearningMediaContent::class,
-        ));
+            )
+        );
     }
 }

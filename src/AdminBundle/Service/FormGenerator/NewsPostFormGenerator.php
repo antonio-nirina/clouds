@@ -28,8 +28,8 @@ class NewsPostFormGenerator
      * Generate form for news post creation
      *
      * @param Program $program
-     * @param string $post_type     takes value from PostType constant
-     * @param string $form_name
+     * @param string  $post_type takes value from PostType constant
+     * @param string  $form_name
      *
      * @return FormInterface
      */
@@ -60,7 +60,7 @@ class NewsPostFormGenerator
      * As home page opst when creation new news post
      *
      * @param Program $program
-     * @param string $post_type
+     * @param string  $post_type
      *
      * @return HomePagePost
      */
@@ -108,8 +108,8 @@ class NewsPostFormGenerator
      * Generate form for news post edit
      *
      * @param NewsPost $news_post
-     * @param string $post_type
-     * @param string $form_name
+     * @param string   $post_type
+     * @param string   $form_name
      *
      * @return FormInterface
      */
@@ -134,7 +134,7 @@ class NewsPostFormGenerator
      * Generate form for news post duplication
      *
      * @param NewsPost $news_post
-     * @param string $form_name
+     * @param string   $form_name
      *
      * @return FormInterface
      */

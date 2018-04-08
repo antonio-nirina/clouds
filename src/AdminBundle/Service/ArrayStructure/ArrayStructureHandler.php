@@ -10,7 +10,7 @@ class ArrayStructureHandler
      * Redefine array keys using existent key from array element keys
      *
      * @param string $key
-     * @param array $array
+     * @param array  $array
      *
      * @return array
      */

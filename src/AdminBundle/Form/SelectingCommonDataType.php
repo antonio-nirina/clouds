@@ -34,9 +34,11 @@ class SelectingCommonDataType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('viewer_authorization_type', ChoiceType::class, array(
+        $builder->add(
+            'viewer_authorization_type', ChoiceType::class, array(
             'choices' => $this->retrieveAuthorizationList(),
-        ))
+            )
+        )
             ->add('authorized_viewer_role', HiddenType::class)
             ->add('custom_authorized_viewer_list', HiddenType::class);
     }

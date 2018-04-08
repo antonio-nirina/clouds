@@ -54,9 +54,11 @@ class SuperAdminNotificationMailer
                     ->setFrom($sender->getEmail())
                     ->setTo($recipient_email)
                     ->setBody(
-                        $this->twig->render('AdminBundle:Emails/SuperAdminNotification:be_contacted.html.twig', array(
+                        $this->twig->render(
+                            'AdminBundle:Emails/SuperAdminNotification:be_contacted.html.twig', array(
                             'sender_email' => $sender->getEmail()
-                        )),
+                            )
+                        ),
                         'text/html'
                     );
                 $failures = null;

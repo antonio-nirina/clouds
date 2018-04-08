@@ -43,7 +43,6 @@ class Role
 
     /**
      * @ORM\Column(name="gain", type="float", nullable=true)
-     *
      */
     private $gain;
 
