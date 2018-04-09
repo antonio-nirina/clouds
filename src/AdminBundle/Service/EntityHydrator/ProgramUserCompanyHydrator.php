@@ -16,27 +16,32 @@ class ProgramUserCompanyHydrator
         if (in_array(
             SpecialFieldIndex::USER_COMPANY_NAME,
             $related_field_setting->getSpecialFieldIndex()
-        )) {
+        )
+        ) {
             $program_user_company->setName($value);
         } elseif (in_array(
             SpecialFieldIndex::USER_COMPANY_POSTAL_ADDRESS,
             $related_field_setting->getSpecialFieldIndex()
-        )) {
+        )
+        ) {
             $program_user_company->setPostalAddress($value);
         } elseif (in_array(
             SpecialFieldIndex::USER_COMPANY_POSTAL_CODE,
             $related_field_setting->getSpecialFieldIndex()
-        )) {
+        )
+        ) {
             $program_user_company->setPostalCode($value);
         } elseif (in_array(
             SpecialFieldIndex::USER_COMPANY_CITY,
             $related_field_setting->getSpecialFieldIndex()
-        )) {
+        )
+        ) {
             $program_user_company->setCity($value);
         } elseif (in_array(
             SpecialFieldIndex::USER_COMPANY_COUNTRY,
             $related_field_setting->getSpecialFieldIndex()
-        )) {
+        )
+        ) {
             $program_user_company->setCountry($value);
         } else {
             $additional_data[$key] = $value;

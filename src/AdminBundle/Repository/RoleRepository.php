@@ -12,11 +12,13 @@ class RoleRepository extends EntityRepository
         $qb ->where($qb->expr()->eq('role.program', ':program'))
             ->andWhere($qb->expr()->gt('role.rank', ':rank'))
             ->andWhere($qb->expr()->eq('role.active', ':active'))
-            ->setParameters(array(
+            ->setParameters(
+                array(
                 'program' => $program,
                 'rank' => $rank,
                 'active' => true
-            ));
+                )
+            );
         // dump($qb->getDql());
         return $qb->getQuery()->getResult();
     }

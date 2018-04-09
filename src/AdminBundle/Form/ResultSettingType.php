@@ -16,20 +16,32 @@ class ResultSettingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('monthly', ChoiceType::class, array(
+        $builder->add(
+            'monthly',
+            ChoiceType::class,
+            array(
                     'choices'  => array(
                         'Oui' => true,
                         'Non' => false),
                     'expanded' => true,
                     'multiple' => false,
                     'required' => true
-                ))
-                ->add('by_product', CheckboxType::class, array(
+            )
+        )
+            ->add(
+                'by_product',
+                CheckboxType::class,
+                array(
                         'label'    => '',
-                        'required' => false,))
-                ->add('by_rank', CheckboxType::class, array(
+                'required' => false,)
+            )
+            ->add(
+                'by_rank',
+                CheckboxType::class,
+                array(
                         'label'    => '',
-                        'required' => false,));
+                'required' => false,)
+            );
     }
 
     /**
@@ -37,9 +49,11 @@ class ResultSettingType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ResultSetting::class,
-        ));
+            )
+        );
     }
 
     /**

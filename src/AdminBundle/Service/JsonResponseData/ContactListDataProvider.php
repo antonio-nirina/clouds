@@ -14,7 +14,7 @@ class ContactListDataProvider extends StandardDataProvider
     /**
      * Give data when contact list creation is OK
      *
-     * @param int $id
+     * @param int    $id
      * @param string $name
      *
      * @return array

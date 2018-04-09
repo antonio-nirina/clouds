@@ -17,23 +17,28 @@ class PeriodPointSettingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('gain', CollectionType::class, array(
+        $builder->add(
+            'gain',
+            CollectionType::class,
+            array(
                         "entry_type" => TextType::class,
                         "entry_options" => array(
                             'required' => false,
                             'constraints' => array(
-                                new Range(array(
+                                new Range(
+                                    array(
                                     "min" => 0,
                                     "max" => 1000,
                                     "maxMessage" => "Vous avez entré une valeur trop élevé",
                                     "minMessage" => "N'accepte pas les valeurs négatives",
                                     'invalidMessage' => "Entrer des valeurs numériques à la place des NaN"
-                                )),
+                                    )
+                                ),
                             )
                         ),
                         "label" => false
-                    ))
-        ;
+            )
+        );
     }
 
     /**
@@ -41,9 +46,11 @@ class PeriodPointSettingType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => PeriodPointSetting::class,
-        ));
+            )
+        );
     }
 
     /**

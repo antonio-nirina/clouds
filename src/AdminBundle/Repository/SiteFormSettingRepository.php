@@ -64,7 +64,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('field.field_order', 'ASC')
             ->setParameter('program', $program)
             ->setParameter('form_type', $form_type);
-       // dump($qb->getQuery());die;
+        // dump($qb->getQuery());die;
 
         return $qb->getQuery()->getSingleResult();
     }
@@ -86,7 +86,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('program', $program)
             ->setParameter('form_type', $form_type)
             ->setParameter('level', $level);
-       // dump($qb->getQuery());die;
+        // dump($qb->getQuery());die;
 
         return $qb->getQuery()->getSingleResult();
     }
@@ -106,7 +106,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('field.field_order', 'ASC')
             ->setParameter('program', $program)
             ->setParameter('form_type', $form_type);
-       // dump($qb->getQuery());die;
+        // dump($qb->getQuery());die;
 
         return $qb->getQuery()->getSingleResult();
     }
@@ -125,7 +125,7 @@ class SiteFormSettingRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('field.level', 'DESC')
             ->setParameter('program', $program)
             ->setParameter('form_type', $form_type);
-       // dump($qb->getQuery());die;
+        // dump($qb->getQuery());die;
 
         return $qb->getQuery()->getArrayResult();
     }

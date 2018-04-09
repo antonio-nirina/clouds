@@ -132,8 +132,7 @@ class NewsPost
         return $this->action_button_state;
     }
 
-
-    /**
+/**
      * Set homePagePost
      *
      * @param \AdminBundle\Entity\HomePagePost $homePagePost
@@ -157,9 +156,7 @@ class NewsPost
         return $this->home_page_post;
     }
 
-
-
-    /**
+/**
      * Set viewerAuthorizationType
      *
      * @param string $viewerAuthorizationType

@@ -61,8 +61,8 @@ class PeriodPointManager
 
         $period_point_setting = new PeriodPointSetting();
         $period_point_setting->setProductGroup($max)
-                        ->setGain($gain)
-                        ->setProgram($program);
+            ->setGain($gain)
+            ->setProgram($program);
         $program->getPeriodPointSetting()->add($period_point_setting);
         $this->em->flush();
 

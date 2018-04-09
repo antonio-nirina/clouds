@@ -23,7 +23,7 @@ class ELearningFormGenerator
      * Genearte form for e-learning creation
      *
      * @param Program $program
-     * @param string $form_name
+     * @param string  $form_name
      *
      * @return FormInterface
      */

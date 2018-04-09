@@ -52,7 +52,7 @@ phpcs:
   script:
     - git clone https://github.com/Endouble/Symfony3-custom-coding-standard.git && composer install -d ./Symfony3-custom-coding-standard
     - ./Symfony3-custom-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../../../Symfony3-custom-coding-standard
-    - ./Symfony3-custom-coding-standard/vendor/bin/phpcs -d memory_limit=512M --standard=Symfony3Custom --ignore=*/vendor/*,*/app/*,*/bin/*,*/var/*,*/web/*,*/DataFixtures/*,*/Symfony3Custom/* $application_path/ --report=full
+    - ./Symfony3-custom-coding-standard/vendor/bin/phpcs -d memory_limit=512M --standard=Symfony3Custom --ignore=*/vendor/*,*/app/*,*/bin/*,*/var/*,*/web/*,*/DataFixtures/*,*/Symfony3Custom/*,*.js,*.css $application_path/ --report=full
 
 phpunit:
   stage: test

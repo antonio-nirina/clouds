@@ -53,8 +53,8 @@ class EmailingCampaign
     private $ID;
 
     /**
-    * @ORM\Column(name="is_starred", type="boolean")
-    */
+     * @ORM\Column(name="is_starred", type="boolean")
+     */
     private $is_starred;
 
     /**

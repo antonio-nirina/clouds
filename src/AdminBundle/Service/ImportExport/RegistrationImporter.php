@@ -93,7 +93,6 @@ class RegistrationImporter extends CSVFileContentBrowser
         $this->increaseRowIndex(); // go to first user data, following given structure
         $user_list = $this->createUserData($this->row_index, $user_header_row, $program_user_company);
 
-
         foreach ($user_list as $user_element) {
             $program_user_company->addProgramUser($user_element["program_user"]);
             $this->manager->persist($user_element["program_user"]);
@@ -149,7 +148,6 @@ class RegistrationImporter extends CSVFileContentBrowser
                             $app_user
                         );
                     }
-
                 }
             }
 

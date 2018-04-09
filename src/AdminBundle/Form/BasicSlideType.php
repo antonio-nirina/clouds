@@ -13,16 +13,18 @@ abstract class BasicSlideType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('image', FileType::class)
-                ->add('slide_order', TextType::class)
-                ->add('delete_image_command', HiddenType::class, array('mapped' => false));
+            ->add('slide_order', TextType::class)
+            ->add('delete_image_command', HiddenType::class, array('mapped' => false));
 
-        $builder->get('image')->addModelTransformer(new CallBackTransformer(
-            function ($image) {
-                return null;
-            },
-            function ($image) {
-                return $image;
-            }
-        ));
+        $builder->get('image')->addModelTransformer(
+            new CallBackTransformer(
+                function ($image) {
+                    return null;
+                },
+                function ($image) {
+                    return $image;
+                }
+            )
+        );
     }
 }

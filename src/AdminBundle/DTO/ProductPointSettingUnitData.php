@@ -71,5 +71,4 @@ class ProductPointSettingUnitData
 
         return $this;
     }
-
 }

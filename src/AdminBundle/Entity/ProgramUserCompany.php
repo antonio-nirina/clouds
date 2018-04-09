@@ -210,6 +210,7 @@ class ProgramUserCompany
     {
         return $this->customization;
     }
+
     /**
      * Constructor
      */

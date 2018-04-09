@@ -56,9 +56,9 @@ class ResultSettingHandler
         $by_product = $this->result_setting->getByProduct();
         $by_rank = $this->result_setting->getByRank();
         $this->model->save($monthly, $by_product, $by_rank);
-        
+
         $error_list = $this->schema_checker->check($this->model, $data_import_file);
-        
+
         if (!empty($error_list)) {
             $this->error_list = $error_list;
             $this->removeFile($import_file_path);
@@ -68,7 +68,7 @@ class ResultSettingHandler
             $error_list = $this->schema_checker->import($this->model, $data_import_file);
             if (empty($error_list)) {//attribution des points perform
                 $sales_point_attribution = $this->container
-                                                ->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
+                    ->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
                 $program = $this->container->get('admin.program')->getCurrent();
                 $sales_point_attribution->closeClassmentProgression($program, $monthly);
             }

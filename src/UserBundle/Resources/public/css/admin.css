@@ -3,16 +3,16 @@
  */
 
 html{
-	background:#ebeeef;
-	font-family: FontAwesome;
+    background:#ebeeef;
+    font-family: FontAwesome;
 }
 
 .bg-faded{
-	background:#ebeeef!important;
+    background:#ebeeef!important;
 }
 
 a:hover{
-	text-decoration:none;
+    text-decoration:none;
 }
 
 /* Move down content because we have a fixed navbar that is 50px tall */
@@ -78,86 +78,86 @@ h1 {
 }
 
 .menu-niv-1{
-	background:url('../images/cloudsRewards/bandeau-header.jpg');
-	background-repeat:no-repeat;
-	margin:0;
-	padding:0;
+    background:url('../images/cloudsRewards/bandeau-header.jpg');
+    background-repeat:no-repeat;
+    margin:0;
+    padding:0;
 }
 
 .menu-niv-2{
-	background:#505050!important;
-	min-height: 58px;
+    background:#505050!important;
+    min-height: 58px;
 }
 
 .menu-niv-3{
-	background:none!important;
-	min-height: 58px;
+    background:none!important;
+    min-height: 58px;
 }
 
 .nav-item-niv-3{
-	float: left;
-	display: block;
-	margin-left: 40px;
+    float: left;
+    display: block;
+    margin-left: 40px;
 }
 
 
 
 .active a{
-	color:grey;
+    color:grey;
 }
 
 
 .search{
-	background: none !important;
-	border: 0 !important;
-	color: white !important;
-	background: url('../images/cloudsRewards/barre-recherche-barre.png') !important;
-	background-repeat: repeat;
-	background-repeat: no-repeat !important;
-	width:290px;
-	background-position: left bottom !important;
+    background: none !important;
+    border: 0 !important;
+    color: white !important;
+    background: url('../images/cloudsRewards/barre-recherche-barre.png') !important;
+    background-repeat: repeat;
+    background-repeat: no-repeat !important;
+    width:290px;
+    background-position: left bottom !important;
 }
 
 .search input{
-	background: none !important;
-	border: 0 !important;
-	color: white !important;
-	margin-left: 10px !important;
-	height: 40px !important;
-	padding-top: 19px
+    background: none !important;
+    border: 0 !important;
+    color: white !important;
+    margin-left: 10px !important;
+    height: 40px !important;
+    padding-top: 19px
 }
 
 .icone-search{
-	position: absolute;
-	left: -10px;
-	top: 50%;
-	height: 16px;
-	margin-top: -8px;
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    height: 16px;
+    margin-top: -8px;
 }
 
 /*
 .menu-content-sidebare{
-	margin-top:50px!important;
+    margin-top:50px!important;
 }
 */
 
 .nav-link{
-	position:relative;
-	margin-top:10px;
-	height:100px;
+    position:relative;
+    margin-top:10px;
+    height:100px;
 }
 
 .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active{
-	background-color: #ebeeef!important;
+    background-color: #ebeeef!important;
 }
 
 .navbar-nav{
-	display:block!important;
+    display:block!important;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: white!important;
-	font-style:italic!important;
+    font-style:italic!important;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    color: white!important;
@@ -179,237 +179,237 @@ h1 {
 }
 
 .content-menu-niv-2{
-	margin:0 auto;
+    margin:0 auto;
 }
 
 .content-menu-niv-3{
-	margin:0 auto;
+    margin:0 auto;
 }
 
 .nav-item-niv-2 a{
-	color:grey;
-	text-decoration:none;
+    color:grey;
+    text-decoration:none;
 }
 
 .nav-item-niv-2 a.active{
-	color:white;
+    color:white;
 }
 
 /*
 .accueil{
-	width:75px;
+    width:75px;
 }
 
 .dashboard{
-	width:100px;
+    width:100px;
 }
 
 .communication{
-	width:120px;
+    width:120px;
 }
 
 .participants{
-	width:100px;
+    width:100px;
 }
 
 .validations{
-	width:100px;
+    width:100px;
 }
 
 .multu-operations{
-	width:140px;
+    width:140px;
 }
 
 .parametrages{
-	width:100px;
+    width:100px;
 }
 */
 
 .sous-menu-main{
-	text-align:center;
+    text-align:center;
 }
 
 .fieldset{
-	/*width:100%;*/
-	padding:10px;
-	margin-top:10px;
-	position:relative;
-	box-shadow: 8px 11px 22px #aaa;
+    /*width:100%;*/
+    padding:10px;
+    margin-top:10px;
+    position:relative;
+    box-shadow: 8px 11px 22px #aaa;
 }
 
 section.active{
-	background-color:white;
-	border-top: 2px solid blue;
+    background-color:white;
+    border-top: 2px solid blue;
 }
 
 section.inactive{
-	background-color:#f5f5f5;
+    background-color:#f5f5f5;
 }
 
 
 
 .radioBtn{
-	width: 25px;
-	height: 25px;
-	cursor: pointer;
-	display: inline-block;
-	float: left;
-	margin-top:5px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    margin-top:5px;
 }
 
 .unchecked{
-	background:url('../images/cloudsRewards/checkbox-off.png');
+    background:url('../images/cloudsRewards/checkbox-off.png');
 }
 
 .checked{
-	background:url('../images/cloudsRewards/checked-on.png');
+    background:url('../images/cloudsRewards/checked-on.png');
 }
 
 .checkboxBtn{
-	width:49px;
-	height:20px;
-	background-repeat:no-repeat!important;
-	cursor:pointer;
-	float:left;
-	margin-top:3px;
+    width:49px;
+    height:20px;
+    background-repeat:no-repeat!important;
+    cursor:pointer;
+    float:left;
+    margin-top:3px;
 }
 
 .no-mode{
-	background:url('../images/cloudsRewards/on-off-off.png');
+    background:url('../images/cloudsRewards/on-off-off.png');
 }
 
 .est-mode{
-	background:url('../images/cloudsRewards/on-off.png');
+    background:url('../images/cloudsRewards/on-off.png');
 }
 
 .input-radio{
-	background:none;
-	border:0;
+    background:none;
+    border:0;
 }
 
 .FontRec{
-	color:#4b84e5;
-	font-size:20px;
+    color:#4b84e5;
+    font-size:20px;
 }
 
 .description-recompenses{
-	text-align: justify;
-	margin: 0;
-	padding: 0;
-	padding-left: 36px;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+    padding-left: 36px;
 }
 
 .mode-recompense{
-	margin: 0;
-	padding: 0;
-	margin-top:30px;
-	width:200px;
-	margin-left:34px;
+    margin: 0;
+    padding: 0;
+    margin-top:30px;
+    width:200px;
+    margin-left:34px;
 }
 
 .libelle-mode{
 }
 
 .content-bloc-gauche{
-	width: 110px;
-	height: 110px;
-	background-repeat: no-repeat;
-	border-radius: 54px;
-	position:absolute;
-	right:10px;
-	border: 2px solid grey;
+    width: 110px;
+    height: 110px;
+    background-repeat: no-repeat;
+    border-radius: 54px;
+    position:absolute;
+    right:10px;
+    border: 2px solid grey;
 }
 
 .img-challenge{
-	background:url('../images/cloudsRewards/arrondi1.png');
-	background-position: -59px -34px;
+    background:url('../images/cloudsRewards/arrondi1.png');
+    background-position: -59px -34px;
 }
 
 .img-fidelites{
-	background:url('../images/cloudsRewards/arrondi2.png');
-	background-position: -26px -20px;
+    background:url('../images/cloudsRewards/arrondi2.png');
+    background-position: -26px -20px;
 }
 
 .img-parrainage{
-	background:url('../images/cloudsRewards/arrondi3.png');
-	background-position: -32px -57px;
+    background:url('../images/cloudsRewards/arrondi3.png');
+    background-position: -32px -57px;
 }
 
 .img-form-inscription{
-	background:url('../images/cloudsRewards/img-form-inscr.png');
-	background-position: -76px -29px;
+    background:url('../images/cloudsRewards/img-form-inscr.png');
+    background-position: -76px -29px;
 }
 
 .img-import-inscription{
-	background:url('../images/cloudsRewards/img-import-form-inscr.png');
-	background-position: -76px -29px;
+    background:url('../images/cloudsRewards/img-import-form-inscr.png');
+    background-position: -76px -29px;
 }
 
 
 
 .content-bloc-droite{
-	float:left;
+    float:left;
 }
 
 .btn-valider{
-	border: 0;
-	background: none;
-	background-color: #4a83e4;
-	width: 100px;
-	padding: 5px;
-	color: white;
-	border-radius: 27px;
-	font-size:12px;
-	cursor:pointer;
-	margin-top:20px;
+    border: 0;
+    background: none;
+    background-color: #4a83e4;
+    width: 100px;
+    padding: 5px;
+    color: white;
+    border-radius: 27px;
+    font-size:12px;
+    cursor:pointer;
+    margin-top:20px;
 }
 
 .separator{
-	height:20px;
+    height:20px;
 }
 
 .menu-page{
-	color: grey;
-	font-weight: bold;
-	text-decoration: none;
-	line-height: 43px;
-	display: inline-block;
-	border: 0;
+    color: grey;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 43px;
+    display: inline-block;
+    border: 0;
 }
 
 .menu-page-active{
-	color: #7682da;
-	font-weight: bold;
-	text-decoration: none;
-	line-height: 43px;
-	display: inline-block;
-	border-bottom: 1px solid;
+    color: #7682da;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 43px;
+    display: inline-block;
+    border-bottom: 1px solid;
 }
 
 
 .bulle-aide{
-	display: inline-block;
-	background: url('../images/cloudsRewards/info-bulle.png');
-	width: 16px;
-	height: 16px;
-	position: relative;
-	top: 3px;
-	cursor: pointer;
+    display: inline-block;
+    background: url('../images/cloudsRewards/info-bulle.png');
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+    cursor: pointer;
 }
 
 .champs-form{
-	width: 100%;
-	border: 1px solid grey;
-	height: 23px;
-	border-radius:5px;
+    width: 100%;
+    border: 1px solid grey;
+    height: 23px;
+    border-radius:5px;
 }
 
 .form-input-part-1{
-	margin:0 auto;
+    margin:0 auto;
 }
 
 .form-input-part-2{
-	margin:0 auto;
+    margin:0 auto;
 }
 
 dt {
@@ -417,987 +417,987 @@ dt {
 }
 
 .champs-form-radio{
-	float:left;
+    float:left;
 }
 
 .champs-form-radio .input-radio{
-	width: 25px;
-	height: 25px;
-	border: 1px solid grey;
-	float: left;
-	margin-left: 10px;
-	border-radius: 14px;
+    width: 25px;
+    height: 25px;
+    border: 1px solid grey;
+    float: left;
+    margin-left: 10px;
+    border-radius: 14px;
 }
 
 
 main{
-	/*border-left: 1px solid #cccaff !important;*/
+    /*border-left: 1px solid #cccaff !important;*/
 }
 
 .input-libelle-radio{
-	margin-left:10px;
+    margin-left:10px;
 }
 
 .content-option{
-	list-style:none;
-	padding:0;
-	margin:0;
-	margin-top: 50px;
+    list-style:none;
+    padding:0;
+    margin:0;
+    margin-top: 50px;
 }
 
 li.options{
-	margin-top:20px;
+    margin-top:20px;
 }
 
 .content-titre{
-	color:#7682da;
-	font-size:17px;
+    color:#7682da;
+    font-size:17px;
 }
 
 .content-description{
-	margin-top:20px;
+    margin-top:20px;
 }
 
 .content-description-texte p{
-	margin:0;
-	padding:0;
-	text-align:justify;
+    margin:0;
+    padding:0;
+    text-align:justify;
 }
 
 .content-description-texte{
-	margin-left:40px;
-	padding-top: 5px;
+    margin-left:40px;
+    padding-top: 5px;
 }
 
 .btn-valider-suivante,
 .btn-valider-contacter{
-	border: 0;
-	background: none;
-	background-color: #4a83e4;
-	width: 100px;
-	padding: 9px;
-	color: white;
-	border-radius: 27px;
-	font-size: 12px;
-	cursor: pointer;
-	margin-top: 20px;
+    border: 0;
+    background: none;
+    background-color: #4a83e4;
+    width: 100px;
+    padding: 9px;
+    color: white;
+    border-radius: 27px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 20px;
 }
 
 
 
 .btn-etape-suivante,
 .btn-etape-contacter{
-	text-align:center;
-	width:100%!important;
+    text-align:center;
+    width:100%!important;
 }
 
 .libelle_btn_dowload{
-	position:relative;
-	left:5px;
+    position:relative;
+    left:5px;
 }
 
 .libelle_btn_upload{
-	position:relative;
-	left:12px;
+    position:relative;
+    left:12px;
 }
 
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575px) {
-	.content-btn-action{
-		margin-top:20px;
-		margin-left:40px;
-		margin-bottom: 40px;
-		text-align:center;
-	}
+    .content-btn-action{
+        margin-top:20px;
+        margin-left:40px;
+        margin-bottom: 40px;
+        text-align:center;
+    }
 
-	.btn-valider-download,
-	.btn-valider-upload{
-		border: 0;
-		background: none;
-		background-color: #4a83e4;
-		width: 190px;
-		padding: 9px;
-		color: white;
-		border-radius: 27px;
-		font-size: 12px;
-		cursor: pointer;
-		margin-top: 20px;
-	}
+    .btn-valider-download,
+    .btn-valider-upload{
+        border: 0;
+        background: none;
+        background-color: #4a83e4;
+        width: 190px;
+        padding: 9px;
+        color: white;
+        border-radius: 27px;
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
 
-	.btn-valider-download{
-		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-	}
+    .btn-valider-download{
+        background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+    }
 
-	.btn-valider-upload{
-		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-		/*float:right;*/
-	}
-	
-	.fieldset{
-		height:280px;
-	}
-	
-	#create-form-inscription{
-		height:1263px;
-	}
-	
-	#import-form-inscription{
-		height: 1260px;
-	}
-	
-	.numero-menu{
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
-		border-radius: 22px;
-		width: 26px;
-		text-align: center;
-		height: 28px;
-		display:none;
-	}
+    .btn-valider-upload{
+        background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+        /*float:right;*/
+    }
+    
+    .fieldset{
+        height:280px;
+    }
+    
+    #create-form-inscription{
+        height:1263px;
+    }
+    
+    #import-form-inscription{
+        height: 1260px;
+    }
+    
+    .numero-menu{
+        position: absolute;
+        top: 0;
+        left: 10px;
+        display: block;
+        color: #807f81;
+        border: 1px solid #807f81;
+        border-radius: 22px;
+        width: 26px;
+        text-align: center;
+        height: 28px;
+        display:none;
+    }
 
-	.img-menu{
-		position: absolute;
-		top: 27px;
-		left: 50%;
-		width: 18px;
-		height: 20px;
-		margin-left: -9px;
-	}
+    .img-menu{
+        position: absolute;
+        top: 27px;
+        left: 50%;
+        width: 18px;
+        height: 20px;
+        margin-left: -9px;
+    }
 
-	.text-menu{
-		position: absolute;
-		top: 53px;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		color: #807f81;
-		display:none;
-	}
-	
-	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
-	}
-	
-	.content-log-header{
-		margin-top:97px;
-	}
+    .text-menu{
+        position: absolute;
+        top: 53px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #807f81;
+        display:none;
+    }
+    
+    .form-search{
+        position:absolute;
+        left:17px;
+        width:200px;
+    }
+    
+    .content-log-header{
+        margin-top:97px;
+    }
 
-	.log-header{
-		position: relative;
-		margin-left: 10px;
-		cursor: pointer;
-		display: block;
-		float: left;
-	}
+    .log-header{
+        position: relative;
+        margin-left: 10px;
+        cursor: pointer;
+        display: block;
+        float: left;
+    }
 
 
-	.log-content-header{
-		padding-top:10px;
-		width:100%;
-	}
+    .log-content-header{
+        padding-top:10px;
+        width:100%;
+    }
 
-	#play{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
-		margin-top: 8px;
-	}
+    #play{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: 0px -14px;
+        margin-top: 8px;
+    }
 
-	#notification{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
-		margin-top: 8px;
-	}
+    #notification{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: -46px -15px;
+        margin-top: 8px;
+    }
 
-	#question-marque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #question-marque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -94px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#mail{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #mail{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -140px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#casque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #casque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -186px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
+    #profil{
+        width:42px;
+        height:42px;
+        background-color:white;
+        border-radius:20px;
+        top: 0!important;
+    }
 
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		background-position: -302px -15px;
-		margin-top: 8px;
-	}
+    #power{
+        width:23px;
+        height:22px;
+        background-color:white;
+        border-radius:20px;
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        background-position: -302px -15px;
+        margin-top: 8px;
+    }
 }
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) and (max-width: 767px) {
-	.content-btn-action{
-		margin-top:20px;
-		margin-left:40px;
-		margin-bottom: 40px;
-		text-align:center;
-	}
+    .content-btn-action{
+        margin-top:20px;
+        margin-left:40px;
+        margin-bottom: 40px;
+        text-align:center;
+    }
 
-	.btn-valider-download,
-	.btn-valider-upload{
-		border: 0;
-		background: none;
-		background-color: #4a83e4;
-		width: 190px;
-		padding: 9px;
-		color: white;
-		border-radius: 27px;
-		font-size: 12px;
-		cursor: pointer;
-		margin-top: 20px;
-	}
+    .btn-valider-download,
+    .btn-valider-upload{
+        border: 0;
+        background: none;
+        background-color: #4a83e4;
+        width: 190px;
+        padding: 9px;
+        color: white;
+        border-radius: 27px;
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
 
-	.btn-valider-download{
-		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-	}
+    .btn-valider-download{
+        background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+    }
 
-	.btn-valider-upload{
-		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-		/*float:right;*/
-	}
-	
-	.form-input-part-1{
-		margin-top:53px;
-	}
-	
-	.content-bloc-droite{
-		margin-right:0;
-	}
-	
-	.fieldset{
-		height:280px;
-	}
-	
-	#create-form-inscription{
-		height:1242px;
-	}
-	
-	#import-form-inscription{
-		height: 979px;
-	}
-	
-	.numero-menu{
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
-		border-radius: 22px;
-		width: 26px;
-		text-align: center;
-		height: 28px;
-		display:none;
-	}
+    .btn-valider-upload{
+        background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+        /*float:right;*/
+    }
+    
+    .form-input-part-1{
+        margin-top:53px;
+    }
+    
+    .content-bloc-droite{
+        margin-right:0;
+    }
+    
+    .fieldset{
+        height:280px;
+    }
+    
+    #create-form-inscription{
+        height:1242px;
+    }
+    
+    #import-form-inscription{
+        height: 979px;
+    }
+    
+    .numero-menu{
+        position: absolute;
+        top: 0;
+        left: 10px;
+        display: block;
+        color: #807f81;
+        border: 1px solid #807f81;
+        border-radius: 22px;
+        width: 26px;
+        text-align: center;
+        height: 28px;
+        display:none;
+    }
 
-	.img-menu{
-		position: absolute;
-		top: 27px;
-		left: 50%;
-		width: 18px;
-		height: 20px;
-		margin-left: -9px;
-	}
+    .img-menu{
+        position: absolute;
+        top: 27px;
+        left: 50%;
+        width: 18px;
+        height: 20px;
+        margin-left: -9px;
+    }
 
-	.text-menu{
-		position: absolute;
-		top: 53px;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		color: #807f81;
-		display:none;
-	}
-	
-	.nav-item-niv-2{
-		display:block;
-	}
+    .text-menu{
+        position: absolute;
+        top: 53px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #807f81;
+        display:none;
+    }
+    
+    .nav-item-niv-2{
+        display:block;
+    }
 
-	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
-	}
-	
-	.content-log-header{
-		margin-top:97px;
-	}
+    .form-search{
+        position:absolute;
+        left:17px;
+        width:200px;
+    }
+    
+    .content-log-header{
+        margin-top:97px;
+    }
 
-	.log-header{
-		position: relative;
-		margin-left: 10px;
-		cursor: pointer;
-		display: block;
-		float: left;
-	}
+    .log-header{
+        position: relative;
+        margin-left: 10px;
+        cursor: pointer;
+        display: block;
+        float: left;
+    }
 
 
-	.log-content-header{
-		padding-top:10px;
-		width:100%;
-	}
+    .log-content-header{
+        padding-top:10px;
+        width:100%;
+    }
 
-	#play{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
-		margin-top: 8px;
-	}
+    #play{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: 0px -14px;
+        margin-top: 8px;
+    }
 
-	#notification{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
-		margin-top: 8px;
-	}
+    #notification{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: -46px -15px;
+        margin-top: 8px;
+    }
 
-	#question-marque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #question-marque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -94px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#mail{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #mail{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -140px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#casque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #casque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -186px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
+    #profil{
+        width:42px;
+        height:42px;
+        background-color:white;
+        border-radius:20px;
+        top: 0!important;
+    }
 
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		background-position: -302px -15px;
-		margin-top: 8px;
-	}
+    #power{
+        width:23px;
+        height:22px;
+        background-color:white;
+        border-radius:20px;
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        background-position: -302px -15px;
+        margin-top: 8px;
+    }
 }
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991px) {
-	.content-btn-action{
-		margin-top:20px;
-		margin-left:40px;
-		margin-bottom: 40px;
-		text-align:center;
-	}
+    .content-btn-action{
+        margin-top:20px;
+        margin-left:40px;
+        margin-bottom: 40px;
+        text-align:center;
+    }
 
-	.btn-valider-download,
-	.btn-valider-upload{
-		border: 0;
-		background: none;
-		background-color: #4a83e4;
-		width: 190px;
-		padding: 9px;
-		color: white;
-		border-radius: 27px;
-		font-size: 12px;
-		cursor: pointer;
-		margin-top: 20px;
-	}
+    .btn-valider-download,
+    .btn-valider-upload{
+        border: 0;
+        background: none;
+        background-color: #4a83e4;
+        width: 190px;
+        padding: 9px;
+        color: white;
+        border-radius: 27px;
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
 
-	.btn-valider-download{
-		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-	}
+    .btn-valider-download{
+        background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+    }
 
-	.btn-valider-upload{
-		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-		/*float:right;*/
-	}
-	
-	.form-input-part-1{
-		margin-top:53px;
-	}
-	
-	.content-bloc-droite{
-		margin-right:120px;
-	}
-	
-	.fieldset{
-		height:280px;
-	}
-	
-	#create-form-inscription{
-		height:950px;
-	}
-	
-	#import-form-inscription{
-		height: 1091px;
-	}
-	
-	.numero-menu{
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
-		border-radius: 22px;
-		width: 26px;
-		text-align: center;
-		height: 28px;
-	}
+    .btn-valider-upload{
+        background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+        /*float:right;*/
+    }
+    
+    .form-input-part-1{
+        margin-top:53px;
+    }
+    
+    .content-bloc-droite{
+        margin-right:120px;
+    }
+    
+    .fieldset{
+        height:280px;
+    }
+    
+    #create-form-inscription{
+        height:950px;
+    }
+    
+    #import-form-inscription{
+        height: 1091px;
+    }
+    
+    .numero-menu{
+        position: absolute;
+        top: 0;
+        left: 10px;
+        display: block;
+        color: #807f81;
+        border: 1px solid #807f81;
+        border-radius: 22px;
+        width: 26px;
+        text-align: center;
+        height: 28px;
+    }
 
-	.img-menu{
-		position: absolute;
-		top: 27px;
-		left: 50%;
-		width: 18px;
-		height: 20px;
-		margin-left: -9px;
-	}
+    .img-menu{
+        position: absolute;
+        top: 27px;
+        left: 50%;
+        width: 18px;
+        height: 20px;
+        margin-left: -9px;
+    }
 
-	.text-menu{
-		position: absolute;
-		top: 53px;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		color: #807f81;
-	}
-	
-	.nav-item-niv-2{
-		display:block;
-	}
-	
-	.form-search{
-		position:absolute;
-		left:17px;
-		width:200px;
-	}
-	
-	.content-log-header{
-		margin-top:97px;
-	}
+    .text-menu{
+        position: absolute;
+        top: 53px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #807f81;
+    }
+    
+    .nav-item-niv-2{
+        display:block;
+    }
+    
+    .form-search{
+        position:absolute;
+        left:17px;
+        width:200px;
+    }
+    
+    .content-log-header{
+        margin-top:97px;
+    }
 
-	.log-header{
-		position: relative;
-		margin-left: 10px;
-		cursor: pointer;
-		display: block;
-		float: left;
-	}
+    .log-header{
+        position: relative;
+        margin-left: 10px;
+        cursor: pointer;
+        display: block;
+        float: left;
+    }
 
 
-	.log-content-header{
-		padding-top:10px;
-		width:100%;
-	}
+    .log-content-header{
+        padding-top:10px;
+        width:100%;
+    }
 
-	#play{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
-		margin-top: 8px;
-	}
+    #play{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: 0px -14px;
+        margin-top: 8px;
+    }
 
-	#notification{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
-		margin-top: 8px;
-	}
+    #notification{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: -46px -15px;
+        margin-top: 8px;
+    }
 
-	#question-marque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #question-marque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -94px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#mail{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #mail{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -140px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#casque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
-		margin-top: 8px;
-	}
+    #casque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -186px -15px;
+        border-radius:20px;
+        margin-top: 8px;
+    }
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
+    #profil{
+        width:42px;
+        height:42px;
+        background-color:white;
+        border-radius:20px;
+        top: 0!important;
+    }
 
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		background-position: -302px -15px;
-		margin-top: 8px;
-	}
+    #power{
+        width:23px;
+        height:22px;
+        background-color:white;
+        border-radius:20px;
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        background-position: -302px -15px;
+        margin-top: 8px;
+    }
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) and (max-width: 1199px) {
-	.content-btn-action{
-		margin-top:20px;
-		margin-left:40px;
-		margin-bottom: 40px;
-	}
+    .content-btn-action{
+        margin-top:20px;
+        margin-left:40px;
+        margin-bottom: 40px;
+    }
 
-	.btn-valider-download,
-	.btn-valider-upload{
-		border: 0;
-		background: none;
-		background-color: #4a83e4;
-		width: 200px;
-		padding: 9px;
-		color: white;
-		border-radius: 27px;
-		font-size: 12px;
-		cursor: pointer;
-		margin-top: 20px;
-	}
+    .btn-valider-download,
+    .btn-valider-upload{
+        border: 0;
+        background: none;
+        background-color: #4a83e4;
+        width: 200px;
+        padding: 9px;
+        color: white;
+        border-radius: 27px;
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
 
-	.btn-valider-download{
-		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-	}
+    .btn-valider-download{
+        background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+    }
 
-	.btn-valider-upload{
-		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-		float:right;
-	}
-	
-	.form-input-part-1{
-		margin-top:120px;
-	}
-	
-	.content-bloc-droite{
-		margin-right:120px;
-	}
-	
-	.fieldset{
-		height:200px;
-	}
-	
-	#create-form-inscription{
-		height:1024px;
-	}
-	
-	#import-form-inscription{
-		height: 900px;
-	}
-	
-	.numero-menu{
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
-		border-radius: 22px;
-		width: 26px;
-		text-align: center;
-		height: 28px;
-	}
+    .btn-valider-upload{
+        background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+        float:right;
+    }
+    
+    .form-input-part-1{
+        margin-top:120px;
+    }
+    
+    .content-bloc-droite{
+        margin-right:120px;
+    }
+    
+    .fieldset{
+        height:200px;
+    }
+    
+    #create-form-inscription{
+        height:1024px;
+    }
+    
+    #import-form-inscription{
+        height: 900px;
+    }
+    
+    .numero-menu{
+        position: absolute;
+        top: 0;
+        left: 10px;
+        display: block;
+        color: #807f81;
+        border: 1px solid #807f81;
+        border-radius: 22px;
+        width: 26px;
+        text-align: center;
+        height: 28px;
+    }
 
-	.img-menu{
-		position: absolute;
-		top: 27px;
-		left: 50%;
-		width: 18px;
-		height: 20px;
-		margin-left: -9px;
-	}
+    .img-menu{
+        position: absolute;
+        top: 27px;
+        left: 50%;
+        width: 18px;
+        height: 20px;
+        margin-left: -9px;
+    }
 
-	.text-menu{
-		position: absolute;
-		top: 53px;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		color: #807f81;
-	}
-	.nav-item-niv-2{
-		float:left;
-		display:block;
-		margin-left:40px;
-	}
-	
-	.form-search{
-		position:absolute;
-		left:50%;
-		margin-left:-100px;
-		width:200px;
-	}
-	
-	.log-header{
-		display:block;
-		float:left;
-		position: relative;
-		top: 13px;
-		margin-left:10px;
-		cursor:pointer;
-	}
+    .text-menu{
+        position: absolute;
+        top: 53px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #807f81;
+    }
+    .nav-item-niv-2{
+        float:left;
+        display:block;
+        margin-left:40px;
+    }
+    
+    .form-search{
+        position:absolute;
+        left:50%;
+        margin-left:-100px;
+        width:200px;
+    }
+    
+    .log-header{
+        display:block;
+        float:left;
+        position: relative;
+        top: 13px;
+        margin-left:10px;
+        cursor:pointer;
+    }
 
 
-	.log-content-header{
-		padding-top:10px;
-		width:100%;
-	}
+    .log-content-header{
+        padding-top:10px;
+        width:100%;
+    }
 
-	#play{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
-	}
+    #play{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: 0px -14px;
+    }
 
-	#notification{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
-	}
+    #notification{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: -46px -15px;
+    }
 
-	#question-marque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
-	}
+    #question-marque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -94px -15px;
+        border-radius:20px;
+    }
 
-	#mail{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
-	}
+    #mail{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -140px -15px;
+        border-radius:20px;
+    }
 
-	#casque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
-	}
+    #casque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -186px -15px;
+        border-radius:20px;
+    }
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
+    #profil{
+        width:42px;
+        height:42px;
+        background-color:white;
+        border-radius:20px;
+        top: 0!important;
+    }
 
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		background-position: -302px -15px;
-	}
+    #power{
+        width:23px;
+        height:22px;
+        background-color:white;
+        border-radius:20px;
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        background-position: -302px -15px;
+    }
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
-	.content-btn-action{
-		margin-top:20px;
-		margin-left:40px;
-		margin-bottom: 40px;
-	}
+    .content-btn-action{
+        margin-top:20px;
+        margin-left:40px;
+        margin-bottom: 40px;
+    }
 
-	.btn-valider-download,
-	.btn-valider-upload{
-		border: 0;
-		background: none;
-		background-color: #4a83e4;
-		width: 200px;
-		padding: 9px;
-		color: white;
-		border-radius: 27px;
-		font-size: 12px;
-		cursor: pointer;
-		margin-top: 20px;
-	}
+    .btn-valider-download,
+    .btn-valider-upload{
+        border: 0;
+        background: none;
+        background-color: #4a83e4;
+        width: 200px;
+        padding: 9px;
+        color: white;
+        border-radius: 27px;
+        font-size: 12px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
 
-	.btn-valider-download{
-		background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-	}
+    .btn-valider-download{
+        background:#4a83e4 url('../images/cloudsRewards/btn-download.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+    }
 
-	.btn-valider-upload{
-		background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
-		background-repeat:no-repeat;
-		background-position: 13px 10px;
-		float:right;
-	}
+    .btn-valider-upload{
+        background:#4a83e4 url('../images/cloudsRewards/btn-upload.png');
+        background-repeat:no-repeat;
+        background-position: 13px 10px;
+        float:right;
+    }
 
-	.form-input-part-1{
-		margin-top:120px;
-	}
+    .form-input-part-1{
+        margin-top:120px;
+    }
 
-	.content-bloc-droite{
-		margin-right:120px;
-	}
-	
-	.fieldset{
-		height:200px;
-	}
-	
-	#create-form-inscription{
-		height:1024px;
-	}
-	
-	#import-form-inscription{
-		height: 822px;
-	}
+    .content-bloc-droite{
+        margin-right:120px;
+    }
+    
+    .fieldset{
+        height:200px;
+    }
+    
+    #create-form-inscription{
+        height:1024px;
+    }
+    
+    #import-form-inscription{
+        height: 822px;
+    }
 
-	.numero-menu{
-		position: absolute;
-		top: 0;
-		left: 10px;
-		display: block;
-		color: #807f81;
-		border: 1px solid #807f81;
-		border-radius: 22px;
-		width: 26px;
-		text-align: center;
-		height: 28px;
-	}
+    .numero-menu{
+        position: absolute;
+        top: 0;
+        left: 10px;
+        display: block;
+        color: #807f81;
+        border: 1px solid #807f81;
+        border-radius: 22px;
+        width: 26px;
+        text-align: center;
+        height: 28px;
+    }
 
-	.img-menu{
-		position: absolute;
-		top: 27px;
-		left: 50%;
-		width: 18px;
-		height: 20px;
-		margin-left: -9px;
-	}
+    .img-menu{
+        position: absolute;
+        top: 27px;
+        left: 50%;
+        width: 18px;
+        height: 20px;
+        margin-left: -9px;
+    }
 
-	.text-menu{
-		position: absolute;
-		top: 53px;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		color: #807f81;
-	}
-	.nav-item-niv-2{
-		float:left;
-		display:block;
-		margin-left:40px;
-	}
+    .text-menu{
+        position: absolute;
+        top: 53px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        color: #807f81;
+    }
+    .nav-item-niv-2{
+        float:left;
+        display:block;
+        margin-left:40px;
+    }
 
-	.form-search{
-		position:absolute;
-		left:50%;
-		margin-left:-100px;
-		width:200px;
-	}
-	
-	.log-header{
-		display:block;
-		float:left;
-		position: relative;
-		top: 13px;
-		margin-left:10px;
-		cursor:pointer;
-	}
+    .form-search{
+        position:absolute;
+        left:50%;
+        margin-left:-100px;
+        width:200px;
+    }
+    
+    .log-header{
+        display:block;
+        float:left;
+        position: relative;
+        top: 13px;
+        margin-left:10px;
+        cursor:pointer;
+    }
 
 
-	.log-content-header{
-		padding-top:10px;
-		width:100%;
-	}
+    .log-content-header{
+        padding-top:10px;
+        width:100%;
+    }
 
-	#play{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: 0px -14px;
-	}
+    #play{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: 0px -14px;
+    }
 
-	#notification{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		border-radius:20px;
-		background-position: -46px -15px;
-	}
+    #notification{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        border-radius:20px;
+        background-position: -46px -15px;
+    }
 
-	#question-marque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -94px -15px;
-		border-radius:20px;
-	}
+    #question-marque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -94px -15px;
+        border-radius:20px;
+    }
 
-	#mail{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -140px -15px;
-		border-radius:20px;
-	}
+    #mail{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -140px -15px;
+        border-radius:20px;
+    }
 
-	#casque{
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		width:23px;
-		height:22px;
-		background-position: -186px -15px;
-		border-radius:20px;
-	}
+    #casque{
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        width:23px;
+        height:22px;
+        background-position: -186px -15px;
+        border-radius:20px;
+    }
 
-	#profil{
-		width:42px;
-		height:42px;
-		background-color:white;
-		border-radius:20px;
-		top: 0!important;
-	}
+    #profil{
+        width:42px;
+        height:42px;
+        background-color:white;
+        border-radius:20px;
+        top: 0!important;
+    }
 
-	#power{
-		width:23px;
-		height:22px;
-		background-color:white;
-		border-radius:20px;
-		background: url('../images/cloudsRewards/log.png');
-		background-repeat:no-repeat;
-		background-position: -302px -15px;
-	}
+    #power{
+        width:23px;
+        height:22px;
+        background-color:white;
+        border-radius:20px;
+        background: url('../images/cloudsRewards/log.png');
+        background-repeat:no-repeat;
+        background-position: -302px -15px;
+    }
 }

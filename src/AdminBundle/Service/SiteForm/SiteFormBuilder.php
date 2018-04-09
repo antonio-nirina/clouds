@@ -57,14 +57,14 @@ class SiteFormBuilder
 
             case FieldType::ALPHA_TEXT:
                 $current_constraints = array(
-                    new Type(array("type" => "alpha")),
-                );
-                $this->configureTextField(
-                    TextType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
+                new Type(array("type" => "alpha")),
+                    );
+                    $this->configureTextField(
+                        TextType::class,
+                        $current_constraints,
+                        $constraints,
+                        $field
+                    );
                 break;
 
             case FieldType::NUM_TEXT:
@@ -79,14 +79,14 @@ class SiteFormBuilder
 
             case FieldType::ALPHANUM_TEXT:
                 $current_constraints = array(
-                    new Type(array("type" => "alnum")),
-                );
-                $this->configureTextField(
-                    TextType::class,
-                    $current_constraints,
-                    $constraints,
-                    $field
-                );
+                new Type(array("type" => "alnum")),
+                    );
+                    $this->configureTextField(
+                        TextType::class,
+                        $current_constraints,
+                        $constraints,
+                        $field
+                    );
                 break;
 
             case FieldType::EMAIL:
@@ -120,12 +120,16 @@ class SiteFormBuilder
         $constraints = array_merge($current_constraints, $mandatory_constraint);
         $label = $field->getLabel();
         if (!empty($mandatory_constraint)) {
-            $label = $label.' '.self::MANDATORY_FIELD_SIGN;
+            $label = $label . ' ' . self::MANDATORY_FIELD_SIGN;
         }
-        $this->form->add($field->getId(), $form_field_type, array(
+        $this->form->add(
+            $field->getId(),
+            $form_field_type,
+            array(
             "label" => $label,
             "constraints" => $constraints,
-        ));
+            )
+        );
     }
 
     public function configureChoiceField(
@@ -137,14 +141,18 @@ class SiteFormBuilder
         $constraints = array_merge($current_constraints, $mandatory_constraint);
         $label = $field->getLabel();
         if (!empty($mandatory_constraint)) {
-            $label = $label.' '.self::MANDATORY_FIELD_SIGN;
+            $label = $label . ' ' . self::MANDATORY_FIELD_SIGN;
         }
-        $this->form->add($field->getId(), $form_field_type, array(
+        $this->form->add(
+            $field->getId(),
+            $form_field_type,
+            array(
             "label" => $label,
             "constraints" => $constraints,
             "choices" => $field->getAdditionalData()["choices"],
             "expanded" => true,
             "multiple" => false,
-        ));
+            )
+        );
     }
 }

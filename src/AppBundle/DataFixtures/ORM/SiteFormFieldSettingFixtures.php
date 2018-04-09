@@ -95,12 +95,14 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setSpecialFieldIndex(
                 array(SpecialFieldIndex::USER_CIVILITY, SpecialFieldIndex::USER_FIELD)
             )
-            ->setAdditionalData(array(
+            ->setAdditionalData(
+                array(
                 "choices" => array(
                     "Mme" => "Mme",
                     "M." => "M.",
                 )
-            ))
+                )
+            )
             ->setSiteFormSetting($this->getReference("registration-form-setting"));
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($civility);
         $manager->persist($civility);
@@ -131,7 +133,7 @@ class SiteFormFieldSettingFixtures extends Fixture
         $this->getReference("registration-form-setting")->addSiteFormFieldSetting($name);
         $manager->persist($name);
 
-       /* $function = new SiteFormFieldSetting();
+        /* $function = new SiteFormFieldSetting();
         $function->setFieldType(FieldType::TEXT)
             ->setMandatory(true)
             ->setLabel("fonction")
@@ -238,7 +240,7 @@ class SiteFormFieldSettingFixtures extends Fixture
 
         //product form field
         $product_declaration_form = $this->getReference("declaration-product-form-setting");
-        
+
         $product_name = new SiteFormFieldSetting();
         $product_name->setFieldType(FieldType::TEXT)
             ->setMandatory(true)
@@ -286,7 +288,6 @@ class SiteFormFieldSettingFixtures extends Fixture
             ->setSiteFormSetting($product_declaration_form);
         $product_declaration_form->addSiteFormFieldSetting($product_end_date);
         $manager->persist($product_end_date);
-
 
         $product_reference = new SiteFormFieldSetting();
         $product_reference->setFieldType(FieldType::TEXT)

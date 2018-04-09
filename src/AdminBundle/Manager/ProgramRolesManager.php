@@ -49,7 +49,7 @@ class ProgramRolesManager
     public function saveAllRoleRank(Program $program)
     {
         $roles = $program->getRoles();
-        
+
         foreach ($roles as $role) {
             if (empty($role->getName())) {
                 if ($role->getId()) {

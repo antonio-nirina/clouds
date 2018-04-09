@@ -16,14 +16,18 @@ class ProgramRankType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('roles', CollectionType::class, array(
+        $builder->add(
+            'roles',
+            CollectionType::class,
+            array(
             'entry_type' => RoleRankType::class,
             'entry_options' => array(
                 'required' => false,
                 'label' => false
             ),
             'label' => false
-        ));
+            )
+        );
     }
 
     /**
@@ -31,9 +35,11 @@ class ProgramRankType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => Program::class,
-        ));
+            )
+        );
     }
 
     /**

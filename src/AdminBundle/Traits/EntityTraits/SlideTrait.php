@@ -17,4 +17,3 @@ trait SlideTrait
      */
     private $slide_order;
 }
-

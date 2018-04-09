@@ -23,7 +23,7 @@ class ProductPointOptionChecker
             if (PointAttributionStatus::ON == $product_point_turnover_proportional->getStatus()
                 && PointAttributionStatus::ON == $product_point_turnover_slice->getStatus()
             ) {
-                $this->error_list['product-'.$setting_data->getProductGroup()] = self::WARNING_ONE_OPTION_ONLY;
+                $this->error_list['product-' . $setting_data->getProductGroup()] = self::WARNING_ONE_OPTION_ONLY;
             }
         }
 

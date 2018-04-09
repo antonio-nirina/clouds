@@ -15,7 +15,7 @@ class PeriodPointSettingRepository extends EntityRepository
             ->groupBy('pps.product_group')
             ->orderBy('pps.product_group', 'DESC')
             ->setParameter('program', $program);
-       // dump($qb->getQuery());die;
+        // dump($qb->getQuery());die;
 
         return $qb->getQuery()->getArrayResult();
     }

@@ -1,0 +1,18 @@
+php_version: 7
+global_exclude_dirs:
+    - vendor
+    - cache
+    - logs
+    - tests
+    - DataFixtures
+    - css
+    - datepicker
+    - ckeditor
+    - ckeditor-uploader
+    - font
+    - images
+    - js
+
+exclude_patterns:
+    - var/SymfonyRequirements.php
+    - web/app_*.php

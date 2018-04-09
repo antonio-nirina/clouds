@@ -56,8 +56,8 @@ class SlideshowManager
                 if (0 == $number_other_slide_using_image) {
                     $filesystem = $this->filesystem;
                     $image_path = $this->container->getParameter('content_home_page_slide_image_upload_dir')
-                        .'/'
-                        .$slide->getImage();
+                        . '/'
+                        . $slide->getImage();
                     if ($filesystem->exists($image_path)) {
                         $filesystem->remove($image_path);
                     }

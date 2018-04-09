@@ -32,25 +32,37 @@ class ELearningType extends SelectingCommonDataType
         parent::buildForm($builder, $options);
         $builder->add('title', TextType::class)
             ->add('main_text', TextareaType::class)
-            ->add('media_contents', CollectionType::class, array(
+            ->add(
+                'media_contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ELearningMediaContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,
-            ))
-            ->add('quiz_contents', CollectionType::class, array(
+                )
+            )
+            ->add(
+                'quiz_contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ELearningQuizContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,
-            ))
-//            ->add('button_content', ELearningButtonContentType::class);
-            ->add('button_contents', CollectionType::class, array(
+                )
+            )
+        //            ->add('button_content', ELearningButtonContentType::class);
+            ->add(
+                'button_contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ELearningButtonContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,
-            ));
+                )
+            );
     }
 
     /**
@@ -58,8 +70,10 @@ class ELearningType extends SelectingCommonDataType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ELearning::class,
-        ));
+            )
+        );
     }
 }

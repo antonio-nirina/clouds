@@ -18,7 +18,10 @@ class ResultSettingUploadType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('uploaded_file', FileType::class, array(
+        $builder->add(
+            'uploaded_file',
+            FileType::class,
+            array(
             "label" => "",
             "constraints" => array(
                 new FileExtensionConstraint('csv'),
@@ -30,6 +33,7 @@ class ResultSettingUploadType extends AbstractType
                     )
                 ),
             ),
-        ));
+            )
+        );
     }
 }

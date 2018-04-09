@@ -14,14 +14,14 @@ class Common
     /**
      * Common constructor.
      */
-    public function  __construct(FormFactory $form)
+    public function __construct(FormFactory $form)
     {
         $this->form = $form;
     }
 
     public function renderToJson($data)
-	{
-	    if (!empty($data)){
+    {
+        if (!empty($data)) {
             foreach ($data as $key => $value) {
                 $array[] = ["id"=>$value->getId(),
                     "type"=>$value->getTypeSondagesQuiz(),
@@ -36,14 +36,14 @@ class Common
                 ];
             }
         } else {
-	        $array = [];
+            $array = [];
         }
 
-		$json = new JsonResponse($array);
-		$object = $json->getContent($json);
+        $json = new JsonResponse($array);
+        $object = $json->getContent($json);
 
-		return $object;
-	}
+        return $object;
+    }
 
     /**
      * @param $data
@@ -53,7 +53,7 @@ class Common
         $sondageQuiz = new SondagesQuizQuestionnaireInfos();
         $sondageQuiz->setTitreQuestionnaire($data->getTitre());
         $name = "duplicationForm";
-        $form = $this->form->createNamed($name, DuplicationForm::class,$sondageQuiz);
+        $form = $this->form->createNamed($name, DuplicationForm::class, $sondageQuiz);
         return $form;
     }
 }

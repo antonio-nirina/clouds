@@ -26,39 +26,38 @@ class SondagesQuizQuestionnaireInfos
      * @ORM\Column(type="integer")
      */
     private $type_sondages_quiz;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $titre_questionnaire;
-    
+
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description_questionnaire;
-    
+
     /**
      * @ORM\Column(name="date_creation", type="datetime",nullable=true)
      */
     protected $date_creation;
-    
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuiz", inversedBy="sondages_quiz_questionnaire_infos",cascade={"persist"})
      */
     private $sondages_quiz;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", cascade={"remove"}, mappedBy="sondages_quiz_questionnaire_infos")
      * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $sondages_quiz_questions;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="sondages_quiz_questionnaire_infos")
      */
     private $resultats_sondages_quiz;
-    
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -85,10 +84,6 @@ class SondagesQuizQuestionnaireInfos
     private $authorized_role;
 
     
-    
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->sondages_quiz_questions = new ArrayCollection();
@@ -200,9 +195,11 @@ class SondagesQuizQuestionnaireInfos
     {
         return $this->date_creation;
     }
-    
+
+  
+
     /**
-    * @ORM\PrePersist()
+     * @ORM\PrePersist()
     */
     public function addDateCreation()
     {
@@ -266,7 +263,7 @@ class SondagesQuizQuestionnaireInfos
     {
         return $this->sondages_quiz_questions;
     }
-    
+
     /**
      * Set estPublier
      *
@@ -290,8 +287,8 @@ class SondagesQuizQuestionnaireInfos
     {
         return $this->est_publier;
     }
-    
-    
+
+
     /**
      * Add resultatsSondagesQuiz
      *
@@ -326,9 +323,7 @@ class SondagesQuizQuestionnaireInfos
         return $this->resultats_sondages_quiz;
     }
 
-   
-
-    /**
+/**
      * Set estArchived.
      *
      * @param bool $estArchived
@@ -400,7 +395,6 @@ class SondagesQuizQuestionnaireInfos
         return $this->view_number;
     }
 
-    
 
     /**
      * Set authorizedRole.

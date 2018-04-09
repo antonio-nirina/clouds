@@ -22,7 +22,10 @@ class ComEmailTemplateType extends AbstractType
     {
         $builder->add('name', TextType::class)
             ->add('logo', FileType::class, array('data_class' => null))
-            ->add('logo_alignment', ChoiceType::class, array(
+            ->add(
+                'logo_alignment',
+                ChoiceType::class,
+                array(
                 'choices' => array(
                     'center' => TemplateLogoAlignment::CENTER,
                     'left' => TemplateLogoAlignment::LEFT,
@@ -31,19 +34,24 @@ class ComEmailTemplateType extends AbstractType
                 ),
                 'expanded' => true,
                 'multiple' => false,
-            ))
+                )
+            )
             ->add('email_color', TextType::class)
             ->add('background_color', TextType::class)
             ->add('footer_company_info', TextType::class)
             ->add('footer_contact_info', TextType::class)
             ->add('footer_unsubscribing_text', TextType::class)
             ->add('footer_additional_info', TextType::class)
-            ->add('contents', CollectionType::class, array(
+            ->add(
+                'contents',
+                CollectionType::class,
+                array(
                 'entry_type' => ComEmailTemplateContentType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,
-            ))
+                )
+            )
             ->add('template_model', HiddenType::class)
             ->add('delete_logo_image_command', HiddenType::class, array('mapped' => false))
             ->add('delete_contents_image_command', HiddenType::class, array('mapped' => false));
@@ -51,9 +59,11 @@ class ComEmailTemplateType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ComEmailTemplate::class,
-        ));
+            )
+        );
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options)

@@ -15,9 +15,9 @@ class ResultSettingFixtures extends Fixture
 
         $result_setting = new ResultSetting();
         $result_setting->setMonthly(true)
-                        ->setByRank(false)
-                        ->setByProduct(true)
-                        ->setProgram($program);
+            ->setByRank(false)
+            ->setByProduct(true)
+            ->setProgram($program);
 
         $manager->persist($result_setting);
         $manager->flush();

@@ -84,8 +84,7 @@ class Sales
      */
     private $product_attributed;
 
-
-    /**
+/**
      * Get id
      *
      * @return integer
@@ -311,8 +310,7 @@ class Sales
         return $this->product_group;
     }
 
-    
-    /**
+/**
      * Set rankAttributed
      *
      * @param boolean $rankAttributed
