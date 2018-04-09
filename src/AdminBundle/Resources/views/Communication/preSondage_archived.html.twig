@@ -5,14 +5,18 @@
         {% block stylesheets %}
             {{ parent() }}
             <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
-			<link href="{{ asset("css/communications/sondages-quiz.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/communications/sondages-quiz.css") }}" rel="stylesheet">
             <link href="{{ asset("css/communications/pre-sondages.css") }}" rel="stylesheet">
+
+            <link href="{{ asset("jplist/css/jplist.core.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.textbox-filter.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.checkbox-dropdown.min.css") }}">
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block main %}
-    {#{{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}#}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}
 
     <main class="col-md-9  offset-md-1 float-left main">
 
@@ -46,7 +50,7 @@
         </div>
         <div class="row">
             <div class="col-12 col-md-12">
-                <section  class = "fieldset active">
+                <section  class = "fieldset active main-section">
                     <div class="row">
                         <div class="col-lg-10 col-md-10 col-sm-12">
                              <h3 class="hidden-sm-down block-title">Création et édition de sondage et quiz</h3>
@@ -56,61 +60,35 @@
                         <div class="hidden-sm-down corner-circle-img img-content-sondanges-quiz rounded-circle"></div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 creer-new">
-                            <div class="chp" style="text-align:center; float:left;">
-                                <button class="btn-valider restore-news-button" 
-                                data-target-url="{{ path('admin_communication_news_group_action') }}">
-                                    réstaurer publication
-                                </button>
-                            </div>
+                                <div class="chp" style="text-align:center; float:left;">
+                                    <button class="btn-valider restore-data" name = "btn-submit-form-etape-1" type = "submit" data-url = "{{path("admin_communication_pre_sondage_group_action")}}">
+                                            réstaurer publication
+                                    </button>
+                                </div>
                         </div>
                     </div>
-                    <div class="row trie-sondage preSondageQuiz"> 
-                            <div class="col-sm-4 col-md-4">
-                                <div class="dropdown clearable filtres all-filter quiz-filter">
-                                        <button class="btn btn-secondary dropdown-toggle filtre" type="button" id="dropdownMenuFiltre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
-                                            FILTRER PAR 
-                                        </button>
-                                        <div class="dropdown-menu quiz-menu" aria-labelledby="dropdownMenuFiltre">
-                                            <a class="dropdown-item programmed-item" href="#">
-                                                TOUS
-                                                <span>tous</span>
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                {{"publié"|upper}}
-                                                <span>publie</span>
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                EN ATTENTE
-                                                <span>attente</span>
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                 {{"clôturé"|upper}}
-                                                <span>cloture</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                            </div>                               
-                            <div class="col-sm-5 col-md-5">
-                                    <div class="dropdown clearable all-filter questionnaires quest-filter">
-                                        <button class="btn btn-secondary dropdown-toggle quest" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
-                                            TYPE DE QUESTIONNAIRE
-                                        </button>
-                                        <div class="dropdown-menu quest-menu" aria-labelledby="dropdownTypeFilter">
-                                            <a class="dropdown-item tous-menu" href="#">
-                                                TOUS
-                                                <span>All</span>
-                                            </a>
-                                            <a class="dropdown-item quest-menu sondage-menu" href="#">
-                                                SONDAGE
-                                                <span>sondage</span>
-                                            </a>
-                                            <a class="dropdown-item quest-menu quiz-menu" href="#">
-                                                QUIZ
-                                                <span>quiz</span>
-                                            </a>
-                                        </div>
-                                    </div>
+                        <div class="row filter news-filter control-panel trie-sondage preSondageQuiz">
+                            <div class="col-sm-4 col-md-4 send-state-filter-container filter-block-element-container">
+                                <div class="jplist-drop-down status-filter-drop-down" data-control-type="filter-drop-down" data-control-name="status-filter" data-control-action="filter">
+                                    <ul>
+                                        <li><span data-path="default">FILTRER PAR </span></li>
+                                        <li><span data-path="default">TOUS</span></li>
+                                        <li><span data-path=".published">PUBLIÉ</span></li>
+                                        <li><span data-path=".attente">EN ATTENTE</span></li>
+                                        <li><span data-path=".cloture">{{"clôturé"|upper}}</span></li>
+                                    </ul>
+                                </div>
                             </div>
+                                <div class=" col-sm-5 col-md-5 send-state-filter-container filter-block-element-container">
+                                    <div class="jplist-drop-down status-filter-drop-down questionnaires" data-control-type="filter-drop-down" data-control-name="status-filter" data-control-action="filter">
+                                        <ul>
+                                            <li class="default item"><span data-path="default">TYPE DE QUESTIONNAIRE</span></li>
+                                            <li class="item"><span data-path="default">TOUS</span></li>
+                                            <li class="item"><span data-path=".sondage">SONDAGE</span></li>
+                                            <li class="item"><span data-path=".quiz">QUIZ</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             <div class="col-sm-3 col-md-3">
                             <a href="{{path("admin_communication_pre_sondage_news_archived")}}" class="add add-folder-link add-to-archive archived-campaign" 
                             data-link="">
@@ -125,40 +103,57 @@
                             </div>
                             <div class="col-4 col-md-4 supp-supp">
                                 <div class="dropdown clearable all-filter questionnaires suppr-filter">
-                                        <button class="btn btn-secondary dropdown-toggle suppr" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="FILTRES">
-                                            SUPPRIMER
+                                        <button class="btn btn-secondary dropdown-toggle suppr" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTION">
+                                            ACTION
                                         </button>
                                         <div class="dropdown-menu suppr-menu" aria-labelledby="dropdownTypeFilter">
-                                            <a class="dropdown-item suppr-menu" href="#">
-                                                TOUS
-                                                <span>All</span>
+                                            <a class="dropdown-item grouped-action-choice" data-grouped-action="restore">
+                                                RESTAURE
                                             </a>
-                                            <a class="dropdown-item suppr-menu" href="#">
-                                                SONDAGE
-                                                <span>sondage</span>
-                                            </a>
-                                            <a class="dropdown-item suppr-menu" href="#">
-                                                QUIZ
-                                                <span>quiz</span>
+                                            <a class="dropdown-item grouped-action-choice" data-grouped-action="delete">
+                                                supprimer
                                             </a>
                                         </div>
                                     </div>
                                      <span class="delete-supp"></span>
                             </div>
                             <div class="col-4 col-md-4 btn-supp">
-                                <button class="btn-valider valider submit-form" name = "btn-submit" type = "submit">
-                                            valider
+                                <button class="btn-valider valider submit-form" name = "btn-submit" type = "submit" data-target-url="{{ path('admin_communication_pre_sondage_group_action') }}">
+                                    valider
                                 </button>
                             </div>
                         </div>
-                         {% for view in data %}
-                        <div class="row detaille">
-                            <div class="col-12 col-lg-9 nom-test">
+                        <div class="list">
+                        {% for view in data %}
+
+                            {% set class= "" %}
+                            {% set otherClass = "" %}
+                            {% if view.typeSondagesQuiz == 2 %}
+                                {% set otherClass = "quiz" %}
+                            {% else %} 
+                                {% set otherClass= 'sondage' %}
+                            {% endif %}
+
+                            {% if view.estArchived == true %}
+                                {% if view.estPublier == true %}
+                                    {% set class= "published" %}
+                                {% elseif  view.estCloture == true  %}
+                                    {% set class= "cloture" %}
+                                {% else %}
+                                    {% set class= "attente" %}
+                                {% endif %}
+                                
+                            <div class="row detaille element {{ class }} {{otherClass}}" data-status="{{ class }} {{otherClass}}">
+                                <div class="col-12 col-lg-9 nom-test">
                                     <div class="data-container">
                                             <div>
-                                                <label class="radioChecked notChecked">
+                                                {#<label class="radioChecked notChecked">
                                                     <input type="checkbox" name="radio" class="styled-checkbox bigger" style="display:none">
-                                                </label>
+                                                </label>#}
+                                                <div>
+                                                <input id="{{ view.id }}" type="checkbox" class="styled-checkbox bigger">
+                                                <label for="{{ view.id }}"></label>
+                                            </div>
                                             </div>
                                                 {% if view.estPublier == true %}                           
                                                 <div class="hidden-sm-down quest-image"></div>
@@ -182,38 +177,21 @@
                                             </div> 
                                     </div>                      
                                         <div class="nombres">
-                                            <span id="number">{{view.viewNumber}}</span>
+                                             {% if view.viewNumber is empty %}
+                                                <span id="number">0</span>
+                                            {% else %}
+                                                <span id="number">{{view.viewNumber}}</span>
+                                             {% endif %}
                                             <span id="participation">participations</span>
                                         </div>
                                         <div class=" roles">
-                                            <span id="role">{{view.authorizedRole}}</span>
+                                                {% if view.authorizedRole is not empty %}
+                                            <span id="role">{{view.authorizedRole.name}}</span>
+                                                {% else %}
+                                                        <span id="role"></span>
+                                                {% endif %}
+                                                
                                         </div>
-                            </div>
-                            <div class="col-12 col-lg-9 nom-test2" style="display:none">
-                                    <div class="data-container2">
-                                            <div>
-                                                <label class="radioChecked2 notChecked2">
-                                                    <input type="checkbox" name="radio" class="styled-checkbox bigger" style="display:none">
-                                                </label>
-                                            </div>
-                                            <div class="hidden-sm-down quest-image2"></div>
-                                            <div class="hidden-sm-down percent-image2"></div>
-                                            <div class="titre-quiz2">
-                                                <p id="nom-quest2"></p>                             
-                                                <p id="type-quest2">{{"Quiz"}}</p>
-                                                <p id="type-quest3">{{"Sondage"}}</p>
-                                                <p id="pub2">{{"Publié-le"}}</p>
-                                                <p id="cloture2">{{"clôturé-le"}} </p>                                                
-                                                <p id="att2">{{"En attente-modifié le"}} </p>
-                                            </div> 
-                                        <div class="nombres2">
-                                            <span id="number2">{{view.viewNumber}}</span>
-                                            <span id="participation">participations</span>
-                                        </div>
-                                        <div class=" roles2">
-                                            <span id="role2">{{view.authorizedRole}}</span>
-                                        </div>
-                                    </div>
                             </div>
                             <div class="col-12 col-lg-3 campagne-action">
                                 <div class="dropdown">
@@ -221,66 +199,24 @@
                                         ACTIONS
                                     </button>
                                     <div class="dropdown-menu action-menu" aria-labelledby="dropdownMenuAction">
-                                    <a class="dropdown-item menu-stat stat-pre-sondage" href="#" data-url="{{ path("admin_communication_presondage_restore", {'id': view.id}) }}" data-title = "">RESTAURER</a>
-                                    <a class="dropdown-item publier-pre-sondage" href="#" data-url="{{ path('admin_communication_pre_sondage_archive', {'id': view.id}) }}">ARCHIVER</a>
-                                     <a class="dropdown-item menu-delete delete-pre-sondage" href="#" data-campaign-draft-id="" data-url = "{{ path('admin_communication_pre_sondage_delete', {"id": view.id}) }}">SUPPRIMER</a>
+                                    <a class="dropdown-item menu-archived restore-arhived-sondage" data-url = "{{ path('admin_communication_presondage_restore', {"id": view.id}) }}" style = "cursor:pointer;">RESTAURER</a>
+                                    <a class="dropdown-item menu-delete delete-arhived-sondage" href="#" data-url = "{{ path('admin_communication_pre_sondage_delete', {"id": view.id}) }}">SUPPRIMER</a>
                                     </div>
                                 </div>            
                             </div>
                         </div>
+                        {% endif %}
                         {% endfor %}
-                        <div class="not-results not-list">
+                        {#<div class="not-results not-list">
+                            <p>Aucun résultat</p>
+                        </div>#}
+                    </div>
+                       <div class="jplist-no-results hidden-block">
                             <p>Aucun résultat</p>
                         </div>
-                        <div class="container-page">ffyyy</div>
-                        <!-- Modal créer sondage quiz -->
-                    <div id="create-sondage-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
-                        <div class="modal-dialog modal-lg modal-sondage" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="error-message-container centered-message general-message"></div>
-                                    <div class="modal-body-container">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="control-panel pagination-container">
+                            <div class="jplist-pagination" data-control-type="pagination" data-control-name="paging" data-control-action="paging" data-items-per-page="5" data-first="premier" data-last="dernier"></div>
                     </div>
-                    <!-- Modal créer / éditer Sondage -->
-                    <div id="edit-sondage-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
-                       <div class="modal-dialog modal-lg modal-sondage" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="error-message-container centered-message general-message"></div>
-                                    <div class="modal-body-container">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FIN - Modal créer / éditer Sondag-->
-
-                    <!-- modal - duplication Sondag -->
-                    <div id="duplicate-news-modal" class="modal app-dialog duplication-dialog" tabindex="-1" role="dialog" data-backdrop="static">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <a class="close-modal" data-dismiss="modal" aria-label="Close" style="display: none"></a>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="error-message-container centered-message general-message"></div>
-                                    <div class="modal-body-container"></div>
-                                </div>
-                                <input type="hidden" name="template_id" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- modal - duplication Sondag&Quiz -->
                     <!-- modal - confirmation suppression Sondag -->
                     <div id="confirm-delete-news-modal" class="modal confirm-delete-dialog" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-lg" role="document">
@@ -295,7 +231,7 @@
                                             <p class="message">Êtes-vous sûr de vouloir supprimer définitivement cette publication ?</p>
                                         </div>
                                         <div>
-                                            <button class ="btn-valider confirm-delete">
+                                            <button class ="btn-valider confirm-delete-archive">
                                                 valider
                                             </button>
                                         </div>
@@ -304,7 +240,7 @@
                                 <input type="hidden" name="template_id" value="">
                             </div>
                         </div>
-                    </div>        
+                    </div>
                     <!-- FIN - Modal créer-->
                 </section>
             </div>
@@ -313,9 +249,7 @@
     <p class = "chargementAjax hidden">
         <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
     </p>
-    <input type = "hidden" name ="obj" value ="{{dataJson}}"> 
-    <input type="hidden" name="list-url" value="{{ path('admin_communication_pre_sondage') }}">
-    <input type="hidden" name="create__url" value="{{ path('admin_communication_pre_sondage_create') }}">
+     <input type="hidden" name="list-url" value="{{ path('admin_communication_pre_sondage') }}">
     <input type="hidden" name="archived_status" value="true">
     <input type="hidden" name="list-url-archived" value="{{path("admin_communication_pre_sondage_news_archived")}}">
 {% endblock %}
@@ -329,8 +263,8 @@
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>                     
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
-             <script src="{{ asset('js/pagination.min.js')}}"></script>
             {#<script src="{{ asset('js/communications/sondages-quiz.js') }}"></script>#}
+            <script src="{{ asset('js/pagination.min.js')}}"></script>
             <script src="{{ asset('jplist/js/jplist.core.min.js') }}"></script>
             <script src="{{ asset('jplist/js/jplist.sort-bundle.min.js') }}"></script>
             <script src="{{ asset('jplist/js/jplist.pagination-bundle.min.js') }}"></script>

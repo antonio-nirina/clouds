@@ -130,7 +130,7 @@ class SondageQuizManager
                     ->findOneById($value);
             if (!empty($data)) {
                 if (GroupActionType::DELETE == $actionType) {
-                    $this->delete($data, false);
+                    $this->delete($data);
                 } elseif (GroupActionType::ARCHIVE == $actionType) {
                     $this->renderToArchived($data, true);
                 } elseif (GroupActionType::RESTORE == $actionType) {
@@ -138,7 +138,7 @@ class SondageQuizManager
                 }
             }
         }
-        $this->em->flush();
+    
         return;
     }
 

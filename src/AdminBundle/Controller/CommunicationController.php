@@ -2406,18 +2406,14 @@ class CommunicationController extends AdminController
      */
     public function preSondageQuizArchivedAction(Request $request,$archived)
     {
-        $obj = [];
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
         $status = $request->request->get("statut");
         $manager = $this->get("adminBundle.sondagequizManager");
-        $allData = $manager->getAllSondageQuizArchived($status);
-        $data = $this->get("AdminBundle\Service\SondageQuiz\Common")->renderToJson($allData);
-        $obj = ["data"=>$allData,"dataJson"=>$data];
-        
-        return $this->render('AdminBundle:Communication:preSondage_archived.html.twig',$obj);
+        $allData = $manager->getAllSondageQuizArchived($status); 
+        return $this->render('AdminBundle:Communication:preSondage_archived.html.twig',["data"=>$allData]);
     }
 
     /**
@@ -2509,6 +2505,7 @@ class CommunicationController extends AdminController
         }
         $IsSondagesQuiz = false;
         $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+        $roleDefault = $em->getRepository('AdminBundle:Role')->findByProgram($program);
         if(!isset($SondagesQuizArray[0])){
             $SondagesQuiz = new SondagesQuiz();
         }else{
@@ -2521,6 +2518,9 @@ class CommunicationController extends AdminController
         $formQuestionnaires->handleRequest($request);
         if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
             $SondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
+            if (empty($SondagesQuizQuestionnaireInfosData->getAuthorizedRole())) {
+               $SondagesQuizQuestionnaireInfosData->setAuthorizedRole($roleDefault[0]);
+            }
             $SondagesQuizQuestionnaireInfosData->setSondagesQuiz($SondagesQuiz);
             if($request->get("data") == "btn-publier-sondages-quiz"){
                 $SondagesQuizQuestionnaireInfosData->setEstPublier(true);
@@ -2627,15 +2627,13 @@ class CommunicationController extends AdminController
         }
 
         $idList = $request->get('id_list');
-        $actionType = $request->get('action_type');
-
+        $actionType = $request->get('grouped_action_type');
         if (is_null($idList)
             || is_null($actionType)
             || !in_array($actionType, GroupActionType::NEWS_POST_VALID_GROUP_ACTION)
         ) {
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
-
         $manager = $this->get("adminBundle.sondagequizManager");
         $manager->groupAction(
             explode(',', $idList),

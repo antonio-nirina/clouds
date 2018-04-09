@@ -131,41 +131,13 @@ $(document).ready(function(){
 
 $(document).ready(function(){ 
     
-/*$('section.page').mouseover(function(){
-		$(this).removeClass('inactive');
-		$(this).addClass('active');
-		$(".trie-sondage").addClass('preSondageQuiz');
-		$(this).find('div.block-active-hover').show();
-	}).mouseout(function(){
-		$(this).removeClass('active');
-		$(this).addClass('inactive');
-		$(".trie-sondage").removeClass('preSondageQuiz');
-		$(this).find('div.block-active-hover').hide();
-	});*/
-	/*$(".radioChecked").on("click",function(){
-		$(this).removeClass('notChecked');
-		$(this).addClass('checked');
-		
-		$('.delete-input').css("display","block");
-		$(".checked-quiz").css("display","flex");
-         //var text = (checked.length == 1)?checked.length+" publication sélectionnée":((checked.length > 1)?checked.length+" publications sélectionnées":"");
-        //$(".checked-quiz .text-selected  input").val(text);
-	});*/
-
-	/*$(".delete-input").on("click",function(){
-		$(".radioChecked").removeClass("checked");
-		$(".radioChecked").addClass('notChecked');
-		$(".checked-quiz").css("display","none");
-	});*/
-
-    var objArchived = $('input[name=obj]').val();
+    /*var objArchived = $('input[name=obj]').val();
      if (JSON.parse(objArchived).length == 0) {
         $(".not-results").removeClass("not-list");
-     }
+     }*/
 
     $(document).on('change', '.data-container .styled-checkbox', function(){
         var checked = getChecked();
-        console.log(checked)
         var text = (checked.length == 1)?checked.length+" sondage / sélectionnée":((checked.length > 1)?checked.length+" sondage / sélectionnées":"");
         $(".checked-quiz .sondage-selected ").val(text);
         if (checked.length > 0) {
@@ -203,9 +175,16 @@ $(document).ready(function(){
         }
 
     });
+     // Selection de type d'action de groupe
+    $(document).on('click', '.grouped-action-choice', function(e){
+        e.preventDefault();
+        var selected_element_container = $(this).parents('.supp-supp');
+        selected_element_container.find('button.dropdown-toggle').text($(this).text());
+        $('.checked-quiz').find('.btn-supp .btn-valider').attr('data-grouped-action', $(this).attr('data-grouped-action'));
+    });
     // suivre pour les dropdown and valide
      $(document).on('hide-block', '.checked-quiz', function(){
-        var dropdown_toggle_button = $(this).find('.supp-supp').find('button.dropdown');
+        var dropdown_toggle_button = $(this).find('.supp-supp').find('button.suppr');
         dropdown_toggle_button.text(dropdown_toggle_button.attr('data-default'));
         $(this).find('.btn-supp').find('.btn-valider').attr('data-grouped-action', '');
         //$(this).find('.selected-elements-button-container').find('.dropdown-container .delete-input').hide();
@@ -222,9 +201,9 @@ $(document).ready(function(){
             if ($('input[name=archived_status]').length > 0 && 'true' == $('input[name=archived_status]').val()) {
                     var redirection_url = $('input[name=list-url-archived]').val();
             } else {
-                    var redirection_url = $('input[name=news_post_list_url]').val();
+                    var redirection_url = $('input[name=list-url]').val();
             }
-
+            console.log(data)
             $.ajax({
                 type: 'POST',
                 url: $(this).attr('data-target-url'),
@@ -936,6 +915,74 @@ $(document).ready(function(){
             }
         });
     });
+
+    // restauration par groupe par bouton
+    // soumission action de groupe
+    $(document).on('click', '.restore-data', function(e){
+        e.preventDefault();
+        var arr_checked = getChecked();
+        if (arr_checked.length > 0) {
+            $('.chargementAjax').removeClass('hidden');
+            var str_checked = arr_checked.join(',');
+            var data = {'id_list': str_checked, 'grouped_action_type': 'restore'};
+            var redirection_url = $('input[name=list-url-archived]').val();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('data-url'),
+                data: data,
+                success: function(){
+                    window.location.replace(redirection_url);
+                },
+                complete: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '.restore-arhived-sondage', function(e){
+        e.preventDefault();
+            $('.chargementAjax').removeClass('hidden');
+            var redirection_url = $('input[name=list-url-archived]').val();
+            var url = $(this).attr('data-url');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                success: function(){
+                    window.location.replace(redirection_url);
+                },
+                complete: function(){
+                    $('.chargementAjax').addClass('hidden');
+                }
+            });
+    });
+
+    $(document).on('click', ".delete-arhived-sondage", function(e){
+        e.preventDefault();
+        var url = $(this).attr('data-url');
+        $('#confirm-delete-news-modal').find('.confirm-delete-archive').attr('data-url', url);
+        $('#confirm-delete-news-modal').modal('show');
+    });
+
+    //Delete Sondage&Quiz Archived
+    $(document).on('click', '#confirm-delete-news-modal .confirm-delete-archive', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var url = $(this).attr('data-url');
+        var redirect_url = $('input[name=list-url-archived]').val();
+        console.log(url)
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(){
+                window.location.replace(redirect_url);
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+        });
+    });
+
 });
 
 //Ajouter des champs questions

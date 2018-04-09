@@ -103,17 +103,15 @@
                             </div>
                             <div class="col-4 col-md-4 supp-supp">
                                 <div class="dropdown clearable all-filter questionnaires suppr-filter">
-                                        <button class="btn btn-secondary dropdown-toggle suppr" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="SUPPRIMER">
-                                            SUPPRIMER
+                                        <button class="btn btn-secondary dropdown-toggle suppr" type="button" id="dropdownTypeFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTION">
+                                            ACTION
                                         </button>
                                         <div class="dropdown-menu suppr-menu" aria-labelledby="dropdownTypeFilter">
-                                            <a class="dropdown-item suppr-menu" data-grouped-action="archive">
+                                            <a class="dropdown-item grouped-action-choice" data-grouped-action="delete">
                                                 SUPPRIMER
-                                                <span>supp</span>
                                             </a>
-                                            <a class="dropdown-item suppr-menu" data-grouped-action="delete">
+                                            <a class="dropdown-item grouped-action-choice" data-grouped-action="archive">
                                                 ARCHIVER
-                                                <span>archive</span>
                                             </a>
                                         </div>
                                     </div>
@@ -187,7 +185,12 @@
                                             <span id="participation">participations</span>
                                         </div>
                                         <div class=" roles">
+                                                {% if view.authorizedRole is not empty %}
                                             <span id="role">{{view.authorizedRole.name}}</span>
+                                                {% else %}
+                                                        <span id="role"></span>
+                                                {% endif %}
+                                                
                                         </div>
                             </div>
                             <div class="col-12 col-lg-3 campagne-action">
@@ -336,8 +339,9 @@
     <input id = "UriDeleteReponsesSondagesQuiz" type = "hidden" name = "UriDeleteReponsesSondagesQuiz" value = "{{ path("admin_communication_sondage_quiz_delete_reponse") }}">
     <input id = "UriDeleteQuestions" type = "hidden" name = "UriDeleteQuestions" value = "{{ path("admin_communication_sondage_quiz_delete_questions") }}">
     <input id = "UriSondagesQuiz" type = "hidden" name = "UriSondagesQuiz" value = "{{ path("admin_communication_sondage_quiz") }}">
-    <input type = "hidden" name ="obj" value ="{{obj}}"> 
+    {#<input type = "hidden" name ="obj" value ="{{obj}}">#} 
     <input type="hidden" name="list-url" value="{{ path('admin_communication_pre_sondage') }}">
+    <input type="hidden" name="list-url-archived" value="{{path('admin_communication_pre_archived_sondage')}}">
 {% endblock %}
 
 {% block footer %}
