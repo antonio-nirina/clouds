@@ -2,5 +2,6 @@
 
 namespace AdminBundle\Repository;
 
-class SitePagesStandardSettingRepository extends \Doctrine\ORM\EntityRepository{
+class SitePagesStandardSettingRepository extends \Doctrine\ORM\EntityRepository
+{
 }

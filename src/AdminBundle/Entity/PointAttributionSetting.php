@@ -61,9 +61,7 @@ class PointAttributionSetting
      */
     private $status;
 
-
-
-    /**
+/**
      * Get id
      *
      * @return integer

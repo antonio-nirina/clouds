@@ -26,50 +26,49 @@ class SondagesQuiz
      * @ORM\Column(type="string", nullable=true)
      */
     private $nom_menu;
-	
-	/**
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $titre;
-	
-	/**
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $path;
-	
-	/**
+
+    /**
      * @Assert\File(maxSize="6000000")
      */
     private $image;
-	
-	/**
+
+    /**
      * @Gedmo\Slug(fields={"nom_menu"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;
-	
-	/**
+
+    /**
      * @ORM\Column(name="date_creation", type="datetime")
      */
     protected $date_creation;
-	
-	/**
+
+    /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="sondages_quiz")
      */
     private $program;
-	
-	/**
+
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos",mappedBy="sondages_quiz", *cascade={"persist","remove"})
      */
     private $sondages_quiz_questionnaire_infos;
-	
-	/**
+
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="sondages_quiz")
      */
     private $resultats_sondages_quiz;
-	
-	
-	/**
+
+/**
      * Constructor
      */
     public function __construct()
@@ -78,8 +77,7 @@ class SondagesQuiz
         $this->resultats_sondages_quiz = new ArrayCollection();
     }
 
-
-    /**
+/**
      * Get id
      *
      * @return integer
@@ -88,8 +86,8 @@ class SondagesQuiz
     {
         return $this->id;
     }
-	
-	/**
+
+    /**
      * Set nom_menu
      *
      * @param string $nom_menu
@@ -102,8 +100,8 @@ class SondagesQuiz
 
         return $this;
     }
-	
-	/**
+
+    /**
      * Get nom_menu
      *
      * @return string
@@ -160,8 +158,8 @@ class SondagesQuiz
     {
         return $this->program;
     }
-	
-	/**
+
+    /**
      * Sets image.
      *
      * @param UploadedFile $image
@@ -180,50 +178,47 @@ class SondagesQuiz
     {
         return $this->image;
     }
-	
-	
-	public function getAbsolutePath()
+
+
+    public function getAbsolutePath()
     {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     public function getWebPath()
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path;
+            : $this->getUploadDir() . '/' . $this->path;
     }
 
     public function getUploadRootDir()
     {
-        return __DIR__.'/../../../web/content/'.$this->getUploadDir();
+        return __DIR__ . '/../../../web/content/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
     {
         return 'sondages_quiz';
     }
-	
-	public function upload(\AdminBundle\Entity\Program $program = null)
-	{
-		if (null === $this->getImage()) {
-			return;
-		}
 
+    public function upload(\AdminBundle\Entity\Program $program = null)
+    {
+        if (null === $this->getImage()) {
+            return;
+        }
 
-		$this->getImage()->move(
-			$this->getUploadRootDir().'/'.$program->getId(),
-			$this->getImage()->getClientOriginalName()
-		);
+        $this->getImage()->move(
+            $this->getUploadRootDir() . '/' . $program->getId(),
+            $this->getImage()->getClientOriginalName()
+        );
 
-		
-		$this->path = $this->getImage()->getClientOriginalName();
+        $this->path = $this->getImage()->getClientOriginalName();
 
-		
-		$this->image = null;
-	}
-	
-	/**
+        $this->image = null;
+    }
+
+    /**
      * Set Path
      *
      * @param string $path
@@ -236,8 +231,8 @@ class SondagesQuiz
 
         return $this;
     }
-	
-	/**
+
+    /**
      * Get path.
      *
      * @return path
@@ -246,14 +241,14 @@ class SondagesQuiz
     {
         return $this->path;
     }
-	
-	public function removeAccents($string)
-	{
-		$text = str_replace(' ','',$string);
-		return strtr($text,"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ","aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
-	}
-	
-	/**
+
+    public function removeAccents($string)
+    {
+        $text = str_replace(' ', '', $string);
+        return strtr($text, "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ", "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+    }
+
+    /**
      * Set slug
      *
      * @param string $slug
@@ -276,9 +271,8 @@ class SondagesQuiz
     {
         return $this->slug;
     }
-	
-	
-	/**
+
+/**
      * Set date_creation
      *
      * @param datetime $date_creation
@@ -303,16 +297,14 @@ class SondagesQuiz
     }
 
     /**
-    * @ORM\PrePersist()
-    */
+     * @ORM\PrePersist()
+     */
     public function addDateCreation()
     {
         $this->date_creation = new \Datetime();
     }
 
-	
-	
-	/**
+/**
      * Add sondagesQuizQuestionnaireInfos
      *
      * @param \AdminBundle\Entity\SondagesQuizQuestionnaireInfos $sondagesQuizQuestionnaireInfos
@@ -345,10 +337,8 @@ class SondagesQuiz
     {
         return $this->sondages_quiz_questionnaire_infos;
     }
-	
-	
-	
-	/**
+
+/**
      * Add resultatsSondagesQuiz
      *
      * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz

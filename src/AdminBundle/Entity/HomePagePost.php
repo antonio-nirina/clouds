@@ -63,7 +63,7 @@ class HomePagePost
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\NewsPost", inversedBy="home_page_post")
      */
     private $news_post;
-    
+
     /**
      * Constructor
      */

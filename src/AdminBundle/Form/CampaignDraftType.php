@@ -31,12 +31,12 @@ class CampaignDraftType extends AbstractType
     /**
      * CampaignDraftType constructor
      *
-     * @param MailjetContactList $contact_list_handler
-     * @param EntityManager $em
-     * @param ProgramManager $program_manager
+     * @param MailjetContactList      $contact_list_handler
+     * @param EntityManager           $em
+     * @param ProgramManager          $program_manager
      * @param ComEmailTemplateManager $template_manager
      * @param TemplateListDataHandler $template_list_data_handler
-     * @param ContainerInterface $container
+     * @param ContainerInterface      $container
      */
     public function __construct(
         MailjetContactList $contact_list_handler,
@@ -61,26 +61,41 @@ class CampaignDraftType extends AbstractType
     {
         $builder->add('name', TextType::class)
             ->add('subject', TextType::class)
-            ->add('list_id', ChoiceType::class, array(
+            ->add(
+                'list_id',
+                ChoiceType::class,
+                array(
                 'choices' => $this->retrieveListList(),
                 'expanded' => false,
                 'multiple' => false,
                 'placeholder' => 'CHOISIR UNE LISTE',
-            ))
-            ->add('template_id', ChoiceType::class, array(
+                )
+            )
+            ->add(
+                'template_id',
+                ChoiceType::class,
+                array(
                 'choices' => $this->retrieveTemplateList(),
                 'expanded' => true,
                 'multiple' => false,
-            ))
-            ->add('programmed_state', ChoiceType::class, array(
+                )
+            )
+            ->add(
+                'programmed_state',
+                ChoiceType::class,
+                array(
                 'choices' => array(
                     'false' => 'false',
                     'true' => 'true',
                 ),
                 'expanded' => true,
                 'multiple' => false,
-            ))
-            ->add('programmed_launch_date', DateTimeType::class, array(
+                )
+            )
+            ->add(
+                'programmed_launch_date',
+                DateTimeType::class,
+                array(
                 'label' => false,
                 'date_widget' => "single_text",
                 'time_widget' => "choice",
@@ -89,7 +104,8 @@ class CampaignDraftType extends AbstractType
                 'date_format'=>'dd/MM/yyyy',
                 'input' => 'datetime',
                 'model_timezone' => $this->container->getParameter('app_time_zone'),
-            ));
+                )
+            );
     }
 
     /**
@@ -135,8 +151,10 @@ class CampaignDraftType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => CampaignDraftData::class,
-        ));
+            )
+        );
     }
 }

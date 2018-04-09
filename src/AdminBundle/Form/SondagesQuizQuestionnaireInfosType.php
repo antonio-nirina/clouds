@@ -14,13 +14,12 @@ use AdminBundle\Form\SondagesQuizQuestionsType;
 use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
 use Doctrine\ORM\EntityManager;
 
-
 class SondagesQuizQuestionnaireInfosType extends AbstractType
 {
-	protected $em;
+    protected $em;
 
-	public function __construct(EntityManager $em) 
-	{
+    public function __construct(EntityManager $em)
+    {
         $this->em = $em;
     }
 
@@ -29,44 +28,58 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('type_sondages_quiz', ChoiceType::class, array(
-						'choices' => array(
-							'créer un sondage' => '1',
-							'créer un quiz' => '2'
-						),
-						'choices_as_values' => true,
-						'multiple' => false,
-						'expanded' => true,
-					))
-				->add('titre_questionnaire', TextType::class)
-				->add('description_questionnaire', TextareaType::class)
-				->add('sondages_quiz_questions', CollectionType::class, array(
-					'label' => false,
-					'entry_type' => SondagesQuizQuestionsType::class,
-					'allow_add' => true,
-					'allow_delete' => true,
-					'prototype' => true,
-					'prototype_name' => '__opt_questions__'
-				  ))
-				->add('authorized_role',ChoiceType::class, array(
-						'choices' => $this->getAllRoles(),
-						'choices_as_values' => true,
-						'multiple' => false,
-						'expanded' => false,
-					));
+        $builder->add(
+            'type_sondages_quiz',
+            ChoiceType::class,
+            array(
+            'choices' => array(
+            'créer un sondage' => '1',
+            'créer un quiz' => '2'
+            ),
+            'choices_as_values' => true,
+            'multiple' => false,
+            'expanded' => true,
+            )
+        )
+            ->add('titre_questionnaire', TextType::class)
+            ->add('description_questionnaire', TextareaType::class)
+            ->add(
+                'sondages_quiz_questions',
+                CollectionType::class,
+                array(
+                'label' => false,
+                'entry_type' => SondagesQuizQuestionsType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'prototype_name' => '__opt_questions__'
+                )
+            )
+            ->add(
+                'authorized_role',
+                ChoiceType::class,
+                array(
+                'choices' => $this->getAllRoles(),
+                'choices_as_values' => true,
+                'multiple' => false,
+                'expanded' => false,
+                )
+            );
     }
-	
-	/**
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => SondagesQuizQuestionnaireInfos::class,
-        ));
+            )
+        );
     }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public function getName()
@@ -76,12 +89,11 @@ class SondagesQuizQuestionnaireInfosType extends AbstractType
 
     protected function getAllRoles()
     {
-    	 $roles = $this->em->getRepository('AdminBundle\Entity\Role')->findAll();
-    	 foreach ($roles as $key => $value) {
-    	 	$role[$value->getName()] = $value->getId();
-    	 }
+        $roles = $this->em->getRepository('AdminBundle\Entity\Role')->findAll();
+        foreach ($roles as $key => $value) {
+            $role[$value->getName()] = $value->getId();
+        }
 
-    	 return $role;
+        return $role;
     }
-
 }

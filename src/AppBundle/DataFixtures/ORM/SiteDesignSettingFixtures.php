@@ -12,7 +12,8 @@ class SiteDesignSettingFixtures extends Fixture
     {
         $design = new SiteDesignSetting();
         $design->setPolice('Lato');
-        $design->setColors(array(
+        $design->setColors(
+            array(
             'couleur_1' => '#1d61d4',
             'couleur_1_bis' => '#598fea',
             "couleur_2" => '#7682da',
@@ -20,7 +21,8 @@ class SiteDesignSettingFixtures extends Fixture
             "couleur_4" => "#505050",
             'couleur_5' => '#807f81',
             'couleur_6' => '#ebeeef'
-        ));
+            )
+        );
         $design->setProgram($this->getReference('program'));
 
         $manager->persist($design);

@@ -21,7 +21,7 @@ class ProgramType
      * @ORM\Column(name="type", type="string", length=255)
      */
     protected $type;
-   
+
     /**
      * @ORM\Column(name="presentation", type="text")
      */

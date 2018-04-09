@@ -48,8 +48,7 @@ class UserPoint
      */
     private $reference;
 
-
-    /**
+/**
      * Get id
      *
      * @return integer

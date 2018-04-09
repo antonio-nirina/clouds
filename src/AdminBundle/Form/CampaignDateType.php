@@ -17,13 +17,17 @@ class CampaignDateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("launch_date", DateTimeType::class, array(
+        $builder->add(
+            "launch_date",
+            DateTimeType::class,
+            array(
             "label" => false,
             'date_widget' => "single_text",
             'time_widget' => "choice",
             'with_seconds' => false,
             'html5' => false,
             'date_format'=>"dd/MM/yyyy hh:mm"
-        ));
+            )
+        );
     }
 }

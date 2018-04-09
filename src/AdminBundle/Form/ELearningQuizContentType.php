@@ -30,12 +30,16 @@ class ELearningQuizContentType extends ELearningContentType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add('quiz', EntityType::class, array(
+        $builder->add(
+            'quiz',
+            EntityType::class,
+            array(
             'class' => 'AdminBundle:SondagesQuizQuestionnaireInfos',
             'choices' => $this->retrieveQuiz(),
             'choice_label' => 'titre_questionnaire',
             'placeholder' => 'SÉLECTIONNEZ UN QUIZ',
-        ));
+            )
+        );
     }
 
     /**
@@ -43,9 +47,11 @@ class ELearningQuizContentType extends ELearningContentType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => ELearningQuizContent::class,
-        ));
+            )
+        );
     }
 
     /**

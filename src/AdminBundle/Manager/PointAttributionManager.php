@@ -26,7 +26,7 @@ class PointAttributionManager
                 $point = new PointAttributionSetting();
                 $point->setProgram($program)
                     ->setType($type_performance_1[0])
-                    ->setName('tranche '.$r)
+                    ->setName('tranche ' . $r)
                     ->setStatus('off');
                 $this->em->persist($point);
             }
@@ -40,7 +40,7 @@ class PointAttributionManager
                 $point = new PointAttributionSetting();
                 $point->setProgram($program)
                     ->setType($type_performance_2[0])
-                    ->setName('tranche '.$r)
+                    ->setName('tranche ' . $r)
                     ->setStatus('off');
                 $this->em->persist($point);
             }
@@ -49,7 +49,7 @@ class PointAttributionManager
         if (empty($point_classment_range) || empty($point_ca_range)) {
             $this->em->flush();
         }
-        
+
         return ;
     }
 
@@ -86,9 +86,9 @@ class PointAttributionManager
     public function getTypePerformance1()
     {
         return $this->em->getRepository('AdminBundle:PointAttributionType')
-                                        ->findBy(
-                                            array('point_type_name' => "performance_1")
-                                        );
+            ->findBy(
+                array('point_type_name' => "performance_1")
+            );
     }
 
     public function getCaRange($program)
@@ -108,9 +108,9 @@ class PointAttributionManager
     public function getTypePerformance2()
     {
         return $this->em->getRepository('AdminBundle:PointAttributionType')
-                                        ->findBy(
-                                            array('point_type_name' => "performance_2")
-                                        );
+            ->findBy(
+                array('point_type_name' => "performance_2")
+            );
     }
 
     public function getClassmentRange($program)

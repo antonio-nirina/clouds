@@ -72,6 +72,7 @@ class LoginPortalData
     {
         return $this->title;
     }
+
     /**
      * Constructor
      */

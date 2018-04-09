@@ -167,9 +167,8 @@ class SiteDesignSetting
      *
      * @return SiteDesignSetting
      */
-    
 
-    /**
+/**
      * Set program
      *
      * @param \AdminBundle\Entity\Program $program

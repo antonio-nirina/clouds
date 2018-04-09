@@ -15,17 +15,21 @@ use Symfony\Component\Validator\Constraints\File;
 
 class SondagesQuizType extends AbstractType
 {
-	/**
+    /**
      * {@inheritdoc}
      */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nom_menu', TextType::class)
             ->add('titre', TextType::class)
-            ->add('image', FileType::class, array(
+            ->add(
+                'image',
+                FileType::class,
+                array(
                     "required" => false
-                ));
+                )
+            );
     }
 
     /**
@@ -33,9 +37,11 @@ class SondagesQuizType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => SondagesQuiz::class,
-        ));
+            )
+        );
     }
 
     /**

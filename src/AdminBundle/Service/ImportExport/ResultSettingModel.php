@@ -63,7 +63,7 @@ class ResultSettingModel
 
         $this->current_row = 1; // 1-based index
         $this->current_col = 0;
-        
+
         $this->user_header_list = array();
         $this->rank_header_list = array();
         $this->product_header_list = array();
@@ -190,9 +190,9 @@ class ResultSettingModel
     private function createSimpleInfoElement($header)
     {
         $this->php_excel_object->setActiveSheetIndex(0)
-        ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $header);
+            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $header);
         $this->current_col++;
-        
+
         if (in_array($header, self::RANK_SPECIAL_FIELD_INDEX_LIST)) {
             array_push($this->rank_header_list, $header);
         } else {
@@ -203,7 +203,7 @@ class ResultSettingModel
     private function createInfoElement($special_field_index)
     {
         $this->php_excel_object->setActiveSheetIndex(0)
-        ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $special_field_index);
+            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $special_field_index);
         $this->current_col++;
 
         if (in_array($special_field_index, self::USER_SPECIAL_FIELD_INDEX_LIST)) {
@@ -239,14 +239,14 @@ class ResultSettingModel
     public function save($monthly = false, $by_product = false, $by_rank = false)
     {
         $writer = $this->create($monthly, $by_product, $by_rank);
-        $save_path = $this->container->getParameter("result_setting_model").'/'.self::FILE_NAME_AND_EXT;
+        $save_path = $this->container->getParameter("result_setting_model") . '/' . self::FILE_NAME_AND_EXT;
         $this->save_path = $save_path;
         $writer->save($save_path);
     }
 
     public function removeSavedFile()
     {
-        $file_path = $this->container->getParameter("result_setting_model").'/'.self::FILE_NAME_AND_EXT;
+        $file_path = $this->container->getParameter("result_setting_model") . '/' . self::FILE_NAME_AND_EXT;
         if ($this->filesystem->exists($file_path)) {
             $this->filesystem->remove($file_path);
         }

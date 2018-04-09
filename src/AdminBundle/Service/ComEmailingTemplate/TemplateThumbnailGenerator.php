@@ -118,5 +118,4 @@ class TemplateThumbnailGenerator
 
         return;
     }
-
 }

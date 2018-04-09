@@ -47,7 +47,7 @@ class ProgramFixtures extends Fixture
 
         $manager->persist($program);
         $manager->flush();
-        
+
         $this->addReference('program', $program);
     }
 

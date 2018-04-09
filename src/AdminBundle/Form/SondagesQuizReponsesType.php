@@ -19,21 +19,27 @@ class SondagesQuizReponsesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('reponses', TextType::class)
-				->add('est_bonne_reponse', CheckboxType::class, array(
-						'label' => 'bonne réponse',
-						'required' => false,
-					))
-				->add('ordre', HiddenType::class);
+            ->add(
+                'est_bonne_reponse',
+                CheckboxType::class,
+                array(
+                'label' => 'bonne réponse',
+                'required' => false,
+                )
+            )
+            ->add('ordre', HiddenType::class);
     }
-	
-	/**
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => 'AdminBundle\Entity\SondagesQuizReponses'
-        ));
+            )
+        );
     }
 
     /**

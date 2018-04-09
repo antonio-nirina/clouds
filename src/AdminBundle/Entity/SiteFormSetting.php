@@ -87,8 +87,7 @@ class SiteFormSetting
      */
     private $custom_field_allowed;
 
-
-    /**
+/**
      * Get id
      *
      * @return integer
@@ -289,6 +288,7 @@ class SiteFormSetting
     {
         return $this->program;
     }
+
     /**
      * Constructor
      */

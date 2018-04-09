@@ -59,10 +59,10 @@ class SchemaChecker extends CSVFileContentBrowser
 
     protected function createErrorWithIndex($error_message, $row_index, $col_index = null)
     {
-        $message = $error_message. ' Ligne: '.($row_index+1); // 0-based index to 1-based index (human readable)
+        $message = $error_message . ' Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
         return is_null($col_index)
             ? $message
-            : $message.', Colonne: '.($col_index+1); // 0-based index to 1-based index (human readable)
+            : $message . ', Colonne: ' . ($col_index+1); // 0-based index to 1-based index (human readable)
     }
 
     protected function checkRow($array_data, $array_model, $header_row_index, $row_index)
@@ -111,7 +111,7 @@ class SchemaChecker extends CSVFileContentBrowser
     protected function checkMandatoryData($col_element, $related_field_setting, $row_index, $col_index)
     {
         if (true == $related_field_setting->getMandatory()
-            and empty($col_element)
+            && empty($col_element)
         ) {
             $this->addError(
                 $this->createErrorWithIndex(
@@ -175,11 +175,13 @@ class SchemaChecker extends CSVFileContentBrowser
     ) {
         $violations = $this->validator->validate($col_element, $type);
         if (0 !== count($violations)) {
-            $this->addError($this->createErrorWithIndex(
-                $error_if_not_valid,
-                $row_index,
-                $col_index
-            ));
+            $this->addError(
+                $this->createErrorWithIndex(
+                    $error_if_not_valid,
+                    $row_index,
+                    $col_index
+                )
+            );
             return $this->error_list;
         }
         return array();

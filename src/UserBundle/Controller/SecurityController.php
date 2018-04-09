@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,15 +14,18 @@ use FOS\UserBundle\Controller\SecurityController as BaseController;
 /**
  * @Route("/login")
  */
-class SecurityController extends BaseController{
-	/**
+class SecurityController extends BaseController
+{
+    /**
      * @param Request $request
      *
      * @return Response
      */
     public function loginAction(Request $request)
     {
-        /** @var $session Session */
+        /**
+ * @var $session Session
+*/
         $session = $request->getSession();
 
         $authErrorKey = Security::AUTHENTICATION_ERROR;
@@ -49,14 +52,16 @@ class SecurityController extends BaseController{
             ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
             : null;
 
-        return $this->renderLogin(array(
+        return $this->renderLogin(
+            array(
             'last_username' => $lastUsername,
             'error' => $error,
             'csrf_token' => $csrfToken,
-        ));
+            )
+        );
     }
-	
-	/**
+
+    /**
      * Renders the login template with the given parameters. Overwrite this function in
      * an extended controller to provide additional data for the login template.
      *
@@ -80,4 +85,3 @@ class SecurityController extends BaseController{
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 }
-?>

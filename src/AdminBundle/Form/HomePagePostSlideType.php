@@ -14,15 +14,17 @@ class HomePagePostSlideType extends BasicSlideType
     {
         parent::buildForm($builder, $options);
         $builder->add('message', TextType::class)
-                ->add('video_url', TextType::class)
-                ->add('slide_type', HiddenType::class)
-                ->add('image_target_url', TextType::class);
+            ->add('video_url', TextType::class)
+            ->add('slide_type', HiddenType::class)
+            ->add('image_target_url', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => HomePagePostSlide::class,
-        ));
+            )
+        );
     }
 }

@@ -20,7 +20,7 @@ class FileUploader
         $file_name = $file->getClientOriginalName();
 
         if ($id) {
-            $file->move($this->getTargetDir()."/$id", $file_name);
+            $file->move($this->getTargetDir() . "/$id", $file_name);
         } else {
             $file->move($this->getTargetDir(), $file_name);
         }
@@ -36,9 +36,9 @@ class FileUploader
     public function getFile($file_name, $id = false)
     {
         if ($id) {
-            $file = new File($this->getTargetDir()."/$id"."/$file_name");
+            $file = new File($this->getTargetDir() . "/$id" . "/$file_name");
         } else {
-            $file = new File($this->getTargetDir()."/$file_name");
+            $file = new File($this->getTargetDir() . "/$file_name");
         }
 
         return $file;

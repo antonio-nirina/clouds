@@ -105,7 +105,7 @@ class ComEmailTemplateDataSynchronizer
             /*$this->template_thumbnail_generator->setComEmailTemplate($com_email_template);
             $this->template_thumbnail_generator->deleteThumbnailFile();*/
             $this->com_email_template_manager->deleteTemplateAndContents($com_email_template);
-            
+
             return true;
         }
 

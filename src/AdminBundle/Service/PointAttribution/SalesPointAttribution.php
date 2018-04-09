@@ -48,7 +48,7 @@ class SalesPointAttribution
                                 ->setDate(new \DateTime())
                                 ->setPoints((($ca * $gain) / 100) / $this->ratio)
                                 ->setMotif("rang")
-                                ->setReference("sales_".$sales->getId());
+                                ->setReference("sales_" . $sales->getId());
                             $this->em->persist($user_point);
                         }
                     }
@@ -78,11 +78,11 @@ class SalesPointAttribution
             );
             if (empty($period_point_setting) && $product_group != 1) {
                 $period_point_setting = $this->em->getRepository("AdminBundle:PeriodPointSetting")
-                ->findBy(
-                    array(
+                    ->findBy(
+                        array(
                                 'product_group' => 1
                             )
-                );
+                    );
             }
             $arr_point_setting = $period_point_setting[0]->getGain();
             $month = ($date)?$date:(($date_from)?$date_from:$date_to);
@@ -91,7 +91,7 @@ class SalesPointAttribution
             if ($gain) {
                 $current_point = $user_point->getPoints();
                 $user_point ->setPoints(($current_point * $gain) /100)//multiplicateur
-                            ->setMotif('produit, période');
+                    ->setMotif('produit, période');
                 $sales->setPeriodAttributed(true);
                 $this->em->flush();
             }
@@ -141,7 +141,7 @@ class SalesPointAttribution
     public function adjustCurrentClassment($role, $start_date)// classement par rôle
     {
         $user_arranged = $this->em->getRepository("AdminBundle:ProgramUser")
-                                    ->findArrangedUsersByRole($role, $start_date);
+            ->findArrangedUsersByRole($role, $start_date);
         foreach ($user_arranged as $k => $user) {
             $classment_progression = $user->getClassmentProgression();
             $classment_progression[0]->setClassment($k+1);
@@ -154,13 +154,13 @@ class SalesPointAttribution
     public function getCurrentClassmentProgression($program_user, $date = false)
     {
         return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")
-                        ->findCurrentClassmentProgression($program_user, $date);
+            ->findCurrentClassmentProgression($program_user, $date);
     }
 
     public function getPreviousClassmentProgression($program_user, $start)
     {
         return $this->em->getRepository("AdminBundle:ProgramUserClassmentProgression")
-                        ->findPreviousClassmentProgression($program_user, $start);
+            ->findPreviousClassmentProgression($program_user, $start);
     }
 
     public function setNewClassmentProgression($program, $start = false, $end = false)
@@ -179,12 +179,12 @@ class SalesPointAttribution
             $previous_classment_progression = $this->getPreviousClassmentProgression($program_user, $start);
             $classment_progression = new ProgramUserClassmentProgression();
             $classment_progression  ->setStartDate($start)
-                                    ->setProgramUser($program_user);
+                ->setProgramUser($program_user);
 
             if ($end) {
                 $classment_progression->setEndDate($end);
             }
-            
+
             if ($previous_classment_progression) {
                 $classment_progression->setPreviousCa($previous_classment_progression->getCurrentCa());
             }
@@ -240,18 +240,18 @@ class SalesPointAttribution
 
                 if (isset($min) && isset($max) && isset($gain)) {
                     $program_users = $this->em->getRepository('AdminBundle:ProgramUser')
-                    ->findProgressionByProgramByMaxMinValue($program, $max, $min, $date);
-                    
+                        ->findProgressionByProgramByMaxMinValue($program, $max, $min, $date);
+
                     if ($program_users) {
                         foreach ($program_users as $program_user) {
                             $user_point = new UserPoint();
                             $user_point->setProgramUser($program_user)
                                 ->setDate(new \DateTime())
                                 ->setPoints($gain / $this->ratio)
-                                ->setMotif("progression ".date_format($date, "d-m-Y"));
+                                ->setMotif("progression " . date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
-                        
+
                         $this->em->flush();
                     }
                 }
@@ -266,7 +266,7 @@ class SalesPointAttribution
                 $gain = $point_setting->getGain();
                 if (isset($min) && isset($max) && isset($gain)) {
                     $program_users = $this->em->getRepository('AdminBundle:ProgramUser')
-                    ->findClassmentByProgramByMaxMinValue($program, $max, $min, $date);
+                        ->findClassmentByProgramByMaxMinValue($program, $max, $min, $date);
 
                     if ($program_users) {
                         foreach ($program_users as $program_user) {
@@ -274,10 +274,10 @@ class SalesPointAttribution
                             $user_point->setProgramUser($program_user)
                                 ->setDate(new \DateTime())
                                 ->setPoints($gain / $this->ratio)
-                                ->setMotif("classement ".date_format($date, "d-m-Y"));
+                                ->setMotif("classement " . date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
-                        
+
                         $this->em->flush();
                     }
                 }
@@ -317,7 +317,7 @@ class SalesPointAttribution
                         ->setDate(new \DateTime())
                         ->setPoints((($ca * $gain) /100) / $this->ratio)
                         ->setMotif("produit")
-                        ->setReference("sales_".$sales->getId());
+                        ->setReference("sales_" . $sales->getId());
                     $this->em->persist($user_point);
                     $this->attributedByPeriod($sales, $user_point);
                     $sales->setProductAttributed(true);
@@ -340,7 +340,7 @@ class SalesPointAttribution
                             ->setDate(new \DateTime())
                             ->setPoints((($ca * $gain) /100) / $this->ratio)
                             ->setMotif("produit")
-                            ->setReference("sales_".$sales->getId());
+                            ->setReference("sales_" . $sales->getId());
                         $this->em->persist($user_point);
                         $this->attributedByPeriod($sales, $user_point);
                         $sales->setProductAttributed(true);
@@ -350,32 +350,32 @@ class SalesPointAttribution
                 }
             }
         }
-        
+
         return $sales;
     }
 
     public function getPerformancePointSetting($type, $program)
     {
         return $this->em
-                    ->getRepository('AdminBundle:PointAttributionSetting')
-                    ->findBy(
-                        array(
+            ->getRepository('AdminBundle:PointAttributionSetting')
+            ->findBy(
+                array(
                             "type" => $type,
                             "program" => $program,
                         )
-                    );
+            );
     }
 
     public function getPointSetting($type, $product_group, $program)
     {
         return $this->em
-                    ->getRepository('AdminBundle:PointAttributionSetting')
-                    ->findBy(
-                        array(
+            ->getRepository('AdminBundle:PointAttributionSetting')
+            ->findBy(
+                array(
                             "type" => $type,
                             "product_group" => $product_group,
                             "program" => $program,
                         )
-                    );
+            );
     }
 }

@@ -27,16 +27,19 @@ class FosContactProvider implements ProviderInterface
         // or find only enabled users :
         // $users = $this->userManager->findUserBy(array('enabled' => true));
 
-        $contacts = array_map(function (User $user) {
-            $userProperties = [
+        $contacts = array_map(
+            function (User $user) {
+                $userProperties = [
                 self::PROP_ENABLED => $user->isEnabled(),
                 self::PROP_LAST_LOGIN => $user->getLastLogin() ? $user->getLastLogin()->format('Y-m-d') : ''
-            ];
+                ];
 
-            $contact = new Contact($user->getEmail(), $user->getUsername(), $userProperties);
+                $contact = new Contact($user->getEmail(), $user->getUsername(), $userProperties);
 
-            return $contact;
-        }, $users);
+                return $contact;
+            },
+            $users
+        );
 
         return $contacts;
     }

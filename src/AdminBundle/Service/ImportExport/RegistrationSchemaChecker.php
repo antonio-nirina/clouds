@@ -3,6 +3,7 @@
 namespace AdminBundle\Service\ImportExport;
 
 use AdminBundle\Entity\ProgramUserCompany;
+use AdminBundle\Exception\NoSiteFormSettingSetException;
 use UserBundle\Entity\User;
 use AdminBundle\Service\FileHandler\CSVHandler;
 use AdminBundle\Service\ImportExport\SchemaChecker;
@@ -52,12 +53,14 @@ class RegistrationSchemaChecker extends SchemaChecker
         if ($this->csv_handler->areSameRows(
             $this->array_model[$this->model_company_data_title_row_index],
             $this->array_data[$this->row_index]
-        )) {
+        )
+        ) {
             if ($this->increaseRowIndex()) {
                 if ($this->csv_handler->areSameRows(
                     $this->array_model[$this->model_company_data_header_row_index],
                     $this->array_data[$this->row_index]
-                )) {
+                )
+                ) {
                     if ($this->increaseRowIndex()) {
                         if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
                             $this->company_data_row_index = $this->row_index;
@@ -74,25 +77,31 @@ class RegistrationSchemaChecker extends SchemaChecker
 
                             if ($this->increaseRowIndex()) {
                                 if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
-                                    $this->addError($this->createErrorWithIndex(
-                                        self::ERROR_NOT_UNIQUE_COMPANY_DATA,
-                                        $this->row_index
-                                    ));
+                                    $this->addError(
+                                        $this->createErrorWithIndex(
+                                            self::ERROR_NOT_UNIQUE_COMPANY_DATA,
+                                            $this->row_index
+                                        )
+                                    );
                                     return $this->error_list;
                                 }
                             }
                         } else {
-                            $this->addError($this->createErrorWithIndex(
-                                self::ERROR_NO_COMPANY_DATA_FOUND,
-                                $this->row_index
-                            ));
+                            $this->addError(
+                                $this->createErrorWithIndex(
+                                    self::ERROR_NO_COMPANY_DATA_FOUND,
+                                    $this->row_index
+                                )
+                            );
                             return $this->error_list;
                         }
                     } else {
-                        $this->addError($this->createErrorWithIndex(
-                            self::ERROR_NO_COMPANY_DATA_FOUND,
-                            $this->row_index
-                        ));
+                        $this->addError(
+                            $this->createErrorWithIndex(
+                                self::ERROR_NO_COMPANY_DATA_FOUND,
+                                $this->row_index
+                            )
+                        );
                         return $this->error_list;
                     }
                 } else {
@@ -117,12 +126,14 @@ class RegistrationSchemaChecker extends SchemaChecker
         if ($this->csv_handler->areSameRows(
             $this->array_model[$this->model_user_data_title_row_index],
             $this->array_data[$this->row_index]
-        )) {
+        )
+        ) {
             if ($this->increaseRowIndex()) {
                 if ($this->csv_handler->areSameRows(
                     $this->array_model[$this->model_user_data_header_row_index],
                     $this->array_data[$this->row_index]
-                )) {
+                )
+                ) {
                     if ($this->increaseRowIndex()) {
                         if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
                             $blank_row = false;
@@ -148,10 +159,12 @@ class RegistrationSchemaChecker extends SchemaChecker
                                 }
                             }
                         } else {
-                            $this->addError($this->createErrorWithIndex(
-                                self::ERROR_NO_USER_DATA_FOUND,
-                                $this->row_index
-                            ));
+                            $this->addError(
+                                $this->createErrorWithIndex(
+                                    self::ERROR_NO_USER_DATA_FOUND,
+                                    $this->row_index
+                                )
+                            );
                             return $this->error_list;
                         }
                     } else {
@@ -179,9 +192,9 @@ class RegistrationSchemaChecker extends SchemaChecker
         parent::check($model, $data);
 
         if (array_key_exists(0, $this->model->getTitleRowIndexList())
-            and array_key_exists(1, $this->model->getTitleRowIndexList())
-            and array_key_exists(0, $this->model->getHeaderRowIndexList())
-            and array_key_exists(1, $this->model->getHeaderRowIndexList())
+            && array_key_exists(1, $this->model->getTitleRowIndexList())
+            && array_key_exists(0, $this->model->getHeaderRowIndexList())
+            && array_key_exists(1, $this->model->getHeaderRowIndexList())
         ) {
             // 1-based index to 0-based - From PHPExcel index to CSV file index (by fgetcsv()
             $this->model_company_data_title_row_index = $this->model->getTitleRowIndexList()[0] - 1;
@@ -241,7 +254,7 @@ class RegistrationSchemaChecker extends SchemaChecker
                 }
 
                 if (count(array_unique($user_email_list)) < count($user_email_list)) {
-                    $this->addError(self::ERROR_DUPLICATE_USER_DATA.', colonne "'.$email_field->getLabel().'"');
+                    $this->addError(self::ERROR_DUPLICATE_USER_DATA . ', colonne "' . $email_field->getLabel() . '"');
                     return $this->error_list;
                 }
 
@@ -253,11 +266,13 @@ class RegistrationSchemaChecker extends SchemaChecker
 
                     if ('' != trim($this->array_data[$i][$email_field_col_index])) {
                         if (!is_null($user_with_email)) {
-                            $this->addError($this->createErrorWithIndex(
-                                self::ERROR_EXISTENT_USER_WITH_EMAIL,
-                                $i,
-                                $email_field_col_index
-                            ));
+                            $this->addError(
+                                $this->createErrorWithIndex(
+                                    self::ERROR_EXISTENT_USER_WITH_EMAIL,
+                                    $i,
+                                    $email_field_col_index
+                                )
+                            );
                             return $this->error_list;
                         }
                     }
@@ -302,11 +317,13 @@ class RegistrationSchemaChecker extends SchemaChecker
                 $violations = $this->validator->validate($program_user_company);
                 if (count($violations) > 0) {
                     foreach ($violations as $violation) {
-                        $this->addError($this->createErrorWithIndex(
-                            $violation->getMessage(),
-                            $this->company_data_row_index,
-                            $key
-                        ));
+                        $this->addError(
+                            $this->createErrorWithIndex(
+                                $violation->getMessage(),
+                                $this->company_data_row_index,
+                                $key
+                            )
+                        );
                     }
                     break;
                 }
@@ -343,11 +360,13 @@ class RegistrationSchemaChecker extends SchemaChecker
                 $violations = $this->validator->validate($user);
                 if (count($violations) > 0) {
                     foreach ($violations as $violation) {
-                        $this->addError($this->createErrorWithIndex(
-                            $violation->getMessage(),
-                            $i,
-                            $key
-                        ));
+                        $this->addError(
+                            $this->createErrorWithIndex(
+                                $violation->getMessage(),
+                                $i,
+                                $key
+                            )
+                        );
                     }
                     break;
                 }

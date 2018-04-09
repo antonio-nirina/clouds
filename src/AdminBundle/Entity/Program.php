@@ -86,7 +86,7 @@ class Program
      * matérialisé ou dématérialisé
      */
     protected $dotation_support;
-    
+
     /**
      * @ORM\Column(name="param_level", type="integer")
      *
@@ -138,18 +138,18 @@ class Program
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\SiteTableNetworkSetting", mappedBy="program")
      */
     private $site_table_network_setting;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SitePagesStandardSetting", mappedBy="program")
      */
     private $site_page_standard;
-	
-	/**
+
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\SondagesQuiz", mappedBy="program")
      */
     private $sondages_quiz;
-	
-	/**
+
+    /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="program")
      */
     private $resultats_sondages_quiz;
@@ -158,7 +158,7 @@ class Program
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\PointAttributionSetting", mappedBy="program")
      */
     private $point_attribution_setting;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\HomePagePost", mappedBy="program")
      */
@@ -199,8 +199,7 @@ class Program
         return $this->id;
     }
 
-
-    /**
+/**
      * Set name
      *
      * @param string $name
@@ -274,9 +273,7 @@ class Program
         return $this;
     }
 
-
-
-    /**
+/**
      * Get isShopping
      *
      * @return boolean
@@ -733,7 +730,7 @@ class Program
     {
         return $this->site_design_setting;
     }
-    
+
     /**
      * Add sitePagesStandardSetting
      *
@@ -835,9 +832,8 @@ class Program
     {
         return $this->site_page_standard;
     }
-    
 
-    /**
+/**
      * Add pointAttributionSetting
      *
      * @param \AdminBundle\Entity\PointAttributionSetting $pointAttributionSetting
@@ -904,9 +900,8 @@ class Program
     {
         return $this->home_page_post;
     }
-	
 
-    /**
+/**
      * Add sondagesQuiz
      *
      * @param \AdminBundle\Entity\SondagesQuiz $sondagesQuiz
@@ -939,10 +934,8 @@ class Program
     {
         return $this->sondages_quiz;
     }
-	
-	
-	
-	/**
+
+/**
      * Add resultatsSondagesQuiz
      *
      * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz

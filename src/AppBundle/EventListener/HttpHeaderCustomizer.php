@@ -13,4 +13,3 @@ class HttpHeaderCustomizer
         $event->setResponse($response);
     }
 }
-

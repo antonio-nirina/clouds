@@ -29,9 +29,11 @@ class TemplateDataGenerator
     {
         $template_content_view = $this->retrieveContentPartHtml($preview_mode, false);
 
-        return $this->twig->render('AdminBundle:EmailTemplates/Communication:template_container.html.twig', array(
-            'template_content' => $template_content_view,
-        ));
+        return $this->twig->render(
+            'AdminBundle:EmailTemplates/Communication:template_container.html.twig',
+            array('template_content' => $template_content_view,
+            )
+        );
     }
 
     public function retrieveContentPartHtml($preview_mode = false, $instantaneous_preview_mode = false)

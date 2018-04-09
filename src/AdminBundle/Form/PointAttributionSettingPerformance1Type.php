@@ -18,7 +18,10 @@ class PointAttributionSettingPerformance1Type extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('min_value', TextType::class, array(
+        $builder->add(
+            'min_value',
+            TextType::class,
+            array(
                         'label' => false,
                         "required" => false,
                         'constraints' => array(
@@ -32,8 +35,12 @@ class PointAttributionSettingPerformance1Type extends AbstractType
                                 )
                             )
                         )
-                    ))
-                ->add('max_value', TextType::class, array(
+            )
+        )
+            ->add(
+                'max_value',
+                TextType::class,
+                array(
                         'label' => false,
                         "required" => false,
                         'constraints' => array(
@@ -47,8 +54,12 @@ class PointAttributionSettingPerformance1Type extends AbstractType
                                 )
                             )
                         )
-                    ))
-                ->add('gain', TextType::class, array(
+                )
+            )
+            ->add(
+                'gain',
+                TextType::class,
+                array(
                         'label' => false,
                         "required" => false,
                         'constraints' => array(
@@ -59,9 +70,9 @@ class PointAttributionSettingPerformance1Type extends AbstractType
                                 )
                             )
                         )
-                    ))
-                ->add('status', HiddenType::class, array())
-                ;
+                )
+            )
+            ->add('status', HiddenType::class, array());
     }
 
     /**
@@ -69,9 +80,11 @@ class PointAttributionSettingPerformance1Type extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(
+            array(
             'data_class' => PointAttributionSetting::class,
-        ));
+            )
+        );
     }
 
     /**

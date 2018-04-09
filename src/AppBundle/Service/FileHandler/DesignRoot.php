@@ -21,9 +21,9 @@ class DesignRoot
 
     public function exists($id)
     {
-        $exist = $this->fs->exists($this->root_path.'/'.$id.'/root.css');
+        $exist = $this->fs->exists($this->root_path . '/' . $id . '/root.css');
         if ($exist) {
-            return $this->root_path.'/'.$id.'/root.css';
+            return $this->root_path . '/' . $id . '/root.css';
         } else {
             return $this->default;
         }
@@ -51,8 +51,8 @@ class DesignRoot
                 $colors["couleur_1"],
                 $colors["couleur_1_bis"],
                 $colors["couleur_2"],
-                "--couleur_3: ".$colors["couleur_3"],
-                "--couleur_4: ".$colors["couleur_4"],
+                "--couleur_3: " . $colors["couleur_3"],
+                "--couleur_4: " . $colors["couleur_4"],
                 $colors["couleur_5"],
                 $colors["couleur_6"],
                 $colors["couleur_th"],
@@ -79,24 +79,24 @@ class DesignRoot
         $new_root_css = str_replace(
             array("Lato-Light","Lato-Regular","Lato-Bold"),
             array(
-                $police."-Light",
-                $police."-Regular",
-                $police."-Bold"
+                $police . "-Light",
+                $police . "-Regular",
+                $police . "-Bold"
             ),
             $new_root_css
         );
-        $this->fs->dumpFile($this->root_path.'/'.$id.'/root.css', $new_root_css);
+        $this->fs->dumpFile($this->root_path . '/' . $id . '/root.css', $new_root_css);
     }
 
     public function hex2rgba($hex, $blur = false)
     {
         $hex = str_replace("#", "", $hex);
-        
+
         switch (strlen($hex)) {
             case 3:
-                $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
-                $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
-                $b = hexdec(substr($hex, 2, 1).substr($hex, 2, 1));
+                $r = hexdec(substr($hex, 0, 1) . substr($hex, 0, 1));
+                $g = hexdec(substr($hex, 1, 1) . substr($hex, 1, 1));
+                $b = hexdec(substr($hex, 2, 1) . substr($hex, 2, 1));
                 $a = 1;
                 break;
             case 6:
@@ -116,6 +116,6 @@ class DesignRoot
             $a = 0.2;
         }
         $rgba = array($r, $g, $b, $a);
-        return 'rgba('.implode(', ', $rgba).')';
+        return 'rgba(' . implode(', ', $rgba) . ')';
     }
 }
