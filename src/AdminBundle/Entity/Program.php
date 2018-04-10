@@ -120,6 +120,11 @@ class Program
     private $registration_form_data;
 
     /**
+     * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ELearningHomeBanner", mappedBy="program")
+     */
+    private $elearning_banner_data;
+
+    /**
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\LoginPortalData", inversedBy="program")
      */
     private $login_portal_data;
@@ -1001,5 +1006,29 @@ class Program
     public function getELearnings()
     {
         return $this->e_learnings;
+    }
+
+    /**
+     * Set elearningBannerData.
+     *
+     * @param \AdminBundle\Entity\ELearningHomeBanner|null $elearningBannerData
+     *
+     * @return Program
+     */
+    public function setElearningBannerData(\AdminBundle\Entity\ELearningHomeBanner $elearningBannerData = null)
+    {
+        $this->elearning_banner_data = $elearningBannerData;
+
+        return $this;
+    }
+
+    /**
+     * Get elearningBannerData.
+     *
+     * @return \AdminBundle\Entity\ELearningHomeBanner|null
+     */
+    public function getElearningBannerData()
+    {
+        return $this->elearning_banner_data;
     }
 }

@@ -94,6 +94,8 @@ twig:
         locale: '%locale%'
         emailing_template_logo_location: '%emailing_template_logo_location%'
         emailing_template_image_content_location: '%emailing_template_image_content_location%'
+        e_learning_media_document_dir: '%e_learning_media_document_dir%'
+        e_learning_media_document_location: '%e_learning_media_document_location%'
 
 
 # Doctrine Configuration
