@@ -273,11 +273,16 @@
 	<div class = "row separator"></div>
 	<div class = "row separator"></div>
 	<div class="row">
+			{% if formQuestionnaires.authorized_role.vars.choices[1].label is not empty %}
+				{% set choixFirst = formQuestionnaires.authorized_role.vars.choices[1].label|upper %}
+			{% else %}
+				{% set choixFirst = formQuestionnaires.authorized_role.vars.choices[0].label|upper %}
+			{% endif %}
 		<div class="col-lg-12 col-md-12 col-sm-12 autorization-sondage">
 					<span class="lib-form">qui verra ce sondage / quiz?</span>
 					<span class = "content-dropdown-toggle dropdown clearable filtres">
 						<button class="btn btn-secondary dropdown-toggle dropdownMenuActionTypeRole" type="button" id="dropdownMenuActionTypeRole-{{ NbreQuestion }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default="ACTIONS">
-							{{formQuestionnaires.authorized_role.vars.choices[0].label|upper}}
+							{{choixFirst}}
 						</button>
 					<div id = "dropdownMenuListeTypeRole-{{ NbreQuestion }}" class="dropdown-menu dropdownMenuListeTypeRole" aria-labelledby="dropdownMenuListeTypeRole">
 						{% for choice in formQuestionnaires.authorized_role.vars.choices %}
@@ -291,8 +296,10 @@
 				{{ form_errors(formQuestionnaires.authorized_role) }}
 			</div>
 	</div>
-
 	<div class="row submit">
+		{% if formQuestionnaires.vars.value.id is not null %}
+			<input type="hidden" name="edit_sondage_quiz_url" value="{{ path('admin_communication_pre_sondage_edit', {'id': formQuestionnaires.vars.value.id}) }}">	
+		{% endif %}
 		<div class="col-12 col-md-6" style="text-align:right;">
 			<button id = "enregistrer-All-form" class="btn-valider valider submit-form" data-id="426" name = "btn-enregistrer-sondages-quiz" type = "submit">enregistrer</button>
 		</div>
@@ -305,4 +312,5 @@
 	{{ form_end(formQuestionnaires) }}
 	<!-- FIN - dialog - confirmation suppression sondages/quiz -->	
 	<input type="hidden" name="ckeditor_config_general_path" value="{{ asset('ckeditor/custom/config-general.js') }}">
+	
 		

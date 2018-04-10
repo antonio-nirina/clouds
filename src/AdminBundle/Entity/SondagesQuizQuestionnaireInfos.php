@@ -42,7 +42,6 @@ class SondagesQuizQuestionnaireInfos
      */
     protected $date_creation;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuiz", inversedBy="sondages_quiz_questionnaire_infos",cascade={"persist"})
      */
@@ -80,15 +79,11 @@ class SondagesQuizQuestionnaireInfos
     private $view_number;
 
     /**
-     * @var string $authorized_viewer_role
-     *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Role",cascade={"persist"})
      */
     private $authorized_role;
 
-/**
-     * Constructor
-     */
+    
     public function __construct()
     {
         $this->sondages_quiz_questions = new ArrayCollection();
@@ -201,9 +196,11 @@ class SondagesQuizQuestionnaireInfos
         return $this->date_creation;
     }
 
+  
+
     /**
      * @ORM\PrePersist()
-     */
+    */
     public function addDateCreation()
     {
         $this->date_creation = new \Datetime();
@@ -291,7 +288,8 @@ class SondagesQuizQuestionnaireInfos
         return $this->est_publier;
     }
 
-/**
+
+    /**
      * Add resultatsSondagesQuiz
      *
      * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
@@ -397,14 +395,15 @@ class SondagesQuizQuestionnaireInfos
         return $this->view_number;
     }
 
-/**
+
+    /**
      * Set authorizedRole.
      *
-     * @param string|null $authorizedRole
+     * @param \AdminBundle\Entity\Role|null $authorizedRole
      *
      * @return SondagesQuizQuestionnaireInfos
      */
-    public function setAuthorizedRole($authorizedRole = null)
+    public function setAuthorizedRole(\AdminBundle\Entity\Role $authorizedRole = null)
     {
         $this->authorized_role = $authorizedRole;
 
@@ -414,7 +413,7 @@ class SondagesQuizQuestionnaireInfos
     /**
      * Get authorizedRole.
      *
-     * @return string|null
+     * @return \AdminBundle\Entity\Role|null
      */
     public function getAuthorizedRole()
     {

@@ -127,7 +127,7 @@ class SondageQuizManager
                 ->findOneById($value);
             if (!empty($data)) {
                 if (GroupActionType::DELETE == $actionType) {
-                    $this->delete($data, false);
+                    $this->delete($data);
                 } elseif (GroupActionType::ARCHIVE == $actionType) {
                     $this->renderToArchived($data, true);
                 } elseif (GroupActionType::RESTORE == $actionType) {
@@ -135,7 +135,25 @@ class SondageQuizManager
                 }
             }
         }
-        $this->em->flush();
+    
         return;
     }
+
+
+    /**
+     * @param $id
+     * 
+     */
+    public function getElementStatistique($id)
+    {
+        $results =  $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestions")->getResultsQuestions($id);
+        $reponseSondage = $this->em->getRepository("AdminBundle\Entity\SondagesQuizReponses")
+                        ->getReponseByQuestion($results->getId());
+
+        return ["questions"=>$results,"reponse"=>$reponseSondage];
+       
+    }
+
+    
 }
+
