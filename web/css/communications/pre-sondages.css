@@ -147,11 +147,11 @@
 /**
  * duplication template
  */
-.app-dialog .modal-body-container form{
+/*.app-dialog .modal-body-container form{
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
-}
+}*/
 
 .app-dialog .dialog-title{
     color: var(--couleur_2);
