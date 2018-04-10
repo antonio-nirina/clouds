@@ -2648,9 +2648,9 @@ class CommunicationController extends AdminController
     }
 
     /**
-     * @Route("/pre-sondage/dupliquer/{id}", requirements={"id": "\d+"}, name="admin_communication_pre_sondage_duplicate")
+     * @Route("/pre-sondage/dupliquer/{id}",requirements={"id": "\d+"},name="admin_communication_pre_sondage_duplicate")
      */
-    public function duplicatPreSondageAction(Request $request, $id)
+    public function duplicatePreSondageAction(Request $request, $id)
     {
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
@@ -2658,11 +2658,42 @@ class CommunicationController extends AdminController
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
         $em = $this->getDoctrine()->getManager();
-        $editSondage = $em->getRepository("AdminBundle:SondagesQuizQuestionnaireInfos")
+        $dupliqueSondage = $em->getRepository("AdminBundle:SondagesQuizQuestionnaireInfos")
             ->findOneById($id);
-        if (empty($editSondage)) {
+        if (empty($dupliqueSondage)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
+
+        $form = $this->get('AdminBundle\Service\FormGenerator\SondageQuizForm');
+        $formDuplique =  $form->generateFormDuplicate($dupliqueSondage);
+        $formDuplique->handleRequest($request);
+        if ($formDuplique->isSubmitted() && $formDuplique->isValid()) {
+            if ($dupliqueSondage->getId() == $formDuplique->getData()->getDuplicationSourceId()) {
+                $manager = $this->get("adminBundle.sondagequizManager");
+                if ($manager->duplicate($dupliqueSondage, $formDuplique->getData()->getName())) {
+                    $data = $jsonResponseDataProvider->success();
+                    return new JsonResponse($data, 200);
+                } else {
+                    return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
+                }
+            } else {
+                return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
+            }
+        }
+
+        $content = $this->renderView(
+            'AdminBundle:Communication:duplicate.html.twig',
+            array(
+            'duplicateForm' => $formDuplique->createView()
+            )
+        );
+        $data = $jsonResponseDataProvider->success();
+        if ($formDuplique->isSubmitted() && !$formDuplique->isValid()) {
+            $data = $jsonResponseDataProvider->formError();
+        }
+        $data['content'] = $content;
+
+        return new JsonResponse($data, 200);
     }
 
     /**
@@ -2768,55 +2799,7 @@ class CommunicationController extends AdminController
         );
     }
 
-    /**
-     * @Route("/pre-sondage/dupliquer/{id}", requirements={"id": "\d+"}, name="admin_communication_pre_sondage_duplicate")
-     */
-    public function duplicatePreSondageAction(Request $request, $id)
-    {
-        $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $dataSondage = $em->getRepository("AdminBundle:SondagesQuizQuestionnaireInfos")
-            ->findOneById($id);
-        if (empty($editSondage)) {
-            return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
-        }
-        $formBuilder = $this->get("AdminBundle\Service\SondageQuiz\Common");
-        $form = $formBuilder->generateForm($dataSondage);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($dataSondage->getId() == $form->getData()->getDuplicationSourceId()) {
-                $manager = $this->get("adminBundle.sondagequizManager");
-                if ($manager->duplicate($dataSondage, $form->getData()->getName())) {
-                    $data = $jsonResponseDataProvider->success();
-                    return new JsonResponse($data, 200);
-                } else {
-                    return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
-                }
-            } else {
-                return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
-            }
-        }
-
-        $content = $this->renderView(
-            'AdminBundle:Communication/News:duplicate_news.html.twig',
-            array(
-            'duplicate_sondage_quiz_form' => $form->createView()
-            )
-        );//reste method duplicate and change duplicate.html.twig
-        $data = $jsonResponseDataProvider->success();
-        if ($form->isSubmitted() && !$form->isValid()) {
-            $data = $jsonResponseDataProvider->formError();
-        }
-        $data['content'] = $content;
-
-        return new JsonResponse($data, 200);
-    }
-
+    
     /**
      * @Route("/pre-sondage/supprimer/{id}", name="admin_communication_pre_sondage_delete")
      */
@@ -2876,7 +2859,7 @@ class CommunicationController extends AdminController
         $em = $this->getDoctrine()->getManager();
         $manager = $this->get("adminBundle.sondagequizManager");
         $statSondage = $manager->getElementStatistique($id);
-
+        dump($statSondage);
         if (empty($statSondage)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
@@ -2888,5 +2871,65 @@ class CommunicationController extends AdminController
         $data['content'] = $content;
         return new JsonResponse($data, 200);
     }
+
+        /**
+     * @Route("/pre-sondage/banniere/acceuil", name="admin_communication_pre_sondage_bannier")
+     */
+    public function bannierePreSondageAction(Request $request)
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $IsSondagesQuiz = false;
+        $SondagesQuizArray = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+        if (!isset($SondagesQuizArray[0])) {
+            $SondagesQuiz = new SondagesQuiz();
+        } else {
+            $SondagesQuiz = $SondagesQuizArray[0];
+            $IsSondagesQuiz = true;
+        }
+
+        //Formulaire d'ajout/edition sondages/quiz
+        $formSondagesQuiz = $this->createForm(
+            SondagesQuizType::class,
+            $SondagesQuiz,
+            array(
+            'action' => $this->generateUrl('admin_communication_pre_sondage_bannier'),
+            'method' => 'POST',
+            )
+        );
+
+        $formSondagesQuiz->handleRequest($request);
+        if ($formSondagesQuiz->isSubmitted() && $formSondagesQuiz->isValid()) {
+            $SondagesQuizData = $formSondagesQuiz->getData();
+            $SondagesQuizData->setProgram($program);
+            dump($SondagesQuizData);
+            $SondagesQuizData->upload($program);
+
+            if (!isset($SondagesQuizArray[0])) {
+                $SondagesQuizData->setDateCreation(new \DateTime());
+                $em->persist($SondagesQuizData);
+            }
+
+            $em->flush();
+            return $this->redirectToRoute('admin_communication_pre_sondage_bannier');
+        }
+
+       $IsBanniere = false;
+        $BannierePath = "";
+        if (!empty($SondagesQuiz->getPath())) {
+            $IsBanniere = true;
+            $BannierePath = $SondagesQuiz->getPath();
+        }
+        return $this->render('AdminBundle:Communication:banniere.html.twig',[
+        'formSondagesQuiz' => $formSondagesQuiz->createView(),
+        'IsBanniere' => $IsBanniere,
+        'BannierePath' => $BannierePath,
+        'IsSondagesQuiz' => $IsSondagesQuiz,]);
+    }
+
 
 }

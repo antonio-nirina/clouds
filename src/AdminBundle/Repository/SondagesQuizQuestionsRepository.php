@@ -27,7 +27,7 @@ class SondagesQuizQuestionsRepository extends EntityRepository
             ->where('sqi.id = :id')
             ->setParameter('id',$id);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getResult();
     }
 
 }

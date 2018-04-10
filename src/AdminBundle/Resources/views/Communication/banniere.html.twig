@@ -1,0 +1,189 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'AdminBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+            <link href="{{ asset("css/communications/sondages-quiz.css") }}" rel="stylesheet">
+            <link href="{{ asset("css/communications/pre-sondages.css") }}" rel="stylesheet">
+
+            <link href="{{ asset("jplist/css/jplist.core.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.textbox-filter.min.css") }}">
+            <link href="{{ asset("jplist/css/jplist.checkbox-dropdown.min.css") }}">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block main %}
+    {{ render(controller('AdminBundle:Communication:sidebar',{'active':5})) }}
+
+    <main class="col-md-9  offset-md-1 float-left main">
+
+        <div class = "row">
+            <div class = "col-12 col-md-12 sous-menu-main">
+                <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse menu-niv-3">
+                    <ul class="content-menu-niv-3 hidden-lg-up">
+                        <li class="nav-item-niv-3 form-inscription">
+                            <a class="nav-link-niv-3 menu-page-active" href="#">sondages / quiz</a>
+                            <span class = "bulle-aide"></span>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse" id="collapsingNavbarFormInscription">
+                        <ul class="navbar-nav content-menu-niv-3">
+                            <li class="nav-item-niv-3 form-inscription hidden-md-down">
+                                <a class="nav-link-niv-3 menu-page" href="{{path("admin_communication_pre_sondage")}}">sondages / quiz</a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                            <li class="nav-item-niv-3 form-inscription">
+                                <a class="nav-link-niv-3 menu-page-active" href="#">bannière d'accueil</a>
+                                <span class = "bulle-aide"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarFormInscription" style = "margin-right: 0;right: 0;color: #505050;border: 1px solid black;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand abs" href="#"></a>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <section  class = "fieldset active main-section">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                             <h3 class="hidden-sm-down block-title">Création de la bannière sondags et quiz</h3>
+                             <p class = "descr-sondage-quiz">Personnaliser votre bannière d'accueil.</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="hidden-sm-down corner-circle-img img-content-sondanges-quiz rounded-circle"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 titre-section-sondage-quiz">
+                            <span>Nom du menu et bannière haut de page</span>
+                        </div>
+                    </div>
+                    <div class = "row separator"></div>
+                    {#{% if IsSondagesQuiz %}
+                    <div class = "conteneur-menu-banniere-sondage-quiz" style = "display:none;">
+                    {% else %}#}
+                    <div class = "conteneur-menu-banniere-sondage-quiz">
+                    {#{% endif %}#}
+                        {{ form_start(formSondagesQuiz) }}
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label class="champForm">
+                                    <span class="lib-form">nom du menu</span>
+                                    {{ form_widget(formSondagesQuiz.nom_menu, {'attr': {'class': 'input-form-text'}}) }}
+                                    <span class="delete-input"></span>
+                                </label>
+                                {{ form_errors(formSondagesQuiz.nom_menu) }}
+                            </div>
+                        </div>                        
+                        <div class = "row separator"></div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12 col-sm-12 titre-section-sondage-quiz">
+                                <span>Bannière de haut de page</span>
+                            </div>
+                            
+                            <div class="col-lg-8 col-md-12 col-sm-12"></div>
+                        </div>                        
+                        <div class = "row separator"></div>                        
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label class="champForm">
+                                    <span class="lib-form">titre</span>
+                                    {{ form_widget(formSondagesQuiz.titre, {'attr': {'class': 'input-form-text'}}) }}
+                                    <span class="delete-input"></span>
+                                </label>
+                                {{ form_errors(formSondagesQuiz.titre) }}
+                            </div>
+                        </div>                        
+                        <div class = "row separator"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="champForm">
+                                    <span class="lib-form">image</span>
+                                    <div class = "action-btn">
+                                        
+                                        {% if IsBanniere %}
+                                            <button id="btn-upload-img-sondage-quiz" class="btn-valider-etat btn-upload choose-upload-img-button btn-upload-img-sondage-quiz" type="button" style = "margin:0;">
+                                                <span id="id-lib-upload" class="uploaded"></span> 
+                                                <span id="lib-btn-pages">{{ BannierePath }}</span>
+                                            </button>
+                                            <img id="img-delete-img-banniere" class="img-delete-img" src="/web/images/cloudsRewards/delete.png">
+                                        {% else %}
+                                            <button id="btn-upload-img-sondage-quiz" class="btn-valider btn-upload choose-upload-img-button btn-upload-img-sondage-quiz" type="button" style = "margin:0;">
+                                                <span id="id-lib-upload" class="upload"></span> 
+                                                <span id="lib-btn-pages">choisissez un fichier...</span>
+                                            </button>
+                                            
+                                            <div class="upload-img-button-container hidden-button">
+                                            <button class="upload-img-button hidden-button">
+                                                <span class="blue-upload"></span><span class="img-name-container"></span>
+                                            </button>
+                                        </div>
+                                        <a href="#" class="delete-link delete-form-header-image" style="display: none"></a>
+                                        <input type="hidden" name="initial_image" value="">
+                                        <input type="hidden" name="initial_image_name" value="">
+
+                                        {% endif %}
+
+                                        {{ form_widget(formSondagesQuiz.image, {'attr': {'class': 'input-upload-img-sondages-quizz'}}) }}
+                                        <div class="info-container">
+                                            <p>taille optimale de l'image : <span class="bigger">L 1024 X H 243px</span></p>
+                                            <p>les fichiers doivent peser moins de <span class="bigger">8 Mo</span></p>
+                                            <p>formats de fichier pris en charge : <span class="bigger">jpeg, png, gif</span></p>
+                                        </div>
+                                    </div>
+                                    <div style = "clear:both;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "row separator"></div>
+                        
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label class="champForm">
+                                    <span class="lib-form block">prévisualisation</span>
+                                    <span id="img-preview-15" class="previsualisation-im-sondage-quiz block">
+                                        {% if IsBanniere %}
+                                            <img id="img-preview" class = "img-preview" src="{{asset('/web/content/sondages_quiz/'~program.Id~'/'~BannierePath)}}" style = "display:block;" />
+                                        {% else %}
+                                            <img id="img-preview" class = "img-preview" src="#" />
+                                        {% endif %}
+                                    </span>
+                                </label>
+                            </div>
+                        </div>                       
+                        <div class = "row separator"></div>                       
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="champForm" style="text-align:center;">
+                                    <button class="btn-valider valider submit-form" name = "btn-submit-form-etape-1" type = "submit">
+                                        valider
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(formSondagesQuiz) }}
+                    </div>
+                </section>
+            </div>
+        </div>
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AdminBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+            <script src="{{ asset("minicolors/js/jquery.minicolors.js") }}"></script>               
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="{{ asset('datepicker/i18n/datepicker-fr.js') }}"></script>
+            <script src="{{ asset('js/communications/sondages-quiz.js') }}"></script> 
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

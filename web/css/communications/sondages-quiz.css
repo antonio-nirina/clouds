@@ -55,6 +55,16 @@ p.chargementAjax {
 	background-position: -91px -9px;
 }
 
+.delete-link{
+    background:url('../../images/cloudsRewards/delete.png') no-repeat;
+    height: 21px;
+    width: 16px;
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
+}
+
 p.descr-sondage-quiz{
 	font-size: 13px;
 	color: var(--couleur_4);
@@ -63,7 +73,8 @@ p.descr-sondage-quiz{
 
 .titre-section-sondage-quiz span {
     color: var(--couleur_2);
-    font-family: var(--police_bold);
+    /*font-family: var(--police_bold);*/
+    font-family: var(--police_light);
 }
 
 section div.ligne-separator::after {
@@ -302,8 +313,11 @@ span.corbeil-input{
     display: inline-block;
     cursor: pointer;
 	position: absolute;
-	margin-left: 10px;
-	right: 36px;
+	/*margin-left: 10px;*/
+	/*right: 36px;*/
+	margin-left: 19px;
+	top: 7px;
+	
 }
 
 .input-form-text-reponse-sondages{

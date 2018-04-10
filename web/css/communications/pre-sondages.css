@@ -138,6 +138,106 @@
      display: none !important;
 }
 /***************************************************************************************/
+/**************************************************************************************/
+.app-dialog .content-container {
+    padding: 0 80px;
+    width: 100%;
+}
+
+/**
+ * duplication template
+ */
+.app-dialog .modal-body-container form{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.app-dialog .dialog-title{
+    color: var(--couleur_2);
+    font-size: 25px;
+}
+
+.app-dialog .content-container {
+    padding: 0 80px;
+    width: 100%;
+}
+
+.app-dialog .content-container.large {
+    padding: 0 20px;
+    width: 100%;
+}
+
+.app-dialog .modal-body-container{
+    padding-bottom: 35px;
+}
+
+.app-dialog .error-message-container.centered-message{
+    text-align: center;
+}
+
+.app-dialog .submit-button-container{
+    justify-content: center;
+}
+
+.app-dialog .modal-body-container form{
+    max-width: 100%;
+    width: 100%;
+}
+
+.app-dialog .form-element-container{
+    margin-top: 20px;
+    display: flex;
+}
+
+.app-dialog .form-element-container .input-container{
+    margin-left: 10px;
+}
+
+.app-dialog .form-element-container .error-message-container{
+    margin-left: 10px;
+}
+
+#save-template-on-close-dialog.app-dialog .button-container{
+    margin-bottom: 20px;
+}
+
+.app-dialog .save{
+    margin-right: 40px;
+}
+
+.app-dialog .cancel{
+    margin-left: 40px;
+}
+
+.app-dialog .form-element-container .input-text1.semi-large-input-text{
+    width: 250px;
+}
+
+.input-text1{
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+    width:60%;
+}
+
+.delete-input {
+    width: 25px;
+    height: 25px;
+    background: url('../../images/cloudsRewards/close-table.png') center center no-repeat;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-left: 10px;
+    float: right;
+}
+
+.new-duplicate{
+    margin-top: .3em;
+}
+
+/*************************************************************************************/
 
 .fieldset.active{
     margin-top:10px;

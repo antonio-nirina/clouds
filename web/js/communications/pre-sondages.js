@@ -571,6 +571,7 @@ $(document).ready(function(){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var url = $(this).attr('data-url');
+        console.log(url)
         $.ajax({
             type: 'POST',
             url: url,
@@ -596,6 +597,54 @@ $(document).ready(function(){
             }
 
         });
+    });
+
+    // duplication, soumission
+    $(document).on('click', '#duplicate-news-modal .save.save-duplication', function(e){
+        e.preventDefault();
+        $('.chargementAjax').removeClass('hidden');
+        var duplicate_template_url = $(this).attr('data-target-url');
+        var redirect_target = $('input[name=list-url]').val();
+        $('#duplicate-news-modal form').ajaxSubmit({
+            type: 'POST',
+            url: duplicate_template_url,
+            success: function(data){
+                if(data['error']){
+                    $('#duplicate-news-modal').find('.modal-body-container').html(data.content);
+                    $('#duplicate-news-modal').find('.general-message').html('');
+                } else {
+                    window.location.replace(redirect_target);
+                }
+            },
+            error: function(){
+                $('#duplicate-template-dialog').find('.close-modal').show();
+            },
+            statusCode: {
+                404: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+
+                },
+                500: function(data){
+                    $('#duplicate-news-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    $('#duplicate-news-modal').find('.error-message-container.general-message').text(message);
+                }
+            },
+            complete: function(){
+                $('.chargementAjax').addClass('hidden');
+            }
+
+        });
+    });
+
+     // duplication, annulation
+    $(document).on('click', '#duplicate-news-modal .cancel', function(e){
+        e.preventDefault();
+        $('#duplicate-news-modal').find('.modal-body-container').html('');
+        $('#duplicate-news-modal').find('.error-message-container.general-message').text('');
+        $('#duplicate-news-modal').modal('hide');
     });
 
 

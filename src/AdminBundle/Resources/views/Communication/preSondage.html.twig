@@ -7,7 +7,6 @@
             <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
             <link href="{{ asset("css/communications/sondages-quiz.css") }}" rel="stylesheet">
             <link href="{{ asset("css/communications/pre-sondages.css") }}" rel="stylesheet">
-
             <link href="{{ asset("jplist/css/jplist.core.min.css") }}">
             <link href="{{ asset("jplist/css/jplist.textbox-filter.min.css") }}">
             <link href="{{ asset("jplist/css/jplist.checkbox-dropdown.min.css") }}">
@@ -36,7 +35,7 @@
                                 <span class = "bulle-aide"></span>
                             </li>
                             <li class="nav-item-niv-3 form-inscription">
-                                <a class="nav-link-niv-3 menu-page" href="#">bannière d'accueil</a>
+                                <a class="nav-link-niv-3 menu-page" {#href="{{path("admin_communication_pre_sondage_bannier")}}"#}>bannière d'accueil</a>
                                 <span class = "bulle-aide"></span>
                             </li>
                         </ul>
@@ -147,13 +146,10 @@
                                 <div class="col-12 col-lg-9 nom-test">
                                     <div class="data-container">
                                             <div>
-                                                {#<label class="radioChecked notChecked">
-                                                    <input type="checkbox" name="radio" class="styled-checkbox bigger" style="display:none">
-                                                </label>#}
                                                 <div>
-                                                <input id="{{ view.id }}" type="checkbox" class="styled-checkbox bigger">
-                                                <label for="{{ view.id }}"></label>
-                                            </div>
+                                                    <input id="{{ view.id }}" type="checkbox" class="styled-checkbox bigger">
+                                                    <label for="{{ view.id }}"></label>
+                                                 </div>
                                             </div>
                                                 {% if view.estPublier == true %}                           
                                                 <div class="hidden-sm-down quest-image"></div>
@@ -217,7 +213,7 @@
                                         <div class="dropdown-menu action-menu" aria-labelledby="dropdownMenuAction">
                                             <a class="dropdown-item edit-pre-sondage" href="#" data-url = "{{path("admin_communication_pre_sondage_edit",{"id":view.id})}}" data-title = "">EDITER</a>
                                              <a class="dropdown-item publier-pre-sondage" href="#" data-url = "{{ path("admin_communication_pre_sondage_publier", {"id": view.id}) }}">PUBLIER</a>
-                                                <a class="dropdown-item action-menu duplique-pre-sondage" href="#" data-target-url="{{ path('admin_communication_pre_sondage_duplicate', {"id": view.id}) }}">DUPLIQUER</a>
+                                                <a class="dropdown-item action-menu duplique-pre-sondage" href="#" data-url="{{ path('admin_communication_pre_sondage_duplicate', {"id": view.id}) }}">DUPLIQUER</a>
                                             <a class="dropdown-item archived-pre-sondage" data-url = "{{ path('admin_communication_pre_sondage_archive', {"id": view.id}) }}" style = "cursor:pointer;">ARCHIVER</a>
                                             <a class="dropdown-item action-menu delete-pre-sondage" href="#" data-url = "{{ path('admin_communication_pre_sondage_delete', {"id": view.id}) }}">
                                             SUPPRIMER</a>

@@ -109,14 +109,6 @@ class SondageQuizManager
     }
 
     /**
-     * @param $data
-     * @param $form
-     */
-    public function duplicate($data, $form)
-    {
-    }
-
-    /**
      * @param $idList
      * @param $actionType
      */
@@ -142,16 +134,44 @@ class SondageQuizManager
 
     /**
      * @param $id
-     * 
+     *
+     * @return array
      */
     public function getElementStatistique($id)
     {
         $results =  $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestions")->getResultsQuestions($id);
-        $reponseSondage = $this->em->getRepository("AdminBundle\Entity\SondagesQuizReponses")
-                        ->getReponseByQuestion($results->getId());
-
+        foreach ($results as $key => $value) {
+            $reponseSondage = $this->em->getRepository("AdminBundle\Entity\SondagesQuizReponses")
+                        ->getReponseByQuestion($value->getId());
+        }
+        
         return ["questions"=>$results,"reponse"=>$reponseSondage];
        
+    }
+
+    /**
+     * @param  $data
+     * @param $title
+     */
+    public function duplicate($data,$title)
+    {
+        $copy = $this->newSondageQuizInfoDuplication($data,$title);
+        $this->em->persist($copy);
+        $this->em->flush();
+        return true;
+    }
+
+    /**
+     * @param  $obj
+     * @param $title
+     */
+    protected function newSondageQuizInfoDuplication($obj,$title)
+    {
+        $newSondageQuizInfo = clone $obj; 
+        $newSondageQuizInfo->setTitreQuestionnaire($title);
+        $newSondageQuizInfo->setEstPublier(false);
+        $newSondageQuizInfo->setViewNumber(0);
+        return $newSondageQuizInfo;
     }
 
     
