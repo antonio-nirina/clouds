@@ -12,10 +12,12 @@ use AdminBundle\DTO\CampaignDraftData;
 use AdminBundle\DTO\ComEmailTemplateDuplicationData;
 use AdminBundle\DTO\DuplicationData;
 use AdminBundle\Entity\ComEmailTemplate;
+use AdminBundle\Entity\ELearningHomeBanner;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Form\CampaignDateType;
 use AdminBundle\Form\CampaignDraftType;
 use AdminBundle\Form\ComEmailTemplateType;
+use AdminBundle\Form\ELearningHomeBannerType;
 use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -127,9 +129,11 @@ class CommunicationController extends AdminController
      */
     public function deleteEditorialAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
-            return new Response('');
+            return $this->redirectToRoute('fos_user_security_logout');
         }
 
         $edito_manager = $this->get('AdminBundle\Manager\HomePagePostEditoManager');
@@ -2464,9 +2468,66 @@ class CommunicationController extends AdminController
      *
      * @Route("/e-learning/banniere-accueil", name="admin_communication_e_learning_welcoming_banner")
      */
-    public function eLearningWelcomingBannerAction()
+    public function eLearningWelcomingBannerAction(Request $request)
     {
-        return $this->render('AdminBundle:Communication:e_learning_welcoming_banner.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $currentHeaderImage = null;
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $ElearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
+        if (empty($ElearningBanner)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $currentHeaderImage = $ElearningBanner->getImageFile();
+        $formElearningBanner = $this->createForm(ELearningHomeBannerType::class, $ElearningBanner);
+        $formElearningBanner ->handleRequest($request);
+
+        if ($request->isMethod('POST')) {
+            if ($formElearningBanner->isSubmitted() && $formElearningBanner->isValid()) {
+                $banner_image_file = $ElearningBanner->getImageFile();
+                if (!is_null($banner_image_file)) {
+                    $banner_image_file->move(
+                        $this->getParameter("e_learning_media_document_dir"),
+                        $banner_image_file->getClientOriginalName()
+                    );
+                    $ElearningBanner->setImageFile($banner_image_file->getClientOriginalName());
+                } else {
+                    $ElearningBanner->setImageFile($currentHeaderImage);
+                }
+
+                $menuName = $formElearningBanner->get('menuName')->getData();
+                $imageTitle = $formElearningBanner->get('imageTitle')->getData();
+                $ElearningBanner->setMenuName($menuName);
+                $ElearningBanner->setImageTitle($imageTitle);
+
+                if (!empty($formElearningBanner->get('menuName')->getData())
+                    && "true" == $formElearningBanner->get('imageTitle')->getData()
+                ) {
+                    $filesystem = $this->get('filesystem');
+                    $image_path = $this->getParameter('e_learning_media_document_dir')
+                        . '/'
+                        . $ElearningBanner->getImageFile();
+                    if ($filesystem->exists($image_path)) {
+                        $filesystem->remove($image_path);
+                    }
+                    $ElearningBanner->setImageFile(null);
+                }
+                $em->flush();
+
+                return $this->redirectToRoute('admin_communication_e_learning_welcoming_banner');
+            }
+        }
+
+        return $this->render('AdminBundle:Communication:e_learning_welcoming_banner.html.twig' ,
+            array(
+                "elearning_data_form" =>  $formElearningBanner->createView(),
+                "current_header_image" => $currentHeaderImage,
+            )
+        );
     }
 
     /**
