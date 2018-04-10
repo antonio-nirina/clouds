@@ -3,7 +3,7 @@
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbarNiv1">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="col-lg-8 offset-lg-2 logo-logout">
+	<div class="container-register logo-logout">
 		<div class="log">{{ render(controller("AdminBundle:Parametrages:logoLogin")) }}</div>
 		<div class="logout hidden-sm-down">
 			<a href="{{ path("fos_user_security_logout") }}"></a>
@@ -15,14 +15,14 @@
 	{% trans_default_domain 'FOSUserBundle' %}
 	<div class="container slide all">
 		<div class="row">
-			<div class="col-lg-8 col-md-8 col-sm-10 col-xs-10 offset-md-2 offset-sm-1 offset-lg-2" >
+			<div class="container-register">
 				<div class="row">
-					<div class="col-12 col-md-12 challenge hidden-sm-down">
+					<div class="col-md-12 challenge hidden-sm-down">
 						<div class="image-slide"></div>
 					</div>
 				</div>
 				<div class="row">
-					<div id="ens" class = "col-12 fieldset active" style="background-color:white;">
+					<div id="ens" class="fieldset active">
 						<div class="row">
 							<div class="col-md-6 inscription"><h4>formulaire d'inscription</h4></div>
 							<div class="col-md-6 salut">
@@ -41,130 +41,128 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-10 offset-md-1 form">
 								{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}	
-							 <div class="row civility ">
-							 	<div class="col-xl-4 col-lg-6 col-sm-3  col-md-6 col-form-label col-form-label-sm cv-label label-position">
+							 <div class="form-group row civility">
+							 	<div class="col-md-4 label-position">
 							 		{{form_label(form.civility,'civilité*',{ 'label_attr': {'class':"lab" } })}}
 							 	</div>
-							 	<div class=" col-xl-8 col-lg-6 col-sm-6 col-xs-12 col-md-6 checkbox">
-								 	<label>
-								 		{{form_widget(form.civility, { 'attr' : { 'class': '' } })}}							 		 
-								 	</label>
+							 	<div class=" col-md-8 checkbox">
+									{{form_widget(form.civility, { 'attr' : { 'class': '' } })}}
 							 	</div>							   
 							  </div>
 							    <div class="form-group row ">
-							    	<div class="col-xl-4 col-lg-6 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							    	<div class="col-md-4 label-position">
 							    		{{form_label(form.name,'prénom*',{ 'label_attr': {'class': ''} })}}
 							    	</div>							    	
-							    	<div class="col-xl-8 col-lg-6 col-md-6 col-xs-12 col-sm-12 text-danger">
+							    	<div class="col-md-8 text-danger">
 							    		{{form_widget(form.name,{ 'attr' : { 'class': 'form-control' } })}}
 							    		{{ form_errors(form.name) }}
 							    	</div>
 							    	
 							    </div>
 							     <div class="form-group row">
-							     	<div class="col-xl-4 col-lg-6 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							     	<div class="col-md-4 label-position">
 							     		{{form_label(form.firstname,'nom*',{ 'label_attr': {'class': ''} })}}
 							     	</div>
-							     	<div class="col-xl-8 col-lg-6 col-md-6 col-xs-12 col-sm-12 text-danger">
+							     	<div class="col-md-8 text-danger">
 							     		{{form_widget(form.firstname,{ 'attr' : { 'class': 'form-control' } })}}
 							     		{{form_errors(form.firstname)}}	
 							     	</div>
 							     					    	
 							    </div>
 							    <div class="form-group row ">
-							    	<div class="col-xl-4 col-lg-6 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							    	<div class="col-md-4 label-position">
 							    	{{form_label(form.email.first,'email*',{ 'label_attr': {'class': ''} })}}
 							    </div>
-							    	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger emailErreur">
+							    	<div class="col-md-8 text-danger emailErreur">
 							    		{{form_widget(form.email.first,{ 'attr' : { 'class': 'form-control' } }) }}
 							    		{{ form_errors(form.email.first) }}
 							    	</div>
 							    					    	
 							    </div>
 							    <div class="form-group row ">
-							    	<div class="col-xl-4 col-lg-6 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							    	<div class="col-md-4 label-position">
 							    	{{form_label(form.email.second,'confirmation e-email*',{ 'label_attr': {'class': ''} })}}
 									</div>
-							    	<div class="col-lg-6  col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger emailErreur">
+							    	<div class="col-md-8 text-danger emailErreur">
 							    		{{form_widget(form.email.second,{ 'attr' : { 'class': 'form-control' } }) }}
 							    		{{ form_errors(form.email.second) }}
 							    	</div>							    						    	
 							    </div>
 							     <div class="form-group row">
-							     	<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							     	<div class="col-md-4 label-position">
 							     	{{form_label(form.phone,'téléphone*',{ 'label_attr': {'class': ''} })}}
 							     	</div>
-							     	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger">
+							     	<div class="col-md-8 text-danger">
 							     		{{form_widget(form.phone,{ 'attr' : { 'class': 'form-control' } })}}
 							     		{{ form_errors(form.phone) }}	
 							     	</div>
 							     					    	
 								</div>
 								<div class="form-group row">
-									<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+									<div class="col-md-4 label-position">
 							{{form_label(form.plainPassword.first,'mot de passe*',{ 'label_attr': {'class': ''} })}}
 									</div>
-									<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger password">
+									<div class="col-md-8 text-danger password">
 										{{form_widget(form.plainPassword.first,{ 'attr' : { 'class': 'form-control' } }) }}
 										{{ form_errors(form.plainPassword.first) }}
 									</div>
 									
 								</div>
 							   <div class="form-group row ">
-							   	<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							   	<div class="col-md-4 label-position">
 							 {{form_label(form.plainPassword.second,'confirmation mot de passe*',{ 'label_attr': {'class': ''} })}}
 							   	</div>
-							   	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger password">
+							   	<div class="col-md-8 text-danger password">
 							   		{{form_widget(form.plainPassword.second,{ 'attr' : { 'class': 'form-control' } }) }}
 							   		{{ form_errors(form.plainPassword.second)}}
 							   	</div>
 							   	
 							   </div>
 							    <div class="form-group row">
-							    	<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							    	<div class="col-md-4 label-position">
 							    	{{form_label(form.societe,'société*',{ 'label_attr': {'class': ''} })}}
 							    	</div>
-							    	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger">
+							    	<div class="col-md-8 text-danger">
 							    		 {{form_widget(form.societe,{ 'attr' : { 'class': 'form-control' } })}}
 							    		 {{ form_errors(form.societe) }}
 							    	</div>
 							    	
 							    </div>
 							   <div class="form-group row ">
-							   	<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							   	<div class="col-md-4 label-position">
 							   	{{form_label(form.address_1,'adresse postal*',{ 'label_attr': {'class': ''} })}}
 							   </div>
-							   	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12text-danger">
+							   	<div class="col-md-8 text-danger">
 							   		{{form_widget(form.address_1,{ 'attr' : { 'class': 'form-control' } })}}
 							   		{{ form_errors(form.address_1) }}
 							   	</div>
 							   
 							   </div>
 							    <div class="form-group row">
-							    	<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							    	<div class="col-md-4 label-position">
 							    		{{form_label(form.postal_code,'code postal*',{ 'label_attr': {'class': ''} })}}
 							    	</div>
-							    	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger">
+							    	<div class="col-md-8 text-danger">
 							    		{{form_widget(form.postal_code,{ 'attr' : { 'class': 'form-control' } })}}
 							    		{{ form_errors(form.postal_code) }}
 							    	</div>
 							    	
 							    </div>
 							    <div class="form-group row">
-							    	<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							    	<div class="col-md-4 label-position">
 							    	{{form_label(form.city,'ville*',{ 'label_attr': {'class': ''} })}}
 							    	</div>
-							    	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger">
+							    	<div class="col-md-8 text-danger">
 							    		{{form_widget(form.city,{ 'attr' : { 'class': 'form-control' } })}}
 							    		 {{ form_errors(form.city) }}
 							    	</div>
 							    	
 							    </div>
-							    <div class="row ">
-							    	<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position ">
+							    <div class="form-group row">
+							    	<div class="col-md-4 label-position ">
 							    		{{form_label(form.accepte,'acceptation du réglement*',{ 'label_attr': {'class': ''} })}}
 							    	</div>
-							    	<div class="col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-4 text-danger accepte">
+							    	<div class="col-md-8 text-danger accepte">
 							    		{{form_widget(form.accepte)}}
 							    	</div>
 							    </div>
@@ -172,16 +170,16 @@
 								    {% for nom in name %}
 							    		{% if form.vars["form"].children[nom].children is empty %}
 							    			<div class="form-group row ">
-							    				<div class="col-lg-6 col-xl-4 col-sm-6 col-md-6 col-form-label col-form-label-sm label-position">
+							    				<div class="col-md-4 label-position">
 							    				{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"])}}
 							    				</div>						    			
-								    			<div class = "col-lg-6 col-xl-8 col-md-6 col-xs-12 col-sm-12 text-danger">
+								    			<div class = "col-md-8 text-danger">
 								    				{{form_widget(form.vars["form"].children[nom],{ 'attr' : { 'class': 'form-control' } })}}
 								    				{{ form_errors(form.vars["form"].children[nom]) }}
 								    			</div>				    	
 								    		</div>
 								    	{% else %}
-								    	<div class="row civility ">
+								    	<div class="form-group row civility">
 								    		<div class="col-lg-6 col-xl-4 col-sm-3 col-md-6 col-form-label col-form-label-sm cv-label label-position">
 								    			{{form_label(form.vars["form"].children[nom],form.vars["form"].children[nom].vars["label"])}}
 								    		</div>
@@ -198,7 +196,7 @@
 							   	<div class="col-12 text-danger recaptErreur">
 							   		{{ form_errors(form.recaptcha) }}	
 							   	</div>
-							    <div class="col-xl-6 offset-xl-3 col-xs-6 offset-xs-3 col-sm-6 offset-sm-3 col-md-6 offset-md-3 recapt col-lg-6 offset-lg-3 ">							    	
+							    <div class="col-sm-6 offset-sm-3 recapt">							    	
 							    	{{form_widget(form.recaptcha,{'attr': {'class': 'recaptcha'}})}}
 							    </div>		
 						   	</div>
