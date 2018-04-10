@@ -45,15 +45,5 @@ class Common
         return $object;
     }
 
-    /**
-     * @param $data
-     */
-    public function generateForm($data)
-    {
-        $sondageQuiz = new SondagesQuizQuestionnaireInfos();
-        $sondageQuiz->setTitreQuestionnaire($data->getTitre());
-        $name = "duplicationForm";
-        $form = $this->form->createNamed($name, DuplicationForm::class, $sondageQuiz);
-        return $form;
-    }
+   
 }
