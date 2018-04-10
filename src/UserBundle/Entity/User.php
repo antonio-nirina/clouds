@@ -193,10 +193,11 @@ class User extends BaseUser
      */
     public function __construct()
     {
+        parent::__construct();
         $this->resultats_sondages_quiz = new ArrayCollection();
     }
 
-/**
+    /**
      * @ORM\PrePersist
      */
     public function initTemporaryPwd()
