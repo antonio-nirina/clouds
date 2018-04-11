@@ -131,7 +131,6 @@ class SondageQuizManager
         return;
     }
 
-
     /**
      * @param $id
      *
@@ -139,13 +138,29 @@ class SondageQuizManager
      */
     public function getElementStatistique($id)
     {
-        $results =  $this->em->getRepository("AdminBundle\Entity\SondagesQuizQuestions")->getResultsQuestions($id);
-        foreach ($results as $key => $value) {
-            $reponseSondage = $this->em->getRepository("AdminBundle\Entity\SondagesQuizReponses")
-                        ->getReponseByQuestion($value->getId());
+        $results =  $this->em->getRepository("AdminBundle\Entity\ResultatsSondagesQuiz")->getResultsQuestions($id);
+        if (!empty($results)) {
+            $sondageInfos = $results[0]->getSondagesQuizQuestionnaireInfos();
+            foreach ($results as $key => $value) {
+               $questions[] = $value->getSondagesQuizQuestions();
+               $reponses[] = $value->getSondagesQuizReponses();
+            }
+            foreach ($questions as  $quest) {
+                $valId[] = $quest->getId();
+            }
+            $nbreQuestion = count(array_count_values($valId));
+            $nbreReponse = count($reponses);
+            
+            return [
+                "sondageInfos"=>$sondageInfos,
+                "questions"=>$questions,
+                "reponses"=>$reponses,
+                "nbreQuest"=>$nbreQuestion,
+                "nbreReponse"=>$nbreReponse];
+        } else {
+            return "";
         }
-        
-        return ["questions"=>$results,"reponse"=>$reponseSondage];
+
        
     }
 
