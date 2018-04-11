@@ -118,19 +118,8 @@
                                             <button id="btn-upload-img-sondage-quiz" class="btn-valider btn-upload choose-upload-img-button btn-upload-img-sondage-quiz" type="button" style = "margin:0;">
                                                 <span id="id-lib-upload" class="upload"></span> 
                                                 <span id="lib-btn-pages">choisissez un fichier...</span>
-                                            </button>
-                                            
-                                            <div class="upload-img-button-container hidden-button">
-                                            <button class="upload-img-button hidden-button">
-                                                <span class="blue-upload"></span><span class="img-name-container"></span>
-                                            </button>
-                                        </div>
-                                        <a href="#" class="delete-link delete-form-header-image" style="display: none"></a>
-                                        <input type="hidden" name="initial_image" value="">
-                                        <input type="hidden" name="initial_image_name" value="">
-
+                                           </button>
                                         {% endif %}
-
                                         {{ form_widget(formSondagesQuiz.image, {'attr': {'class': 'input-upload-img-sondages-quizz'}}) }}
                                         <div class="info-container">
                                             <p>taille optimale de l'image : <span class="bigger">L 1024 X H 243px</span></p>
@@ -173,6 +162,13 @@
                 </section>
             </div>
         </div>
+    </main>
+    <p class = "chargementAjax hidden">
+        <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+    </p>
+    <input id = "UrlDeleteBanniere" type = "hidden" name = "UrlDeleteBanniere" value = "{{ path("admin_communication_sondage_quiz_delete_banniere") }}">
+    <input id = "UriDeleteQuestions" type = "hidden" name = "UriDeleteQuestions" value = "{{ path("admin_communication_sondage_quiz_delete_questions") }}">
+    <input id = "UriSondagesQuiz" type = "hidden" name = "UriSondagesQuiz" value = "{{ path("admin_communication_sondage_quiz") }}">
 {% endblock %}
 
 {% block footer %}

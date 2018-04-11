@@ -156,23 +156,9 @@ $(document).ready(function(){
 	//Previsualiser l'image
 	$(document).on('change', 'input#sondages_quiz_image', function(){
 		readURL(this);
-		var image_file_name = $(this).val().split('\\').pop();
-        $('.upload-img-button').css('background-position', '15px');
-        $('.upload-img-button').find('.img-name-container').text(image_file_name);
-        $('.upload-img-button').removeClass('hidden-button');
-        $('.upload-img-button-container').removeClass('hidden-button');
-        $('.btn-upload.choose-upload-img-button').addClass('hidden-button');
-        $('.header-preview-container').removeClass('no-image');
-        $(this).parent().find('.delete-link').show();
+		
 	});
-	// click delete
-	$(document).on('click', '.delete-form-header-image', function(e){
-        e.preventDefault();
-       $(this).parents().find('.upload-img-button-container').addClass('hidden-button');
-       $(this).hide();
-       $('.champForm img#img-preview').css('display','none');
-       $('.btn-upload.choose-upload-img-button').removeClass('hidden-button');
-    });
+	
 	//Trie des reponses 'up'
 	$(document).on('click', 'a.reorder-up-field-row-link', function(){
 		var AttrId = $(this).attr('id');
