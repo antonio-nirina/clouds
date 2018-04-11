@@ -2967,9 +2967,7 @@ class CommunicationController extends AdminController
         if ($formSondagesQuiz->isSubmitted() && $formSondagesQuiz->isValid()) {
             $SondagesQuizData = $formSondagesQuiz->getData();
             $SondagesQuizData->setProgram($program);
-            dump($SondagesQuizData);
             $SondagesQuizData->upload($program);
-
             if (!isset($SondagesQuizArray[0])) {
                 $SondagesQuizData->setDateCreation(new \DateTime());
                 $em->persist($SondagesQuizData);
@@ -2989,6 +2987,7 @@ class CommunicationController extends AdminController
         'formSondagesQuiz' => $formSondagesQuiz->createView(),
         'IsBanniere' => $IsBanniere,
         'BannierePath' => $BannierePath,
+        'program' => $program,
         'IsSondagesQuiz' => $IsSondagesQuiz,]);
     }
 
