@@ -162,6 +162,13 @@
                 </section>
             </div>
         </div>
+    </main>
+    <p class = "chargementAjax hidden">
+        <img src = "{{ asset('images/cloudsRewards/loading.gif') }}" alt = "Chargements ...." class = "img-fluid">
+    </p>
+    <input id = "UrlDeleteBanniere" type = "hidden" name = "UrlDeleteBanniere" value = "{{ path("admin_communication_sondage_quiz_delete_banniere") }}">
+    <input id = "UriDeleteQuestions" type = "hidden" name = "UriDeleteQuestions" value = "{{ path("admin_communication_sondage_quiz_delete_questions") }}">
+    <input id = "UriSondagesQuiz" type = "hidden" name = "UriSondagesQuiz" value = "{{ path("admin_communication_sondage_quiz") }}">
 {% endblock %}
 
 {% block footer %}
