@@ -1,0 +1,49 @@
+{% extends "BeneficiaryBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'BeneficiaryBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link rel="stylesheet" href="{{ asset('bundles/beneficiary/css/acceuil.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/beneficiary/css/swiper.css') }}">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block slide %}
+    <div class="container bg-slide" style={{ (background_link)?"background:none":"" }}>
+        {% if background_link %}
+            <div class="background">
+                <img src="{{ asset(background_link|imagine_filter('1920_width_filter')) }}">
+                <div></div>
+            </div>
+        {% else %}
+            <div class="background upper">
+                <div></div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-12 content-body">
+                <div class = "slide-lefter">&nbsp;</div>
+                <div class = "slide-righter">&nbsp;</div>
+                <div class = "slide">
+                    <div class = "img-entete-page-standard">
+                        {% if elearning_banner.imageFile != '' %}
+                            <img class = "src-entete-page-standard" src = "{{asset(e_learning_media_document_location ~ elearning_banner.imageFile)}}" alt = "entete">
+                            <span class="slide-message white">{{ elearning_banner.imageTitle }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% embed 'BeneficiaryBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('bundles/beneficiary/js/acceuil.js') }}"></script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
