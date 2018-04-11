@@ -24,12 +24,16 @@
         {{ form_widget(duplicateForm.duplication_source_id, {"attr": {"class": "duplication-source-id"}}) }}
     </div>
     <div class="button-container">
-        <button class ="btn-valider save save-duplication" data-target-url="{{ path("admin_communication_pre_sondage_duplicate", {"id": duplicateForm.vars.value.duplicationSourceId}) }}">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+            <button class ="btn-valider save save-duplication" data-target-url="{{ path("admin_communication_pre_sondage_duplicate", {"id": duplicateForm.vars.value.duplicationSourceId}) }}">
             enregistrer
-        </button>
-        <button class ="btn-valider cancel cancel-duplication">
-            annuler
-        </button>
+            </button>
+            <button class ="btn-valider cancel cancel-duplication">
+                annuler
+            </button>
+            </div>
+        </div>
     </div>
     {{ form_end(duplicateForm) }}
 {% endif %}

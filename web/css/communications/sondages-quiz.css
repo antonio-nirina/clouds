@@ -313,10 +313,10 @@ span.corbeil-input{
     display: inline-block;
     cursor: pointer;
 	position: absolute;
-	/*margin-left: 10px;*/
-	/*right: 36px;*/
-	margin-left: 19px;
-	top: 7px;
+	margin-left: 10px;
+	right: 36px;
+	/*margin-left: 19px;
+	top: 7px;*/
 	
 }
 

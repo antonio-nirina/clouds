@@ -2933,7 +2933,7 @@ class CommunicationController extends AdminController
         return new JsonResponse($data, 200);
     }
 
-        /**
+    /**
      * @Route("/pre-sondage/banniere/acceuil", name="admin_communication_pre_sondage_bannier")
      */
     public function bannierePreSondageAction(Request $request)
