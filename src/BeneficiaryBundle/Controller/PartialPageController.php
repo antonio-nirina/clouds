@@ -58,4 +58,38 @@ class PartialPageController extends Controller
             )
         );
     }
+
+    /**
+     * Partial page showing account block action
+     *
+     * @return Response
+     */
+    public function accountBlockAction()
+    {
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return new Response();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $programUser = $em->getRepository('AdminBundle\Entity\ProgramUser')->findOneBy(array(
+            'program' => $program,
+            'specialUseCaseState' => true,
+        ));
+        if (is_null($programUser)) {
+            return new Response();
+        }
+        $appUser = $programUser->getAppUser();
+        if (is_null($appUser)) {
+            return new Response();
+        }
+        $userPoints = $em->getRepository('AdminBundle\Entity\UserPoint')->findBy(
+            array('program_user' => $programUser),
+            array('date' => 'DESC')
+        );
+
+        return $this->render('BeneficiaryBundle:PartialPage:account_block.html.twig', array(
+            'app_user' => $appUser,
+            'user_point' => !empty($userPoints) ? $userPoints[0] : null,
+        ));
+    }
 }

@@ -11,6 +11,7 @@ use Liuggio\ExcelBundle\Factory as PHPExcelFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use AdminBundle\Entity\Program;
 
 class ResultSettingHandler
 {
@@ -22,6 +23,7 @@ class ResultSettingHandler
     private $filesystem;
     private $csv_handler;
     private $schema_checker;
+    private $program;
 
     public function __construct(
         ContainerInterface $container,
@@ -40,6 +42,16 @@ class ResultSettingHandler
         $this->schema_checker = $schema_checker;
     }
 
+    /**
+     * Set program
+     *
+     * @param Program $program
+     */
+    public function setProgram(Program $program)
+    {
+        $this->program = $program;
+    }
+
     public function getErrorList()
     {
         return $this->error_list;
@@ -55,6 +67,8 @@ class ResultSettingHandler
         $monthly = $this->result_setting->getMonthly();
         $by_product = $this->result_setting->getByProduct();
         $by_rank = $this->result_setting->getByRank();
+
+        $this->model->setProgram($this->program);
         $this->model->save($monthly, $by_product, $by_rank);
 
         $error_list = $this->schema_checker->check($this->model, $data_import_file);
