@@ -28,6 +28,12 @@ class SchemaChecker extends CSVFileContentBrowser
     const ERROR_INVALID_DATA_FORMAT = "Format de donnée invalide.";
     const ERROR_MISSING_VALUE_ON_MANDATORY_FIELD = "Donnée absent sur champ obligatoire.";
 
+    /**
+     * SchemaChecker constructor.
+     * @param CSVHandler $csvHandler
+     * @param EntityManager $manager
+     * @param ValidatorInterface $validator
+     */
     public function __construct(CSVHandler $csvHandler, EntityManager $manager, ValidatorInterface $validator)
     {
         parent::__construct($csvHandler);
@@ -38,17 +44,26 @@ class SchemaChecker extends CSVFileContentBrowser
         $this->validator = $validator;
     }
 
+    /**
+     * @param SiteFormSetting $siteFormSetting
+     */
     public function setSiteFormSetting(SiteFormSetting $siteFormSetting)
     {
         $this->siteFormSetting = $siteFormSetting;
     }
 
+    /**
+     * @param $error
+     */
     protected function addError($error)
     {
         array_push($this->errorList, $error);
         return;
     }
 
+    /**
+     * @param $error
+     */
     protected function removeError($error)
     {
         foreach (array_keys($this->errorList, $error) as $key) {
@@ -57,6 +72,12 @@ class SchemaChecker extends CSVFileContentBrowser
         return;
     }
 
+    /**
+     * @param $errorMessage
+     * @param $rowIndex
+     * @param null $colIndex
+     * @return string
+     */
     protected function createErrorWithIndex($errorMessage, $rowIndex, $colIndex = null)
     {
         $message = $errorMessage . ' Ligne: ' . ($rowIndex+1); // 0-based index to 1-based index (human readable)
@@ -65,6 +86,13 @@ class SchemaChecker extends CSVFileContentBrowser
             : $message . ', Colonne: ' . ($colIndex+1); // 0-based index to 1-based index (human readable)
     }
 
+    /**
+     * @param $arrayData
+     * @param $arrayModel
+     * @param $headerRowIndex
+     * @param $rowIndex
+     * @return array
+     */
     protected function checkRow($arrayData, $arrayModel, $headerRowIndex, $rowIndex)
     {
         if (is_null($this->siteFormSetting)) {
@@ -108,6 +136,13 @@ class SchemaChecker extends CSVFileContentBrowser
         }
     }
 
+    /**
+     * @param $colElement
+     * @param $relatedFieldSetting
+     * @param $rowIndex
+     * @param $colIndex
+     * @return array
+     */
     protected function checkMandatoryData($colElement, $relatedFieldSetting, $rowIndex, $colIndex)
     {
         if (true == $relatedFieldSetting->getMandatory()
@@ -125,6 +160,13 @@ class SchemaChecker extends CSVFileContentBrowser
         return array();
     }
 
+    /**
+     * @param $colElement
+     * @param $relatedFieldSetting
+     * @param $rowIndex
+     * @param $colIndex
+     * @return array
+     */
     protected function checkDataFormat($colElement, $relatedFieldSetting, $rowIndex, $colIndex)
     {
         switch ($relatedFieldSetting->getFieldType()) {
@@ -166,6 +208,14 @@ class SchemaChecker extends CSVFileContentBrowser
         }
     }
 
+    /**
+     * @param $colElement
+     * @param $type
+     * @param $rowIndex
+     * @param $colIndex
+     * @param string $errorIfNotValid
+     * @return array
+     */
     protected function validateColumnElement(
         $colElement,
         $type,
@@ -187,6 +237,11 @@ class SchemaChecker extends CSVFileContentBrowser
         return array();
     }
 
+    /**
+     * @param $model
+     * @param $data
+     * @return array
+     */
     public function check($model, $data)
     {
         $this->addData($model, $data);

@@ -21,6 +21,13 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
     private $userDataHeaderRowIndex;
     private $userDataFirstRowIndex;
 
+    /**
+     * ResultSettingSchemaChecker constructor.
+     * @param CSVHandler $csvHandler
+     * @param EntityManager $em
+     * @param Container $container
+     * @param ValidatorInterface $validator
+     */
     public function __construct(
         CSVHandler $csvHandler,
         EntityManager $em,
@@ -31,6 +38,9 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
         $this->container = $container;
     }
 
+    /**
+     * @return array
+     */
     private function checkDatas()
     {
         $programManager = $this->container->get('admin.program');
@@ -105,6 +115,9 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
         return $this->errorList;
     }
 
+    /**
+     * @return array
+     */
     private function importDatas()
     {
         $this->resetToBegin();
@@ -180,12 +193,22 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
         return $this->errorList;
     }
 
+    /**
+     * @param $model
+     * @param $data
+     * @return array
+     */
     public function import($model, $data)
     {
         $errorList = $this->importDatas();
         return array_unique($this->errorList);
     }
 
+    /**
+     * @param $model
+     * @param $data
+     * @return array
+     */
     public function check($model, $data)
     {
         parent::check($model, $data);

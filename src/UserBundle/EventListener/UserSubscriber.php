@@ -20,9 +20,9 @@ class UserSubscriber implements EventSubscriberInterface
      * ResettingListener constructor.
      *
      * @param UrlGeneratorInterface $router
-     * @param int                   $tokenTtl
+     * @param int $tokenTtl
      */
-    public function __construct(UrlGeneratorInterface $router/*, $tokenTtl*/)
+    public function __construct(UrlGeneratorInterface $router)
     {
         $this->router = $router;
     }

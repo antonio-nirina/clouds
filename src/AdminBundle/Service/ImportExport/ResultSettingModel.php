@@ -62,6 +62,13 @@ class ResultSettingModel
         $this->program = $program;
     }
 
+    /**
+     * ResultSettingModel constructor.
+     * @param PHPExcelFactory $factory
+     * @param EntityManager $em
+     * @param ContainerInterface $container
+     * @param Filesystem $filesystem
+     */
     public function __construct(
         PHPExcelFactory $factory,
         EntityManager $em,
@@ -87,11 +94,20 @@ class ResultSettingModel
         $this->headerRowIndexList = array();
     }
 
+    /**
+     * @return array
+     */
     public function getUserHeaderList()
     {
         return $this->userHeaderList;
     }
 
+    /**
+     * @param bool $monthly
+     * @param bool $byProduct
+     * @param bool $byRank
+     * @return \PHPExcel
+     */
     public function createObject($monthly = false, $byProduct = false, $byRank = false)
     {
         $this->createUserInfoBlock();
@@ -146,6 +162,12 @@ class ResultSettingModel
         }
     }
 
+    /**
+     * @param bool $monthly
+     * @param bool $byProduct
+     * @param bool $byRank
+     * @return \PHPExcel_Writer_IWriter
+     */
     private function create($monthly = false, $byProduct = false, $byRank = false)
     {
         $this->createObject($monthly, $byProduct, $byRank);
@@ -154,6 +176,9 @@ class ResultSettingModel
         return $writer;
     }
 
+    /**
+     *
+     */
     private function createUserInfoBlock()
     {
         // $this->currentCol = 0;
@@ -178,6 +203,9 @@ class ResultSettingModel
         // $this->addBlankRow();
     }
 
+    /**
+     * create rank
+     */
     private function createRankInfoBlock()
     {
         $this->currentRow -= 1;
@@ -200,6 +228,9 @@ class ResultSettingModel
         // $this->addBlankRow();
     }
 
+    /**
+     * @param int $nb
+     */
     private function createProductInfoBlock($nb = 1)
     {
         $this->currentRow -= 1;
@@ -227,6 +258,9 @@ class ResultSettingModel
         // $this->addBlankRow();
     }
 
+    /**
+     * @param bool $monthly
+     */
     private function createPeriodInfoBlock($monthly = false)
     {
         if (!$monthly) {
@@ -237,6 +271,9 @@ class ResultSettingModel
         }
     }
 
+    /**
+     * @param $header
+     */
     private function createSimpleInfoElement($header)
     {
         $this->phpExcelObject->setActiveSheetIndex(0)
@@ -250,6 +287,9 @@ class ResultSettingModel
         }
     }
 
+    /**
+     * @param $specialFieldIndex
+     */
     private function createInfoElement($specialFieldIndex)
     {
         $this->phpExcelObject->setActiveSheetIndex(0)
@@ -261,6 +301,9 @@ class ResultSettingModel
         }
     }
 
+    /**
+     *add blank
+     */
     private function addBlankRow()
     {
         $this->currentRow++;
@@ -269,6 +312,12 @@ class ResultSettingModel
             ->setCellValueByColumnAndRow($this->currentCol, $this->currentRow, "");
     }
 
+    /**
+     * @param bool $monthly
+     * @param bool $byProduct
+     * @param bool $byRank
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
     public function createResponse($monthly = false, $byProduct = false, $byRank = false)
     {
         $writer = $this->create($monthly, $byProduct, $byRank);
@@ -286,6 +335,11 @@ class ResultSettingModel
         return $response;
     }
 
+    /**
+     * @param bool $monthly
+     * @param bool $byProduct
+     * @param bool $byRank
+     */
     public function save($monthly = false, $byProduct = false, $byRank = false)
     {
         $writer = $this->create($monthly, $byProduct, $byRank);
@@ -294,6 +348,9 @@ class ResultSettingModel
         $writer->save($savePath);
     }
 
+    /**
+     * remove file
+     */
     public function removeSavedFile()
     {
         $filePath = $this->container->getParameter("result_setting_model") . '/' . self::FILE_NAME_AND_EXT;
@@ -303,21 +360,33 @@ class ResultSettingModel
         return;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSavePath()
     {
         return $this->savePath;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTitleList()
     {
         return $this->titleList;
     }
 
+    /**
+     * @return array
+     */
     public function getTitleRowIndexList()
     {
         return $this->titleRowIndexList;
     }
 
+    /**
+     * @return array
+     */
     public function getHeaderRowIndexList()
     {
         return $this->headerRowIndexList;

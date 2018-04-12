@@ -24,6 +24,15 @@ class ResultSettingHandler
     private $schemaChecker;
     private $program;
 
+    /**
+     * ResultSettingHandler constructor.
+     * @param ContainerInterface $container
+     * @param PHPExcelFactory $phpExcel
+     * @param \AdminBundle\Service\ImportExport\ResultSettingModel $model
+     * @param Filesystem $filesystem
+     * @param CSVHandler $csvHandler
+     * @param \AdminBundle\Service\ImportExport\ResultSettingSchemaChecker $schemaChecker
+     */
     public function __construct(
         ContainerInterface $container,
         PHPExcelFactory $phpExcel,
@@ -56,6 +65,10 @@ class ResultSettingHandler
         return $this->errorList;
     }
 
+    /**
+     * @param UploadedFile $file
+     * @return array
+     */
     public function import(UploadedFile $file)
     {
         $this->uploadImportFile($file);
@@ -92,6 +105,9 @@ class ResultSettingHandler
         return $this->errorList;
     }
 
+    /**
+     * @param UploadedFile $file
+     */
     private function uploadImportFile(UploadedFile $file)//copy file server side
     {
         $file->move(
@@ -102,6 +118,9 @@ class ResultSettingHandler
         return;
     }
 
+    /**
+     * @param $filePath
+     */
     private function removeFile($filePath)
     {
         if ($this->filesystem->exists($filePath)) {
@@ -110,6 +129,9 @@ class ResultSettingHandler
         return;
     }
 
+    /**
+     * @param ResultSetting $resultSetting
+     */
     public function setResultSetting(ResultSetting $resultSetting)
     {
         $this->resultSetting = $resultSetting;

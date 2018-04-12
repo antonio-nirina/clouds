@@ -11,6 +11,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class RegistrationAddRoleDefaultListener implements EventSubscriberInterface
 {
 
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [

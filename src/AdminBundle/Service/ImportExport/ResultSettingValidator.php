@@ -42,6 +42,13 @@ class ResultSettingValidator extends CSVFileContentBrowser
     const ERROR_WRONG_TEXT_FORMAT = "Fournisser une valeur texte";
 
 
+    /**
+     * ResultSettingValidator constructor.
+     * @param CSVHandler $csvHandler
+     * @param EntityManager $manager
+     * @param Container $container
+     * @param ValidatorInterface $validator
+     */
     public function __construct(
         CSVHandler $csvHandler,
         EntityManager $manager,
@@ -57,17 +64,26 @@ class ResultSettingValidator extends CSVFileContentBrowser
         $this->container = $container;
     }
 
+    /**
+     * @param SiteFormSetting $siteFormSetting
+     */
     public function setSiteFormSetting(SiteFormSetting $siteFormSetting)
     {
         $this->siteFormSetting = $siteFormSetting;
     }
 
+    /**
+     * @param $error
+     */
     protected function addError($error)
     {
         array_push($this->errorList, $error);
         return;
     }
 
+    /**
+     * @param $error
+     */
     protected function removeError($error)
     {
         foreach (array_keys($this->errorList, $error) as $key) {
