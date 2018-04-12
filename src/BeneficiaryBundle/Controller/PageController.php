@@ -191,7 +191,7 @@ class PageController extends Controller
         );
     }
 
-/**
+    /**
      * @Route(
      *     "/beneficiary-home/pages/{id}",
      *     name="beneficiary_home_pages_standard"),

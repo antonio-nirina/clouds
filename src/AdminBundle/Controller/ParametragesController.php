@@ -69,8 +69,8 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig',
             array(
-                                    'level' => $level,
-                                    'active' => $active
+                'level' => $level,
+                'active' => $active
             )
         );
     }
@@ -79,14 +79,12 @@ class ParametragesController extends AdminController
     {
         $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
-        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
-        $site_design = $site_design[0];
 
         $has_root = $this->container->get('app.design_root')->exists($program->getId());
         return $this->render(
             'root.html.twig',
             array(
-                                    'link' => $has_root
+                'link' => $has_root
             )
         );
     }
@@ -1944,7 +1942,11 @@ class ParametragesController extends AdminController
     }
 
     /**
+     * Gestion des pages standards
+     *
      * @Route("/contenus/pages-standard",name="admin_pages_standard")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function pagesStandardAction(Request $request)
     {
@@ -2013,15 +2015,10 @@ class ParametragesController extends AdminController
 
                 $sitePagesStandardSetting->upload($program);
                 $em->persist($sitePagesStandardSetting);
-                $em->flush();
             }
 
-            //return $this->redirectToRoute('admin_pages_standard');
+            $em->flush();
         }
-
-        $AllPages = array();
-        $AllPagesSetting = array();
-        $AllPagesDefault = array();
 
         //Get all pages with programm
         $AllPagesSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->findBy(

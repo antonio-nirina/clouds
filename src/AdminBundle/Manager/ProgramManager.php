@@ -16,9 +16,10 @@ class ProgramManager
         $this->request_stack = $request_stack;
     }
 
-    public function getCurrent($request = null)
+    public function getCurrent()
     {
         $url_program = $this->request_stack->getCurrentRequest()->server->get('HTTP_HOST');
+
         $program = $this->em->getRepository('AdminBundle:Program')->findByUrl($url_program);
 
         if (!empty($program)) {
