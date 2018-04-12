@@ -951,8 +951,8 @@ $(document).ready(function(){
                     $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
                 },
                 500: function(data){
-                    $('#edit-sondage-modal').find('.modal-body-container').html('');
-                    var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    // $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    var message = 'undefined' === typeof data.responseJSON ? '' : data.responseJSON.message;
                     $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
                 }
             },
@@ -961,6 +961,192 @@ $(document).ready(function(){
                 setTimeout(function(){
                     $('.chargementAjax').addClass('hidden');
                 }, 1050);
+                Highcharts.chart('container_bare', {
+                    tooltip: {
+                        enabled: false
+                    },
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: ['Parce que...', 'Pour des raisons...', 'Sans aucune...'],
+                        labels: {
+                            style: {
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    legend: {
+                        reversed: true
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                crop: false,
+                                overflow: 'none',
+                                style: {
+                                    color: '#7682da',
+                                    fontSize: 18
+                                }
+                                /* format: '{y} %'
+                                formatter: function () {
+                                    var pcnt = (this.y / 30) * 100;
+                                    return Highcharts.numberFormat(pcnt) + '%';
+                                } */
+                            }
+                        }
+                    },
+                    series: [{
+                        showInLegend: false,
+                        name: 'John',
+                        data: [
+                            {y: 10, color: '#7682da'},
+                            {y: 20, color: '#7682da'},
+                            {y: 0, color: '#7682da'}
+                            ]
+                    }],
+                    credits: {
+                        enabled: false
+                    }
+                });
+                Highcharts.chart('container_column', {
+                    tooltip: {
+                        enabled: false
+                    },
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: ['médiocre', 'moyen', 'satisfaisant', 'très bon', 'excellent'],
+                        labels: {
+                            style: {
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    legend: {
+                        reversed: true
+                    },
+                    plotOptions: {
+                        column: {
+                            dataLabels: {
+                                enabled: true,
+                                crop: false,
+                                overflow: 'none',
+                                style: {
+                                    color: '#7682da',
+                                    fontSize: 18
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        showInLegend: false,
+                        name: 'John',
+                        data: [
+                            {y: 0, color: '#7682da'},
+                            {y: 10, color: '#7682da'},
+                            {y: 0, color: '#7682da'},
+                            {y: 20, color: '#7682da'},
+                            {y: 0, color: '#7682da'}
+                            ]
+                    }],
+                    credits: {
+                        enabled: false
+                    }
+                });
+                Highcharts.chart('container_column2', {
+                    tooltip: {
+                        enabled: false
+                    },
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    legend: {
+                        align: 'left',
+                        verticalAlign: 'top',
+                        x: 18
+                    },
+                    xAxis: {
+                        categories: ['Lorem', 'ipsum', 'dolor', 'sit amet'],
+                        labels: {
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: ''
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0,
+                            crop: false,
+                            overflow: 'none'
+                        }
+                    },
+                    series: [{
+                        name: '1',
+                        color: '#1dc7ff',
+                        marker : {symbol : 'square'},
+                        data: [50, 10, 0, 0]
+                    }, {
+                        name: '2',
+                        color: '#ff0000',
+                        marker : {symbol : 'square'},
+                        data: [10, 40, 0, 0]
+                    }, {
+                        name: '3',
+                        color: '#ff9600',
+                        marker : {symbol : 'square'},
+                        data: [10, 10, 0, 20]
+                    }, {
+                        name: '4',
+                        color: '#ff02fc',
+                        marker : {symbol : 'square'},
+                        data: [10, 50, 0, 10]
+                    }, {
+                        name: '5',
+                        color: '#14a400',
+                        marker : {symbol : 'square'},
+                        data: [10, 0, 20, 10]
+                    }, {
+                        name: 'NSP',
+                        color: '#838383',
+                        marker : {symbol : 'square'},
+                        data: [20, 0, 10, 10]
+                    }],
+                    credits: {
+                        enabled: false
+                    }
+                });
             }
         });
     });
