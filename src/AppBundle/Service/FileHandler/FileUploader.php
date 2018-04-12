@@ -17,15 +17,15 @@ class FileUploader
     public function upload(UploadedFile $file, $id = false)
     {
         // $file_name = md5(uniqid()).'.'.$file->guessExtension();
-        $file_name = $file->getClientOriginalName();
+        $fileName = $file->getClientOriginalName();
 
         if ($id) {
-            $file->move($this->getTargetDir() . "/$id", $file_name);
+            $file->move($this->getTargetDir() . "/$id", $fileName);
         } else {
-            $file->move($this->getTargetDir(), $file_name);
+            $file->move($this->getTargetDir(), $fileName);
         }
 
-        return $file_name;
+        return $fileName;
     }
 
     public function getTargetDir()
@@ -33,12 +33,12 @@ class FileUploader
         return $this->targetDir;
     }
 
-    public function getFile($file_name, $id = false)
+    public function getFile($fileName, $id = false)
     {
         if ($id) {
-            $file = new File($this->getTargetDir() . "/$id" . "/$file_name");
+            $file = new File($this->getTargetDir() . "/$id" . "/$fileName");
         } else {
-            $file = new File($this->getTargetDir() . "/$file_name");
+            $file = new File($this->getTargetDir() . "/$fileName");
         }
 
         return $file;

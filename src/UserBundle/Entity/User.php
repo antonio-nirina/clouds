@@ -86,12 +86,12 @@ class User extends BaseUser
     /**
      * @ORM\OneToOne(targetEntity="AdminBundle\Entity\ProgramUser", mappedBy="app_user")
      */
-    protected $program_user;
+    protected $programUser;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="user")
      */
-    private $resultats_sondages_quiz;
+    private $resultatsSondagesQuiz;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -113,7 +113,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    protected $contact_information;
+    protected $contactInformation;
 
     /**
      * @ORM\Column(type="string", length=5, nullable=true)
@@ -135,7 +135,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
      */
-    protected $mobile_phone;
+    protected $mobilePhone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -194,7 +194,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->resultats_sondages_quiz = new ArrayCollection();
+        $this->resultatsSondagesQuiz = new ArrayCollection();
     }
 
     /**
@@ -238,7 +238,7 @@ class User extends BaseUser
      */
     public function setProgramUser(\AdminBundle\Entity\ProgramUser $programUser = null)
     {
-        $this->program_user = $programUser;
+        $this->programUser = $programUser;
 
         return $this;
     }
@@ -250,7 +250,7 @@ class User extends BaseUser
      */
     public function getProgramUser()
     {
-        return $this->program_user;
+        return $this->programUser;
     }
 
     /**
@@ -334,7 +334,7 @@ class User extends BaseUser
      */
     public function setContactInformation($contactInformation)
     {
-        $this->contact_information = $contactInformation;
+        $this->contactInformation = $contactInformation;
 
         return $this;
     }
@@ -346,7 +346,7 @@ class User extends BaseUser
      */
     public function getContactInformation()
     {
-        return $this->contact_information;
+        return $this->contactInformation;
     }
 
     /**
@@ -406,7 +406,7 @@ class User extends BaseUser
      */
     public function setMobilePhone($mobilePhone)
     {
-        $this->mobile_phone = $mobilePhone;
+        $this->mobilePhone = $mobilePhone;
 
         return $this;
     }
@@ -418,7 +418,7 @@ class User extends BaseUser
      */
     public function getMobilePhone()
     {
-        return $this->mobile_phone;
+        return $this->mobilePhone;
     }
 
     /**
@@ -646,7 +646,7 @@ class User extends BaseUser
      */
     public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
     {
-        $this->resultats_sondages_quiz[] = $resultatsSondagesQuiz;
+        $this->resultatsSondagesQuiz[] = $resultatsSondagesQuiz;
 
         return $this;
     }
@@ -658,7 +658,7 @@ class User extends BaseUser
      */
     public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
     {
-        $this->resultats_sondages_quiz->removeElement($resultatsSondagesQuiz);
+        $this->resultatsSondagesQuiz->removeElement($resultatsSondagesQuiz);
     }
 
     /**
@@ -668,7 +668,7 @@ class User extends BaseUser
      */
     public function getResultatsSondagesQuiz()
     {
-        return $this->resultats_sondages_quiz;
+        return $this->resultatsSondagesQuiz;
     }
 
     /**

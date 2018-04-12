@@ -50,14 +50,14 @@ class SondagesQuizReponses
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", cascade={"remove"}, mappedBy="sondages_quiz_reponses")
      */
-    private $resultats_sondages_quiz;
+    private $resultatsSondagesQuiz;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->resultats_sondages_quiz = new ArrayCollection();
+        $this->resultatsSondagesQuiz = new ArrayCollection();
     }
 
     /**
@@ -207,7 +207,7 @@ class SondagesQuizReponses
      */
     public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
     {
-        $this->resultats_sondages_quiz[] = $resultatsSondagesQuiz;
+        $this->resultatsSondagesQuiz[] = $resultatsSondagesQuiz;
 
         return $this;
     }
@@ -219,7 +219,7 @@ class SondagesQuizReponses
      */
     public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
     {
-        $this->resultats_sondages_quiz->removeElement($resultatsSondagesQuiz);
+        $this->resultatsSondagesQuiz->removeElement($resultatsSondagesQuiz);
     }
 
     /**
@@ -229,6 +229,6 @@ class SondagesQuizReponses
      */
     public function getResultatsSondagesQuiz()
     {
-        return $this->resultats_sondages_quiz;
+        return $this->resultatsSondagesQuiz;
     }
 }

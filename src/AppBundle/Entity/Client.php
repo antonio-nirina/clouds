@@ -26,37 +26,37 @@ class Client
     /**
      * @ORM\Column(name="postal_address", type="string", length=255)
      */
-    protected $postal_address;
+    protected $postalAddress;
 
     /**
      * @ORM\Column(name="po_first_name", type="string", length=255)
      */
-    protected $po_first_name;
+    protected $poFirstName;
 
     /**
      * @ORM\Column(name="po_last_name", type="string", length=255)
      */
-    protected $po_last_name;
+    protected $poLastName;
 
     /**
      * @ORM\Column(name="po_post", type="string", length=255)
      */
-    protected $po_post;
+    protected $poPost;
 
     /**
      * @ORM\Column(name="po_email", type="string", length=255)
      */
-    protected $po_email;
+    protected $poEmail;
 
     /**
      * @ORM\Column(name="po_phone", type="string", length=255)
      */
-    protected $po_phone;
+    protected $poPhone;
 
     /**
      * @ORM\Column(name="KYC_contact", nullable=true, type="string", length=255)
      */
-    protected $KYC_contact;
+    protected $kycContact;
 
     /**
      * @ORM\Column(name="date", type="datetime")
@@ -114,7 +114,7 @@ class Client
      */
     public function setPostalAddress($postalAddress)
     {
-        $this->postal_address = $postalAddress;
+        $this->postalAddress = $postalAddress;
 
         return $this;
     }
@@ -126,7 +126,7 @@ class Client
      */
     public function getPostalAddress()
     {
-        return $this->postal_address;
+        return $this->postalAddress;
     }
 
     /**
@@ -138,7 +138,7 @@ class Client
      */
     public function setPoFirstName($poFirstName)
     {
-        $this->po_first_name = $poFirstName;
+        $this->poFirstName = $poFirstName;
 
         return $this;
     }
@@ -150,7 +150,7 @@ class Client
      */
     public function getPoFirstName()
     {
-        return $this->po_first_name;
+        return $this->poFirstName;
     }
 
     /**
@@ -162,7 +162,7 @@ class Client
      */
     public function setPoLastName($poLastName)
     {
-        $this->po_last_name = $poLastName;
+        $this->poLastName = $poLastName;
 
         return $this;
     }
@@ -174,7 +174,7 @@ class Client
      */
     public function getPoLastName()
     {
-        return $this->po_last_name;
+        return $this->poLastName;
     }
 
     /**
@@ -186,7 +186,7 @@ class Client
      */
     public function setPoPost($poPost)
     {
-        $this->po_post = $poPost;
+        $this->poPost = $poPost;
 
         return $this;
     }
@@ -198,7 +198,7 @@ class Client
      */
     public function getPoPost()
     {
-        return $this->po_post;
+        return $this->poPost;
     }
 
     /**
@@ -210,7 +210,7 @@ class Client
      */
     public function setPoEmail($poEmail)
     {
-        $this->po_email = $poEmail;
+        $this->poEmail = $poEmail;
 
         return $this;
     }
@@ -222,7 +222,7 @@ class Client
      */
     public function getPoEmail()
     {
-        return $this->po_email;
+        return $this->poEmail;
     }
 
     /**
@@ -234,7 +234,7 @@ class Client
      */
     public function setPoPhone($poPhone)
     {
-        $this->po_phone = $poPhone;
+        $this->poPhone = $poPhone;
 
         return $this;
     }
@@ -246,7 +246,7 @@ class Client
      */
     public function getPoPhone()
     {
-        return $this->po_phone;
+        return $this->poPhone;
     }
 
     /**
@@ -258,7 +258,7 @@ class Client
      */
     public function setKYCContact($kYCContact)
     {
-        $this->KYC_contact = $kYCContact;
+        $this->kycContact = $kYCContact;
 
         return $this;
     }
@@ -270,7 +270,7 @@ class Client
      */
     public function getKYCContact()
     {
-        return $this->KYC_contact;
+        return $this->kycContact;
     }
 
     /**
