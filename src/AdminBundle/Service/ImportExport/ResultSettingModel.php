@@ -89,7 +89,7 @@ class ResultSettingModel
         $this->container = $container;
         $this->filesystem = $filesystem;
 
-        $this->title_list = array();
+        $this->titleList = array();
         $this->titleRowIndexList = array();
         $this->headerRowIndexList = array();
     }
@@ -177,7 +177,7 @@ class ResultSettingModel
     }
 
     /**
-     *
+     * Create Block
      */
     private function createUserInfoBlock()
     {
