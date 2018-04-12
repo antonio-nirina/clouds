@@ -210,7 +210,7 @@ class RegistrationModel
     public function createResponse()
     {
         $writer = $this->create();
-        $response = $this->php_excel->createStreamedResponse($writer);
+        $response = $this->phpExcel->createStreamedResponse($writer);
         $dispositionHeader = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             self::FILE_NAME_AND_EXT

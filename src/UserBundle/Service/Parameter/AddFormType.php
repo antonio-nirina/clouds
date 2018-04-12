@@ -10,11 +10,18 @@ class AddFormType
 
     private $container;
 
+    /**
+     * AddFormType constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
+    /**
+     * @return mixed
+     */
     public function getParam()
     {
         $lists = [
@@ -37,6 +44,11 @@ class AddFormType
         return $formParameter;
     }
 
+    /**
+     * @param $field
+     * @param string $charset
+     * @return mixed|string
+     */
     public function traitement($field, $charset = 'utf-8')
     {
         $char = ["?","!","/","%",":","&","+","*","^","$","¨","{","}","#","~","@","(",")","[","]","|","°","§","£","µ",";",",","<",">","."];

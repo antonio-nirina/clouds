@@ -69,11 +69,17 @@ class SecurityController extends BaseController
         return $this->render('UserBundle:Security:login.html.twig', $data);
     }
 
+    /**
+     * check
+     */
     public function checkAction()
     {
         throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
     }
 
+    /**
+     * logout
+     */
     public function logoutAction()
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
