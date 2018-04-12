@@ -1220,8 +1220,6 @@ class CommunicationController extends AdminController
 
         $em = $this->getDoctrine()->getManager();
 
-        $em = $this->getDoctrine()->getManager();
-
         //Call ContactList manager service
         $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
@@ -1332,7 +1330,7 @@ class CommunicationController extends AdminController
         // create the writer
         $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel2007');
 
-        $RootDir = __DIR__ . '/../../../web/emailing/liste-contacts-export';
+        $RootDir = $this->get('kernel')->getProjectDir().'/web/emailing/liste-contacts-export';
         if (!file_exists($RootDir)) {
             mkdir($RootDir, 0777, true);
         }

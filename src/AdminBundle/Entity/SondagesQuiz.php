@@ -194,7 +194,7 @@ class SondagesQuiz
 
     public function getUploadRootDir()
     {
-        return __DIR__ . '/../../../web/content/' . $this->getUploadDir();
+        return $this->get('kernel')->getProjectDir().'/web/content/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
