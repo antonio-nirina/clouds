@@ -133,21 +133,31 @@ class SondageQuizManager
 
     /**
      * @param $id
-     *
+     * Reste a faire recuperer user par sondage
      * @return array
      */
     public function getElementStatistique($id)
     {
         $results =  $this->em->getRepository("AdminBundle\Entity\ResultatsSondagesQuiz")->getResultsQuestions($id);
+        dump($results);
         if (!empty($results)) {
             $sondageInfos = $results[0]->getSondagesQuizQuestionnaireInfos();
             foreach ($results as $key => $value) {
                $questions[] = $value->getSondagesQuizQuestions();
-               $reponses[] = $value->getSondagesQuizReponses();
+               $reponses[] = $value->getSondagesQuizReponses();              
             }
+            foreach ($results as  $valQ) {
+                $ad[] = ["que"=>$valQ->getSondagesQuizQuestions()->getQuestions(),"resp"=>$valQ->getSondagesQuizReponses()->getReponses()];
+            }
+            dump($ad);
             foreach ($questions as  $quest) {
                 $valId[] = $quest->getId();
+                //$valQuest[] = $quest->getQuestions();
             }
+            foreach ($reponses as $key => $value) {
+                $valRep[] = $value->getReponses();
+            }
+            dump($results[0]->getUser());
             $nbreQuestion = count(array_count_values($valId));
             $nbreReponse = count($reponses);
             

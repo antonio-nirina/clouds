@@ -14,26 +14,30 @@ class Common
         $this->mailjetClient=$mailjetClient;
     }
 
+    /**
+     * @param $listsInfoCampaign
+     * @return array
+     */
     public function getTraitement($listsInfoCampaign)
     {
         if (!empty($listsInfoCampaign)) {
             foreach ($listsInfoCampaign as $value) {
-                $data["delivre"][]=$value["DeliveredCount"];
-                $data["ouvert"][]=$value["OpenedCount"];
-                $data["cliquer"][]=$value["ClickedCount"];
-                $data["bloque"][]=$value["BlockedCount"];
-                $data["spam"][]=$value["SpamComplaintCount"];
-                $data["desabo"][]=$value["UnsubscribedCount"];
-                $data["erreur"][]=$value["BouncedCount"];
-                $data["lastAct"][]=$value["LastActivityAt"];
+                $data["delivre"][] = $value["DeliveredCount"];
+                $data["ouvert"][] = $value["OpenedCount"];
+                $data["cliquer"][] = $value["ClickedCount"];
+                $data["bloque"][] = $value["BlockedCount"];
+                $data["spam"][] = $value["SpamComplaintCount"];
+                $data["desabo"][] = $value["UnsubscribedCount"];
+                $data["erreur"][] = $value["BouncedCount"];
+                $data["lastAct"][] = $value["LastActivityAt"];
             }
-            $delivre=array_sum($data["delivre"]);
-            $ouvert=array_sum($data["ouvert"]);
-            $cliquer=array_sum($data["cliquer"]);
-            $bloque=array_sum($data["bloque"]);
-            $spam=array_sum($data["spam"]);
-            $desabo=array_sum($data["desabo"]);
-            $erreur=array_sum($data["erreur"]);
+            $delivre = array_sum($data["delivre"]);
+            $ouvert = array_sum($data["ouvert"]);
+            $cliquer = array_sum($data["cliquer"]);
+            $bloque = array_sum($data["bloque"]);
+            $spam = array_sum($data["spam"]);
+            $desabo = array_sum($data["desabo"]);
+            $erreur = array_sum($data["erreur"]);
             $res["delivre"] = $delivre;
             $res["ouvert"] = $ouvert;
             $res["cliquer"]= $cliquer;
@@ -63,7 +67,6 @@ class Common
     /**
      * couple sender and to and date and subject
      */
-
     public function getContactByCampaign()
     {
         $campaigns = $this->mailjetClient->get(Resources::$Campaign)->getData();
@@ -100,12 +103,16 @@ class Common
         return "";
     }
 
+    /**
+     * @param $filtre
+     * @return array|string
+     */
     public function getContactByPeriode($filtre)
     {
         if ($filtre == "Yesterday") {
             $date = new \DateTime();
             $date->modify("-1 day");
-            $format= $date->format("Y-m-d");
+            $date->format("Y-m-d");
             $campaigns = $this->getResult($date);
             if (!empty($campaigns)) {
                 foreach ($campaigns as $value) {
@@ -177,6 +184,10 @@ class Common
         return "";
     }
 
+    /**
+     * @param $date
+     * @return array|string
+     */
     protected function getResult($date)
     {
         $yest = $date->settime(0, 0, 0)->getTimestamp();
@@ -196,6 +207,10 @@ class Common
         return "";
     }
 
+    /**
+     * @param $date
+     * @return array
+     */
     protected function getResultLastDay($date)
     {
         $yest = $date->settime(0, 0, 0)->getTimestamp();
@@ -205,11 +220,15 @@ class Common
         return $campaigns;
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function getOneCampagne($id)
     {
         $filter = ["campaignid" => $id];
         $campaigns = $this->mailjetClient->get(Resources::$Campaign, ['filters' => $filter])->getData()[0];
-        $filters = ["contactslist" => $campaigns["ListID"]];
+        //$filters = ["contactslist" => $campaigns["ListID"]];
         $filter2 = ["limit" => 0];
         $listContactByCampaigns = $this->mailjetClient->get(Resources::$Campaignstatistics, ['filters' => $filter2])->getData();
         foreach ($listContactByCampaigns as $value) {
@@ -231,6 +250,10 @@ class Common
         return $results;
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function getListCampaign($id)
     {
         $filter = ["campaignid" => $id];
@@ -241,6 +264,10 @@ class Common
         return $results;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getTempalte($id)
     {
         $filter = ["campaignid" => $id];
@@ -249,12 +276,20 @@ class Common
         return $template["Name"];
     }
 
+    /**
+     * @param $idContact
+     * @return mixed
+     */
     public function getContactById($idContact)
     {
         $response = $this->mailjetClient->get(Resources::$Contact, ['id' => $idContact]);
         return $response->getData()[0];
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function getStatusByEmail($id)
     {
         $filters = ["limit" => 0];

@@ -5,50 +5,67 @@ use AdminBundle\Service\FileHandler\CSVHandler;
 
 abstract class CSVFileContentBrowser
 {
-    public $row_index;
-    public $data_size;
+    public $rowIndex;
+    public $dataSize;
     public $model;
-    public $array_model;
-    public $array_data;
-    public $csv_handler;
+    public $arrayModel;
+    public $arrayData;
+    public $csvHandler;
 
-    public function __construct(CSVHandler $csv_handler)
+    /**
+     * CSVFileContentBrowser constructor.
+     * @param \AdminBundle\Service\FileHandler\CSVHandler $csvHandler
+     */
+    public function __construct(CSVHandler $csvHandler)
     {
-        $this->csv_handler = $csv_handler;
-        $this->array_data = array();
-        $this->array_model = array();
-        $this->row_index = 0;
+        $this->csvHandler = $csvHandler;
+        $this->arrayData = array();
+        $this->arrayModel = array();
+        $this->rowIndex = 0;
     }
 
-    public function addData($model, $array_data)
+    /**
+     * @param $model
+     * @param $arrayData
+     */
+    public function addData($model, $arrayData)
     {
         $this->model = $model;
-        $this->array_model = $this->csv_handler->createArray($model->getSavePath());
-        $this->array_data = $array_data;
-        $this->data_size = sizeof($this->array_data);
+        $this->arrayModel = $this->csvHandler->createArray($model->getSavePath());
+        $this->arrayData = $arrayData;
+        $this->dataSize = sizeof($this->arrayData);
     }
 
+    /**
+     * @return bool
+     */
     public function increaseRowIndex()
     {
-        if ($this->row_index < ($this->data_size-1)) {
-            $this->row_index++;
+        if ($this->rowIndex < ($this->dataSize-1)) {
+            $this->rowIndex++;
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * restTobegin
+     */
     public function resetToBegin()
     {
-        $this->row_index = 0;
+        $this->rowIndex = 0;
     }
 
+    /**
+     * row index csv
+     */
     public function increaseRowIndexToNextNotBlankRow()
     {
-        while ($this->csv_handler->isBlankRow($this->array_data[$this->row_index])
-            and $this->row_index < $this->data_size
+        while ($this->csvHandler->isBlankRow($this->arrayData[$this->rowIndex])
+            and $this->rowIndex < $this->dataSize
         ) {
-            $this->row_index++;
+            $this->rowIndex++;
         }
     }
 }

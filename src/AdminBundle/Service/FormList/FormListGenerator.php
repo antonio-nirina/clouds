@@ -7,49 +7,65 @@ class FormListGenerator
 {
     const DEFAULT_FORM_NAME_PREFIX = 'default_form_name_';
 
-    protected $form_factory;
-    protected $form_name_prefix;
+    protected $formFactory;
+    protected $formNamePrefix;
 
-    public function __construct(FormFactory $form_factory)
+    /**
+     * FormListGenerator constructor.
+     * @param FormFactory $formFactory
+     */
+    public function __construct(FormFactory $formFactory)
     {
-        $this->form_factory = $form_factory;
+        $this->formFactory = $formFactory;
         $this->defineFormNamePrefix();
     }
 
+    /**
+     * prefix form
+     */
     public function defineFormNamePrefix()
     {
-        $this->form_name_prefix = self::DEFAULT_FORM_NAME_PREFIX;
+        $this->formNamePrefix = self::DEFAULT_FORM_NAME_PREFIX;
     }
 
+    /**
+     * @param $data_list
+     * @param $form_type
+     * @return array
+     */
     public function generateFormList($data_list, $form_type)
     {
-        $form_list = array();
+        $formList = array();
         if (!empty($data_list)) {
             $form_index = 1;
             foreach ($data_list as $data) {
-                $form = $this->form_factory->createNamed(
-                    $this->form_name_prefix . $form_index,
+                $form = $this->formFactory->createNamed(
+                    $this->formNamePrefix . $form_index,
                     $form_type,
                     $data
                 );
-                array_push($form_list, $form);
+                array_push($formList, $form);
                 $form_index++;
             }
         }
 
-        return $form_list;
+        return $formList;
     }
 
 
-    public function generateFormViewList($form_list)
+    /**
+     * @param $formList
+     * @return array
+     */
+    public function generateFormViewList($formList)
     {
-        $form_view_list = array();
-        if (!empty($form_list)) {
-            foreach ($form_list as $form) {
-                array_push($form_view_list, $form->createView());
+        $formViewList = array();
+        if (!empty($formList)) {
+            foreach ($formList as $form) {
+                array_push($formViewList, $form->createView());
             }
         }
 
-        return $form_view_list;
+        return $formViewList;
     }
 }
