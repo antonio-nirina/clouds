@@ -1,6 +1,7 @@
 <?php
 namespace BeneficiaryBundle\Controller;
 
+use AdminBundle\Component\ELearning\ELearningContentType;
 use AdminBundle\Component\Post\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -441,6 +442,7 @@ class PageController extends Controller
                 'elearning_banner' => $ElearningBanner,
                 'has_network' => $has_network,
                 'e_learning_list' => $e_learning_list,
+                'content_type_class' => new ELearningContentType(),
             ));
     }
 

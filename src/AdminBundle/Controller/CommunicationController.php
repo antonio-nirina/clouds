@@ -2332,7 +2332,7 @@ class CommunicationController extends AdminController
         $html2pdf->pdf->Output($filename . '.pdf');
     }
 
-/**
+    /**
      * Listing e-learning
      *
      * @return Response
@@ -2445,7 +2445,6 @@ class CommunicationController extends AdminController
 
         $e_learning_manager = $this->get('AdminBundle\Manager\ELearningManager');
         $e_learning_data = $e_learning_manager->retrieveELearningContentData($e_learning);
-
         $data = $json_response_data_provider->success();
         $data['content'] = $this->renderView(
             'AdminBundle:Communication/ELearning:preview_e_learning.html.twig',
