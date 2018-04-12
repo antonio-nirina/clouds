@@ -1,0 +1,253 @@
+{% extends "BeneficiaryBundle::layout.html.twig" %}
+
+{% block header %}
+    {% embed 'BeneficiaryBundle::header.html.twig' %}
+        {% block stylesheets %}
+            {{ parent() }}
+            <link rel="stylesheet" href="{{ asset('bundles/beneficiary/css/acceuil.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/beneficiary/css/swiper.css') }}">
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block slide %}
+    <div class="container bg-slide" style={{ (background_link)?"background:none":"" }}>
+        {% if background_link %}
+            <div class="background">
+                <img src="{{ asset(background_link|imagine_filter('1920_width_filter')) }}">
+                <div></div>
+            </div>
+        {% else %}
+            <div class="background upper">
+                <div></div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-12 content-body">
+                <div class = "slide-lefter">&nbsp;</div>
+                <div class = "slide-righter">&nbsp;</div>
+                <div class = "slide">
+                    <div class = "img-entete-page-standard">
+                        {% if elearning_banner.imageFile != '' %}
+                            <img class = "src-entete-page-standard" src = "{{asset(e_learning_media_document_location ~ elearning_banner.imageFile)}}" alt = "entete">
+                            <span class="slide-message white">{{ elearning_banner.imageTitle }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="col-12 content-body">
+        <!-- LEFTER -->
+        <div class = "content-lefter">
+            <!--MON COMPTE -->
+            <div class = "content-mon-compte">
+                <p class = "block-active-hover" id = "block-active-hover-mon-compte"></p>
+                <p class = "ligne-1-block">
+                    <span class = "titre-block light">mon compte</span>
+                    <span class = "titre-block-img-mon-compte"></span>
+                </p>
+
+                <p class = "mon-compte-nom light">
+                    <span class = "lib-nom-mon-compte">Martin Bourdais</span>
+                </p>
+
+                <p class = "mon-compte-points light">
+                    <span>1&nbsp;358 pts</span>
+                </p>
+
+                <p class = "mon-compte-btn light">
+                    <span>accéder</span>
+                </p>
+            </div>
+            <!--FIN MON COMPTE -->
+
+            <!--MON CLASSEMENT -->
+            <div class = "content-classement">
+                <p class = "block-active-hover" id = "block-active-hover-classement"></p>
+                <p class = "ligne-1-block">
+                    <span class = "titre-block light">classement</span>
+                    <span class = "titre-block-img-classement"></span>
+                </p>
+
+                <p class = "mon-compte-nom light">
+                    <span>consulter votre classement en temps réel !</span>
+                </p>
+
+                <p class = "mon-compte-points light">
+                    <span>52<sup>e</sup></span>
+                </p>
+
+                <p class = "mon-compte-btn light">
+                    <span>plus de détails</span>
+                </p>
+            </div>
+            <!--FIN CLASSEMENT -->
+
+            <!--MON CONTACT -->
+            {{ render(controller("BeneficiaryBundle:Page:PageStandardContact" )) }}
+            <!--FIN CONTACT -->
+        </div>
+        <!-- FIN LEFTER -->
+
+        <!-- RIGHTER -->
+        <div class = "content-righter">
+            <!-- CHALLENGE EN COURS -->
+            <div class = "content-challenge-en-cours">
+                <p class = "block-active-hover" id = "block-active-hover-challenge-en-cours"></p>
+                <p class = "ligne-1-block">
+                    <span class = "titre-block-date bold">17</span>
+                    <span class = "titre-block-lib-date-mois light">octobre 2017</span>
+                    <br>
+                    <span class = "titre-block-lib-date-jour regular">mardi</span>
+                </p>
+
+                <hr>
+
+                <p class = "date-infos">
+                    <span class = "regular">fin du challenge en cours le</span>
+                </p>
+
+                <p class = "date-infos-date">
+                    <span class = "light">01 février 2018</span>
+                </p>
+            </div>
+            <!-- FIN CHALLENGE EN COURS -->
+
+            <!-- FLUX CADEAUX -->
+            <div class = "content-flux-cadeaux">
+                <p class = "block-active-hover" id = "block-active-hover-flux-cadeaux"></p>
+                <p class = "ligne-1-block">
+                    <span class = "titre-block light">le fil cadeaux</span>
+                    <span class = "titre-block-img-cadeaux"></span>
+                </p>
+
+                <ul class = "liste-flux-cadeaux">
+                    <li class = "pair">
+                        <p class = "img-cadeaux-flux">
+                            <img src = "{{ asset('bundles/beneficiary/images/cloudsRewards/img-flux-cadeaux.png') }}" width = "58" height = "79" class = "img-fluid">
+                        </p>
+                        <p class = "descr-cadeaux-flux">
+                            <span class = "lib-cadeaux regular">iPhone 8 plus</span>
+                            <span class = "desc-cadeaux regular">64 Go 5,5"</span>
+                            <span class = "vue-cadeaux light">22&nbsp;975 pts</span>
+                            <span class = "btn-cadeaux regular">J'aime 3</span>
+                        </p>
+                    </li>
+
+                    <li class = "impair">
+                        <p class = "img-cadeaux-flux">
+                            <img src = "{{ asset('bundles/beneficiary/images/cloudsRewards/img-flux-cadeaux2.png') }}" width = "58" height = "79" class = "img-fluid">
+                        </p>
+                        <p class = "descr-cadeaux-flux">
+                            <span class = "lib-cadeaux regular">Week-end pour 2</span>
+                            <span class = "desc-cadeaux regular">sur la côte d'azur</span>
+                            <span class = "vue-cadeaux light">3&nbsp;875 pts</span>
+                            <span class = "btn-cadeaux regular">J'aime 50</span>
+                        </p>
+                    </li>
+
+                    <li class = "pair">
+                        <p class = "img-cadeaux-flux">
+                            <img src = "{{ asset('bundles/beneficiary/images/cloudsRewards/img-flux-cadeaux3.png') }}" width = "58" height = "79" class = "img-fluid">
+                        </p>
+                        <p class = "descr-cadeaux-flux">
+                            <span class = "lib-cadeaux regular">Nespresso Krups</span>
+                            <span class = "desc-cadeaux regular">Inissia</span>
+                            <span class = "vue-cadeaux light">2&nbsp;000 pts</span>
+                            <span class = "btn-cadeaux regular">J'aime 22</span>
+                        </p>
+                    </li>
+                </ul>
+                <span class = "nav-fleche-gauche-cadeaux"></span>
+                <span class = "lib-nav-cadeaux light">1 sur 3</span>
+                <span class = "nav-fleche-droite-cadeaux"></span>
+
+                <span class = "btn-acces-boutique light">accéder à la boutique</span>
+            </div>
+            <!-- FIN FLUX CADEAUX -->
+
+            <!-- RESEAUX SOCIAUX -->
+            {% if has_network %}
+                <div class = "content-rs-sociaux">
+                    <p class = "block-active-hover" id = "block-active-hover-rs-sociaux"></p>
+                    <p class = "ligne-1-block">
+                        <span class = "titre-block light">réseaux sociaux</span>
+                    </p>
+
+                    <p class = "date-infos">
+                        <span class = "light">suivez votre challenge !</span>
+                    </p>
+
+                    <p class = "rs-sociaux-ligne-1">
+                        {% if table_network.hasFacebook %}
+                            <a href={{ (table_network.facebookLink)?"http://#{table_network.facebookLink}":"#" }}>
+                                <span class = "rs-ligne-1-fb"></span>
+                            </a>
+                        {% endif %}
+                        {% if table_network.hasLinkedin %}
+                            <a href={{ (table_network.linkedinLink)?"http://#{table_network.linkedinLink}":"#" }}>
+                                <span class = "rs-ligne-1-linkdin"></span>
+                            </a>
+                        {% endif %}
+                        {% if table_network.hasTwitter %}
+                            <a href={{ (table_network.twitterLink)?"http://#{table_network.twitterLink}":"#" }}>
+                                <span class = "rs-ligne-1-twitter"></span>
+                            </a>
+                        {% endif %}
+                        {# <span class = "rs-ligne-1-viadeo"></span> #}
+                    </p>
+
+                    {# <p class = "rs-sociaux-ligne-2">
+                        <span class = "rs-ligne-2-gplus"></span>
+                        <span class = "rs-ligne-2-twitter"></span>
+                        <span class = "rs-ligne-2-pink"></span>
+                    </p> #}
+                </div>
+            {% endif %}
+            <!-- FIN RESEAUX SOCIAUX -->
+        </div>
+        <!-- FIN RIGHTER -->
+
+        <!-- CENTER -->
+        <div class="content-center">
+            {% if e_learning_list is defined and e_learning_list is not empty %}
+                {% for e_learning in e_learning_list %}
+                    <div class="content-edito" style="background: white none repeat scroll 0% 0%; box-shadow: none;">
+                        <div class = "standard-content">
+                            <p class = "block-active-hover"></p>
+                            <div class="main-container">
+                                <div class="row">
+                                    <div class="col-12 col-md-9 col-lg-11">
+                                        <span class="standard-content-title">{{ e_learning.title }}</span>
+                                        {% set publication_date = (true == e_learning.publishedState ? e_learning.publicationDatetime : e_learning.lastEdit) %}
+                                        <span class="standard-content-date">publié le {{ publication_date | localizeddate('none', 'none', locale, null, "dd/MM/yyyy") }}</span>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-lg-1 preview-icon-container">
+                                        <span class="preview-icon"></span>
+                                        <span class="chevron-up" style="display: none;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-sep-date-vide"></div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <!-- FIN CENTER -->
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% embed 'BeneficiaryBundle::footer.html.twig' %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('bundles/beneficiary/js/acceuil.js') }}"></script>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

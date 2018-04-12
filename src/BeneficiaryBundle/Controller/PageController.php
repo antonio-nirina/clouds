@@ -143,7 +143,6 @@ class PageController extends Controller
                 }
             }
         }
-
         //Sondages/Quiz
         $SondagesQuiz = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
         $IsSondagesQuiz = false;
@@ -152,13 +151,22 @@ class PageController extends Controller
             $ObjSondagesQuiz = $SondagesQuiz[0];
             $IsSondagesQuiz = true;
         }
-
+        //show/E-learning
+        $elearning = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
+        $IsELearning  = false;
+        $ObjElearning = array();
+        if (isset($elearning)) {
+            $ObjElearning = $elearning;
+            $IsELearning = true;
+        }
         return $this->render(
             'BeneficiaryBundle::menu_top_niv_2.html.twig',
             array(
             'ListePages' => $ListePages,
             'IsSondagesQuiz' => $IsSondagesQuiz,
-            'ObjSondagesQuiz' => $ObjSondagesQuiz
+            'ObjSondagesQuiz' => $ObjSondagesQuiz,
+            'IsElearning' => $IsELearning,
+            'ObjElearning' => $ObjElearning,
             )
         );
     }
@@ -396,6 +404,44 @@ class PageController extends Controller
             'Resultats' => $Resultats
             )
         );
+    }
+
+    /**
+     * To show E-learning page listing
+     * @Route("/pages/e-learning", name="elearning_page")
+     */
+    public function AffichagePageELearning(){
+        $program = $this->container->get('admin.program')->getCurrent();
+        if (empty($program)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $backgroundLink = '';
+        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+        }
+        $em = $this->getDoctrine()->getManager();
+        $ElearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
+        if (empty($ElearningBanner)) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+        $table_network = $program->getSiteTableNetworkSetting();
+        $has_network = false;
+        if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
+            $has_network = true;
+        }
+        $em = $this->getDoctrine()->getManager();
+        $e_learning_list = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
+            array('program' => $program),
+            array('created_at' => 'DESC')
+        );
+        return $this->render(
+            'BeneficiaryBundle:Page:AffichagePageElearning.html.twig',
+            array(
+                'background_link' => $backgroundLink,
+                'elearning_banner' => $ElearningBanner,
+                'has_network' => $has_network,
+                'e_learning_list' => $e_learning_list,
+            ));
     }
 
     /**

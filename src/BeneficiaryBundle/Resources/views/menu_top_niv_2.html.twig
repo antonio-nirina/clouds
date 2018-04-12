@@ -23,6 +23,11 @@
 						{% if IsSondagesQuiz %}
 							<li><a href = "{{ path('beneficiary_home_pages_sondages_quiz_slug', {'slug': ObjSondagesQuiz.Slug}) }}" class = "menu-lib light">{{ ObjSondagesQuiz.NomMenu }}</a></li>
 						{% endif %}
+
+                        {% if IsElearning %}
+                            <li><a href = "{{ path('elearning_page') }}" class = "menu-lib light">{{ ObjElearning.menuName }}</a></li>
+                        {% endif %}
+
                     </ul>
                     <div class = "clearBoth"></div>
 
