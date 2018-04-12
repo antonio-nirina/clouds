@@ -11,11 +11,11 @@ use AdminBundle\Exception\NoRelatedProgramException;
 
 class ResultSettingModel
 {
-    private $php_excel;
-    private $php_excel_object;
+    private $phpExcel;
+    private $phpExcelObject;
     private $em;
-    private $current_row;
-    private $current_col;
+    private $currentRow;
+    private $currentCol;
     private $filesystem;
     private $program;
 
@@ -41,16 +41,16 @@ class ResultSettingModel
         // "Réseau"
     );
 
-    private $user_header_list;
-    private $rank_header_list;
-    private $product_header_list;
+    private $userHeaderList;
+    private $rankHeaderList;
+    private $productHeaderList;
 
     private $container;
-    private $save_path;
+    private $savePath;
 
-    private $title_list;
-    private $title_row_index_list;
-    private $header_row_index_list;
+    private $titleList;
+    private $titleRowIndexList;
+    private $headerRowIndexList;
 
     /**
      * Set program
@@ -68,37 +68,37 @@ class ResultSettingModel
         ContainerInterface $container,
         Filesystem $filesystem
     ) {
-        $this->php_excel = $factory;
-        $this->php_excel_object = $this->php_excel->createPHPExcelObject();
+        $this->phpExcel = $factory;
+        $this->phpExcelObject = $this->phpExcel->createPHPExcelObject();
         $this->em = $em;
 
-        $this->current_row = 1; // 1-based index
-        $this->current_col = 0;
+        $this->currentRow = 1; // 1-based index
+        $this->currentCol = 0;
 
-        $this->user_header_list = array();
-        $this->rank_header_list = array();
-        $this->product_header_list = array();
+        $this->userHeaderList = array();
+        $this->rankHeaderList = array();
+        $this->productHeaderList = array();
 
         $this->container = $container;
         $this->filesystem = $filesystem;
 
         $this->title_list = array();
-        $this->title_row_index_list = array();
-        $this->header_row_index_list = array();
+        $this->titleRowIndexList = array();
+        $this->headerRowIndexList = array();
     }
 
     public function getUserHeaderList()
     {
-        return $this->user_header_list;
+        return $this->userHeaderList;
     }
 
-    public function createObject($monthly = false, $by_product = false, $by_rank = false)
+    public function createObject($monthly = false, $byProduct = false, $byRank = false)
     {
         $this->createUserInfoBlock();
-        if ($by_rank) {
+        if ($byRank) {
             $this->createRankInfoBlock();
         }
-        if ($by_product) {
+        if ($byProduct) {
             $this->createProductInfoBlock(5);
         } else {
             $this->createProductInfoBlock();
@@ -108,11 +108,11 @@ class ResultSettingModel
         /**
          * Adding user data
          */
-        $this->current_row++;
+        $this->currentRow++;
         $this->createUserDataBlock();
 
 
-        return $this->php_excel_object;
+        return $this->phpExcelObject;
     }
 
     /**
@@ -138,7 +138,7 @@ class ResultSettingModel
             ));*/
             $appUser = $programUser->getAppUser();
             if (!is_null($appUser)) {
-                $this->current_col = 0;
+                $this->currentCol = 0;
                 $this->createInfoElement($programUser->getId()); // ProgramUser ID but not AppUser ID
                 $this->createInfoElement($appUser->getName());
                 $this->createInfoElement($appUser->getFirstname());
@@ -146,23 +146,23 @@ class ResultSettingModel
         }
     }
 
-    private function create($monthly = false, $by_product = false, $by_rank = false)
+    private function create($monthly = false, $byProduct = false, $byRank = false)
     {
-        $this->createObject($monthly, $by_product, $by_rank);
-        $writer = $this->php_excel->createWriter($this->php_excel_object, self::WRITER_TYPE);
+        $this->createObject($monthly, $byProduct, $byRank);
+        $writer = $this->phpExcel->createWriter($this->phpExcelObject, self::WRITER_TYPE);
 
         return $writer;
     }
 
     private function createUserInfoBlock()
     {
-        // $this->current_col = 0;
-        // $this->current_row += 2;
-        $this->php_excel_object->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, self::USER_INFOS_TITLE);
-        array_push($this->title_list, self::USER_INFOS_TITLE);
-        array_push($this->title_row_index_list, $this->current_row);
-        $this->current_row++;
+        // $this->currentCol = 0;
+        // $this->currentRow += 2;
+        $this->phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow($this->currentCol, $this->currentRow, self::USER_INFOS_TITLE);
+        array_push($this->titleList, self::USER_INFOS_TITLE);
+        array_push($this->titleRowIndexList, $this->currentRow);
+        $this->currentRow++;
 
         $this->createInfoElement('ID');
         $this->createInfoElement("Nom");
@@ -173,44 +173,44 @@ class ResultSettingModel
         // $this->createInfoElement(SpecialFieldIndex::USER_PHONE);
         // $this->createInfoElement(SpecialFieldIndex::USER_MOBILE_PHONE);
         // $this->createInfoElement(SpecialFieldIndex::USER_PASSWORD);
-        array_push($this->header_row_index_list, $this->current_row); // to save user data headers row index
+        array_push($this->headerRowIndexList, $this->currentRow); // to save user data headers row index
 
         // $this->addBlankRow();
     }
 
     private function createRankInfoBlock()
     {
-        $this->current_row -= 1;
-        $this->php_excel_object->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, self::RANK_INFOS_TITLE);
-        array_push($this->title_list, self::RANK_INFOS_TITLE);
+        $this->currentRow -= 1;
+        $this->phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow($this->currentCol, $this->currentRow, self::RANK_INFOS_TITLE);
+        array_push($this->titleList, self::RANK_INFOS_TITLE);
 
-        if (!in_array($this->current_row, $this->title_row_index_list)) {
-            array_push($this->title_row_index_list, $this->current_row);
+        if (!in_array($this->currentRow, $this->titleRowIndexList)) {
+            array_push($this->titleRowIndexList, $this->currentRow);
         }
-        $this->current_row++;
+        $this->currentRow++;
 
         $this->createSimpleInfoElement("Fonction");
         $this->createSimpleInfoElement("Rang");
         // $this->createSimpleInfoElement("Réseau");
 
-        if (!in_array($this->current_row, $this->header_row_index_list)) {
-            array_push($this->header_row_index_list, $this->current_row); // to save user data headers row index
+        if (!in_array($this->currentRow, $this->headerRowIndexList)) {
+            array_push($this->headerRowIndexList, $this->currentRow); // to save user data headers row index
         }
         // $this->addBlankRow();
     }
 
     private function createProductInfoBlock($nb = 1)
     {
-        $this->current_row -= 1;
-        $this->php_excel_object->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, self::PRODUCT_INFOS_TITLE);
-        array_push($this->title_list, self::PRODUCT_INFOS_TITLE);
+        $this->currentRow -= 1;
+        $this->phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow($this->currentCol, $this->currentRow, self::PRODUCT_INFOS_TITLE);
+        array_push($this->titleList, self::PRODUCT_INFOS_TITLE);
 
-        if (!in_array($this->current_row, $this->title_row_index_list)) {
-            array_push($this->title_row_index_list, $this->current_row);
+        if (!in_array($this->currentRow, $this->titleRowIndexList)) {
+            array_push($this->titleRowIndexList, $this->currentRow);
         }
-        $this->current_row++;
+        $this->currentRow++;
 
         for ($i = 1; $i <= $nb; $i++) {
             $this->createSimpleInfoElement("Produit $i");
@@ -221,8 +221,8 @@ class ResultSettingModel
             }
         }
 
-        if (!in_array($this->current_row, $this->header_row_index_list)) {
-            array_push($this->header_row_index_list, $this->current_row); // to save user data headers row index
+        if (!in_array($this->currentRow, $this->headerRowIndexList)) {
+            array_push($this->headerRowIndexList, $this->currentRow); // to save user data headers row index
         }
         // $this->addBlankRow();
     }
@@ -239,40 +239,40 @@ class ResultSettingModel
 
     private function createSimpleInfoElement($header)
     {
-        $this->php_excel_object->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $header);
-        $this->current_col++;
+        $this->phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow($this->currentCol, $this->currentRow, $header);
+        $this->currentCol++;
 
         if (in_array($header, self::RANK_SPECIAL_FIELD_INDEX_LIST)) {
-            array_push($this->rank_header_list, $header);
+            array_push($this->rankHeaderList, $header);
         } else {
-            array_push($this->product_header_list, $header);
+            array_push($this->productHeaderList, $header);
         }
     }
 
-    private function createInfoElement($special_field_index)
+    private function createInfoElement($specialFieldIndex)
     {
-        $this->php_excel_object->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, $special_field_index);
-        $this->current_col++;
+        $this->phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow($this->currentCol, $this->currentRow, $specialFieldIndex);
+        $this->currentCol++;
 
-        if (in_array($special_field_index, self::USER_SPECIAL_FIELD_INDEX_LIST)) {
-            array_push($this->user_header_list, $special_field_index);
+        if (in_array($specialFieldIndex, self::USER_SPECIAL_FIELD_INDEX_LIST)) {
+            array_push($this->userHeaderList, $specialFieldIndex);
         }
     }
 
     private function addBlankRow()
     {
-        $this->current_row++;
-        $this->current_col = 0;
-        $this->php_excel_object->setActiveSheetIndex(0)
-            ->setCellValueByColumnAndRow($this->current_col, $this->current_row, "");
+        $this->currentRow++;
+        $this->currentCol = 0;
+        $this->phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValueByColumnAndRow($this->currentCol, $this->currentRow, "");
     }
 
-    public function createResponse($monthly = false, $by_product = false, $by_rank = false)
+    public function createResponse($monthly = false, $byProduct = false, $byRank = false)
     {
-        $writer = $this->create($monthly, $by_product, $by_rank);
-        $response = $this->php_excel->createStreamedResponse($writer);
+        $writer = $this->create($monthly, $byProduct, $byRank);
+        $response = $this->phpExcel->createStreamedResponse($writer);
         $dispositionHeader = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             self::FILE_NAME_AND_EXT
@@ -286,40 +286,40 @@ class ResultSettingModel
         return $response;
     }
 
-    public function save($monthly = false, $by_product = false, $by_rank = false)
+    public function save($monthly = false, $byProduct = false, $byRank = false)
     {
-        $writer = $this->create($monthly, $by_product, $by_rank);
-        $save_path = $this->container->getParameter("result_setting_model") . '/' . self::FILE_NAME_AND_EXT;
-        $this->save_path = $save_path;
-        $writer->save($save_path);
+        $writer = $this->create($monthly, $byProduct, $byRank);
+        $savePath = $this->container->getParameter("result_setting_model") . '/' . self::FILE_NAME_AND_EXT;
+        $this->savePath = $savePath;
+        $writer->save($savePath);
     }
 
     public function removeSavedFile()
     {
-        $file_path = $this->container->getParameter("result_setting_model") . '/' . self::FILE_NAME_AND_EXT;
-        if ($this->filesystem->exists($file_path)) {
-            $this->filesystem->remove($file_path);
+        $filePath = $this->container->getParameter("result_setting_model") . '/' . self::FILE_NAME_AND_EXT;
+        if ($this->filesystem->exists($filePath)) {
+            $this->filesystem->remove($filePath);
         }
         return;
     }
 
     public function getSavePath()
     {
-        return $this->save_path;
+        return $this->savePath;
     }
 
     public function getTitleList()
     {
-        return $this->title_list;
+        return $this->titleList;
     }
 
     public function getTitleRowIndexList()
     {
-        return $this->title_row_index_list;
+        return $this->titleRowIndexList;
     }
 
     public function getHeaderRowIndexList()
     {
-        return $this->header_row_index_list;
+        return $this->headerRowIndexList;
     }
 }

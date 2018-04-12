@@ -22,11 +22,19 @@ class RegistrationType extends AbstractType
 
     private $formParameter;
 
+    /**
+     * RegistrationType constructor.
+     * @param AddFormType $formParameter
+     */
     public function __construct(AddFormType $formParameter)
     {
         $this->formParameter = $formParameter;
     }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $param = $this->formParameter->getParam();
@@ -40,17 +48,17 @@ class RegistrationType extends AbstractType
                             $builder->add(
                                 $champText,
                                 TextType::class,
-                                ["label"=>$field->getLabel() . "*",
-                                "mapped"=>false,
+                                ["label" => $field->getLabel() . "*",
+                                "mapped" => false,
                                 ]
                             );
                         } else {
                             $builder->add(
                                 $champText,
                                 TextType::class,
-                                ["label"=>$field->getLabel(),
-                                "required"=>false,
-                                "mapped"=>false,
+                                ["label" => $field->getLabel(),
+                                "required" => false,
+                                "mapped" => false,
                                 ]
                             );
                         }
@@ -62,31 +70,31 @@ class RegistrationType extends AbstractType
                             $builder->add(
                                 $champText,
                                 ChoiceType::class,
-                                ["choices"=>[
-                                "Oui"=>"Oui",
-                                "Non"=>"Non"
+                                ["choices" => [
+                                "Oui" => "Oui",
+                                "Non" => "Non"
                                 ],
-                                "label"=>$field->getLabel() . "*",
+                                "label" => $field->getLabel() . "*",
                                 'choices_as_values' => true,
-                                'multiple'=>false,
-                                'expanded'=>true,
-                                "mapped"=>false
+                                'multiple' => false,
+                                'expanded' => true,
+                                "mapped" => false
                                 ]
                             );
                         } else {
                             $builder->add(
                                 $champText,
                                 ChoiceType::class,
-                                ["choices"=>[
-                                "Oui"=>"Oui",
-                                "Non"=>"Non"
+                                ["choices" => [
+                                "Oui" => "Oui",
+                                "Non" => "Non"
                                 ],
-                                "label"=>$field->getLabel(),
+                                "label" => $field->getLabel(),
                                 'choices_as_values' => true,
-                                'multiple'=>false,
-                                'expanded'=>true,
-                                "required"=>false,
-                                "mapped"=>false
+                                'multiple' => false,
+                                'expanded' => true,
+                                "required" => false,
+                                "mapped" => false
                                 ]
                             );
                         }
@@ -97,22 +105,22 @@ class RegistrationType extends AbstractType
         $builder->add(
             'civility',
             ChoiceType::class,
-            ["choices"=>[
-                "Mme"=>"Mme",
-                "M."=>"Mr."
+            ["choices" => [
+                "Mme" => "Mme",
+                "M." => "Mr."
             ],
             'choice_attr' => array(
                 'M' => array('class' => 'checkbox'),
             ),
-            "label"=>"civilité",
+            "label" => "civilité",
             'choices_as_values' => true,
-            'multiple'=>false,
-            'expanded'=>true
+            'multiple' => false,
+            'expanded' => true
             ]
         );
-        $builder->add('firstname', TextType::class, ["label"=>"nom*"]);
+        $builder->add('firstname', TextType::class, ["label" => "nom*"]);
         $builder->remove('username');
-        $builder->add('name', TextType::class, ["label"=>"prénom*"]);
+        $builder->add('name', TextType::class, ["label" => "prénom*"]);
         $builder->add(
             'email',
             RepeatedType::class,
@@ -137,17 +145,16 @@ class RegistrationType extends AbstractType
             'invalid_message' => 'fos_user.password.mismatch',
             )
         );
-        $builder->add('societe', TextType::class, ["label"=>"Société*"]);
-        $builder->add('address_1', TextType::class, ["label"=>"adresse postale*"]);
-        $builder->add('postal_code', TextType::class, ["label"=>"code postal*"]);
-        $builder->add('city', TextType::class, ["label"=>"ville*"]);
-        $builder->add(
-            'accepte',
+        $builder->add('societe', TextType::class, ["label" => "Société*"]);
+        $builder->add('address_1', TextType::class, ["label" => "adresse postale*"]);
+        $builder->add('postal_code', TextType::class, ["label" => "code postal*"]);
+        $builder->add('city', TextType::class, ["label" => "ville*"]);
+        $builder->add('accepte',
             ChoiceType::class,
             [
             "mapped" => false,
-            "choices"=>[
-                " "=>"M."
+            "choices"=> [
+                " " => "M."
             ],
             'choice_attr' => array(
                 'M' => array('class' => 'checkbox'),
@@ -159,28 +166,33 @@ class RegistrationType extends AbstractType
             ]
         );
 
-        $builder->add(
-            'recaptcha',
+        $builder->add('recaptcha',
             EWZRecaptchaType::class,
-            array(
-            'attr' => array(
-            'options' => array(
-                'theme' => 'light',
-                'type'  => 'image',
-                'size'  => 'normal',
-                'defer' => true,
-                'async' => true,
-            )
-            ),
+                array(
+                'attr' => array(
+                    'options' => array(
+                        'theme' => 'light',
+                        'type'  => 'image',
+                        'size'  => 'normal',
+                        'defer' => true,
+                        'async' => true,
+                    )
+                ),
             )
         );
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\RegistrationFormType';
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'app_user_registration';
