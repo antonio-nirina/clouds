@@ -88,7 +88,7 @@
         <!-- LEFTER -->
         <div class = "content-lefter">
             <!--MON COMPTE -->
-            <div class = "content-mon-compte">
+            {#<div class = "content-mon-compte">
                 <p class = "block-active-hover" id = "block-active-hover-mon-compte"></p>
                 <p class = "ligne-1-block">
                     <span class = "titre-block light">mon compte</span>
@@ -106,7 +106,8 @@
                 <p class = "mon-compte-btn light">
                     <span>accéder</span>
                 </p>
-            </div>
+            </div>#}
+            {{ render(controller('BeneficiaryBundle:PartialPage:accountBlock')) }}
             <!--FIN MON COMPTE -->
 
             <!--MON CLASSEMENT -->

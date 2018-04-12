@@ -133,9 +133,10 @@ class ResultSettingModel
 
         if (!is_null($programUser)) {
             // getting corresponding app user
-            $appUser = $this->em->getRepository('UserBundle\Entity\User')->findOneBy(array(
+            /*$appUser = $this->em->getRepository('UserBundle\Entity\User')->findOneBy(array(
                 'id' => $programUser->getAppUser($programUser)
-            ));
+            ));*/
+            $appUser = $programUser->getAppUser();
             if (!is_null($appUser)) {
                 $this->current_col = 0;
                 $this->createInfoElement($programUser->getId()); // ProgramUser ID but not AppUser ID
