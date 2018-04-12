@@ -5,20 +5,14 @@ namespace UserBundle\Controller;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use UserBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use UserBundle\Service\Parameter\AddFormType;
 use AdminBundle\Component\SiteForm\FieldType;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 
@@ -142,6 +136,7 @@ class RegistrationController extends BaseController
      */
     public function confirmAction(Request $request, $token)
     {
+
         /**
         * @var $userManager \FOS\UserBundle\Model\UserManagerInterface
         */
@@ -153,9 +148,11 @@ class RegistrationController extends BaseController
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
 
+
         /**
         * @var $dispatcher EventDispatcherInterface
         */
+
         $dispatcher = $this->get('event_dispatcher');
 
         $user->setConfirmationToken(null);
