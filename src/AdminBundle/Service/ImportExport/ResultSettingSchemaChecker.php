@@ -4,7 +4,6 @@ namespace AdminBundle\Service\ImportExport;
 
 use AdminBundle\Service\FileHandler\CSVHandler;
 use AdminBundle\Service\ImportExport\SchemaChecker;
-use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
@@ -18,60 +17,60 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
     const ERROR_DUPLICATE_USER_DATA = "Existence de doublon non autorisé";
     const ERROR_EXISTENT_USER_WITH_EMAIL = "Adresse email déjà utilisée";
 
-    private $user_data_title_row_index;
-    private $user_data_header_row_index;
-    private $user_data_first_row_index;
+    private $userDataTitleRowIndex;
+    private $userDataHeaderRowIndex;
+    private $userDataFirstRowIndex;
 
     public function __construct(
-        CSVHandler $csv_handler,
+        CSVHandler $csvHandler,
         EntityManager $em,
         Container $container,
         ValidatorInterface $validator
     ) {
-        parent::__construct($csv_handler, $em, $container, $validator);
+        parent::__construct($csvHandler, $em, $container, $validator);
         $this->container = $container;
     }
 
     private function checkDatas()
     {
-        $program_manager = $this->container->get('admin.program');
-        $program = $program_manager->getCurrent();
+        $programManager = $this->container->get('admin.program');
+        $program = $programManager->getCurrent();
 
         $this->increaseRowIndexToNextNotBlankRow();
-        if ($this->csv_handler->areSameRows(
-            $this->array_model[$this->user_data_title_row_index],
-            $this->array_data[$this->row_index]
+        if ($this->csvHandler->areSameRows(
+            $this->arrayModel[$this->userDataTitleRowIndex],
+            $this->arrayData[$this->rowIndex]
         )
         ) {
             if ($this->increaseRowIndex()) {
-                if ($this->csv_handler->areSameRows(
-                    $this->array_model[$this->user_data_header_row_index],
-                    $this->array_data[$this->row_index]
+                if ($this->csvHandler->areSameRows(
+                    $this->arrayModel[$this->userDataHeaderRowIndex],
+                    $this->arrayData[$this->rowIndex]
                 )
                 ) {
-                    $header = $this->array_model[$this->user_data_header_row_index];
+                    $header = $this->arrayModel[$this->userDataHeaderRowIndex];
 
                     if ($this->increaseRowIndex()) {
-                        if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
-                            $blank_row = false;
-                            $this->user_data_first_row_index = $this->row_index;
-                            while (!$blank_row) {
-                                $error_list = $this->checkRowResult(
+                        if (!$this->csvHandler->isBlankRow($this->arrayData[$this->rowIndex])) {
+                            $blankRow = false;
+                            $this->userDataFirstRowIndex = $this->rowIndex;
+                            while (!$blankRow) {
+                                $errorList = $this->checkRowResult(
                                     $header,
-                                    $this->array_data,
-                                    $this->array_model,
-                                    $this->user_data_header_row_index,
-                                    $this->row_index,
+                                    $this->arrayData,
+                                    $this->arrayModel,
+                                    $this->userDataHeaderRowIndex,
+                                    $this->rowIndex,
                                     $program
                                 );
 
-                                if (!empty($error_list)) {
-                                    return $error_list;
+                                if (!empty($errorList)) {
+                                    return $errorList;
                                 }
 
                                 if ($this->increaseRowIndex()) {
-                                    if ($this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
-                                        $blank_row = true;
+                                    if ($this->csvHandler->isBlankRow($this->arrayData[$this->rowIndex])) {
+                                        $blankRow = true;
                                     }
                                 } else {
                                     break;
@@ -81,72 +80,72 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
                             $this->addError(
                                 $this->createErrorWithIndex(
                                     self::ERROR_NO_USER_DATA_FOUND,
-                                    $this->row_index
+                                    $this->rowIndex
                                 )
                             );
-                            return $this->error_list;
+                            return $this->errorList;
                         }
                     } else {
-                        $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_DATA_FOUND, $this->row_index));
-                        return $this->error_list;
+                        $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_DATA_FOUND, $this->rowIndex));
+                        return $this->errorList;
                     }
                 } else {
-                    $this->addError($this->createErrorWithIndex(self::ERROR_INCORRECT_HEADER, $this->row_index));
-                    return $this->error_list;
+                    $this->addError($this->createErrorWithIndex(self::ERROR_INCORRECT_HEADER, $this->rowIndex));
+                    return $this->errorList;
                 }
             } else {
-                $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_HEADER_FOUND, $this->row_index));
-                return $this->error_list;
+                $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_HEADER_FOUND, $this->rowIndex));
+                return $this->errorList;
             }
         } else {
-            $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_TITLE_FOUND, $this->row_index));
-            return $this->error_list;
+            $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_TITLE_FOUND, $this->rowIndex));
+            return $this->errorList;
         }
 
-        return $this->error_list;
+        return $this->errorList;
     }
 
     private function importDatas()
     {
         $this->resetToBegin();
-        $program_manager = $this->container->get('admin.program');
-        $program = $program_manager->getCurrent();
+        $programManager = $this->container->get('admin.program');
+        $program = $programManager->getCurrent();
 
         $this->increaseRowIndexToNextNotBlankRow();
-        if ($this->csv_handler->areSameRows(
-            $this->array_model[$this->user_data_title_row_index],
-            $this->array_data[$this->row_index]
+        if ($this->csvHandler->areSameRows(
+            $this->arrayModel[$this->userDataTitleRowIndex],
+            $this->arrayData[$this->rowIndex]
         )
         ) {
             if ($this->increaseRowIndex()) {
-                if ($this->csv_handler->areSameRows(
-                    $this->array_model[$this->user_data_header_row_index],
-                    $this->array_data[$this->row_index]
+                if ($this->csvHandler->areSameRows(
+                    $this->arrayModel[$this->userDataHeaderRowIndex],
+                    $this->arrayData[$this->rowIndex]
                 )
                 ) {
-                    $header = $this->array_model[$this->user_data_header_row_index];
+                    $header = $this->arrayModel[$this->userDataHeaderRowIndex];
 
                     if ($this->increaseRowIndex()) {
-                        if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
-                            $blank_row = false;
-                            $this->user_data_first_row_index = $this->row_index;
-                            while (!$blank_row) {
-                                $error_list = $this->importRowResult(
+                        if (!$this->csvHandler->isBlankRow($this->arrayData[$this->rowIndex])) {
+                            $blankRow = false;
+                            $this->userDataFirstRowIndex = $this->rowIndex;
+                            while (!$blankRow) {
+                                $errorList = $this->importRowResult(
                                     $header,
-                                    $this->array_data,
-                                    $this->array_model,
-                                    $this->user_data_header_row_index,
-                                    $this->row_index,
+                                    $this->arrayData,
+                                    $this->arrayModel,
+                                    $this->userDataHeaderRowIndex,
+                                    $this->rowIndex,
                                     $program
                                 );
 
-                                if (!empty($error_list)) {
-                                    return $error_list;
+                                if (!empty($errorList)) {
+                                    return $errorList;
                                 }
 
                                 if ($this->increaseRowIndex()) {
-                                    if ($this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
-                                        $blank_row = true;
+                                    if ($this->csvHandler->isBlankRow($this->arrayData[$this->rowIndex])) {
+                                        $blankRow = true;
                                     }
                                 } else {
                                     break;
@@ -156,35 +155,35 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
                             $this->addError(
                                 $this->createErrorWithIndex(
                                     self::ERROR_NO_USER_DATA_FOUND,
-                                    $this->row_index
+                                    $this->rowIndex
                                 )
                             );
-                            return $this->error_list;
+                            return $this->errorList;
                         }
                     } else {
-                        $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_DATA_FOUND, $this->row_index));
-                        return $this->error_list;
+                        $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_DATA_FOUND, $this->rowIndex));
+                        return $this->errorList;
                     }
                 } else {
-                    $this->addError($this->createErrorWithIndex(self::ERROR_INCORRECT_HEADER, $this->row_index));
-                    return $this->error_list;
+                    $this->addError($this->createErrorWithIndex(self::ERROR_INCORRECT_HEADER, $this->rowIndex));
+                    return $this->errorList;
                 }
             } else {
-                $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_HEADER_FOUND, $this->row_index));
-                return $this->error_list;
+                $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_HEADER_FOUND, $this->rowIndex));
+                return $this->errorList;
             }
         } else {
-            $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_TITLE_FOUND, $this->row_index));
-            return $this->error_list;
+            $this->addError($this->createErrorWithIndex(self::ERROR_NO_USER_TITLE_FOUND, $this->rowIndex));
+            return $this->errorList;
         }
 
-        return $this->error_list;
+        return $this->errorList;
     }
 
     public function import($model, $data)
     {
-        $error_list = $this->importDatas();
-        return array_unique($this->error_list);
+        $errorList = $this->importDatas();
+        return array_unique($this->errorList);
     }
 
     public function check($model, $data)
@@ -195,39 +194,39 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
             && count($this->model->getHeaderRowIndexList()) > 0
         ) {
             // 1-based index to 0-based - From PHPExcel index to CSV file index (by fgetcsv()
-            $this->user_data_title_row_index = $this->model->getTitleRowIndexList()[0] - 1;
-            $this->user_data_header_row_index = $this->model->getHeaderRowIndexList()[0] - 1;
+            $this->userDataTitleRowIndex = $this->model->getTitleRowIndexList()[0] - 1;
+            $this->userDataHeaderRowIndex = $this->model->getHeaderRowIndexList()[0] - 1;
         } else {
             $this->addError(SchemaChecker::ERROR_SCHEMA_CHECKER_INTERNAL_ERROR);
-            return $this->error_list;
+            return $this->errorList;
         }
 
-        if (sizeof($this->array_data[0]) != sizeof($this->array_model[0])) {
+        if (sizeof($this->arrayData[0]) != sizeof($this->arrayModel[0])) {
             $this->addError(self::ERROR_WRONG_GENERAL_STRUCTURE);
-            return $this->error_list;
+            return $this->errorList;
         }
 
         if ($this->data_size <= 0) {
             $this->addError(self::ERROR_WRONG_GENERAL_STRUCTURE);
-            return $this->error_list;
+            return $this->errorList;
         }
 
-        $error_list = $this->checkDatas();
-        if (!empty($error_list)) {
-            return $this->error_list;
+        $errorList = $this->checkDatas();
+        if (!empty($errorList)) {
+            return $this->errorList;
         }
 
-        // increasing $row_index
+        // increasing $rowIndex
         // to find if another data after valid schema
         // add ERROR_INVALID_DATA if other data found
         if ($this->increaseRowIndex()) {
             $this->increaseRowIndexToNextNotBlankRow();
-            if (!$this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
-                $this->addError($this->createErrorWithIndex(self::ERROR_INVALID_DATA, $this->row_index));
-                return $this->error_list;
+            if (!$this->csvHandler->isBlankRow($this->arrayData[$this->rowIndex])) {
+                $this->addError($this->createErrorWithIndex(self::ERROR_INVALID_DATA, $this->rowIndex));
+                return $this->errorList;
             }
         }
 
-        return array_unique($this->error_list);
+        return array_unique($this->errorList);
     }
 }
