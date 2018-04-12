@@ -671,9 +671,14 @@ class User extends BaseUser
         return $this->resultats_sondages_quiz;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setEmail($email)
     {
         parent::setEmail($email);
         $this->setUsername($email);
+
+        return $this;
     }
 }

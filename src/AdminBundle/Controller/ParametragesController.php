@@ -872,7 +872,9 @@ class ParametragesController extends AdminController
                 $monthly = $result_setting->getMonthly();
                 $by_product = $result_setting->getByProduct();
                 $by_rank = $result_setting->getByRank();
-                $response = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel')
+                $resultSettingModal = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel');
+                $resultSettingModal->setProgram($program);
+                $response = $resultSettingModal
                     ->createResponse($monthly, $by_product, $by_rank);
                 return $response;
             }
@@ -884,7 +886,8 @@ class ParametragesController extends AdminController
             $upload_form->handleRequest($request);
             if ($upload_form->isSubmitted() && $upload_form->isValid()) {
                 $imported_file = $upload_form->getData()["uploaded_file"];
-                $result_setting_handler = $this->get("AdminBundle\Service\ImportExport\ResultSettingHandler");
+                $result_setting_handler = $this->get('AdminBundle\Service\ImportExport\ResultSettingHandler');
+                $result_setting_handler->setProgram($program);
                 $result_setting_handler->setResultSetting($result_setting);
                 $result_setting_handler->import($imported_file);
 
