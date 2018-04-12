@@ -197,13 +197,20 @@ class ResultSettingValidator extends CSVFileContentBrowser
             );
         }
         //user check
-        $user = $this->manager
+        /*$user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
             ->findByNameAndLastName(
                 $current_row['Nom'],
                 $current_row['Prénom'],
                 $program
-            );
+            );*/
+        // check user by ID, instead of name and lastname
+        $user = $this->manager
+            ->getRepository('AdminBundle\Entity\ProgramUser')
+            ->findOneBy(array(
+                'id' => $current_row['ID'],
+                'program' => $program
+            ));
         if (empty($user)) {
             $this->addError(
                 $this->createErrorWithIndex(
@@ -222,14 +229,21 @@ class ResultSettingValidator extends CSVFileContentBrowser
         $current_row = array_combine($header, $array_data[$i]);
 
         //user check
-        $program_user = $this->manager
+        /*$program_user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
             ->findByNameAndLastName(
                 $current_row['Nom'],
                 $current_row['Prénom'],
                 $program
             );
-        $program_user = $program_user[0];
+        $program_user = $program_user[0];*/
+        // check user by ID, instead of name and lastname
+        $program_user = $this->manager
+            ->getRepository('AdminBundle\Entity\ProgramUser')
+            ->findOneBy(array(
+                'id' => $current_row['ID'],
+                'program' => $program
+            ));
 
         if (array_key_exists("Fonction", $current_row)) { //assignation role commercial
             $role = $this->manager

@@ -4,10 +4,10 @@ namespace AdminBundle\Service\ImportExport;
 use Liuggio\ExcelBundle\Factory as PHPExcelFactory;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Doctrine\ORM\EntityManager;
-use AdminBundle\Entity\SiteFormFieldSetting;
-use AdminBundle\Component\SiteForm\SpecialFieldIndex;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use AdminBundle\Entity\Program;
+use AdminBundle\Exception\NoRelatedProgramException;
 
 class ResultSettingModel
 {
@@ -17,6 +17,7 @@ class ResultSettingModel
     private $current_row;
     private $current_col;
     private $filesystem;
+    private $program;
 
     const WRITER_TYPE = "CSV";
     const FILE_NAME_AND_EXT = "modele.csv";
@@ -50,6 +51,16 @@ class ResultSettingModel
     private $title_list;
     private $title_row_index_list;
     private $header_row_index_list;
+
+    /**
+     * Set program
+     *
+     * @param Program $program
+     */
+    public function setProgram(Program $program)
+    {
+        $this->program = $program;
+    }
 
     public function __construct(
         PHPExcelFactory $factory,
@@ -94,7 +105,44 @@ class ResultSettingModel
         }
         $this->createPeriodInfoBlock($monthly);
 
+        /**
+         * Adding user data
+         */
+        $this->current_row++;
+        $this->createUserDataBlock();
+
+
         return $this->php_excel_object;
+    }
+
+    /**
+     * Creating user data block
+     * for users linked to given program
+     */
+    public function createUserDataBlock()
+    {
+        if (is_null($this->program)) {
+            throw new NoRelatedProgramException();
+        }
+
+        // getting special use case user (program user)
+        $programUser = $this->em->getRepository('AdminBundle\Entity\ProgramUser')->findOneBy(array(
+            'program' => $this->program,
+            'specialUseCaseState' => true,
+        ));
+
+        if (!is_null($programUser)) {
+            // getting corresponding app user
+            $appUser = $this->em->getRepository('UserBundle\Entity\User')->findOneBy(array(
+                'id' => $programUser->getAppUser($programUser)
+            ));
+            if (!is_null($appUser)) {
+                $this->current_col = 0;
+                $this->createInfoElement($programUser->getId()); // ProgramUser ID but not AppUser ID
+                $this->createInfoElement($appUser->getName());
+                $this->createInfoElement($appUser->getFirstname());
+            }
+        }
     }
 
     private function create($monthly = false, $by_product = false, $by_rank = false)
@@ -115,6 +163,7 @@ class ResultSettingModel
         array_push($this->title_row_index_list, $this->current_row);
         $this->current_row++;
 
+        $this->createInfoElement('ID');
         $this->createInfoElement("Nom");
         $this->createInfoElement("Prénom");
         // $this->createInfoElement(SpecialFieldIndex::USER_EMAIL);

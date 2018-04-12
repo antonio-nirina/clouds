@@ -37,7 +37,11 @@ class ProgramUser
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\ProgramUserCompany", inversedBy="program_users", cascade={"persist"})
+     * @ORM\ManyToOne(
+     *     targetEntity="AdminBundle\Entity\ProgramUserCompany",
+     *     inversedBy="program_users",
+     *     cascade={"persist"}
+     *     )
      */
     private $program_user_company;
 
@@ -50,6 +54,11 @@ class ProgramUser
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ProgramUserClassmentProgression", mappedBy="program_user")
      */
     private $classment_progression;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $specialUseCaseState;
 
     /**
      * Get id
@@ -255,5 +264,29 @@ class ProgramUser
     public function getClassmentProgression()
     {
         return $this->classment_progression;
+    }
+
+    /**
+     * Set specialUseCaseState
+     *
+     * @param boolean $specialUseCaseState
+     *
+     * @return ProgramUser
+     */
+    public function setSpecialUseCaseState($specialUseCaseState)
+    {
+        $this->specialUseCaseState = $specialUseCaseState;
+
+        return $this;
+    }
+
+    /**
+     * Get specialUseCaseState
+     *
+     * @return boolean
+     */
+    public function getSpecialUseCaseState()
+    {
+        return $this->specialUseCaseState;
     }
 }
