@@ -2,7 +2,6 @@
 namespace UserBundle\EventListener;
 
 use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -29,6 +28,9 @@ class RegistrationConfirmListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param GetResponseUserEvent $event
+     */
     public function onRegistrationConfirm(GetResponseUserEvent $event)
     {
         $url = $this->router->generate('rsWelcomeBundle_check_full_register');
