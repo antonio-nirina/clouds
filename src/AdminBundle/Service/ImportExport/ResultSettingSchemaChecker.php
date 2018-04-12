@@ -206,7 +206,7 @@ class ResultSettingSchemaChecker extends ResultSettingValidator
             return $this->errorList;
         }
 
-        if ($this->data_size <= 0) {
+        if ($this->dataSize <= 0) {
             $this->addError(self::ERROR_WRONG_GENERAL_STRUCTURE);
             return $this->errorList;
         }
