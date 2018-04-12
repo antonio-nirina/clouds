@@ -2,16 +2,13 @@
 
 namespace AdminBundle\Service\ImportExport;
 
-use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Entity\Role;
 use AdminBundle\Entity\Sales;
 use AdminBundle\Entity\SiteFormSetting;
-use AdminBundle\Manager\ProgramManager;
 use AdminBundle\Service\FileHandler\CSVFileContentBrowser;
 use AdminBundle\Service\FileHandler\CSVHandler;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -257,15 +254,6 @@ class ResultSettingValidator extends CSVFileContentBrowser
         $i = $row_index;
         $current_row = array_combine($header, $array_data[$i]);
 
-        //user check
-        /*$program_user = $this->manager
-            ->getRepository('AdminBundle\Entity\ProgramUser')
-            ->findByNameAndLastName(
-                $current_row['Nom'],
-                $current_row['Prénom'],
-                $program
-            );
-        $program_user = $program_user[0];*/
         // check user by ID, instead of name and lastname
         $program_user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
@@ -279,9 +267,9 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 ->getRepository('AdminBundle\Entity\Role')
                 ->findBy(
                     array(
-                                'name' => $current_row['Fonction'],
-                                'program' => $program
-                            )
+                        'name' => $current_row['Fonction'],
+                        'program' => $program
+                    )
                 );
 
             if (!empty($role)) {
@@ -292,7 +280,6 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 if ($current_row['Rang']) {
                     $role->setRank($current_row['Rang']);
                 }
-                // $role->setNetwork($current_row['Réseau']);
                 $role->setProgram($program);
                 $this->manager->persist($role);
                 $this->manager->flush();
@@ -326,7 +313,6 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 }
 
                 $this->manager->persist($sales);
-                $this->manager->flush();
 
                 /* définition des points pour mise à jour des points */
                 $sales_point_attribution->attributedByProduct($sales); //by product and by period
@@ -336,6 +322,8 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 }
             }
         }
+
+        $this->manager->flush();
     }
 
     /**

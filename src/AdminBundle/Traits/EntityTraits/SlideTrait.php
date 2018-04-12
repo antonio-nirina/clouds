@@ -1,6 +1,8 @@
 <?php
 namespace AdminBundle\Traits\EntityTraits;
 
+use Doctrine\ORM\Mapping as ORM;
+
 trait SlideTrait
 {
     /**

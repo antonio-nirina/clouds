@@ -2,6 +2,7 @@
 namespace AdminBundle\Traits\EntityTraits;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Grouping action button datas
