@@ -76,6 +76,12 @@ class ResultSettingValidator extends CSVFileContentBrowser
         return;
     }
 
+    /**
+     * @param $error_message
+     * @param $row_index
+     * @param null $col_index
+     * @return string
+     */
     protected function createErrorWithIndex($error_message, $row_index, $col_index = null)
     {
         $message = $error_message . ', Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
@@ -84,6 +90,12 @@ class ResultSettingValidator extends CSVFileContentBrowser
             : $message . ', Colonne: ' . ($col_index+1); // 0-based index to 1-based index (human readable)
     }
 
+    /**
+     * @param $error_message
+     * @param $row_index
+     * @param $col_index
+     * @return string
+     */
     protected function createErrorWithColumn($error_message, $row_index, $col_index)
     {
         $message = $error_message . ', Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
@@ -92,6 +104,15 @@ class ResultSettingValidator extends CSVFileContentBrowser
             : $message . ', Colonne: "' . ($col_index) . '"'; // 0-based index to 1-based index (human readable)
     }
 
+    /**
+     * @param $header
+     * @param $array_data
+     * @param $array_model
+     * @param $header_row_index
+     * @param $row_index
+     * @param $program
+     * @return array
+     */
     protected function checkRowResult($header, $array_data, $array_model, $header_row_index, $row_index, $program)
     {
         $i = $row_index;
@@ -197,13 +218,20 @@ class ResultSettingValidator extends CSVFileContentBrowser
             );
         }
         //user check
-        $user = $this->manager
+        /*$user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
             ->findByNameAndLastName(
                 $current_row['Nom'],
                 $current_row['Prénom'],
                 $program
-            );
+            );*/
+        // check user by ID, instead of name and lastname
+        $user = $this->manager
+            ->getRepository('AdminBundle\Entity\ProgramUser')
+            ->findOneBy(array(
+                'id' => $current_row['ID'],
+                'program' => $program
+            ));
         if (empty($user)) {
             $this->addError(
                 $this->createErrorWithIndex(
@@ -216,20 +244,35 @@ class ResultSettingValidator extends CSVFileContentBrowser
         return $this->error_list;
     }
 
+    /**
+     * @param $header
+     * @param $array_data
+     * @param $array_model
+     * @param $header_row_index
+     * @param $row_index
+     * @param $program
+     */
     protected function importRowResult($header, $array_data, $array_model, $header_row_index, $row_index, $program)
     {
         $i = $row_index;
         $current_row = array_combine($header, $array_data[$i]);
 
         //user check
-        $program_user = $this->manager
+        /*$program_user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
             ->findByNameAndLastName(
                 $current_row['Nom'],
                 $current_row['Prénom'],
                 $program
             );
-        $program_user = $program_user[0];
+        $program_user = $program_user[0];*/
+        // check user by ID, instead of name and lastname
+        $program_user = $this->manager
+            ->getRepository('AdminBundle\Entity\ProgramUser')
+            ->findOneBy(array(
+                'id' => $current_row['ID'],
+                'program' => $program
+            ));
 
         if (array_key_exists("Fonction", $current_row)) { //assignation role commercial
             $role = $this->manager
@@ -295,6 +338,14 @@ class ResultSettingValidator extends CSVFileContentBrowser
         }
     }
 
+    /**
+     * @param $col_element
+     * @param $type
+     * @param $row_index
+     * @param $col_index
+     * @param string $error_if_not_valid
+     * @return array
+     */
     protected function validateColumnElement(
         $col_element,
         $type,
@@ -316,6 +367,14 @@ class ResultSettingValidator extends CSVFileContentBrowser
         return array();
     }
 
+    /**
+     * @param $col_element
+     * @param $type
+     * @param $row_index
+     * @param $col_index
+     * @param string $error_if_not_valid
+     * @return array
+     */
     protected function validateColumnElement2(
         $col_element,
         $type,
@@ -337,6 +396,11 @@ class ResultSettingValidator extends CSVFileContentBrowser
         return array();
     }
 
+    /**
+     * @param $model
+     * @param $data
+     * @return array
+     */
     public function check($model, $data)
     {
         $this->addData($model, $data);

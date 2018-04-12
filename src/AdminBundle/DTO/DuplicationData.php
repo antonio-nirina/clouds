@@ -15,7 +15,7 @@ class DuplicationData
     /**
      * @Assert\NotBlank()
      */
-    protected $duplication_source_id;
+    protected $duplicationSourceId;
 
     public function setName($name)
     {
@@ -24,20 +24,30 @@ class DuplicationData
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function setDuplicationSourceId($id)
     {
-        $this->duplication_source_id = $id;
+        $this->duplicationSourceId = $id;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getDuplicationSourceId()
     {
-        return $this->duplication_source_id;
+        return $this->duplicationSourceId;
     }
 }

@@ -10,64 +10,96 @@ class ProductPointSettingUnitData
     /**
      * @Assert\Valid()
      */
-    private $product_point_turnover_proportional;
+    private $productPointTurnoverProportional;
 
     /**
      * @Assert\Valid()
      */
-    private $product_point_turnover_slice;
+    private $productPointTurnoverSlice;
 
-    private $product_group;
-    private $new_status;
+    private $productGroup;
+    private $newStatus;
 
+    /**
+     * ProductPointSettingUnitData constructor.
+     */
     public function __construct()
     {
-        $this->new_status = true;
+        $this->newStatus = true;
     }
 
-    public function setProductPointTurnoverProportional(PointAttributionSetting $point_attribution_setting)
+    /**
+     * @param PointAttributionSetting $pointAttributionSetting
+     * @return $this
+     */
+    public function setProductPointTurnoverProportional(PointAttributionSetting $pointAttributionSetting)
     {
-        $this->product_point_turnover_proportional = $point_attribution_setting;
+        $this->productPointTurnoverProportional = $pointAttributionSetting;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProductPointTurnoverProportional()
     {
-        return $this->product_point_turnover_proportional;
+        return $this->productPointTurnoverProportional;
     }
 
+    /**
+     * @param \AdminBundle\DTO\ProductPointTurnoverSliceData $data
+     * @return $this
+     */
     public function setProductPointTurnoverSlice(ProductPointTurnoverSliceData $data)
     {
-        $this->product_point_turnover_slice = $data;
+        $this->productPointTurnoverSlice = $data;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProductPointTurnoverSlice()
     {
-        return $this->product_point_turnover_slice;
-    }
-    public function getProductGroup()
-    {
-        return $this->product_group;
+        return $this->productPointTurnoverSlice;
     }
 
-    public function setProductGroup($product_group)
+    /**
+     * @return mixed
+     */
+    public function getProductGroup()
     {
-        $this->product_group = $product_group;
+        return $this->productGroup;
+    }
+
+    /**
+     * @param $productGroup
+     * @return $this
+     */
+    public function setProductGroup($productGroup)
+    {
+        $this->productGroup = $productGroup;
 
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getNewStatus()
     {
-        return $this->new_status;
+        return $this->newStatus;
     }
 
+    /**
+     * @param $status
+     * @return $this
+     */
     public function setNewStatus($status)
     {
-        $this->new_status = $status;
+        $this->newStatus = $status;
 
         return $this;
     }

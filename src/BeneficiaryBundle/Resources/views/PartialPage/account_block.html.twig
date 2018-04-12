@@ -1,0 +1,19 @@
+<div class = "content-mon-compte">
+    <p class = "block-active-hover" id = "block-active-hover-mon-compte"></p>
+    <p class = "ligne-1-block">
+        <span class = "titre-block light">mon compte</span>
+        <span class = "titre-block-img-mon-compte"></span>
+    </p>
+
+    <p class = "mon-compte-nom light">
+        <span class = "lib-nom-mon-compte">{{ app_user.firstname }} {{ app_user.name }}</span>
+    </p>
+
+    <p class = "mon-compte-points light">
+        <span>{{ user_point is not null ? user_point.points : '0' }} pts</span>
+    </p>
+
+    <p class = "mon-compte-btn light">
+        <span>accéder</span>
+    </p>
+</div>

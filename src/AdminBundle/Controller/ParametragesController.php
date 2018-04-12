@@ -69,24 +69,25 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:menu-sidebar-parametrages.html.twig',
             array(
-                                    'level' => $level,
-                                    'active' => $active
+                'level' => $level,
+                'active' => $active
             )
         );
     }
 
+    /**
+     * @return Response
+     */
     public function rootAction()
     {
         $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
-        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
-        $site_design = $site_design[0];
 
         $has_root = $this->container->get('app.design_root')->exists($program->getId());
         return $this->render(
             'root.html.twig',
             array(
-                                    'link' => $has_root
+                'link' => $has_root
             )
         );
     }
@@ -871,7 +872,9 @@ class ParametragesController extends AdminController
                 $monthly = $result_setting->getMonthly();
                 $by_product = $result_setting->getByProduct();
                 $by_rank = $result_setting->getByRank();
-                $response = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel')
+                $resultSettingModal = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel');
+                $resultSettingModal->setProgram($program);
+                $response = $resultSettingModal
                     ->createResponse($monthly, $by_product, $by_rank);
                 return $response;
             }
@@ -883,7 +886,8 @@ class ParametragesController extends AdminController
             $upload_form->handleRequest($request);
             if ($upload_form->isSubmitted() && $upload_form->isValid()) {
                 $imported_file = $upload_form->getData()["uploaded_file"];
-                $result_setting_handler = $this->get("AdminBundle\Service\ImportExport\ResultSettingHandler");
+                $result_setting_handler = $this->get('AdminBundle\Service\ImportExport\ResultSettingHandler');
+                $result_setting_handler->setProgram($program);
                 $result_setting_handler->setResultSetting($result_setting);
                 $result_setting_handler->import($imported_file);
 
@@ -1944,7 +1948,11 @@ class ParametragesController extends AdminController
     }
 
     /**
+     * Gestion des pages standards
+     *
      * @Route("/contenus/pages-standard",name="admin_pages_standard")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function pagesStandardAction(Request $request)
     {
@@ -2013,15 +2021,10 @@ class ParametragesController extends AdminController
 
                 $sitePagesStandardSetting->upload($program);
                 $em->persist($sitePagesStandardSetting);
-                $em->flush();
             }
 
-            //return $this->redirectToRoute('admin_pages_standard');
+            $em->flush();
         }
-
-        $AllPages = array();
-        $AllPagesSetting = array();
-        $AllPagesDefault = array();
 
         //Get all pages with programm
         $AllPagesSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->findBy(

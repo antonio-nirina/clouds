@@ -6,22 +6,31 @@ use AdminBundle\Service\Statistique\Common;
 use Mailjet\MailjetBundle\Client\MailjetClient ;
 
 
-/**
- * 
- */
+
 class ExcelManager
 {
     private $container;
     private $mailjetClient;
     private $common;
-    
-    public function __construct(MailjetClient  $mailjetClient,Common $common,ContainerInterface $container)
+
+    /**
+     * ExcelManager constructor.
+     * @param MailjetClient $mailjetClient
+     * @param Common $common
+     * @param ContainerInterface $container
+     */
+    public function __construct(MailjetClient  $mailjetClient, Common $common, ContainerInterface $container)
     {        
         $this->mailjetClient=$mailjetClient;
         $this->common = $common;
         $this->container = $container;
     }
 
+    /**
+     * @param null $id
+     * @param string $status
+     * @return mixed
+     */
     public function generateExcel($id = null, $status = "")
     {        
         $result = $this->common->getOneCampagne($id)["email"];
@@ -31,7 +40,7 @@ class ExcelManager
         } elseif (!empty($status) && $status == "delivred") {
             foreach ($result as  $del) {
                 if ($del["etat"] == "sent" || $del["etat"] == "opened" || $del["etat"] == "clicked" ) {
-                    $res [] = $del;
+                    $res[] = $del;
                 } 
             }
             $data = !empty($res)?$res:"";
@@ -39,7 +48,7 @@ class ExcelManager
         } elseif (!empty($status) && $status == "opened") {
             foreach ($result as  $del) {
                 if ($del["etat"] == "opened" || $del["etat"] == "clicked") {
-                    $res [] = $del;
+                    $res[] = $del;
                 } 
             }            
             $data = !empty($res)?$res:"";
@@ -47,7 +56,7 @@ class ExcelManager
         } elseif (!empty($status) && $status == "clicked") {
             foreach ($result as  $del) {
                 if ($del["etat"] == "clicked" ) {
-                    $res [] = $del;
+                    $res[] = $del;
                 }
             }
             $data = !empty($res)?$res:"";
@@ -55,7 +64,7 @@ class ExcelManager
         } elseif (!empty($status) && $status == "bounce") {
             foreach ($result as  $del) {
                 if ($del["etat"] == "bounce" ) {
-                    $res [] = $del;
+                    $res[] = $del;
                 }
             } 
             $data = !empty($res)?$res:"";
@@ -63,7 +72,7 @@ class ExcelManager
         } elseif (!empty($status) && $status == "spam") {
             foreach ($result as  $del) {
                 if ($del["etat"] == "spam" ) {
-                    $res [] = $del;
+                    $res[] = $del;
                 } 
             }
 
@@ -72,7 +81,7 @@ class ExcelManager
         } elseif (!empty($status) && $status == "unsub") {
             foreach ($result as  $del) {
                 if ($del["etat"] == "unsub" ) {
-                    $res [] = $del;
+                    $res[] = $del;
                 } 
             }
             $data = !empty($res)?$res:"";
@@ -80,7 +89,7 @@ class ExcelManager
         } elseif (!empty($status) && $status == "blocked") {
             foreach ($result as  $del) {
                 if ($del["etat"] == "blocked" ) {
-                    $res [] = $del;
+                    $res[] = $del;
                 } 
             }
             $data = !empty($res)?$res:"";
@@ -91,6 +100,10 @@ class ExcelManager
     }
 
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     protected function allTraitement($data)
     {
         $objPHPExcel = $this->container->get('phpexcel')->createPHPExcelObject();
@@ -144,46 +157,46 @@ class ExcelManager
         $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
         $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(10);
 
-        $style_email = [
+        $styleEmail = [
             "font" =>["bold" => true, "color" => ["rgb"=>"000000"],"size"=>12, "name"=>"Arial"]
         ];
 
-        $style_delivre = [
+        $styleDelivre = [
             "font" =>["bold" => true, "color" => ["rgb"=>"808080"],"size"=>12, "name"=>"Arial"]
         ];
 
-         $style_ouverts = [
+         $styleOuverts = [
             "font" =>["bold" => true, "color" => ["rgb"=>"93D706"],"size"=>12, "name"=>"Arial"]
          ];
 
-         $style_clique = [
+         $styleClique = [
             "font" =>["bold" => true, "color" => ["rgb"=>"14A400"],"size"=>12, "name"=>"Arial"]
          ];
 
-         $style_desabo = [
+         $styleDesabo = [
             "font" =>["bold" => true, "color" => ["rgb"=>"1CD7F9"],"size"=>12, "name"=>"Arial"]
          ];
 
-         $style_bloque = [
+         $styleBloque = [
             "font" =>["bold" => true, "color" => ["rgb"=>"000000"],"size"=>12, "name"=>"Arial"]
          ];
 
-         $style_spam = [
+         $styleSpam = [
             "font" =>["bold" => true, "color" => ["rgb"=>"FC0007"],"size"=>12, "name"=>"Arial"]
          ];
 
-         $style_erreurs = [
+         $styleErreurs = [
             "font" =>["bold" => true, "color" => ["rgb"=>"FEA500"],"size"=>12, "name"=>"Arial"]
          ];
 
-         $objPHPExcel->getActiveSheet()->getStyle("A1")->applyFromArray($style_email);
-         $objPHPExcel->getActiveSheet()->getStyle("B1")->applyFromArray($style_delivre);
-         $objPHPExcel->getActiveSheet()->getStyle("C1")->applyFromArray($style_ouverts);
-         $objPHPExcel->getActiveSheet()->getStyle("D1")->applyFromArray($style_clique);
-         $objPHPExcel->getActiveSheet()->getStyle("E1")->applyFromArray($style_desabo);
-         $objPHPExcel->getActiveSheet()->getStyle("F1")->applyFromArray($style_bloque);
-         $objPHPExcel->getActiveSheet()->getStyle("G1")->applyFromArray($style_spam);
-         $objPHPExcel->getActiveSheet()->getStyle("H1")->applyFromArray($style_erreurs);
+         $objPHPExcel->getActiveSheet()->getStyle("A1")->applyFromArray($styleEmail);
+         $objPHPExcel->getActiveSheet()->getStyle("B1")->applyFromArray($styleDelivre);
+         $objPHPExcel->getActiveSheet()->getStyle("C1")->applyFromArray($styleOuverts);
+         $objPHPExcel->getActiveSheet()->getStyle("D1")->applyFromArray($styleClique);
+         $objPHPExcel->getActiveSheet()->getStyle("E1")->applyFromArray($styleDesabo);
+         $objPHPExcel->getActiveSheet()->getStyle("F1")->applyFromArray($styleBloque);
+         $objPHPExcel->getActiveSheet()->getStyle("G1")->applyFromArray($styleSpam);
+         $objPHPExcel->getActiveSheet()->getStyle("H1")->applyFromArray($styleErreurs);
 
          $row = 2;
          if (!empty($data)) {
@@ -191,13 +204,13 @@ class ExcelManager
                  if ($item["etat"] == "opened") {
                      $objPHPExcel->setActiveSheetIndex(0)
                          ->setCellValue('A'.$row, $item["emails"]);
-                     $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($style_ouverts);
+                     $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleOuverts);
                      $objPHPExcel->getActiveSheet()->getCell('C'.$row)->setValue("x");
                     $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getAlignment()->applyFromArray(
                         array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
                     );
 
-                     $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($style_delivre);
+                     $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleDelivre);
                      $objPHPExcel->getActiveSheet()->getCell('B'.$row)->setValue("x");
                     $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->applyFromArray(
                         array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
@@ -205,27 +218,27 @@ class ExcelManager
                     } elseif ($item["etat"] == "sent") {
                         $objPHPExcel->setActiveSheetIndex(0)
                             ->setCellValue('A'.$row, $item["emails"]);
-                        $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($style_delivre);
+                        $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleDelivre);
                         $objPHPExcel->getActiveSheet()->getCell('B'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
                         );
-} elseif ($item["etat"] == "clicked") {
+                } elseif ($item["etat"] == "clicked") {
                         $objPHPExcel->setActiveSheetIndex(0)
                             ->setCellValue('A'.$row, $item["emails"]);
-                        $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->applyFromArray($style_clique);
+                        $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->applyFromArray($styleClique);
                         $objPHPExcel->getActiveSheet()->getCell('D'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
                         );
 
-                        $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($style_ouverts);
+                        $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleOuverts);
                         $objPHPExcel->getActiveSheet()->getCell('C'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
                         );
 
-                        $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($style_delivre);
+                        $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleDelivre);
                         $objPHPExcel->getActiveSheet()->getCell('B'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
@@ -233,15 +246,15 @@ class ExcelManager
                     } elseif ($item["etat"] == "unsub") {
                         $objPHPExcel->setActiveSheetIndex(0)
                             ->setCellValue('A'.$row, $item["emails"]);
-                        $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($style_desabo);
+                        $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleDesabo);
                         $objPHPExcel->getActiveSheet()->getCell('E'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
                         );
-} elseif ($item["etat"] == "blocked") {
+                } elseif ($item["etat"] == "blocked") {
                         $objPHPExcel->setActiveSheetIndex(0)
                             ->setCellValue('A'.$row, $item["emails"]);
-                        $objPHPExcel->getActiveSheet()->getStyle('F'.$row)->applyFromArray($style_bloque);
+                        $objPHPExcel->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleBloque);
                         $objPHPExcel->getActiveSheet()->getCell('F'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('F'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
@@ -249,15 +262,15 @@ class ExcelManager
                     } elseif ($item["etat"] == "spam") {
                         $objPHPExcel->setActiveSheetIndex(0)
                             ->setCellValue('A'.$row, $item["emails"]);
-                        $objPHPExcel->getActiveSheet()->getStyle('G'.$row)->applyFromArray($style_spam);
+                        $objPHPExcel->getActiveSheet()->getStyle('G'.$row)->applyFromArray($styleSpam);
                         $objPHPExcel->getActiveSheet()->getCell('G'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('G'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
                         );
-} elseif ($item["etat"] == "bounce") {
+                 } elseif ($item["etat"] == "bounce") {
                         $objPHPExcel->setActiveSheetIndex(0)
                             ->setCellValue('A'.$row, $item["emails"]);
-                        $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->applyFromArray($style_erreurs);
+                        $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->applyFromArray($styleErreurs);
                         $objPHPExcel->getActiveSheet()->getCell('H'.$row)->setValue("x");
                         $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)

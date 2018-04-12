@@ -18,9 +18,9 @@ class ArrayStructureHandler
     {
         $result = array();
         if (!empty($array)) {
-            foreach ($array as $array_element) {
-                if (array_key_exists($key, $array_element)) {
-                    $result[$array_element[$key]] = $array_element;
+            foreach ($array as $arrayElement) {
+                if (array_key_exists($key, $arrayElement)) {
+                    $result[$arrayElement[$key]] = $arrayElement;
                 }
             }
         }

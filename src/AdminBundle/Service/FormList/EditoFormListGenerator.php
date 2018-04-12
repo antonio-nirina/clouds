@@ -10,6 +10,6 @@ class EditoFormListGenerator extends FormListGenerator
 
     public function defineFormNamePrefix()
     {
-        $this->form_name_prefix = self::FORM_NAME_PREFIX;
+        $this->formNamePrefix = self::FORM_NAME_PREFIX;
     }
 }

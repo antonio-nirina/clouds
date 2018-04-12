@@ -6,13 +6,14 @@
             {{ parent() }}
             <link rel="stylesheet" href="{{ asset('bundles/beneficiary/css/acceuil.css') }}">
             <link rel="stylesheet" href="{{ asset('bundles/beneficiary/css/swiper.css') }}">
+            <link href="{{ asset("css/admin-parameters-registration.css") }}" rel="stylesheet">
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block slide %}
     <div class="container bg-slide" style={{ (background_link)?"background:none":"" }}>
-		{% if background_link %}
+        {% if background_link %}
             <div class="background">
                 <img src="{{ asset(background_link|imagine_filter('1920_width_filter')) }}">
                 <div></div>
@@ -28,16 +29,11 @@
                 <div class = "slide-righter">&nbsp;</div>
                 <div class = "slide">
                     <div class = "img-entete-page-standard">
-						{% if Pages.Path != '' %}
-							<img class = "src-entete-page-standard" src = "{{asset('/web/content/pages_standards/'~Pages.getProgram.Id~'/'~Pages.Path)}}" alt = "entete">
-							<span class="slide-message white">{{ Pages.TitrePage }}</span>
-						{% else %}
-							{% if Pages.NomPage == 'contact' %}
-								<img class = "src-entete-page-standard" src = "{{asset('images/cloudsRewards/contact-default.png')}}" alt = "entete">
-								<span class="slide-message white">{{ Pages.TitrePage }}</span>
-							{% endif %}
-						{% endif %}
-					</div>
+                        {% if elearning_banner.imageFile != '' %}
+                            <img class = "src-entete-page-standard" src = "{{asset(e_learning_media_document_location ~ elearning_banner.imageFile)}}" alt = "entete">
+                            <span class="slide-message white">{{ elearning_banner.imageTitle }}</span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,7 +45,7 @@
         <!-- LEFTER -->
         <div class = "content-lefter">
             <!--MON COMPTE -->
-            {#<div class = "content-mon-compte">
+            <div class = "content-mon-compte">
                 <p class = "block-active-hover" id = "block-active-hover-mon-compte"></p>
                 <p class = "ligne-1-block">
                     <span class = "titre-block light">mon compte</span>
@@ -67,8 +63,7 @@
                 <p class = "mon-compte-btn light">
                     <span>accéder</span>
                 </p>
-            </div>#}
-            {{ render(controller('BeneficiaryBundle:PartialPage:accountBlock')) }}
+            </div>
             <!--FIN MON COMPTE -->
 
             <!--MON CLASSEMENT -->
@@ -94,7 +89,7 @@
             <!--FIN CLASSEMENT -->
 
             <!--MON CONTACT -->
-			{{ render(controller("BeneficiaryBundle:Page:PageStandardContact" )) }}
+            {{ render(controller("BeneficiaryBundle:Page:PageStandardContact" )) }}
             <!--FIN CONTACT -->
         </div>
         <!-- FIN LEFTER -->
@@ -191,25 +186,25 @@
                     <p class = "rs-sociaux-ligne-1">
                         {% if table_network.hasFacebook %}
                             <a href={{ (table_network.facebookLink)?"http://#{table_network.facebookLink}":"#" }}>
-                                <span class = "rs-ligne-1-fb"></span>                                
+                                <span class = "rs-ligne-1-fb"></span>
                             </a>
                         {% endif %}
                         {% if table_network.hasLinkedin %}
                             <a href={{ (table_network.linkedinLink)?"http://#{table_network.linkedinLink}":"#" }}>
-                                <span class = "rs-ligne-1-linkdin"></span>                            
+                                <span class = "rs-ligne-1-linkdin"></span>
                             </a>
                         {% endif %}
                         {% if table_network.hasTwitter %}
                             <a href={{ (table_network.twitterLink)?"http://#{table_network.twitterLink}":"#" }}>
-                                <span class = "rs-ligne-1-twitter"></span>                           
+                                <span class = "rs-ligne-1-twitter"></span>
                             </a>
                         {% endif %}
                         {# <span class = "rs-ligne-1-viadeo"></span> #}
                     </p>
 
                     {# <p class = "rs-sociaux-ligne-2">
-                        <span class = "rs-ligne-2-gplus"></span> 
-                        <span class = "rs-ligne-2-twitter"></span>                       
+                        <span class = "rs-ligne-2-gplus"></span>
+                        <span class = "rs-ligne-2-twitter"></span>
                         <span class = "rs-ligne-2-pink"></span>
                     </p> #}
                 </div>
@@ -219,73 +214,33 @@
         <!-- FIN RIGHTER -->
 
         <!-- CENTER -->
-        <div class = "content-center">
-			
-            <div class = "content-edito contenent-pages-stdr">
-                <p class = "block-active-hover" id = "block-active-hover-edito"></p>
-                <p class = "titre-block-centre">
-                    <span class = "lib-date-block-centre-large bold">{{ Pages.TitrePage }}</span>
-                </p>
-
-                <p class = "descr-block-centre">
-					{{ Pages.ContenuPage | raw }}
-                </p>
-				
-				{% if Pages.NomPage == 'contact' %}
-					<p class = "descr-block-centre">
-						<form id = "FormContactSend" name = "FormContact" method = "POST" action = "">
-							{% for ChampForms in Options %}
-								{% if ChampForms.publier == '1' %}
-									<label class="champForm">
-										<span class="lib-form">
-											{{ ChampForms.label }} 
-											{% if ChampForms.obligatoire == '1' %}
-											 *
-											{% endif %}
-										</span>
-										{% if ChampForms.type == 'input-text' %}
-											<input class="input-form-text" name="{{ ChampForms.label }}" value="" type="text">
-										{% endif %}
-										
-										{% if ChampForms.type == 'input-textarea' %}
-											<textarea class = "input-form-text" name = "{{ ChampForms.label }}"></textarea>
-										{% endif %}
-										
-										{% if ChampForms.type == 'input-radio' %}
-											<div class = "input-form-radio">
-												<div class = "champ-radio">
-													<input id = "{{ ChampForms.label }}-radio-1" class="form-field-mandatory styled-checkbox" name="{{ ChampForms.label }}" type="radio" style = "display:none;">
-													<label for = "{{ ChampForms.label }}-radio-1"><span></span></label> 
-													<span>Oui</span>
-												</div>
-												
-												<div class = "champ-radio">
-													<input id = "{{ ChampForms.label }}-radio-2" class="form-field-mandatory styled-checkbox" name="{{ ChampForms.label }}" type="radio" style = "display:none;">
-													<label for = "{{ ChampForms.label }}-radio-2"><span></span></label> 
-													<span>Non</span>
-												</div>
-											</div>
-										{% endif %}
-									</label>
-									<div style = "clear:both;"></div>
-								{% endif %}
-							{% endfor %}
-
-							<p style = "clear:both;"></p>
-							<p class="mon-compte-btn light">
-								<span>valider</span>
-							</p>
-						</form>
-					</p>
-					<p style = "clear:both;"></p>
-				{% endif %}
-            </div>
-        
+        <div class="content-center">
+            {% if e_learning_list is defined and e_learning_list is not empty %}
+                {% for e_learning in e_learning_list %}
+                    <div class="content-edito" style="background: white none repeat scroll 0% 0%; box-shadow: none;">
+                        <div class = "standard-content">
+                            <p class = "block-active-hover"></p>
+                            <div class="main-container">
+                                <div class="row">
+                                    <div class="col-12 col-md-9 col-lg-11">
+                                        <span class="standard-content-title">{{ e_learning.title }}</span>
+                                        {% set publication_date = (true == e_learning.publishedState ? e_learning.publicationDatetime : e_learning.lastEdit) %}
+                                        <span class="standard-content-date">publié le {{ publication_date | localizeddate('none', 'none', locale, null, "dd/MM/yyyy") }}</span>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-lg-1 preview-icon-container">
+                                        <span class="preview-icon"></span>
+                                        <span class="chevron-up" style="display: none;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-sep-date-vide"></div>
+                {% endfor %}
+            {% endif %}
         </div>
         <!-- FIN CENTER -->
-
     </div>
-	
 {% endblock %}
 
 {% block footer %}
