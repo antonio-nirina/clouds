@@ -9,52 +9,52 @@ class PartialPageController extends Controller
 {
     public function afficheLecteurVideoAction($videos, $programm)
     {
-        $UrlVideo = "";
+        $urlVideo = "";
 
         //Youtube
-        $IsSiteYoutubeShort = strpos($videos->getVideoUrl(), 'youtu.be');
-        if ($IsSiteYoutubeShort === false) {
-            $IsSiteYoutubeLong = strpos($videos->getVideoUrl(), 'youtube');
-            $IsSiteYoutube = $IsSiteYoutubeLong;
+        $isSiteYoutubeShort = strpos($videos->getVideoUrl(), 'youtu.be');
+        if ($isSiteYoutubeShort === false) {
+            $isSiteYoutubeLong = strpos($videos->getVideoUrl(), 'youtube');
+            $isSiteYoutube = $isSiteYoutubeLong;
         } else {
-            $IsSiteYoutube = $IsSiteYoutubeShort;
+            $isSiteYoutube = $isSiteYoutubeShort;
         }
 
-        if ($IsSiteYoutube) {
-            $ExplodeUrlVideo = explode('/', $videos->getVideoUrl());
-            $IdVideo = $ExplodeUrlVideo[count($ExplodeUrlVideo)-1];
-            $pos = strpos($IdVideo, 'watch');
+        if ($isSiteYoutube) {
+            $explodeUrlVideo = explode('/', $videos->getVideoUrl());
+            $idVideo = $explodeUrlVideo[count($explodeUrlVideo)-1];
+            $pos = strpos($idVideo, 'watch');
 
             if ($pos === false) {
-                $UrlVideo = $IdVideo;
+                $urlVideo = $idVideo;
             } else {
-                $ExplodeIdVideo = explode('=', $IdVideo);
-                $UrlVideo = $ExplodeIdVideo[count($ExplodeIdVideo)-1];
+                $explodeIdVideo = explode('=', $idVideo);
+                $urlVideo = $explodeIdVideo[count($explodeIdVideo)-1];
             }
         }
 
         //Dailymotion
-        $IsSiteDailyShort = strpos($videos->getVideoUrl(), 'dai.ly');
-        if ($IsSiteDailyShort === false) {
-            $IsSiteDailyLong = strpos($videos->getVideoUrl(), 'dailymotion');
-            $IsSiteDaily = $IsSiteDailyLong;
+        $isSiteDailyShort = strpos($videos->getVideoUrl(), 'dai.ly');
+        if ($isSiteDailyShort === false) {
+            $isSiteDailyLong = strpos($videos->getVideoUrl(), 'dailymotion');
+            $isSiteDaily = $isSiteDailyLong;
         } else {
-            $IsSiteDaily = $IsSiteDailyShort;
+            $isSiteDaily = $isSiteDailyShort;
         }
 
-        if ($IsSiteDaily) {
-            $ExplodeUrlVideo = explode('/', $videos->getVideoUrl());
-            $IdVideo = $ExplodeUrlVideo[count($ExplodeUrlVideo)-1];
-            $UrlVideo = $IdVideo;
+        if ($isSiteDaily) {
+            $explodeUrlVideo = explode('/', $videos->getVideoUrl());
+            $idVideo = $explodeUrlVideo[count($explodeUrlVideo)-1];
+            $urlVideo = $idVideo;
         }
 
         return $this->render(
             'BeneficiaryBundle:PartialPage/Ajax:afficheLecteurVideo.html.twig',
             array(
-            'videos' => $UrlVideo,
+            'videos' => $urlVideo,
             'programm' => $programm,
-            'IsSiteYoutube' => $IsSiteYoutube,
-            'IsSiteDaily' => $IsSiteDaily,
+            'IsSiteYoutube' => $isSiteYoutube,
+            'IsSiteDaily' => $isSiteDaily,
             )
         );
     }
