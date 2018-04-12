@@ -407,6 +407,7 @@ class PageController extends Controller
     }
 
     /**
+     * To show E-learning page listing
      * @Route("/pages/e-learning", name="elearning_page")
      */
     public function AffichagePageELearning(){
@@ -423,11 +424,23 @@ class PageController extends Controller
         if (empty($ElearningBanner)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
+        $table_network = $program->getSiteTableNetworkSetting();
+        $has_network = false;
+        if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
+            $has_network = true;
+        }
+        $em = $this->getDoctrine()->getManager();
+        $e_learning_list = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
+            array('program' => $program),
+            array('created_at' => 'DESC')
+        );
         return $this->render(
             'BeneficiaryBundle:Page:AffichagePageElearning.html.twig',
             array(
                 'background_link' => $backgroundLink,
                 'elearning_banner' => $ElearningBanner,
+                'has_network' => $has_network,
+                'e_learning_list' => $e_learning_list,
             ));
     }
 
