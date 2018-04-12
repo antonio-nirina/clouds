@@ -113,6 +113,11 @@ class PartialPageController extends Controller
         return new Response('');
     }
 
+    /**
+     * @param $field
+     * @param bool $personalize
+     * @return Response
+     */
     public function siteFormManyFieldsRowAction($field, $personalize = false)
     {
         // dump($level);die;
@@ -135,6 +140,10 @@ class PartialPageController extends Controller
         );
     }
 
+    /**
+     * @param array $datas
+     * @return Response
+     */
     public function afficheContenuPagesStandardAction(array $datas)
     {
         if (isset($datas['page']) && !empty($datas['page'])) {
@@ -171,6 +180,12 @@ class PartialPageController extends Controller
         );
     }
 
+
+    /**
+     * @param array $datas
+     * @param $programm
+     * @return Response
+     */
     public function affichePopUpImgEditorAction(array $datas, $programm)
     {
         //On recupere les infos de la page parametrés
@@ -230,6 +245,7 @@ class PartialPageController extends Controller
             )
         );
     }
+
 
     public function emailingListeContactEditSubmitAjaxAction($IdList, $UserId)
     {

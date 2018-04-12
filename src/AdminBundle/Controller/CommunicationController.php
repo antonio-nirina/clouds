@@ -2463,9 +2463,8 @@ class CommunicationController extends AdminController
 
     /**
      * Configuring e-learning welcoming banner
-     *
+     * @param Request $request
      * @return Response
-     *
      * @Route("/e-learning/banniere-accueil", name="admin_communication_e_learning_welcoming_banner")
      */
     public function eLearningWelcomingBannerAction(Request $request)
@@ -2476,7 +2475,6 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-
         $em = $this->getDoctrine()->getManager();
         $ElearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
         if (empty($ElearningBanner)) {
@@ -2485,7 +2483,6 @@ class CommunicationController extends AdminController
         $currentHeaderImage = $ElearningBanner->getImageFile();
         $formElearningBanner = $this->createForm(ELearningHomeBannerType::class, $ElearningBanner);
         $formElearningBanner ->handleRequest($request);
-
         if ($request->isMethod('POST')) {
             if ($formElearningBanner->isSubmitted() && $formElearningBanner->isValid()) {
                 $banner_image_file = $ElearningBanner->getImageFile();
@@ -2498,12 +2495,10 @@ class CommunicationController extends AdminController
                 } else {
                     $ElearningBanner->setImageFile($currentHeaderImage);
                 }
-
                 $menuName = $formElearningBanner->get('menuName')->getData();
                 $imageTitle = $formElearningBanner->get('imageTitle')->getData();
                 $ElearningBanner->setMenuName($menuName);
                 $ElearningBanner->setImageTitle($imageTitle);
-
                 if (!empty($formElearningBanner->get('menuName')->getData())
                     && "true" == $formElearningBanner->get('imageTitle')->getData()
                 ) {
@@ -2517,7 +2512,6 @@ class CommunicationController extends AdminController
                     $ElearningBanner->setImageFile(null);
                 }
                 $em->flush();
-
                 return $this->redirectToRoute('admin_communication_e_learning_welcoming_banner');
             }
         }

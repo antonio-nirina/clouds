@@ -29,7 +29,7 @@ class LearningCommand extends ContainerAwareCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $currentProgram = $em->getRepository('AdminBundle\Entity\Program')->findOneBy(array('id' => 51));
+        $currentProgram = $em->getRepository('AdminBundle\Entity\Program')->findOneBy(array('id' => 24));
         $banner = new ELearningHomeBanner();
         $banner->setMenuName("test");
         $banner->setImageTitle("test");
