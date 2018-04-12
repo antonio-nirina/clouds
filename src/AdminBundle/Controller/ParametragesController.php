@@ -75,6 +75,9 @@ class ParametragesController extends AdminController
         );
     }
 
+    /**
+     * @return Response
+     */
     public function rootAction()
     {
         $em = $this->getDoctrine()->getManager();
