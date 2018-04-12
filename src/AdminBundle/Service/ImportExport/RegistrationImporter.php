@@ -17,160 +17,186 @@ use AdminBundle\Service\EntityHydrator\ProgramUserCompanyHydrator;
 
 class RegistrationImporter extends CSVFileContentBrowser
 {
-    private $site_form_setting;
+    private $siteFormSetting;
     private $manager;
-    private $user_manager;
-    private $user_hydrator;
-    private $program_user_company_hydrator;
+    private $userManager;
+    private $userHydrator;
+    private $programUserCompanyHydrator;
 
+    /**
+     * RegistrationImporter constructor.
+     * @param CSVHandler $csvHandler
+     * @param EntityManager $manager
+     * @param UserManager $userManager
+     * @param UserHydrator $userHydrator
+     * @param ProgramUserCompanyHydrator $programUserCompanyHydrator
+     */
     public function __construct(
-        CSVHandler $csv_handler,
+        CSVHandler $csvHandler,
         EntityManager $manager,
-        UserManager $user_manager,
-        UserHydrator $user_hydrator,
-        ProgramUserCompanyHydrator $program_user_company_hydrator
+        UserManager $userManager,
+        UserHydrator $userHydrator,
+        ProgramUserCompanyHydrator $programUserCompanyHydrator
     ) {
-        parent::__construct($csv_handler);
+        parent::__construct($csvHandler);
         $this->manager = $manager;
-        $this->user_manager = $user_manager;
-        $this->user_hydrator = $user_hydrator;
-        $this->program_user_company_hydrator = $program_user_company_hydrator;
+        $this->userManager = $userManager;
+        $this->userHydrator = $userHydrator;
+        $this->programUserCompanyHydrator = $programUserCompanyHydrator;
     }
 
-    public function setSiteFormSetting(SiteFormSetting $site_form_setting)
+    /**
+     * @param SiteFormSetting $siteFormSetting
+     */
+    public function setSiteFormSetting(SiteFormSetting $siteFormSetting)
     {
-        $this->site_form_setting = $site_form_setting;
+        $this->siteFormSetting = $siteFormSetting;
     }
 
+    /**
+     * @param $model
+     * @param $data
+     */
     public function importData($model, $data)
     {
-        if (is_null($this->site_form_setting)) {
+        if (is_null($this->siteFormSetting)) {
             throw new NoSiteFormSettingSetException();
         }
 
         $this->addData($model, $data);
         $this->increaseRowIndexToNextNotBlankRow(); // go to company data title row, following given structure
         $this->increaseRowIndex(); // go to company data header row, following given structure
-        $company_header_row = $this->array_data[$this->row_index];
+        $companyHeaderRow = $this->arrayData[$this->rowIndex];
         $this->increaseRowIndex(); // go to company data row, following given structure
 
-        $user_company_name_field = $this->manager
+        $userCompanyNameField = $this->manager
             ->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
-            ->findOneBySiteFormSettingAndSpecialIndex($this->site_form_setting, SpecialFieldIndex::USER_COMPANY_NAME);
-        $program = $this->site_form_setting->getProgram();
+            ->findOneBySiteFormSettingAndSpecialIndex($this->siteFormSetting, SpecialFieldIndex::USER_COMPANY_NAME);
+        $program = $this->siteFormSetting->getProgram();
 
-        $program_user_company = null;
-        if (!is_null($user_company_name_field)) {
-            $user_company_name_index = array_keys(
-                $company_header_row,
-                $user_company_name_field->getLabel()
+        $programUserCompany = null;
+        if (!is_null($userCompanyNameField)) {
+            $userCompanyNameIndex = array_keys(
+                $companyHeaderRow,
+                $userCompanyNameField->getLabel()
             )[0];
-            $user_company_name = $this->array_data[$this->row_index][$user_company_name_index];
-            $user_company = $this->manager
+            $userCompanyName = $this->arrayData[$this->rowIndex][$userCompanyNameIndex];
+            $userCompany = $this->manager
                 ->getRepository('AdminBundle\Entity\ProgramUserCompany')
-                ->findOneByNameAndProgram($user_company_name, $program);
-            if (is_null($user_company)) {
-                $program_user_company = $this->createCompanyData(
-                    $this->array_data[$this->row_index],
-                    $company_header_row
+                ->findOneByNameAndProgram($userCompanyName, $program);
+            if (is_null($userCompany)) {
+                $programUserCompany = $this->createCompanyData(
+                    $this->arrayData[$this->rowIndex],
+                    $companyHeaderRow
                 );
-                $this->manager->persist($program_user_company);
+                $this->manager->persist($programUserCompany);
             } else {
-                $program_user_company = $user_company;
+                $programUserCompany = $userCompany;
             }
         } else {
-            $program_user_company = $this->createCompanyData(
-                $this->array_data[$this->row_index],
-                $company_header_row
+            $programUserCompany = $this->createCompanyData(
+                $this->arrayData[$this->rowIndex],
+                $companyHeaderRow
             );
-            $this->manager->persist($program_user_company);
+            $this->manager->persist($programUserCompany);
         }
 
         $this->increaseRowIndex(); // go to blank line
         $this->increaseRowIndexToNextNotBlankRow(); // go to user data title row, following given structure
         $this->increaseRowIndex(); // go to user data header row, following given structure
-        $user_header_row = $this->array_data[$this->row_index];
+        $userHeaderRow = $this->arrayData[$this->rowIndex];
         $this->increaseRowIndex(); // go to first user data, following given structure
-        $user_list = $this->createUserData($this->row_index, $user_header_row, $program_user_company);
+        $userList = $this->createUserData($this->rowIndex, $userHeaderRow, $programUserCompany);
 
-        foreach ($user_list as $user_element) {
-            $program_user_company->addProgramUser($user_element["program_user"]);
-            $this->manager->persist($user_element["program_user"]);
-            $this->user_manager->updateUser($user_element["app_user"]);
+        foreach ($userList as $userElement) {
+            $programUserCompany->addProgramUser($userElement["program_user"]);
+            $this->manager->persist($userElement["program_user"]);
+            $this->userManager->updateUser($userElement["app_user"]);
         }
         $this->manager->flush();
 
         return;
     }
 
-    private function createCompanyData($row, $header_row)
+    /**
+     * @param $row
+     * @param $headerRow
+     * @return ProgramUserCompany
+     */
+    private function createCompanyData($row, $headerRow)
     {
-        $program_user_company = new ProgramUserCompany();
-        $additional_data = array();
-        foreach ($row as $key => $col_element) {
-            if ("" != $header_row[$key]) {
-                $related_field_setting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
-                    ->findBySiteFormSettingAndLabel($this->site_form_setting, $header_row[$key]);
-                if (!is_null($related_field_setting)) {
-                    $this->program_user_company_hydrator->hydrate(
-                        $related_field_setting,
-                        $header_row[$key],
-                        $col_element,
-                        $program_user_company
+        $programUserCompany = new ProgramUserCompany();
+        $additionalData = array();
+        foreach ($row as $key => $colElement) {
+            if ("" != $headerRow[$key]) {
+                $relatedFieldSetting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
+                    ->findBySiteFormSettingAndLabel($this->siteFormSetting, $headerRow[$key]);
+                if (!is_null($relatedFieldSetting)) {
+                    $this->programUserCompanyHydrator->hydrate(
+                        $relatedFieldSetting,
+                        $headerRow[$key],
+                        $colElement,
+                        $programUserCompany
                     );
                 }
             }
         }
-        $program_user_company->setCustomization($additional_data);
+        $programUserCompany->setCustomization($additionalData);
 
-        return $program_user_company;
+        return $programUserCompany;
     }
 
-    public function createUserData($first_row_index, $header_row, $program_user_company)
+    /**
+     * @param $firstRowIndex
+     * @param $headerRow
+     * @param $programUserCompany
+     * @return array
+     */
+    public function createUserData($firstRowIndex, $headerRow, $programUserCompany)
     {
-        $user_list = array();
-        $blank_row = false;
-        $this->row_index = $first_row_index;
-        while (!$blank_row) {
-            $program_user = new ProgramUser();
-            $program_user->setProgram($this->site_form_setting->getProgram());
-            $app_user = $this->user_manager->createUser();
+        $userList = array();
+        $blankRow = false;
+        $this->rowIndex = $firstRowIndex;
+        while (!$blankRow) {
+            $programUser = new ProgramUser();
+            $programUser->setProgram($this->siteFormSetting->getProgram());
+            $appUser = $this->userManager->createUser();
 
-            foreach ($this->array_data[$this->row_index] as $key => $col_element) {
-                if ("" != $header_row[$key]) {
-                    $related_field_setting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
-                        ->findBySiteFormSettingAndLabel($this->site_form_setting, $header_row[$key]);
-                    if (!is_null($related_field_setting)) {
-                        $app_user = $this->user_hydrator->hydrate(
-                            $related_field_setting,
-                            $header_row[$key],
-                            $col_element,
-                            $app_user
+            foreach ($this->arrayData[$this->rowIndex] as $key => $colElement) {
+                if ("" != $headerRow[$key]) {
+                    $relatedFieldSetting = $this->manager->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
+                        ->findBySiteFormSettingAndLabel($this->siteFormSetting, $headerRow[$key]);
+                    if (!is_null($relatedFieldSetting)) {
+                        $appUser = $this->userHydrator->hydrate(
+                            $relatedFieldSetting,
+                            $headerRow[$key],
+                            $colElement,
+                            $appUser
                         );
                     }
                 }
             }
 
-            $app_user->setProgramUser($program_user);
-            $program_user->setAppUser($app_user);
+            $appUser->setProgramUser($programUser);
+            $programUser->setAppUser($appUser);
 
-            $program_user_company->addProgramUser($program_user);
-            $program_user->setProgramUserCompany($program_user_company);
+            $programUserCompany->addProgramUser($programUser);
+            $programUser->setProgramUserCompany($programUserCompany);
 
-            $user_element = array();
-            $user_element["app_user"] = $app_user;
-            $user_element["program_user"] = $program_user;
-            array_push($user_list, $user_element);
+            $userElement = array();
+            $userElement["app_user"] = $appUser;
+            $userElement["program_user"] = $programUser;
+            array_push($userList, $userElement);
 
             if ($this->increaseRowIndex()) {
-                if ($this->csv_handler->isBlankRow($this->array_data[$this->row_index])) {
-                    $blank_row = true;
+                if ($this->csvHandler->isBlankRow($this->arrayData[$this->rowIndex])) {
+                    $blankRow = true;
                 }
             } else {
                 break;
             }
         }
 
-        return $user_list;
+        return $userList;
     }
 }

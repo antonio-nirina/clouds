@@ -39,6 +39,13 @@ class ResultSettingValidator extends CSVFileContentBrowser
     const ERROR_WRONG_TEXT_FORMAT = "Fournisser une valeur texte";
 
 
+    /**
+     * ResultSettingValidator constructor.
+     * @param CSVHandler $csvHandler
+     * @param EntityManager $manager
+     * @param Container $container
+     * @param ValidatorInterface $validator
+     */
     public function __construct(
         CSVHandler $csv_handler,
         EntityManager $manager,
@@ -59,12 +66,18 @@ class ResultSettingValidator extends CSVFileContentBrowser
         $this->site_form_setting = $site_form_setting;
     }
 
+    /**
+     * @param $error
+     */
     protected function addError($error)
     {
         array_push($this->error_list, $error);
         return;
     }
 
+    /**
+     * @param $error
+     */
     protected function removeError($error)
     {
         foreach (array_keys($this->error_list, $error) as $key) {
@@ -155,16 +168,6 @@ class ResultSettingValidator extends CSVFileContentBrowser
                     self::ERROR_WRONG_DATE_FOMAT
                 );
 
-                // preg_match($reg_exp, $current_row[$index], $date);
-                // if (empty($date)) {
-                //     $this->addError(
-                //         $this->createErrorWithColumn(
-                //             self::ERROR_WRONG_DATE_FOMAT,
-                //             $i,
-                //             $index
-                //         )
-                //     );
-                // }
             } elseif (!empty($current_row[$index])
                 && (                in_array($index, array('Rang')))
             ) { //check integer
@@ -175,16 +178,6 @@ class ResultSettingValidator extends CSVFileContentBrowser
                     $index,
                     self::ERROR_WRONG_INTEGER_FORMAT
                 );
-                // preg_match("#(^[1-6]$)#", $current_row[$index], $num);
-                // if (empty($num)) {
-                //     $this->addError(
-                //         $this->createErrorWithColumn(
-                //             self::ERROR_WRONG_INTEGER_FORMAT,
-                //             $i,
-                //             $index
-                //         )
-                //     );
-                // }
             } elseif (!empty($current_row[$index])
                 && (                strpos($index, 'Produit') !== false)
             ) { //check numeric
@@ -214,14 +207,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 )
             );
         }
-        //user check
-        /*$user = $this->manager
-            ->getRepository('AdminBundle\Entity\ProgramUser')
-            ->findByNameAndLastName(
-                $current_row['Nom'],
-                $current_row['Prénom'],
-                $program
-            );*/
+
         // check user by ID, instead of name and lastname
         $user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
@@ -280,6 +266,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 if ($current_row['Rang']) {
                     $role->setRank($current_row['Rang']);
                 }
+                // $role->setNetwork($current_row['Réseau']);
                 $role->setProgram($program);
                 $this->manager->persist($role);
                 $this->manager->flush();
