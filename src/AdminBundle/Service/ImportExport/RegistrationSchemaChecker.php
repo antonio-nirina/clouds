@@ -35,6 +35,14 @@ class RegistrationSchemaChecker extends SchemaChecker
     private $program_user_company_hydrator;
     private $user_hydrator;
 
+    /**
+     * RegistrationSchemaChecker constructor.
+     * @param CSVHandler $csv_handler
+     * @param EntityManager $manager
+     * @param ValidatorInterface $validator
+     * @param ProgramUserCompanyHydrator $program_user_hydrator
+     * @param UserHydrator $user_hydrator
+     */
     public function __construct(
         CSVHandler $csv_handler,
         EntityManager $manager,
@@ -47,6 +55,9 @@ class RegistrationSchemaChecker extends SchemaChecker
         $this->user_hydrator = $user_hydrator;
     }
 
+    /**
+     * @return mixed
+     */
     private function checkCompanyDatas()
     {
         $this->increaseRowIndexToNextNotBlankRow();
@@ -120,6 +131,9 @@ class RegistrationSchemaChecker extends SchemaChecker
         return $this->error_list;
     }
 
+    /**
+     * @return mixed
+     */
     private function checkUserDatas()
     {
         $this->increaseRowIndexToNextNotBlankRow();
@@ -187,6 +201,11 @@ class RegistrationSchemaChecker extends SchemaChecker
         return $this->error_list;
     }
 
+    /**
+     * @param $model
+     * @param $data
+     * @return array
+     */
     public function check($model, $data)
     {
         parent::check($model, $data);
@@ -296,6 +315,9 @@ class RegistrationSchemaChecker extends SchemaChecker
         return array_unique($this->error_list);
     }
 
+    /**
+     * @return array
+     */
     private function checkProgramUserCompanyEntityConstraints()
     {
         if (is_null($this->site_form_setting)) {
@@ -337,6 +359,9 @@ class RegistrationSchemaChecker extends SchemaChecker
         return array();
     }
 
+    /**
+     * @return array
+     */
     private function checkUserEntityConstraints()
     {
         if (is_null($this->site_form_setting)) {

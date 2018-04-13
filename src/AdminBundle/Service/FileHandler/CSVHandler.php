@@ -9,19 +9,27 @@ class CSVHandler
 {
     const MODE = "r";
 
-    private $file_system;
-    private $file_path;
+    private $fileSystem;
+    private $filePath;
 
-    public function __construct(Filesystem $file_system)
+    /**
+     * CSVHandler constructor.
+     * @param Filesystem $fileSystem
+     */
+    public function __construct(Filesystem $fileSystem)
     {
-        $this->file_system = $file_system;
+        $this->fileSystem = $fileSystem;
     }
 
-    public function createArray($file_path)
+    /**
+     * @param $filePath
+     * @return array|null
+     */
+    public function createArray($filePath)
     {
-        $this->file_path = $file_path;
-        if ($this->file_system->exists($file_path)) {
-            $file = fopen($this->file_path, self::MODE);
+        $this->filePath = $filePath;
+        if ($this->fileSystem->exists($filePath)) {
+            $file = fopen($this->filePath, self::MODE);
             $data = array();
             while ($rec = fgetcsv($file)) {
                 $data[] = $rec;
@@ -33,11 +41,20 @@ class CSVHandler
         }
     }
 
-    public function areSameRows($to_compare, $row)
+    /**
+     * @param $toCompare
+     * @param $row
+     * @return bool
+     */
+    public function areSameRows($toCompare, $row)
     {
-        return $to_compare == $row ? true : false;
+        return $toCompare == $row ? true : false;
     }
 
+    /**
+     * @param $row
+     * @return bool
+     */
     public function isBlankRow($row)
     {
         foreach ($row as $col_el) {

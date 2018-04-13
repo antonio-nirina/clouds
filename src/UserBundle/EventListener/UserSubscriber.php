@@ -17,20 +17,14 @@ class UserSubscriber implements EventSubscriberInterface
     private $router;
 
     /**
-     * @var int
-     */
-    // private $tokenTtl;
-
-    /**
      * ResettingListener constructor.
      *
      * @param UrlGeneratorInterface $router
-     * @param int                   $tokenTtl
+     * @param int $tokenTtl
      */
-    public function __construct(UrlGeneratorInterface $router/*, $tokenTtl*/)
+    public function __construct(UrlGeneratorInterface $router)
     {
         $this->router = $router;
-        // $this->tokenTtl = $tokenTtl;
     }
 
     /**

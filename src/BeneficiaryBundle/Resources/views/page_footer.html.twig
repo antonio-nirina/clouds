@@ -8,7 +8,7 @@
 
                 <div class = "content-center-footer">
                     <ul class = "page-standards-footer">
-					{% for Pages in ListePages %}
+					{% for Pages in liste_pages %}
 						<li class = "{{ Pages.TitrePage }}"><a class = "light" href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': Pages.Slug}) }}" >{{ Pages.MenuPage }}</a></li>
 					{% endfor %}
                     </ul>

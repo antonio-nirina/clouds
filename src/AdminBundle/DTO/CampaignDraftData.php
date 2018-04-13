@@ -24,20 +24,20 @@ class CampaignDraftData
      * @Assert\NotBlank(groups={"normal_creation_mode"})
      * @Assert\NotNull(groups={"normal_creation_mode"})
      */
-    private $list_id;
+    private $listId;
 
     /**
      * @Assert\NotBlank(groups={"normal_creation_mode"})
      * @Assert\NotNull(groups={"normal_creation_mode"})
      */
-    private $template_id;
+    private $templateId;
 
     /**
      * @Assert\NotBlank(groups={"normal_creation_mode"})
      */
-    private $programmed_state;
+    private $programmedState;
 
-    private $programmed_launch_date;
+    private $programmedLaunchDate;
 
     /**
      * Set id
@@ -112,79 +112,79 @@ class CampaignDraftData
     }
 
     /**
-     * Set list_id
+     * Set listId
      *
-     * @param int $list_id
+     * @param int $listId
      *
      * @return CampaignDraftData
      */
-    public function setListId($list_id)
+    public function setListId($listId)
     {
-        $this->list_id = $list_id;
+        $this->listId = $listId;
 
         return $this;
     }
 
     /**
-     * Get list_id
+     * Get listId
      *
      * @return int
      */
     public function getListId()
     {
-        return $this->list_id;
+        return $this->listId;
     }
 
     /**
-     * Set template_id
+     * Set templateId
      *
-     * @param $template_id
+     * @param $templateId
      *
      * @return CampaignDraftData
      */
-    public function setTemplateId($template_id)
+    public function setTemplateId($templateId)
     {
-        $this->template_id = $template_id;
+        $this->templateId = $templateId;
 
         return $this;
     }
 
     /**
-     * Get template_id
+     * Get templateId
      *
      * @return int
      */
     public function getTemplateId()
     {
-        return $this->template_id;
+        return $this->templateId;
     }
 
     /**
-     * Set programmed_state
+     * Set programmedState
      *
-     * @param $programmed_state
+     * @param $programmedState
      *
      * @return CampaignDraftData
      */
-    public function setProgrammedState($programmed_state)
+    public function setProgrammedState($programmedState)
     {
-        $this->programmed_state = $programmed_state;
+        $this->programmedState = $programmedState;
 
         return $this;
     }
 
     /**
-     * Get programmed_state
+     * Get programmedState
      *
      * @return bool
      */
     public function getProgrammedState()
     {
-        return $this->programmed_state;
+        return $this->programmedState;
     }
 
     /**
-     * Set programmed_launch_date
+     * Set programmedLaunchDate
      *
      * @param \DateTime $date
      *
@@ -192,18 +192,18 @@ class CampaignDraftData
      */
     public function setProgrammedLaunchDate(\DateTime $date)
     {
-        $this->programmed_launch_date = $date;
+        $this->programmedLaunchDate = $date;
 
         return $this;
     }
 
     /**
-     * Get programmed_launch_date
+     * Get programmedLaunchDate
      *
      * @return null|DateTime
      */
     public function getProgrammedLaunchDate()
     {
-        return $this->programmed_launch_date;
+        return $this->programmedLaunchDate;
     }
 }

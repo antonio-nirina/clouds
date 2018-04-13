@@ -4,81 +4,110 @@ namespace AdminBundle\Service\ImportExport;
 
 use AdminBundle\Entity\ResultSetting;
 use AdminBundle\Service\FileHandler\CSVHandler;
-use AdminBundle\Service\ImportExport\ResultSettingImporter;
 use AdminBundle\Service\ImportExport\ResultSettingModel;
 use AdminBundle\Service\ImportExport\ResultSettingSchemaChecker;
 use Liuggio\ExcelBundle\Factory as PHPExcelFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use AdminBundle\Entity\Program;
 
 class ResultSettingHandler
 {
-    private $import_file;
+    private $importFile;
     private $container;
-    private $error_list;
-    private $php_excel;
+    private $errorList;
+    private $phpExcel;
     private $model;
     private $filesystem;
-    private $csv_handler;
-    private $schema_checker;
+    private $csvHandler;
+    private $schemaChecker;
+    private $program;
 
+    /**
+     * ResultSettingHandler constructor.
+     * @param ContainerInterface $container
+     * @param PHPExcelFactory $phpExcel
+     * @param \AdminBundle\Service\ImportExport\ResultSettingModel $model
+     * @param Filesystem $filesystem
+     * @param CSVHandler $csvHandler
+     * @param \AdminBundle\Service\ImportExport\ResultSettingSchemaChecker $schemaChecker
+     */
     public function __construct(
         ContainerInterface $container,
-        PHPExcelFactory $php_excel,
+        PHPExcelFactory $phpExcel,
         ResultSettingModel $model,
         Filesystem $filesystem,
-        CSVHandler $csv_handler,
-        ResultSettingSchemaChecker $schema_checker
+        CSVHandler $csvHandler,
+        ResultSettingSchemaChecker $schemaChecker
     ) {
         $this->container = $container;
-        $this->php_excel = $php_excel;
+        $this->phpExcel = $phpExcel;
         $this->model = $model;
         $this->filesystem = $filesystem;
-        $this->error_list = array();
-        $this->csv_handler = $csv_handler;
-        $this->schema_checker = $schema_checker;
+        $this->errorList = array();
+        $this->csvHandler = $csvHandler;
+        $this->schemaChecker = $schemaChecker;
+    }
+
+    /**
+     * Set program
+     *
+     * @param Program $program
+     */
+    public function setProgram(Program $program)
+    {
+        $this->program = $program;
     }
 
     public function getErrorList()
     {
-        return $this->error_list;
+        return $this->errorList;
     }
 
+    /**
+     * @param UploadedFile $file
+     * @return array
+     */
     public function import(UploadedFile $file)
     {
         $this->uploadImportFile($file);
-        $import_file_path = $this->container->getParameter('result_setting_upload')
+        $importFilePath = $this->container->getParameter('result_setting_upload')
             . '/' . $file->getClientOriginalName();
-        $data_import_file = $this->csv_handler->createArray($import_file_path);
+        $dataImportFile = $this->csvHandler->createArray($importFilePath);
 
-        $monthly = $this->result_setting->getMonthly();
-        $by_product = $this->result_setting->getByProduct();
-        $by_rank = $this->result_setting->getByRank();
-        $this->model->save($monthly, $by_product, $by_rank);
+        $monthly = $this->resultSetting->getMonthly();
+        $byProduct = $this->resultSetting->getByProduct();
+        $byRank = $this->resultSetting->getByRank();
 
-        $error_list = $this->schema_checker->check($this->model, $data_import_file);
+        $this->model->setProgram($this->program);
+        $this->model->save($monthly, $byProduct, $byRank);
 
-        if (!empty($error_list)) {
-            $this->error_list = $error_list;
-            $this->removeFile($import_file_path);
+        $errorList = $this->schemaChecker->check($this->model, $dataImportFile);
+
+        if (!empty($errorList)) {
+            $this->errorList = $errorList;
+            $this->removeFile($importFilePath);
             $this->model->removeSavedFile();
-            return $this->error_list;
+            return $this->errorList;
         } else {
-            $error_list = $this->schema_checker->import($this->model, $data_import_file);
-            if (empty($error_list)) {//attribution des points perform
-                $sales_point_attribution = $this->container
+            $errorList = $this->schemaChecker->import($this->model, $dataImportFile);
+            if (empty($errorList)) {//attribution des points perform
+                $salesPointAttribution = $this->container
                     ->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
                 $program = $this->container->get('admin.program')->getCurrent();
-                $sales_point_attribution->closeClassmentProgression($program, $monthly);
+                $salesPointAttribution->closeClassmentProgression($program, $monthly);
             }
         }
 
-        $this->removeFile($import_file_path);
+        $this->removeFile($importFilePath);
         $this->model->removeSavedFile();
-        return $this->error_list;
+        return $this->errorList;
     }
 
+    /**
+     * @param UploadedFile $file
+     */
     private function uploadImportFile(UploadedFile $file)//copy file server side
     {
         $file->move(
@@ -89,16 +118,22 @@ class ResultSettingHandler
         return;
     }
 
-    private function removeFile($file_path)
+    /**
+     * @param $filePath
+     */
+    private function removeFile($filePath)
     {
-        if ($this->filesystem->exists($file_path)) {
-            $this->filesystem->remove($file_path);
+        if ($this->filesystem->exists($filePath)) {
+            $this->filesystem->remove($filePath);
         }
         return;
     }
 
-    public function setResultSetting(ResultSetting $result_setting)
+    /**
+     * @param ResultSetting $resultSetting
+     */
+    public function setResultSetting(ResultSetting $resultSetting)
     {
-        $this->result_setting = $result_setting;
+        $this->resultSetting = $resultSetting;
     }
 }

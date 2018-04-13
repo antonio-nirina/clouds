@@ -10,27 +10,37 @@ class ProductPointSettingData
     /**
      * @Assert\Valid()
      */
-    private $product_point_setting_list;
+    private $productPointSettingList;
 
     public function __construct()
     {
-        $this->product_point_setting_list = new ArrayCollection();
+        $this->productPointSettingList = new ArrayCollection();
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getProductPointSettingList()
     {
-        return $this->product_point_setting_list;
+        return $this->productPointSettingList;
     }
 
+    /**
+     * @param \AdminBundle\DTO\ProductPointSettingUnitData $unit
+     * @return $this
+     */
     public function addProductPointSettingList(ProductPointSettingUnitData $unit)
     {
-        $this->product_point_setting_list[] = $unit;
+        $this->productPointSettingList[] = $unit;
 
         return $this;
     }
 
+    /**
+     * @param \AdminBundle\DTO\ProductPointSettingUnitData $unit
+     */
     public function removeProductPointsSettingList(ProductPointSettingUnitData $unit)
     {
-        $this->product_point_setting_list->removeElement($unit);
+        $this->productPointSettingList->removeElement($unit);
     }
 }

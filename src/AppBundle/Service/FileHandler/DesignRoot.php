@@ -9,36 +9,36 @@ use Symfony\Component\Filesystem\Filesystem;
 class DesignRoot
 {
     private $fs;
-    private $root_path;
+    private $rootPath;
     private $default;
 
-    public function __construct($root_path)
+    public function __construct($rootPath)
     {
         $this->fs = new Filesystem();
-        $this->root_path = $root_path;
+        $this->rootPath = $rootPath;
         $this->default = 'css/root.css';
     }
 
     public function exists($id)
     {
-        $exist = $this->fs->exists($this->root_path . '/' . $id . '/root.css');
+        $exist = $this->fs->exists($this->rootPath . '/' . $id . '/root.css');
         if ($exist) {
-            return $this->root_path . '/' . $id . '/root.css';
+            return $this->rootPath . '/' . $id . '/root.css';
         } else {
             return $this->default;
         }
     }
 
-    public function resetRoot($id, SiteDesignSetting $site_design)
+    public function resetRoot($id, SiteDesignSetting $siteDesign)
     {
-        $colors = $site_design->getColors();
-        $police = $site_design->getPolice();
-        $path =   $site_design->getLogoPath();
-        $nom = $site_design->getLogoName();
+        $colors = $siteDesign->getColors();
+        $police = $siteDesign->getPolice();
+        $path =   $siteDesign->getLogoPath();
+        $nom = $siteDesign->getLogoName();
 
         $default = file_get_contents($this->default);
         $colors['couleur_th'] = $this->hex2rgba($colors["couleur_2"], true);
-        $new_root_css = str_replace(
+        $newRootCss = str_replace(
             array(
                 "#1d61d4","#598fea",
                 "#7682da",
@@ -61,31 +61,31 @@ class DesignRoot
         );
 
         if ($nom) {
-            $new_root_css = str_replace(
+            $newRootCss = str_replace(
                 array("cloudRewards", '--nom_logo_display: none'),
                 array($nom, '--nom_logo_display: inherit'),
-                $new_root_css
+                $newRootCss
             );
         }
 
         if ($path) {
-            $new_root_css = str_replace(
+            $newRootCss = str_replace(
                 '--nom_logo_display: inherit',
                 '--nom_logo_display: none',
-                $new_root_css
+                $newRootCss
             );
         }
 
-        $new_root_css = str_replace(
+        $newRootCss = str_replace(
             array("Lato-Light","Lato-Regular","Lato-Bold"),
             array(
                 $police . "-Light",
                 $police . "-Regular",
                 $police . "-Bold"
             ),
-            $new_root_css
+            $newRootCss
         );
-        $this->fs->dumpFile($this->root_path . '/' . $id . '/root.css', $new_root_css);
+        $this->fs->dumpFile($this->rootPath . '/' . $id . '/root.css', $newRootCss);
     }
 
     public function hex2rgba($hex, $blur = false)

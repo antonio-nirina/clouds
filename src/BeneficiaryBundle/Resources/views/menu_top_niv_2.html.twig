@@ -13,7 +13,7 @@
 						<li><a href = "{{ path('beneficiary_home') }}" class = "menu-lib active light">accueil</a></li>
                         <li><a href = "" class = "menu-lib light">déclarer mes ventes</a></li>
 						
-						{% for Pages in ListePages %}
+						{% for Pages in liste_pages %}
 							<li class = "{{ Pages.TitrePage }}"><a href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': Pages.Slug}) }}" class = "menu-lib light">{{ Pages.MenuPage }}</a></li>
 						{% endfor %}
 						

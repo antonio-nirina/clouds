@@ -27,6 +27,7 @@ class FirstLoginController extends BaseController
 {
     /**
      * @Route("/", name="admin_first_log")
+     *
      */
     public function indexAction(Request $request)
     {
@@ -42,8 +43,8 @@ class FirstLoginController extends BaseController
         }
 
         /**
- * @var $dispatcher EventDispatcherInterface
-*/
+        * @var $dispatcher EventDispatcherInterface
+        */
         $dispatcher = $this->get('event_dispatcher');
 
         $event = new GetResponseUserEvent($user, $request);
@@ -54,20 +55,15 @@ class FirstLoginController extends BaseController
         }
 
         /**
- * @var $formFactory FactoryInterface
-*/
-        // $formFactory = $this->get('fos_user.change_password.form.factory');
-
+        * @var $formFactory FactoryInterface
+        */
         $form = $this->createForm(FirstChangePasswordType::class, $user);
-        // $form->setData($user);
-        // dump($form); die;
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**
- * @var $userManager UserManagerInterface
-*/
+            * @var $userManager UserManagerInterface
+            */
             $userManager = $this->get('fos_user.user_manager');
 
             $event = new FormEvent($form, $request);
@@ -84,7 +80,6 @@ class FirstLoginController extends BaseController
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
             return $response;
-            //return $this->redirectToRoute('admin_dashboard_kpi');
         }
 
         return $this->render(

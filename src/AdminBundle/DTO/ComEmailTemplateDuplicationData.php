@@ -21,19 +21,19 @@ class ComEmailTemplateDuplicationData extends DuplicationData
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
-        $template_duplication_source = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')
-            ->findOneById($this->duplication_source_id);
-        if (is_null($template_duplication_source)) {
+        $templateDuplicationSource = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+            ->findOneById($this->duplicationSourceId);
+        if (is_null($templateDuplicationSource)) {
             throw new DuplicationSourceNotValidException();
         }
-        $template_with_same_name = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')
+        $templateWithSameName = $this->em->getRepository('AdminBundle\Entity\ComEmailTemplate')
             ->findBy(
                 array(
                 'name' => $this->name,
-                'program' => $template_duplication_source->getProgram(),
+                'program' => $templateDuplicationSource->getProgram(),
                 )
             );
-        if (!empty($template_with_same_name)) {
+        if (!empty($templateWithSameName)) {
             $context->buildViolation(self::ERROR_MESSAGE_NAME_ALREADY_USED)
                 ->atPath('name')
                 ->addViolation();

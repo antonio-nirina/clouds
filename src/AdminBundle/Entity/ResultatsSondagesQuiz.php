@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="AdminBundle\Repository\ResultatsSondagesQuizRepository")
- * @ORM\Table(name="resultats_sondages_quiz")
+ * @ORM\Table(name="resultatsSondagesQuiz")
  * @ORM\HasLifecycleCallbacks()
  */
 class ResultatsSondagesQuiz
@@ -22,32 +22,32 @@ class ResultatsSondagesQuiz
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="resultats_sondages_quiz")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\Program", inversedBy="resultatsSondagesQuiz")
      */
     private $program;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuiz", inversedBy="resultats_sondages_quiz")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuiz", inversedBy="resultatsSondagesQuiz")
      */
     private $sondages_quiz;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos", inversedBy="resultats_sondages_quiz")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestionnaireInfos", inversedBy="resultatsSondagesQuiz")
      */
     private $sondages_quiz_questionnaire_infos;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", inversedBy="resultats_sondages_quiz")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizQuestions", inversedBy="resultatsSondagesQuiz")
      */
     private $sondages_quiz_questions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizReponses", inversedBy="resultats_sondages_quiz")
+     * @ORM\ManyToOne(targetEntity="AdminBundle\Entity\SondagesQuizReponses", inversedBy="resultatsSondagesQuiz")
      */
     private $sondages_quiz_reponses;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="resultats_sondages_quiz")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="resultatsSondagesQuiz")
      */
     private $user;
 

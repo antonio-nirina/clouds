@@ -2,9 +2,9 @@
 namespace AdminBundle\Service\ComEmailingTemplate;
 
 use AdminBundle\Entity\ComEmailTemplate;
+use AdminBundle\Exception\NoComEmailTemplateSetException;
 use Twig\Environment as Twig;
 use Knp\Snappy\Image as SnappyImage;
-use AdminBundle\Service\ComEmailingTemplate\TemplateDataGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 

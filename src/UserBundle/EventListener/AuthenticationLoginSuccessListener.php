@@ -5,11 +5,9 @@ namespace UserBundle\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class AuthenticationLoginSuccessListener implements AuthenticationSuccessHandlerInterface
 {
@@ -17,11 +15,18 @@ class AuthenticationLoginSuccessListener implements AuthenticationSuccessHandler
     private $router;
 
 
+    /**
+     * AuthenticationLoginSuccessListener constructor.
+     * @param RouterInterface $router
+     */
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
     }
 
+    /**
+     * @param InteractiveLoginEvent $event
+     */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         $token = $event->getAuthenticationToken();
@@ -29,8 +34,15 @@ class AuthenticationLoginSuccessListener implements AuthenticationSuccessHandler
         $this->onAuthenticationSuccess($request, $token);
     }
 
+    /**
+     * @param Request $request
+     * @param TokenInterface $token
+     * @return RedirectResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
+        $roles = array();
+
         foreach ($token->getRoles() as $value) {
             $roles[] = $value->getRole();
         }

@@ -35,7 +35,7 @@
                          {% set delivre = status['DeliveredCount'] / status['ProcessedCount']*100 %}
                     {% endif %}
                         <h4 class="valDel">{{status['DeliveredCount']}}</h4>       
-                        <p class="mailDel">{{delivre~' %'}}</p>
+                        <p class="mailDel">{{delivre|round~' %'}}</p>
 
                 </div>                                   
             </div>
@@ -47,7 +47,7 @@
                         {% set ouvrer = status['OpenedCount'] / status['ProcessedCount']*100 %} 
                     {% endif %}          
                         <h4 class="valOuv">{{status["OpenedCount"]}}</h4>
-                    <p class="mailOuv">{{ouvrer~' %'}}</p> 
+                    <p class="mailOuv">{{ouvrer|round~' %'}}</p> 
                 </div>             
             </div>                                                                                              
             <div class=" clique">
@@ -58,7 +58,7 @@
                 {% set clique = status['ClickedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
                         <h4 class="valClik">{{status['ClickedCount']}}</h4>
-                    <p class="mailClic">{{clique~' %'}}</p>
+                    <p class="mailClic">{{clique|round~' %'}}</p>
                 </div>
             </div>
             <div class="bloque">
@@ -73,22 +73,22 @@
                 {% if status['ProcessedCount'] > 0 %}
                     {% set bloque = status['BlockedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
-                    <p class="blbl">{{bloque~' %'}}</p>
+                    <p class="blbl">{{bloque|round~' %'}}</p>
                 {% set erreur = 0 %}
                 {% if status['ProcessedCount'] > 0 %}
                     {% set erreur = status['BouncedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
-                    <p class="blErr">{{erreur~' %'}}</p>
+                    <p class="blErr">{{erreur|round~' %'}}</p>
                 {% set desabo = 0 %}
                 {% if status['ProcessedCount'] > 0 %}
                     {% set desabo = status['UnsubscribedCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
-                    <p class="blDesa">{{desabo~' %'}}</p>
+                    <p class="blDesa">{{desabo|round~' %'}}</p>
                 {% set spam = 0 %}
                 {% if status['ProcessedCount'] > 0 %}
                     {% set spam = status['SpamComplaintCount'] / status['ProcessedCount']*100 %}
                 {% endif %}
-                    <p class="blSp">{{spam~' %' }}</p>
+                    <p class="blSp">{{spam|round~' %' }}</p>
                 </div>                   
             </div>
            

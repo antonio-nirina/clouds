@@ -12,18 +12,22 @@ class ProductPointTurnoverSliceData
     /**
      * @Assert\Valid()
      */
-    private $product_point_turnover_slice_a;
+    private $productPointTurnoverSliceA;
 
     /**
      * @Assert\Valid()
      */
-    private $product_point_turnover_slice_b;
+    private $productPointTurnoverSliceB; 
 
     /**
      * @Assert\Valid()
      */
-    private $product_point_turnover_slice_c;
+    private $productPointTurnoverSliceC;
 
+    /**
+     * @param $status
+     * @return $this
+     */
     public function setStatus($status)
     {
         $this->status = $status;
@@ -31,44 +35,68 @@ class ProductPointTurnoverSliceData
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * @param PointAttributionSetting $setting
+     * @return $this
+     */
     public function setProductPointTurnoverSliceA(PointAttributionSetting $setting)
     {
-        $this->product_point_turnover_slice_a = $setting;
+        $this->productPointTurnoverSliceA = $setting;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProductPointTurnoverSliceA()
     {
-        return  $this->product_point_turnover_slice_a;
+        return  $this->productPointTurnoverSliceA;
     }
 
+    /**
+     * @param PointAttributionSetting $setting
+     * @return $this
+     */
     public function setProductPointTurnoverSliceB(PointAttributionSetting $setting)
     {
-        $this->product_point_turnover_slice_b = $setting;
+        $this->productPointTurnoverSliceB = $setting;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProductPointTurnoverSliceB()
     {
-        return  $this->product_point_turnover_slice_b;
+        return  $this->productPointTurnoverSliceB;
     }
 
+    /**
+     * @param PointAttributionSetting $setting
+     * @return $this
+     */
     public function setProductPointTurnoverSliceC(PointAttributionSetting $setting)
     {
-        $this->product_point_turnover_slice_c = $setting;
+        $this->productPointTurnoverSliceC = $setting;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getProductPointTurnoverSliceC()
     {
-        return  $this->product_point_turnover_slice_c;
+        return  $this->productPointTurnoverSliceC;
     }
 }

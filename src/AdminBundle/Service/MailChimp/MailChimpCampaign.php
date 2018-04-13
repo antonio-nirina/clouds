@@ -3,9 +3,7 @@
 namespace AdminBundle\Service\MailChimp;
 
 use AdminBundle\Entity\EmailingCampaign;
-use AdminBundle\Service\MailChimp\MailChimpHandler;
 use Doctrine\ORM\EntityManager;
-use DrewM\MailChimp\Webhook;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -82,10 +80,6 @@ class MailChimpCampaign extends MailChimpHandler
     {
         $serializer = $this->getSerializer();
         $res = $this->getAllCampaigns();
-
-        // if ($res["total_items"] > 10) {
-        //     $res = $this->getAllCampaigns(["count" => $res["total_items"]]);
-        // }
 
         foreach ($res["campaigns"] as $campaign) {
             $new = $serializer->deserialize(json_encode($campaign), EmailingCampaign::class, 'json');

@@ -5,20 +5,14 @@ namespace UserBundle\Controller;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use UserBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use UserBundle\Service\Parameter\AddFormType;
 use AdminBundle\Component\SiteForm\FieldType;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 
@@ -53,7 +47,7 @@ class RegistrationController extends BaseController
         $form->setData($user);
         $parameter = $this->get("user.parameter")->getParam();
         if (!empty($parameter)) {
-            $nom = $this->getNameForm($parameter, $form)["all"];
+            $nom = $this->getNameForm($parameter)["all"];
             $nomRadio = $this->getNameForm($parameter, $form)["radio"];
             $resp = new JsonResponse($nomRadio);
             $radio = $resp->getContent();
@@ -142,9 +136,10 @@ class RegistrationController extends BaseController
      */
     public function confirmAction(Request $request, $token)
     {
+
         /**
- * @var $userManager \FOS\UserBundle\Model\UserManagerInterface
-*/
+        * @var $userManager \FOS\UserBundle\Model\UserManagerInterface
+        */
         $userManager = $this->get('fos_user.user_manager');
 
         $user = $userManager->findUserByConfirmationToken($token);
@@ -153,9 +148,11 @@ class RegistrationController extends BaseController
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
 
+
         /**
- * @var $dispatcher EventDispatcherInterface
-*/
+        * @var $dispatcher EventDispatcherInterface
+        */
+
         $dispatcher = $this->get('event_dispatcher');
 
         $user->setConfirmationToken(null);
@@ -229,6 +226,11 @@ class RegistrationController extends BaseController
     }
 
 
+    /**
+     * @param $parameter
+     * @param $form
+     * @return array|string
+     */
     protected function getValForm($parameter, $form)
     {
         if (!empty($parameter)) {
@@ -244,7 +246,12 @@ class RegistrationController extends BaseController
         }
     }
 
-    protected function getNameForm($parameter, $form)
+    /**
+     * @param $parameter
+     * @param $form
+     * @return array
+     */
+    protected function getNameForm($parameter)
     {
         foreach ($parameter as $value) {
             $val = $this->get("user.parameter")->traitement($value->getLabel());
@@ -257,6 +264,6 @@ class RegistrationController extends BaseController
         }
         $nameRadio = !empty($nomR) ? $nomR : "";
         $name = !empty($nom) ? $nom : "";
-        return ["all"=>$name,"radio"=>$nameRadio];
+        return ["all" => $name,"radio" => $nameRadio];
     }
 }

@@ -157,7 +157,7 @@ class Program
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="program")
      */
-    private $resultats_sondages_quiz;
+    private $resultatsSondagesQuiz;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\PointAttributionSetting", mappedBy="program")
@@ -191,7 +191,7 @@ class Program
         $this->site_form_settings = new ArrayCollection();
         $this->site_page_standard = new ArrayCollection();
         $this->sondages_quiz = new ArrayCollection();
-        $this->resultats_sondages_quiz = new ArrayCollection();
+        $this->resultatsSondagesQuiz = new ArrayCollection();
     }
 
     /**
@@ -949,7 +949,7 @@ class Program
      */
     public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
     {
-        $this->resultats_sondages_quiz[] = $resultatsSondagesQuiz;
+        $this->resultatsSondagesQuiz[] = $resultatsSondagesQuiz;
 
         return $this;
     }
@@ -961,7 +961,7 @@ class Program
      */
     public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
     {
-        $this->resultats_sondages_quiz->removeElement($resultatsSondagesQuiz);
+        $this->resultatsSondagesQuiz->removeElement($resultatsSondagesQuiz);
     }
 
     /**
@@ -971,7 +971,7 @@ class Program
      */
     public function getResultatsSondagesQuiz()
     {
-        return $this->resultats_sondages_quiz;
+        return $this->resultatsSondagesQuiz;
     }
 
     /**
