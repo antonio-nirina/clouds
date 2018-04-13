@@ -56,7 +56,7 @@ class SondagesQuizQuestionnaireInfos
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="sondages_quiz_questionnaire_infos")
      */
-    private $resultatsSondagesQuiz;
+    private $resultats_sondages_quiz;
 
     /**
      * @ORM\Column(type="boolean")
@@ -87,7 +87,7 @@ class SondagesQuizQuestionnaireInfos
     public function __construct()
     {
         $this->sondages_quiz_questions = new ArrayCollection();
-        $this->resultatsSondagesQuiz = new ArrayCollection();
+        $this->resultats_sondages_quiz = new ArrayCollection();
     }
 
     /**
