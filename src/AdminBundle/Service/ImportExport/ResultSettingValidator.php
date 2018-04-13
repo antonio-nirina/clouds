@@ -15,8 +15,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ResultSettingValidator extends CSVFileContentBrowser
 {
-    protected $error_list;
-    protected $site_form_setting;
+    protected $errorList;
+    protected $siteFormSetting;
     protected $manager;
     protected $validator;
     protected $container;
@@ -47,23 +47,23 @@ class ResultSettingValidator extends CSVFileContentBrowser
      * @param ValidatorInterface $validator
      */
     public function __construct(
-        CSVHandler $csv_handler,
+        CSVHandler $csvHandler,
         EntityManager $manager,
         Container $container,
         ValidatorInterface $validator
     ) {
-        parent::__construct($csv_handler);
+        parent::__construct($csvHandler);
 
-        $this->csv_handler = $csv_handler;
+        $this->csvHandler = $csvHandler;
         $this->manager = $manager;
-        $this->error_list = array();
+        $this->errorList = array();
         $this->validator = $validator;
         $this->container = $container;
     }
 
-    public function setSiteFormSetting(SiteFormSetting $site_form_setting)
+    public function setSiteFormSetting(SiteFormSetting $siteFormSetting)
     {
-        $this->site_form_setting = $site_form_setting;
+        $this->siteFormSetting = $siteFormSetting;
     }
 
     /**
@@ -71,7 +71,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
      */
     protected function addError($error)
     {
-        array_push($this->error_list, $error);
+        array_push($this->errorList, $error);
         return;
     }
 
@@ -80,8 +80,8 @@ class ResultSettingValidator extends CSVFileContentBrowser
      */
     protected function removeError($error)
     {
-        foreach (array_keys($this->error_list, $error) as $key) {
-            unset($this->error_list[$key]);
+        foreach (array_keys($this->errorList, $error) as $key) {
+            unset($this->errorList[$key]);
         }
         return;
     }
@@ -224,7 +224,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
             );
         }
 
-        return $this->error_list;
+        return $this->errorList;
     }
 
     /**
@@ -337,7 +337,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
                     $col_index
                 )
             );
-            return $this->error_list;
+            return $this->errorList;
         }
         return array();
     }
@@ -366,7 +366,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
                     $col_index
                 )
             );
-            return $this->error_list;
+            return $this->errorList;
         }
         return array();
     }
@@ -379,6 +379,6 @@ class ResultSettingValidator extends CSVFileContentBrowser
     public function check($model, $data)
     {
         $this->addData($model, $data);
-        return $this->error_list;
+        return $this->errorList;
     }
 }

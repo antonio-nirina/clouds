@@ -17,7 +17,7 @@ class ProgramUser
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User", inversedBy="program_user", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User", inversedBy="programUser", cascade={"persist"})
      */
     private $app_user;
 
