@@ -125,7 +125,7 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $pro_email;
+    protected $proEmail;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
@@ -141,19 +141,19 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $address_1;
+    protected $address1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $address_2;
+    protected $address2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $postal_code;
+    protected $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -430,7 +430,7 @@ class User extends BaseUser
      */
     public function setAddress1($address1)
     {
-        $this->address_1 = $address1;
+        $this->address1 = $address1;
 
         return $this;
     }
@@ -442,7 +442,7 @@ class User extends BaseUser
      */
     public function getAddress1()
     {
-        return $this->address_1;
+        return $this->address1;
     }
 
     /**
@@ -454,7 +454,7 @@ class User extends BaseUser
      */
     public function setAddress2($address2)
     {
-        $this->address_2 = $address2;
+        $this->address2 = $address2;
 
         return $this;
     }
@@ -466,7 +466,7 @@ class User extends BaseUser
      */
     public function getAddress2()
     {
-        return $this->address_2;
+        return $this->address2;
     }
 
     /**
@@ -478,7 +478,7 @@ class User extends BaseUser
      */
     public function setPostalCode($postalCode)
     {
-        $this->postal_code = $postalCode;
+        $this->postalCode = $postalCode;
 
         return $this;
     }
@@ -490,7 +490,7 @@ class User extends BaseUser
      */
     public function getPostalCode()
     {
-        return $this->postal_code;
+        return $this->postalCode;
     }
 
     /**
@@ -574,7 +574,7 @@ class User extends BaseUser
      */
     public function setProEmail($proEmail)
     {
-        $this->pro_email = $proEmail;
+        $this->proEmail = $proEmail;
 
         return $this;
     }
@@ -586,7 +586,7 @@ class User extends BaseUser
      */
     public function getProEmail()
     {
-        return $this->pro_email;
+        return $this->proEmail;
     }
 
     /**
