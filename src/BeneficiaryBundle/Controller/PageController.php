@@ -432,7 +432,7 @@ class PageController extends Controller
         if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
             $HasNetwork = true;
         }
-        $ELearningList = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
+        $ElearningList = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
             array('program' => $program),
             array('created_at' => 'DESC')
         );
@@ -442,7 +442,7 @@ class PageController extends Controller
                 'background_link' => $BackgroundLink,
                 'elearning_banner' => $ElearningBanner,
                 'has_network' => $HasNetwork,
-                'e_learning_list' => $ELearningList,
+                'e_learning_list' => $ElearningList,
                 'content_type_class' => new ELearningContentType(),
             ));
     }
