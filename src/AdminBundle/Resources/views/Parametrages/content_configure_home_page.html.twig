@@ -110,7 +110,7 @@
                                     <span class="tab-name-container"></span>
                                     <span class="delete-tab"></span>
                                 </a>
-                                <input type="hidden" name="add_slide_url" value="{{ path('admin_content_configure_home_page_add_slide', {"slide_type": "__slide_type__"}) }}">
+                                <input type="hidden" name="add_slide_url" value="{{ path('admin_content_configure_home_page_add_slide', {"slideType": "__slide_type__"}) }}">
                                 <input type="hidden" name="delete_slide_url" value="{{ path('admin_content_configure_home_page_delete_slide', {"id": "__id__"}) }}">
                                 <input type="hidden" name="image_slide_type" value="{{ constant('IMAGE', slide_type) }}">
                                 <input type="hidden" name="video_slide_type" value="{{ constant('VIDEO', slide_type) }}">
@@ -189,7 +189,7 @@
                                                     <input type="hidden" name="initial_image" value="">
                                                     <input type="hidden" name="initial_image_name" value="">
                                                     {% endif %}
-                                                    <input type="hidden" name="delete_slide_image_url" value="{{ path("admin_content_configure_home_page_delete_slide_image", {"slide_id": slide.vars.value.getId}) }}">
+                                                    <input type="hidden" name="delete_slide_image_url" value="{{ path("admin_content_configure_home_page_delete_slide_image", {"slideId": slide.vars.value.getId}) }}">
                                                 </div>
                                             </div>
                                             {#<div class="row">
