@@ -2385,7 +2385,6 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        $em = $this->getDoctrine()->getManager();
         $ElearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
         if (empty($ElearningBanner)) {
             return $this->redirectToRoute('fos_user_security_logout');
