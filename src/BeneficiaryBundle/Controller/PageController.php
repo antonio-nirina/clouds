@@ -120,7 +120,7 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle::page_footer.html.twig',
             array(
-            'ListePages' => $listePages
+            'liste_pages' => $listePages
             )
         );
     }
@@ -135,21 +135,21 @@ class PageController extends Controller
         //pages standards
         $em = $this->getDoctrine()->getManager();
         $pageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
-        $listePages = array();
+        $ListePages = array();
         foreach ($pageStandard as $pages) {
             if ($pages->getStatusPage() == '1') {
                 if ($pages->getNomPage() != 'mentions légales' && $pages->getNomPage() != 'règlement' && $pages->getNomPage() != 'contact') {
-                    $listePages[] = $pages;
+                    $ListePages[] = $pages;
                 }
             }
         }
         //Sondages/Quiz
         $sondagesQuiz = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
-        $isSondagesQuiz = false;
+        $IsSondagesQuiz = false;
         $ObjSondagesQuiz = array();
         if (isset($sondagesQuiz[0])) {
             $ObjSondagesQuiz = $sondagesQuiz[0];
-            $isSondagesQuiz = true;
+            $IsSondagesQuiz = true;
         }
         //show/E-learning
         $elearning = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
@@ -163,7 +163,7 @@ class PageController extends Controller
             'BeneficiaryBundle::menu_top_niv_2.html.twig',
             array(
 
-            'ListePages' => $ListePages,
+            'liste_pages' => $ListePages,
             'IsSondagesQuiz' => $IsSondagesQuiz,
             'ObjSondagesQuiz' => $ObjSondagesQuiz,
             'IsElearning' => $IsELearning,
@@ -195,7 +195,7 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle::block-contact.html.twig',
             array(
-            'ListePages' => $listePages,
+            'liste_pages' => $listePages,
             'est_page_contact' => $estPageContact
             )
         );
