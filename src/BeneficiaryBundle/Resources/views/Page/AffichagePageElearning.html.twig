@@ -274,7 +274,6 @@
                                                 {% endfor %}
                                             </div>
                                         {% endif %}
-
                                         {% if e_learning.getQuizContents() is not null %}
                                             {% set e_learning_quiz_contents = e_learning.getQuizContents() %}
                                             <div class="title-separator">
@@ -292,22 +291,17 @@
                                                 {% endfor %}
                                             </div>
                                         {% endif %}
-
-                                        {% if e_learning.getButtonContents() is not null %}
+                                        {% if e_learning.getButtonContents().getValues is not empty %}
                                             {% set e_learning_button_content = e_learning.getButtonContents() %}
                                             <div class="title-separator">
                                                 <span class="separator-line"></span>
                                             </div>
-                                            {#
                                             <div class="standard-content-button-container">
-                                                {% set button_href = e_learning_button_content.actionButtonTargetPage {{ attribute(e_learning_button_content, method) }} is not null ? e_learning_button_content.actionButtonTargetPage : (e_learning_button_content.actionButtonTargetUrl is not null ? e_learning_button_content.actionButtonTargetUrl : '#' ) %}
+                                                {% set button_href = e_learning_button_content.actionButtonTargetPage is not null ? e_learning_button_content.actionButtonTargetPage : (e_learning_button_content.actionButtonTargetUrl is not null ? e_learning_button_content.actionButtonTargetUrl : '#' ) %}
                                                 {% set button_target = button_href != '#' ? 'target=_blank' :'' %}
                                                 <a href="{{ button_href }}" class="action-button-preview" {{ button_target }} style="color: {{ e_learning_button_content.actionButtonTextColor }}; background-color: {{ e_learning_button_content.actionButtonBackgroundColor }}">{{ e_learning_button_content.actionButtonText }}</a>
                                             </div>
-                                            #}
                                         {% endif %}
-
-
                                     </div>
                                 </div>
                             </div>
