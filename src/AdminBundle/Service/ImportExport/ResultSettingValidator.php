@@ -2,24 +2,21 @@
 
 namespace AdminBundle\Service\ImportExport;
 
-use AdminBundle\Component\SiteForm\FieldType;
 use AdminBundle\Entity\Role;
 use AdminBundle\Entity\Sales;
 use AdminBundle\Entity\SiteFormSetting;
-use AdminBundle\Manager\ProgramManager;
 use AdminBundle\Service\FileHandler\CSVFileContentBrowser;
 use AdminBundle\Service\FileHandler\CSVHandler;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ResultSettingValidator extends CSVFileContentBrowser
 {
-    protected $errorList;
-    protected $siteFormSetting;
+    protected $error_list;
+    protected $site_form_setting;
     protected $manager;
     protected $validator;
     protected $container;
@@ -50,26 +47,23 @@ class ResultSettingValidator extends CSVFileContentBrowser
      * @param ValidatorInterface $validator
      */
     public function __construct(
-        CSVHandler $csvHandler,
+        CSVHandler $csv_handler,
         EntityManager $manager,
         Container $container,
         ValidatorInterface $validator
     ) {
-        parent::__construct($csvHandler);
+        parent::__construct($csv_handler);
 
-        $this->csvHandler = $csvHandler;
+        $this->csv_handler = $csv_handler;
         $this->manager = $manager;
-        $this->errorList = array();
+        $this->error_list = array();
         $this->validator = $validator;
         $this->container = $container;
     }
 
-    /**
-     * @param SiteFormSetting $siteFormSetting
-     */
-    public function setSiteFormSetting(SiteFormSetting $siteFormSetting)
+    public function setSiteFormSetting(SiteFormSetting $site_form_setting)
     {
-        $this->siteFormSetting = $siteFormSetting;
+        $this->site_form_setting = $site_form_setting;
     }
 
     /**
@@ -77,7 +71,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
      */
     protected function addError($error)
     {
-        array_push($this->errorList, $error);
+        array_push($this->error_list, $error);
         return;
     }
 
@@ -86,76 +80,76 @@ class ResultSettingValidator extends CSVFileContentBrowser
      */
     protected function removeError($error)
     {
-        foreach (array_keys($this->errorList, $error) as $key) {
-            unset($this->errorList[$key]);
+        foreach (array_keys($this->error_list, $error) as $key) {
+            unset($this->error_list[$key]);
         }
         return;
     }
 
     /**
-     * @param $errorMessage
-     * @param $rowIndex
-     * @param null $colIndex
+     * @param $error_message
+     * @param $row_index
+     * @param null $col_index
      * @return string
      */
-    protected function createErrorWithIndex($errorMessage, $rowIndex, $colIndex = null)
+    protected function createErrorWithIndex($error_message, $row_index, $col_index = null)
     {
-        $message = $errorMessage . ', Ligne: ' . ($rowIndex+1); // 0-based index to 1-based index (human readable)
-        return is_null($colIndex)
+        $message = $error_message . ', Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
+        return is_null($col_index)
             ? $message
-            : $message . ', Colonne: ' . ($colIndex+1); // 0-based index to 1-based index (human readable)
+            : $message . ', Colonne: ' . ($col_index+1); // 0-based index to 1-based index (human readable)
     }
 
     /**
-     * @param $errorMessage
-     * @param $rowIndex
-     * @param $colIndex
+     * @param $error_message
+     * @param $row_index
+     * @param $col_index
      * @return string
      */
-    protected function createErrorWithColumn($errorMessage, $rowIndex, $colIndex)
+    protected function createErrorWithColumn($error_message, $row_index, $col_index)
     {
-        $message = $errorMessage . ', Ligne: ' . ($rowIndex+1); // 0-based index to 1-based index (human readable)
-        return is_null($colIndex)
+        $message = $error_message . ', Ligne: ' . ($row_index+1); // 0-based index to 1-based index (human readable)
+        return is_null($col_index)
             ? $message
-            : $message . ', Colonne: "' . ($colIndex) . '"'; // 0-based index to 1-based index (human readable)
+            : $message . ', Colonne: "' . ($col_index) . '"'; // 0-based index to 1-based index (human readable)
     }
 
     /**
      * @param $header
-     * @param $arrayData
-     * @param $arrayModel
-     * @param $headerRowIndex
-     * @param $rowIndex
+     * @param $array_data
+     * @param $array_model
+     * @param $header_row_index
+     * @param $row_index
      * @param $program
      * @return array
      */
-    protected function checkRowResult($header, $arrayData, $arrayModel, $headerRowIndex, $rowIndex, $program)
+    protected function checkRowResult($header, $array_data, $array_model, $header_row_index, $row_index, $program)
     {
-        $i = $rowIndex;
-        $currentRow = array_combine($header, $arrayData[$i]);
+        $i = $row_index;
+        $current_row = array_combine($header, $array_data[$i]);
 
         //date check
-        $prodEmpty = true;
-        foreach ($currentRow as $index => $col) {
+        $prod_empty = true;
+        foreach ($current_row as $index => $col) {
             //impérative
             if (in_array($index, array("Nom", "Prénom", "Fonction"/*,"Rang","Réseau"*/))) {
                 if (empty($col)) {
                     $this->addError(
                         $this->createErrorWithColumn(
                             SchemaChecker::ERROR_MISSING_VALUE_ON_MANDATORY_FIELD,
-                            $rowIndex,
+                            $row_index,
                             $index
                         )
                     );
                 }
             }
-            if ($prodEmpty) {//TEST CHIFFRE D'AFFAIRE VIDE
+            if ($prod_empty) {//TEST CHIFFRE D'AFFAIRE VIDE
                 for ($j=1; $j < 5; $j++) {
                     if ($index == "Produit $j") {
                         if (empty($col)) {
-                            $prodEmpty = true;
+                            $prod_empty = true;
                         } else {
-                            $prodEmpty = false;
+                            $prod_empty = false;
                             break;
                         }
                     }
@@ -167,56 +161,36 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 $reg_exp = "#(^(((0[1-9]|[12][0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)#";
 
                 $this->validateColumnElement2(
-                    $currentRow[$index],
+                    $current_row[$index],
                     new Regex(array("pattern" => $reg_exp)),
                     $i,
                     $index,
                     self::ERROR_WRONG_DATE_FOMAT
                 );
 
-                // preg_match($reg_exp, $currentRow[$index], $date);
-                // if (empty($date)) {
-                //     $this->addError(
-                //         $this->createErrorWithColumn(
-                //             self::ERROR_WRONG_DATE_FOMAT,
-                //             $i,
-                //             $index
-                //         )
-                //     );
-                // }
-            } elseif (!empty($currentRow[$index])
+            } elseif (!empty($current_row[$index])
                 && (                in_array($index, array('Rang')))
             ) { //check integer
                 $this->validateColumnElement2(
-                    $currentRow[$index],
+                    $current_row[$index],
                     new Regex(array("pattern" => "#(^[1-6]$)#")),
                     $i,
                     $index,
                     self::ERROR_WRONG_INTEGER_FORMAT
                 );
-                // preg_match("#(^[1-6]$)#", $currentRow[$index], $num);
-                // if (empty($num)) {
-                //     $this->addError(
-                //         $this->createErrorWithColumn(
-                //             self::ERROR_WRONG_INTEGER_FORMAT,
-                //             $i,
-                //             $index
-                //         )
-                //     );
-                // }
-            } elseif (!empty($currentRow[$index])
+            } elseif (!empty($current_row[$index])
                 && (                strpos($index, 'Produit') !== false)
             ) { //check numeric
                 $this->validateColumnElement2(
-                    $currentRow[$index],
+                    $current_row[$index],
                     new Type(array("type" => "numeric")),
                     $i,
                     $index,
                     self::ERROR_WRONG_NUM_FORMAT
                 );
-            } elseif (!empty($currentRow[$index])) { //alphanumeric
+            } elseif (!empty($current_row[$index])) { //alphanumeric
                 $this->validateColumnElement2(
-                    $currentRow[$index],
+                    $current_row[$index],
                     new Type(array("type" => "string")),
                     $i,
                     $index,
@@ -225,7 +199,7 @@ class ResultSettingValidator extends CSVFileContentBrowser
             }
         }
 
-        if ($prodEmpty) {
+        if ($prod_empty) {
             $this->addError(
                 $this->createErrorWithIndex(
                     self::ERROR_MISSING_VALUE_ON_PRODUCT_FIELD,
@@ -233,19 +207,12 @@ class ResultSettingValidator extends CSVFileContentBrowser
                 )
             );
         }
-        //user check
-        /*$user = $this->manager
-            ->getRepository('AdminBundle\Entity\ProgramUser')
-            ->findByNameAndLastName(
-                $currentRow['Nom'],
-                $currentRow['Prénom'],
-                $program
-            );*/
+
         // check user by ID, instead of name and lastname
         $user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
             ->findOneBy(array(
-                'id' => $currentRow['ID'],
+                'id' => $current_row['ID'],
                 'program' => $program
             ));
         if (empty($user)) {
@@ -257,58 +224,49 @@ class ResultSettingValidator extends CSVFileContentBrowser
             );
         }
 
-        return $this->errorList;
+        return $this->error_list;
     }
 
     /**
      * @param $header
-     * @param $arrayData
-     * @param $arrayModel
-     * @param $headerRowIndex
-     * @param $rowIndex
+     * @param $array_data
+     * @param $array_model
+     * @param $header_row_index
+     * @param $row_index
      * @param $program
      */
-    protected function importRowResult($header, $arrayData, $arrayModel, $headerRowIndex, $rowIndex, $program)
+    protected function importRowResult($header, $array_data, $array_model, $header_row_index, $row_index, $program)
     {
-        $i = $rowIndex;
-        $currentRow = array_combine($header, $arrayData[$i]);
+        $i = $row_index;
+        $current_row = array_combine($header, $array_data[$i]);
 
-        //user check
-        /*$program_user = $this->manager
-            ->getRepository('AdminBundle\Entity\ProgramUser')
-            ->findByNameAndLastName(
-                $currentRow['Nom'],
-                $currentRow['Prénom'],
-                $program
-            );
-        $program_user = $program_user[0];*/
         // check user by ID, instead of name and lastname
         $program_user = $this->manager
             ->getRepository('AdminBundle\Entity\ProgramUser')
             ->findOneBy(array(
-                'id' => $currentRow['ID'],
+                'id' => $current_row['ID'],
                 'program' => $program
             ));
 
-        if (array_key_exists("Fonction", $currentRow)) { //assignation role commercial
+        if (array_key_exists("Fonction", $current_row)) { //assignation role commercial
             $role = $this->manager
                 ->getRepository('AdminBundle\Entity\Role')
                 ->findBy(
                     array(
-                                'name' => $currentRow['Fonction'],
-                                'program' => $program
-                            )
+                        'name' => $current_row['Fonction'],
+                        'program' => $program
+                    )
                 );
 
             if (!empty($role)) {
                 $role = $role[0];
             } else {
                 $role = new Role();
-                $role->setName($currentRow['Fonction']);
-                if ($currentRow['Rang']) {
-                    $role->setRank($currentRow['Rang']);
+                $role->setName($current_row['Fonction']);
+                if ($current_row['Rang']) {
+                    $role->setRank($current_row['Rang']);
                 }
-                // $role->setNetwork($currentRow['Réseau']);
+                // $role->setNetwork($current_row['Réseau']);
                 $role->setProgram($program);
                 $this->manager->persist($role);
                 $this->manager->flush();
@@ -317,97 +275,98 @@ class ResultSettingValidator extends CSVFileContentBrowser
             $program_user->setRole($role);
         }
 
-        $salesPointAttribution = $this->container->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
+        $sales_point_attribution = $this->container->get('AdminBundle\Service\PointAttribution\SalesPointAttribution');
         for ($i=1; $i < 5; $i++) { //insertion des ventes
-            if (array_key_exists("Produit $i", $currentRow) && !empty($currentRow["Produit $i"])) {
+            if (array_key_exists("Produit $i", $current_row) && !empty($current_row["Produit $i"])) {
                 $sales = new Sales();
-                $sales->setCa($currentRow["Produit $i"]);
+                $sales->setCa($current_row["Produit $i"]);
                 $sales->setProgramUser($program_user);
                 $sales->setProductGroup($i);
 
-                if (array_key_exists("Dénomination $i", $currentRow)) {
-                    $sales->setProductName($currentRow["Dénomination $i"]);
+                if (array_key_exists("Dénomination $i", $current_row)) {
+                    $sales->setProductName($current_row["Dénomination $i"]);
                 } else {
                     $sales->setProductName("Produit $i");
                 }
 
                 $format = 'd/m/Y H:i:s';
-                if (array_key_exists("Date", $currentRow)) {
-                    $sales->setDate(\DateTime::createFromFormat($format, $currentRow["Date"] . " 00:00:00"));
+                if (array_key_exists("Date", $current_row)) {
+                    $sales->setDate(\DateTime::createFromFormat($format, $current_row["Date"] . " 00:00:00"));
                 }
 
-                if (array_key_exists("Période de", $currentRow)) {
-                    $sales->setDateFrom(\DateTime::createFromFormat($format, $currentRow["Période de"] . " 00:00:00"));
-                    $sales->setDateTo(\DateTime::createFromFormat($format, $currentRow["à"] . " 23:59:59"));
+                if (array_key_exists("Période de", $current_row)) {
+                    $sales->setDateFrom(\DateTime::createFromFormat($format, $current_row["Période de"] . " 00:00:00"));
+                    $sales->setDateTo(\DateTime::createFromFormat($format, $current_row["à"] . " 23:59:59"));
                 }
 
                 $this->manager->persist($sales);
-                $this->manager->flush();
 
                 /* définition des points pour mise à jour des points */
-                $salesPointAttribution->attributedByProduct($sales); //by product and by period
-                $salesPointAttribution->updateUserClassmentPerformance($sales); //update performance
-                if (array_key_exists("Fonction", $currentRow)) {//by rank
-                    $salesPointAttribution->attributedByRank($sales);
+                $sales_point_attribution->attributedByProduct($sales); //by product and by period
+                $sales_point_attribution->updateUserClassmentPerformance($sales); //update performance
+                if (array_key_exists("Fonction", $current_row)) {//by rank
+                    $sales_point_attribution->attributedByRank($sales);
                 }
             }
         }
+
+        $this->manager->flush();
     }
 
     /**
-     * @param $colElement
+     * @param $col_element
      * @param $type
-     * @param $rowIndex
-     * @param $colIndex
-     * @param string $errorIfNotValid
+     * @param $row_index
+     * @param $col_index
+     * @param string $error_if_not_valid
      * @return array
      */
     protected function validateColumnElement(
-        $colElement,
+        $col_element,
         $type,
-        $rowIndex,
-        $colIndex,
-        $errorIfNotValid = self::ERROR_INVALID_DATA_FORMAT
+        $row_index,
+        $col_index,
+        $error_if_not_valid = self::ERROR_INVALID_DATA_FORMAT
     ) {
-        $violations = $this->validator->validate($colElement, $type);
+        $violations = $this->validator->validate($col_element, $type);
         if (0 !== count($violations)) {
             $this->addError(
                 $this->createErrorWithIndex(
-                    $errorIfNotValid,
-                    $rowIndex,
-                    $colIndex
+                    $error_if_not_valid,
+                    $row_index,
+                    $col_index
                 )
             );
-            return $this->errorList;
+            return $this->error_list;
         }
         return array();
     }
 
     /**
-     * @param $colElement
+     * @param $col_element
      * @param $type
-     * @param $rowIndex
-     * @param $colIndex
-     * @param string $errorIfNotValid
+     * @param $row_index
+     * @param $col_index
+     * @param string $error_if_not_valid
      * @return array
      */
     protected function validateColumnElement2(
-        $colElement,
+        $col_element,
         $type,
-        $rowIndex,
-        $colIndex,
-        $errorIfNotValid = self::ERROR_INVALID_DATA_FORMAT
+        $row_index,
+        $col_index,
+        $error_if_not_valid = self::ERROR_INVALID_DATA_FORMAT
     ) {
-        $violations = $this->validator->validate($colElement, $type);
+        $violations = $this->validator->validate($col_element, $type);
         if (0 !== count($violations)) {
             $this->addError(
                 $this->createErrorWithColumn(
-                    $errorIfNotValid,
-                    $rowIndex,
-                    $colIndex
+                    $error_if_not_valid,
+                    $row_index,
+                    $col_index
                 )
             );
-            return $this->errorList;
+            return $this->error_list;
         }
         return array();
     }
@@ -420,6 +379,6 @@ class ResultSettingValidator extends CSVFileContentBrowser
     public function check($model, $data)
     {
         $this->addData($model, $data);
-        return $this->errorList;
+        return $this->error_list;
     }
 }

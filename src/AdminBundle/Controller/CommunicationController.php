@@ -5,20 +5,13 @@ use AdminBundle\Component\CommunicationEmail\TemplateContentType;
 use AdminBundle\Component\CommunicationEmail\TemplateLogoAlignment;
 use AdminBundle\Component\CommunicationEmail\TemplateModel;
 use AdminBundle\Component\CommunicationEmail\TemplateSortingParameter;
-use AdminBundle\Component\Post\PostType;
 use AdminBundle\Component\Slide\SlideType;
-use AdminBundle\Controller\AdminController;
 use AdminBundle\DTO\CampaignDraftData;
 use AdminBundle\DTO\ComEmailTemplateDuplicationData;
 use AdminBundle\DTO\DuplicationData;
-use AdminBundle\Entity\ComEmailTemplate;
-use AdminBundle\Entity\ELearningHomeBanner;
-use AdminBundle\Entity\HomePagePost;
-use AdminBundle\Form\CampaignDateType;
 use AdminBundle\Form\CampaignDraftType;
 use AdminBundle\Form\ComEmailTemplateType;
 use AdminBundle\Form\ELearningHomeBannerType;
-use AdminBundle\Form\HomePagePostType;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -40,7 +33,6 @@ use \Mailjet\Resources;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Filesystem\Filesystem;
-use AdminBundle\Service\Statistique\Common;
 use AdminBundle\Component\CommunicationEmail\CampaignDraftCreationMode;
 use AdminBundle\Component\Post\NewsPostAuthorizationType;
 use AdminBundle\Component\GroupAction\GroupActionType;
@@ -61,85 +53,6 @@ class CommunicationController extends AdminController
     {
         $this->active_menu_index = 3;
         $this->sidebar_view = self::SIDEBAR_VIEW;
-    }
-
-    /**
-     * disabled action
-     * route: /edito
-     * name: admin_communication_editorial
-     */
-    public function editorialAction(Request $request)
-    {
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        $new_edito_post = new HomePagePost();
-        $form_factory = $this->get('form.factory');
-        $add_edito_form = $form_factory->createNamed(
-            'add_edito_form',
-            HomePagePostType::class,
-            $new_edito_post
-        );
-
-        $em = $this->getDoctrine()->getManager();
-        $edito_list = $em->getRepository('AdminBundle\Entity\HomePagePost')
-            ->findByProgramAndPostTypeOrdered($program, PostType::EDITO);
-
-        $edito_form_list_generator = $this->get('AdminBundle\Service\FormList\EditoFormListGenerator');
-        $edit_edito_form_list = $edito_form_list_generator->generateFormList($edito_list, HomePagePostType::class);
-        $edit_edito_form_view_list = $edito_form_list_generator->generateFormViewList($edit_edito_form_list);
-
-        if ("POST" === $request->getMethod()) {
-            $edito_manager = $this->get('AdminBundle\Manager\HomePagePostEditoManager');
-            if ($request->request->has('add_edito_form')) {
-                $add_edito_form->handleRequest($request);
-                if ($add_edito_form->isSubmitted() && $add_edito_form->isValid()) {
-                    $edito_manager->createEdito($program, $new_edito_post);
-                    return $this->redirectToRoute('admin_communication_editorial');
-                }
-            }
-
-            foreach ($edit_edito_form_list as $edit_edito_form) {
-                if ($request->request->has($edit_edito_form->getName())) {
-                    $edit_edito_form->handleRequest($request);
-                    if ($edit_edito_form->isSubmitted() && $edit_edito_form->isValid()) {
-                        $em->flush();
-                        return $this->redirectToRoute('admin_communication_editorial');
-                    }
-                }
-            }
-        }
-
-        return $this->render(
-            'AdminBundle:Communication:edito.html.twig',
-            array(
-            'add_edito_form' => $add_edito_form->createView(),
-            'edit_edito_form_list' => $edit_edito_form_view_list
-            )
-        );
-    }
-
-    /**
-     * disabled action
-     * route: /edito/suppression/{id}
-     * name: admin_communication_editorial_delete
-     * requirements: {"id": "\d+"}
-     */
-    public function deleteEditorialAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $program = $this->container->get('admin.program')->getCurrent();
-        if (empty($program)) {
-            return $this->redirectToRoute('fos_user_security_logout');
-        }
-
-        $edito_manager = $this->get('AdminBundle\Manager\HomePagePostEditoManager');
-        $edito_manager->deleteEditoById($program, (int) $id);
-
-        return new Response('<html><body>OK</body></html>');
     }
 
     /**
@@ -1307,8 +1220,6 @@ class CommunicationController extends AdminController
 
         $em = $this->getDoctrine()->getManager();
 
-        $em = $this->getDoctrine()->getManager();
-
         //Call ContactList manager service
         $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
@@ -1419,7 +1330,7 @@ class CommunicationController extends AdminController
         // create the writer
         $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel2007');
 
-        $RootDir = __DIR__ . '/../../../web/emailing/liste-contacts-export';
+        $RootDir = $this->get('kernel')->getProjectDir().'/web/emailing/liste-contacts-export';
         if (!file_exists($RootDir)) {
             mkdir($RootDir, 0777, true);
         }

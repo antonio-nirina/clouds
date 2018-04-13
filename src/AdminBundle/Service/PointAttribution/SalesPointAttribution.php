@@ -251,11 +251,11 @@ class SalesPointAttribution
                                 ->setMotif("progression " . date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
-
-                        $this->em->flush();
                     }
                 }
             }
+
+            $this->em->flush();
         }
 
         $performance_point_setting2 = $this->getPerformancePointSetting($performance_type_2, $program);
@@ -277,11 +277,11 @@ class SalesPointAttribution
                                 ->setMotif("classement " . date_format($date, "d-m-Y"));
                             $this->em->persist($user_point);
                         }
-
-                        $this->em->flush();
                     }
                 }
             }
+
+            $this->em->flush();
         }
     }
 
@@ -344,10 +344,11 @@ class SalesPointAttribution
                         $this->em->persist($user_point);
                         $this->attributedByPeriod($sales, $user_point);
                         $sales->setProductAttributed(true);
-                        $this->em->flush();
                         break;
                     }
                 }
+
+                $this->em->flush();
             }
         }
 

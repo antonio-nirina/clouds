@@ -252,14 +252,60 @@
                     </div>
                     <!-- Modal créer / éditer Sondage -->
                     <div id="edit-sondage-modal" class="app-dialog modal" tabindex="-1" role="dialog" data-backdrop="static">
-                       <div class="modal-dialog modal-lg modal-sondage" role="document">
+                       <div class="modal-dialog modal-lg modal-sondage modal-quiz" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <a class="close-modal" data-dismiss="modal" aria-label="Close"></a>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="error-message-container centered-message general-message"></div>
+                                    <div class="error-message-container centered-message general-message">
+                                    </div>
                                     <div class="modal-body-container">
+                                        <span class="modal-body-title">Résultat sondage et quiz</span>
+                                        <div class="modal-body-grey">
+                                            <p class="title-quiz">Test 3</p>
+                                            <p>Sondage - crée le 02 novembre 2017</p>
+                                            <p>Envoyé: tous les participants</p>
+                                            <div class="clearfix zone-response">
+                                                <div class="float-left response">
+                                                    <p><b>Réponse :</b> <span class="result">25</span></p>
+                                                </div>
+                                                <div class="float-left response">
+                                                    <p><b>Taux de participation :</b> <span class="result">17%</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <button class="btn-valider download-btn float-right">télécharger les résultats</button>
+                                                <div class="float-left zone-btn">
+                                                    <button class="float-left left">globales</button>
+                                                    <button class="float-left right inactif">individuelles</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="contain-graph">
+                                            <div class="zone-question">
+                                                <p class="question-title">Question 1</p>
+                                                <p class="question">Pourquoi avez-vous...?*</p>
+                                                <p class="response-num">30 réponses</p>
+                                            </div>
+                                            <div id="container_bare"></div>
+                                        </div>
+                                        <div class="contain-graph">
+                                            <div class="zone-question">
+                                                <p class="question-title">Question 2</p>
+                                                <p class="question">Quelle évaluation donneriz-vous...?*</p>
+                                                <p class="response-num">30 réponses</p>
+                                            </div>
+                                            <div id="container_column"></div>
+                                        </div>
+                                        <div class="contain-graph">
+                                            <div class="zone-question">
+                                                <p class="question-title">Question 3</p>
+                                                <p class="question">Votre avis sur cet...</p>
+                                                <p class="response-num">30 réponses</p>
+                                            </div>
+                                            <div id="container_column2"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +404,7 @@
             <script src="{{ asset('jplist/js/jplist.filter-dropdown-bundle.min.js') }}"></script>
             <script src="{{ asset("js/admin-widget-and-common-functions.js") }}"></script>
             <script src="https://code.highcharts.com/highcharts.js"></script>
-            <script type="text/javascript" src="{{asset("js/communications/pre-sondages.js")}}"></script> 
+            <script type="text/javascript" src="{{asset("js/communications/pre-sondages.js")}}"></script>
         {% endblock %}
     {% endembed %}
 {% endblock %}
