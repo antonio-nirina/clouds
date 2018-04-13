@@ -240,7 +240,6 @@ $(document).ready(function(){
 		$('#body-popup').hide();
 		$('#body-popup').html('');
 	});
-
 	// ouverture detail aperçu
 	$(document).on('click', '.preview-icon', function(e){
 		e.preventDefault();
@@ -252,7 +251,6 @@ $(document).ready(function(){
 		preview_icon_container.css('align-items', 'flex-start');
 		detail_container.show();
 	});
-
 	// fermeture detail aperçu
 	$(document).on('click', '.chevron-up', function(e){
 		e.preventDefault();
