@@ -414,36 +414,35 @@ class PageController extends Controller
      * @Route("/pages/e-learning", name="elearning_page")
      */
     public function AffichagePageELearning(){
+        $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        $backgroundLink = '';
+        $BackgroundLink = '';
         if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
-            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+            $BackgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
         }
-        $em = $this->getDoctrine()->getManager();
         $ElearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
         if (empty($ElearningBanner)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
         $table_network = $program->getSiteTableNetworkSetting();
-        $has_network = false;
+        $HasNetwork = false;
         if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
-            $has_network = true;
+            $HasNetwork = true;
         }
-        $em = $this->getDoctrine()->getManager();
-        $e_learning_list = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
+        $ELearningList = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
             array('program' => $program),
             array('created_at' => 'DESC')
         );
         return $this->render(
             'BeneficiaryBundle:Page:AffichagePageElearning.html.twig',
             array(
-                'background_link' => $backgroundLink,
+                'background_link' => $BackgroundLink,
                 'elearning_banner' => $ElearningBanner,
-                'has_network' => $has_network,
-                'e_learning_list' => $e_learning_list,
+                'has_network' => $HasNetwork,
+                'e_learning_list' => $ELearningList,
                 'content_type_class' => new ELearningContentType(),
             ));
     }

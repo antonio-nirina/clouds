@@ -2883,12 +2883,12 @@ class CommunicationController extends AdminController
         $statSondage = $manager->getElementStatistique($id);
         if (empty($statSondage)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
-        }       
+        }
         $res = [
         'data' => $statSondage["sondageInfos"],
         'nbreQuestion'=>$statSondage['nbreQuest'],
         'nbreReponse'=>$statSondage['nbreReponse']
-        ];      
+        ];
         $content = $this->renderView('AdminBundle:Communication:statistique_sondage.html.twig',$res);
         $data = $jsonResponseDataProvider->success();
         $data['content'] = $content;
