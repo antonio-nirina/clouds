@@ -1,6 +1,7 @@
 <?php
 namespace BeneficiaryBundle\Controller;
 
+use AdminBundle\Component\ELearning\ELearningContentType;
 use AdminBundle\Component\Post\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -120,7 +121,7 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle::page_footer.html.twig',
             array(
-            'ListePages' => $listePages
+            'liste_pages' => $listePages
             )
         );
     }
@@ -135,21 +136,21 @@ class PageController extends Controller
         //pages standards
         $em = $this->getDoctrine()->getManager();
         $pageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
-        $listePages = array();
+        $ListePages = array();
         foreach ($pageStandard as $pages) {
             if ($pages->getStatusPage() == '1') {
                 if ($pages->getNomPage() != 'mentions légales' && $pages->getNomPage() != 'règlement' && $pages->getNomPage() != 'contact') {
-                    $listePages[] = $pages;
+                    $ListePages[] = $pages;
                 }
             }
         }
         //Sondages/Quiz
         $sondagesQuiz = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
-        $isSondagesQuiz = false;
+        $IsSondagesQuiz = false;
         $ObjSondagesQuiz = array();
         if (isset($sondagesQuiz[0])) {
             $ObjSondagesQuiz = $sondagesQuiz[0];
-            $isSondagesQuiz = true;
+            $IsSondagesQuiz = true;
         }
         //show/E-learning
         $elearning = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
@@ -163,7 +164,7 @@ class PageController extends Controller
             'BeneficiaryBundle::menu_top_niv_2.html.twig',
             array(
 
-            'ListePages' => $ListePages,
+            'liste_pages' => $ListePages,
             'IsSondagesQuiz' => $IsSondagesQuiz,
             'ObjSondagesQuiz' => $ObjSondagesQuiz,
             'IsElearning' => $IsELearning,
@@ -195,7 +196,7 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle::block-contact.html.twig',
             array(
-            'ListePages' => $listePages,
+            'liste_pages' => $listePages,
             'est_page_contact' => $estPageContact
             )
         );
@@ -413,36 +414,36 @@ class PageController extends Controller
      * @Route("/pages/e-learning", name="elearning_page")
      */
     public function AffichagePageELearning(){
+        $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        $backgroundLink = '';
+        $BackgroundLink = '';
         if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
-            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+            $BackgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
         }
-        $em = $this->getDoctrine()->getManager();
         $ElearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
         if (empty($ElearningBanner)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
         $table_network = $program->getSiteTableNetworkSetting();
-        $has_network = false;
+        $HasNetwork = false;
         if ($table_network->getHasFacebook() || $table_network->getHasLinkedin() || $table_network->getHasTwitter()) {
-            $has_network = true;
+            $HasNetwork = true;
         }
-        $em = $this->getDoctrine()->getManager();
-        $e_learning_list = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
+        $ElearningList = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
             array('program' => $program),
             array('created_at' => 'DESC')
         );
         return $this->render(
             'BeneficiaryBundle:Page:AffichagePageElearning.html.twig',
             array(
-                'background_link' => $backgroundLink,
+                'background_link' => $BackgroundLink,
                 'elearning_banner' => $ElearningBanner,
-                'has_network' => $has_network,
-                'e_learning_list' => $e_learning_list,
+                'has_network' => $HasNetwork,
+                'e_learning_list' => $ElearningList,
+                'content_type_class' => new ELearningContentType(),
             ));
     }
 

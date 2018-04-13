@@ -95,6 +95,7 @@ class CommunicationController extends AdminController
                     $homePageData = $slideshowManager->editHomePageSlides(
                         $homePageData,
                         $deletedImageSlideIdList,
+
                         $originalSlidesImage
                     );
                     // deleting slides
@@ -151,6 +152,7 @@ class CommunicationController extends AdminController
     public function emailingCampaignNewAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\CampaignDataProvider');
         if (empty($program)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
@@ -162,6 +164,7 @@ class CommunicationController extends AdminController
         }
 
         if (!in_array($creationMode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -187,14 +190,18 @@ class CommunicationController extends AdminController
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
+
                     $data = $jsonResponseDataProvider->campaignSendingError();
                     return new JsonResponse($data, 200);
                 }
+
             } elseif (CampaignDraftCreationMode::BY_HALT == $creationMode) {
                 if (!is_null($campaignHandler->createCampaignDraftByHalt($campaignDraftData))) {
+
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
+
                     $data = $jsonResponseDataProvider->campaignDraftCreationError();
                     return new JsonResponse($data, 200);
                 }
@@ -214,7 +221,9 @@ class CommunicationController extends AdminController
             )
         );
         $data = $jsonResponseDataProvider->success();
+
         if ($campaignDraftForm->isSubmitted() && !$campaignDraftForm->isValid()) {
+
             $data = $jsonResponseDataProvider->formError();
         }
         $data['content'] = $view;
@@ -230,8 +239,10 @@ class CommunicationController extends AdminController
     public function emailingCampaignEditAction(Request $request, $campaignDraftId)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\CampaignDataProvider');
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -240,7 +251,9 @@ class CommunicationController extends AdminController
             $editMode = CampaignDraftCreationMode::NORMAL;
         }
 
+
         if (!in_array($editMode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -263,14 +276,18 @@ class CommunicationController extends AdminController
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
+
                     $data = $jsonResponseDataProvider->campaignSendingError();
                     return new JsonResponse($data, 200);
                 }
+
             } elseif (CampaignDraftCreationMode::BY_HALT == $editMode) {
                 if ($campaignHandler->editCampaignDraftByHalt($campaignDraftData)) {
+
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
+
                     $data = $jsonResponseDataProvider->campaignDraftEditError();
                     return new JsonResponse($data, 200);
                 }
@@ -289,6 +306,7 @@ class CommunicationController extends AdminController
             'edit_mode' => true,
             )
         );
+
         $data = $jsonResponseDataProvider->success();
         if ($campaignDraftForm->isSubmitted() && !$campaignDraftForm->isValid()) {
             $data = $jsonResponseDataProvider->formError();
@@ -316,12 +334,16 @@ class CommunicationController extends AdminController
         if (!is_null($request->get('archived_campaign_mode'))
             && 'true' == $request->get('archived_campaign_mode')
         ) {
+
             $campaignDataList = $campaign->getAllArchivedWithDataFiltered($status);
             $viewOptions['archived_mode'] = true;
         } else {
+
             $campaignDataList = $campaign->getAllVisibleWithDataFiltered($status);
         }
+
         $viewOptions['list'] = $campaignDataList;
+
 
         return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', $viewOptions);
     }
@@ -339,11 +361,13 @@ class CommunicationController extends AdminController
 
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
         $filters = array('Limit' => 0);
+
         $campaignDataList = $campaign->getAllArchivedWithData($filters);
 
         return $this->render(
             'AdminBundle:Communication:emailing_campaign_filtered.html.twig',
             array(
+
             'list' => $campaignDataList,
             'archived_mode' => true,
             )
@@ -357,8 +381,10 @@ class CommunicationController extends AdminController
     public function emailingCampaignArchiveAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
         $toArchiveCampaignIds = $request->get('campaign_checked_ids');
@@ -368,6 +394,7 @@ class CommunicationController extends AdminController
         if (!empty($toArchiveCampaignIds)) {
             $campaignHandler->archiveCampaignDraftByIdList($toArchiveCampaignIds);
         }
+
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
     }
@@ -379,8 +406,10 @@ class CommunicationController extends AdminController
     public function emailingCampaignRestoreArchivedAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
         $toRestoreIds = $request->get('campaign_checked_ids');
@@ -401,15 +430,18 @@ class CommunicationController extends AdminController
     public function emailingCampaignDuplicateAction(Request $request)
     {
         $program = $this->container->get('admin.program')->getCurrent();
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (empty($program)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
+
         $campaignDuplicationSourceId = $request->get('campaign_draft_id');
         $campaignHandler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
         $campaignDuplicationSource = $campaignHandler->retrieveCampaignDraftById($campaignDuplicationSourceId);
         if (is_null($campaignDuplicationSourceId) || is_null($campaignDuplicationSource)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -432,6 +464,7 @@ class CommunicationController extends AdminController
             'AdminBundle:Communication/EmailingTemplates:duplicate_campaign.html.twig',
             array('duplicate_campaign_form' => $campaign_duplication_form->createView())
         );
+
         $data = $jsonResponseDataProvider->success();
         $data['content'] = $view;
 
@@ -447,6 +480,7 @@ class CommunicationController extends AdminController
         $program = $this->container->get('admin.program')->getCurrent();
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
         $to_delete_campaign_ids = explode(',', $request->get('campaign_checked_ids'));
@@ -454,6 +488,7 @@ class CommunicationController extends AdminController
         if (!empty($to_delete_campaign_ids)) {
             $campaignHandler->deleteCampaignDraftByIdList($to_delete_campaign_ids);
         }
+
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
     }
@@ -464,9 +499,11 @@ class CommunicationController extends AdminController
      */
     public function emailingCampaignCreateContactList(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\ContactListDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+ 
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -483,6 +520,7 @@ class CommunicationController extends AdminController
         $response = $contact_list_handler->addContactListReturningInfos($list_name, $users_list);
         if (!empty($response)) {
             return new JsonResponse(
+
                 $jsonResponseDataProvider->contactListCreationSuccess(
                     $response['contact_list_infos']['ID'],
                     ''
@@ -490,6 +528,7 @@ class CommunicationController extends AdminController
                 200
             );
         } else {
+
             return new JsonResponse($jsonResponseDataProvider->contactListCreationError(), 200);
         }
     }
@@ -528,14 +567,17 @@ class CommunicationController extends AdminController
      */
     public function listSortedEmailingTemplatesAction($sorting_parameter)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $available_sorting_parameter = TemplateSortingParameter::AVAILABLE_SORTING_PARAMETERS;
         if (!in_array($sorting_parameter, $available_sorting_parameter)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -552,6 +594,7 @@ class CommunicationController extends AdminController
                 )
             );
 
+
         $data = $jsonResponseDataProvider->success();
         $data['content'] = $template_list_view;
         return new JsonResponse($data, 200);
@@ -567,13 +610,16 @@ class CommunicationController extends AdminController
     public function emailingTemplatesAddTemplateAction(Request $request, $model)
     {
         $auth_checker = $this->get('security.authorization_checker');
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (false === $auth_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -610,10 +656,12 @@ class CommunicationController extends AdminController
                         'template_logo_alignment_class' => new TemplateLogoAlignment(),
                     )
                 );
+
                 $data = $jsonResponseDataProvider->success();
                 $data['content'] = $form_view;
                 return new JsonResponse($data, 200);
             } else {
+
                 return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
             }
         }
@@ -631,13 +679,16 @@ class CommunicationController extends AdminController
                     );
 
                     if (!is_null($created_template_id)) {
+
                         $data = $jsonResponseDataProvider->success($created_template_id);
                         return new JsonResponse($data, 200);
                     } else {
+
                         $data = $jsonResponseDataProvider->apiCommunicationError();
                         return new JsonResponse($data, 500);
                     }
                 } else {
+
                     $data = $jsonResponseDataProvider->formError();
                     $template_data_generator->setComEmailTemplate($com_email_template);
                     $form_view =  $this->renderView(
@@ -670,13 +721,16 @@ class CommunicationController extends AdminController
     public function emailingTemplatesEditTemplateAction(Request $request, $template_id)
     {
         $auth_checker = $this->get('security.authorization_checker');
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (false === $auth_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -689,6 +743,7 @@ class CommunicationController extends AdminController
                 )
             );
         if (is_null($com_email_template)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -725,6 +780,7 @@ class CommunicationController extends AdminController
                     'template_logo_alignment_class' => new TemplateLogoAlignment(),
                 )
             );
+ 
             $data = $jsonResponseDataProvider->success();
             $data['content'] = $form_view;
             return new JsonResponse($data, 200);
@@ -746,13 +802,16 @@ class CommunicationController extends AdminController
                     );
 
                     if ($edit_result) {
+
                         $data = $jsonResponseDataProvider->success();
                         return new JsonResponse($data, 200);
                     } else {
+
                         $data = $jsonResponseDataProvider->apiCommunicationError();
                         return new JsonResponse($data, 500);
                     }
                 } else {
+
                     $data = $jsonResponseDataProvider->formError();
                     $template_data_generator->setComEmailTemplate($com_email_template);
                     $form_view =  $this->renderView(
@@ -774,6 +833,7 @@ class CommunicationController extends AdminController
             }
         }
 
+
         return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
     }
 
@@ -786,6 +846,7 @@ class CommunicationController extends AdminController
      */
     public function emailingTemplatesPreviewTemplateAction(Request $request, $template_id)
     {
+ 
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
@@ -815,10 +876,12 @@ class CommunicationController extends AdminController
                     'preview_mode' => true
                 )
             );
+ 
             $data = $jsonResponseDataProvider->success();
             $data['content'] = $view;
             return new JsonResponse($data, 200);
         }
+
 
         return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
     }
@@ -856,15 +919,18 @@ class CommunicationController extends AdminController
     public function emailingTemplatesDuplicateTemplateAction(Request $request, $template_id)
     {
         $auth_checker = $this->get('security.authorization_checker');
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         if (false === $auth_checker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             //            return $this->redirectToRoute('fos_user_security_logout');
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             //            return $this->redirectToRoute('fos_user_security_logout');
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -879,6 +945,7 @@ class CommunicationController extends AdminController
 
         if (is_null($com_email_template)) {
             //            return $this->createNotFoundException(self::TEMPLATE_NOT_FOUND_MESSAGE);
+
             $data = $jsonResponseDataProvider->pageNotFound();
             $data['message'] = self::TEMPLATE_NOT_FOUND_MESSAGE;
             return new JsonResponse($data, 404);
@@ -905,6 +972,7 @@ class CommunicationController extends AdminController
                     'duplicate_template_form' => $duplicate_template_form->createView(),
                     )
                 );
+
             $data = $jsonResponseDataProvider->success();
             $data['content'] = $view;
             return new JsonResponse($data, 200);
@@ -916,11 +984,14 @@ class CommunicationController extends AdminController
                 if ($duplicate_template_form->isSubmitted() && $duplicate_template_form->isValid()) {
                     if ($template_id == $duplicationData->getDuplicationSourceId()) {
                         $template_duplicator
+
                             ->duplicate($program, $com_email_template, $this->getUser(), $duplicationData->getName());
+
                         $data = $jsonResponseDataProvider->success();
                         return new JsonResponse($data, 200);
                     }
                 } else {
+
                     $data = $jsonResponseDataProvider->formError();
                     $view = $this
                         ->renderView(
@@ -938,6 +1009,7 @@ class CommunicationController extends AdminController
         /*$template_duplicator = $this->get('AdminBundle\Service\DataDuplicator\ComEmailTemplateDuplicator');
         $template_duplicator->duplicate($program, $com_email_template, $this->getUser());*/
 
+
         return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
     }
 
@@ -949,9 +1021,11 @@ class CommunicationController extends AdminController
      */
     public function emailingTemplateDeleteTemplateAction(Request $request, $template_id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -969,13 +1043,16 @@ class CommunicationController extends AdminController
                 ->get('AdminBundle\Service\DataSynchronizer\ComEmailTemplateDataSynchronizer');
             $delete_res = $com_email_template_data_sync->deleteTemplate($com_email_template);
             if (true == $delete_res) {
+
                 $data = $jsonResponseDataProvider->success();
                 return new JsonResponse($data, 200);
             } else {
+
                 $data = $jsonResponseDataProvider->apiCommunicationError();
                 return new JsonResponse($data, 500);
             }
         }
+
 
         return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
     }
@@ -988,9 +1065,11 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactAction(Request $request, $trie)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1037,9 +1116,11 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactEditAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1062,9 +1143,11 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactEditSubmitAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1094,9 +1177,11 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactCreerAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1117,9 +1202,11 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactCreerSubmitAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1149,9 +1236,11 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactDeleteAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1179,9 +1268,11 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactDupliquerAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1211,10 +1302,12 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactExportAction($id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1784,6 +1877,7 @@ class CommunicationController extends AdminController
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1791,6 +1885,7 @@ class CommunicationController extends AdminController
         if (is_null($post_type_label)
             || !in_array($post_type_label, NewsPostTypeLabel::VALID_NEWS_POST_TYPE_LABEL)
         ) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1806,9 +1901,11 @@ class CommunicationController extends AdminController
             $submission_type = $request->get('submission_type');
             $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
             if ($news_post_manager->create($news_post_form->getData(), $submission_type)) {
+
                 $data = $jsonResponseDataProvider->success();
                 return new JsonResponse($data, 200);
             } else {
+
                 return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
             }
         }
@@ -1820,8 +1917,10 @@ class CommunicationController extends AdminController
             $content_option['welcoming_news_post_type'] = true;
         }
         $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', $content_option);
+
         $data = $jsonResponseDataProvider->success();
         if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
+
             $data = $jsonResponseDataProvider->formError();
         }
         $data['content'] = $content;
@@ -1834,9 +1933,11 @@ class CommunicationController extends AdminController
      */
     public function editNewsAction(Request $request, $id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+ 
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1844,6 +1945,7 @@ class CommunicationController extends AdminController
         $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
             ->findOneByIdAndProgram($id, $program);
         if (is_null($news_post)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1851,6 +1953,7 @@ class CommunicationController extends AdminController
         if (is_null($post_type_label)
             || !in_array($post_type_label, NewsPostTypeLabel::VALID_NEWS_POST_TYPE_LABEL)
         ) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1866,9 +1969,11 @@ class CommunicationController extends AdminController
             $submission_type = $request->get('submission_type');
             $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
             if ($news_post_manager->edit($news_post_form->getData(), $submission_type)) {
+
                 $data = $jsonResponseDataProvider->success();
                 return new JsonResponse($data, 200);
             } else {
+
                 return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
             }
         }
@@ -1882,8 +1987,10 @@ class CommunicationController extends AdminController
             $content_option['welcoming_news_post_type'] = true;
         }
         $content = $this->renderView('AdminBundle:Communication/News:manip_news.html.twig', $content_option);
+
         $data = $jsonResponseDataProvider->success();
         if ($news_post_form->isSubmitted() && !$news_post_form->isValid()) {
+
             $data = $jsonResponseDataProvider->formError();
         }
         $data['content'] = $content;
@@ -1896,9 +2003,11 @@ class CommunicationController extends AdminController
      */
     public function duplicateNewsAction(Request $request, $id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1906,6 +2015,7 @@ class CommunicationController extends AdminController
         $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
             ->findOneByIdAndProgram($id, $program);
         if (is_null($news_post)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1916,12 +2026,15 @@ class CommunicationController extends AdminController
             if ($news_post->getId() == $news_post_duplication_form->getData()->getDuplicationSourceId()) {
                 $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
                 if ($news_post_manager->duplicate($news_post, $news_post_duplication_form->getData()->getName())) {
+
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
+
                     return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
                 }
             } else {
+
                 return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
             }
         }
@@ -1932,8 +2045,10 @@ class CommunicationController extends AdminController
             'duplicate_news_post_form' => $news_post_duplication_form->createView()
             )
         );
+
         $data = $jsonResponseDataProvider->success();
         if ($news_post_duplication_form->isSubmitted() && !$news_post_duplication_form->isValid()) {
+
             $data = $jsonResponseDataProvider->formError();
         }
         $data['content'] = $content;
@@ -1949,9 +2064,11 @@ class CommunicationController extends AdminController
      */
     public function publishNewsAction(Request $request, $id, $state)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1959,11 +2076,13 @@ class CommunicationController extends AdminController
         $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
             ->findOneByIdAndProgram($id, $program);
         if (is_null($news_post)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
         $news_post_manager->definePublishedState($news_post, $state);
+
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
     }
@@ -1987,9 +2106,11 @@ class CommunicationController extends AdminController
      */
     public function archiveNewsAction(Request $request, $id, $archived_state)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -1997,11 +2118,13 @@ class CommunicationController extends AdminController
         $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
             ->findOneByIdAndProgram($id, $program);
         if (is_null($news_post)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
         $news_post_manager->defineArchivedState($news_post, $archived_state);
+
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
     }
@@ -2025,9 +2148,11 @@ class CommunicationController extends AdminController
      */
     public function deleteNewsAction(Request $request, $id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -2035,11 +2160,13 @@ class CommunicationController extends AdminController
         $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
             ->findOneByIdAndProgram($id, $program);
         if (is_null($news_post)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $news_post_manager = $this->get('AdminBundle\Manager\NewsPostManager');
         $news_post_manager->delete($news_post);
+
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
     }
@@ -2049,9 +2176,11 @@ class CommunicationController extends AdminController
      */
     public function processGroupActionNewsAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -2062,6 +2191,7 @@ class CommunicationController extends AdminController
             || is_null($grouped_action_type)
             || !in_array($grouped_action_type, GroupActionType::NEWS_POST_VALID_GROUP_ACTION)
         ) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -2072,6 +2202,7 @@ class CommunicationController extends AdminController
             $program
         );
 
+
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
     }
 
@@ -2080,9 +2211,11 @@ class CommunicationController extends AdminController
      */
     public function previewNewsAction(Request $request, $id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -2090,8 +2223,10 @@ class CommunicationController extends AdminController
         $news_post = $em->getRepository('AdminBundle\Entity\NewsPost')
             ->findOneByIdAndProgram($id, $program);
         if (is_null($news_post)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
+
 
         $data = $jsonResponseDataProvider->success();
         $data['content'] = $this->renderView(
@@ -2243,7 +2378,7 @@ class CommunicationController extends AdminController
         $html2pdf->pdf->Output($filename . '.pdf');
     }
 
-/**
+     /**
      * Listing e-learning
      *
      * @return Response
@@ -2285,6 +2420,7 @@ class CommunicationController extends AdminController
      */
     public function createELearningAction(Request $request)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
@@ -2300,9 +2436,11 @@ class CommunicationController extends AdminController
             if (in_array($submission_type, SubmissionType::VALID_SUBMISSION_TYPE)
                 && $e_learning_manager->create($e_learning_form->getData(), $submission_type)
             ) {
+
                 $data = $jsonResponseDataProvider->success();
                 return new JsonResponse($data, 200);
             } else {
+
                 return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
             }
         }
@@ -2315,8 +2453,10 @@ class CommunicationController extends AdminController
             'e_learning_content_type_class' => new ELearningContentType(),
             )
         );
+
         $data = $jsonResponseDataProvider->success();
         if ($e_learning_form->isSubmitted() && !$e_learning_form->isValid()) {
+
             $data = $jsonResponseDataProvider->formError();
         }
         $data['content'] = $content;
@@ -2337,9 +2477,11 @@ class CommunicationController extends AdminController
      */
     public function previewELearningAction(Request $request, $id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
@@ -2351,11 +2493,13 @@ class CommunicationController extends AdminController
             )
         );
         if (is_null($e_learning)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
         $e_learning_manager = $this->get('AdminBundle\Manager\ELearningManager');
         $e_learning_data = $e_learning_manager->retrieveELearningContentData($e_learning);
+
 
         $data = $jsonResponseDataProvider->success();
         $data['content'] = $this->renderView(
@@ -2476,9 +2620,11 @@ class CommunicationController extends AdminController
      */
     public function createPreSondageAction(Request $request, $id = null)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
         $em = $this->getDoctrine()->getManager();
@@ -2522,6 +2668,7 @@ class CommunicationController extends AdminController
                 }
             }
             $em->flush();
+
             $data = $jsonResponseDataProvider->success();
             return new JsonResponse($data, 200);
         }
@@ -2533,6 +2680,7 @@ class CommunicationController extends AdminController
             'IsSondagesQuiz' => $IsSondagesQuiz,
             'program' => $program,
         ));
+
         $data = $jsonResponseDataProvider->success();
         $data['content'] = $content;
         return new JsonResponse($data, 200);
@@ -2543,9 +2691,11 @@ class CommunicationController extends AdminController
      */
     public function editPreSondageAction(Request $request, $id)
     {
+
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
         $em = $this->getDoctrine()->getManager();
@@ -2587,6 +2737,7 @@ class CommunicationController extends AdminController
                 }
             }            
             $em->flush();
+
             $data = $jsonResponseDataProvider->success();
             return new JsonResponse($data, 200);          
         }
@@ -2608,6 +2759,7 @@ class CommunicationController extends AdminController
             'QuestionsInfosArray' => $QuestionsInfosArray
             )
         );
+
         $data = $jsonResponseDataProvider->success();
         $data['content'] = $content;
         return new JsonResponse($data, 200);

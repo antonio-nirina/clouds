@@ -232,6 +232,78 @@
                                         <span class="chevron-up" style="display: none;"></span>
                                     </div>
                                 </div>
+                                <div class="row standard-content-detail-container" style="display: none;">
+                                    <div class="col">
+                                        <!-- text -->
+                                        {{ e_learning.mainText | raw }}
+                                        <!-- end - text -->
+
+                                        {% if e_learning.getMediaContents() is not null %}
+                                            {% set e_learning_media_contents = e_learning.getMediaContents() %}
+                                            <div class="title-separator">
+                                                <span class="title">médias</span>
+                                                <span class="separator-line"></span>
+                                            </div>
+                                            <div class="row standard-content-element-list-container">
+                                                {% for media_content in e_learning_media_contents %}
+                                                    {% set icon_class = '' %}
+                                                    {% if constant('MEDIA_DOCUMENT', content_type_class) == media_content.contentType %}
+                                                        {% set associated_file_extension = media_content.associatedFile is not null ? media_content.associatedFile|split('.')|last : '' %}
+                                                        {% if associated_file_extension in ['pdf'] %}
+                                                            {% set icon_class = 'pdf-document-icon' %}
+                                                        {% elseif associated_file_extension in ['doc', 'docx'] %}
+                                                            {% set icon_class = 'doc-document-icon' %}
+                                                        {% elseif associated_file_extension in ['xls', 'xlsx'] %}
+                                                            {% set icon_class = 'xls-document-icon' %}
+                                                        {% elseif associated_file_extension in ['ppt', 'pptx', 'pps', 'ppsx'] %}
+                                                            {% set icon_class = 'ppt-document-icon' %}
+                                                        {% else %}
+                                                            {% set icon_class = 'document-icon' %}
+                                                        {% endif %}
+                                                    {% elseif constant('MEDIA_IMAGE_GALLERY', content_type_class) == media_content.contentType %}
+                                                        {% set icon_class = 'gallery-icon' %}
+                                                    {% elseif constant('MEDIA_VIDEO', content_type_class) == media_content.contentType %}
+                                                        {% set icon_class = 'video-icon' %}
+                                                    {% endif %}
+                                                    <div class="col-12 col-sm-6 col-md-4 standard-content-element-container">
+                                                        <div class="icon-container">
+                                                            <span class="{{ icon_class }}"></span>
+                                                        </div>
+                                                        <span class="content-title">{{ media_content.name }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% if e_learning.getQuizContents() is not null %}
+                                            {% set e_learning_quiz_contents = e_learning.getQuizContents() %}
+                                            <div class="title-separator">
+                                                <span class="title">quiz</span>
+                                                <span class="separator-line"></span>
+                                            </div>
+                                            <div class="row standard-content-element-list-container">
+                                                {% for quiz_content in e_learning_quiz_contents %}
+                                                    <div class="col-12 col-sm-6 col-md-4 standard-content-element-container">
+                                                        <div class="icon-container">
+                                                            <span class="quiz-icon"></span>
+                                                        </div>
+                                                        <span class="content-title">{{ quiz_content.name }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        {% if e_learning.getButtonContents().getValues is not empty %}
+                                            {% set e_learning_button_content = e_learning.getButtonContents() %}
+                                            <div class="title-separator">
+                                                <span class="separator-line"></span>
+                                            </div>
+                                            <div class="standard-content-button-container">
+                                                {% set button_href = e_learning_button_content.actionButtonTargetPage is not null ? e_learning_button_content.actionButtonTargetPage : (e_learning_button_content.actionButtonTargetUrl is not null ? e_learning_button_content.actionButtonTargetUrl : '#' ) %}
+                                                {% set button_target = button_href != '#' ? 'target=_blank' :'' %}
+                                                <a href="{{ button_href }}" class="action-button-preview" {{ button_target }} style="color: {{ e_learning_button_content.actionButtonTextColor }}; background-color: {{ e_learning_button_content.actionButtonBackgroundColor }}">{{ e_learning_button_content.actionButtonText }}</a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

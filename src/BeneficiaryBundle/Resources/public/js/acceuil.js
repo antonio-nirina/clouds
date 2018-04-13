@@ -240,4 +240,26 @@ $(document).ready(function(){
 		$('#body-popup').hide();
 		$('#body-popup').html('');
 	});
+	// ouverture detail aperçu
+	$(document).on('click', '.preview-icon', function(e){
+		e.preventDefault();
+		var detail_container = $(this).parents('.main-container').find('.standard-content-detail-container');
+		var chevron_up = $(this).parent().children('.chevron-up');
+		var preview_icon_container = $(this).parent();
+		$(this).hide();
+		chevron_up.show();
+		preview_icon_container.css('align-items', 'flex-start');
+		detail_container.show();
+	});
+	// fermeture detail aperçu
+	$(document).on('click', '.chevron-up', function(e){
+		e.preventDefault();
+		var detail_container = $(this).parents('.main-container').find('.standard-content-detail-container');
+		var preview_icon = $(this).parent().children('.preview-icon');
+		var preview_icon_container = $(this).parent();
+		$(this).hide();
+		preview_icon.show();
+		preview_icon_container.css('align-items', 'center');
+		detail_container.hide();
+	});
 });
