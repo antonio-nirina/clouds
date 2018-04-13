@@ -4,13 +4,9 @@ variables:
   gitlab_path: "bocasay/symfony/cloud-rewards-v2"
   git_ssh_url: "git@gitlab.com:$gitlab_path.git"
   insight_branch: "develop"
+  insight_majormax: 5
+  insight_criticalmax: 1
   application_path: "."
-
-cache:
-  key: "$CI_JOB_NAME"
-  untracked: true
-  paths:
-      - vendor/
 
 before_script:
   - apt install -y unzip
@@ -22,9 +18,7 @@ phplint:
   script:
     - composer require --dev jakub-onderka/php-parallel-lint -d $application_path/
     - php $application_path/vendor/bin/parallel-lint $application_path/ --exclude $application_path/vendor --exclude $application_path/bin --exclude $application_path/var --exclude $application_path/web
-  artifacts:
-    paths:
-      - vendor/
+
 
 insight-create:
   stage: build
