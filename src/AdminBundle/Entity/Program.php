@@ -157,7 +157,7 @@ class Program
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\ResultatsSondagesQuiz", mappedBy="program")
      */
-    private $resultatsSondagesQuiz;
+    private $resultats_sondages_quiz;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminBundle\Entity\PointAttributionSetting", mappedBy="program")
@@ -191,7 +191,7 @@ class Program
         $this->site_form_settings = new ArrayCollection();
         $this->site_page_standard = new ArrayCollection();
         $this->sondages_quiz = new ArrayCollection();
-        $this->resultatsSondagesQuiz = new ArrayCollection();
+        $this->resultats_sondages_quiz = new ArrayCollection();
     }
 
     /**
@@ -941,37 +941,37 @@ class Program
     }
 
 /**
-     * Add resultatsSondagesQuiz
+     * Add resultats_sondages_quiz
      *
-     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultats_sondages_quiz
      *
      * @return ResultatsSondagesQuiz
      */
-    public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    public function addResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultats_sondages_quiz)
     {
-        $this->resultatsSondagesQuiz[] = $resultatsSondagesQuiz;
+        $this->resultats_sondages_quiz[] = $resultats_sondages_quiz;
 
         return $this;
     }
 
     /**
-     * Remove resultatsSondagesQuiz
+     * Remove resultats_sondages_quiz
      *
-     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz
+     * @param \AdminBundle\Entity\ResultatsSondagesQuiz $resultats_sondages_quiz
      */
-    public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultatsSondagesQuiz)
+    public function removeResultatsSondagesQuiz(\AdminBundle\Entity\ResultatsSondagesQuiz $resultats_sondages_quiz)
     {
-        $this->resultatsSondagesQuiz->removeElement($resultatsSondagesQuiz);
+        $this->resultats_sondages_quiz->removeElement($resultats_sondages_quiz);
     }
 
     /**
-     * Get resultatsSondagesQuiz
+     * Get resultats_sondages_quiz
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getResultatsSondagesQuiz()
     {
-        return $this->resultatsSondagesQuiz;
+        return $this->resultats_sondages_quiz;
     }
 
     /**
