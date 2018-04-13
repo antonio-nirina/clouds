@@ -83,60 +83,66 @@ class ParametragesController extends AdminController
         $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
 
-        $has_root = $this->container->get('app.design_root')->exists($program->getId());
+        $hasRoot = $this->container->get('app.design_root')->exists($program->getId());
         return $this->render(
             'root.html.twig',
             array(
-                'link' => $has_root
+                'link' => $hasRoot
             )
         );
     }
 
+    /**
+     * @return Response
+     */
     public function logoAction()
     {
         $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
-        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
-        $site_design = $site_design[0];
-        $logo_path = false;
+        $siteDesign = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
+        $siteDesign = $siteDesign[0];
+        $logoPath = false;
         $name = false;
 
-        if ($file = $site_design->getLogoPath()) {
+        if ($file = $siteDesign->getLogoPath()) {
             if (is_file($file)) {
-                $logo_path = $file->getPathname();
+                $logoPath = $file->getPathname();
             } else {
-                $logo_path = $this->container->getParameter('logo_path') . '/' . $program->getId() . '/' . $file;
+                $logoPath = $this->container->getParameter('logo_path') . '/' . $program->getId() . '/' . $file;
             }
-        } elseif ($site_design->getLogoName()) {
+        } elseif ($siteDesign->getLogoName()) {
             $name = true;
         }
         return $this->render(
             'logo.html.twig',
             array(
-                                    'link' => $logo_path,
-                                    'name' => $name
+                    'link' => $logoPath,
+                    'name' => $name
             )
         );
     }
 
+    /**
+     * @return Response
+     */
     public function logoLoginAction()
     {
         $em = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
-        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
-        $site_design = $site_design[0];
-        $logo_path = false;
+        $siteDesign = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
+        $siteDesign = $siteDesign[0];
+        $logoPath = false;
         $name = false;
 
-        if ($file = $site_design->getLogoPath()) {
-            $logo_path = $this->container->getParameter('logo_path') . '/' . $program->getId() . '/' . $file;
-        } elseif ($site_design->getLogoName()) {
+        if ($file = $siteDesign->getLogoPath()) {
+            $logoPath = $this->container->getParameter('logo_path') . '/' . $program->getId() . '/' . $file;
+        } elseif ($siteDesign->getLogoName()) {
             $name = true;
         }
         return $this->render(
             'logo_login.html.twig',
             array(
-                                    'link' => $logo_path,
+                                    'link' => $logoPath,
                                     'name' => $name
             )
         );
@@ -155,27 +161,27 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $current_program = $program->getType();
-        $program_type_repo = $em->getRepository('AdminBundle:ProgramType');
-        $all_program_type = $program_type_repo->findAll();
+        
+        $programTypeRepo = $em->getRepository('AdminBundle:ProgramType');
+        $allProgramType = $programTypeRepo->findAll();
 
         if ("POST" === $request->getMethod()) {
             $type = (int) $request->get('program_type');
-            $is_multi_operation = ((int) $request->get('challenge_mode'))?true:false;
+            $isMultiOperation = ((int) $request->get('challenge_mode'))?true:false;
 
-            $changed_type = true;
+            $changedType = true;
             if ($type === $program->getType()->getId()) {
-                $changed_type = false;
+                $changedType = false;
             } else {
-                $new_type = $program_type_repo->find($type);
-                $program->setType($new_type);
+                $newType = $programTypeRepo->find($type);
+                $program->setType($newType);
             }
 
-            if ($is_multi_operation != $program->getIsMultiOperation()) {
-                $program->setIsMultiOperation($is_multi_operation);
+            if ($isMultiOperation != $program->getIsMultiOperation()) {
+                $program->setIsMultiOperation($isMultiOperation);
             }
 
-            if (($program->getParamLevel() < 1) || $changed_type) { //remettre au level 1
+            if (($program->getParamLevel() < 1) || $changedType) { //remettre au level 1
                 $program->setParamLevel(1);
             }
 
@@ -187,7 +193,7 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:Programme.html.twig',
             array(
-                                    'all_program_type' => $all_program_type,
+                                    'all_program_type' => $allProgramType,
                                     'program' => $program
             )
         );
@@ -206,82 +212,82 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+        $registrationSiteFormSetting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
-        if (is_null($registration_site_form_setting)) {
+        if (is_null($registrationSiteFormSetting)) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
 
-        $registration_site_form_field_settings = $registration_site_form_setting->getSiteFormFieldSettings();
+        $registrationSiteFormFieldSettings = $registrationSiteFormSetting->getSiteFormFieldSettings();
 
-        $registration_form_data = $program->getRegistrationFormData();
-        if (is_null($registration_form_data)) {
+        $registrationFormData = $program->getRegistrationFormData();
+        if (is_null($registrationFormData)) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
-        $current_header_image = $registration_form_data->getHeaderImage();
-        $registration_form_data->setHeaderImage("");
+        $currentHeaderImage = $registrationFormData->getHeaderImage();
+        $registrationFormData->setHeaderImage("");
 
-        $form_factory = $this->get("form.factory");
-        $form_structure_form = $form_factory->createNamed("form_structure", FormStructureType::class);
-        $header_data_form = $form_factory->createNamed(
+        $formFactory = $this->get("form.factory");
+        $formStructureForm = $formFactory->createNamed("form_structure", FormStructureType::class);
+        $headerDataForm = $formFactory->createNamed(
             "header_data",
             RegistrationFormHeaderDataType::class,
-            $registration_form_data
+            $registrationFormData
         );
-        $intro_data_form = $form_factory->createNamed(
+        $introDataForm = $formFactory->createNamed(
             "introduction_data",
             RegistrationFormIntroDataType::class,
-            $registration_form_data
+            $registrationFormData
         );
 
         if ("POST" === $request->getMethod()) {
             if ($request->request->has("form_structure")) {
-                $form_structure_form->handleRequest($request);
-                if ($form_structure_form->isSubmitted() && $form_structure_form->isValid()) {
-                    $fields_manager = $this->container->get("admin.form_field_manager");
+                $formStructureForm->handleRequest($request);
+                if ($formStructureForm->isSubmitted() && $formStructureForm->isValid()) {
+                    $fieldsManager = $this->container->get("admin.form_field_manager");
 
-                    $field_order = $form_structure_form->getData()["field-order"];
+                    $fieldOrder = $formStructureForm->getData()["field-order"];
 
-                    $current_field_list = $form_structure_form->getData()["current-field-list"];
-                    $fields_manager->adjustFieldAndOrder($field_order, $current_field_list);
+                    $currentFieldList = $formStructureForm->getData()["current-field-list"];
+                    $fieldsManager->adjustFieldAndOrder($fieldOrder, $currentFieldList);
 
-                    $new_field_list = $form_structure_form->getData()["new-field-list"];
-                    $fields_manager->addNewFields($new_field_list, $registration_site_form_setting);
+                    $newFieldList = $formStructureForm->getData()["new-field-list"];
+                    $fieldsManager->addNewFields($newFieldList, $registrationSiteFormSetting);
 
-                    $delete_field_list = $form_structure_form->getData()["delete-field-action-list"];
-                    $fields_manager->deleteField($delete_field_list, $registration_site_form_setting);
+                    $deleteFieldList = $formStructureForm->getData()["delete-field-action-list"];
+                    $fieldsManager->deleteField($deleteFieldList, $registrationSiteFormSetting);
 
-                    $fields_manager->save();
+                    $fieldsManager->save();
 
                     return $this->redirectToRoute("admin_parametrages_inscriptions");
                 }
             }
 
             if ($request->request->has("header_data")) {
-                $header_data_form->handleRequest($request);
-                if ($header_data_form->isSubmitted() && $header_data_form->isValid()) {
-                    $header_image_file = $registration_form_data->getHeaderImage();
-                    if (!is_null($header_image_file)) {
-                        $header_image_file->move(
+                $headerDataForm->handleRequest($request);
+                if ($headerDataForm->isSubmitted() && $headerDataForm->isValid()) {
+                    $headerImageFile = $registrationFormData->getHeaderImage();
+                    if (!is_null($headerImageFile)) {
+                        $headerImageFile->move(
                             $this->getParameter("registration_header_image_upload_dir"),
-                            $header_image_file->getClientOriginalName()
+                            $headerImageFile->getClientOriginalName()
                         );
-                        $registration_form_data->setHeaderImage($header_image_file->getClientOriginalName());
+                        $registrationFormData->setHeaderImage($headerImageFile->getClientOriginalName());
                     } else {
-                        $registration_form_data->setHeaderImage($current_header_image);
+                        $registrationFormData->setHeaderImage($currentHeaderImage);
                     }
 
-                    if (!empty($header_data_form->get('delete_image_command')->getData())
-                        && "true" == $header_data_form->get('delete_image_command')->getData()
+                    if (!empty($headerDataForm->get('delete_image_command')->getData())
+                        && "true" == $headerDataForm->get('delete_image_command')->getData()
                     ) {
                         $filesystem = $this->get('filesystem');
-                        $image_path = $this->getParameter('registration_header_image_upload_dir')
+                        $imagePath = $this->getParameter('registration_header_image_upload_dir')
                             . '/'
-                            . $registration_form_data->getHeaderImage();
-                        if ($filesystem->exists($image_path)) {
-                            $filesystem->remove($image_path);
+                            . $registrationFormData->getHeaderImage();
+                        if ($filesystem->exists($imagePath)) {
+                            $filesystem->remove($imagePath);
                         }
-                        $registration_form_data->setHeaderImage(null);
+                        $registrationFormData->setHeaderImage(null);
                     }
                     $em->flush();
 
@@ -290,9 +296,9 @@ class ParametragesController extends AdminController
             }
 
             if ($request->request->has("introduction_data")) {
-                $intro_data_form->handleRequest($request);
-                if ($intro_data_form->isSubmitted() && $intro_data_form->isValid()) {
-                    $registration_form_data->setHeaderImage($current_header_image);
+                $introDataForm->handleRequest($request);
+                if ($introDataForm->isSubmitted() && $introDataForm->isValid()) {
+                    $registrationFormData->setHeaderImage($currentHeaderImage);
                     $em->flush();
 
                     return $this->redirectToRoute("admin_parametrages_inscriptions");
@@ -303,13 +309,13 @@ class ParametragesController extends AdminController
         return $this->render(
             "AdminBundle:Parametrages:Inscriptions.html.twig",
             array(
-            "site_form_field_settings" => $registration_site_form_field_settings,
-            "form_structure_form" => $form_structure_form->createView(),
+            "site_form_field_settings" => $registrationSiteFormFieldSettings,
+            "form_structure_form" => $formStructureForm->createView(),
             "field_type_list" => FieldTypeName::FIELD_NAME,
-            "custom_field_allowed" => $registration_site_form_setting->getCustomFieldAllowed(),
-            "header_data_form" =>  $header_data_form->createView(),
-            "current_header_image" => $current_header_image,
-            "intro_data_form" => $intro_data_form->createView(),
+            "custom_field_allowed" => $registrationSiteFormSetting->getCustomFieldAllowed(),
+            "header_data_form" =>  $headerDataForm->createView(),
+            "current_header_image" => $currentHeaderImage,
+            "intro_data_form" => $introDataForm->createView(),
             )
         );
     }
@@ -326,20 +332,20 @@ class ParametragesController extends AdminController
             return new Response('');
         }
 
-        $registration_form_data = $program->getRegistrationFormData();
-        if (is_null($registration_form_data)) {
+        $registrationFormData = $program->getRegistrationFormData();
+        if (is_null($registrationFormData)) {
             return new Response('');
         }
 
-        if (!is_null($registration_form_data->getHeaderImage())) {
+        if (!is_null($registrationFormData->getHeaderImage())) {
             $filesystem = $this->get('filesystem');
-            $image_path = $this->getParameter('registration_header_image_upload_dir')
+            $imagePath = $this->getParameter('registration_header_image_upload_dir')
                 . '/'
-                . $registration_form_data->getHeaderImage();
-            if ($filesystem->exists($image_path)) {
-                $filesystem->remove($image_path);
+                . $registrationFormData->getHeaderImage();
+            if ($filesystem->exists($imagePath)) {
+                $filesystem->remove($imagePath);
             }
-            $registration_form_data->setHeaderImage(null);
+            $registrationFormData->setHeaderImage(null);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
         }
@@ -354,7 +360,7 @@ class ParametragesController extends AdminController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
+        $siteFormFieldSettingManager = $this->container->get('admin.form_field_manager');
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
@@ -362,9 +368,9 @@ class ParametragesController extends AdminController
             return new Response('');
         }
 
-        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+        $registrationSiteFormSetting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
-        if (is_null($registration_site_form_setting)) {
+        if (is_null($registrationSiteFormSetting)) {
             return new Response('');
         }
 
@@ -384,22 +390,22 @@ class ParametragesController extends AdminController
                 && $request->get('field_type')
                 && !is_null($request->get('field_type'))
             ) {
-                $new_field = array(
+                $newField = array(
                     "mandatory" => false,
                     "label" => $request->get('label'),
                     "field_type" => $request->get('field_type'),
                     "special_field_index" => array(SpecialFieldIndex::USER_FIELD),
                 );
                 if (FieldType::CHOICE_RADIO == $request->get('field_type')) {
-                    $yes_no_choices_array = array(
+                    $yesNoChoicesArray = array(
                         "oui" => "oui",
                         "non" => "non,"
                     );
-                    $new_field["choices"] = $yes_no_choices_array;
+                    $newField["choices"] = $yesNoChoicesArray;
                 }
-                $field = $site_form_field_setting_manager->addNewField(
-                    $new_field,
-                    $registration_site_form_setting,
+                $field = $siteFormFieldSettingManager->addNewField(
+                    $newField,
+                    $registrationSiteFormSetting,
                     true
                 );
                 if (!is_null($field)) {
@@ -422,7 +428,7 @@ class ParametragesController extends AdminController
     public function editRegistrationFormFieldAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $site_form_field_setting_manager = $this->container->get('admin.form_field_manager');
+        $siteFormFieldSettingManager = $this->container->get('admin.form_field_manager');
 
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {//redirection si program n'existe pas
@@ -430,29 +436,29 @@ class ParametragesController extends AdminController
             return new Response('');
         }
 
-        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+        $registrationSiteFormSetting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndTypeWithField($program, SiteFormType::REGISTRATION_TYPE);
-        if (is_null($registration_site_form_setting)) {
+        if (is_null($registrationSiteFormSetting)) {
             return new Response('');
         }
 
         if ($request->isMethod('GET')) {
             if ($request->get('field_id')) {
                 $field = $em->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
-                    ->findBySiteFormSettingAndId($registration_site_form_setting, $request->get('field_id'));
+                    ->findBySiteFormSettingAndId($registrationSiteFormSetting, $request->get('field_id'));
                 if (!is_null($field)) {
-                    $custom_choice_radio_choices = array();
+                    $customChoiceRadioChoices = array();
                     if (FieldType::CHOICE_RADIO == $field->getFieldType()) {
-                        $custom_choice_radio_choices["choices"] = array();
+                        $customChoiceRadioChoices["choices"] = array();
                         if (array_key_exists("choices", $field->getAdditionalData())) {
-                            $custom_choice_radio_choices = $field->getAdditionalData()["choices"];
+                            $customChoiceRadioChoices = $field->getAdditionalData()["choices"];
                         }
                     }
                     return $this->render(
                         "AdminBundle:Parametrages:manip_registration_form_field.html.twig",
                         array(
                             "type" => $field->getFieldType(),
-                            "custom_choice_radio_choices" => $custom_choice_radio_choices,
+                            "custom_choice_radio_choices" => $customChoiceRadioChoices,
                             "field_id" => $field->getId(),
                             "field_type" => new FieldType(),
                             "label" => $field->getLabel(),
@@ -470,17 +476,17 @@ class ParametragesController extends AdminController
                 && $request->get('field_id')
             ) {
                 $field = $em->getRepository('AdminBundle\Entity\SiteFormFieldSetting')
-                    ->findBySiteFormSettingAndId($registration_site_form_setting, $request->get('field_id'));
+                    ->findBySiteFormSettingAndId($registrationSiteFormSetting, $request->get('field_id'));
                 if (!is_null($field)) {
-                    $custom_choices = null;
+                    $customChoices = null;
                     if ($request->get('options')) {
-                        $custom_choices = $request->get('options');
+                        $customChoices = $request->get('options');
                     }
-                    $site_form_field_setting_manager->updateFieldWithCustomChoices(
+                    $siteFormFieldSettingManager->updateFieldWithCustomChoices(
                         $field,
                         $request->get('field_type'),
                         $request->get('label'),
-                        $custom_choices
+                        $customChoices
                     );
                     $response = $this->forward(
                         'AdminBundle:PartialPage:siteFormFieldRow',
@@ -507,23 +513,23 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+        $registrationSiteFormSetting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
-        if (is_null($registration_site_form_setting)) {
+        if (is_null($registrationSiteFormSetting)) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
 
-        $registration_import_form = $this->createForm(RegistrationImportType::class);
-        $registration_import_form->handleRequest($request);
-        $error_list = array();
-        if ($registration_import_form->isSubmitted() && $registration_import_form->isValid()) {
-            $import_file = $registration_import_form->getData()["registration_data"];
-            $registration_handler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
-            $registration_handler->setSiteFormSetting($registration_site_form_setting);
-            $registration_handler->import($import_file);
+        $registrationImportForm = $this->createForm(RegistrationImportType::class);
+        $registrationImportForm->handleRequest($request);
+        $errorList = array();
+        if ($registrationImportForm->isSubmitted() && $registrationImportForm->isValid()) {
+            $importFile = $registrationImportForm->getData()["registration_data"];
+            $registrationHandler = $this->get("AdminBundle\Service\ImportExport\RegistrationHandler");
+            $registrationHandler->setSiteFormSetting($registrationSiteFormSetting);
+            $registrationHandler->import($importFile);
 
-            if (!empty($registration_handler->getErrorList())) {
-                $error_list = $registration_handler->getErrorList();
+            if (!empty($registrationHandler->getErrorList())) {
+                $errorList = $registrationHandler->getErrorList();
             } else {
                 $this->addFlash('success_message', 'Import de données effectué avec succès');
                 return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
@@ -533,8 +539,8 @@ class ParametragesController extends AdminController
         return $this->render(
             "AdminBundle:Parametrages:Imports.html.twig",
             array(
-            "registration_form" => $registration_import_form->createView(),
-            "error_list" => $error_list,
+            "registration_form" => $registrationImportForm->createView(),
+            "error_list" => $errorList,
             )
         );
     }
@@ -551,20 +557,20 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+        $registrationSiteFormSetting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
-        if (is_null($registration_site_form_setting)) {
+        if (is_null($registrationSiteFormSetting)) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
 
         $model = $this->get('AdminBundle\Service\ImportExport\RegistrationModel');
-        $model->setSiteFormSetting($registration_site_form_setting);
+        $model->setSiteFormSetting($registrationSiteFormSetting);
         $response = $model->createResponse();
 
         return $response;
     }
 
-/**
+    /**
      * @Route("/inscriptions/imports/etre-contacte",  name="admin_parameters_registration_import_be_contacted")
      */
     public function beContactedAction(Request $request)
@@ -588,9 +594,9 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $registration_site_form_setting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
+        $registrationSiteFormSetting = $em->getRepository("AdminBundle\Entity\SiteFormSetting")
             ->findByProgramAndType($program, SiteFormType::REGISTRATION_TYPE);
-        if (is_null($registration_site_form_setting)) {
+        if (is_null($registrationSiteFormSetting)) {
             return $this->redirectToRoute("fos_user_security_logout");
         }
 
@@ -605,7 +611,7 @@ class ParametragesController extends AdminController
         return $this->redirectToRoute("admin_parametrages_inscriptions_imports");
     }
 
-/**
+    /**
      * @Route("/resultats/declaration/new", name="admin_new_resultat_declaration")
      * @Method("POST")
      */
@@ -619,29 +625,29 @@ class ParametragesController extends AdminController
         }
 
         if ("Challenge" === $program->getType()->getType()) {
-            $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
-            $default_lines = 5;
+            $siteFormType = SiteFormType::PRODUCT_DECLARATION_TYPE;
+            $defaultLines = 5;
         } else {
-            $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
+            $siteFormType = SiteFormType::LEAD_DECLARATION_TYPE;
         }
 
-        $fields_manager = $this->container->get('admin.form_field_manager');
-        $all_level = $fields_manager->getMaxLevel($program, $site_form_type);
-        $max_level = (!empty($all_level))?(int) $all_level[0]['level']:0;
-        $new_level = $max_level+1;
+        $fieldsManager = $this->container->get('admin.form_field_manager');
+        $allLevel = $fieldsManager->getMaxLevel($program, $siteFormType);
+        $maxLevel = (!empty($allLevel))?(int) $allLevel[0]['level']:0;
+        $newLevel = $maxLevel+1;
 
-        $fields_manager->rechargeDefaultFieldFor($program, $site_form_type, $new_level);
+        $fieldsManager->rechargeDefaultFieldFor($program, $siteFormType, $newLevel);
 
-        $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeAndLevelWithField($program, $site_form_type, $new_level);
+        $siteFormSetting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeAndLevelWithField($program, $siteFormType, $newLevel);
 
         // dump($site_form_setting); die;
 
         return $this->render(
             'AdminBundle:Parametrages:New_declaration.html.twig',
             array(
-            'site_form_setting' => $site_form_setting,
-            'site_form_field_settings' => $site_form_setting->getSiteFormFieldSettings(),
-            'max_line' => $site_form_setting->getCustomFieldAllowed() + $default_lines
+            'site_form_setting' => $siteFormSetting,
+            'site_form_field_settings' => $siteFormSetting->getSiteFormFieldSettings(),
+            'max_line' => $siteFormSetting->getCustomFieldAllowed() + $defaultLines
             )
         );
     }
@@ -660,13 +666,13 @@ class ParametragesController extends AdminController
         }
 
         if ("Challenge" === $program->getType()->getType()) {
-            $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
+            $siteFormType = SiteFormType::PRODUCT_DECLARATION_TYPE;
         } else {
-            $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
+            $siteFormType = SiteFormType::LEAD_DECLARATION_TYPE;
         }
 
-        $fields_manager = $this->container->get('admin.form_field_manager');
-        $fields_manager->removeFieldsForLevel($program, $site_form_type, $level);
+        $fieldsManager = $this->container->get('admin.form_field_manager');
+        $fieldsManager->removeFieldsForLevel($program, $siteFormType, $level);
 
         return new Response('done');
     }
@@ -680,16 +686,16 @@ class ParametragesController extends AdminController
         $level = ($request->get('level'))?$request->get('level'):'';
         $type = ($request->get('type_field'))?$request->get('type_field'):"alphanum";
         $label = ($request->get('label'))?$request->get('label'):"";
-        $field_id = ($request->get('field_id'))?$request->get('field_id'):"";
+        $fieldId = ($request->get('field_id'))?$request->get('field_id'):"";
 
         $em = $this->getDoctrine()->getManager();
-        $fields_manager = $this->container->get('admin.form_field_manager');
+        $fieldsManager = $this->container->get('admin.form_field_manager');
 
-        if (!empty($field_id)) {//update
-            $field = $em->getRepository('AdminBundle:SiteFormFieldSetting')->find($field_id);
+        if (!empty($fieldId)) {//update
+            $field = $em->getRepository('AdminBundle:SiteFormFieldSetting')->find($fieldId);
 
             if ($request->get('update')) {
-                $field = $fields_manager->updateField($field, $type, $label);
+                $field = $fieldsManager->updateField($field, $type, $label);
                 return $this->render(
                     'AdminBundle:Parametrages:Partial_new.html.twig',
                     array(
@@ -707,14 +713,14 @@ class ParametragesController extends AdminController
         }
 
         if ($request->get('validate')) {//validate
-            $new_field = [
+            $newField = [
                             'level' => $level,
                             'label' => $label,
                             "mandatory" => false,
                             "field_type" => $type
                             ];
             if ($type == "choice-radio") {
-                $new_field["choices"] = ["oui"=>"oui","non"=>"non"];
+                $newField["choices"] = ["oui"=>"oui","non"=>"non"];
             }
 
             $program = $this->container->get('admin.program')->getCurrent();
@@ -723,13 +729,13 @@ class ParametragesController extends AdminController
             }
 
             if ("Challenge" === $program->getType()->getType()) {
-                $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
+                $siteFormType = SiteFormType::PRODUCT_DECLARATION_TYPE;
             } else {
-                $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
+                $siteFormType = SiteFormType::LEAD_DECLARATION_TYPE;
             }
 
-            $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeWithFieldWithLevel($program, $site_form_type);
-            $field = $fields_manager->addNewField($new_field, $site_form_setting);
+            $siteFormSetting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeWithFieldWithLevel($program, $siteFormType);
+            $field = $fieldsManager->addNewField($newField, $siteFormSetting);
 
             // dump($field); die;
             return $this->render(
@@ -748,7 +754,7 @@ class ParametragesController extends AdminController
             'level' => $level,
             'type' => $type,
             'label' => $label,
-            'field_id' => $field_id
+            'field_id' => $fieldId
             )
         );
     }
@@ -766,63 +772,63 @@ class ParametragesController extends AdminController
         }
 
         if ("Challenge" === $program->getType()->getType()) {
-            $site_form_type = SiteFormType::PRODUCT_DECLARATION_TYPE;
-            $default_lines = 5;
+            $siteFormType = SiteFormType::PRODUCT_DECLARATION_TYPE;
+            $defaultLines = 5;
         } else {
-            $site_form_type = SiteFormType::LEAD_DECLARATION_TYPE;
+            $siteFormType = SiteFormType::LEAD_DECLARATION_TYPE;
         }
 
-        $fields_manager = $this->container->get('admin.form_field_manager');
-        $all_level = $fields_manager->getMaxLevel($program, $site_form_type);
+        $fieldsManager = $this->container->get('admin.form_field_manager');
+        $allLevel = $fieldsManager->getMaxLevel($program, $siteFormType);
 
-        $max_level = (!empty($all_level))?(int) $all_level[0]['level']:1;
-        if (empty($all_level)) {
-            $fields_manager->rechargeDefaultFieldFor($program, $site_form_type, $max_level);
+        $maxLevel = (!empty($allLevel))?(int) $allLevel[0]['level']:1;
+        if (empty($allLevel)) {
+            $fieldsManager->rechargeDefaultFieldFor($program, $siteFormType, $maxLevel);
         }
 
-        $site_form_setting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeWithFieldWithLevel($program, $site_form_type);
-        $arranged_fields = $fields_manager->getArrangedFields($site_form_setting);
+        $siteFormSetting = $em->getRepository(SiteFormSetting::class)->findByProgramAndTypeWithFieldWithLevel($program, $siteFormType);
+        $arrangedFields = $fieldsManager->getArrangedFields($siteFormSetting);
 
-        $form_structure_form = $this->createForm(FormStructureDeclarationType::class);
-        $form_structure_form->handleRequest($request);
+        $formStructureForm = $this->createForm(FormStructureDeclarationType::class);
+        $formStructureForm->handleRequest($request);
 
-        if ($form_structure_form->isSubmitted() && $form_structure_form->isValid()) {
+        if ($formStructureForm->isSubmitted() && $formStructureForm->isValid()) {
             //dump($request); die;
             //validation
-            $validation_required =  ((int) $form_structure_form->getData()['validation-required'])?true:false;
-            $site_form_setting->setValidation($validation_required);
+            $validationRequired =  ((int) $formStructureForm->getData()['validation-required'])?true:false;
+            $siteFormSetting->setValidation($validationRequired);
 
             //pieces justificatif
-            $pieces_required = ((int) $form_structure_form->getData()['pieces-required'])?true:false;
-            $site_form_setting->setHasPieces($pieces_required);
+            $piecesRequired = ((int) $formStructureForm->getData()['pieces-required'])?true:false;
+            $siteFormSetting->setHasPieces($piecesRequired);
 
             //texte head
-            $text_head_required =  ((int) $form_structure_form->getData()['text-head-required'])?true:false;
-            $site_form_setting->setHasHeadText($text_head_required);
+            $textHeadRequired =  ((int) $formStructureForm->getData()['text-head-required'])?true:false;
+            $siteFormSetting->setHasHeadText($textHeadRequired);
 
-            if ($text_head_required) {
-                $text_head =  $form_structure_form->getData()['text-head'];
-                $site_form_setting->setHeadText($text_head);
+            if ($textHeadRequired) {
+                $textHead =  $formStructureForm->getData()['text-head'];
+                $siteFormSetting->setHeadText($textHead);
             }
 
             //adjust current field
-            $field_order = $form_structure_form->getData()['field-order'];
-            $current_field_list = $form_structure_form->getData()['current-field-list'];
-            $fields_manager->adjustFieldAndOrder($field_order, $current_field_list);
+            $fieldOrder = $formStructureForm->getData()['field-order'];
+            $currentFieldList = $formStructureForm->getData()['current-field-list'];
+            $fieldsManager->adjustFieldAndOrder($fieldOrder, $currentFieldList);
 
             //add new field
-            // $new_field_list = $form_structure_form->getData()['new-field-list'];
-            // if (!empty($new_field_list)) {
-            //     $fields_manager->addNewFields($new_field_list, $site_form_setting, true);
+            // $newFieldList = $formStructureForm->getData()['new-field-list'];
+            // if (!empty($newFieldList)) {
+            //     $fieldsManager->addNewFields($newFieldList, $site_form_setting, true);
             // }
 
             //delete field
-            $delete_field_list = $form_structure_form->getData()['delete-field-action-list'];
-            $fields_manager->deleteField($delete_field_list, $site_form_setting, true);
+            $deleteFieldList = $formStructureForm->getData()['delete-field-action-list'];
+            $fieldsManager->deleteField($deleteFieldList, $siteFormSetting, true);
             //save modification
-            $fields_manager->save();
+            $fieldsManager->save();
 
-            $next_form = $form_structure_form->getData()['next'];//next product
+            $nextForm = $formStructureForm->getData()['next'];//next product
             // // dump($next_form); die;
             // if (!empty($next_form)) {
             //     return $this->redirect($this->generateUrl('admin_resultats_declaration', array(
@@ -839,11 +845,11 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:Declarations.html.twig',
             array(
-            'site_form_setting' => $site_form_setting,
-            'form_structure_form' => $form_structure_form->createView(),
-            'fields' => $arranged_fields,
+            'site_form_setting' => $siteFormSetting,
+            'form_structure_form' => $formStructureForm->createView(),
+            'fields' => $arrangedFields,
             'field_type_list' => FieldTypeName::FIELD_NAME,
-            'max_line' => $site_form_setting->getCustomFieldAllowed()+ $default_lines
+            'max_line' => $siteFormSetting->getCustomFieldAllowed()+ $defaultLines
             )
         );
     }
@@ -860,39 +866,38 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $result_setting = $em->getRepository('AdminBundle:ResultSetting')->findByProgram($program);
-        $result_setting = $result_setting[0];
-        $setting_form = $this->createForm(ResultSettingType::class, $result_setting);
-        $upload_form = $this->createForm(ResultSettingUploadType::class);
+        $resultSetting = $em->getRepository('AdminBundle:ResultSetting')->findByProgram($program);
+        $resultSetting = $resultSetting[0];
+        $settingForm = $this->createForm(ResultSettingType::class, $resultSetting);
+        $uploadForm = $this->createForm(ResultSettingUploadType::class);
 
         if ($request->get('result_setting')) {//download model
-            $setting_form->handleRequest($request);
-            if ($setting_form->isSubmitted() && $setting_form->isValid()) {
+            $settingForm->handleRequest($request);
+            if ($settingForm->isSubmitted() && $settingForm->isValid()) {
                 $em->flush();
-                $monthly = $result_setting->getMonthly();
-                $by_product = $result_setting->getByProduct();
-                $by_rank = $result_setting->getByRank();
+                $monthly = $resultSetting->getMonthly();
+                $byProduct = $resultSetting->getByProduct();
+                $byRank = $resultSetting->getByRank();
                 $resultSettingModal = $this->get('AdminBundle\Service\ImportExport\ResultSettingModel');
                 $resultSettingModal->setProgram($program);
                 $response = $resultSettingModal
-                    ->createResponse($monthly, $by_product, $by_rank);
+                    ->createResponse($monthly, $byProduct, $byRank);
                 return $response;
             }
         }
 
-        $error_list = array();
-        $fresh_upload_form = $upload_form;
+        $errorList = array();
         if ($request->get('result_setting_upload')) {//upload fichier
-            $upload_form->handleRequest($request);
-            if ($upload_form->isSubmitted() && $upload_form->isValid()) {
-                $imported_file = $upload_form->getData()["uploaded_file"];
-                $result_setting_handler = $this->get('AdminBundle\Service\ImportExport\ResultSettingHandler');
-                $result_setting_handler->setProgram($program);
-                $result_setting_handler->setResultSetting($result_setting);
-                $result_setting_handler->import($imported_file);
+            $uploadForm->handleRequest($request);
+            if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
+                $importedFile = $uploadForm->getData()["uploaded_file"];
+                $resultSettingHandler = $this->get('AdminBundle\Service\ImportExport\ResultSettingHandler');
+                $resultSettingHandler->setProgram($program);
+                $resultSettingHandler->setResultSetting($resultSetting);
+                $resultSettingHandler->import($importedFile);
 
-                if (!empty($result_setting_handler->getErrorList())) {
-                    $error_list = $result_setting_handler->getErrorList();
+                if (!empty($resultSettingHandler->getErrorList())) {
+                    $errorList = $resultSettingHandler->getErrorList();
                 } else {
                     $this->addFlash('success_message', 'Import de données effectué avec succès');
                     return $this->redirectToRoute("admin_resultats_declaration_import");
@@ -904,9 +909,9 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:Import_declaration.html.twig',
             array(
-            'form_upload' => $upload_form->createView(),
-            'setting_form' => $setting_form->createView(),
-            'error_list' => $error_list
+            'form_upload' => $uploadForm->createView(),
+            'setting_form' => $settingForm->createView(),
+            'error_list' => $errorList
             )
         );
     }
@@ -923,32 +928,32 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $site_design = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
-        $site_design = $site_design[0];
+        $siteDesign = $em->getRepository('AdminBundle:SiteDesignSetting')->findByProgram($program);
+        $siteDesign = $siteDesign[0];
 
-        if ($logo = $site_design->getLogoPath()) {
-            $site_design->setLogoPath(
+        if ($logo = $siteDesign->getLogoPath()) {
+            $siteDesign->setLogoPath(
                 $this->container->get('admin.logo')->getFile($logo, $program->getId())
             );
         }
 
-        if ($background = $site_design->getBodyBackground()) {
-            $site_design->setBodyBackground(
+        if ($background = $siteDesign->getBodyBackground()) {
+            $siteDesign->setBodyBackground(
                 $this->container->get('admin.body_background')->getFile($background, $program->getId())
             );
         }
 
-        $site_design_form_logo = $this->createForm(SiteDesignSettingType::class, $site_design)
+        $siteDesignFormLogo = $this->createForm(SiteDesignSettingType::class, $siteDesign)
             ->remove('police')
             ->remove('colors')
             ->remove('body_background');//form logo
 
-        $site_design_form_colors = $this->createForm(SiteDesignSettingType::class, $site_design)
+        $siteDesignFormColors = $this->createForm(SiteDesignSettingType::class, $siteDesign)
             ->remove('police')
             ->remove('logo_name')
             ->remove('logo_path');//form couleurs
 
-        $site_design_form_police = $this->createForm(SiteDesignSettingType::class, $site_design)
+        $siteDesignFormPolice = $this->createForm(SiteDesignSettingType::class, $siteDesign)
             ->remove('colors')
             ->remove('logo_name')
             ->remove('logo_path')
@@ -956,27 +961,27 @@ class ParametragesController extends AdminController
 
         if ($request->get('site_design_setting')) {
             if (array_key_exists('logo_name', $request->get('site_design_setting'))) {//logo
-                $site_design_form_logo->handleRequest($request);
+                $siteDesignFormLogo->handleRequest($request);
                 if ($background) {
-                    $site_design->setBodyBackground($background);
+                    $siteDesign->setBodyBackground($background);
                 }
 
-                if ($site_design_form_logo->isSubmitted() && $site_design_form_logo->isValid()) {
+                if ($siteDesignFormLogo->isSubmitted() && $siteDesignFormLogo->isValid()) {
                     if (array_key_exists('logo_path', $request->files->get('site_design_setting'))
-                        && !is_null($site_design->getLogoPath())
+                        && !is_null($siteDesign->getLogoPath())
                     ) {
                         $logo = $this->container->get('admin.logo')->upload(
-                            $site_design->getLogoPath(),
+                            $siteDesign->getLogoPath(),
                             $program->getId()
                         );
-                        $site_design->setLogoPath($logo);
+                        $siteDesign->setLogoPath($logo);
                     } elseif ($logo = $request->get('logo')) {
-                        $site_design->setLogoPath($logo);
+                        $siteDesign->setLogoPath($logo);
                     }
 
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
-                        $site_design
+                        $siteDesign
                     );
                     $em->flush();
                     $this->redirectToRoute('admin_param_design');
@@ -985,27 +990,27 @@ class ParametragesController extends AdminController
 
             // die;
             if (array_key_exists('colors', $request->get('site_design_setting'))) {//couleur
-                $site_design_form_colors->handleRequest($request);
+                $siteDesignFormColors->handleRequest($request);
                 if ($logo) {
-                    $site_design->setLogoPath($logo);
+                    $siteDesign->setLogoPath($logo);
                 }
 
-                if ($site_design_form_colors->isSubmitted() && $site_design_form_colors->isValid()) {
+                if ($siteDesignFormColors->isSubmitted() && $siteDesignFormColors->isValid()) {
                     if (array_key_exists('body_background', $request->files->get('site_design_setting'))
-                        && !is_null($site_design->getBodyBackground())
+                        && !is_null($siteDesign->getBodyBackground())
                     ) {
                         $background = $this->container->get('admin.body_background')->upload(
-                            $site_design->getBodyBackground(),
+                            $siteDesign->getBodyBackground(),
                             $program->getId()
                         );
-                        $site_design->setBodyBackground($background);
+                        $siteDesign->setBodyBackground($background);
                     } elseif ($background = $request->get('background')) {
-                        $site_design->setBodyBackground($background);
+                        $siteDesign->setBodyBackground($background);
                     }
 
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
-                        $site_design
+                        $siteDesign
                     );
                     $em->flush();
                     $this->redirectToRoute('admin_param_design');
@@ -1013,18 +1018,18 @@ class ParametragesController extends AdminController
             }
 
             if (array_key_exists('police', $request->get('site_design_setting'))) {//police
-                $site_design_form_police->handleRequest($request);
+                $siteDesignFormPolice->handleRequest($request);
                 if ($logo) {
-                    $site_design->setLogoPath($logo);
+                    $siteDesign->setLogoPath($logo);
                 }
                 if ($background) {
-                    $site_design->setBodyBackground($background);
+                    $siteDesign->setBodyBackground($background);
                 }
 
-                if ($site_design_form_police->isSubmitted() && $site_design_form_police->isValid()) {
+                if ($siteDesignFormPolice->isSubmitted() && $siteDesignFormPolice->isValid()) {
                     $this->container->get('app.design_root')->resetRoot(
                         $program->getId(),
-                        $site_design
+                        $siteDesign
                     );
                     $em->flush();
                     $this->redirectToRoute('admin_param_design');
@@ -1035,9 +1040,9 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:Design.html.twig',
             array(
-            'site_design_form_logo' => $site_design_form_logo->createView(),
-            'site_design_form_colors' => $site_design_form_colors->createView(),
-            'site_design_form_police' => $site_design_form_police->createView(),
+            'site_design_form_logo' => $siteDesignFormLogo->createView(),
+            'site_design_form_colors' => $siteDesignFormColors->createView(),
+            'site_design_form_police' => $siteDesignFormPolice->createView(),
             'logo' => $logo,
             'background' => $background
             )
@@ -1054,64 +1059,64 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $login_portal_data = $program->getLoginPortalData();
-        if (is_null($login_portal_data)) {
+        $loginPortalData = $program->getLoginPortalData();
+        if (is_null($loginPortalData)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
         $em = $this->getDoctrine()->getManager();
 
-        $original_slides = new ArrayCollection();
-        foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
-            $original_slides->add($slide);
+        $originalSlides = new ArrayCollection();
+        foreach ($loginPortalData->getLoginPortalSlides() as $slide) {
+            $originalSlides->add($slide);
         }
 
-        $original_slides_image = array();
-        foreach ($original_slides as $slide) {
-            $original_slides_image[$slide->getId()] = $slide->getImage();
+        $originalSlidesImage = array();
+        foreach ($originalSlides as $slide) {
+            $originalSlidesImage[$slide->getId()] = $slide->getImage();
         }
 
-        $form_factory = $this->get('form.factory');
-        $login_portal_data_form = $form_factory->createNamed(
+        $formFactory = $this->get('form.factory');
+        $loginPortalDataForm = $formFactory->createNamed(
             "login_portal_data_form",
             LoginPortalDataType::class,
-            $login_portal_data
+            $loginPortalData
         );
-        $login_portal_data_form->handleRequest($request);
+        $loginPortalDataForm->handleRequest($request);
 
-        if ($login_portal_data_form->isSubmitted() && $login_portal_data_form->isValid()) {
+        if ($loginPortalDataForm->isSubmitted() && $loginPortalDataForm->isValid()) {
             // checking for "delete image" commands
-            $deleted_image_slide_id_list = array();
-            foreach ($login_portal_data_form->get('login_portal_slides') as $login_portal_slide) {
-                $delete_image_command = $login_portal_slide->get('delete_image_command')->getData();
-                if (!empty($delete_image_command) && 'true' == $delete_image_command) {
-                    $slide = $login_portal_slide->getNormData();
-                    $slide->setImage($original_slides_image[$slide->getId()]);
-                    $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
-                        ->retrieveNumberOfOtherSlideUsingImage($login_portal_data, $slide);
-                    if (0 == $number_other_slide_using_image) {
+            $deletedImageSlideIdList = array();
+            foreach ($loginPortalDataForm->get('login_portal_slides') as $loginPortalSlide) {
+                $deleteImageCommand = $loginPortalSlide->get('delete_image_command')->getData();
+                if (!empty($deleteImageCommand) && 'true' == $deleteImageCommand) {
+                    $slide = $loginPortalSlide->getNormData();
+                    $slide->setImage($originalSlidesImage[$slide->getId()]);
+                    $numberOtherSlideUsingImage = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+                        ->retrieveNumberOfOtherSlideUsingImage($loginPortalData, $slide);
+                    if (0 == $numberOtherSlideUsingImage) {
                         $filesystem = $this->get('filesystem');
-                        $image_path = $this->getParameter('content_login_portal_slide_image_upload_dir')
+                        $imagePath = $this->getParameter('content_login_portal_slide_image_upload_dir')
                             . '/'
                             . $slide->getImage();
-                        if ($filesystem->exists($image_path)) {
-                            $filesystem->remove($image_path);
+                        if ($filesystem->exists($imagePath)) {
+                            $filesystem->remove($imagePath);
                         }
                     }
                     $slide->setImage(null);
-                    array_push($deleted_image_slide_id_list, $slide->getId());
+                    array_push($deletedImageSlideIdList, $slide->getId());
                 }
             }
 
             // editing existant slide
-            foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
+            foreach ($loginPortalData->getLoginPortalSlides() as $slide) {
                 if (!is_null($slide->getId())) {
                     // setting image for existent slide
                     if (is_null($slide->getImage())) {
-                        if (!in_array($slide->getId(), $deleted_image_slide_id_list)) {
+                        if (!in_array($slide->getId(), $deletedImageSlideIdList)) {
                             // set previous image
-                            if (array_key_exists($slide->getId(), $original_slides_image)) {
-                                $slide->setImage($original_slides_image[$slide->getId()]);
+                            if (array_key_exists($slide->getId(), $originalSlidesImage)) {
+                                $slide->setImage($originalSlidesImage[$slide->getId()]);
                             }
                         }
                     } else {
@@ -1127,18 +1132,18 @@ class ParametragesController extends AdminController
             }
 
             // deleting slides
-            foreach ($original_slides as $original_slide) {
-                if (false === $login_portal_data->getLoginPortalSlides()->contains($original_slide)) {
+            foreach ($originalSlides as $original_slide) {
+                if (false === $loginPortalData->getLoginPortalSlides()->contains($original_slide)) {
                     $original_slide->setLoginPortalData(null);
-                    $login_portal_data->removeLoginPortalSlide($original_slide);
+                    $loginPortalData->removeLoginPortalSlide($original_slide);
                     $em->remove($original_slide);
                 }
             }
 
             // adding new slide
-            foreach ($login_portal_data->getLoginPortalSlides() as $slide) {
+            foreach ($loginPortalData->getLoginPortalSlides() as $slide) {
                 if (is_null($slide->getId())) {
-                    $slide->setLoginPortalData($login_portal_data);
+                    $slide->setLoginPortalData($loginPortalData);
                     if (!is_null($slide->getImage())) {
                         $image = $slide->getImage();
                         $image->move(
@@ -1159,8 +1164,8 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:content_configure_login_portal.html.twig',
             array(
-            'login_portal_data_form' => $login_portal_data_form->createView(),
-            'original_slides_image' => $original_slides_image,
+            'login_portal_data_form' => $loginPortalDataForm->createView(),
+            'original_slides_image' => $originalSlidesImage,
             )
         );
     }
@@ -1175,26 +1180,26 @@ class ParametragesController extends AdminController
             return new Response('');
         }
 
-        $login_portal_data = $program->getLoginPortalData();
-        if (is_null($login_portal_data)) {
+        $loginPortalData = $program->getLoginPortalData();
+        if (is_null($loginPortalData)) {
             return new Response('');
         }
 
         $em = $this->getDoctrine()->getManager();
-        $max_slide_order = 0;
-        if (!$login_portal_data->getLoginPortalSlides()->isEmpty()) {
-            $max_slide_order = $em->getRepository('AdminBundle\Entity\LoginPortalData')
-                ->retrieveMaxSlideOrderByLoginPortalData($login_portal_data);
+        $maxSlideOrder = 0;
+        if (!$loginPortalData->getLoginPortalSlides()->isEmpty()) {
+            $maxSlideOrder = $em->getRepository('AdminBundle\Entity\LoginPortalData')
+                ->retrieveMaxSlideOrderByLoginPortalData($loginPortalData);
         }
 
-        $new_slide = new LoginPortalSlide();
-        $new_slide->setSlideOrder($max_slide_order + 1);
-        $new_slide->setLoginPortalData($login_portal_data);
-        $login_portal_data->addLoginPortalSlide($new_slide);
-        $em->persist($new_slide);
+        $newSlide = new LoginPortalSlide();
+        $newSlide->setSlideOrder($maxSlideOrder + 1);
+        $newSlide->setLoginPortalData($loginPortalData);
+        $loginPortalData->addLoginPortalSlide($newSlide);
+        $em->persist($newSlide);
         $em->flush();
 
-        return new Response($new_slide->getId());
+        return new Response($newSlide->getId());
     }
 
     /**
@@ -1210,26 +1215,26 @@ class ParametragesController extends AdminController
             return new Response('');
         }
 
-        $login_portal_data = $program->getLoginPortalData();
-        if (is_null($login_portal_data)) {
+        $loginPortalData = $program->getLoginPortalData();
+        if (is_null($loginPortalData)) {
             return new Response('');
         }
 
         $em = $this->getDoctrine()->getManager();
-        $to_del_slide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+        $toDelSlide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
             ->findOneBy(
                 array(
-                'login_portal_data' => $login_portal_data,
+                'login_portal_data' => $loginPortalData,
                 'id' => $id,
                 )
             );
-        if (is_null($to_del_slide)) {
+        if (is_null($toDelSlide)) {
             return new Response('');
         }
 
-        $login_portal_data->removeLoginPortalSlide($to_del_slide);
-        $to_del_slide->setLoginPortalData(null);
-        $em->remove($to_del_slide);
+        $loginPortalData->removeLoginPortalSlide($toDelSlide);
+        $toDelSlide->setLoginPortalData(null);
+        $em->remove($toDelSlide);
         $em->flush();
 
         return new Response('<html><body>OK</body></html>');
@@ -1237,19 +1242,19 @@ class ParametragesController extends AdminController
 
     /**
      * @Route(
-     *     "/contenus/portail-identification/suppression-slide-image/{slide_id}",
+     *     "/contenus/portail-identification/suppression-slide-image/{slideId}",
      *     name="admin_content_configure_login_portal_delete_slide_image"),
-     *     requirements={"slide_id": "\d+"}
+     *     requirements={"slideId": "\d+"}
      */
-    public function deleteLoginPortalSlideImageAction($slide_id)
+    public function deleteLoginPortalSlideImageAction($slideId)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
 
-        $login_portal_data = $program->getLoginPortalData();
-        if (is_null($login_portal_data)) {
+        $loginPortalData = $program->getLoginPortalData();
+        if (is_null($loginPortalData)) {
             return new Response('');
         }
 
@@ -1257,8 +1262,8 @@ class ParametragesController extends AdminController
         $slide = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
             ->findOneBy(
                 array(
-                'login_portal_data' => $login_portal_data,
-                'id' => $slide_id,
+                'login_portal_data' => $loginPortalData,
+                'id' => $slideId,
                 )
             );
         if (is_null($slide)) {
@@ -1266,15 +1271,15 @@ class ParametragesController extends AdminController
         }
 
         if (!is_null($slide->getImage())) {
-            $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
-                ->retrieveNumberOfOtherSlideUsingImage($login_portal_data, $slide);
-            if (0 == $number_other_slide_using_image) {
+            $numberOtherSlideUsingImage = $em->getRepository('AdminBundle\Entity\LoginPortalSlide')
+                ->retrieveNumberOfOtherSlideUsingImage($loginPortalData, $slide);
+            if (0 == $numberOtherSlideUsingImage) {
                 $filesystem = $this->get('filesystem');
-                $image_path = $this->getParameter('content_login_portal_slide_image_upload_dir')
+                $imagePath = $this->getParameter('content_login_portal_slide_image_upload_dir')
                     . '/'
                     . $slide->getImage();
-                if ($filesystem->exists($image_path)) {
-                    $filesystem->remove($image_path);
+                if ($filesystem->exists($imagePath)) {
+                    $filesystem->remove($imagePath);
                 }
             }
             $slide->setImage(null);
@@ -1294,8 +1299,8 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $home_page_data = $program->getHomePageData();
-        if (is_null($home_page_data)) {
+        $homePageData = $program->getHomePageData();
+        if (is_null($homePageData)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
@@ -1304,53 +1309,53 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }*/
         $em = $this->getDoctrine()->getManager();
-        $parameter_edito = $em->getRepository('AdminBundle\Entity\HomePagePost')
+        $parameterEdito = $em->getRepository('AdminBundle\Entity\HomePagePost')
             ->findOneBy(
                 array(
                 'program' => $program,
                 'post_type' => PostType::PARAMETER_EDITO,
                 )
             );
-        if (is_null($parameter_edito)) {
+        if (is_null($parameterEdito)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $slideshow_manager = $this->container->get('admin.slideshow');
-        $original_slides = $slideshow_manager->getOriginalSlides($home_page_data);
-        $original_slides_image = $slideshow_manager->getOriginalSlidesImage($original_slides);
+        $slideshowManager = $this->container->get('admin.slideshow');
+        $originalSlides = $slideshowManager->getOriginalSlides($homePageData);
+        $originalSlidesImage = $slideshowManager->getOriginalSlidesImage($originalSlides);
 
-        $form_factory = $this->get('form.factory');
-        $home_page_slide_data_form = $form_factory->createNamed(
+        $formFactory = $this->get('form.factory');
+        $homePageSlideDataForm = $formFactory->createNamed(
             'home_page_slide_data_form',
             HomePageSlideDataType::class,
-            $home_page_data
+            $homePageData
         );
-        $home_page_editorial_data_form = $form_factory->createNamed(
+        $homePageEditorialDataForm = $formFactory->createNamed(
             'home_page_editorial_data_form',
             HomePageEditorialType::class,
-            $parameter_edito
+            $parameterEdito
         );
 
         if ("POST" === $request->getMethod()) {
             if ($request->request->has('home_page_slide_data_form')) {
-                $home_page_slide_data_form->handleRequest($request);
-                if ($home_page_slide_data_form->isSubmitted() && $home_page_slide_data_form->isValid()) {
+                $homePageSlideDataForm->handleRequest($request);
+                if ($homePageSlideDataForm->isSubmitted() && $homePageSlideDataForm->isValid()) {
                     // checking for "delete image" commands
-                    $deleted_image_slide_id_list = $slideshow_manager->checkDeletedImages(
-                        $home_page_slide_data_form,
-                        $home_page_data,
-                        $original_slides_image
+                    $deletedImageSlideIdList = $slideshowManager->checkDeletedImages(
+                        $homePageSlideDataForm,
+                        $homePageData,
+                        $originalSlidesImage
                     );
                     // editing existant slide
-                    $home_page_data = $slideshow_manager->editHomePageSlides(
-                        $home_page_data,
-                        $deleted_image_slide_id_list,
-                        $original_slides_image
+                    $homePageData = $slideshowManager->editHomePageSlides(
+                        $homePageData,
+                        $deletedImageSlideIdList,
+                        $originalSlidesImage
                     );
                     // deleting slides
-                    $home_page_data = $slideshow_manager->deleteHomePageSlides($home_page_data, $original_slides);
+                    $homePageData = $slideshowManager->deleteHomePageSlides($homePageData, $originalSlides);
                     // adding new slide
-                    $home_page_data = $slideshow_manager->addNewHomePageSlides($home_page_data);
+                    $slideshowManager->addNewHomePageSlides($homePageData);
 
                     $em->flush();
 
@@ -1359,8 +1364,8 @@ class ParametragesController extends AdminController
             }
 
             if ($request->request->has('home_page_editorial_data_form')) {
-                $home_page_editorial_data_form->handleRequest($request);
-                if ($home_page_editorial_data_form->isSubmitted() && $home_page_editorial_data_form->isValid()) {
+                $homePageEditorialDataForm->handleRequest($request);
+                if ($homePageEditorialDataForm->isSubmitted() && $homePageEditorialDataForm->isValid()) {
                     /*$editorial->setLastEdit(new \DateTime(
                         'now',
                         new \DateTimeZone($this->getParameter('app_time_zone'))
@@ -1374,53 +1379,53 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:content_configure_home_page.html.twig',
             array(
-            'home_page_slide_data_form' => $home_page_slide_data_form->createView(),
-            'home_page_editorial_data_form' => $home_page_editorial_data_form->createView(),
-            'original_slides_image' => $original_slides_image,
+            'home_page_slide_data_form' => $homePageSlideDataForm->createView(),
+            'home_page_editorial_data_form' => $homePageEditorialDataForm->createView(),
+            'original_slides_image' => $originalSlidesImage,
             'slide_type' => new SlideType(),
             )
         );
     }
 
     /**
-     * @Route("/contenus/page-accueil/ajout-slide/{slide_type}", name="admin_content_configure_home_page_add_slide")
+     * @Route("/contenus/page-accueil/ajout-slide/{slideType}", name="admin_content_configure_home_page_add_slide")
      */
-    public function addHomePageSlideAction($slide_type)
+    public function addHomePageSlideAction($slideType)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
 
-        $home_page_data = $program->getHomePageData();
-        if (is_null($home_page_data)) {
+        $homePageData = $program->getHomePageData();
+        if (is_null($homePageData)) {
             return new Response('');
         }
 
-        $valid_slide_type = array(
+        $validSlideType = array(
             SlideType::IMAGE,
             SlideType::VIDEO,
         );
-        if (!in_array($slide_type, $valid_slide_type)) {
+        if (!in_array($slideType, $validSlideType)) {
             return new Response('');
         }
 
         $em = $this->getDoctrine()->getManager();
-        $max_slide_order = 0;
-        if (!$home_page_data->getHomePageSlides()->isEmpty()) {
-            $max_slide_order = $em->getRepository('AdminBundle\Entity\HomePageData')
-                ->retrieveMaxSlideOrderByHomePageData($home_page_data);
+        $maxSlideOrder = 0;
+        if (!$homePageData->getHomePageSlides()->isEmpty()) {
+            $maxSlideOrder = $em->getRepository('AdminBundle\Entity\HomePageData')
+                ->retrieveMaxSlideOrderByHomePageData($homePageData);
         }
-        $new_slide = new HomePageSlide();
-        $new_slide->setSlideOrder($max_slide_order + 1)
-            ->setHomePageData($home_page_data)
-            ->setSlideType($slide_type);
-        $home_page_data->addHomePageSlide($new_slide);
+        $newSlide = new HomePageSlide();
+        $newSlide->setSlideOrder($maxSlideOrder + 1)
+            ->setHomePageData($homePageData)
+            ->setSlideType($slideType);
+        $homePageData->addHomePageSlide($newSlide);
 
-        $em->persist($new_slide);
+        $em->persist($newSlide);
         $em->flush();
 
-        return new Response($new_slide->getId());
+        return new Response($newSlide->getId());
     }
 
     /**
@@ -1436,26 +1441,26 @@ class ParametragesController extends AdminController
             return new Response('');
         }
 
-        $home_page_data = $program->getHomePageData();
-        if (is_null($home_page_data)) {
+        $homePageData = $program->getHomePageData();
+        if (is_null($homePageData)) {
             return new Response('');
         }
 
         $em = $this->getDoctrine()->getManager();
-        $to_del_slide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+        $toDelSlide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
             ->findOneBy(
                 array(
-                'home_page_data' => $home_page_data,
+                'home_page_data' => $homePageData,
                 'id' => $id
                 )
             );
-        if (is_null($to_del_slide)) {
+        if (is_null($toDelSlide)) {
             return new Response('');
         }
 
-        $home_page_data->removeHomePageSlide($to_del_slide);
-        $to_del_slide->setHomePageData(null);
-        $em->remove($to_del_slide);
+        $homePageData->removeHomePageSlide($toDelSlide);
+        $toDelSlide->setHomePageData(null);
+        $em->remove($toDelSlide);
         $em->flush();
 
         return new Response('<html><body>OK</body></html>');
@@ -1463,19 +1468,19 @@ class ParametragesController extends AdminController
 
     /**
      * @Route(
-     *     "/contenus/page-accueil/suppression-slide-image/{slide_id}",
+     *     "/contenus/page-accueil/suppression-slide-image/{slideId}",
      *     name="admin_content_configure_home_page_delete_slide_image"),
-     *     requirements={"slide_id": "\d+"}
+     *     requirements={"slideId": "\d+"}
      */
-    public function deleteHomePageSlideImageAction($slide_id)
+    public function deleteHomePageSlideImageAction($slideId)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
 
-        $home_page_data = $program->getHomePageData();
-        if (is_null($home_page_data)) {
+        $homePageData = $program->getHomePageData();
+        if (is_null($homePageData)) {
             return new Response('');
         }
 
@@ -1483,8 +1488,8 @@ class ParametragesController extends AdminController
         $slide = $em->getRepository('AdminBundle\Entity\HomePageSlide')
             ->findOneBy(
                 array(
-                'home_page_data' => $home_page_data,
-                'id' => $slide_id,
+                'home_page_data' => $homePageData,
+                'id' => $slideId,
                 )
             );
         if (is_null($slide)) {
@@ -1492,15 +1497,15 @@ class ParametragesController extends AdminController
         }
 
         if (!is_null($slide->getImage())) {
-            $number_other_slide_using_image = $em->getRepository('AdminBundle\Entity\HomePageSlide')
-                ->retrieveNumberOfOtherSlideUsingImage($home_page_data, $slide);
-            if (0 == $number_other_slide_using_image) {
+            $numberOtherSlideUsingImage = $em->getRepository('AdminBundle\Entity\HomePageSlide')
+                ->retrieveNumberOfOtherSlideUsingImage($homePageData, $slide);
+            if (0 == $numberOtherSlideUsingImage) {
                 $filesystem = $this->get('filesystem');
-                $image_path = $this->getParameter('content_home_page_slide_image_upload_dir')
+                $imagePath = $this->getParameter('content_home_page_slide_image_upload_dir')
                     . '/'
                     . $slide->getImage();
-                if ($filesystem->exists($image_path)) {
-                    $filesystem->remove($image_path);
+                if ($filesystem->exists($imagePath)) {
+                    $filesystem->remove($imagePath);
                 }
             }
             $slide->setImage(null);
@@ -1522,14 +1527,14 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $site_table_network = $em->getRepository("AdminBundle:SiteTableNetworkSetting")->findBy(
+        $siteTableNetwork = $em->getRepository("AdminBundle:SiteTableNetworkSetting")->findBy(
             array('program' => $program)
         );
 
-        $site_table_network_form = $this->createForm(SiteTableNetworkSettingType::class, $site_table_network[0]);
-        $site_table_network_form->handleRequest($request);
+        $siteTableNetworkForm = $this->createForm(SiteTableNetworkSettingType::class, $siteTableNetwork[0]);
+        $siteTableNetworkForm->handleRequest($request);
         // dump($site_table_network_form); die;
-        if ($site_table_network_form->isSubmitted() && $site_table_network_form->isValid()) {
+        if ($siteTableNetworkForm->isSubmitted() && $siteTableNetworkForm->isValid()) {
             // dump($request); die;
             $em->flush();
         }
@@ -1537,7 +1542,7 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:table_reseau.html.twig',
             array(
-            "site_table_network" => $site_table_network_form->createView(),
+            "site_table_network" => $siteTableNetworkForm->createView(),
             )
         );
     }
@@ -1555,10 +1560,10 @@ class ParametragesController extends AdminController
         }
 
         $program = $this->container->get('admin.role_rank')->setAllRoleRank($program);
-        $roles_form = $this->createForm(ProgramRankType::class, $program);
-        $roles_form->handleRequest($request);
+        $rolesForm = $this->createForm(ProgramRankType::class, $program);
+        $rolesForm->handleRequest($request);
 
-        if ($roles_form->isSubmitted() && $roles_form->isValid()) {
+        if ($rolesForm->isSubmitted() && $rolesForm->isValid()) {
             $program = $this->container->get('admin.role_rank')->saveAllRoleRank($program);
             $this->redirectToRoute('admin_point_rang');
         }
@@ -1566,7 +1571,7 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:rank_point.html.twig',
             array(
-                'roles_form' => $roles_form->createView()
+                'roles_form' => $rolesForm->createView()
             )
         );
     }
@@ -1584,10 +1589,10 @@ class ParametragesController extends AdminController
         }
 
         $program = $this->container->get('admin.period_point')->setAllPeriodPoint($program);
-        $period_point_form = $this->createForm(ProgramPeriodPointType::class, $program);
-        $period_point_form->handleRequest($request);
+        $periodPointForm = $this->createForm(ProgramPeriodPointType::class, $program);
+        $periodPointForm->handleRequest($request);
 
-        if ($period_point_form->isSubmitted() && $period_point_form->isValid()) {
+        if ($periodPointForm->isSubmitted() && $periodPointForm->isValid()) {
             $em->flush();
             $this->redirectToRoute('admin_point_periode');
         }
@@ -1595,7 +1600,7 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:period_point.html.twig',
             array(
-            "period_point" => $period_point_form->createView()
+            "period_point" => $periodPointForm->createView()
             )
         );
     }
@@ -1614,12 +1619,12 @@ class ParametragesController extends AdminController
         }
 
         $program = $this->container->get('admin.period_point')->newPeriodPointProduct($program);
-        $period_point_form = $this->createForm(ProgramPeriodPointType::class, $program);
+        $periodPointForm = $this->createForm(ProgramPeriodPointType::class, $program);
 
         return $this->render(
             'AdminBundle:Parametrages:new_period_point.html.twig',
             array(
-            "period_point" => $period_point_form->createView()
+            "period_point" => $periodPointForm->createView()
             )
         );
     }
@@ -1654,7 +1659,7 @@ class ParametragesController extends AdminController
         }
 
         $program = $this->container->get('admin.point_attribution')->setPerformance1($program);
-        $performance_form1 = $this->createForm(
+        $performanceForm1 = $this->createForm(
             ProgramPointAttributionType::class,
             $program,
             array(
@@ -1662,14 +1667,14 @@ class ParametragesController extends AdminController
             )
         );
         if ($request->get("ca-points")) {
-            $performance_form1->handleRequest($request);
-            if ($performance_form1->isSubmitted() && $performance_form1->isValid()) {
+            $performanceForm1->handleRequest($request);
+            if ($performanceForm1->isSubmitted() && $performanceForm1->isValid()) {
                 $em->flush();
             }
         }
 
         $program = $this->container->get('admin.point_attribution')->setPerformance2($program);
-        $performance_form2 = $this->createForm(
+        $performanceForm2 = $this->createForm(
             ProgramPointAttributionType::class,
             $program,
             array(
@@ -1677,8 +1682,8 @@ class ParametragesController extends AdminController
             )
         );
         if ($request->get("classment-points")) {
-            $performance_form2->handleRequest($request);
-            if ($performance_form2->isSubmitted() && $performance_form2->isValid()) {
+            $performanceForm2->handleRequest($request);
+            if ($performanceForm2->isSubmitted() && $performanceForm2->isValid()) {
                 $em->flush();
             }
         }
@@ -1686,8 +1691,8 @@ class ParametragesController extends AdminController
         return $this->render(
             'AdminBundle:Parametrages:performance_point.html.twig',
             array(
-            'performance_form1' => $performance_form1->createView(),
-            'performance_form2' => $performance_form2->createView(),
+            'performance_form1' => $performanceForm1->createView(),
+            'performance_form2' => $performanceForm2->createView(),
             )
         );
     }
@@ -1702,53 +1707,53 @@ class ParametragesController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $product_point_attrib_manager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
-        $product_point_setting_data = $product_point_attrib_manager->createProductPointSettingData($program);
+        $productPointAttribManager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
+        $productPointSettingData = $productPointAttribManager->createProductPointSettingData($program);
 
-        $form_factory = $this->get("form.factory");
-        $product_point_attribution_form = $form_factory->createNamed(
+        $formFactory = $this->get("form.factory");
+        $productPointAttributionForm = $formFactory->createNamed(
             'product_point_attribution_form',
             ProductPointType::class,
-            $product_point_setting_data,
+            $productPointSettingData,
             array('validation_groups' => array('product_point'))
         );
 
-        $original_product_setting_datas = new ArrayCollection();
-        foreach ($product_point_setting_data->getProductPointSettingList() as $setting_data) {
-            $original_product_setting_datas->add($setting_data);
+        $originalProductSettingDatas = new ArrayCollection();
+        foreach ($productPointSettingData->getProductPointSettingList() as $settingData) {
+            $originalProductSettingDatas->add($settingData);
         }
 
-        $product_point_attribution_form->handleRequest($request);
+        $productPointAttributionForm->handleRequest($request);
 
-        $product_point_errors = array();
-        if ($product_point_attribution_form->isSubmitted() && $product_point_attribution_form->isValid()) {
-            $product_point_option_checker = $this->get('AdminBundle\Service\ProductPoint\ProductPointOptionChecker');
-            $errors = $product_point_option_checker->check($product_point_setting_data);
+        $productPointErrors = array();
+        if ($productPointAttributionForm->isSubmitted() && $productPointAttributionForm->isValid()) {
+            $productPointOptionChecker = $this->get('AdminBundle\Service\ProductPoint\ProductPointOptionChecker');
+            $errors = $productPointOptionChecker->check($productPointSettingData);
             if (empty($errors)) {
-                $product_point_attrib_manager->saveProductPointSettingData(
-                    $product_point_setting_data,
+                $productPointAttribManager->saveProductPointSettingData(
+                    $productPointSettingData,
                     $program
                 );
 
-                $product_point_attrib_manager->deleteUselessProductPointSettingData(
-                    $product_point_setting_data,
-                    $original_product_setting_datas,
+                $productPointAttribManager->deleteUselessProductPointSettingData(
+                    $productPointSettingData,
+                    $originalProductSettingDatas,
                     $program
                 );
 
-                $product_point_attrib_manager->flush();
+                $productPointAttribManager->flush();
 
                 return $this->redirectToRoute('admin_point_product');
             } else {
-                $product_point_errors = $errors;
+                $productPointErrors = $errors;
             }
         }
 
         return $this->render(
             'AdminBundle:Parametrages:product_point.html.twig',
             array(
-            'product_point_attribution_form' => $product_point_attribution_form->createView(),
-            'product_point_errors' => $product_point_errors,
+            'product_point_attribution_form' => $productPointAttributionForm->createView(),
+            'product_point_errors' => $productPointErrors,
             )
         );
     }
@@ -1762,31 +1767,31 @@ class ParametragesController extends AdminController
         if (empty($program)) {
             return new Response('');
         }
-        $product_point_attrib_manager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
-        $created_product_group = $product_point_attrib_manager->newProductGroupPointAttribution($program);
-        if (-1 == $created_product_group) {
+        $productPointAttribManager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
+        $createdProductGroup = $productPointAttribManager->newProductGroupPointAttribution($program);
+        if (-1 == $createdProductGroup) {
             return new Response('');
         }
 
-        return new Response('<html><body>' . $created_product_group . '</body></html>');
+        return new Response('<html><body>' . $createdProductGroup . '</body></html>');
     }
 
     /**
      * @Route(
-     *      "/points/produits/suppression-produit/{product_group}",
+     *      "/points/produits/suppression-produit/{productGroup}",
      *      name="admin_point_product_delete_product"),
-     *      requirements={"product_group": "\d+"}
+     *      requirements={"productGroup": "\d+"}
      */
-    public function deleteProductPoinAction($product_group)
+    public function deleteProductPoinAction($productGroup)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return new Response('');
         }
 
-        $product_point_attrib_manager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
-        $product_point_attrib_manager->deleteProductGroupPointAttribution($product_group, $program);
-        $product_point_attrib_manager->redefineProductGroup($product_group, $program);
+        $productPointAttribManager = $this->get('AdminBundle\Manager\ProductPointAttributionManager');
+        $productPointAttribManager->deleteProductGroupPointAttribution($productGroup, $program);
+        $productPointAttribManager->redefineProductGroup($productGroup, $program);
 
         return new Response('<html><body>OK</body></html>');
     }
@@ -1905,7 +1910,7 @@ class ParametragesController extends AdminController
             $Img = $request->files->get('images-ckeditor');
             $sitePagesStandardSetting->setImgPage($Img);
             $sitePagesStandardSetting->upload($program);
-            $ImgPath = $sitePagesStandardSetting->getPath();
+            $sitePagesStandardSetting->getPath();
         }
 
         return new Response($program->getId());
@@ -1981,7 +1986,7 @@ class ParametragesController extends AdminController
             $ordre = $request->get('ordre');
             $obligatoire = $request->get('obligatoire');
             $label = $request->get('label');
-            $type_champ = $request->get('type_champ');
+            $typeChamp = $request->get('type_champ');
 
             for ($i=0; $i < count($NomPages); $i++) {
                 $sitePagesStandardSetting = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($Id[$i]);
@@ -2008,7 +2013,7 @@ class ParametragesController extends AdminController
                     $cpt = 0;
                     foreach ($label as $LibelleChamp) {
                         $Options['options'][] = array(
-                        'type' => $type_champ[$cpt],
+                        'type' => $typeChamp[$cpt],
                         'publier' => (isset($publier[$LibelleChamp]) && !empty($publier[$LibelleChamp])) ? 1 : 0,
                         'obligatoire' => (isset($obligatoire[$LibelleChamp]) && !empty($obligatoire[$LibelleChamp])) ? 1 : 0,
                         'label' => $LibelleChamp,
@@ -2060,13 +2065,13 @@ class ParametragesController extends AdminController
         }
 
         $em = $this->getDoctrine()->getManager();
-        $user_point_list = $em->getRepository('AdminBundle\Entity\UserPoint')
+        $userPointList = $em->getRepository('AdminBundle\Entity\UserPoint')
             ->findAllWithUserDataByProgram($program);
 
         return $this->render(
             'AdminBundle:Parametrages:temp_point_result.html.twig',
             array(
-            'user_point_list' => $user_point_list,
+            'user_point_list' => $userPointList,
             )
         );
     }

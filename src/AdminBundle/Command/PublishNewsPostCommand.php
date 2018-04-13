@@ -26,15 +26,15 @@ class PublishNewsPostCommand extends ContainerAwareCommand
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $current_date = new \DateTime('now');
-        $current_date->setTime($current_date->format('H'), $current_date->format('i'), 0);
+        $currentDate = new \DateTime('now');
+        $currentDate->setTime($currentDate->format('H'), $currentDate->format('i'), 0);
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $to_publish_news_post_list = $em->getRepository('AdminBundle\Entity\NewsPost')
-            ->findToPublishByTypeAndProgrammedPublicationDatetime(PostType::NEWS_POST, $current_date);
-        $news_post_manager = $this->getContainer()->get('AdminBundle\Manager\NewsPostManager');
-        foreach ($to_publish_news_post_list as $news_post) {
-            $news_post_manager->definePublishedState($news_post, true, $current_date, false);
+        $toPublishNewsPostList = $em->getRepository('AdminBundle\Entity\NewsPost')
+            ->findToPublishByTypeAndProgrammedPublicationDatetime(PostType::NEWS_POST, $currentDate);
+        $newsPostManager = $this->getContainer()->get('AdminBundle\Manager\NewsPostManager');
+        foreach ($toPublishNewsPostList as $newsPost) {
+            $newsPostManager->definePublishedState($newsPost, true, $currentDate, false);
         }
-        $news_post_manager->flush();
+        $newsPostManager->flush();
     }
 }
