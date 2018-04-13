@@ -156,42 +156,42 @@ class CommunicationController extends AdminController
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
-        $creation_mode = $request->get('creation_mode');
-        if (is_null($creation_mode)) {
-            $creation_mode = CampaignDraftCreationMode::NORMAL;
+        $creationMode = $request->get('creation_mode');
+        if (is_null($creationMode)) {
+            $creationMode = CampaignDraftCreationMode::NORMAL;
         }
 
-        if (!in_array($creation_mode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
+        if (!in_array($creationMode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
-        $validation_groups = array('normal_creation_mode');
-        if (CampaignDraftCreationMode::BY_HALT == $creation_mode) {
-            $validation_groups = array('Default');
+        $validationGroups = array('normal_creation_mode');
+        if (CampaignDraftCreationMode::BY_HALT == $creationMode) {
+            $validationGroups = array('Default');
         }
 
-        $campaign_draft_data = new CampaignDraftData();
-        $campaign_draft_data->setProgrammedLaunchDate(new \DateTime('now'));
+        $campaignDraftData = new CampaignDraftData();
+        $campaignDraftData->setProgrammedLaunchDate(new \DateTime('now'));
 
-        $campaign_draft_form = $this->createForm(
+        $campaignDraftForm = $this->createForm(
             CampaignDraftType::class,
-            $campaign_draft_data,
-            array('validation_groups' => $validation_groups)
+            $campaignDraftData,
+            array('validation_groups' => $validationGroups)
         );
 
-        $campaign_draft_form->handleRequest($request);
-        if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
-            $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-            if (CampaignDraftCreationMode::NORMAL == $creation_mode) {
-                if ($campaign_handler->createAndProcess($campaign_draft_data)) {
+        $campaignDraftForm->handleRequest($request);
+        if ($campaignDraftForm->isSubmitted() && $campaignDraftForm->isValid()) {
+            $campaignHandler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+            if (CampaignDraftCreationMode::NORMAL == $creationMode) {
+                if ($campaignHandler->createAndProcess($campaignDraftData)) {
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
                     $data = $jsonResponseDataProvider->campaignSendingError();
                     return new JsonResponse($data, 200);
                 }
-            } elseif (CampaignDraftCreationMode::BY_HALT == $creation_mode) {
-                if (!is_null($campaign_handler->createCampaignDraftByHalt($campaign_draft_data))) {
+            } elseif (CampaignDraftCreationMode::BY_HALT == $creationMode) {
+                if (!is_null($campaignHandler->createCampaignDraftByHalt($campaignDraftData))) {
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
@@ -201,20 +201,20 @@ class CommunicationController extends AdminController
             }
         }
 
-        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-        $template_list = $template_manager->listSortedTemplate($program);
-        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
-        $template_data_list = $template_list_data_handler->retrieveListDataIndexedById($template_list);
+        $templateManager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $templateList = $templateManager->listSortedTemplate($program);
+        $templateListDataHandler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $templateDataList = $templateListDataHandler->retrieveListDataIndexedById($templateList);
 
         $view = $this->renderView(
             'AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig',
             array(
-            'campaign_draft_form' => $campaign_draft_form->createView(),
-            'template_data_list' => $template_data_list,
+            'campaign_draft_form' => $campaignDraftForm->createView(),
+            'template_data_list' => $templateDataList,
             )
         );
         $data = $jsonResponseDataProvider->success();
-        if ($campaign_draft_form->isSubmitted() && !$campaign_draft_form->isValid()) {
+        if ($campaignDraftForm->isSubmitted() && !$campaignDraftForm->isValid()) {
             $data = $jsonResponseDataProvider->formError();
         }
         $data['content'] = $view;
@@ -227,7 +227,7 @@ class CommunicationController extends AdminController
      *  name="admin_communication_emailing_campaign_edit")
      * @Method("POST")
      */
-    public function emailingCampaignEditAction(Request $request, $campaign_draft_id)
+    public function emailingCampaignEditAction(Request $request, $campaignDraftId)
     {
         $program = $this->container->get('admin.program')->getCurrent();
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\CampaignDataProvider');
@@ -235,39 +235,39 @@ class CommunicationController extends AdminController
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
-        $edit_mode = $request->get('edit_mode');
-        if (is_null($edit_mode)) {
-            $edit_mode = CampaignDraftCreationMode::NORMAL;
+        $editMode = $request->get('editMode');
+        if (is_null($editMode)) {
+            $editMode = CampaignDraftCreationMode::NORMAL;
         }
 
-        if (!in_array($edit_mode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
+        if (!in_array($editMode, CampaignDraftCreationMode::VALID_CREATION_MODE)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
-        $validation_groups = array('normal_creation_mode');
-        if (CampaignDraftCreationMode::BY_HALT == $edit_mode) {
-            $validation_groups = array('Default');
+        $validationGroups = array('normal_creation_mode');
+        if (CampaignDraftCreationMode::BY_HALT == $editMode) {
+            $validationGroups = array('Default');
         }
 
-        $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $campaign_draft_data = $campaign_handler->findCampaignDraftAsDTO($campaign_draft_id);
-        $campaign_draft_form = $this->createForm(
+        $campaignHandler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaignDraftData = $campaignHandler->findCampaignDraftAsDTO($campaignDraftId);
+        $campaignDraftForm = $this->createForm(
             CampaignDraftType::class,
-            $campaign_draft_data,
-            array('validation_groups' => $validation_groups)
+            $campaignDraftData,
+            array('validation_groups' => $validationGroups)
         );
-        $campaign_draft_form->handleRequest($request);
-        if ($campaign_draft_form->isSubmitted() && $campaign_draft_form->isValid()) {
-            if (CampaignDraftCreationMode::NORMAL == $edit_mode) {
-                if ($campaign_handler->editAndProcess($campaign_draft_data)) {
+        $campaignDraftForm->handleRequest($request);
+        if ($campaignDraftForm->isSubmitted() && $campaignDraftForm->isValid()) {
+            if (CampaignDraftCreationMode::NORMAL == $editMode) {
+                if ($campaignHandler->editAndProcess($campaignDraftData)) {
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
                     $data = $jsonResponseDataProvider->campaignSendingError();
                     return new JsonResponse($data, 200);
                 }
-            } elseif (CampaignDraftCreationMode::BY_HALT == $edit_mode) {
-                if ($campaign_handler->editCampaignDraftByHalt($campaign_draft_data)) {
+            } elseif (CampaignDraftCreationMode::BY_HALT == $editMode) {
+                if ($campaignHandler->editCampaignDraftByHalt($campaignDraftData)) {
                     $data = $jsonResponseDataProvider->success();
                     return new JsonResponse($data, 200);
                 } else {
@@ -277,20 +277,20 @@ class CommunicationController extends AdminController
             }
         }
 
-        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-        $template_list = $template_manager->listSortedTemplate($program);
-        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
-        $template_data_list = $template_list_data_handler->retrieveListDataIndexedById($template_list);
+        $templateManager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $templateList = $templateManager->listSortedTemplate($program);
+        $templateListDataHandler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $templateDataList = $templateListDataHandler->retrieveListDataIndexedById($templateList);
         $view = $this->renderView(
             'AdminBundle:Communication/EmailingCampaign:manip_campaign.html.twig',
             array(
-            'campaign_draft_form' => $campaign_draft_form->createView(),
-            'template_data_list' => $template_data_list,
+            'campaign_draft_form' => $campaignDraftForm->createView(),
+            'template_data_list' => $templateDataList,
             'edit_mode' => true,
             )
         );
         $data = $jsonResponseDataProvider->success();
-        if ($campaign_draft_form->isSubmitted() && !$campaign_draft_form->isValid()) {
+        if ($campaignDraftForm->isSubmitted() && !$campaignDraftForm->isValid()) {
             $data = $jsonResponseDataProvider->formError();
         }
         $data['content'] = $view;
@@ -312,18 +312,18 @@ class CommunicationController extends AdminController
         $status = $request->get('status');
         $campaign = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
 
-        $view_options = array();
+        $viewOptions = array();
         if (!is_null($request->get('archived_campaign_mode'))
             && 'true' == $request->get('archived_campaign_mode')
         ) {
             $campaignDataList = $campaign->getAllArchivedWithDataFiltered($status);
-            $view_options['archived_mode'] = true;
+            $viewOptions['archived_mode'] = true;
         } else {
             $campaignDataList = $campaign->getAllVisibleWithDataFiltered($status);
         }
-        $view_options['list'] = $campaignDataList;
+        $viewOptions['list'] = $campaignDataList;
 
-        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', $view_options);
+        return $this->render('AdminBundle:Communication:emailing_campaign_filtered.html.twig', $viewOptions);
     }
 
     /**
@@ -361,12 +361,12 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
-        $to_archive_campaign_ids = $request->get('campaign_checked_ids');
-        $to_archive_campaign_ids = explode(',', $to_archive_campaign_ids);
+        $toArchiveCampaignIds = $request->get('campaign_checked_ids');
+        $toArchiveCampaignIds = explode(',', $toArchiveCampaignIds);
 
-        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        if (!empty($to_archive_campaign_ids)) {
-            $campaign_handler->archiveCampaignDraftByIdList($to_archive_campaign_ids);
+        $campaignHandler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        if (!empty($toArchiveCampaignIds)) {
+            $campaignHandler->archiveCampaignDraftByIdList($toArchiveCampaignIds);
         }
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
@@ -383,12 +383,12 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
-        $to_restore_ids = $request->get('campaign_checked_ids');
-        $to_restore_ids = explode(',', $to_restore_ids);
+        $toRestoreIds = $request->get('campaign_checked_ids');
+        $toRestoreIds = explode(',', $toRestoreIds);
 
-        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        if (!empty($to_restore_ids)) {
-            $campaign_handler->restoreArchivedCampaignDraftByIdList($to_restore_ids);
+        $campaignHandler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        if (!empty($toRestoreIds)) {
+            $campaignHandler->restoreArchivedCampaignDraftByIdList($toRestoreIds);
         }
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
@@ -406,22 +406,22 @@ class CommunicationController extends AdminController
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
-        $campaign_duplication_source_id = $request->get('campaign_draft_id');
-        $campaign_handler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
-        $campaign_duplication_source = $campaign_handler->retrieveCampaignDraftById($campaign_duplication_source_id);
-        if (is_null($campaign_duplication_source_id) || is_null($campaign_duplication_source)) {
+        $campaignDuplicationSourceId = $request->get('campaign_draft_id');
+        $campaignHandler = $this->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaignDuplicationSource = $campaignHandler->retrieveCampaignDraftById($campaignDuplicationSourceId);
+        if (is_null($campaignDuplicationSourceId) || is_null($campaignDuplicationSource)) {
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
-        $duplication_data = new DuplicationData();
-        $duplication_data->setDuplicationSourceId($campaign_duplication_source['ID'])
-            ->setName($campaign_duplication_source['Title']);
-        $campaign_duplication_form = $this->createForm(DuplicationForm::class, $duplication_data);
+        $duplicationData = new DuplicationData();
+        $duplicationData->setDuplicationSourceId($campaignDuplicationSource['ID'])
+            ->setName($campaignDuplicationSource['Title']);
+        $campaign_duplication_form = $this->createForm(DuplicationForm::class, $duplicationData);
         $campaign_duplication_form->handleRequest($request);
 
         if ($campaign_duplication_form->isSubmitted() && $campaign_duplication_form->isValid()) {
-            if ($campaign_duplication_source_id == $duplication_data->getDuplicationSourceId()) {
-                $campaign_handler->duplicateCampaignDraft($campaign_duplication_source, $duplication_data->getName());
+            if ($campaignDuplicationSourceId == $duplicationData->getDuplicationSourceId()) {
+                $campaignHandler->duplicateCampaignDraft($campaignDuplicationSource, $duplicationData->getName());
                 $data = $jsonResponseDataProvider->success();
 
                 return new JsonResponse($data, 200);
@@ -450,9 +450,9 @@ class CommunicationController extends AdminController
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
         $to_delete_campaign_ids = explode(',', $request->get('campaign_checked_ids'));
-        $campaign_handler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
+        $campaignHandler = $this->container->get('AdminBundle\Service\MailJet\MailJetCampaign');
         if (!empty($to_delete_campaign_ids)) {
-            $campaign_handler->deleteCampaignDraftByIdList($to_delete_campaign_ids);
+            $campaignHandler->deleteCampaignDraftByIdList($to_delete_campaign_ids);
         }
 
         return new JsonResponse($jsonResponseDataProvider->success(), 200);
@@ -503,16 +503,16 @@ class CommunicationController extends AdminController
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
-        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-        $template_list = $template_manager->listSortedTemplate($program);
-        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
-        $template_data_list = $template_list_data_handler->retrieveListData($template_list);
+        $templateManager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $templateList = $templateManager->listSortedTemplate($program);
+        $templateListDataHandler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $templateDataList = $templateListDataHandler->retrieveListData($templateList);
 
         return $this->render(
             'AdminBundle:Communication:emailing_templates.html.twig',
             array(
             'template_model_class' => new TemplateModel(),
-            'template_data_list' => $template_data_list,
+            'template_data_list' => $templateDataList,
             'content_type_class' => new TemplateContentType(),
             'template_sorting_parameter_class' => new TemplateSortingParameter(),
             'campaign_draft_creation_mode_class' => new CampaignDraftCreationMode(),
@@ -539,16 +539,16 @@ class CommunicationController extends AdminController
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
 
-        $template_manager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
-        $template_list = $template_manager->listSortedTemplate($program, $sorting_parameter);
-        $template_list_data_handler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
-        $template_data_list = $template_list_data_handler->retrieveListData($template_list);
+        $templateManager = $this->get('AdminBundle\Manager\ComEmailTemplateManager');
+        $templateList = $templateManager->listSortedTemplate($program, $sorting_parameter);
+        $templateListDataHandler = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateListDataHandler');
+        $templateDataList = $templateListDataHandler->retrieveListData($templateList);
 
         $template_list_view = $this
             ->renderView(
                 'AdminBundle:Communication/EmailingTemplates:sorted_emailing_template.html.twig',
                 array(
-                'template_data_list' => $template_data_list
+                'template_data_list' => $templateDataList
                 )
             );
 
@@ -888,13 +888,13 @@ class CommunicationController extends AdminController
         $new_name = $template_duplicator->generateTemplateName($program, $com_email_template->getName());
 
         $formFactory = $this->get('form.factory');
-        $duplication_data = new ComEmailTemplateDuplicationData($em);
-        $duplication_data->setDuplicationSourceId($com_email_template->getId())
+        $duplicationData = new ComEmailTemplateDuplicationData($em);
+        $duplicationData->setDuplicationSourceId($com_email_template->getId())
             ->setName($new_name);
         $duplicate_template_form = $formFactory->createNamed(
             'duplicate_template_form',
             DuplicationForm::class,
-            $duplication_data
+            $duplicationData
         );
 
         if ($request->isMethod('GET')) {
@@ -914,9 +914,9 @@ class CommunicationController extends AdminController
             if ($request->request->has("duplicate_template_form")) {
                 $duplicate_template_form->handleRequest($request);
                 if ($duplicate_template_form->isSubmitted() && $duplicate_template_form->isValid()) {
-                    if ($template_id == $duplication_data->getDuplicationSourceId()) {
+                    if ($template_id == $duplicationData->getDuplicationSourceId()) {
                         $template_duplicator
-                            ->duplicate($program, $com_email_template, $this->getUser(), $duplication_data->getName());
+                            ->duplicate($program, $com_email_template, $this->getUser(), $duplicationData->getName());
                         $data = $jsonResponseDataProvider->success();
                         return new JsonResponse($data, 200);
                     }
@@ -1690,19 +1690,19 @@ class CommunicationController extends AdminController
             $archived_state
         );
 
-        $view_options = array(
+        $viewOptions = array(
             'news_post_submission_type_class' => new NewsPostSubmissionType(),
             'news_post_authorization_type_class' => new NewsPostAuthorizationType(),
             'news_post_list' => $news_post_list,
             'post_type_label_class' =>  new NewsPostTypeLabel(),
         );
         if (true == $archived_state) {
-            $view_options['archived_state'] = true;
+            $viewOptions['archived_state'] = true;
         }
         if (NewsPostTypeLabel::WELCOMING == $post_type_label) {
-            $view_options['welcoming_news_post_type'] = true;
+            $viewOptions['welcoming_news_post_type'] = true;
         }
-        return $this->render('AdminBundle:Communication:news.html.twig', $view_options);
+        return $this->render('AdminBundle:Communication:news.html.twig', $viewOptions);
     }
 
     /**
