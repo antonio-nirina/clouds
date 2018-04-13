@@ -82,6 +82,7 @@ class PageController extends Controller
      */
     public function LectureVideoAction(Request $request)
     {
+        
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
@@ -304,7 +305,7 @@ class PageController extends Controller
                 )
             );
 
-            foreach ($questions as $Questionsdata) {
+            foreach ($questions as $questionsData) {
                 $reponses = $em->getRepository('AdminBundle:SondagesQuizReponses')->findBy(
                     array('sondages_quiz_questions' => $questionsData),
                     array('ordre' => 'ASC')
