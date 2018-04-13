@@ -70,12 +70,12 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $slideshow_manager = $this->container->get('admin.slideshow');
-        $original_slides = $slideshow_manager->getOriginalSlides($homePageData);
-        $original_slides_image = $slideshow_manager->getOriginalSlidesImage($original_slides);
+        $slideshowManager = $this->container->get('admin.slideshow');
+        $originalSlides = $slideshowManager->getOriginalSlides($homePageData);
+        $original_slides_image = $slideshowManager->getOriginalSlidesImage($originalSlides);
 
-        $form_factory = $this->get('form.factory');
-        $home_page_slide_data_form = $form_factory->createNamed(
+        $formFactory = $this->get('form.factory');
+        $homePageSlideDataForm = $formFactory->createNamed(
             'home_page_slide_data_form',
             HomePageSlideDataType::class,
             $homePageData
@@ -83,25 +83,25 @@ class CommunicationController extends AdminController
 
         if ("POST" === $request->getMethod()) {
             if ($request->request->has('home_page_slide_data_form')) {
-                $home_page_slide_data_form->handleRequest($request);
-                if ($home_page_slide_data_form->isSubmitted() && $home_page_slide_data_form->isValid()) {
+                $homePageSlideDataForm->handleRequest($request);
+                if ($homePageSlideDataForm->isSubmitted() && $homePageSlideDataForm->isValid()) {
                     // checking for "delete image" commands
-                    $deleted_image_slide_id_list = $slideshow_manager->checkDeletedImages(
+                    $deletedImageSlideIdList = $slideshowManager->checkDeletedImages(
                         $home_page_slide_data_form,
                         $homePageData,
                         $original_slides_image
                     );
                     // editing existant slide
-                    $homePageData = $slideshow_manager->editHomePageSlides(
+                    $homePageData = $slideshowManager->editHomePageSlides(
                         $homePageData,
-                        $deleted_image_slide_id_list,
+                        $deletedImageSlideIdList,
                         $original_slides_image
                     );
                     // deleting slides
-                    $homePageData = $slideshow_manager->deleteHomePageSlides($homePageData, $original_slides);
+                    $homePageData = $slideshowManager->deleteHomePageSlides($homePageData, $originalSlides);
                     // adding new slide
-                    $homePageData = $slideshow_manager->addNewHomePageSlides($homePageData);
-                    $slideshow_manager->save();
+                    $homePageData = $slideshowManager->addNewHomePageSlides($homePageData);
+                    $slideshowManager->save();
 
                     return $this->redirectToRoute('admin_communication_slideshow');
                 }
@@ -111,7 +111,7 @@ class CommunicationController extends AdminController
         return $this->render(
             'AdminBundle:Communication:slideshow.html.twig',
             array(
-            'home_page_slide_data_form' => $home_page_slide_data_form->createView(),
+            'home_page_slide_data_form' => $homePageSlideDataForm->createView(),
             'original_slides_image' => $original_slides_image,
             'slide_type' => new SlideType(),
             )
@@ -582,13 +582,13 @@ class CommunicationController extends AdminController
         $template_data_initializer = $this->get('AdminBundle\Service\ComEmailingTemplate\TemplateDataInitializer');
         $com_email_template = $template_data_initializer->initForNewTemplate();
         $com_email_template->setLogoAlignment(TemplateLogoAlignment::CENTER);
-        $form_factory = $this->get('form.factory');
+        $formFactory = $this->get('form.factory');
         if ($request->isMethod('GET')) {
             if (!is_null($model) && in_array($model, $valid_models)) {
                 $com_email_template->setTemplateModel($model);
             }
         }
-        $add_template_form = $form_factory->createNamed(
+        $add_template_form = $formFactory->createNamed(
             'add_template_form',
             ComEmailTemplateType::class,
             $com_email_template
@@ -692,8 +692,8 @@ class CommunicationController extends AdminController
             return new JsonResponse($json_response_data_provider->pageNotFound(), 404);
         }
 
-        $form_factory = $this->get('form.factory');
-        $edit_template_form = $form_factory->createNamed(
+        $formFactory = $this->get('form.factory');
+        $edit_template_form = $formFactory->createNamed(
             'edit_template_form',
             ComEmailTemplateType::class,
             $com_email_template
@@ -887,11 +887,11 @@ class CommunicationController extends AdminController
         $template_duplicator = $this->get('AdminBundle\Service\DataDuplicator\ComEmailTemplateDuplicator');
         $new_name = $template_duplicator->generateTemplateName($program, $com_email_template->getName());
 
-        $form_factory = $this->get('form.factory');
+        $formFactory = $this->get('form.factory');
         $duplication_data = new ComEmailTemplateDuplicationData($em);
         $duplication_data->setDuplicationSourceId($com_email_template->getId())
             ->setName($new_name);
-        $duplicate_template_form = $form_factory->createNamed(
+        $duplicate_template_form = $formFactory->createNamed(
             'duplicate_template_form',
             DuplicationForm::class,
             $duplication_data
