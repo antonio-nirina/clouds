@@ -7,6 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PartialPageController extends Controller
 {
+    /**
+     * Affichage lecteur vidéo
+     *
+     * @param $videos
+     * @param $programm
+     * @return Response
+     */
     public function afficheLecteurVideoAction($videos, $programm)
     {
         $urlVideo = "";
