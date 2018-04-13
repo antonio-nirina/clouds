@@ -15,7 +15,7 @@ class SondageQuizManager
         $this->em = $em;
     }
 
-/**
+    /**
      * Retrieve data of sondage Quiz
      *
      * @return array
@@ -139,7 +139,6 @@ class SondageQuizManager
     public function getElementStatistique($id)
     {
         $results =  $this->em->getRepository("AdminBundle\Entity\ResultatsSondagesQuiz")->getResultsQuestions($id);
-        dump($results);
         if (!empty($results)) {
             $sondageInfos = $results[0]->getSondagesQuizQuestionnaireInfos();
             foreach ($results as $key => $value) {
