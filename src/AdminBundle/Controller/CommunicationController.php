@@ -65,20 +65,20 @@ class CommunicationController extends AdminController
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $home_page_data = $program->getHomePageData();
-        if (is_null($home_page_data)) {
+        $homePageData = $program->getHomePageData();
+        if (is_null($homePageData)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
         $slideshow_manager = $this->container->get('admin.slideshow');
-        $original_slides = $slideshow_manager->getOriginalSlides($home_page_data);
+        $original_slides = $slideshow_manager->getOriginalSlides($homePageData);
         $original_slides_image = $slideshow_manager->getOriginalSlidesImage($original_slides);
 
         $form_factory = $this->get('form.factory');
         $home_page_slide_data_form = $form_factory->createNamed(
             'home_page_slide_data_form',
             HomePageSlideDataType::class,
-            $home_page_data
+            $homePageData
         );
 
         if ("POST" === $request->getMethod()) {
@@ -88,19 +88,19 @@ class CommunicationController extends AdminController
                     // checking for "delete image" commands
                     $deleted_image_slide_id_list = $slideshow_manager->checkDeletedImages(
                         $home_page_slide_data_form,
-                        $home_page_data,
+                        $homePageData,
                         $original_slides_image
                     );
                     // editing existant slide
-                    $home_page_data = $slideshow_manager->editHomePageSlides(
-                        $home_page_data,
+                    $homePageData = $slideshow_manager->editHomePageSlides(
+                        $homePageData,
                         $deleted_image_slide_id_list,
                         $original_slides_image
                     );
                     // deleting slides
-                    $home_page_data = $slideshow_manager->deleteHomePageSlides($home_page_data, $original_slides);
+                    $homePageData = $slideshow_manager->deleteHomePageSlides($homePageData, $original_slides);
                     // adding new slide
-                    $home_page_data = $slideshow_manager->addNewHomePageSlides($home_page_data);
+                    $homePageData = $slideshow_manager->addNewHomePageSlides($homePageData);
                     $slideshow_manager->save();
 
                     return $this->redirectToRoute('admin_communication_slideshow');

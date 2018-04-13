@@ -125,7 +125,7 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $proEmail;
+    protected $pro_email;
 
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
@@ -135,25 +135,25 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
      */
-    protected $mobilePhone;
+    protected $mobile_phone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $address1;
+    protected $address_1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $address2;
+    protected $address_2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-    protected $postalCode;
+    protected $postal_code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -398,99 +398,99 @@ class User extends BaseUser
     }
 
     /**
-     * Set mobilePhone
+     * Set mobile_phone
      *
-     * @param string $mobilePhone
+     * @param string $mobile_phone
      *
      * @return User
      */
-    public function setMobilePhone($mobilePhone)
+    public function setMobilePhone($mobile_phone)
     {
-        $this->mobilePhone = $mobilePhone;
+        $this->mobile_phone = $mobile_phone;
 
         return $this;
     }
 
     /**
-     * Get mobilePhone
+     * Get mobile_phone
      *
      * @return string
      */
     public function getMobilePhone()
     {
-        return $this->mobilePhone;
+        return $this->mobile_phone;
     }
 
     /**
-     * Set address1
+     * Set address_1
      *
-     * @param string $address1
+     * @param string $address_1
      *
      * @return User
      */
-    public function setAddress1($address1)
+    public function setAddress1($address_1)
     {
-        $this->address1 = $address1;
+        $this->address_1 = $address_1;
 
         return $this;
     }
 
     /**
-     * Get address1
+     * Get address_1
      *
      * @return string
      */
     public function getAddress1()
     {
-        return $this->address1;
+        return $this->address_1;
     }
 
     /**
-     * Set address2
+     * Set address_2
      *
-     * @param string $address2
+     * @param string $address_2
      *
      * @return User
      */
-    public function setAddress2($address2)
+    public function setAddress2($address_2)
     {
-        $this->address2 = $address2;
+        $this->address_2 = $address_2;
 
         return $this;
     }
 
     /**
-     * Get address2
+     * Get address_2
      *
      * @return string
      */
     public function getAddress2()
     {
-        return $this->address2;
+        return $this->address_2;
     }
 
     /**
-     * Set postalCode
+     * Set postal_code
      *
-     * @param string $postalCode
+     * @param string $postal_code
      *
      * @return User
      */
-    public function setPostalCode($postalCode)
+    public function setPostalCode($postal_code)
     {
-        $this->postalCode = $postalCode;
+        $this->postal_code = $postal_code;
 
         return $this;
     }
 
     /**
-     * Get postalCode
+     * Get postal_code
      *
      * @return string
      */
     public function getPostalCode()
     {
-        return $this->postalCode;
+        return $this->postal_code;
     }
 
     /**
@@ -566,27 +566,27 @@ class User extends BaseUser
     }
 
     /**
-     * Set proEmail
+     * Set pro_email
      *
-     * @param string $proEmail
+     * @param string $pro_email
      *
      * @return User
      */
-    public function setProEmail($proEmail)
+    public function setProEmail($pro_email)
     {
-        $this->proEmail = $proEmail;
+        $this->pro_email = $pro_email;
 
         return $this;
     }
 
     /**
-     * Get proEmail
+     * Get pro_email
      *
      * @return string
      */
     public function getProEmail()
     {
-        return $this->proEmail;
+        return $this->pro_email;
     }
 
     /**
