@@ -276,35 +276,136 @@
                                             </div>
                                             <div class="clearfix">
                                                 <button class="btn-valider download-btn float-right">télécharger les résultats</button>
-                                                <div class="float-left zone-btn">
-                                                    <button class="float-left left">globales</button>
-                                                    <button class="float-left right inactif">individuelles</button>
+                                                <div class="float-left zone-btn" role="tablist">
+                                                    <ul class="nav" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="float-left left active" id="globales-tab" data-toggle="tab" href="#globales" role="tab" aria-controls="globales" aria-selected="true">globales</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="float-left right" id="individuelles-tab" data-toggle="tab" href="#individuelles" role="tab" aria-controls="individuelles" aria-selected="false">individuelles</a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="contain-graph">
-                                            <div class="zone-question">
-                                                <p class="question-title">Question 1</p>
-                                                <p class="question">Pourquoi avez-vous...?*</p>
-                                                <p class="response-num">30 réponses</p>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="globales" role="tabpanel" aria-labelledby="globales-tab">
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 1</p>
+                                                        <p class="question">Pourquoi avez-vous...?*</p>
+                                                        <p class="response-num">30 réponses</p>
+                                                    </div>
+                                                    <div id="container_bare"></div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 2</p>
+                                                        <p class="question">Quelle évaluation donneriz-vous...?*</p>
+                                                        <p class="response-num">30 réponses</p>
+                                                    </div>
+                                                    <div id="container_column"></div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 3</p>
+                                                        <p class="question">Votre avis sur cet...</p>
+                                                        <p class="response-num">30 réponses</p>
+                                                    </div>
+                                                    <div id="container_column2"></div>
+                                                </div>
                                             </div>
-                                            <div id="container_bare"></div>
-                                        </div>
-                                        <div class="contain-graph">
-                                            <div class="zone-question">
-                                                <p class="question-title">Question 2</p>
-                                                <p class="question">Quelle évaluation donneriz-vous...?*</p>
-                                                <p class="response-num">30 réponses</p>
+                                            <div class="tab-pane fade" id="individuelles" role="tabpanel" aria-labelledby="individuelles-tab">
+                                                <div class="contain-graph">
+                                                    <div class="info-indiv">
+                                                        <p><span class="grey">questionnaire de :</span> martin bourdais@cloudreawards</p>
+                                                        <p><span class="grey">remplie le</span> 02 novembre 2017 - 17h50</p>
+                                                    </div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 1</p>
+                                                        <p class="question">Pourquoi avez-vous...?*</p>
+                                                    </div>
+                                                    <div class="label-list">
+                                                        <input id="index1" type="radio" name="index" required="required" value="Mme" />
+                                                        <label for="index1" class="required">Parce que...</label>
+                                                    </div>
+                                                    <div class="label-list">
+                                                        <input id="index2" type="radio" name="index" required="required" value="Mme" />
+                                                        <label for="index2" class="required">Pour des raisons...</label>
+                                                    </div>
+                                                    <div class="label-list">
+                                                        <input id="index3" type="radio" name="index" required="required" value="Mme" />
+                                                        <label for="index3" class="required">Sans aucune raisons...</label>
+                                                    </div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 2</p>
+                                                        <p class="question">Quelle évaluation donneriez-vous...?*</p>
+                                                    </div>
+                                                    <div class="clearfix">
+                                                        <div class="label-top">
+                                                            <input id="index4" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index4" class="required">médiocre</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index5" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index5" class="required">moyen</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index6" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index6" class="required">satisfait</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index7" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index7" class="required">très bon</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index8" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index8" class="required">excellent</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 3</p>
+                                                        <p class="question">Votre avis sur cet...?*</p>
+                                                        <p class="response-num">1 = très insatisfait / 5 = très satisfait</p>
+                                                    </div>
+                                                    <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">First</th>
+                                                            <th scope="col">Last</th>
+                                                            <th scope="col">Handle</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Mark</td>
+                                                            <td>Otto</td>
+                                                            <td>@mdo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Jacob</td>
+                                                            <td>Thornton</td>
+                                                            <td>@fat</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>Larry</td>
+                                                            <td>the Bird</td>
+                                                            <td>@twitter</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                            <div id="container_column"></div>
-                                        </div>
-                                        <div class="contain-graph">
-                                            <div class="zone-question">
-                                                <p class="question-title">Question 3</p>
-                                                <p class="question">Votre avis sur cet...</p>
-                                                <p class="response-num">30 réponses</p>
-                                            </div>
-                                            <div id="container_column2"></div>
                                         </div>
                                     </div>
                                 </div>

@@ -946,14 +946,16 @@ $(document).ready(function(){
             },
             statusCode: {
                 404: function(data){
-                    $('#edit-sondage-modal').find('.modal-body-container').html('');
-                    var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
-                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                    // $('#edit-sondage-modal').find('.modal-body-container').html('');
+                    // var message = 'undefined' === typeof data.responseJSON ? 'Contenu non trouvé' : data.responseJSON.message;
+                    // $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                    console.log('404');
                 },
                 500: function(data){
                     // $('#edit-sondage-modal').find('.modal-body-container').html('');
-                    var message = 'undefined' === typeof data.responseJSON ? '' : data.responseJSON.message;
-                    $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                    // var message = 'undefined' === typeof data.responseJSON ? 'Erreur interne' : data.responseJSON.message;
+                    // $('#edit-sondage-modal').find('.error-message-container.general-message').text(message);
+                    console.log('500');
                 }
             },
             complete: function(){
