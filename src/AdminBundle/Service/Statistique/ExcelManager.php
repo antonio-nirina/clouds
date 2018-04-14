@@ -275,17 +275,14 @@ class ExcelManager
                         $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->getAlignment()->applyFromArray(
                             array('horizontal' =>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,)
                         );
-                    }
+                 }
                     $row++;
-}
+             }
 
-                return $objPHPExcel;
-             
-            } else {
-
-                return $objPHPExcel;
-}
+             return $objPHPExcel;
+         } else {
+             return $objPHPExcel;
+        }
         
     }
-        
 }

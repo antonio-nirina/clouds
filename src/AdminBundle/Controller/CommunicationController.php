@@ -908,7 +908,7 @@ class CommunicationController extends AdminController
         return new Response('');
     }
 
-/**
+    /**
      * @Route(
      *     "/emailling/templates/duplication-template/{template_id}",
      *     name="admin_communication_emailing_templates_duplicate_template",
@@ -1228,7 +1228,7 @@ class CommunicationController extends AdminController
         }
     }
 
-/**
+    /**
      * @Route(
      *     "/emailing/liste-contact-delete",
      *     name="admin_communication_emailing_list_contact_delete",
@@ -1462,7 +1462,7 @@ class CommunicationController extends AdminController
         return $response;
     }
 
-/**
+    /**
      * @Route(
      *     "/sondage-quiz/{id}",
      *     name="admin_communication_sondage_quiz", defaults={"id"=null}),
@@ -1576,7 +1576,7 @@ class CommunicationController extends AdminController
         );
     }
 
-/**
+    /**
      * @Route(
      *     "/sondage-quiz/delete-sondages-quiz/sondages-quiz",
      *     name="admin_communication_sondage_quiz_delete")
@@ -2686,7 +2686,7 @@ class CommunicationController extends AdminController
         return new JsonResponse($data, 200);
     }
 
-/**
+    /**
      * @Route("/pre-sondage/editer/{id}", requirements={"id": "\d+"}, name="admin_communication_pre_sondage_edit")
      */
     public function editPreSondageAction(Request $request, $id)
