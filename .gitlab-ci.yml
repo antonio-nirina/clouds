@@ -5,7 +5,7 @@ variables:
   git_ssh_url: "git@gitlab.com:$gitlab_path.git"
   insight_branch: "develop"
   insight_majormax: 5
-  insight_criticalmax: 1
+  insight_criticalmax: 0
   application_path: "."
 
 before_script:
