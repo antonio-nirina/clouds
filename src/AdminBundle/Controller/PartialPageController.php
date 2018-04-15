@@ -1,13 +1,9 @@
 <?php
 namespace AdminBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AdminBundle\Component\SiteForm\FieldType;
-use Mailjet\MailjetBundle\Model\Contact;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PartialPageController extends Controller
 {
@@ -123,10 +119,10 @@ class PartialPageController extends Controller
         // dump($level);die;
         $em = $this->getDoctrine()->getManager();
         $row = $field->getInRow();
-        $form_setting = $field->getSiteFormSetting();
-        $all_fields_row = $em->getRepository("AdminBundle:SiteFormFieldSetting")->findAllInRow(
+        $formSetting = $field->getSiteFormSetting();
+        $allFieldsRow = $em->getRepository("AdminBundle:SiteFormFieldSetting")->findAllInRow(
             $row,
-            $form_setting->getId(),
+            $formSetting->getId(),
             $field->getLevel()
         );
 
@@ -134,7 +130,7 @@ class PartialPageController extends Controller
             'AdminBundle:PartialPage/SiteFormField:row.html.twig',
             array(
             'field' => $field,
-            'all_fields' => $all_fields_row,
+            'all_fields' => $allFieldsRow,
             'personalize' => $personalize
             )
         );
@@ -150,31 +146,29 @@ class PartialPageController extends Controller
             //On recupere les infos de la page parametrés
             $em = $this->getDoctrine()->getManager();
 
-            $PagesSettings = array();
-            $PagesSettings = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($datas['page']);
+            $pagesSettings = $em->getRepository("AdminBundle:SitePagesStandardSetting")->find($datas['page']);
 
             //On recupere les pages par defaut
-            $PagesDefault = array();
-            $PagesDefault = $em->getRepository('AdminBundle:SitePagesStandardDefault')->find($datas['page']);
+            $pagesDefault = $em->getRepository('AdminBundle:SitePagesStandardDefault')->find($datas['page']);
 
-            $Page = array();
-            if (count($PagesSettings) > 0) {
-                $Page = $PagesSettings;
+            $page = array();
+            if (count($pagesSettings) > 0) {
+                $page = $pagesSettings;
             } else {
-                $Page = $PagesDefault;
+                $page = $pagesDefault;
             }
         }
 
-        $NewPage = "";
+        $newPage = "";
         if (isset($datas['new_page']) && !empty($datas['new_page'])) {
-            $NewPage = $datas['new_page'];
+            $newPage = $datas['new_page'];
         }
 
         return $this->render(
             'AdminBundle:PartialPage/Ajax:afficheContenuPagesStandard.html.twig',
             array(
-            'Page' => $Page,
-            'NewPage' => $NewPage,
+            'Page' => $page,
+            'NewPage' => $newPage,
             'idpagehtml' => $datas['page']
             )
         );
@@ -211,27 +205,27 @@ class PartialPageController extends Controller
         $rôle = array('ROLE_PARTICIPANT', 'ROLE_COMMERCIAL', 'ROLE_MANAGER');
         $em = $this->getDoctrine()->getManager();
         //Call ContactList manager service
-        $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
-        $AllContact = $ContactList->getAllContact();
+        $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $allContact = $contactList->getAllContact();
         $Users = array();
-        foreach ($AllContact as $Contacts) {
+        foreach ($allContact as $contacts) {
             //Get infos user
-            $Users[] = $em->getRepository('UserBundle\Entity\User')->findUserByMail($Contacts['Email']);
+            $Users[] = $em->getRepository('UserBundle\Entity\User')->findUserByMail($contacts['Email']);
         }
 
         //Get ListInfos
-        $Listinfos = $ContactList->getListById($IdList);
+        $listinfos = $contactList->getListById($IdList);
 
         //Get All contact by List
-        $ListContactSub = array();
-        $ListUserUnsubscribed = array();
-        $ListContact = $ContactList->getAllContactByName($Listinfos[0]['Name']);
-        foreach ($ListContact as $ContactId) {
-            $ContactSub = $ContactList->getContactById($ContactId['ContactID']);
-            if ($ContactId['IsUnsubscribed'] == '1') {
-                $ListUserUnsubscribed[] = $ContactSub[0]['Email'];
+        $listContactSub = array();
+        $listUserUnsubscribed = array();
+        $listContact = $contactList->getAllContactByName($listinfos[0]['Name']);
+        foreach ($listContact as $contactId) {
+            $contactSub = $contactList->getContactById($contactId['ContactID']);
+            if ($contactId['IsUnsubscribed'] == '1') {
+                $listUserUnsubscribed[] = $contactSub[0]['Email'];
             } else {
-                $ListContactSub[] = $ContactSub[0]['Email'];
+                $listContactSub[] = $contactSub[0]['Email'];
             }
         }
 
@@ -239,9 +233,9 @@ class PartialPageController extends Controller
             'AdminBundle:PartialPage/Ajax:emailing_liste_contact_edit.html.twig',
             array(
             'Users' => $Users,
-            'Listinfos' => $Listinfos,
-            'ListContactSub' => $ListContactSub,
-            'ListUserUnsubscribed' => $ListUserUnsubscribed
+            'Listinfos' => $listinfos,
+            'ListContactSub' => $listContactSub,
+            'ListUserUnsubscribed' => $listUserUnsubscribed
             )
         );
     }
@@ -253,75 +247,75 @@ class PartialPageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Call ContactList manager service
-        $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
         //Infos User
-        $ExplodeUserId = explode('##_##', $UserId);
+        $explodeUserId = explode('##_##', $UserId);
         $Reponses = array();
-        $ListUserSubscribing = array();
-        $ListUserSubscribingData = array();
-        foreach ($ExplodeUserId as $IdUser) {
-            $UsersListes = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
-            $ListUserSubscribing[] = $UsersListes->getEmail();
-            $ListUserSubscribingData[$UsersListes->getEmail()] = $UsersListes;
+        $listUserSubscribing = array();
+        $listUserSubscribingData = array();
+        foreach ($explodeUserId as $idUser) {
+            $usersListes = $em->getRepository('UserBundle\Entity\User')->find($idUser);
+            $listUserSubscribing[] = $usersListes->getEmail();
+            $listUserSubscribingData[$usersListes->getEmail()] = $usersListes;
         }
 
         /*
         * Les Users qui sont déjà inscrits sur la liste des contacts
         **/
-        $ReponsesList = $ContactList->getListById($IdList);
-        $ReponsesContacts = $ContactList->getAllContactByName($ReponsesList[0]['Name']);
-        $ListUserDejaSub = array();
-        $ListUserDejaSubdata = array();
-        foreach ($ReponsesContacts as $ContactsId) {
-            $ReponsesContactsData = $ContactList->getContactById($ContactsId['ContactID']);
-            $ListUserDejaSubdata[$ReponsesContactsData[0]['Email']] = $ReponsesContactsData;
-            $ListUserDejaSub[] = $ReponsesContactsData[0]['Email'];
+        $reponsesList = $contactList->getListById($IdList);
+        $reponsesContacts = $contactList->getAllContactByName($reponsesList[0]['Name']);
+        $listUserDejaSub = array();
+        $listUserDejaSubdata = array();
+        foreach ($reponsesContacts as $contactsId) {
+            $reponsesContactsData = $contactList->getContactById($contactsId['ContactID']);
+            $listUserDejaSubdata[$reponsesContactsData[0]['Email']] = $reponsesContactsData;
+            $listUserDejaSub[] = $reponsesContactsData[0]['Email'];
         }
 
         /*
         * Separer les users déjà inscrits et non insscrits
         */
-        $ListUserDejaInscritsListConact = array();
-        $ListUserNonInscritsListConact = array();
-        foreach ($ListUserSubscribing as $EmailsNew) {
+        $listUserDejaInscritsListConact = array();
+        $listUserNonInscritsListConact = array();
+        foreach ($listUserSubscribing as $emailsNew) {
             //Déjà inscrits
-            if (in_array($EmailsNew, $ListUserDejaSub)) {
-                $ListUserDejaInscritsListConact[] = $EmailsNew;
+            if (in_array($emailsNew, $listUserDejaSub)) {
+                $listUserDejaInscritsListConact[] = $emailsNew;
             } else {//Pas encore inscrits
-                $ListUserNonInscritsListConact[] = $EmailsNew;
+                $listUserNonInscritsListConact[] = $emailsNew;
             }
         }
 
         //Add contactList
-        $UsersNonLists = array();
-        if (count($ListUserNonInscritsListConact) > 0) {
-            foreach ($ListUserNonInscritsListConact as $EmailNonInscrits) {
-                $UsersNonLists[] = $ListUserSubscribingData[$EmailNonInscrits];
+        $usersNonLists = array();
+        if (count($listUserNonInscritsListConact) > 0) {
+            foreach ($listUserNonInscritsListConact as $emailNonInscrits) {
+                $usersNonLists[] = $listUserSubscribingData[$emailNonInscrits];
             }
-            $ReponsesListInscriptions = $ContactList->editContactList($IdList, $UsersNonLists);
+            $ReponsesListInscriptions = $contactList->editContactList($IdList, $usersNonLists);
         }
 
         /*
         * Isoler les users à enlever de la liste des contacts
         **/
-        $ListUserAEnleverDeLaListe = array();
-        if (count($ListUserDejaSub) > 0) {
-            foreach ($ListUserDejaSub as $EmailDejaInscrits) {
+        $listUserAEnleverDeLaListe = array();
+        if (count($listUserDejaSub) > 0) {
+            foreach ($listUserDejaSub as $emailDejaInscrits) {
                 //S'il est encore dans la liste des users à inscrire
-                if (!in_array($EmailDejaInscrits, $ListUserSubscribing)) {
-                    $ListUserAEnleverDeLaListe[] = $EmailDejaInscrits;
+                if (!in_array($emailDejaInscrits, $listUserSubscribing)) {
+                    $listUserAEnleverDeLaListe[] = $emailDejaInscrits;
                 }
             }
         }
 
         //Enlever de la liste des contacts
-        $ListUserAEnleverDeLaListeData = array();
-        if (count($ListUserAEnleverDeLaListe) > 0) {
-            foreach ($ListUserAEnleverDeLaListe as $EmailEnlevers) {
-                $ListUserAEnleverDeLaListeData[] = $EmailEnlevers;
+        $listUserAEnleverDeLaListeData = array();
+        if (count($listUserAEnleverDeLaListe) > 0) {
+            foreach ($listUserAEnleverDeLaListe as $emailEnlevers) {
+                $listUserAEnleverDeLaListeData[] = $emailEnlevers;
             }
-            $ReponsesListDesinscriptions = $ContactList->DesinscritContactList($IdList, $ListUserAEnleverDeLaListeData);
+            $ReponsesListDesinscriptions = $contactList->DesinscritContactList($IdList, $listUserAEnleverDeLaListeData);
         }
 
         return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
@@ -334,11 +328,11 @@ class PartialPageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Call ContactList manager service
-        $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
-        $AllContact = $ContactList->getAllContact();
+        $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $allContact = $contactList->getAllContact();
 
-        $Users = array();
-        foreach ($AllContact as $Contacts) {
+        $users = array();
+        foreach ($allContact as $Contacts) {
             //Get infos user
             $Users[] = $em->getRepository('UserBundle\Entity\User')->findUserByMail($Contacts['Email']);
         }
@@ -352,18 +346,17 @@ class PartialPageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Infos User
-        $ExplodeUserId = explode('##_##', $UserId);
-        $UsersLists = array();
-        $Reponses = array();
-        foreach ($ExplodeUserId as $IdUser) {
-            $UsersLists[] = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
+        $explodeUserId = explode('##_##', $UserId);
+        $usersLists = array();
+        foreach ($explodeUserId as $IdUser) {
+            $usersLists[] = $em->getRepository('UserBundle\Entity\User')->find($IdUser);
         }
 
         //Call ContactList manager service
-        $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
         //Add contactList
-        $Reponses = $ContactList->addContactList($ListName, $UsersLists);
+        $contactList->addContactList($ListName, $usersLists);
 
         return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
     }
@@ -374,10 +367,10 @@ class PartialPageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Call ContactList manager service
-        $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
         //Add contactList
-        $Reponses = $ContactList->deleteListById($IdList);
+        $contactList->deleteListById($IdList);
 
         return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_delete.html.twig');
     }
@@ -388,26 +381,25 @@ class PartialPageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Call ContactList manager service
-        $ContactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
+        $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
         //Verifie list name
-        $ReponsesListName = $ContactList->getAllContactByName($ListName);
-        if (count($ReponsesListName) == 0) {
+        $reponsesListName = $contactList->getAllContactByName($ListName);
+        if (count($reponsesListName) == 0) {
             //Création du nouveaux liste
-            $ReponsesCreateList = $ContactList->createList($ListName);
+            $reponsesCreateList = $contactList->createList($ListName);
 
             //Recuperations des contacts de la liste dupliquer
-            $ListInfos = $ContactList->getListById($ListId);
-            $ListContactsInfos = $ContactList->getAllContactByName($ListInfos[0]['Name']);
-            $UsersListes = array();
-            $UserListesId = array();
-            if (count($ListContactsInfos) > 0) {
-                foreach ($ListContactsInfos as $ContactsInfos) {
-                    $ListContactsDatas = $ContactList->getContactById($ContactsInfos['ContactID']);
-                    $UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ListContactsDatas[0]['Email']);
-                    $UserListesId[] = $UsersListes[0];
+            $listInfos = $contactList->getListById($ListId);
+            $listContactsInfos = $contactList->getAllContactByName($listInfos[0]['Name']);
+            $userListesId = array();
+            if (count($listContactsInfos) > 0) {
+                foreach ($listContactsInfos as $ContactsInfos) {
+                    $ListContactsDatas = $contactList->getContactById($ContactsInfos['ContactID']);
+                    $usersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ListContactsDatas[0]['Email']);
+                    $userListesId[] = $usersListes[0];
                 }
-                $ReponsesListInscriptions = $ContactList->editContactList($ReponsesCreateList[0]['ID'], $UserListesId);
+                $ReponsesListInscriptions = $contactList->editContactList($reponsesCreateList[0]['ID'], $userListesId);
             }
         }
 
