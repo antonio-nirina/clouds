@@ -32,6 +32,10 @@ class PartialPageController extends Controller
         );
     }
 
+    /**
+     * @param $field
+     * @return Response
+     */
     public function siteFormFieldRowAction($field)
     {
         if (in_array($field->getFieldType(), $this->text_type)) {
@@ -72,7 +76,11 @@ class PartialPageController extends Controller
         return new Response('');
     }
 
-
+    /**
+     * @param $field
+     * @param bool $personalize
+     * @return Response
+     */
     public function siteFormFieldRow2Action($field, $personalize = false)
     {
         if (in_array($field->getFieldType(), $this->text_type)) {
@@ -194,11 +202,19 @@ class PartialPageController extends Controller
         );
     }
 
+    /**
+     * @param array $datas
+     * @return Response
+     */
     public function afficheListImgEditorAction(array $datas)
     {
         return $this->render('AdminBundle:PartialPage/Ajax:afficheListImgEditor.html.twig', array('images' => $datas));
     }
 
+    /**
+     * @param $IdList
+     * @return Response
+     */
     public function emailingListeContactEditAjaxAction($IdList)
     {
         //Get all user
@@ -240,7 +256,11 @@ class PartialPageController extends Controller
         );
     }
 
-
+    /**
+     * @param $IdList
+     * @param $UserId
+     * @return Response
+     */
     public function emailingListeContactEditSubmitAjaxAction($IdList, $UserId)
     {
 
@@ -315,12 +335,15 @@ class PartialPageController extends Controller
             foreach ($listUserAEnleverDeLaListe as $emailEnlevers) {
                 $listUserAEnleverDeLaListeData[] = $emailEnlevers;
             }
-            $ReponsesListDesinscriptions = $contactList->DesinscritContactList($IdList, $listUserAEnleverDeLaListeData);
+            $contactList->DesinscritContactList($IdList, $listUserAEnleverDeLaListeData);
         }
 
         return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
     }
 
+    /**
+     * @return Response
+     */
     public function emailingListeContactCreerAjaxAction()
     {
         //Get all user
@@ -332,14 +355,19 @@ class PartialPageController extends Controller
         $allContact = $contactList->getAllContact();
 
         $users = array();
-        foreach ($allContact as $Contacts) {
+        foreach ($allContact as $contacts) {
             //Get infos user
-            $Users[] = $em->getRepository('UserBundle\Entity\User')->findUserByMail($Contacts['Email']);
+            $users[] = $em->getRepository('UserBundle\Entity\User')->findUserByMail($contacts['Email']);
         }
 
-        return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer.html.twig', array('Users' => $Users));
+        return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer.html.twig', array('Users' => $users));
     }
 
+    /**
+     * @param $ListName
+     * @param $UserId
+     * @return Response
+     */
     public function emailingListeContactCreerSubmitAjaxAction($ListName, $UserId)
     {
 
@@ -361,6 +389,10 @@ class PartialPageController extends Controller
         return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_creer_submit.html.twig');
     }
 
+    /**
+     * @param $IdList
+     * @return Response
+     */
     public function emailingListeContactDeleteAjaxAction($IdList)
     {
 
@@ -375,6 +407,11 @@ class PartialPageController extends Controller
         return $this->render('AdminBundle:PartialPage/Ajax:emailing_liste_contact_delete.html.twig');
     }
 
+    /**
+     * @param $ListName
+     * @param $ListId
+     * @return Response
+     */
     public function emailingListeContactDupliquerAjaxAction($ListName, $ListId)
     {
 
@@ -399,7 +436,7 @@ class PartialPageController extends Controller
                     $usersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ListContactsDatas[0]['Email']);
                     $userListesId[] = $usersListes[0];
                 }
-                $ReponsesListInscriptions = $contactList->editContactList($reponsesCreateList[0]['ID'], $userListesId);
+                $contactList->editContactList($reponsesCreateList[0]['ID'], $userListesId);
             }
         }
 
