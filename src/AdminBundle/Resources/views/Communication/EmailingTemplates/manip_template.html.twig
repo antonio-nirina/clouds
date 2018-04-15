@@ -635,7 +635,7 @@
     </div>
 
     <div class="instantaneous-preview-container">
-        {{ instantaneous_template_preview | raw }}
+        {{ instantaneous_template_preview | html }}
     </div>
 
     <input type="hidden" name="template_logo_alignment_left" value="{{ constant('LEFT', template_logo_alignment_class) }}">

@@ -279,7 +279,7 @@
                             {% endfor %}
                         {% endfor %}
                         {% for error in errorArray %}
-                            {{ error|raw }}
+                            {{ error|html }}
                         {% endfor %}
                     </div>
                 </section>

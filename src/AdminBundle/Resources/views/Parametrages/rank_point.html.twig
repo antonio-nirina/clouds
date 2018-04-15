@@ -251,7 +251,7 @@
                             {% endif %}                            
                         {% endfor %}
                         {% for error in errorArray %}
-                            {{ error|raw }}
+                            {{ error|html }}
                         {% endfor %}
                     </div>
 

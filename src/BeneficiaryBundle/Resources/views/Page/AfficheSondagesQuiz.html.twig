@@ -274,7 +274,7 @@
 						
 						<p style = "clear:both;"></p>
 						
-						<p class="descr-block-centre">{{ QuestionnaireInfos.DescriptionQuestionnaire|raw }}</p>
+						<p class="descr-block-centre">{{ QuestionnaireInfos.DescriptionQuestionnaire|html }}</p>
 						
 						{{ include('BeneficiaryBundle:PartialPage:champs-sondages-quiz.html.twig', { 'QuestionnaireInfos': QuestionnaireInfos, 'PagesQuestions': PagesQuestions, 'PagesReponses': PagesReponses, 'Resultats': Resultats, 'ShowBtn': ShowBtn }) }}
 						
