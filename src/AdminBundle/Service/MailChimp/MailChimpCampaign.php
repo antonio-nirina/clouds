@@ -87,7 +87,6 @@ class MailChimpCampaign extends MailChimpHandler
 
             if ($exists) {
                 $this->em->remove($exists[0]);
-                $this->em->flush();
             }
 
             $this->em->persist($new);

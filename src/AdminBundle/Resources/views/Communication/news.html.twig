@@ -70,7 +70,7 @@
                         <div class="col-lg-10 col-md-9 col-sm-12">
                             <h3 class="hidden-sm-down block-title">{{ main_section_title }}</h3>
                             <h5 class="hidden-md-up block-title">{{ main_section_title }}</h5>
-                            <p>{{ main_section_description | raw }}</p>
+                            <p>{{ main_section_description | html }}</p>
                             {% if archived_state is defined and true == archived_state %}
                             <button class="btn-valider restore-news-button" data-target-url="{{ path('admin_communication_news_group_action') }}">réstaurer publication</button>
                             {% else %}

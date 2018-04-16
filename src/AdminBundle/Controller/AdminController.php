@@ -9,6 +9,12 @@ class AdminController extends Controller
     protected $active_menu_index;
     protected $sidebar_view;
 
+    /**
+     * @param string $view
+     * @param array $parameters
+     * @param Response|null $response
+     * @return Response
+     */
     protected function render($view, array $parameters = array(), Response $response = null)
     {
         if (!is_null($this->active_menu_index)) {
@@ -19,6 +25,10 @@ class AdminController extends Controller
         return parent::render($view, $parameters, $response);
     }
 
+    /**
+     * @param $active
+     * @return Response
+     */
     public function sidebarAction($active)
     {
         return $this->render(

@@ -235,7 +235,7 @@
                                 <div class="row standard-content-detail-container" style="display: none;">
                                     <div class="col">
                                         <!-- text -->
-                                        {{ e_learning.mainText | raw }}
+                                        {{ e_learning.mainText | html }}
                                         <!-- end - text -->
 
                                         {% if e_learning.getMediaContents() is not null %}

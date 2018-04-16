@@ -60,14 +60,14 @@
                                 {% set second_content = com_email_template.contents[1] %}
                             <tr>
                                 <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; line-height: 21px;font-size: 15px;">
-                                    {{ second_content.textContent | raw }}
+                                    {{ second_content.textContent | html }}
                                 </td>
                             </tr>
                             {% elseif constant('TEXT_ONLY', template_model_class) == com_email_template.templateModel %}
                                 {% set first_content = com_email_template.contents[0] %}
                             <tr>
                                 <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; line-height: 21px;font-size: 15px;">
-                                    {{ first_content.textContent | raw }}
+                                    {{ first_content.textContent | html }}
                                 </td>
                             </tr>
                             {% endif %}
@@ -108,7 +108,7 @@
                                             {% elseif constant('TEXT', content_type_class) == content.contentType%}
                             <tr {{ instantaneous_preview_mode is defined ? 'class=text-content-tr' : '' }}>
                                 <td style="padding: 0 20px 20px 20px; font-family: Arial, sans-serif; line-height: 21px;font-size: 15px;">
-                                    {{ content.textContent | raw }}
+                                    {{ content.textContent | html }}
                                 </td>
                             </tr>
                                             {% elseif constant('BUTTON', content_type_class) == content.contentType%}

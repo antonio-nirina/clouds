@@ -308,7 +308,7 @@
                 </p>
 
                 <div class = "descr-block-centre">
-                {{ home_page_post.content | raw }}
+                {{ home_page_post.content | html }}
                 </div>
 
                 {%
@@ -360,7 +360,7 @@
 
                 <p class = "descr-block-centre">
                 {% if editorial is defined %}
-                    {{ editorial.content | raw }}
+                    {{ editorial.content | html }}
                 {% endif %}
                 </p>
 

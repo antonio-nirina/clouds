@@ -19,7 +19,7 @@
         <img src = "{{ asset('bundles/beneficiary/images/cloudsRewards/edito.png') }}" width = "107" height = "107" class = "img-fluid">
     </p>
     <div class = "descr-block-centre">
-        {{ news_post.homePagePost.content | raw }}
+        {{ news_post.homePagePost.content | html }}
     </div>
     {% if true == news_post.actionButtonState %}
         {% if news_post.actionButtonTargetPage is not empty %}
