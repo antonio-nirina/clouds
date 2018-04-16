@@ -924,6 +924,27 @@ span.lib-form{
     color: #7682da;
 }
 
+.modal-quiz .download-btn {
+    display: none;
+}
+
+.modal-quiz .download-btn.active {
+    display: block;
+}
+
+.modal-quiz .pagination-header {
+    display: none;
+}
+
+.modal-quiz .pagination-header .pagination {
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.modal-quiz .pagination-header.active {
+    display: block;
+}
+
 .modal-quiz .download-btn::before {
     content: '';
     width: 16px;
@@ -1073,7 +1094,7 @@ span.lib-form{
 
 .label-top {
     float: left;
-    margin: 0 28px;
+    margin: 0 28px 30px;
 }
 
 .label-top [type="radio"]:checked+label,
@@ -1091,5 +1112,75 @@ span.lib-form{
 .label-top [type="radio"]:not(:checked)+label:after {
     left: 30%;
     top: 150%;
+}
+
+.table.table-sondage {
+    font-size: 14px;
+}
+
+.table.table-sondage th {
+    background: transparent !important;
+    border: none;
+    text-align: center;
+}
+
+.table.table-sondage tr:nth-child(2n) {
+    background: #f9f9f9;
+}
+
+.table.table-sondage td {
+    border: none;
+    text-align: center;
+}
+
+.table.table-sondage td.th-label {
+    text-align: left;
+}
+
+.table.table-sondage [type="radio"]:checked+label:before,
+.table.table-sondage [type="radio"]:not(:checked)+label:before {
+    top: -8px;
+}
+
+.table.table-sondage [type="radio"]:checked+label:after,
+.table.table-sondage [type="radio"]:not(:checked)+label:after {
+    top: -8px;
+}
+
+.pagination .page-item .page-link {
+    border: 1px solid transparent;
+    color: #808080;
+    padding: .5rem .85rem;
+    background: transparent;
+}
+
+.pagination .page-item.active .page-link {
+    border: 1px solid #808080;
+    border-radius: 5px;   
+    background: white;
+}
+
+.input-search {
+    position: relative;
+    margin-top: 15px;
+}
+
+.input-search::before {
+    content: '';
+    width: 18px;
+    height: 16px;
+    position: absolute;
+    background: url('../../images/cloudsRewards/barre-recherche-loupe.png') center no-repeat;
+    display: block;
+    top: 8px;
+    left: 12px;
+}
+
+.input-search input {
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 5px 5px 5px 40px;
+    font-size: 14px;
+    width: 285px;
 }
 /*==============================================================================*/
