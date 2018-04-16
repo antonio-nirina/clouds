@@ -1978,7 +1978,7 @@ class ParametragesController extends AdminController
             $MenuPages = $request->get('menu_page');
             $ImgPages = $request->files->get('img_page');
             $ContenuPages = $request->get('contenu_page');
-            $StatusPages = $request->get('status_page');
+            $statusPages = $request->get('status_page');
             $Id = $request->get('id_page');
             $Onglets = $request->get('onglet-selectionner-page');
 
@@ -2002,8 +2002,11 @@ class ParametragesController extends AdminController
                 }
 
                 $sitePagesStandardSetting->setContenuPage($ContenuPages[$i]);
-                if (!empty($StatusPages[$i])) {
-                    $sitePagesStandardSetting->setStatusPage($StatusPages[$i]);
+
+                if (false == $statusPages[$i] || "0" == $statusPages[$i]) {
+                    $sitePagesStandardSetting->setStatusPage(false);
+                } else {
+                    $sitePagesStandardSetting->setStatusPage(true);
                 }
 
                 $sitePagesStandardSetting->setProgram($program);

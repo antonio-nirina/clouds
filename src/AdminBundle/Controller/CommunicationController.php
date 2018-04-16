@@ -1780,7 +1780,7 @@ class CommunicationController extends AdminController
 
         $newsPostManager = $this->get('AdminBundle\Manager\NewsPostManager');
         $newsPostDataLinker = $this->get('AdminBundle\Service\DataLinker\NewsPostDataLinker');
-        $newsPostList = $newsPostManager->findAll(
+        $newsPostList = $newsPostManager->findAllOrderedByMixedDate(
             $program,
             $newsPostDataLinker->linkTypeLabelToType($post_type_label),
             $archived_state

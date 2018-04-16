@@ -3,6 +3,7 @@ namespace AdminBundle\Service\DataOrdering;
 
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Component\Post\PostType;
+use AdminBundle\Entity\NewsPost;
 
 /**
  * Charge of ordering post
@@ -12,25 +13,25 @@ class PostOrdering
     /**
      * Order post DESC (older is placed earlier)
      *
-     * @param array $post_list array of HomePagePost object
+     * @param array $postList array of HomePagePost object
      *
      * @return array
      */
-    public function orderByDateDesc(array $post_list)
+    public function orderByDateDesc(array $postList)
     {
         usort(
-            $post_list,
+            $postList,
             function ($a, $b) {
-                $a_date = $this->defineToCompareDate($a);
-                $b_date = $this->defineToCompareDate($b);
-                if ($a_date == $b_date) {
+                $aDate = $this->defineToCompareDate($a);
+                $bDate = $this->defineToCompareDate($b);
+                if ($aDate == $bDate) {
                     return 0;
                 }
-                return ($a_date > $b_date) ? -1 : 1;
+                return ($aDate > $bDate) ? -1 : 1;
             }
         );
 
-        return $post_list;
+        return $postList;
     }
 
     /**
@@ -49,6 +50,57 @@ class PostOrdering
                 return $post->getNewsPost()->getPublicationDatetime();
             }
         }
+
         return $post->getCreatedAt();
+    }
+
+    /**
+     * Order post DESC (older is placed earlier)
+     * Depending on post state (waiting, programmed, published)
+     *
+     * @param array $postList array of NewsPost object
+     *
+     * @return array
+     */
+    public function orderNewsPostByMixedDateDesc(array $postList)
+    {
+        usort(
+            $postList,
+            function ($a, $b) {
+                $aDate = $this->defineToCompareMixedDate($a);
+                $bDate = $this->defineToCompareMixedDate($b);
+                if ($aDate == $bDate) {
+                    return 0;
+                }
+                return ($aDate > $bDate) ? -1 : 1;
+            }
+        );
+
+        return $postList;
+    }
+
+    /**
+     * Define date to compare depending on post state (waiting, programmed, published)
+     *
+     * @param NewsPost $newsPost
+     *
+     * @return \DateTime
+     */
+    public function defineToCompareMixedDate(NewsPost $newsPost)
+    {
+        $homePagePost = $newsPost->getHomePagePost();
+        if (false == $newsPost->getProgrammedInProgressState() && false == $newsPost->getPublishedState()) {
+            return $homePagePost->getLastEdit();
+        } elseif (false == $newsPost->getPublishedState() && true == $newsPost->getProgrammedInProgressState()) {
+            if (!is_null($newsPost->getProgrammedPublicationDatetime())) {
+                return $newsPost->getProgrammedPublicationDatetime();
+            }
+        } elseif (true == $newsPost->getPublishedState()) {
+            if (!is_null($newsPost->getPublicationDatetime())) {
+                return $newsPost->getPublicationDatetime();
+            }
+        }
+
+        return $homePagePost->getCreatedAt();
     }
 }
