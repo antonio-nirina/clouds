@@ -8691,6 +8691,10 @@ min-width: 181px !important;
 
 /********************************************************************************************************/
 
-
+#statistique-campaign-dialog .table-stat tr th:not(:first-child){
+    min-width: 78px;
+    max-width: 78px;
+    text-align: center;
+}
 
 
