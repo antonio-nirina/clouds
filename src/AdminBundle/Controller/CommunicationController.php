@@ -661,10 +661,11 @@ class CommunicationController extends AdminController
      *     "/emailling/modeles-emails/ajout-modele/{model}",
      *     name="admin_communication_emailing_templates_add_template",
      *     defaults={"model"=null}
+     * )
      * @param Request $request Description
      * @param type    $model   Description
      * @return type Description
-     * )
+     * 
      */
     public function emailingTemplatesAddTemplateAction(Request $request, $model)
     {
@@ -782,11 +783,12 @@ class CommunicationController extends AdminController
     /**
      * @Route(
      *     "/emailling/modeles-emails/edition-modele/{template_id}",
-     *     name="admin_communication_emailing_templates_edit_template",
+     *     name="admin_communication_emailing_templates_edit_template"
+     * )
      * @param Request $request     Description
      * @param type    $template_id Description
      * @return type Description
-     * )
+     * 
      */
     public function emailingTemplatesEditTemplateAction(Request $request, $template_id)
     {
@@ -1006,10 +1008,11 @@ class CommunicationController extends AdminController
      *     name="admin_communication_emailing_templates_duplicate_template",
      *     requirements={"template_id": "\d+"},
      *     defaults={"template_id"=null}
+     * )
      * @param Request $request     Description
      * @param type    $template_id Description
      * @return type Description
-     * )
+     * 
      */
     public function emailingTemplatesDuplicateTemplateAction(Request $request, $template_id)
     {
@@ -1417,14 +1420,18 @@ class CommunicationController extends AdminController
         $program                  = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {
+
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
+
         }
         //Call ContactList manager service
         $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
+
         //Service to call excel object
         $em = $this->getDoctrine()->getManager();
         $objPHPExcel = $this->get("adminBundle.excel")->excelListContact($id, $contactList, $em);
+
 
         // create the writer
         $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel2007');
