@@ -290,7 +290,7 @@ class ExcelManager
     /**
      * show all excel file for current contact
      */
-    public function excelListContact($id, $contactList){
+    public function excelListContact($id, $contactList, $em){
         // ask the service for a Excel5
 
         $objPHPExcel = $this->get('phpexcel')->createPHPExcelObject();
@@ -364,7 +364,7 @@ class ExcelManager
             $ContactsDatas = $contactList->getContactById($contacts['ContactID']);
 
             //Get Contact datas in db
-            $UsersListes = $this->container->getRepository('UserBundle\Entity\User')->findUserByMail($ContactsDatas[0]['Email']);
+            $UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ContactsDatas[0]['Email']);
 
             if (isset($UsersListes[0])) {
                 $Roles = $UsersListes[0]->getRoles();

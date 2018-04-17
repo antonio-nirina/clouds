@@ -1315,7 +1315,8 @@ class CommunicationController extends AdminController
         $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
         //Service to call excel object
-        $objPHPExcel = $this->get("adminBundle.excel")->excelListContact($id, $contactList);
+        $em = $this->getDoctrine()->getManager();
+        $objPHPExcel = $this->get("adminBundle.excel")->excelListContact($id, $contactList, $em);
 
         // create the writer
         $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel2007');
