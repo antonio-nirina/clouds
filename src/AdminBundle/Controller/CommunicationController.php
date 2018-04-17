@@ -2823,7 +2823,11 @@ class CommunicationController extends AdminController
 
     /**
      * @Route("/pre-sondage/dupliquer/{id}",requirements={"id": "\d+"},name="admin_communication_pre_sondage_duplicate")
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
      */
+
     public function duplicatePreSondageAction(Request $request, $id)
     {
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
