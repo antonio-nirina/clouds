@@ -1,4 +1,5 @@
 <?php
+
 namespace BeneficiaryBundle\Controller;
 
 use AdminBundle\Component\ELearning\ELearningContentType;
@@ -7,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-
 use AdminBundle\Entity\HomePageSlide;
 use AdminBundle\Entity\SondagesQuiz;
 use AdminBundle\Entity\SondagesQuizQuestionnaireInfos;
@@ -17,6 +17,7 @@ use AdminBundle\Entity\ResultatsSondagesQuiz;
 
 class PageController extends Controller
 {
+
     /**
      * @Route("/", name="beneficiary_home")
      * @param Request $request
@@ -26,7 +27,7 @@ class PageController extends Controller
     {
         $auth = $this->get('security.authorization_checker');
         if (false === $auth->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return  $this->redirectToRoute("fos_user_security_login");
+            return $this->redirectToRoute("fos_user_security_login");
         }
 
         $program = $this->container->get('admin.program')->getCurrent();
@@ -40,17 +41,20 @@ class PageController extends Controller
         }
 
         $tableNetwork = $program->getSiteTableNetworkSetting();
-        $hasNetwork = false;
+        $hasNetwork   = false;
         if ($tableNetwork->getHasFacebook() || $tableNetwork->getHasLinkedin() || $tableNetwork->getHasTwitter()) {
             $hasNetwork = true;
         }
 
         $backgroundLink = '';
-        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
-            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+        if ($background     = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $backgroundLink = $this->container
+                    ->getParameter('background_path')
+                . '/' . $program->getId()
+                . '/' . $background;
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em               = $this->getDoctrine()->getManager();
         $orderedSlideList = $em->getRepository('AdminBundle\Entity\HomePageSlide')
             ->findByHomePageDataOrdered($homePageData);
 
@@ -63,20 +67,21 @@ class PageController extends Controller
         if (!is_null($parameterEdito)) {
             array_push($homePagePostList, $parameterEdito);
         }
-        $postOrdering = $this->get('AdminBundle\Service\DataOrdering\PostOrdering');
+        $postOrdering     = $this->get('AdminBundle\Service\DataOrdering\PostOrdering');
         $homePagePostList = $postOrdering->orderByDateDesc($homePagePostList);
 
-        return $this->render(
-            'BeneficiaryBundle:Page:home.html.twig',
-            array(
-            'has_network' => $hasNetwork,
-            'table_network' => $tableNetwork,
-            'slide_list' => $orderedSlideList,
-            'background_link' => $backgroundLink,
-            'home_page_post_list' => $homePagePostList,
-            'home_page_post_type_class' => new PostType(),
-            )
-        );
+        return $this
+            ->render(
+                'BeneficiaryBundle:Page:home.html.twig',
+                array
+                (
+                'has_network' => $hasNetwork,
+                'table_network' => $tableNetwork,
+                'slide_list' => $orderedSlideList,
+                'background_link' => $backgroundLink,
+                'home_page_post_list' => $homePagePostList,
+                'home_page_post_type_class' => new PostType(), )
+            ) ;
     }
 
     /**
@@ -93,9 +98,15 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($request->isMethod('POST')) {
-            $idVideo = $request->get('video_id');
+            $idVideo    = $request->get('video_id');
             $videoSlide = $em->getRepository("AdminBundle:HomePageSlide")->find($idVideo);
-            $response = $this->forward('BeneficiaryBundle:PartialPage:afficheLecteurVideo', array('videos' => $videoSlide, 'programm' => $program));
+            $response   = $this->forward(
+                'BeneficiaryBundle:PartialPage:afficheLecteurVideo',
+                array(
+                'videos' => $videoSlide,
+                'programm' => $program,
+                )
+            );
 
             return new Response($response->getContent());
         } else {
@@ -113,15 +124,14 @@ class PageController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em           = $this->getDoctrine()->getManager();
         $pageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
 
         $listePages = array();
         foreach ($pageStandard as $pages) {
             if ($pages->getStatusPage() == '1') {
-                if ($pages->getNomPage() == 'mentions légales'
-                    || $pages->getNomPage() == 'règlement'
-                    || $pages->getNomPage() == 'contact') {
+                if ($pages->getNomPage() == 'mentions légales' || $pages->getNomPage()
+                    == 'règlement' || $pages->getNomPage() == 'contact') {
                     $listePages[] = $pages;
                 }
             }
@@ -130,8 +140,8 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle::page_footer.html.twig',
             array(
-            'liste_pages' => $listePages,
-            )
+                'liste_pages' => $listePages,
+                )
         );
     }
 
@@ -146,31 +156,37 @@ class PageController extends Controller
         }
 
         //pages standards
-        $em = $this->getDoctrine()->getManager();
+        $em           = $this->getDoctrine()->getManager();
         $pageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
-        $listePages = array();
+        $listePages   = array();
         foreach ($pageStandard as $pages) {
             if ($pages->getStatusPage() == '1') {
-                if ($pages->getNomPage() != 'mentions légales' && $pages->getNomPage() != 'règlement' && $pages->getNomPage() != 'contact') {
+                if ($pages->getNomPage() != 'mentions légales' && $pages->getNomPage()
+                    != 'règlement' && $pages->getNomPage() != 'contact') {
                     $listePages[] = $pages;
                 }
             }
         }
         //Sondages/Quiz
-        $sondagesQuiz = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
-        $isSondagesQuiz = false;
+        $sondagesQuiz    = $em->getRepository('AdminBundle:SondagesQuiz')->findByProgram($program);
+        $isSondagesQuiz  = false;
         $objSondagesQuiz = array();
         if (isset($sondagesQuiz[0])) {
             $objSondagesQuiz = $sondagesQuiz[0];
-            $isSondagesQuiz = true;
+            $isSondagesQuiz  = true;
         }
         //show/E-learning
-        $elearning = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
+        $elearning    = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')
+            ->findOneBy(
+                array(
+                'program' => $program,
+                )
+            );
         $isELearning  = false;
         $objElearning = array();
         if (isset($elearning)) {
             $objElearning = $elearning;
-            $isELearning = true;
+            $isELearning  = true;
         }
 
         return $this->render(
@@ -181,8 +197,7 @@ class PageController extends Controller
                 'ObjSondagesQuiz' => $objSondagesQuiz,
                 'IsElearning' => $isELearning,
                 'ObjElearning' => $objElearning,
-
-            )
+                )
         );
     }
 
@@ -196,14 +211,14 @@ class PageController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em           = $this->getDoctrine()->getManager();
         $pageStandard = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findByProgram($program);
 
-        $listePages = array();
+        $listePages     = array();
         $estPageContact = false;
         foreach ($pageStandard as $pages) {
             if ($pages->getStatusPage() == '1' && $pages->getNomPage() == 'contact') {
-                $listePages = $pages;
+                $listePages     = $pages;
                 $estPageContact = true;
             }
         }
@@ -211,9 +226,9 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle::block-contact.html.twig',
             array(
-            'liste_pages' => $listePages,
-            'est_page_contact' => $estPageContact,
-            )
+                'liste_pages' => $listePages,
+                'est_page_contact' => $estPageContact,
+                )
         );
     }
 
@@ -224,7 +239,7 @@ class PageController extends Controller
      *     "/beneficiary-home/pages/{id}",
      *     name="beneficiary_home_pages_standard"),
      *     requirements={"id": "\d+"}
-     * @param $id
+     * @param string $id Description
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function affichePagesStandardAction($id)
@@ -235,17 +250,18 @@ class PageController extends Controller
         }
 
         $tableNetwork = $program->getSiteTableNetworkSetting();
-        $hasNetwork = false;
+        $hasNetwork   = false;
         if ($tableNetwork->getHasFacebook() || $tableNetwork->getHasLinkedin() || $tableNetwork->getHasTwitter()) {
             $hasNetwork = true;
         }
 
         $backgroundLink = '';
-        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
-            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+        if ($background     = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $backgroundLink = $this->container->getParameter('background_path')
+            . '/' . $program->getId() . '/' . $background;
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em    = $this->getDoctrine()->getManager();
         $pages = $em->getRepository('AdminBundle:SitePagesStandardSetting')->find($id);
 
         if (is_null($pages)) {
@@ -255,11 +271,11 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle:Page:AffichePagesStandard.html.twig',
             array(
-            'has_network' => $hasNetwork,
-            'table_network' => $tableNetwork,
-            'background_link' => $backgroundLink,
-            'pages' => $pages
-            )
+                'has_network' => $hasNetwork,
+                'table_network' => $tableNetwork,
+                'background_link' => $backgroundLink,
+                'pages' => $pages,
+                )
         );
     }
 
@@ -268,6 +284,10 @@ class PageController extends Controller
      *     "/pages/sondages-quiz/{slug}/{id}",
      *     name="beneficiary_home_pages_sondages_quiz_slug",
      *     defaults={"id"=null})
+     * @param string  $slug    Description
+     * @param string  $id      Description
+     * @param Request $request Description
+     * @return type Description
      */
     public function affichePagesSondagesQuizSlugAction($slug, $id, Request $request)
     {
@@ -277,14 +297,15 @@ class PageController extends Controller
         }
 
         $tableNetwork = $program->getSiteTableNetworkSetting();
-        $hasNetwork = false;
+        $hasNetwork   = false;
         if ($tableNetwork->getHasFacebook() || $tableNetwork->getHasLinkedin() || $tableNetwork->getHasTwitter()) {
             $hasNetwork = true;
         }
 
         $backgroundLink = '';
-        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
-            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+        if ($background     = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $backgroundLink = $this->container->getParameter('background_path')
+            . '/' . $program->getId() . '/' . $background;
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -292,14 +313,16 @@ class PageController extends Controller
         //Sondages Quiz
         $pagesSondagesQuiz = $em->getRepository('AdminBundle:SondagesQuiz')->findOneBy(
             array(
-            'slug' => $slug
+                'slug' => $slug,
             )
         );
 
         //Sondages questionnaire infos
         if (!is_null($id)) {
             $pagesQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBy(
-                array('sondages_quiz' => $pagesSondagesQuiz, 'est_publier' => '1', 'id' => $id)
+                array('sondages_quiz' => $pagesSondagesQuiz,
+                    'est_publier' => '1',
+                    'id' => $id, )
             );
         } else {
             $pagesQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->findBy(
@@ -308,9 +331,9 @@ class PageController extends Controller
         }
 
         //Sondages questions
-        $pagesReponses = array();
+        $pagesReponses  = array();
         $pagesQuestions = array();
-        $resultats = array();
+        $resultats      = array();
         foreach ($pagesQuestionnaireInfos as $questionnaireInfos) {
             $questions = $em->getRepository('AdminBundle:SondagesQuizQuestions')->findBy(
                 array('sondages_quiz_questionnaire_infos' => $questionnaireInfos),
@@ -319,12 +342,13 @@ class PageController extends Controller
 
             $resultats[$questionnaireInfos->getId()] = $em->getRepository('AdminBundle:ResultatsSondagesQuiz')->findBy(
                 array(
-                'sondages_quiz_questionnaire_infos' => $questionnaireInfos
+                    'sondages_quiz_questionnaire_infos' => $questionnaireInfos,
                 )
             );
 
             foreach ($questions as $questionsData) {
-                $reponses = $em->getRepository('AdminBundle:SondagesQuizReponses')->findBy(
+                $reponses = $em->getRepository('AdminBundle:SondagesQuizReponses')
+                ->findBy(
                     array('sondages_quiz_questions' => $questionsData),
                     array('ordre' => 'ASC')
                 );
@@ -342,18 +366,22 @@ class PageController extends Controller
             $postReponses = $request->get('reponses');
             foreach ($postReponses as $idQuestInfos => $questionsInfos) {
                 //Questionnaire Infos
-                $sondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')->find($idQuestInfos);
+                $sondagesQuizQuestionnaireInfos = $em->getRepository('AdminBundle:SondagesQuizQuestionnaireInfos')
+                    ->find($idQuestInfos);
                 foreach ($questionsInfos as $typeQuest => $reponsesInfos) {
                     if ($typeQuest == "'tm'") {
                         foreach ($reponsesInfos as $idQuestionsTm => $idReponsesTm) {
                             //Reponses
                             foreach ($idReponsesTm as $idRep => $niveaux) {
                                 //Questions
-                                $sondagesQuizQuestionsTm = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($idQuestionsTm);
-                                $sondagesQuizReponsesTm = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($idRep);
+                                $sondagesQuizQuestionsTm = $em->getRepository('AdminBundle:SondagesQuizQuestions')
+                                    ->find($idQuestionsTm);
+                                $sondagesQuizReponsesTm  = $em->getRepository('AdminBundle:SondagesQuizReponses')
+                                    ->find($idRep);
 
                                 $resultatsSondagesQuiz = new ResultatsSondagesQuiz();
-                                $resultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfos);
+                                $resultatsSondagesQuiz
+                                    ->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfos);
                                 $resultatsSondagesQuiz->setProgram($program);
                                 $resultatsSondagesQuiz->setSondagesQuiz($pagesSondagesQuiz);
                                 $resultatsSondagesQuiz->setSondagesQuizReponses($sondagesQuizReponsesTm);
@@ -364,8 +392,10 @@ class PageController extends Controller
                         }
                     } elseif ($typeQuest == "'el'") {
                         foreach ($reponsesInfos as $idQuestionsEl => $idReponsesEl) {
-                            $sondagesQuizQuestionsEl = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($idQuestionsEl);
-                            $sondagesQuizReponsesEl = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($idReponsesEl);
+                            $sondagesQuizQuestionsEl = $em->getRepository('AdminBundle:SondagesQuizQuestions')
+                                ->find($idQuestionsEl);
+                            $sondagesQuizReponsesEl  = $em->getRepository('AdminBundle:SondagesQuizReponses')
+                                ->find($idReponsesEl);
 
                             $resultatsSondagesQuiz = new ResultatsSondagesQuiz();
                             $resultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfos);
@@ -377,9 +407,11 @@ class PageController extends Controller
                         }
                     } elseif ($typeQuest == "'ca'") {
                         foreach ($reponsesInfos as $idQuestionsCa => $idReponsesCa) {
-                            $sondagesQuizQuestionsCa = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($idQuestionsCa);
-                            $sondagesQuizReponsesCa = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($idReponsesCa);
-                            $resultatsSondagesQuiz = new ResultatsSondagesQuiz();
+                            $sondagesQuizQuestionsCa = $em->getRepository('AdminBundle:SondagesQuizQuestions')
+                                ->find($idQuestionsCa);
+                            $sondagesQuizReponsesCa  = $em->getRepository('AdminBundle:SondagesQuizReponses')
+                                ->find($idReponsesCa);
+                            $resultatsSondagesQuiz   = new ResultatsSondagesQuiz();
                             $resultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfos);
                             $resultatsSondagesQuiz->setProgram($program);
                             $resultatsSondagesQuiz->setSondagesQuiz($pagesSondagesQuiz);
@@ -390,10 +422,13 @@ class PageController extends Controller
                     } elseif ($typeQuest == "'cm'") {
                         foreach ($reponsesInfos as $idQuestionsCm => $idReponsesCm) {
                             foreach ($idReponsesCm as $idRepCm) {
-                                $sondagesQuizQuestionsCm = $em->getRepository('AdminBundle:SondagesQuizQuestions')->find($idQuestionsCm);
-                                $sondagesQuizReponsesCm = $em->getRepository('AdminBundle:SondagesQuizReponses')->find($idRepCm);
-                                $resultatsSondagesQuiz = new ResultatsSondagesQuiz();
-                                $resultatsSondagesQuiz->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfos);
+                                $sondagesQuizQuestionsCm = $em->getRepository('AdminBundle:SondagesQuizQuestions')
+                                    ->find($idQuestionsCm);
+                                $sondagesQuizReponsesCm  = $em->getRepository('AdminBundle:SondagesQuizReponses')
+                                    ->find($idRepCm);
+                                $resultatsSondagesQuiz   = new ResultatsSondagesQuiz();
+                                $resultatsSondagesQuiz
+                                    ->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfos);
                                 $resultatsSondagesQuiz->setProgram($program);
                                 $resultatsSondagesQuiz->setSondagesQuiz($pagesSondagesQuiz);
                                 $resultatsSondagesQuiz->setSondagesQuizQuestions($sondagesQuizQuestionsCm);
@@ -409,15 +444,17 @@ class PageController extends Controller
             if (!is_null($id)) {
                 return $this->redirectToRoute(
                     'beneficiary_home_pages_sondages_quiz_slug',
-                            array(
-                                'slug' => $pagesSondagesQuiz->getSlug(),
-                                'id' => $id,
-                            )
+                    array(
+                        'slug' => $pagesSondagesQuiz->getSlug(),
+                        'id' => $id,
+                        )
                 );
             } else {
                 return $this->redirectToRoute(
                     'beneficiary_home_pages_sondages_quiz_slug',
-                    array('slug' => $pagesSondagesQuiz->getSlug())
+                    array(
+                        'slug' => $pagesSondagesQuiz->getSlug(),
+                        )
                 );
             }
         }
@@ -425,46 +462,56 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle:Page:AfficheSondagesQuiz.html.twig',
             array(
-            'has_network' => $hasNetwork,
-            'table_network' => $tableNetwork,
-            'background_link' => $backgroundLink,
-            'Pages' => $pagesSondagesQuiz,
-            'PagesQuestionnaireInfos' => $pagesQuestionnaireInfos,
-            'PagesQuestions' => $pagesQuestions,
-            'PagesReponses' => $pagesReponses,
-            'Resultats' => $resultats
-            )
+                'has_network' => $hasNetwork,
+                'table_network' => $tableNetwork,
+                'background_link' => $backgroundLink,
+                'Pages' => $pagesSondagesQuiz,
+                'PagesQuestionnaireInfos' => $pagesQuestionnaireInfos,
+                'PagesQuestions' => $pagesQuestions,
+                'PagesReponses' => $pagesReponses,
+                'Resultats' => $resultats,
+                )
         );
     }
 
     /**
      * To show E-learning page listing
      * @Route("/pages/e-learning", name="elearning_page")
+     * @return type Description
      */
     public function affichagePageELearning()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em      = $this->getDoctrine()->getManager();
         $program = $this->container->get('admin.program')->getCurrent();
         if (empty($program)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
         $backgroundLink = '';
-        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
-            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+        if ($background     = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $backgroundLink = $this->container->getParameter('background_path')
+                . '/' . $program->getId() . '/' . $background;
         }
-        $elearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')->findOneBy(array('program' => $program));
+        $elearningBanner = $em->getRepository('AdminBundle\Entity\ELearningHomeBanner')
+            ->findOneBy(
+                array(
+                'program' => $program, )
+            );
         if (empty($elearningBanner)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
         $tableNetwork = $program->getSiteTableNetworkSetting();
-        $hasNetwork = false;
+        $hasNetwork   = false;
         if ($tableNetwork->getHasFacebook() || $tableNetwork->getHasLinkedin() || $tableNetwork->getHasTwitter()) {
             $hasNetwork = true;
         }
-        $elearningList = $em->getRepository('AdminBundle\Entity\ELearning')->findBy(
-            array('program' => $program),
-            array('created_at' => 'DESC')
-        );
+        $elearningList = $em->getRepository('AdminBundle\Entity\ELearning')
+            ->findBy(
+                array(
+                    'program' => $program, ),
+                array(
+                    'created_at' => 'DESC', )
+            );
+
         return $this->render(
             'BeneficiaryBundle:Page:AffichagePageElearning.html.twig',
             array(
@@ -473,7 +520,7 @@ class PageController extends Controller
                 'has_network' => $hasNetwork,
                 'e_learning_list' => $elearningList,
                 'content_type_class' => new ELearningContentType(),
-            )
+                )
         );
     }
 
@@ -481,6 +528,8 @@ class PageController extends Controller
      * @Route(
      *     "/pages/{slug}",
      *     name="beneficiary_home_pages_standard_slug")
+     * @param string $slug Description
+     * @return type Description
      */
     public function affichePagesStandardSlugAction($slug)
     {
@@ -490,20 +539,21 @@ class PageController extends Controller
         }
 
         $tableNetwork = $program->getSiteTableNetworkSetting();
-        $hasNetwork = false;
+        $hasNetwork   = false;
         if ($tableNetwork->getHasFacebook() || $tableNetwork->getHasLinkedin() || $tableNetwork->getHasTwitter()) {
             $hasNetwork = true;
         }
 
         $backgroundLink = '';
-        if ($background = $program->getSiteDesignSetting()->getBodyBackground()) {
-            $backgroundLink = $this->container->getParameter('background_path') . '/' . $program->getId() . '/' . $background;
+        if ($background     = $program->getSiteDesignSetting()->getBodyBackground()) {
+            $backgroundLink = $this->container->getParameter('background_path')
+                . '/' . $program->getId() . '/' . $background;
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em    = $this->getDoctrine()->getManager();
         $pages = $em->getRepository('AdminBundle:SitePagesStandardSetting')->findOneBy(
             array(
-            'slug' => $slug
+                'slug' => $slug,
             )
         );
 
@@ -521,7 +571,7 @@ class PageController extends Controller
         // Obtient une liste de colonnes
         if (count($options) > 0) {
             foreach ($options as $key => $row) {
-                $ordre[$key]  = $row['ordre'];
+                $ordre[$key] = $row['ordre'];
             }
             array_multisort($ordre, SORT_ASC, $options);
         }
@@ -529,12 +579,12 @@ class PageController extends Controller
         return $this->render(
             'BeneficiaryBundle:Page:AffichePagesStandard.html.twig',
             array(
-            'has_network' => $hasNetwork,
-            'table_network' => $tableNetwork,
-            'background_link' => $backgroundLink,
-            'Pages' => $pages,
-            'Options' => $options
-            )
+                'has_network' => $hasNetwork,
+                'table_network' => $tableNetwork,
+                'background_link' => $backgroundLink,
+                'Pages' => $pages,
+                'Options' => $options,
+                )
         );
     }
 }
