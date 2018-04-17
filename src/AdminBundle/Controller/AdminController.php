@@ -6,36 +6,36 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
-    protected $active_menu_index;
-    protected $sidebar_view;
+    protected $activeMenuIndex;
+    protected $sidebarView;
 
     /**
-     * @param string $view
-     * @param array $parameters
-     * @param Response|null $response
-     * @return Response
-     */
-    protected function render($view, array $parameters = array(), Response $response = null)
-    {
-        if (!is_null($this->active_menu_index)) {
-            $active_menu_index_parameter = array('active_menu_index' => $this->active_menu_index);
-            $parameters = array_merge($parameters, $active_menu_index_parameter);
-        }
-
-        return parent::render($view, $parameters, $response);
-    }
-
-    /**
-     * @param $active
+     * @param type $active
      * @return Response
      */
     public function sidebarAction($active)
     {
         return $this->render(
-            $this->sidebar_view,
+            $this->sidebarView,
             array(
-            'active' => $active
+            'active' => $active,
             )
         );
+    }
+
+    /**
+     * @param string        $view
+     * @param array         $parameters
+     * @param Response|null $response
+     * @return Response
+     */
+    protected function render($view, array $parameters = array(), Response $response = null)
+    {
+        if (!is_null($this->activeMenuIndex)) {
+            $activeMenuIndexParameter = array('active_menu_index' => $this->activeMenuIndex);
+            $parameters = array_merge($parameters, $activeMenuIndexParameter);
+        }
+
+        return parent::render($view, $parameters, $response);
     }
 }

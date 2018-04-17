@@ -17,8 +17,7 @@
 							<li class = "{{ Pages.TitrePage }}"><a href = "{{ path('beneficiary_home_pages_standard_slug', {'slug': Pages.Slug}) }}" class = "menu-lib light">{{ Pages.MenuPage }}</a></li>
 						{% endfor %}
 						
-                        <li><a href = "" class = "menu-lib light">classement</a></li>
-                        <li><a href = "" class = "menu-lib light">mes points</a></li>
+                        <li><a href = "" class = "menu-lib light">Challenges</a></li>
 						
 						{% if IsSondagesQuiz %}
 							<li><a href = "{{ path('beneficiary_home_pages_sondages_quiz_slug', {'slug': ObjSondagesQuiz.Slug}) }}" class = "menu-lib light">{{ ObjSondagesQuiz.NomMenu }}</a></li>

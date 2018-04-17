@@ -172,6 +172,7 @@ class ResultSettingModel
     {
         $this->createObject($monthly, $byProduct, $byRank);
         $writer = $this->phpExcel->createWriter($this->phpExcelObject, self::WRITER_TYPE);
+        $writer->setDelimiter(';');
 
         return $writer;
     }
