@@ -10,8 +10,8 @@ class PartialPageController extends Controller
     /**
      * Affichage lecteur vidéo
      *
-     * @param $videos
-     * @param $programm
+     * @param string $videos   Description
+     * @param string $programm Description
      * @return Response
      */
     public function afficheLecteurVideoAction($videos, $programm)

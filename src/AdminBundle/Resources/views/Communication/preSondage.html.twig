@@ -275,36 +275,246 @@
                                                 </div>
                                             </div>
                                             <div class="clearfix">
-                                                <button class="btn-valider download-btn float-right">télécharger les résultats</button>
-                                                <div class="float-left zone-btn">
-                                                    <button class="float-left left">globales</button>
-                                                    <button class="float-left right inactif">individuelles</button>
+                                                <button class="btn-valider download-btn float-right active">télécharger les résultats</button>
+                                                <div class="float-left zone-btn" role="tablist">
+                                                    <ul class="nav" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="float-left left active" id="globales-tab" data-toggle="tab" href="#globales" role="tab" aria-controls="globales" aria-selected="true">globales</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="float-left right" id="individuelles-tab" data-toggle="tab" href="#individuelles" role="tab" aria-controls="individuelles" aria-selected="false">individuelles</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="pagination-header">
+                                                    <div class="d-flex">
+                                                        <ul class="pagination mx-auto">
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="#" aria-label="Previous">
+                                                                    <img src = "{{ asset('images/cloudsRewards/arrow-left.png') }}" alt = "">
+                                                                    <span class="sr-only">Previous</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="#" aria-label="Next">
+                                                                    <img src = "{{ asset('images/cloudsRewards/arrow-right.png') }}" alt = "">
+                                                                    <span class="sr-only">Next</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="float-right input-search">
+                                                            <input type="text" placeholder="recherche par e-mail, nom, prénom...">
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="globales" role="tabpanel" aria-labelledby="globales-tab">
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 1</p>
+                                                        <p class="question">Pourquoi avez-vous...?*</p>
+                                                        <p class="response-num">30 réponses</p>
+                                                    </div>
+                                                    <div id="container_bare"></div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 2</p>
+                                                        <p class="question">Quelle évaluation donneriz-vous...?*</p>
+                                                        <p class="response-num">30 réponses</p>
+                                                    </div>
+                                                    <div id="container_column"></div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 3</p>
+                                                        <p class="question">Votre avis sur cet...</p>
+                                                        <p class="response-num">30 réponses</p>
+                                                    </div>
+                                                    <div id="container_column2"></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="contain-graph">
-                                            <div class="zone-question">
-                                                <p class="question-title">Question 1</p>
-                                                <p class="question">Pourquoi avez-vous...?*</p>
-                                                <p class="response-num">30 réponses</p>
+                                            <div class="tab-pane fade" id="individuelles" role="tabpanel" aria-labelledby="individuelles-tab">
+                                                <div class="contain-graph">
+                                                    <div class="info-indiv">
+                                                        <p><span class="grey">questionnaire de :</span> martin bourdais@cloudreawards</p>
+                                                        <p><span class="grey">remplie le</span> 02 novembre 2017 - 17h50</p>
+                                                    </div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 1</p>
+                                                        <p class="question">Pourquoi avez-vous...?*</p>
+                                                    </div>
+                                                    <div class="label-list">
+                                                        <input id="index1" type="radio" name="index" required="required" value="Mme" />
+                                                        <label for="index1" class="required">Parce que...</label>
+                                                    </div>
+                                                    <div class="label-list">
+                                                        <input id="index2" type="radio" name="index" required="required" value="Mme" />
+                                                        <label for="index2" class="required">Pour des raisons...</label>
+                                                    </div>
+                                                    <div class="label-list">
+                                                        <input id="index3" type="radio" name="index" required="required" value="Mme" />
+                                                        <label for="index3" class="required">Sans aucune raisons...</label>
+                                                    </div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 2</p>
+                                                        <p class="question">Quelle évaluation donneriez-vous...?*</p>
+                                                    </div>
+                                                    <div class="clearfix">
+                                                        <div class="label-top">
+                                                            <input id="index4" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index4" class="required">médiocre</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index5" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index5" class="required">moyen</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index6" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index6" class="required">satisfait</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index7" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index7" class="required">très bon</label>
+                                                        </div>
+                                                        <div class="label-top">
+                                                            <input id="index8" type="radio" name="index2" required="required" value="Mme" />
+                                                            <label for="index8" class="required">excellent</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="contain-graph">
+                                                    <div class="zone-question">
+                                                        <p class="question-title">Question 3</p>
+                                                        <p class="question">Votre avis sur cet...?*</p>
+                                                        <p class="response-num">1 = très insatisfait / 5 = très satisfait</p>
+                                                    </div>
+                                                    <table class="table table-sondage">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>1</th>
+                                                            <th>2</th>
+                                                            <th>3</th>
+                                                            <th>4</th>
+                                                            <th>5</th>
+                                                            <th>NSP</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="th-label">lorem</td>
+                                                            <td>
+                                                                <input id="lorem1" type="radio" name="lorem" required="required" value="Mme" />
+                                                                <label for="lorem1" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="lorem2" type="radio" name="lorem" required="required" value="Mme" />
+                                                                <label for="lorem2" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="lorem3" type="radio" name="lorem" required="required" value="Mme" />
+                                                                <label for="lorem3" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="lorem4" type="radio" name="lorem" required="required" value="Mme" />
+                                                                <label for="lorem4" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="lorem5" type="radio" name="lorem" required="required" value="Mme" />
+                                                                <label for="lorem5" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="loremnsp" type="radio" name="lorem" required="required" value="Mme" />
+                                                                <label for="loremnsp" class="required"></label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="th-label">ipsum</td>
+                                                            <td>
+                                                                <input id="ipsum1" type="radio" name="ipsum" required="required" value="Mme" />
+                                                                <label for="ipsum1" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="ipsum2" type="radio" name="ipsum" required="required" value="Mme" />
+                                                                <label for="ipsum2" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="ipsum3" type="radio" name="ipsum" required="required" value="Mme" />
+                                                                <label for="ipsum3" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="ipsum4" type="radio" name="ipsum" required="required" value="Mme" />
+                                                                <label for="ipsum4" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="ipsum5" type="radio" name="ipsum" required="required" value="Mme" />
+                                                                <label for="ipsum5" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="ipsumnsp" type="radio" name="ipsum" required="required" value="Mme" />
+                                                                <label for="ipsumnsp" class="required"></label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="th-label">dolor</td>
+                                                            <td>
+                                                                <input id="dolor1" type="radio" name="dolor" required="required" value="Mme" />
+                                                                <label for="dolor1" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="dolor2" type="radio" name="dolor" required="required" value="Mme" />
+                                                                <label for="dolor2" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="dolor3" type="radio" name="dolor" required="required" value="Mme" />
+                                                                <label for="dolor3" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="dolor4" type="radio" name="dolor" required="required" value="Mme" />
+                                                                <label for="dolor4" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="dolor5" type="radio" name="dolor" required="required" value="Mme" />
+                                                                <label for="dolor5" class="required"></label>
+                                                            </td>
+                                                            <td>
+                                                                <input id="dolornsp" type="radio" name="dolor" required="required" value="Mme" />
+                                                                <label for="dolornsp" class="required"></label>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <ul class="pagination mx-auto">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                <img src = "{{ asset('images/cloudsRewards/arrow-left.png') }}" alt = "">
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                <img src = "{{ asset('images/cloudsRewards/arrow-right.png') }}" alt = "">
+                                                                <span class="sr-only">Next</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <div id="container_bare"></div>
-                                        </div>
-                                        <div class="contain-graph">
-                                            <div class="zone-question">
-                                                <p class="question-title">Question 2</p>
-                                                <p class="question">Quelle évaluation donneriz-vous...?*</p>
-                                                <p class="response-num">30 réponses</p>
-                                            </div>
-                                            <div id="container_column"></div>
-                                        </div>
-                                        <div class="contain-graph">
-                                            <div class="zone-question">
-                                                <p class="question-title">Question 3</p>
-                                                <p class="question">Votre avis sur cet...</p>
-                                                <p class="response-num">30 réponses</p>
-                                            </div>
-                                            <div id="container_column2"></div>
                                         </div>
                                     </div>
                                 </div>

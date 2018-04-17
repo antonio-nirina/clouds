@@ -27,6 +27,8 @@ class FirstLoginController extends BaseController
 {
     /**
      * @Route("/", name="admin_first_log")
+     * @param Request $request Description
+     * @return view Description
      *
      */
     public function indexAction(Request $request)
@@ -77,7 +79,10 @@ class FirstLoginController extends BaseController
                 $response = new RedirectResponse($url);
             }
 
-            $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+            $dispatcher->dispatch(
+                FOSUserEvents::CHANGE_PASSWORD_COMPLETED,
+                new FilterUserResponseEvent($user, $request, $response)
+            );
 
             return $response;
         }

@@ -1132,11 +1132,11 @@ class ParametragesController extends AdminController
             }
 
             // deleting slides
-            foreach ($originalSlides as $original_slide) {
-                if (false === $loginPortalData->getLoginPortalSlides()->contains($original_slide)) {
-                    $original_slide->setLoginPortalData(null);
-                    $loginPortalData->removeLoginPortalSlide($original_slide);
-                    $em->remove($original_slide);
+            foreach ($originalSlides as $originalSlide) {
+                if (false === $loginPortalData->getLoginPortalSlides()->contains($originalSlide)) {
+                    $originalSlide->setLoginPortalData(null);
+                    $loginPortalData->removeLoginPortalSlide($originalSlide);
+                    $em->remove($originalSlide);
                 }
             }
 
@@ -1643,6 +1643,7 @@ class ParametragesController extends AdminController
         }
 
         $this->container->get('admin.period_point')->deletePeriodPointProduct($program, $product_group);
+        
         return new Response('done');
     }
 

@@ -924,6 +924,27 @@ span.lib-form{
     color: #7682da;
 }
 
+.modal-quiz .download-btn {
+    display: none;
+}
+
+.modal-quiz .download-btn.active {
+    display: block;
+}
+
+.modal-quiz .pagination-header {
+    display: none;
+}
+
+.modal-quiz .pagination-header .pagination {
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.modal-quiz .pagination-header.active {
+    display: block;
+}
+
 .modal-quiz .download-btn::before {
     content: '';
     width: 16px;
@@ -942,30 +963,29 @@ span.lib-form{
     padding: 3px;
 }
 
-.modal-quiz .zone-btn button {
+.modal-quiz .zone-btn a.active {
     border: none;
     background: white;
-    padding: 2px 0;
     color: #4a83e4;
-    font-size: 15px;
-    cursor: no-drop;
-    width: 50%;
-    min-width: 110px;
-    text-align: center;
 }
 
-.modal-quiz .zone-btn button.inactif {
+.modal-quiz .zone-btn a {
+    width: 50%;
+    text-align: center;
+    min-width: 110px;
+    font-size: 15px;
+    padding: 2px 0;
     border: none;
     color: white;
     cursor: pointer;
     background: transparent;
 }
 
-.modal-quiz .zone-btn button.left {
+.modal-quiz .zone-btn a.left {
     border-radius: 27px 0 0 27px;
 }
 
-.modal-quiz .zone-btn button.right {
+.modal-quiz .zone-btn a.right {
     border-radius: 0 27px 27px 0;
 }
 
@@ -996,4 +1016,175 @@ span.lib-form{
     font-size: 14px;
     margin-bottom: 0;
 }
+
+.info-indiv {
+    color: #404040;
+    font-size: 14px;
+}
+
+.info-indiv p {
+    margin: 0;
+}
+
+.info-indiv .grey{
+    color: #808080;
+    font-family: var(--police_bold);
+}
 /*================================================================================================================*/
+
+/*======================= Radio style ===========================================*/
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+
+[type="radio"]:checked+label,
+[type="radio"]:not(:checked)+label {
+    position: relative;
+    padding-left: 36px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #505050;
+}
+
+[type="radio"]:checked+label:before,
+[type="radio"]:not(:checked)+label:before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: -2px;
+    width: 23px;
+    height: 23px;
+    border-radius: 100%;
+    background: #ccc;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"]:not(:checked)+label:after {
+    content: '';
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    top: -2px;
+    left: 6px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    background: url('../../images/cloudsRewards/checkon.png') no-repeat;
+    background-size: 23px 23px;
+}
+
+[type="radio"]:not(:checked)+label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+
+[type="radio"]:checked+label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.label-list {
+    margin-bottom: 16px;
+}
+
+.label-top {
+    float: left;
+    margin: 0 28px 30px;
+}
+
+.label-top [type="radio"]:checked+label,
+.label-top [type="radio"]:not(:checked)+label {
+    padding: 0;
+}
+
+.label-top [type="radio"]:checked+label:before,
+.label-top [type="radio"]:not(:checked)+label:before {
+    left: 30%;
+    top: 150%;
+}
+
+.label-top [type="radio"]:checked+label:after,
+.label-top [type="radio"]:not(:checked)+label:after {
+    left: 30%;
+    top: 150%;
+}
+
+.table.table-sondage {
+    font-size: 14px;
+}
+
+.table.table-sondage th {
+    background: transparent !important;
+    border: none;
+    text-align: center;
+}
+
+.table.table-sondage tr:nth-child(2n) {
+    background: #f9f9f9;
+}
+
+.table.table-sondage td {
+    border: none;
+    text-align: center;
+}
+
+.table.table-sondage td.th-label {
+    text-align: left;
+}
+
+.table.table-sondage [type="radio"]:checked+label:before,
+.table.table-sondage [type="radio"]:not(:checked)+label:before {
+    top: -8px;
+}
+
+.table.table-sondage [type="radio"]:checked+label:after,
+.table.table-sondage [type="radio"]:not(:checked)+label:after {
+    top: -8px;
+}
+
+.pagination .page-item .page-link {
+    border: 1px solid transparent;
+    color: #808080;
+    padding: .5rem .85rem;
+    background: transparent;
+}
+
+.pagination .page-item .page-link img {
+    vertical-align: top;
+}
+
+.pagination .page-item.active .page-link {
+    border: 1px solid #808080;
+    border-radius: 5px;   
+    background: white;
+}
+
+.input-search {
+    position: relative;
+    margin-top: 15px;
+}
+
+.input-search::before {
+    content: '';
+    width: 18px;
+    height: 16px;
+    position: absolute;
+    background: url('../../images/cloudsRewards/barre-recherche-loupe.png') center no-repeat;
+    display: block;
+    top: 8px;
+    left: 12px;
+}
+
+.input-search input {
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 5px 5px 5px 40px;
+    font-size: 14px;
+    width: 285px;
+}
+/*==============================================================================*/
