@@ -79,7 +79,10 @@ class RegistrationController extends BaseController
                     $response = new RedirectResponse($url);
                 }
 
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+                $dispatcher->dispatch(
+                    FOSUserEvents::REGISTRATION_COMPLETED,
+                    new FilterUserResponseEvent($user, $request, $response)
+                );
 
                 return $response;
             }
@@ -95,13 +98,15 @@ class RegistrationController extends BaseController
         return $this->render(
             'UserBundle:Registration:register.html.twig',
             array(
-            'form' => $form->createView(),"name" => $nom,"radio" => $radio
-            )
+            'form' => $form->createView(),
+            "name" => $nom,
+            "radio" => $radio, )
         );
     }
 
     /**
      * Tell the user to check their email provider.
+     * @return type Description
      */
     public function checkEmailAction()
     {
@@ -147,8 +152,6 @@ class RegistrationController extends BaseController
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
-
-
         /**
         * @var $dispatcher EventDispatcherInterface
         */
@@ -168,13 +171,17 @@ class RegistrationController extends BaseController
             $response = new RedirectResponse($url);
         }
 
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new FilterUserResponseEvent($user, $request, $response));
+        $dispatcher->dispatch(
+            FOSUserEvents::REGISTRATION_CONFIRMED,
+            new FilterUserResponseEvent($user, $request, $response)
+        );
 
         return $response;
     }
 
     /**
      * Tell the user his account is now confirmed.
+     * @return type Description
      */
     public function confirmedAction()
     {
@@ -193,17 +200,10 @@ class RegistrationController extends BaseController
     }
 
     /**
-     * @return mixed
+     *
+     * @param type $total
+     * @return type
      */
-    private function getTargetUrlFromSession()
-    {
-        $key = sprintf('_security.%s.target_path', $this->get('security.token_storage')->getToken()->getProviderKey());
-
-        if ($this->get('session')->has($key)) {
-            return $this->get('session')->get($key);
-        }
-    }
-
     protected function generateCodeId($total)
     {
         $nombre = "1234567890";
@@ -225,10 +225,9 @@ class RegistrationController extends BaseController
         return implode($code);
     }
 
-
     /**
-     * @param $parameter
-     * @param $form
+     * @param string $parameter
+     * @param type   $form
      * @return array|string
      */
     protected function getValForm($parameter, $form)
@@ -240,6 +239,7 @@ class RegistrationController extends BaseController
                     $var[] = [$value->getLabel() => $form->get($val)->getData()];
                 }
             }
+
             return $var;
         } else {
             return "";
@@ -247,8 +247,7 @@ class RegistrationController extends BaseController
     }
 
     /**
-     * @param $parameter
-     * @param $form
+     * @param type $parameter
      * @return array
      */
     protected function getNameForm($parameter)
@@ -264,6 +263,18 @@ class RegistrationController extends BaseController
         }
         $nameRadio = !empty($nomR) ? $nomR : "";
         $name = !empty($nom) ? $nom : "";
-        return ["all" => $name,"radio" => $nameRadio];
+
+        return ["all" => $name , "radio" => $nameRadio];
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getTargetUrlFromSession()
+    {
+        $key = sprintf('_security.%s.target_path', $this->get('security.token_storage')->getToken()->getProviderKey());
+        if ($this->get('session')->has($key)) {
+            return $this->get('session')->get($key);
+        }
     }
 }
