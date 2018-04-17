@@ -58,15 +58,8 @@ class PageController extends Controller
         $orderedSlideList = $em->getRepository('AdminBundle\Entity\HomePageSlide')
             ->findByHomePageDataOrdered($homePageData);
 
-        $parameterEdito = $em->getRepository('AdminBundle\Entity\HomePagePost')->findOneBy(
-            array('program' => $program, 'post_type' => PostType::PARAMETER_EDITO)
-        );
-
         $homePagePostList = $em->getRepository('AdminBundle\Entity\HomePagePost')
             ->findPublishedNewsPost($program);
-        if (!is_null($parameterEdito)) {
-            array_push($homePagePostList, $parameterEdito);
-        }
         $postOrdering     = $this->get('AdminBundle\Service\DataOrdering\PostOrdering');
         $homePagePostList = $postOrdering->orderByDateDesc($homePagePostList);
 

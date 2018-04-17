@@ -102,6 +102,7 @@ class RegistrationModel
     {
         $this->createObject();
         $writer = $this->phpExcel->createWriter($this->phpExcelObject, self::WRITER_TYPE);
+        $writer->setDelimiter(';');
 
         return $writer;
     }
