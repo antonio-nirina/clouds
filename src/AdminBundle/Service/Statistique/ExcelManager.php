@@ -292,8 +292,7 @@ class ExcelManager
      */
     public function excelListContact($id, $contactList, $em){
         // ask the service for a Excel5
-
-        $objPHPExcel = $this->get('phpexcel')->createPHPExcelObject();
+        $objPHPExcel = $this->container->get('phpexcel')->createPHPExcelObject();
 
         $objPHPExcel->getProperties()->setCreator('CloudRewards');
         $objPHPExcel->getProperties()->setLastModifiedBy('CloudRewards');
