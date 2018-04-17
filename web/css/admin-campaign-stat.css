@@ -102,7 +102,7 @@ td.emails-table{
 }
 
 
-#statistique-campaign-dialog,.content{
+#statistique-campaign-dialog, #statistique-campaign-dialog .content{
     width: 100% !important;
     padding-left: 0px !important;
 }
@@ -389,7 +389,9 @@ font-size: 14px !important;
     display: none;
 }
 
-.dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
+#statistique-campaign-dialog .dropdown-menu,
+#statistique-campaign-dialog .dropdown-menu > a,
+#statistique-campaign-dialog .dropdown-toggle {
     font-size: 12px;
     font-family: var(--police);
     color: #404040;
@@ -423,7 +425,7 @@ font-size: 14px !important;
     min-width: 13rem;
 }
 
- .dropdown-toggle {
+#statistique-campaign-dialog .dropdown-toggle {
     font-size: 12px;
     font-family: var(--police);
     color: #404040;
@@ -442,7 +444,7 @@ font-size: 14px !important;
 }
 
 
-  .dropdown-toggle::after {
+#statistique-campaign-dialog  .dropdown-toggle::after {
     display: inline-block;
     width: 0;
     height: 0;
@@ -686,7 +688,9 @@ min-width: 181px !important;
     top: 5px;
     left: 307px;
 }
-#container-page,ul{
+
+#statistique-campaign-dialog #container-page,
+#statistique-campaign-dialog ul{
     list-style-type: none;
     display : flex;
     
@@ -715,7 +719,9 @@ color: grey;
   content: '';
 }
 
-#container-page,ul li,.active{
+#statistique-campaign-dialog #container-page,
+#statistique-campaign-dialog ul li,
+#statistique-campaign-dialog .active{
     color: #0275d8;
    
 }
@@ -841,7 +847,7 @@ td.emails-table{
 }
 
 
-#statistique-campaign-dialog,.content{
+#statistique-campaign-dialog, #statistique-campaign-dialog .content{
     width: 100% !important;
     padding-left: 0px !important;
 }
@@ -1128,7 +1134,9 @@ font-size: 14px !important;
     display: none;
 }
 
-.dropdown-menu,  .dropdown-menu > a,  .dropdown-toggle {
+#statistique-campaign-dialog .dropdown-menu,
+#statistique-campaign-dialog .dropdown-menu > a,
+#statistique-campaign-dialog .dropdown-toggle {
     font-size: 12px;
     font-family: var(--police);
     color: #404040;
@@ -1162,7 +1170,7 @@ font-size: 14px !important;
     min-width: 13rem;
 }
 
- .dropdown-toggle {
+#statistique-campaign-dialog .dropdown-toggle {
     font-size: 12px;
     font-family: var(--police);
     color: #404040;
@@ -1181,7 +1189,7 @@ font-size: 14px !important;
 }
 
 
-  .dropdown-toggle::after {
+#statistique-campaign-dialog  .dropdown-toggle::after {
     display: inline-block;
     width: 0;
     height: 0;
@@ -1425,7 +1433,8 @@ min-width: 181px !important;
     top: 5px;
     left: 307px;
 }
-#container-page,ul{
+#statistique-campaign-dialog #container-page,
+#statistique-campaign-dialog ul{
     list-style-type: none;
     display : flex;
     
@@ -1454,7 +1463,9 @@ color: grey;
   content: '';
 }
 
-#container-page,ul li,.active{
+#statistique-campaign-dialog #container-page,
+#statistique-campaign-dialog ul li,
+#statistique-campaign-dialog .active{
     color: #0275d8;
    
 }
