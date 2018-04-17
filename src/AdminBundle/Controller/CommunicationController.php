@@ -13,6 +13,8 @@ use AdminBundle\DTO\DuplicationData;
 use AdminBundle\Form\CampaignDraftType;
 use AdminBundle\Form\ComEmailTemplateType;
 use AdminBundle\Form\ELearningHomeBannerType;
+use AdminBundle\Form\Handler\ELearningBannerHandler;
+use AdminBundle\Form\Handler\SondageHandler;
 use AdminBundle\Form\HomePageSlideDataType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -2591,34 +2593,12 @@ class CommunicationController extends AdminController
         $formElearningBanner->handleRequest($request);
         if ($request->isMethod('POST')) {
             if ($formElearningBanner->isSubmitted() && $formElearningBanner->isValid()) {
-                $bannerImageFile = $elearningBanner->getImageFile();
-                if (!is_null($bannerImageFile)) {
-                    $bannerImageFile->move(
-                        $this->getParameter("e_learning_media_document_dir"),
-                        $bannerImageFile->getClientOriginalName()
-                    );
-                    $elearningBanner->setImageFile($bannerImageFile->getClientOriginalName());
-                } else {
-                    $elearningBanner->setImageFile($currentHeaderImage);
+                $eLearningPath = $this->getParameter("e_learning_media_document_dir");
+                $formElearningBannerHandler = new ELearningBannerHandler($elearningBanner, $currentHeaderImage, $formElearningBanner, $eLearningPath, $em);
+                $isProcessed = $formElearningBannerHandler->process();
+                if ($isProcessed) {
+                    return $this->redirectToRoute('admin_communication_e_learning_welcoming_banner');
                 }
-                $menuName   = $formElearningBanner->get('menuName')->getData();
-                $imageTitle = $formElearningBanner->get('imageTitle')->getData();
-                $elearningBanner->setMenuName($menuName);
-                $elearningBanner->setImageTitle($imageTitle);
-                if (!empty($formElearningBanner->get('menuName')->getData()) && "true"
-                    == $formElearningBanner->get('imageTitle')->getData()
-                ) {
-                    $filesystem = $this->get('filesystem');
-                    $imagePath  = $this->getParameter('e_learning_media_document_dir')
-                        .'/'
-                        .$elearningBanner->getImageFile();
-                    if ($filesystem->exists($imagePath)) {
-                        $filesystem->remove($imagePath);
-                    }
-                    $elearningBanner->setImageFile(null);
-                }
-                $em->flush();
-                return $this->redirectToRoute('admin_communication_e_learning_welcoming_banner');
             }
         }
 
@@ -2698,28 +2678,8 @@ class CommunicationController extends AdminController
 
         $formQuestionnaires->handleRequest($request);
         if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
-            $sondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
-            if (empty($sondagesQuizQuestionnaireInfosData->getAuthorizedRole())) {
-                $sondagesQuizQuestionnaireInfosData->setAuthorizedRole($roleDefault[0]);
-            }
-            $sondagesQuizQuestionnaireInfosData->setSondagesQuiz($sondagesQuiz);
-            if ($request->get("data") == "btn-publier-sondages-quiz") {
-                $sondagesQuizQuestionnaireInfosData->setEstPublier(true);
-            } else {
-                $sondagesQuizQuestionnaireInfosData->setEstPublier(false);
-            }
-
-            $em->persist($sondagesQuizQuestionnaireInfosData);
-            foreach ($sondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $questions) {
-                $questions->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfosData);
-                $em->persist($questions);
-                foreach ($questions->getSondagesQuizReponses() as $Reponses) {
-                    $Reponses->setSondagesQuizQuestions($questions);
-                }
-            }
-            $em->flush();
-
-            $data = $jsonResponseDataProvider->success();
+            $sondageHandler = new SondageHandler($formQuestionnaires, $roleDefault, $sondagesQuiz, $request, $jsonResponseDataProvider, $em);
+            $data = $sondageHandler->process();
             return new JsonResponse($data, 200);
         }
 
@@ -2772,28 +2732,8 @@ class CommunicationController extends AdminController
 
         $formQuestionnaires->handleRequest($request);
         if ($formQuestionnaires->isSubmitted() && $formQuestionnaires->isValid()) {
-            $sondagesQuizQuestionnaireInfosData = $formQuestionnaires->getData();
-            if (empty($sondagesQuizQuestionnaireInfosData->getAuthorizedRole())) {
-                $sondagesQuizQuestionnaireInfosData->setAuthorizedRole($roleDefault[0]);
-            }
-            $sondagesQuizQuestionnaireInfosData->setSondagesQuiz($sondagesQuiz);
-            if ($request->get("data") == "btn-publier-sondages-quiz") {
-                $sondagesQuizQuestionnaireInfosData->setEstPublier(true);
-            } else {
-                $sondagesQuizQuestionnaireInfosData->setEstPublier(false);
-            }
-            $em->persist($sondagesQuizQuestionnaireInfosData);
-            foreach ($sondagesQuizQuestionnaireInfosData->getSondagesQuizQuestions() as $questions) {
-                $questions->setSondagesQuizQuestionnaireInfos($sondagesQuizQuestionnaireInfosData);
-                $em->persist($questions);
-                foreach ($questions->getSondagesQuizReponses() as $reponses) {
-                    $reponses->setSondagesQuizQuestions($questions);
-                }
-            }
-            $em->flush();
-
-            $data = $jsonResponseDataProvider->success();
-
+            $sondageHandler = new SondageHandler($formQuestionnaires, $roleDefault, $sondagesQuiz, $request, $jsonResponseDataProvider, $em);
+            $data = $sondageHandler->process();
             return new JsonResponse($data, 200);
         }
 
