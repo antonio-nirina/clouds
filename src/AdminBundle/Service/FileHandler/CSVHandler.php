@@ -31,7 +31,7 @@ class CSVHandler
         if ($this->fileSystem->exists($filePath)) {
             $file = fopen($this->filePath, self::MODE);
             $data = array();
-            while ($rec = fgetcsv($file)) {
+            while ($rec = fgetcsv($file, 0, ';')) {
                 $data[] = $rec;
             }
 
