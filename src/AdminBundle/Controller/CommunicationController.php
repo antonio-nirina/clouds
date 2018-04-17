@@ -1305,123 +1305,17 @@ class CommunicationController extends AdminController
      */
     public function emailingListeContactExportAction($id)
     {
-
         $jsonResponseDataProvider = $this->get('AdminBundle\Service\JsonResponseData\StandardDataProvider');
         $program = $this->container->get('admin.program')->getCurrent();
 
         if (empty($program)) {
-
             return new JsonResponse($jsonResponseDataProvider->pageNotFound(), 404);
         }
-
-        $em = $this->getDoctrine()->getManager();
-
         //Call ContactList manager service
         $contactList = $this->container->get('AdminBundle\Service\MailJet\MailjetContactList');
 
-        // ask the service for a Excel5
-        $objPHPExcel = $this->get('phpexcel')->createPHPExcelObject();
-
-        $objPHPExcel->getProperties()->setCreator('CloudRewards');
-        $objPHPExcel->getProperties()->setLastModifiedBy('CloudRewards');
-        $objPHPExcel->getProperties()->setTitle("Office 2007 XLSX Listing");
-        $objPHPExcel->getProperties()->setSubject("Office 2007 XLSX Listing");
-        $objPHPExcel->getProperties()->setDescription("Listing for Office 2007 XLSX, generated using Symfony.");
-
-        $bordersarray = array(
-        'borders'=>array(
-        'top'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
-        'left'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
-        'right'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN),
-        'bottom'=>array('style'=>\PHPExcel_Style_Border::BORDER_THIN)
-        )
-        );
-
-        $objPHPExcel->getActiveSheet()->SetCellValue('A3', 'prénom');
-        $objPHPExcel->getActiveSheet()->SetCellValue('B3', 'nom');
-        $objPHPExcel->getActiveSheet()->SetCellValue('C3', 'adresse e-mail');
-        $objPHPExcel->getActiveSheet()->SetCellValue('D3', 'rôle');
-        $objPHPExcel->getActiveSheet()->SetCellValue('E3', 'désabonné(e)');
-
-        $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFont()->applyFromArray(array('bold'=>true,'size'=>12,'name' => 'Arial','color' => array('rgb' => '404040')));
-
-        $objPHPExcel->getActiveSheet()->getStyle('A3')->applyFromArray($bordersarray);
-        $objPHPExcel->getActiveSheet()->getStyle('B3')->applyFromArray($bordersarray);
-        $objPHPExcel->getActiveSheet()->getStyle('C3')->applyFromArray($bordersarray);
-        $objPHPExcel->getActiveSheet()->getStyle('D3')->applyFromArray($bordersarray);
-        $objPHPExcel->getActiveSheet()->getStyle('E3')->applyFromArray($bordersarray);
-
-        $objPHPExcel->getActiveSheet()->getStyle('A:E')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
-
-        $objPHPExcel->getActiveSheet()->setTitle('Liste des contacts');
-
-        //array de configuration des bordures
-        $center = array('alignment'=>array('horizontal'=>\PHPExcel_Style_Alignment::HORIZONTAL_CENTER,'vertical'=>\PHPExcel_Style_Alignment::VERTICAL_CENTER));
-
-        //pour aligner à gauche
-        $left = array('alignment'=>array('horizontal'=>\PHPExcel_Style_Alignment::HORIZONTAL_LEFT));
-
-        //pour souligner
-        $souligner = array('font' => array('underline' => \PHPExcel_Style_Font::UNDERLINE_DOUBLE));
-
-        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(25);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(25);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(40);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-        $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e4e6f8');
-
-        //Get List form ID
-        $listInfos = $contactList->getListById($id);
-
-        $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($bordersarray);
-        $objPHPExcel->getActiveSheet()->getStyle('B1')->applyFromArray($bordersarray);
-        $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('e4e6f8');
-        $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->getFont()->applyFromArray(array('bold'=>true,'size'=>12,'name' => 'Arial','color' => array('rgb' => '404040')));
-        $objPHPExcel->getActiveSheet()->SetCellValue('A1', $listInfos[0]['Name']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('B1', $listInfos[0]['SubscriberCount'] . ' contacts');
-
-        //Get All contact By ListName
-        $contactsInfos = $contactList->getAllContactByName($listInfos[0]['Name']);
-
-        $cpt = 1;
-        $i = 4;
-        foreach ($contactsInfos as $contacts) {
-            //Get Contact by ID
-            $ContactsDatas = $contactList->getContactById($contacts['ContactID']);
-
-            //Get Contact datas in db
-            $UsersListes = $em->getRepository('UserBundle\Entity\User')->findUserByMail($ContactsDatas[0]['Email']);
-
-            if (isset($UsersListes[0])) {
-                $Roles = $UsersListes[0]->getRoles();
-                if ($Roles[0] != 'ROLE_ADMIN' || $Roles[0] != 'ROLE_SUPERADMIN') {
-                    //Fill excel
-
-                    $objPHPExcel->getActiveSheet()->SetCellValue('A' . $i, $UsersListes[0]->getFirstname());
-                    $objPHPExcel->getActiveSheet()->SetCellValue('B' . $i, $UsersListes[0]->getName());
-                    $objPHPExcel->getActiveSheet()->SetCellValue('C' . $i, $UsersListes[0]->getEmail());
-
-                    if ($Roles[0] == 'ROLE_MANAGER') {
-                        $objPHPExcel->getActiveSheet()->SetCellValue('D' . $i, 'manager');
-                    } elseif ($Roles[0] == 'ROLE_COMMERCIAL') {
-                        $objPHPExcel->getActiveSheet()->SetCellValue('D' . $i, 'commercial');
-                    } elseif ($Roles[0] == 'ROLE_PARTICIPANT') {
-                        $objPHPExcel->getActiveSheet()->SetCellValue('D' . $i, 'participant');
-                    }
-
-                    if ($contacts['IsUnsubscribed'] == '1') {
-                        $objPHPExcel->getActiveSheet()->getStyle('A' . $i . ':E' . $i . '')->getFont()->applyFromArray(array('italic'=>true,'color' => array('rgb' => 'a8a8a8')));
-                        $objPHPExcel->getActiveSheet()->SetCellValue('E' . $i, 'désabonné(e)');
-                    } else {
-                        $objPHPExcel->getActiveSheet()->SetCellValue('E' . $i, '');
-                    }
-
-                    $cpt++;
-                    $i++;
-                }
-            }
-        }
+        //Service to call excel object
+        $objPHPExcel = $this->get("adminBundle.excel")->excelListContact($id, $contactList);
 
         // create the writer
         $writer = $this->get('phpexcel')->createWriter($objPHPExcel, 'Excel2007');
