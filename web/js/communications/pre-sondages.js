@@ -1009,13 +1009,12 @@ $(document).ready(function(){
                                 overflow: 'none',
                                 style: {
                                     color: '#7682da',
-                                    fontSize: 18
-                                }
-                                /* format: '{y} %'
+                                    fontSize: 17
+                                },
                                 formatter: function () {
                                     var pcnt = (this.y / 30) * 100;
-                                    return Highcharts.numberFormat(pcnt) + '%';
-                                } */
+                                    return this.y + ' <span style="color: #000000; font-weight: normal;">(' + Highcharts.numberFormat(pcnt) + '%)</span>';
+                                }
                             }
                         }
                     },
@@ -1065,9 +1064,14 @@ $(document).ready(function(){
                                 enabled: true,
                                 crop: false,
                                 overflow: 'none',
+                                align: 'center',
                                 style: {
                                     color: '#7682da',
-                                    fontSize: 18
+                                    fontSize: 17
+                                },
+                                formatter: function () {
+                                    var pcnt = (this.y / 30) * 100;
+                                    return this.y + '<br/> <span style="color: #000000; font-weight: normal;">(' + Highcharts.numberFormat(pcnt) + '%)</span>';
                                 }
                             }
                         }
@@ -1100,7 +1104,10 @@ $(document).ready(function(){
                     legend: {
                         align: 'left',
                         verticalAlign: 'top',
-                        x: 18
+                        x: 18,
+                        symbolHeight: 10,
+                        symbolWidth: 15,
+                        symbolRadius: 0
                     },
                     xAxis: {
                         categories: ['Lorem', 'ipsum', 'dolor', 'sit amet'],
@@ -1128,32 +1135,35 @@ $(document).ready(function(){
                     series: [{
                         name: '1',
                         color: '#1dc7ff',
-                        marker : {symbol : 'square'},
+                        marker : {enabled: false},
                         data: [50, 10, 0, 0]
                     }, {
                         name: '2',
                         color: '#ff0000',
-                        marker : {symbol : 'square'},
+                        marker: {
+                            enabled: false
+                        },
+                        marker : {enabled: false},
                         data: [10, 40, 0, 0]
                     }, {
                         name: '3',
                         color: '#ff9600',
-                        marker : {symbol : 'square'},
+                        marker : {enabled: false},
                         data: [10, 10, 0, 20]
                     }, {
                         name: '4',
                         color: '#ff02fc',
-                        marker : {symbol : 'square'},
+                        marker : {enabled: false},
                         data: [10, 50, 0, 10]
                     }, {
                         name: '5',
                         color: '#14a400',
-                        marker : {symbol : 'square'},
+                        marker : {enabled: false},
                         data: [10, 0, 20, 10]
                     }, {
                         name: 'NSP',
                         color: '#838383',
-                        marker : {symbol : 'square'},
+                        marker : {enabled: false},
                         data: [20, 0, 10, 10]
                     }],
                     credits: {
