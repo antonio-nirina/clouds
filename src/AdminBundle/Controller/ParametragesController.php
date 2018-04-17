@@ -56,7 +56,7 @@ class ParametragesController extends AdminController
 {
     public function __construct()
     {
-        $this->active_menu_index = 6;
+        $this->activeMenuIndex = 6;
     }
 
     public function sidebarAction($active)
