@@ -1129,7 +1129,7 @@ $(document).ready(function() {
     });
 
     // fonctionnalité "restauration campagne archivée"
-    $(document).on('click', '.restore-campaign-button', function(e){
+    /*$(document).on('click', '.restore-campaign-button', function(e){
         e.preventDefault();
         $('.chargementAjax').removeClass('hidden');
         var campaign_checked_ids = getChecked();
@@ -1151,7 +1151,7 @@ $(document).ready(function() {
                 }
             }
         });
-    });
+    });*/
 
     // fonctionnalité "archiver", dans "Actions"
     $(document).on('click', '.dropdown-item.campaign-archive', function(e){
