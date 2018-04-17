@@ -284,7 +284,8 @@ class SitePagesStandardSetting
 
     public function getUploadRootDir()
     {
-        return $this->get('kernel')->getProjectDir().'/web/content/' . $this->getUploadDir();
+        global $kernel;
+        return $kernel->getProjectDir().'/web/content/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()

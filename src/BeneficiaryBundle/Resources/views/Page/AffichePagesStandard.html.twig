@@ -190,18 +190,30 @@
 
                     <p class = "rs-sociaux-ligne-1">
                         {% if table_network.hasFacebook %}
-                            <a href={{ (table_network.facebookLink)?"http://#{table_network.facebookLink}":"#" }}>
-                                <span class = "rs-ligne-1-fb"></span>                                
+                            {% set facebookLinkValue = 'http://'~table_network.facebookLink %}
+                            {% if table_network.facebookLink matches '#^(http://|https://)#' %}
+                                {% set facebookLinkValue = table_network.facebookLink %}
+                            {% endif %}
+                            <a href={{ table_network.facebookLink is empty ? 'javascript:void(0)' : facebookLinkValue }} {{ table_network.facebookLink is empty ? '' : 'target=_blank' }}>
+                                <span class = "rs-ligne-1-fb"></span>
                             </a>
                         {% endif %}
                         {% if table_network.hasLinkedin %}
-                            <a href={{ (table_network.linkedinLink)?"http://#{table_network.linkedinLink}":"#" }}>
-                                <span class = "rs-ligne-1-linkdin"></span>                            
+                            {% set linkedInLinkValue = 'http://'~table_network.linkedinLink %}
+                            {% if table_network.linkedinLink matches '#^(http://|https://)#' %}
+                                {% set linkedInLinkValue = table_network.linkedinLink %}
+                            {% endif %}
+                            <a href={{ table_network.linkedinLink is empty ? 'javascript:void(0)' : linkedInLinkValue }} {{ table_network.linkedinLink is empty ? '' : 'target=_blank' }}>
+                                <span class = "rs-ligne-1-linkdin"></span>
                             </a>
                         {% endif %}
                         {% if table_network.hasTwitter %}
-                            <a href={{ (table_network.twitterLink)?"http://#{table_network.twitterLink}":"#" }}>
-                                <span class = "rs-ligne-1-twitter"></span>                           
+                            {% set twitterLinkValue = 'http://'~table_network.twitterLink %}
+                            {% if table_network.twitterLink matches '#^(http://|https://)#' %}
+                                {% set twitterLinkValue = table_network.twitterLink %}
+                            {% endif %}
+                            <a href={{ table_network.twitterLink is empty ? 'javascript:void(0)' : twitterLinkValue }} {{ table_network.twitterLink is empty ? '' : 'target=_blank' }}>
+                                <span class = "rs-ligne-1-twitter"></span>
                             </a>
                         {% endif %}
                         {# <span class = "rs-ligne-1-viadeo"></span> #}
@@ -223,10 +235,6 @@
 			
             <div class = "content-edito contenent-pages-stdr">
                 <p class = "block-active-hover" id = "block-active-hover-edito"></p>
-                <p class = "titre-block-centre">
-                    <span class = "lib-date-block-centre-large bold">{{ Pages.TitrePage }}</span>
-                </p>
-
                 <p class = "descr-block-centre">
 					{{ Pages.ContenuPage | html }}
                 </p>

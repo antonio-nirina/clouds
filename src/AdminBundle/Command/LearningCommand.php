@@ -19,7 +19,7 @@ class LearningCommand extends ContainerAwareCommand
     public function configure()
     {
         $this->setName('app:create-elearning-banner')
-            ->setDescription('E-learing banner.')
+            ->setDescription('E-learning banner.')
             ->setHidden(true);
     }
 

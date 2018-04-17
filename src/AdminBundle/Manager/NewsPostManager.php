@@ -9,6 +9,7 @@ use AdminBundle\Entity\Program;
 use Gedmo\Tree\Strategy\ORM\Nested;
 use AdminBundle\Entity\HomePagePost;
 use AdminBundle\Component\GroupAction\GroupActionType;
+use AdminBundle\Service\DataOrdering\PostOrdering;
 
 /**
  * Handle news post data manipulation (CRUD)
@@ -16,10 +17,12 @@ use AdminBundle\Component\GroupAction\GroupActionType;
 class NewsPostManager
 {
     private $em;
+    private $postOrderingHandler;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, PostOrdering $postOrderingHandler)
     {
         $this->em = $em;
+        $this->postOrderingHandler = $postOrderingHandler;
     }
 
     /**
@@ -136,6 +139,23 @@ class NewsPostManager
     {
         return $this->em->getRepository('AdminBundle\Entity\NewsPost')
             ->findAllByProgram($program, $news_post_type, $archived_state);
+    }
+
+    /**
+     * Return all news post related to a program, with specified archived state
+     * Reordering post by specified date, depending on post state (waiting, programmed, published)
+     *
+     * @param Program        $program
+     * @param string         $newsPostType whether standard or welcoming news post
+     * @param $archivedState
+     *
+     * @return array
+     */
+    public function findAllOrderedByMixedDate(Program $program, $newsPostType, $archivedState)
+    {
+        $newsPostList = $this->findAll($program, $newsPostType, $archivedState);
+
+        return $this->postOrderingHandler->orderNewsPostByMixedDateDesc($newsPostList);
     }
 
     /**

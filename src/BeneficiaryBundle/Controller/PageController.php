@@ -487,6 +487,7 @@ class PageController extends Controller
             return $this->redirectToRoute('fos_user_security_logout');
         }
         $backgroundLink = '';
+
         if ($background     = $program->getSiteDesignSetting()->getBodyBackground()) {
             $backgroundLink = $this->container->getParameter('background_path')
                 . '/' . $program->getId() . '/' . $background;
@@ -496,6 +497,7 @@ class PageController extends Controller
                 array(
                 'program' => $program, )
             );
+
         if (empty($elearningBanner)) {
             return $this->redirectToRoute('fos_user_security_logout');
         }
@@ -518,6 +520,7 @@ class PageController extends Controller
                 'background_link' => $backgroundLink,
                 'elearning_banner' => $elearningBanner,
                 'has_network' => $hasNetwork,
+                'table_network' => $tableNetwork,
                 'e_learning_list' => $elearningList,
                 'content_type_class' => new ELearningContentType(),
                 )
